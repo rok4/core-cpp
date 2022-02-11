@@ -134,7 +134,7 @@ class Configuration
             }
             while ( ( fileEntry = readdir ( dir ) ) ) {
                 fileName = fileEntry->d_name;
-                if ( fileName.rfind ( extension ) ==fileName.size()-extension.size() ) {
+                if ( fileName.rfind ( extension ) != std::string::npos && fileName.rfind ( extension ) == fileName.size()-extension.size() ) {
                     files.push_back ( directory+"/"+fileName );
                 }
             }
