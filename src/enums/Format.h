@@ -61,6 +61,11 @@
 #include <string>
 #include <stdint.h>
 
+#define ROK4_IMAGE_HEADER_SIZE 2048
+#define ROK4_SYMLINK_SIGNATURE_SIZE 8
+#define ROK4_SYMLINK_SIGNATURE "SYMLINK#"
+#define JPEG_BLOC_SIZE 16
+
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french \brief Gestion des informations liées au format de canal
