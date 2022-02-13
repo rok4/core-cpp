@@ -6,16 +6,6 @@ message("Search dependencies for ROK4 CORE")
 
 # Extern libraries, shared
 
-if(NOT TARGET tinyxml)
-    find_package(TinyXML)
-    if(TINYXML_FOUND)
-        add_library(tinyxml SHARED IMPORTED)
-        set_property(TARGET tinyxml PROPERTY IMPORTED_LOCATION ${TINYXML_LIBRARY})
-    else(TINYXML_FOUND)
-        message(FATAL_ERROR "Cannot find extern library tinyxml")
-    endif(TINYXML_FOUND)
-endif(NOT TARGET tinyxml)
-
 if(NOT TARGET boostlog)
     find_package(BoostLog)
     if(BOOSTLOG_FOUND)

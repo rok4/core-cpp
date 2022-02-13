@@ -55,6 +55,7 @@
 #include <cstdio>
 #include <errno.h>
 #include "utils/Cache.h"
+#include "enums/Format.h"
 
 StoreDataSource::StoreDataSource (std::string n, const uint32_t o, const uint32_t s, std::string type, Context* c, std::string encoding ) :
     name ( n ), offset(o), wanted_size(s), tile_indice(-1), tiles_number(-1), type (type), encoding( encoding ), context(c)

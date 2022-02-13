@@ -58,7 +58,7 @@
 #include <string.h>
 #include <fstream>
 #include "enums/Format.h"
-#include "image/FileImage.h"
+#include "image/file/FileImage.h"
 #include "image/Image.h"
 #include "zlib.h"
 

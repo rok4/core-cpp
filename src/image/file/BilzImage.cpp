@@ -49,7 +49,7 @@
  * \li BilzImageFactory : factory to create BilzImage object
  */
 
-#include "image/BilzImage.h"
+#include "image/file/BilzImage.h"
 #include <boost/log/trivial.hpp>
 #include "utils/Utils.h"
 
