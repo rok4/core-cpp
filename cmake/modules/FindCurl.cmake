@@ -16,7 +16,7 @@ FIND_PATH(CURL_INCLUDE_DIR curl.h
     C:/dev/cpp/libcurl/src
     )
 
-FIND_LIBRARY(CURL_LIBRARY NAMES libcurl.so PATHS
+FIND_LIBRARY(CURL_LIBRARY NAMES libcurl.a PATHS
     /usr/lib/x86_64-linux-gnu/
     /usr/local/lib 
     /usr/lib

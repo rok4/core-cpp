@@ -5,7 +5,7 @@ message(STATUS "Modules CMake : ${CMAKE_MODULE_PATH}")
 
 include(cmake/modules/dependencies.cmake)
 
-################### DÉFINITION DES FICHIERS SOURCES
+################### DÉFINITION DES FICHIERS SOURCES ET DES HEADERS
 
 include_directories(src)
 
@@ -21,13 +21,20 @@ file(GLOB LIBROK4CORE_SRCS
     "src/image/*.cpp"
 )
 
+include_directories(${PROJ_INCLUDE_DIR} ${TURBOJPEG_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR} ${CURL_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${BOOSTLOG_INCLUDE_DIR})
+
 if(FILEIMAGE_ENABLED)
     
     file(GLOB TMP_SRCS "src/image/file/*.cpp")
     set(LIBROK4CORE_SRCS ${LIBROK4CORE_SRCS} ${TMP_SRCS})
+    include_directories(${PNG_INCLUDE_DIR} ${TIFF_INCLUDE_DIR})
     
     if(KDU_ENABLED)
         set(LIBROK4CORE_SRCS ${LIBROK4CORE_SRCS} "src/image/file/kakadu/LibkakaduImage.cpp")
+        include_directories(${KAKADU_INCLUDE_DIR})
+    else(KDU_ENABLED)
+        set(LIBROK4CORE_SRCS ${LIBROK4CORE_SRCS} "src/image/file/openjpeg/LibopenjpegImage.cpp")
+        include_directories(${OPENJPEG_INCLUDE_DIR})
     endif(KDU_ENABLED)
 
 endif(FILEIMAGE_ENABLED)
@@ -35,6 +42,7 @@ endif(FILEIMAGE_ENABLED)
 if(OBJECT_ENABLED)
     file(GLOB TMP_SRCS "src/storage/object/*.cpp")
     set(LIBROK4CORE_SRCS ${LIBROK4CORE_SRCS} ${TMP_SRCS})
+    include_directories(${RADOS_INCLUDE_DIR})
 endif(OBJECT_ENABLED)
 
 add_library(rok4core ${LIBROK4CORE_SRCS})

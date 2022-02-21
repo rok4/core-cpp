@@ -5,7 +5,7 @@
 # and following variables are set:
 #    JPEG_LIBRARY
 
-FIND_LIBRARY(JPEG_LIBRARY NAMES libjpeg.so PATHS 
+FIND_LIBRARY(JPEG_LIBRARY NAMES libjpeg.a PATHS 
   /usr/local/lib 
   /usr/lib 
   /usr/lib64

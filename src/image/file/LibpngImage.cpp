@@ -52,6 +52,7 @@
 #include "image/file/LibpngImage.h"
 #include <boost/log/trivial.hpp>
 #include "utils/Utils.h"
+#include "datastream/DataStream.h"
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */

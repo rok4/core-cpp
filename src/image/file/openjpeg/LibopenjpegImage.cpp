@@ -53,7 +53,7 @@
 #include <cstring>
 #include <ctype.h>
 
-#include "image/file/LibopenjpegImage.h"
+#include "image/file/openjpeg/LibopenjpegImage.h"
 #include <boost/log/trivial.hpp>
 #include "utils/Utils.h"
 
@@ -259,7 +259,7 @@ LibopenjpegImage::LibopenjpegImage (
     SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
     opj_image_t *jp2ptr ) :
 
-    Jpeg2000Image ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
+    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
 
     jp2image ( jp2ptr ) {
 

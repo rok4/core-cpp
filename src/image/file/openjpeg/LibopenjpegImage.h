@@ -70,7 +70,7 @@
  * 
  * \todo Lire au fur et à mesure l'image JPEG2000 et ne pas la charger intégralement en mémoire lors de la création de l'objet LibopenjpegImage.
  */
-class LibopenjpegImage : public File {
+class LibopenjpegImage : public FileImage {
     
 friend class LibopenjpegImageFactory;
     
@@ -145,6 +145,94 @@ public:
     int getline ( uint16_t* buffer, int line );
     int getline ( float* buffer, int line );
     
+
+    /**
+     * \~french
+     * \brief Ecrit une image JPEG2000, à partir d'une image source
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] pIn source des donnée de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeImage ( Image* pIn ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une image JPEG2000, à partir d'un buffer d'entiers
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeImage ( uint8_t* buffer ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une image JPEG2000, à partir d'un buffer d'entiers
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeImage ( uint16_t* buffer ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une image JPEG2000, à partir d'un buffer de flottants
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeImage ( float* buffer)  {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une ligne d'image JPEG2000, à partir d'un buffer d'entiers
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \param[in] line ligne de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeLine ( uint8_t* buffer, int line ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une ligne d'image JPEG2000, à partir d'un buffer d'entiers
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \param[in] line ligne de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeLine ( uint16_t* buffer, int line ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
+    /**
+     * \~french
+     * \brief Ecrit une ligne d'image JPEG2000, à partir d'un buffer de flottants
+     * \warning Pas d'implémentation de l'écriture au format JPEG2000, retourne systématiquement une erreur
+     * \param[in] buffer source des donnée de l'image à écrire
+     * \param[in] line ligne de l'image à écrire
+     * \return 0 en cas de succes, -1 sinon
+     */
+    int writeLine ( float* buffer, int line) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
+        return -1;
+    }
+
     /**
      * \~french
      * \brief Destructeur par défaut

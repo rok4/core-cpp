@@ -11,7 +11,7 @@ FIND_PATH(TURBOJPEG_INCLUDE_DIR turbojpeg.h
   /usr/include 
   c:/msys/local/include
   )
-FIND_LIBRARY(TURBOJPEG_LIBRARY NAMES libturbojpeg.so PATHS 
+FIND_LIBRARY(TURBOJPEG_LIBRARY NAMES libturbojpeg.a PATHS 
   /usr/local/lib 
   /usr/lib 
   /usr/lib64

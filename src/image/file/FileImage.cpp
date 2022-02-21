@@ -55,12 +55,12 @@
 #include "image/file/LibtiffImage.h"
 #include "image/file/LibpngImage.h"
 #include "image/file/LibjpegImage.h"
+#include "image/file/BilzImage.h"
 #ifdef KDU_ENABLED
 #include "image/file/kakadu/LibkakaduImage.h"
 #else
-#include "image/file/LibopenjpegImage.h"
+#include "image/file/openjpeg/LibopenjpegImage.h"
 #endif
-#include "image/file/BilzImage.h"
 #include "config.h"
 
 /* ------------------------------------------------------------------------------------------------ */
@@ -136,14 +136,14 @@ FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< 
         BOOST_LOG_TRIVIAL(debug) << "\tThreading : " << KDU_THREADING;
 
         LibkakaduImageFactory DRVKDU;
-        return DRVKDU.createLibkakaduImageToRead(filename, bbox, resx, resy);
+        return DRVKDU.createLibkakaduImageToRead(name, bbox, resx, resy);
 
 #else
 
         BOOST_LOG_TRIVIAL(debug) << "\tDriver : OPENJPEG";
 
         LibopenjpegImageFactory DRVOJ;
-        return DRVOJ.createLibopenjpegImageToRead(filename, bbox, resx, resy);
+        return DRVOJ.createLibopenjpegImageToRead(name, bbox, resx, resy);
     
 #endif
     }
