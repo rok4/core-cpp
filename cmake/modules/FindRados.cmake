@@ -14,7 +14,7 @@ FIND_PATH(RADOS_INCLUDE_DIR librados.h
     C:/dev/cpp/librados/src
     )
 
-FIND_LIBRARY(RADOS_LIBRARY NAMES librados.a PATHS
+FIND_LIBRARY(RADOS_LIBRARY NAMES librados.so PATHS
     /usr/lib/x86_64-linux-gnu/
     /usr/local/lib 
     /usr/lib
