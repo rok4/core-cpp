@@ -15,7 +15,7 @@ FIND_PATH(OPENJPEG_INCLUDE_DIR openjpeg.h
     C:/dev/cpp/libopenjpeg/src
     )
 
-FIND_LIBRARY(OPENJPEG_LIBRARY NAMES libopenjp2.a PATHS 
+FIND_LIBRARY(OPENJPEG_LIBRARY NAMES libopenjp2.so PATHS 
     /usr/local/lib 
     /usr/lib 
     /usr/lib64

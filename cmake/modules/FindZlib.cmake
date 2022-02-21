@@ -12,7 +12,7 @@ FIND_PATH(ZLIB_INCLUDE_DIR zlib.h
     c:/msys/local/include
     C:/dev/cpp/libzlib/src
     )
-FIND_LIBRARY(ZLIB_LIBRARY NAMES libz.a PATHS 
+FIND_LIBRARY(ZLIB_LIBRARY NAMES libz.so PATHS 
     /usr/local/lib 
     /usr/lib
     /usr/lib64

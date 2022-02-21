@@ -15,7 +15,7 @@ FIND_PATH(TIFF_INCLUDE_DIR tiff.h
   )
 
 
-FIND_LIBRARY(TIFF_LIBRARY NAMES libtiff.a PATHS 
+FIND_LIBRARY(TIFF_LIBRARY NAMES libtiff.so PATHS 
   /usr/local/lib 
   /usr/lib
   /usr/lib64 

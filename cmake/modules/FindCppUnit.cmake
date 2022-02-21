@@ -11,7 +11,7 @@ FIND_PATH(CPPUNIT_INCLUDE_DIR cppunit/Test.h
   c:/msys/local/include
   )
 
-FIND_LIBRARY(CPPUNIT_LIBRARY NAMES libcppunit.a PATHS 
+FIND_LIBRARY(CPPUNIT_LIBRARY NAMES libcppunit.so PATHS 
   /usr/local/lib 
   /usr/lib 
   /usr/lib64

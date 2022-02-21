@@ -14,7 +14,7 @@ FIND_PATH(OPENSSL_INCLUDE_DIR hmac.h
     C:/dev/cpp/libopenssl/src
     )
 
-FIND_LIBRARY(OPENSSL_LIBRARY NAMES libssl.a PATHS
+FIND_LIBRARY(OPENSSL_LIBRARY NAMES libssl.so PATHS
     /usr/lib/x86_64-linux-gnu/
     /usr/local/lib 
     /usr/lib
@@ -23,7 +23,7 @@ FIND_LIBRARY(OPENSSL_LIBRARY NAMES libssl.a PATHS
     C:/dev/cpp/libopenssl/src
     )
 
-FIND_LIBRARY(CRYPTO_LIBRARY NAMES libcrypto.a PATHS
+FIND_LIBRARY(CRYPTO_LIBRARY NAMES libcrypto.so PATHS
     /usr/lib/x86_64-linux-gnu/
     /usr/local/lib 
     /usr/lib
