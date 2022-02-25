@@ -67,6 +67,23 @@ inline void convert ( T* to, const T* from, size_t length ) {
     memcpy ( to, from, length*sizeof ( T ) );
 }
 
+/**
+ * \~french
+ * \brief Recherche des caractères interdits pour éviter l'injection
+ * \param[in] str la chaîne
+ * \~english
+ * \brief Search forbidden chars to avoid code injection
+ * \param[in] str the string
+ */
+inline bool containForbiddenChars ( std::string str ) {
+    const char* forbidden = "<>";
+    
+    for ( int i = 0; forbidden[i]; i++ )
+        if (str.find(forbidden[i]) != std::string::npos)
+            return true;
+
+    return false;
+}
 
 /**
  * \brief Conversion uint8 -> float

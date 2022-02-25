@@ -90,7 +90,7 @@ S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_n
         secret_key.assign(sk);
     }
 
-    if(getenv( ROK4_SSL_NO_VERIFY ) != NULL){
+    if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
         ssl_no_verify=true;
     }
 }

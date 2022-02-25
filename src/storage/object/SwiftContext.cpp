@@ -85,11 +85,11 @@ SwiftContext::SwiftContext (std::string cont) : Context(), ssl_no_verify(false),
         public_url.assign(publicu);
     }
 
-    if(getenv( ROK4_KEYSTONE_DOMAINID ) != NULL){
+    if(getenv (ROK4_KEYSTONE_DOMAINID) != NULL){
         keystone_auth=true;
     }
 
-    if(getenv( ROK4_SSL_NO_VERIFY ) != NULL){
+    if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
         ssl_no_verify=true;
     }
 
