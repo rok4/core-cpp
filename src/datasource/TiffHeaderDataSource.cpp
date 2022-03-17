@@ -20,7 +20,7 @@ TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
     data = new uint8_t[dataSize];
 
     switch ( format ) {
-    case Rok4Format::TIFF_RAW_INT8:
+    case Rok4Format::TIFF_RAW_UINT8:
         if ( channel == 1 ) {
             BOOST_LOG_TRIVIAL(debug) <<  "TIFF_HEADER_RAW_INT8_GRAY" ;
             memcpy ( data, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, header_size );
@@ -32,7 +32,7 @@ TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
             memcpy ( data, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, header_size );
         }
         break;
-    case Rok4Format::TIFF_LZW_INT8:
+    case Rok4Format::TIFF_LZW_UINT8:
         if ( channel == 1 ) {
             BOOST_LOG_TRIVIAL(debug) <<  "TIFF_HEADER_LZW_INT8_GRAY" ;
             memcpy ( data, TiffHeader::TIFF_HEADER_LZW_INT8_GRAY, header_size );
@@ -44,7 +44,7 @@ TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
             memcpy ( data, TiffHeader::TIFF_HEADER_LZW_INT8_RGBA, header_size );
         }
         break;
-    case Rok4Format::TIFF_ZIP_INT8:
+    case Rok4Format::TIFF_ZIP_UINT8:
         if ( channel == 1 ) {
             BOOST_LOG_TRIVIAL(debug) <<  "TIFF_HEADER_ZIP_INT8_GRAY" ;
             memcpy ( data, TiffHeader::TIFF_HEADER_ZIP_INT8_GRAY, header_size );
@@ -56,7 +56,7 @@ TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
             memcpy ( data, TiffHeader::TIFF_HEADER_ZIP_INT8_RGBA, header_size );
         }
         break;
-    case Rok4Format::TIFF_PKB_INT8:
+    case Rok4Format::TIFF_PKB_UINT8:
         if ( channel == 1 ) {
             BOOST_LOG_TRIVIAL(debug) <<  "TIFF_HEADER_PKB_INT8_GRAY" ;
             memcpy ( data, TiffHeader::TIFF_HEADER_PKB_INT8_GRAY, header_size );

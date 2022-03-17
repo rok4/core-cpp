@@ -69,13 +69,13 @@ TiffEncoder::~TiffEncoder() {
 
 DataStream* TiffEncoder::getTiffEncoder ( Image* image, Rok4Format::eformat_data format, bool isGeoTiff ) {
     switch ( format ) {
-    case Rok4Format::TIFF_RAW_INT8 :
+    case Rok4Format::TIFF_RAW_UINT8 :
         return new TiffRawEncoder<uint8_t> ( image, isGeoTiff );
-    case Rok4Format::TIFF_LZW_INT8 :
+    case Rok4Format::TIFF_LZW_UINT8 :
         return new TiffLZWEncoder<uint8_t> ( image, isGeoTiff );
-    case Rok4Format::TIFF_ZIP_INT8 :
+    case Rok4Format::TIFF_ZIP_UINT8 :
         return new TiffDeflateEncoder<uint8_t> ( image, isGeoTiff );
-    case Rok4Format::TIFF_PKB_INT8 :
+    case Rok4Format::TIFF_PKB_UINT8 :
         return new TiffPackBitsEncoder<uint8_t> ( image, isGeoTiff );
     case Rok4Format::TIFF_RAW_FLOAT32 :
         return new TiffRawEncoder<float> ( image, isGeoTiff );

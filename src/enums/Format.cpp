@@ -168,13 +168,13 @@ namespace Rok4Format {
 const char *eformat_name[] = {
     "UNKNOWN",
 
-    "TIFF_RAW_INT8",
-    "TIFF_JPG_INT8",
-    "TIFF_JPG90_INT8",
-    "TIFF_PNG_INT8",
-    "TIFF_LZW_INT8",
-    "TIFF_ZIP_INT8",
-    "TIFF_PKB_INT8",
+    "TIFF_RAW_UINT8",
+    "TIFF_JPG_UINT8",
+    "TIFF_JPG90_UINT8",
+    "TIFF_PNG_UINT8",
+    "TIFF_LZW_UINT8",
+    "TIFF_ZIP_UINT8",
+    "TIFF_PKB_UINT8",
 
     "TIFF_RAW_FLOAT32",
     "TIFF_LZW_FLOAT32",

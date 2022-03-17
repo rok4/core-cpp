@@ -574,17 +574,17 @@ DataSource* Level::getDecodedTile ( int x, int y ) {
         return 0;
     }
 
-    if ( format==Rok4Format::TIFF_RAW_INT8 || format==Rok4Format::TIFF_RAW_FLOAT32 )
+    if ( format==Rok4Format::TIFF_RAW_UINT8 || format==Rok4Format::TIFF_RAW_FLOAT32 )
         return encData;
-    else if ( format==Rok4Format::TIFF_JPG_INT8 || format==Rok4Format::TIFF_JPG90_INT8 )
+    else if ( format==Rok4Format::TIFF_JPG_UINT8 || format==Rok4Format::TIFF_JPG90_UINT8 )
         return new DataSourceDecoder<JpegDecoder> ( encData );
-    else if ( format==Rok4Format::TIFF_PNG_INT8 )
+    else if ( format==Rok4Format::TIFF_PNG_UINT8 )
         return new DataSourceDecoder<PngDecoder> ( encData );
-    else if ( format==Rok4Format::TIFF_LZW_INT8 || format == Rok4Format::TIFF_LZW_FLOAT32 )
+    else if ( format==Rok4Format::TIFF_LZW_UINT8 || format == Rok4Format::TIFF_LZW_FLOAT32 )
         return new DataSourceDecoder<LzwDecoder> ( encData );
-    else if ( format==Rok4Format::TIFF_ZIP_INT8 || format == Rok4Format::TIFF_ZIP_FLOAT32 )
+    else if ( format==Rok4Format::TIFF_ZIP_UINT8 || format == Rok4Format::TIFF_ZIP_FLOAT32 )
         return new DataSourceDecoder<DeflateDecoder> ( encData );
-    else if ( format==Rok4Format::TIFF_PKB_INT8 || format == Rok4Format::TIFF_PKB_FLOAT32 )
+    else if ( format==Rok4Format::TIFF_PKB_UINT8 || format == Rok4Format::TIFF_PKB_FLOAT32 )
         return new DataSourceDecoder<PackBitsDecoder> ( encData );
     BOOST_LOG_TRIVIAL(error) <<  "Type d'encodage inconnu : " <<format  ;
     return 0;
@@ -602,9 +602,9 @@ DataSource* Level::getTile (int x, int y) {
         return NULL;
     }
 
-    if ( format == Rok4Format::TIFF_RAW_INT8 || format == Rok4Format::TIFF_LZW_INT8 ||
-         format == Rok4Format::TIFF_LZW_FLOAT32 || format == Rok4Format::TIFF_ZIP_INT8 ||
-         format == Rok4Format::TIFF_PKB_FLOAT32 || format == Rok4Format::TIFF_PKB_INT8
+    if ( format == Rok4Format::TIFF_RAW_UINT8 || format == Rok4Format::TIFF_LZW_UINT8 ||
+         format == Rok4Format::TIFF_LZW_FLOAT32 || format == Rok4Format::TIFF_ZIP_UINT8 ||
+         format == Rok4Format::TIFF_PKB_FLOAT32 || format == Rok4Format::TIFF_PKB_UINT8
         )
     {
         BOOST_LOG_TRIVIAL(debug) <<  "GetTile Tiff"  ;

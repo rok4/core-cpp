@@ -278,13 +278,13 @@ namespace Rok4Format {
 enum eformat_data {
     UNKNOWN = 0,
 
-    TIFF_RAW_INT8 = 1,
-    TIFF_JPG_INT8 = 2,
-    TIFF_JPG90_INT8 = 3,
-    TIFF_PNG_INT8 = 4,
-    TIFF_LZW_INT8 = 5,
-    TIFF_ZIP_INT8 = 6,
-    TIFF_PKB_INT8 = 7,
+    TIFF_RAW_UINT8 = 1,
+    TIFF_JPG_UINT8 = 2,
+    TIFF_JPG90_UINT8 = 3,
+    TIFF_PNG_UINT8 = 4,
+    TIFF_LZW_UINT8 = 5,
+    TIFF_ZIP_UINT8 = 6,
+    TIFF_PKB_UINT8 = 7,
 
     TIFF_RAW_FLOAT32 = 8,
     TIFF_LZW_FLOAT32 = 9,
