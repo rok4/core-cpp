@@ -49,6 +49,7 @@ class Attribute;
 #define ATTRIBUTE_H
 
 #include <boost/algorithm/string/join.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <vector>
 #include <string>
 
@@ -92,9 +93,13 @@ class Attribute
                 max = std::to_string(doc["max"].number_value());
             }
             if (doc["values"].is_array()) {
+                std::string tmp;
                 for (json11::Json v : doc["values"].array_items()) {
-                    values.push_back(v.string_value());
+                    tmp = v.string_value();
+                    boost::replace_all(tmp, "\"", "\\\"");
+                    values.push_back(tmp);
                 }
+
             }
 
         };
