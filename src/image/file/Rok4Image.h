@@ -85,8 +85,8 @@ class Rok4Image : public Image {
 private:
 
     /**
-     * \~french \brief Nom de l'image
-     * \~english \brief image's name
+     * \~french \brief Nom de l'image (sans éventuel contenant objet)
+     * \~english \brief image's name (without object tray, if object storage)
      */
     std::string name;
 

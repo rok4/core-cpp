@@ -293,7 +293,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         return -1;
     }
 
-    BOOST_LOG_TRIVIAL(debug) << "Swift read : " << size << " bytes (from the " << offset << " one) in the object " << name;
+    BOOST_LOG_TRIVIAL(debug) << "Swift read : " << size << " bytes (from the " << offset << " one) in the object " << container_name << " / " << name;
 
     int attempt = 1;
     bool reconnection = false;
@@ -380,7 +380,7 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
 
     size = -1;
     
-    BOOST_LOG_TRIVIAL(debug) << "Swift read full : " << name;
+    BOOST_LOG_TRIVIAL(debug) << "Swift read full : " << container_name << " / " << name;
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected swift context " << container_name;
@@ -612,4 +612,8 @@ bool SwiftContext::closeToWrite(std::string name) {
 
 std::string SwiftContext::getPath(std::string racine,int x,int y,int pathDepth){
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
+}
+
+std::string SwiftContext::getPath(std::string name) {  
+    return container_name + "/" + name;
 }

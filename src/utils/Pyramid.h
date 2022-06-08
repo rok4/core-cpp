@@ -51,7 +51,7 @@ class Pyramid;
 #include "style/Style.h"
 #include "enums/Interpolation.h"
 #include "utils/Configuration.h"
-#include "storage/ContextBook.h"
+#include "utils/Cache.h"
 
 #define DEFAULT_NODATAVALUE 255
 
@@ -120,7 +120,7 @@ private:
      */
     int channels;
 
-    bool parse(json11::Json& doc, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList);
+    bool parse(json11::Json& doc, std::map<std::string, TileMatrixSet*> tmsList);
 
 public:
 
@@ -130,17 +130,15 @@ public:
     * \brief Constructeur
     * \param[in] context Contexte de stockage du descripteur de pyramide
     * \param[in] path Chemin vers le descripteur de pyramide
-    * \param[in] contextBook Annuaire des contextes de stockage
     * \param[in] tmsList Liste des TMS connus
     * \~english
     * Create a Pyramid from a XML file
     * \brief Constructor
     * \param[in] context Storage context of pyramid descriptor
     * \param[in] path Path to pyramid descriptor
-    * \param[in] contextBook Storage contexts book
     * \param[in] tmsList Known TMS list
     */
-    Pyramid(Context* context, std::string path, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList);
+    Pyramid(Context* context, std::string path, std::map<std::string, TileMatrixSet*> tmsList);
 
     /**
      * \~french

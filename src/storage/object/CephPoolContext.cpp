@@ -124,7 +124,7 @@ bool CephPoolContext::connection() {
 
 int CephPoolContext::read(uint8_t* data, int offset, int size, std::string name) {
    
-    BOOST_LOG_TRIVIAL(debug) << "Ceph read : " << size << " bytes (from the " << offset << " one) in the object " << name;
+    BOOST_LOG_TRIVIAL(debug) << "Ceph read : " << size << " bytes (from the " << offset << " one) in the object " << pool_name << " / " << name;
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected ceph pool context " << pool_name;
@@ -168,7 +168,7 @@ uint8_t* CephPoolContext::readFull(int& size, std::string name) {
 
     size = -1;
     
-    BOOST_LOG_TRIVIAL(debug) << "Ceph read full : " << name;
+    BOOST_LOG_TRIVIAL(debug) << "Ceph read full : " << pool_name << " / " << name;
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected ceph pool context " << pool_name;
@@ -325,4 +325,8 @@ bool CephPoolContext::closeToWrite(std::string name) {
 
 std::string CephPoolContext::getPath(std::string racine,int x,int y,int pathDepth){
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
+}
+
+std::string CephPoolContext::getPath(std::string name) {  
+    return pool_name + "/" + name;
 }

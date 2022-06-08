@@ -48,6 +48,7 @@
 #include "image/ExtendedCompoundImage.h"
 #include "enums/Format.h"
 #include "utils/Level.h"
+#include "utils/Cache.h"
 #include <cfloat>
 #include "config.h"
 #include "image/EmptyImage.h"
@@ -65,7 +66,7 @@ ComparatorLevel compLevelAsc =
     };
 
 
-bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList) {
+bool Pyramid::parse(json11::Json& doc, std::map<std::string, TileMatrixSet*> tmsList) {
 
     // TMS
     std::string tmsName;
@@ -170,7 +171,7 @@ bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::s
     if (doc["levels"].is_array()) {
         for (json11::Json l : doc["levels"].array_items()) {
             if (l.is_object()) {
-                Level* level = new Level(l, contextBook, this, filePath);
+                Level* level = new Level(l, this, filePath);
                 if ( ! level->isOk() ) {
                     errorMessage = "levels contains an invalid level : " + level->getErrorMessage();
                     delete level;
@@ -204,7 +205,7 @@ bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::s
     return true;
 }
 
-Pyramid::Pyramid(Context* context, std::string path, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList) : Configuration(path) {
+Pyramid::Pyramid(Context* context, std::string path, std::map<std::string, TileMatrixSet*> tmsList) : Configuration(path) {
 
     nodataValue = NULL;
 
@@ -231,7 +232,7 @@ Pyramid::Pyramid(Context* context, std::string path, ContextBook* contextBook, s
 
     /********************** Parse */
 
-    if (! parse(doc, contextBook, tmsList)) {
+    if (! parse(doc, tmsList)) {
         return;
     }
 

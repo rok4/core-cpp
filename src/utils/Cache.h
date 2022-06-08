@@ -38,9 +38,9 @@
 /**
  * \file Cache.h
  ** \~french
- * \brief Définition des classes IndexCache, CurlPool et ProjPool
+ * \brief Définition des classes IndexCache, CurlPool, StoragePool et ProjPool
  ** \~english
- * \brief Define classes IndexCache, CurlPool and ProjPool
+ * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
  */
 
 #ifndef CACHE_H
@@ -56,7 +56,13 @@
 #include <sstream>
 #include <curl/curl.h>
 #include <proj.h>
-
+#include "storage/Context.h"
+#include "storage/FileContext.h"
+#if OBJECT_ENABLED
+    #include "storage/object/SwiftContext.h"
+    #include "storage/object/S3Context.h"
+    #include "storage/object/CephPoolContext.h"
+#endif
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -219,6 +225,177 @@ public:
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french
+ * \brief Création d'un pool de contextes de stockage
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class StoragePool {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    StoragePool(){};
+
+    /**
+     * \~french \brief Annuaire de contextes
+     * \details La clé est une paire composée du type de stockage et du contenant du contexte
+     * \~english \brief Book of contexts
+     * \details Key is a pair composed of type of storage and the context's bucket
+     */
+    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> pool;
+
+
+public:
+
+
+    /**
+     * \~french \brief Retourne une chaîne de caracère décrivant l'annuaire
+     * \~english \brief Return a string describing the pool
+     */
+    static std::string toString() {
+        std::ostringstream oss;
+        oss.setf ( std::ios::fixed,std::ios::floatfield );
+        oss << "------ Context pool -------" << std::endl;
+        oss << "\t- context number = " << pool.size() << std::endl;
+
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            oss << "\t\t- pot = " << key.first << "/" << key.second << std::endl;
+            oss << it->second->toString() << std::endl;
+            it++;
+        }
+
+        return oss.str() ;
+    }
+
+    /**
+     * \~french
+     * \brief Retourne le context correspondant au contenant demandé
+     * \details Si il n'existe pas, une erreur s'affiche et on retourne NULL
+     * \param[in] type Type de stockage du contexte rechercé
+     * \param[in] tray Nom du contenant pour lequel on veut le contexte
+     * \~english
+     * \brief Return context of this tray
+     * \details If context dosn't exist for this tray, an error is print and NULL is returned
+     * \param[in] type storage type of looked for's context 
+     * \param[in] tray Tray's name for which context is wanted
+     */
+    static Context* getContext(ContextType::eContextType type,std::string tray) {
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (make_pair(type,tray));
+        if ( it == pool.end() ) {
+            BOOST_LOG_TRIVIAL(error) << "Le contenant demandé n'a pas été trouvé dans l'annuaire.";
+            return NULL;
+        } else {
+            //le contenant est déjà existant et donc connecté
+            return it->second;
+        }
+    }
+
+    /**
+     * \~french
+     * \brief Ajoute un nouveau contexte
+     * \details Si un contexte existe déjà pour ce nom de contenant, on ne crée pas de nouveau contexte et on retourne celui déjà existant. Le nouveau contexte n'est pas connecté.
+     * \param[in] type type de stockage pour lequel on veut créer un contexte
+     * \param[in] tray Nom du contenant pour lequel on veut créer un contexte
+     * \param[in] ctx* contexte à ajouter
+
+     * \brief Add a new context
+     * \details If a context already exists for this tray's name, we don't create a new one and the existing is returned. New context is not connected.
+     * \param[in] type Storage Type for which context is created
+     * \param[in] tray Tray's name for which context is created
+     * \param[in] ctx* Context to add
+     
+     */
+    static Context * addContext(ContextType::eContextType type,std::string tray) {
+        Context* ctx;
+        std::pair<ContextType::eContextType,std::string> key = make_pair(type,tray);
+        BOOST_LOG_TRIVIAL(debug) << "On essaye d'ajouter la clé " << ContextType::toString(key.first) <<" / " << key.second ;
+
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
+        if ( it != pool.end() ) {
+            //le contenant est déjà existant et donc connecté
+            return it->second;
+
+        } else {
+            // ce contenant n'est pas encore connecté, on va créer la connexion
+            // on créé le context selon le type de stockage
+            switch(type){
+#if OBJECT_ENABLED
+                case ContextType::SWIFTCONTEXT:
+                    ctx = new SwiftContext(tray);
+                    break;
+                case ContextType::CEPHCONTEXT:
+                    ctx = new CephPoolContext(tray);
+                    break;
+                case ContextType::S3CONTEXT:
+                    ctx = new S3Context(tray);
+                    break;
+#endif
+                case ContextType::FILECONTEXT:
+                    ctx = new FileContext(tray);
+                    break;
+                default:
+                    //ERREUR
+                    BOOST_LOG_TRIVIAL(error) << "Ce type de contexte n'est pas géré.";
+                    return NULL;
+            }
+
+            // on connecte pour vérifier que ce contexte est valide
+            if (!(ctx->connection())) {
+                BOOST_LOG_TRIVIAL(error) << "Impossible de connecter au contexte de type " << ContextType::toString(type) << ", contenant " << tray;
+                delete ctx;
+                return NULL;
+            }
+
+
+            //BOOST_LOG_TRIVIAL(debug) << "On insère ce contexte " << ctx->toString() ;
+            pool.insert(make_pair(key,ctx));
+
+            return ctx;
+        }
+
+    }
+
+
+    /**
+     * \~french \brief Affiche le nombre de contextes de stockage dans l'annuaire
+     * \~english \brief Print the number of storage contexts in the book
+     */
+    static void printNumStorages () {
+        BOOST_LOG_TRIVIAL(info) <<  "Nombre de contextes de stockage : " << pool.size() ;
+    }
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~StoragePool() {};
+
+    /**
+     * \~french \brief Nettoie tous les contextes de stockage dans l'annuaire et le vide
+     * \~english \brief Clean all storage context objects in the book and empty it
+     */
+    static void cleanStoragePool () {
+        std::map<std::pair<ContextType::eContextType,std::string>,Context*>::iterator it;
+        for (it=pool.begin(); it!=pool.end(); ++it) {
+            delete it->second;
+            it->second = NULL;
+        }
+    }
+
+};
+
+
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
  * \brief Élément du cache des index de dalle
  */
 class CacheElement {
@@ -239,7 +416,12 @@ protected:
      * \~french \brief Nom de la dalle dans laquelle lire la donnée
      * \~english \brief Data slab to read
      */
-    std::string slab;
+    std::string name;
+    /**
+     * \~french \brief Contexte de stockage de la dalle de donnée
+     * \~english \brief Data slab storage context
+     */
+    Context* context;
     /**
      * \~french \brief Offsets des tuiles dans la dalle
      * \~english \brief Tiles' offsets
@@ -255,6 +437,7 @@ protected:
      * \brief Constructeur
      * \param[in] k clé d'enregistrement dans le cache
      * \param[in] s nom de la dalle
+     * \param[in] c contexte de stockage de la dalle
      * \param[in] tiles_number nombre de tuiles dans la dalles
      * \param[in] os offsets bruts des tuiles 
      * \param[in] ss tailles brutes des tuiles
@@ -262,13 +445,15 @@ protected:
      * \brief Constructor
      * \param[in] k cache key
      * \param[in] s data slab name
+     * \param[in] c data slab storage context
      * \param[in] tiles_number tiles number
      * \param[in] os raw tiles' offsets
      * \param[in] ss raw tiles' sizes
      */
-    CacheElement(std::string k, std::string s, int tiles_number, uint8_t* os, uint8_t* ss) {
+    CacheElement(std::string k, Context* c, std::string n, int tiles_number, uint8_t* os, uint8_t* ss) {
         key = k;
-        slab = s;
+        context = c;
+        name = n;
         date = std::time(NULL);
         for (int i = 0; i < tiles_number; i++) {
             offsets.push_back(*((uint32_t*) (os + i*4)));
@@ -354,26 +539,28 @@ public:
 
     /** \~french
      * \brief Ajoute un élément au cache
-     * \param[in] originalSlab nom d'interrogation de la dalle
-     * \param[in] realSlab nom de la dalle réelle contenant les données
+     * \param[in] origin_slab_name nom d'interrogation de la dalle
+     * \param[in] data_context contexte de stockage de la dalle de donnée
+     * \param[in] data_slab_name nom de la dalle réelle contenant les données
      * \param[in] tiles_number nombre de tuiles dans la dalles
      * \param[in] os offsets bruts des tuiles 
      * \param[in] ss tailles brutes des tuiles
      ** \~english
      * \brief Add element to cache
-     * \param[in] originalSlab Slab request name
-     * \param[in] realSlab Real data slab
+     * \param[in] origin_slab_name Slab request name
+     * \param[in] data_context data slab storage context
+     * \param[in] data_slab_name data slab name
      * \param[in] tiles_number tiles number
      * \param[in] os raw tiles' offsets
      * \param[in] ss raw tiles' sizes
      */
-    static void add_slab_infos(std::string originalSlab, std::string realSlab, int tiles_number, uint8_t* offsets, uint8_t* sizes) {
+    static void add_slab_infos(std::string origin_slab_name, Context* data_context, std::string data_slab_name, int tiles_number, uint8_t* offsets, uint8_t* sizes) {
         // On utilise le nom original de la dalle (celle à lire a priori) comme clé dans la map
         // Potentiellement ce nom est différent de la vraie dalle contenant la donnée (dans le cas d'une dalle symbolique)
         // mais c'est via cette dalle symbolique que la donnée est a priori requêtée
         // donc c'est ce nom qu'on utilisera pour l'interrogation du cache
 
-        CacheElement* elem = new CacheElement(originalSlab, realSlab, tiles_number, offsets, sizes);
+        CacheElement* elem = new CacheElement(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);
 
         // L'information n'est a priori pas dans le cache car 
         // Soit elle était dans le cache et valide, alors on aurait utiliser ce cahe et on n'aurait pas fait appel à cet ajout
@@ -391,30 +578,32 @@ public:
     
         // update reference
         cache.push_front(elem);
-        map[originalSlab] = cache.begin();
+        map[origin_slab_name] = cache.begin();
     };
 
     /** \~french
      * \brief Demande un élément du cache
      * \param[in] key nom d'interrogation de la dalle
      * \param[in] tile_number numéro de la tuile voulue
-     * \param[out] real_slab nom de la dalle contenant les données
+     * \param[out] data_context contexte de stockage de la dalle de donnée
+     * \param[out] data_slab_name nom de la dalle contenant les données
      * \param[out] offset offset de la tuile
      * \param[out] size taille de la tuile
      ** \~english
      * \brief Ask element from cache
      * \param[in] key Slab request name
      * \param[in] tile_number tile indice
-     * \param[out] real_slab Real data slab
+     * \param[out] data_context data slab storage context
+     * \param[out] data_slab_name Real data slab
      * \param[out] offset tile's offset
      * \param[out] size tile's size
      */
-    static bool get_slab_infos(std::string key, int tile_number, std::string* real_slab, uint32_t* offset, uint32_t* size) {
+    static bool get_slab_infos(std::string key, int tile_number, Context** data_context, std::string* data_slab_name, uint32_t* offset, uint32_t* size) {
         std::unordered_map<std::string, std::list<CacheElement *>::iterator>::iterator it = map.find ( key );
         if ( it == map.end() ) {
             return false;
         } else {
-            // Gestion de la péromption du cache (une heure max)
+            // Gestion de la péremption du cache (une heure max)
             std::time_t now = std::time(NULL);
             if (now - (*(it->second))->date > validity) {
                 delete *(it->second);
@@ -423,7 +612,8 @@ public:
                 return false;
             }
 
-            *real_slab = (*(it->second))->slab;
+            *data_slab_name = (*(it->second))->name;
+            *data_context = (*(it->second))->context;
             *offset = (*(it->second))->offsets.at(tile_number);
             *size = (*(it->second))->sizes.at(tile_number);
 

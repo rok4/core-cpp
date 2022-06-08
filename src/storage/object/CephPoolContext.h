@@ -185,6 +185,7 @@ public:
     bool closeToWrite(std::string name);
     
     std::string getPath(std::string racine,int x,int y,int pathDepth);
+    std::string getPath(std::string name);
 
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "------ Ceph Context -------" ;

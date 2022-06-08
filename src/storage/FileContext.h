@@ -132,6 +132,7 @@ public:
 
 
     std::string getPath(std::string racine,int x,int y,int pathDepth=2);
+    std::string getPath(std::string name);
 
 
     void print() {

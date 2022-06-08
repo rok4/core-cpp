@@ -76,6 +76,12 @@ protected:
     std::string name;
 
     /**
+     * \~french \brief Contexte de stockage d'origine
+     * \~english \brief Original storage context
+     */
+    Context* context;
+
+    /**
      * \~french \brief Offset de la donnée voulue
      * \~english \brief Data offset
      */
@@ -127,33 +133,27 @@ protected:
      */
     std::string type;
 
-    /**
-     * \~french \brief Contexte de stockage de la donnée
-     * \~english \brief Data storage context
-     */
-    Context* context;
-
 public:
 
     /** \~french
      * \brief Crée un objet StoreDataSource à lecture partielle générique
      * \details On renseigne directement les offset et taille de la donnée à lire
      * \param[in] n Nom de la source de donnée
+     * \param[in] c Contexte de stockage de la donnée
      * \param[in] o Offset de la donnée à lire
      * \param[in] s Taille de la donnée à lire
      * \param[in] type Mime-type de la donnée
-     * \param[in] c Contexte de stockage de la donnée
      * \param[in] encoding Encodage de la source de donnée
      ** \~english
      * \brief Create a StoreDataSource object, for partially reading.
      * \param[in] n Data source name
+     * \param[in] c Data storage context
      * \param[in] o Data's offset
      * \param[in] s Data's size
      * \param[in] type Data mime-type
-     * \param[in] c Data storage context
      * \param[in] encoding Data encoding
      */
-    StoreDataSource ( std::string n, const uint32_t o, const uint32_t s, std::string type, Context* c, std::string encoding = "");
+    StoreDataSource ( std::string n, Context* c, const uint32_t o, const uint32_t s, std::string type, std::string encoding = "");
     
     /** \~french
      * \brief Crée un objet StoreDataSource pour lire une tuile selon l'index de la dalle
@@ -161,19 +161,19 @@ public:
      * \param[in] tile_ind Numéro de la tuile dans l'index
      * \param[in] tiles_nb Nombre d'élément dans l'index
      * \param[in] n Nom de la source de donnée
-     * \param[in] type Mime-type de la donnée
      * \param[in] c Contexte de stockage de la donnée
+     * \param[in] type Mime-type de la donnée
      * \param[in] encoding Encodage de la source de donnée
      ** \~english
      * \brief Create a StoreDataSource object, to read a tile thanks to slab index
      * \param[in] tile_ind Tile's indice
      * \param[in] tiles_nb Element number in the index
      * \param[in] n Data source name
-     * \param[in] type Data mime-type
      * \param[in] c Data storage context
+     * \param[in] type Data mime-type
      * \param[in] encoding Data encoding
      */
-    StoreDataSource (const int tile_ind, const int tiles_nb, std::string n, std::string type, Context* c, std::string encoding = "");
+    StoreDataSource (const int tile_ind, const int tiles_nb, std::string n, Context* c, std::string type, std::string encoding = "");
 
     /** \~french
      * \brief Récupère la donnée depuis la source

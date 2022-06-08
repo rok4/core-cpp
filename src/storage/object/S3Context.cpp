@@ -171,7 +171,7 @@ static const char mon_name[][4] = {
 
 int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
 
-    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << " / " << name;
 
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -272,7 +272,7 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
     
     size = -1;
     
-    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << " / " << name;
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
     CURLcode res;
@@ -419,6 +419,9 @@ std::string S3Context::getPath(std::string racine,int x,int y,int pathDepth){
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
+std::string S3Context::getPath(std::string name) {  
+    return bucket_name + "/" + name;
+}
 
 bool S3Context::openToWrite(std::string name) {
 

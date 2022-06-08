@@ -38,15 +38,16 @@
 /**
  * \file Cache.cpp
  ** \~french
- * \brief Implémentation des classes IndexCache, CurlPool et ProjPool
+ * \brief Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool
  ** \~english
- * \brief Implements classes IndexCache, CurlPool and ProjPool
+ * \brief Implements classes IndexCache, CurlPool, StoragePool and ProjPool
  */
 
 #include "utils/Cache.h"
 
 std::map<pthread_t, CURL*> CurlPool::pool;
 std::map<pthread_t, PJ_CONTEXT*> ProjPool::pool;
+std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::pool;
 std::list<CacheElement *> IndexCache::cache;
 std::unordered_map<std::string, std::list<CacheElement *>::iterator> IndexCache::map;
 int IndexCache::size = 100;

@@ -243,7 +243,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
     
     // On va lire toutes les informations de l'en-tête TIFF à la main, sans passer par la libtiff pour être libre quant au type de stockage de la donnée
     
-    StoreDataSource* sds = new StoreDataSource(name, 0, ROK4_IMAGE_HEADER_SIZE, "", c);
+    StoreDataSource* sds = new StoreDataSource(name, c, 0, ROK4_IMAGE_HEADER_SIZE, "");
 
     size_t tmpSize;
     const uint8_t* hdr = sds->getData(tmpSize);
@@ -260,17 +260,40 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
             return NULL;
         }
 
-
         std::string originalName (name);
+        std::string originalTrayName (c->getTray());
+
         char tmpName[tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE+1];
         memcpy((uint8_t*) tmpName, hdr+ROK4_SYMLINK_SIGNATURE_SIZE,tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE);
         tmpName[tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE] = '\0';
-        name = std::string (tmpName);
+        std::string full_name = std::string (tmpName);
         delete sds;
 
-        BOOST_LOG_TRIVIAL(debug) <<  "Dalle symbolique détectée : " << originalName << " référence une autre dalle symbolique " << name ;
+        std::string tray_name;
+        name = full_name;
+        if (c->getType() != ContextType::FILECONTEXT) {
+            // Dans le cas du stockage objet, on sépare le nom du contenant du nom de l'objet
+            std::stringstream ss(full_name);
+            std::string token;
+            char delim = '/';
+            std::getline(ss, token, delim);
+            tray_name = token;
+            name.erase(0, tray_name.length() + 1);
+        }
 
-        sds = new StoreDataSource(name, 0, ROK4_IMAGE_HEADER_SIZE, "", c);
+        if (originalTrayName != tray_name) {
+            // Récupération ou ajout du nouveau contexte de stockage
+            c = StoragePool::addContext(c->getType(), tray_name);
+            // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
+            if (c == NULL) {
+                BOOST_LOG_TRIVIAL(error) <<  "Cannot get target context for slab " << full_name ;
+                return NULL;
+            }
+        }
+
+        BOOST_LOG_TRIVIAL(debug) <<  "Symbolic slab detected : " << originalName << " -> " << full_name ;
+
+        sds = new StoreDataSource(name, c, 0, ROK4_IMAGE_HEADER_SIZE, "");
         hdr = sds->getData(tmpSize);
 
         if ( hdr == NULL) {
@@ -519,7 +542,7 @@ boolean Rok4Image::memorizeRawTiles ( int tilesLine )
     int lastTileOffset = tilesOffset[lastTileIndex];
     int lastTileSize = tilesByteCounts[lastTileIndex];
 
-    StoreDataSource* totalDS = new StoreDataSource (name.c_str(), firstTileOffset, lastTileOffset - firstTileOffset + lastTileSize, "", context);
+    StoreDataSource* totalDS = new StoreDataSource (name.c_str(), context, firstTileOffset, lastTileOffset - firstTileOffset + lastTileSize, "");
     size_t total_size;
     const uint8_t* enc_data = totalDS->getData(total_size);
     if (enc_data == NULL) {
@@ -678,7 +701,7 @@ bool Rok4Image::loadIndex()
     tilesOffset = new uint32_t[tilesNumber];
     tilesByteCounts = new uint32_t[tilesNumber];
 
-    StoreDataSource* sds = new StoreDataSource (name, ROK4_IMAGE_HEADER_SIZE, 2 * 4 * tilesNumber, "", context);
+    StoreDataSource* sds = new StoreDataSource (name, context, ROK4_IMAGE_HEADER_SIZE, 2 * 4 * tilesNumber, "");
 
     size_t tmpSize;
     uint32_t* index = (uint32_t*) sds->getData(tmpSize);

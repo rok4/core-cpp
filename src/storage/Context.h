@@ -68,11 +68,28 @@ namespace ContextType {
  * \~english \brief Available context type
  */
 enum eContextType {
+    UNKNOWN,
     FILECONTEXT,
     CEPHCONTEXT,
     SWIFTCONTEXT,
     S3CONTEXT
 };
+
+/**
+ * \~french \brief Nombre de types de stockage disponibles
+ * \~english \brief Number of storage types
+ */
+const int contexttype_size = 4;
+
+/**
+ * \~french \brief Conversion d'une chaîne de caractères vers un type de stockage
+ * \param[in] strComp chaîne de caractère à convertir
+ * \return le type de stockage correspondant, FILECONTEXT (0) si la chaîne n'est pas reconnue
+ * \~english \brief Convert a string to a storage type enumeration member
+ * \param[in] strComp string to convert
+ * \return the binding storage type, FILECONTEXT (0) if string is not recognized
+ */
+eContextType fromString ( std::string strct );
 
 /**
  * \~french \brief Conversion d'un type de contexte vers une chaîne de caractères
@@ -83,6 +100,21 @@ enum eContextType {
  * \return string namming the context type
  */
 std::string toString ( eContextType ct );
+
+
+/**
+ * \~french \brief Connecte le contexte
+ * \param[in] path Extraie d'un chemin complet le type de stockage, le nom du contenant et le nom du fichier / objet
+ * \param[out] type type de stockage
+ * \param[out] fo nom du fichier / objet
+ * \param[out] tray nom du contenant
+ * \~english \brief Connect the context
+ * \param[in] path Extract from full path storage type, tray name and file / object name
+ * \param[out] type storage type
+ * \param[out] fo file / object name
+ * \param[out] tray tray name
+ */
+void split_path(std::string path, ContextType::eContextType& type, std::string& fo, std::string& tray);
 
 }
 
@@ -120,7 +152,6 @@ protected:
     Context () : connected(false), attempts(1) {  }
 
 public:
-
 
     /**
      * \~french \brief Modifie le nombre de tentative
@@ -248,6 +279,12 @@ public:
      * \~english \brief Return the path for a tile (X/Y) in this context
      */
     virtual std::string getPath(std::string racine,int x,int y,int pathDepth = 2) = 0;
+
+    /**
+     * \~french \brief Retourne le chemin complet pour un fichier/objet relatif à ce contexte
+     * \~english \brief Return the full path for a file / object in this context
+     */
+    virtual std::string getPath(std::string name) = 0;
 
     /**
      * \~french \brief Sortie des informations sur le contexte

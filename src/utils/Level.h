@@ -55,7 +55,7 @@ class Level;
 #include "utils/Configuration.h"
 #include "utils/Level.h"
 #include "utils/Table.h"
-#include "storage/ContextBook.h"
+#include "utils/Cache.h"
 
 /**
  */
@@ -99,7 +99,7 @@ protected:
      */
     Image* getwindow ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<int64_t> src_bbox, int& error );
 
-    Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std::string path);
+    Level ( json11::Json doc, Pyramid* pyramid, std::string path);
     Level ( Level* obj );
 
 public:

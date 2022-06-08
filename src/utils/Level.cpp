@@ -67,7 +67,7 @@
 #define EPS 1./256. // FIXME: La valeur 256 est liée au nombre de niveau de valeur d'un canal
 //        Il faudra la changer lorsqu'on aura des images non 8bits.
 
-Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std::string path) : Configuration(path) {
+Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configuration(path) {
     nodataValue = NULL;
 
     // Copie d'informations depuis la pyramide
@@ -136,7 +136,7 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         pathDepth = doc["storage"]["path_depth"].number_value();
 
-        context = contextBook->addContext(ContextType::FILECONTEXT,"");
+        context = StoragePool::addContext(ContextType::FILECONTEXT, "");
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add file storage context";
             return;
@@ -160,7 +160,7 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = contextBook->addContext(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
+        context = StoragePool::addContext(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add ceph storage context";
             return;
@@ -179,7 +179,7 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = contextBook->addContext(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
+        context = StoragePool::addContext(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add swift storage context";
             return;
@@ -198,7 +198,7 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = contextBook->addContext(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
+        context = StoragePool::addContext(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;
@@ -560,7 +560,7 @@ DataSource* Level::getEncodedTile ( int x, int y ) { // TODO: return 0 sur des c
         return NULL;
     }
     BOOST_LOG_TRIVIAL(debug) << path;
-    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, Rok4Format::toMimeType ( format ), context, Rok4Format::toEncoding( format ) );
+    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, context, Rok4Format::toMimeType ( format ), Rok4Format::toEncoding( format ) );
 }
 
 DataSource* Level::getDecodedTile ( int x, int y ) {

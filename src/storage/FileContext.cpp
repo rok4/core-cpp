@@ -195,3 +195,8 @@ std::string FileContext::getPath(std::string racine,int x,int y,int pathDepth){
 
 }
 
+
+std::string FileContext::getPath(std::string name) {  
+    return root_dir + name;
+}
+
