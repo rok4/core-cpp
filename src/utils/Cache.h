@@ -371,6 +371,16 @@ public:
     }
 
     /**
+     * \~french \brief Obtient l'annuaire de contextes
+     * \details La clé est une paire composée du type de stockage et du contenant du contexte
+     * \~english \brief Get book of contexts
+     * \details Key is a pair composed of type of storage and the context's bucket
+     */
+    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> getPool() {
+        return pool;
+    }
+
+    /**
      * \~french
      * \brief Destructeur
      * \~english

@@ -1,4 +1,4 @@
-# Librairies CORE Perl
+# Librairies CORE CPP
 
 - [Variables CMake](#variables-cmake)
 - [Compilation et tests unitaires](#compilation-et-tests-unitaires)
