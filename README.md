@@ -1,4 +1,4 @@
-# Librairies CORE Perl
+# Librairies CORE CPP
 
 - [Variables CMake](#variables-cmake)
 - [Compilation et tests unitaires](#compilation-et-tests-unitaires)
@@ -48,6 +48,8 @@ make test
     * libtiff5-dev
   * Si `OBJECT_ENABLED` à 1
     * librados-dev
+  * Si `UNITTEST_ENABLED` à `1`
+    * libcppunit-dev
 
 ## Utilisation en submodule GIT
 

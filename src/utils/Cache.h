@@ -275,29 +275,6 @@ public:
 
     /**
      * \~french
-     * \brief Retourne le context correspondant au contenant demandé
-     * \details Si il n'existe pas, une erreur s'affiche et on retourne NULL
-     * \param[in] type Type de stockage du contexte rechercé
-     * \param[in] tray Nom du contenant pour lequel on veut le contexte
-     * \~english
-     * \brief Return context of this tray
-     * \details If context dosn't exist for this tray, an error is print and NULL is returned
-     * \param[in] type storage type of looked for's context 
-     * \param[in] tray Tray's name for which context is wanted
-     */
-    static Context* getContext(ContextType::eContextType type,std::string tray) {
-        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (make_pair(type,tray));
-        if ( it == pool.end() ) {
-            BOOST_LOG_TRIVIAL(error) << "Le contenant demandé n'a pas été trouvé dans l'annuaire.";
-            return NULL;
-        } else {
-            //le contenant est déjà existant et donc connecté
-            return it->second;
-        }
-    }
-
-    /**
-     * \~french
      * \brief Ajoute un nouveau contexte
      * \details Si un contexte existe déjà pour ce nom de contenant, on ne crée pas de nouveau contexte et on retourne celui déjà existant. Le nouveau contexte n'est pas connecté.
      * \param[in] type type de stockage pour lequel on veut créer un contexte
@@ -363,11 +340,53 @@ public:
 
 
     /**
-     * \~french \brief Affiche le nombre de contextes de stockage dans l'annuaire
-     * \~english \brief Print the number of storage contexts in the book
+     * \~french \brief Retourne le nombre de contextes de stockage dans l'annuaire par type
+     * \param[out] file_count Nombre de contexte de stockage fichier
+     * \param[out] s3_count Nombre de contexte de stockage S3
+     * \param[out] ceph_count Nombre de contexte de stockage Ceph
+     * \param[out] swift_count Nombre de contexte de stockage Swift
+     * \~english \brief Return the number of storage contexts in the book per type
+     * \param[out] file_count File storage context count
+     * \param[out] s3_count S3 storage context count
+     * \param[out] ceph_count Ceph storage context count
+     * \param[out] swift_count Swift storage context count
      */
-    static void printNumStorages () {
-        BOOST_LOG_TRIVIAL(info) <<  "Nombre de contextes de stockage : " << pool.size() ;
+    static void getStorageCounts (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
+        file_count = 0;
+        s3_count = 0;
+        ceph_count = 0;
+        swift_count = 0;
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            switch(key.first) {
+#if OBJECT_ENABLED
+                case ContextType::SWIFTCONTEXT:
+                    swift_count++;
+                    break;
+                case ContextType::CEPHCONTEXT:
+                    ceph_count++;
+                    break;
+                case ContextType::S3CONTEXT:
+                    s3_count++;
+                    break;
+#endif
+                case ContextType::FILECONTEXT:
+                    file_count++;
+                    break;
+            }
+            it++;
+        }
+    }
+
+    /**
+     * \~french \brief Obtient l'annuaire de contextes
+     * \details La clé est une paire composée du type de stockage et du contenant du contexte
+     * \~english \brief Get book of contexts
+     * \details Key is a pair composed of type of storage and the context's bucket
+     */
+    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> getPool() {
+        return pool;
     }
 
     /**
