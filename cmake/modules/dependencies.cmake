@@ -6,6 +6,8 @@ message("Search dependencies for ROK4 CORE")
 
 # Extern libraries
 
+# Dynamique
+
 if(NOT TARGET boostlog)
     find_package(BoostLog)
     if(BOOSTLOG_FOUND)
@@ -94,16 +96,6 @@ if(NOT TARGET curl)
     endif(CURL_FOUND)
 endif(NOT TARGET curl)
 
-if(NOT TARGET json)
-    find_package(Json)
-    if(JSON_FOUND)
-        add_library(json SHARED IMPORTED)
-        set_property(TARGET json PROPERTY IMPORTED_LOCATION ${JSON_LIBRARY})
-    else(JSON_FOUND)
-        message(FATAL_ERROR "Cannot find extern library libjson")
-    endif(JSON_FOUND)
-endif(NOT TARGET json)
-
 if(NOT TARGET openssl)
     find_package(OpenSSL)
     if(OPENSSL_FOUND)
@@ -157,6 +149,18 @@ IF(OBJECT_ENABLED)
         endif(RADOS_FOUND)
     endif(NOT TARGET rados)
 ENDIF(OBJECT_ENABLED)
+
+# Statique
+
+if(NOT TARGET json)
+    find_package(Json)
+    if(JSON_FOUND)
+        add_library(json STATIC IMPORTED)
+        set_property(TARGET json PROPERTY IMPORTED_LOCATION ${JSON_LIBRARY})
+    else(JSON_FOUND)
+        message(FATAL_ERROR "Cannot find extern library libjson")
+    endif(JSON_FOUND)
+endif(NOT TARGET json)
 
 if(NOT TARGET thread)
     find_package(Threads REQUIRED)

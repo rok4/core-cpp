@@ -14,7 +14,7 @@ FIND_PATH(JSON_INCLUDE_DIR json11.hpp
     C:/dev/cpp/src
     )
 
-FIND_LIBRARY(JSON_LIBRARY NAMES libjson11.so PATHS
+FIND_LIBRARY(JSON_LIBRARY NAMES libjson11.a PATHS
     /usr/lib/x86_64-linux-gnu/
     /usr/local/lib 
     /usr/lib

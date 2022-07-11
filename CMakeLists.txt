@@ -13,7 +13,7 @@ if (NOT DEFINED CMAKE_PROJECT_NAME)
     set(BUILD_SHARED_LIBS OFF)
 
     # Définit le nom du projet 
-    project(ROK4CORE)
+    project(rok4-core)
 
     message(STATUS ${CMAKE_PROJECT_NAME})
     message(STATUS ${PROJECT_NAME})
