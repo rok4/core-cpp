@@ -1,11 +1,5 @@
 # Librairies CORE CPP
 
-- [Variables CMake](#variables-cmake)
-- [Compilation et tests unitaires](#compilation-et-tests-unitaires)
-- [Dépendances](#dépendances)
-- [Utilisation en submodule GIT](#utilisation-en-submodule-git)
-- [Variables d'environnement utilisées dans les librairies](#variables-denvironnement-utilisées-dans-les-librairies)
-
 ## Variables CMake
 
 Dans le cas d'une compilation autonome :
