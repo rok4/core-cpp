@@ -362,7 +362,10 @@ bool TiffNodataManager<T>::treatNodata ( char* inputImage, char* outputImage, ch
 
     BOOST_LOG_TRIVIAL(debug) << "We load input image into memory : " << width * height * samplesperpixel * sizeof(T) / 1024 << " kilobytes";
     for ( int h = 0; h < height; h++ ) {
-        sourceImage->getline(IM + width*samplesperpixel*h, h);
+        if (sourceImage->getline(IM + width*samplesperpixel*h, h) == 0) {
+            BOOST_LOG_TRIVIAL(error) <<  "Cannot read line " << h ;
+            return false;
+        }
     }
 
     delete sourceImage;
