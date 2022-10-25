@@ -191,7 +191,7 @@ int PenteImage::_getline ( T* buffer, int line ) {
 
         }
 
-        * ( buffer + ( column++ ) ) = ( int ) ( slope );
+        * ( buffer + ( column++ ) ) = ( T ) ( slope );
         columnOrig++;
 
     }

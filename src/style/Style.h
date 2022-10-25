@@ -273,11 +273,7 @@ public:
         if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
             return 8;
         } else {
-            if (isEstompage() || isPente() || isAspect()) {
-                return 8;
-            } else {
-                return origBitsPerSample;
-            }
+            return origBitsPerSample;
         }
     }
 
@@ -289,11 +285,7 @@ public:
         if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
             return SampleFormat::UINT;
         } else {
-            if (isEstompage() || isPente() || isAspect()) {
-                return SampleFormat::UINT;
-            } else {
-                return sf;
-            }
+            return sf;
         }
     }
 
