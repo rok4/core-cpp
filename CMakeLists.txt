@@ -88,7 +88,7 @@ add_library(rok4core ${LIBROK4CORE_SRCS})
 
 ################### LIEN DES DÉPENDANCES
 
-target_link_libraries(rok4core PUBLIC proj thread turbojpeg jpeg json zlib curl openssl crypto boostlog)
+target_link_libraries(rok4core PUBLIC proj turbojpeg jpeg json zlib curl openssl crypto boostlog)
 if(FILEIMAGE_ENABLED)
     target_link_libraries(rok4core PUBLIC jpeg2000 tiff png)
 endif(FILEIMAGE_ENABLED)

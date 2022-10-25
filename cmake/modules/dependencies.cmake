@@ -162,15 +162,6 @@ if(NOT TARGET json)
     endif(JSON_FOUND)
 endif(NOT TARGET json)
 
-if(NOT TARGET thread)
-    find_package(Threads REQUIRED)
-    if(NOT CMAKE_USE_PTHREADS_INIT)
-        message(FATAL_ERROR "Need the PThread library")
-    endif(NOT CMAKE_USE_PTHREADS_INIT)
-    add_library(thread STATIC IMPORTED)
-    set_property(TARGET thread PROPERTY IMPORTED_LOCATION ${CMAKE_THREAD_LIBS_INIT})
-endif(NOT TARGET thread)
-
 if(UNITTEST_ENABLED)
   
   # Extern libraries, shared
