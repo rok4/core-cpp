@@ -283,7 +283,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
 
         if (originalTrayName != tray_name) {
             // Récupération ou ajout du nouveau contexte de stockage
-            c = StoragePool::addContext(c->getType(), tray_name);
+            c = StoragePool::get_context(c->getType(), tray_name);
             // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
             if (c == NULL) {
                 BOOST_LOG_TRIVIAL(error) <<  "Cannot get target context for slab " << full_name ;

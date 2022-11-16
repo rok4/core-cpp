@@ -68,6 +68,15 @@ class Configuration
             parentDirChar=NULL;
         }
 
+
+        /**
+        * \~french
+        * \brief Destructeur par défaut
+        * \~english
+        * \brief Default destructor
+        */
+        ~Configuration(){};
+
     public:
         
         /**
@@ -143,6 +152,8 @@ class Configuration
             return files;
 
         };
+
+
 };
 
 #endif // CONFIGURATION_H

@@ -44,11 +44,24 @@
  */
 
 #include "utils/Cache.h"
+#include "Cache.h"
 
 std::map<pthread_t, CURL*> CurlPool::pool;
+
 std::map<pthread_t, PJ_CONTEXT*> ProjPool::pool;
+
 std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::pool;
-std::list<CacheElement *> IndexCache::cache;
-std::unordered_map<std::string, std::list<CacheElement *>::iterator> IndexCache::map;
+
+std::list<IndexElement *> IndexCache::cache;
+std::unordered_map<std::string, std::list<IndexElement *>::iterator> IndexCache::map;
 int IndexCache::size = 100;
 int IndexCache::validity = 300;
+
+std::map<std::string, TileMatrixSet*> TmsBook::book;
+std::vector<TileMatrixSet*> TmsBook::trash;
+std::string TmsBook::directory = "";
+
+std::map<std::string, Style*> StyleBook::book;
+std::vector<Style*> StyleBook::trash;
+std::string StyleBook::directory = "";
+bool StyleBook::inspire = false;

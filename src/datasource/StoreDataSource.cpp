@@ -167,7 +167,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
 
                     if (originalTrayName != tray_name) {
                         // Récupération ou ajout du nouveau contexte de stockage
-                        context = StoragePool::addContext(context->getType(), tray_name);
+                        context = StoragePool::get_context(context->getType(), tray_name);
                         // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
                         if (context == NULL) {
                             data = NULL;

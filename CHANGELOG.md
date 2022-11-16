@@ -12,6 +12,10 @@ Cette release contient les librairies C++, utilisées par les outils de [generat
 
 * Compilation pour alpine fonctionnelle
 
+### [Changed]
+
+* Les chargements des styles et des TMS passent par un système d'annuaire global. Ce dernier s'occupe de lire le fichier (stockage fichier ou objet) dans le cas d'une demande d'un nouveau, ou retourne celui déjà chargé
+
 ### [Fixed]
 
 * Possibilité d'appliquer à la génération (dans mergeNtiff) un style définissant un calcul d'aspect ou de pente mais pas de palette (on reste alors avec un canal potentiellement flottant)

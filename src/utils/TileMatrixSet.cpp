@@ -46,6 +46,8 @@
 
 #include "utils/TileMatrixSet.h"
 #include "utils/Utils.h"
+#include "utils/Cache.h"
+#include "storage/Context.h"
 
 #include <cmath>
 #include <fstream>
@@ -122,20 +124,36 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
         return;
     }
 
-    BOOST_LOG_TRIVIAL(info) << "Add Tile Matrix Set " << id << " from file ";
+    BOOST_LOG_TRIVIAL(info) << "Add Tile Matrix Set " << id;
 
     /********************** Read */
 
-    std::ifstream is(filePath);
-    std::stringstream ss;
-    ss << is.rdbuf();
+    ContextType::eContextType storage_type;
+    std::string tray_name, fo_name;
+    ContextType::split_path(path, storage_type, fo_name, tray_name);
 
-    std::string err;
-    json11::Json doc = json11::Json::parse ( ss.str(), err );
-    if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + filePath + " : " + err ;
+    Context* context = StoragePool::get_context(storage_type, tray_name);
+    if (context == NULL) {
+        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read TMS";
         return;
     }
+
+    int size = -1;
+    uint8_t* data = context->readFull(size, fo_name);
+
+    if (size < 0) {
+        errorMessage = "Cannot read TMS "  + path ;
+        if (data != NULL) delete[] data;
+        return;
+    }
+
+    std::string err;
+    json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
+    if ( doc.is_null() ) {
+        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        return;
+    }
+    if (data != NULL) delete[] data;
 
     /********************** Parse */
 

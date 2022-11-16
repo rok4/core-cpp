@@ -188,16 +188,6 @@ public:
     Style ( std::string path, bool inspire );
 
     /**
-    * \~french
-    * Crée un Style à partir d'un autre
-    * \param[in] obj Style à cloner
-    * \~english
-    * Create a Style from another
-    * \param[in] obj Style to clone
-    */
-    Style ( Style* obj);
-
-    /**
      * \~french
      * \brief Retourne l'identifiant du style
      * \return id

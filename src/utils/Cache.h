@@ -56,6 +56,9 @@
 #include <sstream>
 #include <curl/curl.h>
 #include <proj.h>
+#include "utils/TileMatrixSet.h"
+#include "style/Style.h"
+#include "utils/Utils.h"
 #include "storage/Context.h"
 #include "storage/FileContext.h"
 #if OBJECT_ENABLED
@@ -275,20 +278,20 @@ public:
 
     /**
      * \~french
-     * \brief Ajoute un nouveau contexte
+     * \brief Récupère un contexte de stockage
      * \details Si un contexte existe déjà pour ce nom de contenant, on ne crée pas de nouveau contexte et on retourne celui déjà existant. Le nouveau contexte n'est pas connecté.
      * \param[in] type type de stockage pour lequel on veut créer un contexte
      * \param[in] tray Nom du contenant pour lequel on veut créer un contexte
      * \param[in] ctx* contexte à ajouter
 
-     * \brief Add a new context
+     * \brief Get a context storage
      * \details If a context already exists for this tray's name, we don't create a new one and the existing is returned. New context is not connected.
      * \param[in] type Storage Type for which context is created
      * \param[in] tray Tray's name for which context is created
      * \param[in] ctx* Context to add
      
      */
-    static Context * addContext(ContextType::eContextType type,std::string tray) {
+    static Context * get_context(ContextType::eContextType type,std::string tray) {
         Context* ctx;
         std::pair<ContextType::eContextType,std::string> key = make_pair(type,tray);
         BOOST_LOG_TRIVIAL(debug) << "On essaye d'ajouter la clé " << ContextType::toString(key.first) <<" / " << key.second ;
@@ -417,7 +420,7 @@ public:
  * \~french
  * \brief Élément du cache des index de dalle
  */
-class CacheElement {
+class IndexElement {
 friend class IndexCache;
 
 protected:
@@ -469,7 +472,7 @@ protected:
      * \param[in] os raw tiles' offsets
      * \param[in] ss raw tiles' sizes
      */
-    CacheElement(std::string k, Context* c, std::string n, int tiles_number, uint8_t* os, uint8_t* ss) {
+    IndexElement(std::string k, Context* c, std::string n, int tiles_number, uint8_t* os, uint8_t* ss) {
         key = k;
         context = c;
         name = n;
@@ -495,12 +498,12 @@ private:
      * \~french \brief Liste des éléments en cache
      * \~english \brief Cache elements list
      */
-    static std::list<CacheElement *> cache;
+    static std::list<IndexElement *> cache;
     /**
      * \~french \brief Map d'index des éléments du cache
      * \~english \brief Cache element index map
      */
-    static std::unordered_map<std::string, std::list<CacheElement *>::iterator> map;
+    static std::unordered_map<std::string, std::list<IndexElement *>::iterator> map;
     /**
      * \~french \brief Taille du cache en nombre d'élément
      * \details 100 par défaut
@@ -579,7 +582,7 @@ public:
         // mais c'est via cette dalle symbolique que la donnée est a priori requêtée
         // donc c'est ce nom qu'on utilisera pour l'interrogation du cache
 
-        CacheElement* elem = new CacheElement(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);
+        IndexElement* elem = new IndexElement(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);
 
         // L'information n'est a priori pas dans le cache car 
         // Soit elle était dans le cache et valide, alors on aurait utiliser ce cahe et on n'aurait pas fait appel à cet ajout
@@ -587,7 +590,7 @@ public:
 
         if (cache.size() == size) {
             // On réupcère le dernier élément du cache
-            CacheElement* last = cache.back();
+            IndexElement* last = cache.back();
             // On le vire du cache
             cache.pop_back();
             // On le déréférence de la map d'accès
@@ -618,7 +621,7 @@ public:
      * \param[out] size tile's size
      */
     static bool get_slab_infos(std::string key, int tile_number, Context** data_context, std::string* data_slab_name, uint32_t* offset, uint32_t* size) {
-        std::unordered_map<std::string, std::list<CacheElement *>::iterator>::iterator it = map.find ( key );
+        std::unordered_map<std::string, std::list<IndexElement *>::iterator>::iterator it = map.find ( key );
         if ( it == map.end() ) {
             return false;
         } else {
@@ -651,12 +654,312 @@ public:
      * \~english \brief Clean all element from the cache
      */
     static void cleanCache () {
-        std::list<CacheElement*>::iterator it;
+        std::list<IndexElement*>::iterator it;
         for (it = cache.begin(); it != cache.end(); ++it) {
             delete *it;
         }
         cache.clear();
     }
+};
+
+
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
+ * \brief Création d'un annuaire de Tile Matrix Sets
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class TmsBook {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    TmsBook(){};
+
+    /**
+     * \~french
+     * \brief Répertoire de stockage des TMS
+     * \~english
+     * \brief TMS storage directory
+     */
+    static std::string directory;
+
+    /**
+     * \~french \brief Annuaire de TMS
+     * \details La clé est l'identifiant du TMS
+     * \~english \brief Book of TMS
+     * \details Key is a the TMS identifier
+     */
+    static std::map<std::string,TileMatrixSet*> book;
+
+    /**
+     * \~french \brief Corbeille de TMS à supprimer
+     * \~english \brief TMS trash to delete
+     */
+    static std::vector<TileMatrixSet*> trash;
+
+public:
+
+
+    /**
+     * \~french \brief Vide l'annuaire et met le contenu à la corbeille
+     * \~english \brief Empty book and put content into trash
+     */
+    static void send_to_trash () {
+        std::map<std::string, TileMatrixSet*>::iterator it;
+        for (it = book.begin(); it != book.end(); ++it) {
+            trash.push_back(it->second);
+        }
+        book.empty();
+    }
+
+    /**
+     * \~french \brief Vide la corbeille
+     * \~english \brief Empty trash
+     */
+    static void empty_trash () {
+        for (int i = 0; i < trash.size(); i++) {
+            delete trash.at(i);
+        }
+        trash.empty();
+    }
+
+
+    /**
+     * \~french \brief Renseigne le répertoire des TMS
+     * \~english \brief Set TMS directory
+     */
+    static void set_directory (std::string d) {
+        // Suppression du slash final
+        if (d.compare ( d.size()-1,1,"/" ) == 0) {
+            d.pop_back();
+        }
+        directory = d;
+    }
+
+    /**
+     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~english \brief Return the book
+     */
+    static std::map<std::string,TileMatrixSet*> get_book () {
+        return book;
+    }
+
+    /**
+     * \~french
+     * \brief Retourne le TMS d'après son identifiant
+     * \details Si le TMS demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \param[in] id Identifiant du TMS voulu
+
+     * \brief Retourne the TMS according to its identifier
+     * \details If TMS is still not in the book, it is searched in the known directory and loaded
+     * \param[in] id Wanted TMS identifier
+     */
+    static TileMatrixSet* get_tms(std::string id) {
+        std::map<std::string, TileMatrixSet*>::iterator it = book.find ( id );
+        if ( it != book.end() ) {
+            return it->second;
+        }
+
+        std::string tms_path = directory + "/" + id + ".json";
+
+        TileMatrixSet* tms = new TileMatrixSet(tms_path);
+        if ( ! tms->isOk() ) {
+            BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
+            delete tms;
+            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce TMS
+            book.insert ( std::pair<std::string, TileMatrixSet*>(id, NULL) );
+            return NULL;
+        }
+
+        book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
+        return tms;
+    }
+
+    /**
+     * \~french \brief Retourne le nombre de TMS dans l'annuaire
+     * \~english \brief Return the number of TMS in the book
+     */
+    static int get_tms_count () {
+        return book.size();
+    }
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~TmsBook() {};
+
+};
+
+
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
+ * \brief Création d'un annuaire de styles
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class StyleBook {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    StyleBook(){};
+
+    /**
+     * \~french
+     * \brief Répertoire de stockage des styles
+     * \~english
+     * \brief TMS storage directory
+     */
+    static std::string directory;
+
+    /**
+     * \~french
+     * \brief Veut-on des styles inspire
+     * \~english
+     * \brief Only inspire styles ?
+     */
+    static bool inspire;
+
+    /**
+     * \~french \brief Annuaire de styles
+     * \details La clé est l'identifiant du style
+     * \~english \brief Book of styles
+     * \details Key is a the style identifier
+     */
+    static std::map<std::string,Style*> book;
+
+    /**
+     * \~french \brief Corbeille de styles à supprimer
+     * \~english \brief Styles trash to delete
+     */
+    static std::vector<Style*> trash;
+
+public:
+
+
+    /**
+     * \~french \brief Vide l'annuaire et met le contenu à la corbeille
+     * \~english \brief Empty book and put content into trash
+     */
+    static void send_to_trash () {
+        std::map<std::string, Style*>::iterator it;
+        for (it = book.begin(); it != book.end(); ++it) {
+            trash.push_back(it->second);
+        }
+        book.empty();
+    }
+
+    /**
+     * \~french \brief Vide la corbeille
+     * \~english \brief Empty trash
+     */
+    static void empty_trash () {
+        for (int i = 0; i < trash.size(); i++) {
+            delete trash.at(i);
+        }
+        trash.empty();
+    }
+
+
+    /**
+     * \~french \brief Renseigne le répertoire des style
+     * \~english \brief Set styles directory
+     */
+    static void set_directory (std::string d) {
+        // Suppression du slash final
+        if (d.compare ( d.size()-1,1,"/" ) == 0) {
+            d.pop_back();
+        }
+        directory = d;
+    }
+
+
+    /**
+     * \~french \brief Renseigne la restiction inspire des style
+     * \~english \brief Set inspire restriction for styles
+     */
+    static void set_inspire (bool i) {
+        inspire = i;
+    }
+
+
+    /**
+     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~english \brief Return the book
+     */
+    static std::map<std::string,Style*> get_book () {
+        return book;
+    }
+
+    /**
+     * \~french
+     * \brief Retourne le style d'après son identifiant
+     * \details Si le style demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \param[in] id Identifiant du style voulu
+
+     * \brief Retourne the style according to its identifier
+     * \details If style is still not in the book, it is searched in the known directory and loaded
+     * \param[in] id Wanted style identifier
+     */
+    static Style* get_style(std::string id) {
+        std::map<std::string, Style*>::iterator it = book.find ( id );
+        if ( it != book.end() ) {
+            return it->second;
+        }
+
+        std::string style_path = directory + "/" + id + ".json";
+
+        Style* style = new Style(style_path, inspire);
+        if ( ! style->isOk() ) {
+            BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
+            delete style;
+            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
+            book.insert ( std::pair<std::string, Style*>(id, NULL) );
+            return NULL;
+        }
+
+        if ( containForbiddenChars(style->getIdentifier()) ) {
+            BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
+            delete style;
+            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
+            book.insert ( std::pair<std::string, Style*>(id, NULL) );
+            return NULL;
+        }
+
+        book.insert ( std::pair<std::string, Style*>(id, style) );
+        return style;
+    }
+
+    /**
+     * \~french \brief Retourne le nombre de styles dans l'annuaire
+     * \~english \brief Return the number of styles in the book
+     */
+    static int get_styles_count () {
+        return book.size();
+    }
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~StyleBook() {};
+
 };
 
 #endif

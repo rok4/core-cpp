@@ -136,7 +136,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         pathDepth = doc["storage"]["path_depth"].number_value();
 
-        context = StoragePool::addContext(ContextType::FILECONTEXT, "");
+        context = StoragePool::get_context(ContextType::FILECONTEXT, "");
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add file storage context";
             return;
@@ -160,7 +160,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = StoragePool::addContext(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
+        context = StoragePool::get_context(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add ceph storage context";
             return;
@@ -179,7 +179,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = StoragePool::addContext(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
+        context = StoragePool::get_context(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add swift storage context";
             return;
@@ -198,7 +198,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = StoragePool::addContext(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
+        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;

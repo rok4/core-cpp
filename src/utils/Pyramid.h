@@ -120,7 +120,7 @@ private:
      */
     int channels;
 
-    bool parse(json11::Json& doc, std::map<std::string, TileMatrixSet*> tmsList);
+    bool parse(json11::Json& doc);
 
 public:
 
@@ -128,17 +128,13 @@ public:
     * \~french
     * Crée un Pyramid à partir d'un fichier XML
     * \brief Constructeur
-    * \param[in] context Contexte de stockage du descripteur de pyramide
     * \param[in] path Chemin vers le descripteur de pyramide
-    * \param[in] tmsList Liste des TMS connus
     * \~english
     * Create a Pyramid from a XML file
     * \brief Constructor
-    * \param[in] context Storage context of pyramid descriptor
     * \param[in] path Path to pyramid descriptor
-    * \param[in] tmsList Known TMS list
     */
-    Pyramid(Context* context, std::string path, std::map<std::string, TileMatrixSet*> tmsList);
+    Pyramid(std::string path);
 
     /**
      * \~french

@@ -51,7 +51,6 @@ class CRS;
 #include <boost/log/trivial.hpp>
 #include <proj.h>
 #include <sstream>
-#include "utils/Cache.h"
 #include <cmath>
 
 /**
