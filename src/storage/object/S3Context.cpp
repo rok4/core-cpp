@@ -195,7 +195,7 @@ int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
 
     static char gmt_time[40];
     sprintf(
-        gmt_time, "%s, %d %s %d %.2d:%.2d:%.2d GMT",
+        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
         ptm->tm_hour, ptm->tm_min, ptm->tm_sec
     );
@@ -293,7 +293,7 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
 
     static char gmt_time[40];
     sprintf(
-        gmt_time, "%s, %d %s %d %.2d:%.2d:%.2d GMT",
+        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
         ptm->tm_hour, ptm->tm_min, ptm->tm_sec
     );
@@ -462,7 +462,7 @@ bool S3Context::closeToWrite(std::string name) {
 
     static char gmt_time[40];
     sprintf(
-        gmt_time, "%s, %d %s %d %.2d:%.2d:%.2d GMT",
+        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
         ptm->tm_hour, ptm->tm_min, ptm->tm_sec
     );
