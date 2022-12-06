@@ -124,36 +124,6 @@ class Configuration
         };
 
 
-        /**
-        * \~french
-        * \brief Retourne la liste des fichiers dans le dossier
-        * \~english
-        * \brief Return list of file in a directory
-        */
-        static std::vector<std::string> listFileFromDir(std::string directory, std::string extension) {
-
-            // lister les fichier du repertoire layerDir
-            std::vector<std::string> files;
-            std::string fileName;
-            struct dirent *fileEntry;
-            DIR *dir;
-            if ( ( dir = opendir ( directory.c_str() ) ) == NULL ) {
-                BOOST_LOG_TRIVIAL(fatal) << "Cannot access to directory "  << directory;
-                return files;
-            }
-            while ( ( fileEntry = readdir ( dir ) ) ) {
-                fileName = fileEntry->d_name;
-                if ( fileName.rfind ( extension ) != std::string::npos && fileName.rfind ( extension ) == fileName.size()-extension.size() ) {
-                    files.push_back ( directory+"/"+fileName );
-                }
-            }
-            closedir ( dir );
-
-            return files;
-
-        };
-
-
 };
 
 #endif // CONFIGURATION_H

@@ -158,7 +158,7 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
     /********************** Id */
 
     id = Configuration::getFileName(filePath, ".json");
-    BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file";
+    BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file or object";
 
     /********************** Read */
 
