@@ -19,6 +19,7 @@ Cette release contient les librairies C++, utilisées par les outils de [generat
 ### [Fixed]
 
 * Possibilité d'appliquer à la génération (dans mergeNtiff) un style définissant un calcul d'aspect ou de pente mais pas de palette (on reste alors avec un canal potentiellement flottant)
+* Passage du nombre de jours sur 2 chiffres dans les appels S3
 
 <!-- 
 ### [Added]
