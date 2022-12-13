@@ -58,6 +58,7 @@
 #include <boost/log/trivial.hpp>
 #include "utils/Utils.h"
 #include "datasource/DataSource.h"
+#include "utils/Cache.h"
 #include <fcntl.h>
 #include <iostream>
 #include <string>

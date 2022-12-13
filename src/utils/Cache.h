@@ -282,13 +282,11 @@ public:
      * \details Si un contexte existe déjà pour ce nom de contenant, on ne crée pas de nouveau contexte et on retourne celui déjà existant. Le nouveau contexte n'est pas connecté.
      * \param[in] type type de stockage pour lequel on veut créer un contexte
      * \param[in] tray Nom du contenant pour lequel on veut créer un contexte
-     * \param[in] ctx* contexte à ajouter
 
      * \brief Get a context storage
      * \details If a context already exists for this tray's name, we don't create a new one and the existing is returned. New context is not connected.
      * \param[in] type Storage Type for which context is created
      * \param[in] tray Tray's name for which context is created
-     * \param[in] ctx* Context to add
      
      */
     static Context * get_context(ContextType::eContextType type,std::string tray) {
