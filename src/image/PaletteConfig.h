@@ -40,7 +40,11 @@
 #include <stdint.h>
 #include "zlib.h"
 #include <string.h>
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
 
 static const uint8_t BLACK[3] = {0, 255, 0};
 

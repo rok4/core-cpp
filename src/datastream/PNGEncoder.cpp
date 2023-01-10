@@ -38,7 +38,12 @@
 #include <iostream>
 
 #include "datastream/PNGEncoder.h"
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
+
 #include <boost/log/trivial.hpp>
 #include <string.h> // Pour memcpy
 

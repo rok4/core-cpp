@@ -42,7 +42,11 @@
 
 #include "jpeglib.h"
 #include "zlib.h"
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
 #include "compressors/LZWDecoder.h"
 #include "compressors/PKBDecoder.h"
 

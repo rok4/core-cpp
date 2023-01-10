@@ -36,7 +36,12 @@
  */
 
 #include "datasource/PaletteDataSource.h"
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
+
 #include "zlib.h"
 #include <string.h>
 

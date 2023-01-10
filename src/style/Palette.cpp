@@ -39,7 +39,12 @@
 #include <stdint.h>
 #include "zlib.h"
 #include <string.h>
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
+
 #include <boost/log/trivial.hpp>
 
 Colour::Colour ( uint8_t r, uint8_t g, uint8_t b, int a ) : r ( r ), g ( g ), b ( b ), a ( a ) {

@@ -50,7 +50,12 @@
  */
 
 #include "image/file/Rok4Image.h"
-#include "byteswap.h"
+#if __has_include("byteswap.h")
+# include "byteswap.h"
+#else
+#include "utils/byteswap.h"
+#endif
+
 #include "compressors/LZWEncoder.h"
 #include "compressors/PKBEncoder.h"
 #include "datasource/StoreDataSource.h"
