@@ -78,6 +78,7 @@ jobs:
         with:
           files: 'build/*.deb;build/*.tar.gz'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-tag: ${{ github.ref_name }}
 
       - name: Build documentation
         if: "matrix.os == 'ubuntu-20.04'"
