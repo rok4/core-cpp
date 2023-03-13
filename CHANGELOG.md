@@ -1,17 +1,24 @@
-# Librairies ROK4 core C++
-
 ## Summary
 
-Styles et TMS peuvent être chargés depuis des objets, et sont gérés via un annuaire global.
+Les librairies sont gérées de manière indépendantes, conditionnées pour être installées en tant que dépendance dynamique. Le projet a son propre site, avec toutes les versions et leur documentation.
 
 ## Changelog
 
+### [Added]
 
-### [Changed]
+* Librairie, partie `utils` :
+    * Styles et TMS sont chargés dans un annuaire, qui connait le dossier de stockage des fichiers / objets les définissant
+    * Les pyramide sont chargées depuis leur descripteur, fichier ou objet
+* Librairie, partie `storage` : gère un annuaire de contextes de stockages, fichier, Swift, S3 ou Ceph
+* Librairie, partie `image` : permet la lecture et le calcul ligne par ligne
+* Librairie, partie `datasource` : permet la lecture en une fois d'un buffer de donnée
+* Librairie, partie `datasource` : permet la lecture par morceau d'un buffer de donnée
+* Librairie, partie `processors` : gère plusieurs noyaux d'interpolation et la conversion de pixel
 
-* Les chargements des styles et des TMS passent par un système d'annuaire global. Ce dernier s'occupe de lire le fichier (stockage fichier ou objet) dans le cas d'une demande d'un nouveau, ou retourne celui déjà chargé
-
-* Les headers d'authentification sont comparés sans tenir compte de la casse
+* Intégration continue :
+    * Compilation du fichier librok4.so et conditionnement dans des paquets debian avec les headers, avec et sans la prise en charge du stockage ceph
+    * Jeu des tests unitaires
+    * Compilation de la documentation et publication sur la branche gh-pages
 
 <!-- 
 ### [Added]

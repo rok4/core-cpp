@@ -37,8 +37,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "image/ResampledImage.h"
-#include "image/EmptyImage.h"
+#include "rok4/image/ResampledImage.h"
+#include "rok4/image/EmptyImage.h"
 #include <sys/time.h>
 #include <cmath>
 #include <cstdlib>

@@ -50,7 +50,6 @@
 #include "utils/Level.h"
 #include "utils/Cache.h"
 #include <cfloat>
-#include "config.h"
 #include "image/EmptyImage.h"
 
 ComparatorLevel compLevelDesc =
@@ -213,7 +212,7 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
     ContextType::split_path(path, storage_type, fo_name, tray_name);
-
+    
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
         errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read pyramid's descriptor";

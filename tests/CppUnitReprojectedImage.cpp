@@ -37,8 +37,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "image/ReprojectedImage.h"
-#include "image/EmptyImage.h"
+#include "rok4/image/ReprojectedImage.h"
+#include "rok4/image/EmptyImage.h"
 #include <sys/time.h>
 #include <cmath>
 #include <cstdlib>

@@ -55,6 +55,7 @@
 #include <boost/log/trivial.hpp>
 #include "utils/Utils.h"
 #include "image/EmptyImage.h"
+#include "image/MirrorImage.h"
 
 /********************************************** ExtendedCompoundImage ************************************************/
 
