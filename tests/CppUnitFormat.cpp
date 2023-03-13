@@ -38,7 +38,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include <string.h>
-#include "enums/Format.h"
+#include "rok4/enums/Format.h"
 
 class CppUnitFormat : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE ( CppUnitFormat );

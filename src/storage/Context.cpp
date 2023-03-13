@@ -48,7 +48,6 @@
  */
 
 #include "storage/Context.h"
-#include "Context.h"
 #include <string.h>
 
 namespace ContextType {

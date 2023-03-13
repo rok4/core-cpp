@@ -36,8 +36,8 @@
  */
 
 #include <cppunit/extensions/HelperMacros.h>
-#include "processors/Kernel.h"
-#include "enums/Interpolation.h"
+#include "rok4/processors/Kernel.h"
+#include "rok4/enums/Interpolation.h"
 #include <sys/time.h>
 #include <cmath>
 #include <cstdlib>

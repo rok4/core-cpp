@@ -49,7 +49,6 @@
 #include "image/Image.h"
 #include "processors/Grid.h"
 #include <boost/log/trivial.hpp>
-#include "processors/Kernel.h"
 
 #include "utils/Utils.h"
 #include <cmath>

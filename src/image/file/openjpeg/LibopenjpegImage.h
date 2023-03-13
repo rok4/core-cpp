@@ -56,7 +56,6 @@
 #include "image/file/FileImage.h"
 #include "image/Image.h"
 #include <openjpeg.h>
-#include "config.h"
 
 #define JP2_RFC3745_MAGIC    "\x00\x00\x00\x0c\x6a\x50\x20\x20\x0d\x0a\x87\x0a"
 #define JP2_MAGIC            "\x0d\x0a\x87\x0a"
