@@ -38,7 +38,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include <string>
-#include "utils/CRS.h"
+#include "rok4/utils/CRS.h"
 
 class CppUnitCRS : public CPPUNIT_NS::TestFixture {
 

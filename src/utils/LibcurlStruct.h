@@ -82,19 +82,19 @@ static size_t header_callback(char *buffer, size_t nitems, size_t size, void *us
     size_t realsize = size * nitems;
     struct HeaderStruct* hdr = (HeaderStruct*) userp;
 
-    if (! strncmp ( buffer,"X-Storage-Url: ", 15)) {
+    if (! strncasecmp ( buffer,"X-Storage-Url: ", 15)) {
         hdr->url = (char*) malloc(realsize - 15);
         strncpy(hdr->url, buffer + 15, realsize - 15 - 2);
         hdr->url[realsize - 15 - 2] = '\0';
     }
 
-    else if (! strncmp ( buffer,"X-Auth-Token: ", 14)) {
+    else if (! strncasecmp ( buffer,"X-Auth-Token: ", 14)) {
         hdr->token = (char*) malloc(realsize);
         strncpy(hdr->token, buffer, realsize - 2);
         hdr->token[realsize - 2] = '\0';
     }
 
-    else if (! strncmp ( buffer,"X-Subject-Token: ", 17)) {
+    else if (! strncasecmp ( buffer,"X-Subject-Token: ", 17)) {
         hdr->token = (char*) malloc(realsize - 17 + 14);
         strncpy(hdr->token, "X-Auth-Token: ", 14);
         strncpy(hdr->token + 14, buffer + 17, realsize - 17 - 2);

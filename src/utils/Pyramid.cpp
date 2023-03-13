@@ -48,8 +48,8 @@
 #include "image/ExtendedCompoundImage.h"
 #include "enums/Format.h"
 #include "utils/Level.h"
+#include "utils/Cache.h"
 #include <cfloat>
-#include "config.h"
 #include "image/EmptyImage.h"
 
 ComparatorLevel compLevelDesc =
@@ -65,7 +65,7 @@ ComparatorLevel compLevelAsc =
     };
 
 
-bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList) {
+bool Pyramid::parse(json11::Json& doc) {
 
     // TMS
     std::string tmsName;
@@ -76,12 +76,11 @@ bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::s
         return false;
     }
 
-    std::map<std::string, TileMatrixSet*>::iterator tmsIt= tmsList.find ( tmsName );
-    if ( tmsIt == tmsList.end() ) {
-        errorMessage =  "Pyramid use unknown TMS [" + tmsName + "]" ;
+    tms = TmsBook::get_tms(tmsName);
+    if ( tms == NULL ) {
+        errorMessage =  "Pyramid use unknown or unloadable TMS [" + tmsName + "]" ;
         return false;
     }
-    tms = tmsIt->second;
 
     // FORMAT
     std::string formatStr;
@@ -170,7 +169,7 @@ bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::s
     if (doc["levels"].is_array()) {
         for (json11::Json l : doc["levels"].array_items()) {
             if (l.is_object()) {
-                Level* level = new Level(l, contextBook, this, filePath);
+                Level* level = new Level(l, this, filePath);
                 if ( ! level->isOk() ) {
                     errorMessage = "levels contains an invalid level : " + level->getErrorMessage();
                     delete level;
@@ -204,14 +203,24 @@ bool Pyramid::parse(json11::Json& doc, ContextBook* contextBook, std::map<std::s
     return true;
 }
 
-Pyramid::Pyramid(Context* context, std::string path, ContextBook* contextBook, std::map<std::string, TileMatrixSet*> tmsList) : Configuration(path) {
+Pyramid::Pyramid(std::string path) : Configuration(path) {
 
     nodataValue = NULL;
 
     /********************** Read */
 
+    ContextType::eContextType storage_type;
+    std::string tray_name, fo_name;
+    ContextType::split_path(path, storage_type, fo_name, tray_name);
+    
+    Context* context = StoragePool::get_context(storage_type, tray_name);
+    if (context == NULL) {
+        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read pyramid's descriptor";
+        return;
+    }
+
     int size = -1;
-    uint8_t* data = context->readFull(size, filePath);
+    uint8_t* data = context->readFull(size, fo_name);
 
     if (size < 0) {
         errorMessage = "Cannot read descriptor "  + path ;
@@ -219,19 +228,17 @@ Pyramid::Pyramid(Context* context, std::string path, ContextBook* contextBook, s
         return;
     }
 
-    /********************** Parse */
-
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + filePath + " : " + err ;
+        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
 
     /********************** Parse */
 
-    if (! parse(doc, contextBook, tmsList)) {
+    if (! parse(doc)) {
         return;
     }
 

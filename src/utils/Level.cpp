@@ -51,23 +51,22 @@
 #include <vector>
 #include "storage/Context.h"
 #include "storage/FileContext.h"
+#include "storage/S3Context.h"
+#include "storage/SwiftContext.h"
 #include "datasource/PaletteDataSource.h"
 #include "enums/Format.h"
-#include "config.h"
 #include <cstddef>
 #include <sys/stat.h>
 
-#if OBJECT_ENABLED
-#include "storage/object/CephPoolContext.h"
-#include "storage/object/S3Context.h"
-#include "storage/object/SwiftContext.h"
+#if CEPH_ENABLED
+#include "storage/ceph/CephPoolContext.h"
 #endif
 
 
 #define EPS 1./256. // FIXME: La valeur 256 est liée au nombre de niveau de valeur d'un canal
 //        Il faudra la changer lorsqu'on aura des images non 8bits.
 
-Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std::string path) : Configuration(path) {
+Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configuration(path) {
     nodataValue = NULL;
 
     // Copie d'informations depuis la pyramide
@@ -119,8 +118,13 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
             return;
         }
 
-        char * fileNameChar = ( char * ) malloc ( strlen ( path.c_str() ) + 1 );
-        strcpy ( fileNameChar, path.c_str() );
+        // En mode fichier, le chemin est potentiellement fourni avec un préfixe file:// qui ne doit pas être repris
+        ContextType::eContextType storage_type;
+        std::string tray_name, fo_name;
+        ContextType::split_path(path, storage_type, fo_name, tray_name);
+
+        char * fileNameChar = ( char * ) malloc ( strlen ( fo_name.c_str() ) + 1 );
+        strcpy ( fileNameChar, fo_name.c_str() );
         char * parentDirChar = dirname ( fileNameChar );
         std::string parent = std::string ( parentDirChar );
         free ( fileNameChar );
@@ -136,36 +140,14 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         pathDepth = doc["storage"]["path_depth"].number_value();
 
-        context = contextBook->addContext(ContextType::FILECONTEXT,"");
+        context = StoragePool::get_context(ContextType::FILECONTEXT, "");
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add file storage context";
             return;
         }
     }
-
-#if OBJECT_ENABLED
-
     /******************* STOCKAGE OBJET ? *********************/
 
-    else if (doc["storage"]["type"].string_value() == "CEPH") {
-
-        if (! doc["storage"]["pool_name"].is_string()) {
-            errorMessage = "Level " + id +": storage.pool_name have to be provided and be a string";
-            return;
-        }
-        if (! doc["storage"]["image_prefix"].is_string()) {
-            errorMessage = "Level " + id +": storage.image_prefix have to be provided and be a string";
-            return;
-        }
-
-        racine = doc["storage"]["image_prefix"].string_value();
-
-        context = contextBook->addContext(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
-        if (context == NULL) {
-            errorMessage = "Level " + id +": cannot add ceph storage context";
-            return;
-        }
-    }
     else if (doc["storage"]["type"].string_value() == "SWIFT") {
 
         if (! doc["storage"]["container_name"].is_string()) {
@@ -179,7 +161,7 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = contextBook->addContext(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
+        context = StoragePool::get_context(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add swift storage context";
             return;
@@ -198,13 +180,32 @@ Level::Level ( json11::Json doc, ContextBook* contextBook, Pyramid* pyramid, std
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = contextBook->addContext(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
+        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;
         }
     }
+#if CEPH_ENABLED
+    else if (doc["storage"]["type"].string_value() == "CEPH") {
 
+        if (! doc["storage"]["pool_name"].is_string()) {
+            errorMessage = "Level " + id +": storage.pool_name have to be provided and be a string";
+            return;
+        }
+        if (! doc["storage"]["image_prefix"].is_string()) {
+            errorMessage = "Level " + id +": storage.image_prefix have to be provided and be a string";
+            return;
+        }
+
+        racine = doc["storage"]["image_prefix"].string_value();
+
+        context = StoragePool::get_context(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
+        if (context == NULL) {
+            errorMessage = "Level " + id +": cannot add ceph storage context";
+            return;
+        }
+    }
 #endif
 
     if (context == NULL) {
@@ -560,7 +561,7 @@ DataSource* Level::getEncodedTile ( int x, int y ) { // TODO: return 0 sur des c
         return NULL;
     }
     BOOST_LOG_TRIVIAL(debug) << path;
-    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, Rok4Format::toMimeType ( format ), context, Rok4Format::toEncoding( format ) );
+    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, context, Rok4Format::toMimeType ( format ), Rok4Format::toEncoding( format ) );
 }
 
 DataSource* Level::getDecodedTile ( int x, int y ) {

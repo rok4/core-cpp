@@ -50,6 +50,9 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include "utils/Cache.h"
+
+#include "storage/Context.h"
 
 bool Style::parse(json11::Json& doc, bool inspire) {
 
@@ -147,49 +150,49 @@ bool Style::parse(json11::Json& doc, bool inspire) {
 
 Style::Style ( std::string path, bool inspire ) : Configuration(path) {
 
+    pente = 0;
+    estompage = 0;
+    palette = 0;
+    aspect = 0;
+
     /********************** Id */
+
     id = Configuration::getFileName(filePath, ".json");
-    BOOST_LOG_TRIVIAL(info) << "Add style " << id << " from file";
+    BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file or object";
 
-    std::ifstream is(filePath);
-    std::stringstream ss;
-    ss << is.rdbuf();
+    /********************** Read */
 
-    std::string err;
-    json11::Json doc = json11::Json::parse ( ss.str(), err );
-    if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + filePath + " : " + err ;
+    ContextType::eContextType storage_type;
+    std::string tray_name, fo_name;
+    ContextType::split_path(path, storage_type, fo_name, tray_name);
+
+    Context* context = StoragePool::get_context(storage_type, tray_name);
+    if (context == NULL) {
+        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read style";
         return;
     }
+
+    int size = -1;
+    uint8_t* data = context->readFull(size, fo_name);
+
+    if (size < 0) {
+        errorMessage = "Cannot read style "  + path ;
+        if (data != NULL) delete[] data;
+        return;
+    }
+
+    std::string err;
+    json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
+    if ( doc.is_null() ) {
+        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        return;
+    }
+    if (data != NULL) delete[] data;
 
     /********************** Parse */
 
     if (! parse(doc, inspire)) {
         return;
-    }
-}
-
-Style::Style ( Style* obj) {
-
-    id = obj->id;
-    identifier = obj->identifier;
-    titles= obj->titles;
-    abstracts = obj->abstracts;
-    keywords = obj->keywords;
-    legendURLs = obj->legendURLs;
-    usableForBroadcast = obj->usableForBroadcast;
-
-    if (obj->pente != 0) {
-        pente = new Pente(*obj->pente);
-    }
-    if (obj->estompage != 0) {
-        estompage = new Estompage(*obj->estompage);
-    }
-    if (obj->palette != 0) {
-        palette = new Palette(*obj->palette);
-    }
-    if (obj->aspect != 0) {
-        aspect = new Aspect(*obj->aspect);
     }
 }
 

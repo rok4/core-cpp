@@ -40,8 +40,8 @@
 
 #include "datastream/DataStream.h"
 #include "image/Image.h"
-#include "TiffHeader.h"
-#include "TiffEncoder.h"
+#include "datastream/TiffHeader.h"
+#include "datastream/TiffEncoder.h"
 #include <zlib.h>
 #include <iostream>
 #include <string.h> // Pour memcpy

@@ -36,7 +36,7 @@
  */
 
 #include <cppunit/extensions/HelperMacros.h>
-#include "utils/Utils.h"
+#include "rok4/utils/Utils.h"
 #include <sys/time.h>
 #include <cstdlib>
 

@@ -48,6 +48,8 @@
 #include "processors/Grid.h"
 #include <boost/log/trivial.hpp>
 
+#include "utils/Cache.h"
+
 #include <algorithm>
 #include <cmath>
 

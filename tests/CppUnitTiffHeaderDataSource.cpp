@@ -1,10 +1,10 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include <string.h>
-#include "datasource/TiffHeaderDataSource.h"
-#include "datastream/TiffEncoder.h"
-#include "image/RawImage.h"
-#include "datastream/TiffHeader.h"
+#include "rok4/datasource/TiffHeaderDataSource.h"
+#include "rok4/datastream/TiffEncoder.h"
+#include "rok4/image/RawImage.h"
+#include "rok4/datastream/TiffHeader.h"
 
 class CppUnitTiffHeaderDataSource : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE ( CppUnitTiffHeaderDataSource );

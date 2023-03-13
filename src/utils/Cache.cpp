@@ -38,16 +38,83 @@
 /**
  * \file Cache.cpp
  ** \~french
- * \brief Implémentation des classes IndexCache, CurlPool et ProjPool
+ * \brief Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool
  ** \~english
- * \brief Implements classes IndexCache, CurlPool and ProjPool
+ * \brief Implements classes IndexCache, CurlPool, StoragePool and ProjPool
  */
 
 #include "utils/Cache.h"
+#include "storage/FileContext.h"
+#include "storage/SwiftContext.h"
+#include "storage/S3Context.h"
+#if CEPH_ENABLED
+    #include "storage/ceph/CephPoolContext.h"
+#endif
 
 std::map<pthread_t, CURL*> CurlPool::pool;
+
 std::map<pthread_t, PJ_CONTEXT*> ProjPool::pool;
-std::list<CacheElement *> IndexCache::cache;
-std::unordered_map<std::string, std::list<CacheElement *>::iterator> IndexCache::map;
+
+std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::pool;
+
+std::list<IndexElement *> IndexCache::cache;
+std::unordered_map<std::string, std::list<IndexElement *>::iterator> IndexCache::map;
 int IndexCache::size = 100;
 int IndexCache::validity = 300;
+
+std::map<std::string, TileMatrixSet*> TmsBook::book;
+std::vector<TileMatrixSet*> TmsBook::trash;
+std::string TmsBook::directory = "";
+
+std::map<std::string, Style*> StyleBook::book;
+std::vector<Style*> StyleBook::trash;
+std::string StyleBook::directory = "";
+bool StyleBook::inspire = false;
+
+Context * StoragePool::get_context(ContextType::eContextType type,std::string tray) {
+    Context* ctx;
+    std::pair<ContextType::eContextType,std::string> key = make_pair(type,tray);
+
+    std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
+    if ( it != pool.end() ) {
+        //le contenant est déjà existant et donc connecté
+        return it->second;
+
+    } else {
+        // ce contenant n'est pas encore connecté, on va créer la connexion
+        // on créé le context selon le type de stockage
+        switch(type){
+#if CEPH_ENABLED
+            case ContextType::CEPHCONTEXT:
+                ctx = new CephPoolContext(tray);
+                break;
+#endif
+            case ContextType::SWIFTCONTEXT:
+                ctx = new SwiftContext(tray);
+                break;
+            case ContextType::S3CONTEXT:
+                ctx = new S3Context(tray);
+                break;
+            case ContextType::FILECONTEXT:
+                ctx = new FileContext(tray);
+                break;
+            default:
+                //ERREUR
+                BOOST_LOG_TRIVIAL(error) << "Ce type de contexte n'est pas géré.";
+                return NULL;
+        }
+
+        // on connecte pour vérifier que ce contexte est valide
+        if (!(ctx->connection())) {
+            BOOST_LOG_TRIVIAL(error) << "Impossible de connecter au contexte de type " << ContextType::toString(type) << ", contenant " << tray;
+            delete ctx;
+            return NULL;
+        }
+
+        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::toString(key.first) << " / '" << key.second << "'" ;
+        pool.insert(make_pair(key,ctx));
+
+        return ctx;
+    }
+
+}
