@@ -6,7 +6,7 @@ Ces librairies facilitent la manipulation d'entités du projet ROK4 comme les Ti
 
 - [Installer la librairie (Debian)](#installer-la-librairie-debian)
 - [Utiliser la librairie](#utiliser-la-librairie)
-    - [Variables d'environnement utilisées pour les accès aux stockages objet](#variables-denvironnement-utilisées-pour-les-accès-aux-stockages-objet)
+    - [Variables d'environnement utilisées](#variables-denvironnement-utilisées)
     - [Hello ROK4 !](#hello-rok4-)
     - [Dans un projet CMake](#dans-un-projet-cmake)
 - [Compiler la librairie (Debian)](#compiler-la-librairie-debian)
@@ -17,7 +17,7 @@ Ces librairies facilitent la manipulation d'entités du projet ROK4 comme les Ti
 
 ## Installer la librairie (Debian)
 
-Installations système requises :
+Installations système requises (listées dans le paquet debian, installées avec la librairie lors du `apt install`) :
 
 * `zlib1g-dev`
 * `libcurl4-openssl-dev`
@@ -47,7 +47,7 @@ apt install ./librok4-dev.deb
 
 ## Utiliser la librairie
 
-### Variables d'environnement utilisées pour les accès aux stockages objet
+### Variables d'environnement utilisées
 
 Leur définition est contrôlée à l'usage.
 
@@ -215,6 +215,7 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS( "Rok4" DEFAULT_MSG ROK4_INCLUDE_DIR ROK4_LIBR
 * `UNITTEST_ENABLED` : active la compilation des tests unitaires. Valeur par défaut : `1`, `0` pour désactiver.
 * `DOC_ENABLED` : active la compilation de la documentation. Valeur par défaut : `1`, `0` pour désactiver.
 * `BUILD_VERSION` : version de la librairie compilée. Valeur par défaut : `0.0.0`. Utile pour la compilation de la documentation.
+* `DEBUG_BUILD` : active la compilation en mode debug. Valeur par défaut : `0`, `1` pour activer.
 
 ### Compilation, tests unitaires et documentation et installation
 
