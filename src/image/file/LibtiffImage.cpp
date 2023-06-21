@@ -51,6 +51,7 @@
 
 #include "image/file/LibtiffImage.h"
 #include <boost/log/trivial.hpp>
+#include <cstdint>
 #include "utils/Utils.h"
 #include "processors/OneBitConverter.h"
 
@@ -183,6 +184,7 @@ static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
 LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     int width=0, height=0, channels=0, planarconfig=0, bitspersample=0, sf=0, ph=0, comp=0, rowsperstrip=0;
+    bool tiled = false;
     TIFF* tif = TIFFOpen ( filename.c_str(), "r" );
     
     
@@ -264,9 +266,13 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
     }
 
     if ( TIFFGetField ( tif, TIFFTAG_ROWSPERSTRIP,&rowsperstrip ) < 1 ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to read number of rows per strip for file " << filename ;
-        TIFFClose ( tif );
-        return NULL;
+        if ( TIFFGetField ( tif, TIFFTAG_TILELENGTH,&rowsperstrip ) < 1 ) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read number of rows per strip or tile length for file " << filename ;
+            TIFFClose ( tif );
+            return NULL;
+        } else {
+            tiled = true;
+        }
     }
 
     ExtraSample::eExtraSample es = ExtraSample::UNKNOWN;
@@ -307,7 +313,7 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
     return new LibtiffImage (
         width, height, resx, resy, channels, bbox, filename,
         sf, bitspersample, ph, comp,
-        tif, rowsperstrip, es
+        tif, rowsperstrip, es, tiled
     );
 }
 
@@ -455,13 +461,13 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToWrite (
 LibtiffImage::LibtiffImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
     int sf, int bps, int ph,
-    int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType) :
+    int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType, bool tiled) :
 
     FileImage ( width, height, resx, resy, channels, bbox, name, toROK4SampleFormat( sf ),
                 bps, toROK4Photometric( ph ), toROK4Compression( comp ), esType
               ),
 
-    tif ( tif ), rowsperstrip ( rowsperstrip ) {
+    tif ( tif ), rowsperstrip ( rowsperstrip ), tiled (tiled) {
     
     // Ce constructeur permet de déterminer si la conversion de 1 à 8 bits est nécessaire, et de savoir si 0 est blanc ou noir
     
@@ -519,10 +525,48 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
         
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
-        int size = TIFFReadEncodedStrip ( tif, current_strip, strip_buffer, -1 );
-        if ( size < 0 ) {
-            BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
-            return 0;
+
+        int size = -1;
+
+        if (tiled) {
+            int tile_width = 0;
+            TIFFGetField(tif, TIFFTAG_TILEWIDTH, &tile_width);
+            int tilenumber_widthwise = width / tile_width + 1;
+            int tile_size = TIFFTileSize(tif);
+            int tile_row_size = TIFFTileRowSize(tif);
+            int last_tile_row_size = (width - (tilenumber_widthwise - 1) * tile_width) * pixelSize;
+            int row_size = width * pixelSize;
+	        tdata_t buf = _TIFFmalloc(tile_size);
+            
+
+            for (int t = 0; t < tilenumber_widthwise; t++) {
+
+                ttile_t tile = current_strip * tilenumber_widthwise + t;
+                size = TIFFReadEncodedTile(tif, tile, buf, -1);
+                if ( size < 0 ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Cannot read tile number " << tile << " of image " << filename ;
+                    return 0;
+                }
+
+                // On constitue la ligne à partir des lignes des tuiles
+                int size_to_read = tile_row_size;
+                if (t == tilenumber_widthwise - 1) {
+                    // on lit la dernière tuile, potentiellement non complète
+                    size_to_read = last_tile_row_size;
+                }
+
+                for ( int l = 0; l < rowsperstrip; l++ ) {
+                    memcpy ( strip_buffer + l * row_size + t * tile_row_size, (uint8_t*) buf + l * tile_row_size, size_to_read );
+                }
+            }
+
+            _TIFFfree(buf);
+        } else {
+            size = TIFFReadEncodedStrip ( tif, current_strip, strip_buffer, -1 );
+            if ( size < 0 ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
+                return 0;
+            }
         }
         
         if (oneTo8bits == 1) {

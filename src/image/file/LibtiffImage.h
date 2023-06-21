@@ -86,6 +86,11 @@ private:
      * \~english \brief Number of line in one strip
      */
     uint16_t rowsperstrip;
+    /**
+     * \~french \brief Est ce que la donnée est tuilée ?
+     * \~english \brief Is the data tiled ?
+     */
+    bool tiled;
 
     /**
      * \~french \brief Buffer de lecture, de taille strip_size
@@ -187,6 +192,7 @@ protected:
      * \param[in] tiff interface de la librairie TIFF entre le fichier et l'objet
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
      * \param[in] esType type du canal supplémentaire, si présent.
+     * \param[in] tiled est ce que la donnée est tuilée
      ** \~english
      * \brief Create a LibtiffImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -203,11 +209,12 @@ protected:
      * \param[in] tiff interface between file and object
      * \param[in] rowsperstrip data buffering size, in line number
      * \param[in] esType extra sample type
+     * \param[in] tiled Is the data tiled ?
      */
     LibtiffImage (
         int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
         int sf, int bps, int ph,
-        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
+        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC, bool tiled = false
     );
 
 public:
