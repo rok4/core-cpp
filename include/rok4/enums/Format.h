@@ -184,15 +184,16 @@ enum ePhotometric {
     UNKNOWN = 0,
     GRAY = 1,
     RGB = 2,
-    YCBCR = 3,
-    MASK = 4
+    PALETTE = 3,
+    YCBCR = 4,
+    MASK = 5
 };
 
 /**
  * \~french \brief Nombre de photométries disponibles
  * \~english \brief Number of photometrics compressions
  */
-const int photometric_size = 4;
+const int photometric_size = 5;
 
 /**
  * \~french \brief Conversion d'une chaîne de caractères vers une photométrie de l'énumération

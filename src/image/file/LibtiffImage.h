@@ -91,6 +91,11 @@ private:
      * \~english \brief Is the data tiled ?
      */
     bool tiled;
+    /**
+     * \~french \brief Est ce que la donnée est palettisée ?
+     * \~english \brief Does the data use palette ?
+     */
+    bool palette;
 
     /**
      * \~french \brief Buffer de lecture, de taille strip_size
@@ -141,7 +146,7 @@ protected:
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
      * \param[in] resy résolution dans le sens des Y
-     * \param[in] channel nombre de canaux par pixel
+     * \param[in] ch nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sampleformat format des canaux
@@ -157,7 +162,7 @@ protected:
      * \param[in] height image height, in pixel
      * \param[in] resx X wise resolution
      * \param[in] resy Y wise resolution
-     * \param[in] channel number of samples per pixel
+     * \param[in] ch number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sampleformat samples' format
@@ -169,7 +174,7 @@ protected:
      * \param[in] esType extra sample type
      */
     LibtiffImage (
-        int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
+        int width, int height, double resx, double resy, int ch, BoundingBox< double > bbox, std::string name,
         SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
         Compression::eCompression compression, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
     );
@@ -182,7 +187,7 @@ protected:
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
      * \param[in] resy résolution dans le sens des Y
-     * \param[in] channel nombre de canaux par pixel
+     * \param[in] ch nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sf format des canaux
@@ -193,13 +198,14 @@ protected:
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
      * \param[in] esType type du canal supplémentaire, si présent.
      * \param[in] tiled est ce que la donnée est tuilée
+     * \param[in] palette est ce que la donnée est palettisée
      ** \~english
      * \brief Create a LibtiffImage object, from all attributes
      * \param[in] width image width, in pixel
      * \param[in] height image height, in pixel
      * \param[in] resx X wise resolution
      * \param[in] resy Y wise resolution
-     * \param[in] channel number of samples per pixel
+     * \param[in] ch number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sf samples' format
@@ -210,11 +216,12 @@ protected:
      * \param[in] rowsperstrip data buffering size, in line number
      * \param[in] esType extra sample type
      * \param[in] tiled Is the data tiled ?
+     * \param[in] palette does the data use palette ? ?
      */
     LibtiffImage (
-        int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
+        int width,int height, double resx, double resy, int ch, BoundingBox<double> bbox, std::string name,
         int sf, int bps, int ph,
-        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC, bool tiled = false
+        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC, bool tiled = false, bool palette = false
     );
 
 public:
