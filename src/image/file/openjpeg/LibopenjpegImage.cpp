@@ -110,11 +110,10 @@ static void info_callback ( const char *msg, void *client_data ) {
 LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     // Set decoding parameters to default values
-    opj_dparameters_t parameters;                   /* decompression parameters */
+    opj_dparameters_t parameters;
     opj_image_t* image = NULL;
-    opj_stream_t *l_stream = NULL;                          /* Stream */
-    opj_codec_t* l_codec = NULL;                            /* Handle to a decompressor */
-    opj_codestream_index_t* cstr_index = NULL;
+    opj_stream_t *stream = NULL;
+    opj_codec_t* codec = NULL;
 
     opj_set_default_decoder_parameters ( &parameters );
     strncpy ( parameters.infile, filename.c_str(), IMAGE_MAX_FILENAME_LENGTH * sizeof ( char ) );
@@ -144,10 +143,10 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
     // Format MAGIC Code
     if ( memcmp ( magic_code, JP2_RFC3745_MAGIC, 12 ) == 0 || memcmp ( magic_code, JP2_MAGIC, 4 ) == 0 ) {
-        l_codec = opj_create_decompress ( OPJ_CODEC_JP2 );
+        codec = opj_create_decompress ( OPJ_CODEC_JP2 );
         BOOST_LOG_TRIVIAL(debug) <<  "Ok, use format JP2 !" ;
     } else if ( memcmp ( magic_code, J2K_CODESTREAM_MAGIC, 4 ) == 0 ) {
-        l_codec = opj_create_decompress ( OPJ_CODEC_J2K );
+        codec = opj_create_decompress ( OPJ_CODEC_J2K );
         BOOST_LOG_TRIVIAL(debug) <<  "Ok, use format J2K !" ;
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Unhandled format for the JPEG2000 file " << filename ;
@@ -159,29 +158,29 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     free ( magic_code );
 
     /* catch events using our callbacks and give a local context */
-    opj_set_info_handler ( l_codec, info_callback,00 );
-    opj_set_warning_handler ( l_codec, warning_callback,00 );
-    opj_set_error_handler ( l_codec, error_callback,00 );
+    opj_set_info_handler ( codec, info_callback,00 );
+    opj_set_warning_handler ( codec, warning_callback,00 );
+    opj_set_error_handler ( codec, error_callback,00 );
 
     /* Setup the decoder decoding parameters using user parameters */
-    if ( !opj_setup_decoder ( l_codec, &parameters ) ) {
+    if ( !opj_setup_decoder ( codec, &parameters ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to setup the decoder for the JPEG2000 file " << filename ;
-        opj_destroy_codec ( l_codec );
+        opj_destroy_codec ( codec );
         return NULL;
     }
 
-    l_stream = opj_stream_create_default_file_stream ( filename.c_str(),1 );
-    if ( !l_stream ) {
+    stream = opj_stream_create_default_file_stream ( filename.c_str(),1 );
+    if ( !stream ) {
         std::fclose ( file );
         BOOST_LOG_TRIVIAL(error) <<  "Unable to create the stream (to read) for the JPEG2000 file " << filename ;
         return NULL;
     }
 
     /* Read the main header of the codestream and if necessary the JP2 boxes*/
-    if ( ! opj_read_header ( l_stream, l_codec, &image ) ) {
+    if ( ! opj_read_header ( stream, codec, &image ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to read the header for the JPEG2000 file " << filename ;
-        opj_stream_destroy ( l_stream );
-        opj_destroy_codec ( l_codec );
+        opj_stream_destroy ( stream );
+        opj_destroy_codec ( codec );
         opj_image_destroy ( image );
         return NULL;
     }
@@ -226,27 +225,13 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
         resx = 1.;
         resy = 1.;
     }
-    
-    /************** LECTURE DE L'IMAGE EN ENTIER ***************/
-
-    /* Get the decoded image */
-    if ( ! ( opj_decode ( l_codec, l_stream, image ) && opj_end_decompress ( l_codec, l_stream ) ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to decode JPEG2000 file " << filename ;
-        opj_destroy_codec ( l_codec );
-        opj_stream_destroy ( l_stream );
-        opj_image_destroy ( image );
-        return NULL;
-    }
-
-    opj_destroy_codec ( l_codec );
-    opj_stream_destroy ( l_stream );
 
     /******************** CRÉATION DE L'OBJET ******************/
 
     return new LibopenjpegImage (
         width, height, resx, resy, channels, bbox, filename,
         sf, bitspersample, ph, Compression::JPEG2000,
-        image
+        image, stream, codec
     );
 
 }
@@ -257,12 +242,14 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 LibopenjpegImage::LibopenjpegImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
     SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
-    opj_image_t *jp2ptr ) :
+    opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec ) :
 
     FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
 
-    jp2image ( jp2ptr ) {
+    jp2_image ( image ), jp2_stream ( stream ), jp2_codec ( codec ) {
 
+    rowsperstrip = 256;
+    current_strip = -1;
 }
 
 /* ------------------------------------------------------------------------------------------------ */
@@ -271,12 +258,26 @@ LibopenjpegImage::LibopenjpegImage (
 template<typename T>
 int LibopenjpegImage::_getline ( T* buffer, int line ) {
 
+    if ( line / rowsperstrip != current_strip ) {
+        
+        // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
+        current_strip = line / rowsperstrip;
+
+        opj_set_decode_area(jp2_codec, jp2_image, 0, current_strip * rowsperstrip, width, std::min((current_strip + 1) * rowsperstrip, height));
+
+        /* Get the decoded image */
+        if ( ! ( opj_decode ( jp2_codec, jp2_stream, jp2_image ) && opj_end_decompress ( jp2_codec, jp2_stream ) ) ) {
+            BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
+            return 0;
+        }
+    }
+
     T buffertmp[width * channels];
 
     for (int i = 0; i < width; i++) {
-        int index = width * line + i;
+        int index = width * (line % rowsperstrip) + i;
         for (int j = 0; j < channels; j++) {
-            buffertmp[i*channels + j] = jp2image->comps[j].data[index];
+            buffertmp[i*channels + j] = jp2_image->comps[j].data[index];
         }
     }
 

@@ -74,12 +74,25 @@ class LibopenjpegImage : public FileImage {
 friend class LibopenjpegImageFactory;
     
 private:
+     
+    /**
+     * \~french \brief Nombre de ligne dans un strip
+     * \~english \brief Number of line in one strip
+     */
+    int rowsperstrip;
+    /**
+     * \~french \brief Indice du strip en mémoire dans strip_buffer
+     * \~english \brief Memorized strip indice, in strip_buffer
+     */
+    int current_strip;
 
     /**
      * \~french \brief Stockage de l'image entière, décompressée
      * \~english \brief Full uncompressed image storage
      */
-    opj_image_t* jp2image;
+    opj_image_t* jp2_image;
+    opj_stream_t* jp2_stream;
+    opj_codec_t* jp2_codec; 
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -125,7 +138,7 @@ protected:
     LibopenjpegImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
         SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
-        opj_image_t* jp2ptr
+        opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec
     );
 
 public:
@@ -235,13 +248,15 @@ public:
     /**
      * \~french
      * \brief Destructeur par défaut
-     * \details Suppression du buffer de lecture #m_data
+     * \details Suppression des buffers de lecture
      * \~english
      * \brief Default destructor
-     * \details We remove read buffer #m_data
+     * \details We remove read buffers
      */
     ~LibopenjpegImage() {
-        opj_image_destroy(jp2image);
+        opj_destroy_codec ( jp2_codec );
+        opj_stream_destroy ( jp2_stream );
+        opj_image_destroy( jp2_image );
     }
 
     /** \~french
@@ -253,7 +268,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibopenjpegImage ------------" ;
         FileImage::print();
-        //BOOST_LOG_TRIVIAL(info) <<  "\t- info sup : " << info sup ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 

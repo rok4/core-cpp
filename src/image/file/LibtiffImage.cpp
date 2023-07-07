@@ -543,8 +543,6 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
 
-        BOOST_LOG_TRIVIAL(debug) <<  "Read strip " << current_strip;
-
         int size = -1;
 
         if (tiled) {
