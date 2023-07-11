@@ -4,16 +4,6 @@
 
 Ces librairies facilitent la manipulation d'entités du projet ROK4 comme les Tile Matrix Sets ou les pyramides, mais aussi la manipulation des données : lecture et écriture des dalles, réechantillonnage et reprojection de données raster. 4 types de stockages sont gérés : fichier, S3, Swift et optionnellement Ceph.
 
-- [Installer la librairie (Debian)](#installer-la-librairie-debian)
-- [Utiliser la librairie](#utiliser-la-librairie)
-    - [Variables d'environnement utilisées](#variables-denvironnement-utilisées)
-    - [Hello ROK4 !](#hello-rok4-)
-    - [Dans un projet CMake](#dans-un-projet-cmake)
-- [Compiler la librairie (Debian)](#compiler-la-librairie-debian)
-    - [Dépendances supplémentaires](#dépendances-supplémentaires)
-    - [Variables CMake](#variables-cmake)
-    - [Compilation, tests unitaires et documentation et installation](#compilation-tests-unitaires-et-documentation-et-installation)
-
 
 ## Installer la librairie (Debian)
 
@@ -227,4 +217,7 @@ make test
 make doc
 make install
 ```
- 
+
+## Contribuer
+
+Consulter les [directives de contribution](./CONTRIBUTING.md)
