@@ -554,7 +554,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
 
             int tile_size = tile_width * tile_height * pixelSize;
             int tile_row_size = tile_width * pixelSize;
-            int last_tile_row_size = (width - (tilenumber_widthwise - 1) * tile_width) * pixelSize;
+            int last_tile_row_size = (width % tile_width) * pixelSize;
 
             int row_size = width * pixelSize;
 

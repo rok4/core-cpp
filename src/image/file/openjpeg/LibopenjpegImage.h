@@ -76,10 +76,20 @@ friend class LibopenjpegImageFactory;
 private:
      
     /**
+     * \~french \brief Est ce que la donnée est tuilée ?
+     * \~english \brief Is the data tiled ?
+     */
+    bool tiled;
+    /**
      * \~french \brief Nombre de ligne dans un strip
      * \~english \brief Number of line in one strip
      */
     int rowsperstrip;
+    /**
+     * \~french \brief Buffer de lecture, de taille strip_size
+     * \~english \brief Read buffer, strip_size long
+     */
+    uint8_t* strip_buffer;
     /**
      * \~french \brief Indice du strip en mémoire dans strip_buffer
      * \~english \brief Memorized strip indice, in strip_buffer
@@ -119,7 +129,11 @@ protected:
      * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
-     * \param[in] jp2ptr pointeur vers l'image JPEG2000
+     * \param[in] image pointeur vers l'objet image OpenJPEG
+     * \param[in] stream pointeur vers l'objet stream OpenJPEG
+     * \param[in] codec pointeur vers l'objet codec OpenJPEG
+     * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
+     * \param[in] tiled est ce que la donnée est tuilée
      ** \~english
      * \brief Create a LibopenjpegImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -133,12 +147,16 @@ protected:
      * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
-     * \param[in] jp2ptr JPEG2000 image's pointer
+     * \param[in] image OpenJPEG image's pointer
+     * \param[in] stream OpenJPEG stream's pointer
+     * \param[in] codec OpenJPEG codec's pointer
+     * \param[in] rowsperstrip data buffering size, in line number
+     * \param[in] tiled Is the data tiled ?
      */
     LibopenjpegImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
         SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
-        opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec
+        opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec, int rowsperstrip, bool tiled
     );
 
 public:
@@ -257,6 +275,7 @@ public:
         opj_destroy_codec ( jp2_codec );
         opj_stream_destroy ( jp2_stream );
         opj_image_destroy( jp2_image );
+        delete [] strip_buffer;
     }
 
     /** \~french
