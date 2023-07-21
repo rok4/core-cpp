@@ -17,7 +17,7 @@ set(KDU_ENABLED 0 CACHE BOOL "Build with kakadu")
 set(KDU_THREADING 0 CACHE STRING "Threading level for kakadu")
 set(UNITTEST_ENABLED 1 CACHE BOOL "Unit tests compilation")
 set(DOC_ENABLED 1 CACHE BOOL "Documentation compilation")
-set(CPACK_SYSTEM_NAME "ubuntu20.04" CACHE STRING "Building OS, to deduce package format to generate")
+set(CPACK_SYSTEM_NAME "ubuntu-20.04" CACHE STRING "Building OS, to deduce package format to generate")
 set(CPACK_PACKAGE_NAME "librok4-dev" CACHE STRING "Package's name")
 
 set(VERSION ${BUILD_VERSION})
@@ -36,6 +36,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 set(CMAKE_HAVE_THREADS_LIBRARY 1)
 set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+################### MODE DEBUG
+
+if(DEBUG_BUILD)
+    set(CMAKE_BUILD_TYPE debugbuild)
+    set(CMAKE_CXX_FLAGS_DEBUGBUILD "-g -O0")
+    set(CMAKE_C_FLAGS_DEBUGBUILD "-g")
+else(DEBUG_BUILD)
+    set(CMAKE_BUILD_TYPE specificbuild)
+    set(CMAKE_CXX_FLAGS_SPECIFICBUILD "-O3")
+endif(DEBUG_BUILD)
 
 ################### RECHERCHE DES DÉPENDANCES
 
@@ -109,9 +120,9 @@ if(UNITTEST_ENABLED)
     add_executable(UnitTester-${PROJECT_NAME} tests/main.cpp ${UnitTests_SRCS} tests/TimedTestListener.cpp tests/XmlTimedTestOutputterHook.cpp )
     target_link_libraries(UnitTester-${PROJECT_NAME} cppunit ${PROJECT_NAME})
     foreach(test ${UnitTests_SRCS})
-          message("  - adding test ${test}")
-          get_filename_component(TestName ${test} NAME_WE)
-          add_test(${TestName} UnitTester-${PROJECT_NAME} ${TestName})
+        message("  - adding test ${test}")
+        get_filename_component(TestName ${test} NAME_WE)
+        add_test(${TestName} UnitTester-${PROJECT_NAME} ${TestName})
     endforeach(test)
 endif(UNITTEST_ENABLED)
 
@@ -168,7 +179,7 @@ if(CEPH_ENABLED)
 else(CEPH_ENABLED)
     set(CPACK_PACKAGE_FILE_NAME "librok4-base-${VERSION}-${CPACK_SYSTEM_NAME}-${BUILD_ARCHITECTURE}")
 endif(CEPH_ENABLED)
-set(CPACK_PACKAGING_INSTALL_PREFIX "/")
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
 
 set(CPACK_PACKAGE_VERSION ${VERSION})
 set(CPACK_PACKAGE_VENDOR "IGN")

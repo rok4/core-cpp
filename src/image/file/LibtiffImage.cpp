@@ -51,6 +51,7 @@
 
 #include "image/file/LibtiffImage.h"
 #include <boost/log/trivial.hpp>
+#include <cstdint>
 #include "utils/Utils.h"
 #include "processors/OneBitConverter.h"
 
@@ -87,6 +88,8 @@ static Photometric::ePhotometric toROK4Photometric ( uint16_t ph ) {
         return Photometric::GRAY;
     case PHOTOMETRIC_MINISWHITE :
         return Photometric::GRAY;
+    case PHOTOMETRIC_PALETTE :
+        return Photometric::PALETTE;
     case PHOTOMETRIC_RGB :
         return Photometric::RGB;
     case PHOTOMETRIC_YCBCR :
@@ -104,6 +107,8 @@ static uint16_t fromROK4Photometric ( Photometric::ePhotometric ph ) {
         return PHOTOMETRIC_MINISBLACK;
     case Photometric::RGB :
         return PHOTOMETRIC_RGB;
+    case Photometric::PALETTE :
+        return PHOTOMETRIC_PALETTE;
     case Photometric::YCBCR :
         return PHOTOMETRIC_YCBCR;
     case Photometric::MASK :
@@ -183,6 +188,7 @@ static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
 LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     int width=0, height=0, channels=0, planarconfig=0, bitspersample=0, sf=0, ph=0, comp=0, rowsperstrip=0;
+    bool tiled = false, palette = false;
     TIFF* tif = TIFFOpen ( filename.c_str(), "r" );
     
     
@@ -251,10 +257,8 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
         return NULL;
     }
     
-    if (toROK4Photometric ( ph ) == 0) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not handled photometric (PALETTE ?) for file " << filename ;
-        TIFFClose ( tif );
-        return NULL;            
+    if (toROK4Photometric ( ph ) == Photometric::PALETTE) {        
+        palette = true;
     }
 
     if ( TIFFGetField ( tif, TIFFTAG_COMPRESSION,&comp ) < 1 ) {
@@ -264,9 +268,13 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
     }
 
     if ( TIFFGetField ( tif, TIFFTAG_ROWSPERSTRIP,&rowsperstrip ) < 1 ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to read number of rows per strip for file " << filename ;
-        TIFFClose ( tif );
-        return NULL;
+        if ( TIFFGetField ( tif, TIFFTAG_TILELENGTH,&rowsperstrip ) < 1 ) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read number of rows per strip or tile length for file " << filename ;
+            TIFFClose ( tif );
+            return NULL;
+        } else {
+            tiled = true;
+        }
     }
 
     ExtraSample::eExtraSample es = ExtraSample::UNKNOWN;
@@ -279,6 +287,12 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
         if ( es == ExtraSample::ALPHA_ASSOC ) {
             BOOST_LOG_TRIVIAL(info) <<  "Alpha sample is associated for the file " << filename << ". We will convert for reading";
         }
+    }
+
+    if (palette && es != ExtraSample::UNKNOWN) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot read image with color map and alpha channel (file " << filename << ")";
+        TIFFClose ( tif );
+        return NULL;
     }
     
     /********************** CONTROLES **************************/
@@ -307,7 +321,7 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
     return new LibtiffImage (
         width, height, resx, resy, channels, bbox, filename,
         sf, bitspersample, ph, comp,
-        tif, rowsperstrip, es
+        tif, rowsperstrip, es, tiled, palette
     );
 }
 
@@ -453,15 +467,15 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToWrite (
 /* ----------------------------------------- CONSTRUCTEURS ---------------------------------------- */
 
 LibtiffImage::LibtiffImage (
-    int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
+    int width,int height, double resx, double resy, int ch, BoundingBox<double> bbox, std::string name,
     int sf, int bps, int ph,
-    int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType) :
+    int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType, bool tiled, bool palette) :
 
-    FileImage ( width, height, resx, resy, channels, bbox, name, toROK4SampleFormat( sf ),
+    FileImage ( width, height, resx, resy, ch, bbox, name, toROK4SampleFormat( sf ),
                 bps, toROK4Photometric( ph ), toROK4Compression( comp ), esType
               ),
 
-    tif ( tif ), rowsperstrip ( rowsperstrip ) {
+    tif ( tif ), rowsperstrip ( rowsperstrip ), tiled (tiled), palette (palette) {
     
     // Ce constructeur permet de déterminer si la conversion de 1 à 8 bits est nécessaire, et de savoir si 0 est blanc ou noir
     
@@ -480,6 +494,15 @@ LibtiffImage::LibtiffImage (
         }
     } else {
         oneTo8bits = 0;
+    }
+
+    if (palette) {
+        // On fera la conversion en entiers à la volée.
+        // On change donc les informations, pour exposer le format final.
+        BOOST_LOG_TRIVIAL(debug) <<  "We have a color map for the file " << filename << ". We will convert for reading into RGB samples";
+        channels = 3;
+        pixelSize = channels;
+        photometric = Photometric::RGB;
     }
 
     current_strip = -1;
@@ -519,10 +542,107 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
         
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
-        int size = TIFFReadEncodedStrip ( tif, current_strip, strip_buffer, -1 );
-        if ( size < 0 ) {
-            BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
-            return 0;
+
+        int size = -1;
+
+        if (tiled) {
+            int tile_width = 0,  tile_height = 0;
+            TIFFGetField(tif, TIFFTAG_TILEWIDTH, &tile_width);
+            TIFFGetField(tif, TIFFTAG_TILELENGTH, &tile_height);
+
+            int tilenumber_widthwise = width / tile_width + 1;
+
+            int tile_size = tile_width * tile_height * pixelSize;
+            int tile_row_size = tile_width * pixelSize;
+            int last_tile_row_size = (width % tile_width) * pixelSize;
+
+            int row_size = width * pixelSize;
+
+            tdata_t tile_buf = _TIFFmalloc(tile_size);
+
+            for (int t = 0; t < tilenumber_widthwise; t++) {
+
+                if (palette) {
+                    uint32* palette_buffer = new uint32[width * rowsperstrip];
+
+                    size = TIFFReadRGBATile(tif, t * tile_width, current_strip * tile_height, palette_buffer );
+                    if ( size == 0 ) {
+                        BOOST_LOG_TRIVIAL(error) <<  "Cannot read tile " << t * tile_width << "," << current_strip * tile_height << " of image with color map " << filename ;
+                        return 0;
+                    }
+
+                    if (channels == 4) {
+                        BOOST_LOG_TRIVIAL(error) <<  "Cannot read image with color map and alpha channel (file " << filename << ")";
+                        return 0;
+                    } else if (channels == 3) {
+                        // On ne doit pas garder le dernier octet de chaque entier sur 32 bits (canal alpha non présent)
+                        for (int l = 0; l < rowsperstrip; l++) {
+                            for (int i = 0; i < tile_width; i++) {
+                                memcpy ( (uint8_t*) tile_buf + (tile_width * l + i) * pixelSize, palette_buffer + (rowsperstrip - 1 - l) * tile_width + i, 3 );
+                            }
+                        }
+                    }
+
+                    delete [] palette_buffer;
+                } else {
+                    ttile_t tile = current_strip * tilenumber_widthwise + t;
+                    size = TIFFReadEncodedTile(tif, tile, tile_buf, -1);
+                    if ( size < 0 ) {
+                        BOOST_LOG_TRIVIAL(error) <<  "Cannot read tile number " << tile << " of image " << filename ;
+                        return 0;
+                    }
+                }
+
+                // On constitue la ligne à partir des lignes des tuiles
+                int size_to_read = tile_row_size;
+                if (t == tilenumber_widthwise - 1) {
+                    // on lit la dernière tuile, potentiellement non complète
+                    size_to_read = last_tile_row_size;
+                }
+
+                for ( int l = 0; l < rowsperstrip; l++ ) {
+                    memcpy ( strip_buffer + l * row_size + t * tile_row_size, (uint8_t*) tile_buf + l * tile_row_size, size_to_read );
+                }
+            }
+
+            _TIFFfree(tile_buf);
+        } else {
+            if (palette) {
+                uint32* palette_buffer = new uint32[width * rowsperstrip];
+                size = TIFFReadRGBAStrip ( tif, line, palette_buffer);
+                if ( size == 0 ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image with color map " << filename ;
+                    return 0;
+                }
+
+                // Les lignes dans le strip lue ne sont pas dans le même ordre, mais sont indexées de bas en haut
+
+                if (channels == 4) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Cannot read image with color map and alpha channel (file " << filename << ")";
+                    return 0;
+                } else if (channels == 3) {
+                    // On ne doit pas garder le dernier octet de chaque entier sur 32 bits (canal alpha non présent)
+
+                    // on va calculer le nombre de ligne dans le strip : pour le dernier, on peut avoir moins de lignes
+                    int rows_count = rowsperstrip;
+                    if (line / rowsperstrip == (height - 1) / rowsperstrip) {
+                        rows_count = height % rowsperstrip;
+                    }
+                    
+                    for (int l = 0; l < rows_count; l++) {
+                        for (int i = 0; i < width; i++) {
+                            memcpy ( strip_buffer + (width * l + i) * pixelSize, palette_buffer + (rows_count - 1 - l) * width + i, 3 );
+                        }
+                    }
+                }
+                delete [] palette_buffer;
+            } else {
+                size = TIFFReadEncodedStrip ( tif, current_strip, strip_buffer, -1 );
+                if ( size < 0 ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
+                    return 0;
+                }
+            }
         }
         
         if (oneTo8bits == 1) {

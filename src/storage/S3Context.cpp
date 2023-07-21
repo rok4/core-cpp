@@ -50,6 +50,7 @@
 #include "storage/S3Context.h"
 #include "utils/LibcurlStruct.h"
 #include <curl/curl.h>
+#include <rok4/storage/Context.h>
 #include <sys/stat.h>
 #include <openssl/hmac.h>
 #include <time.h>

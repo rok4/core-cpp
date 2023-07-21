@@ -1,8 +1,22 @@
-## Summary
+
+## 1.1.0
+
+### [Added]
+
+* LibtiffImage
+    * Capacité à lire des images tuilées
+    * Capacité à lire des images avec palette
+
+### [Changed]
+
+* LibopenjpegImage
+    * Lecture des images à tuile unique par paquet de 256 lignes
+    * Lecture des images tuilées par tuile
+
+
+## 1.0.3
 
 Les librairies sont gérées de manière indépendantes, conditionnées pour être installées en tant que dépendance dynamique. Le projet a son propre site, avec toutes les versions et leur documentation.
-
-## Changelog
 
 ### [Added]
 
@@ -20,16 +34,4 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
     * Jeu des tests unitaires
     * Compilation de la documentation et publication sur la branche gh-pages
 
-<!-- 
-### [Added]
-
-### [Changed]
-
-### [Deprecated]
-
-### [Removed]
-
-### [Fixed]
-
-### [Security] 
--->
+* Ajout du mode DEBUG à la compilation

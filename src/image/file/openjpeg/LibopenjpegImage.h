@@ -74,12 +74,35 @@ class LibopenjpegImage : public FileImage {
 friend class LibopenjpegImageFactory;
     
 private:
+     
+    /**
+     * \~french \brief Est ce que la donnée est tuilée ?
+     * \~english \brief Is the data tiled ?
+     */
+    bool tiled;
+    /**
+     * \~french \brief Nombre de ligne dans un strip
+     * \~english \brief Number of line in one strip
+     */
+    int rowsperstrip;
+    /**
+     * \~french \brief Buffer de lecture, de taille strip_size
+     * \~english \brief Read buffer, strip_size long
+     */
+    uint8_t* strip_buffer;
+    /**
+     * \~french \brief Indice du strip en mémoire dans strip_buffer
+     * \~english \brief Memorized strip indice, in strip_buffer
+     */
+    int current_strip;
 
     /**
      * \~french \brief Stockage de l'image entière, décompressée
      * \~english \brief Full uncompressed image storage
      */
-    opj_image_t* jp2image;
+    opj_image_t* jp2_image;
+    opj_stream_t* jp2_stream;
+    opj_codec_t* jp2_codec; 
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -106,7 +129,11 @@ protected:
      * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
-     * \param[in] jp2ptr pointeur vers l'image JPEG2000
+     * \param[in] image pointeur vers l'objet image OpenJPEG
+     * \param[in] stream pointeur vers l'objet stream OpenJPEG
+     * \param[in] codec pointeur vers l'objet codec OpenJPEG
+     * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
+     * \param[in] tiled est ce que la donnée est tuilée
      ** \~english
      * \brief Create a LibopenjpegImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -120,12 +147,16 @@ protected:
      * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
-     * \param[in] jp2ptr JPEG2000 image's pointer
+     * \param[in] image OpenJPEG image's pointer
+     * \param[in] stream OpenJPEG stream's pointer
+     * \param[in] codec OpenJPEG codec's pointer
+     * \param[in] rowsperstrip data buffering size, in line number
+     * \param[in] tiled Is the data tiled ?
      */
     LibopenjpegImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
         SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
-        opj_image_t* jp2ptr
+        opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec, int rowsperstrip, bool tiled
     );
 
 public:
@@ -235,13 +266,16 @@ public:
     /**
      * \~french
      * \brief Destructeur par défaut
-     * \details Suppression du buffer de lecture #m_data
+     * \details Suppression des buffers de lecture
      * \~english
      * \brief Default destructor
-     * \details We remove read buffer #m_data
+     * \details We remove read buffers
      */
     ~LibopenjpegImage() {
-        opj_image_destroy(jp2image);
+        opj_destroy_codec ( jp2_codec );
+        opj_stream_destroy ( jp2_stream );
+        opj_image_destroy( jp2_image );
+        delete [] strip_buffer;
     }
 
     /** \~french
@@ -253,7 +287,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibopenjpegImage ------------" ;
         FileImage::print();
-        //BOOST_LOG_TRIVIAL(info) <<  "\t- info sup : " << info sup ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 
