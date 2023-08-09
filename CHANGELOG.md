@@ -1,3 +1,9 @@
+## 1.1.1
+
+### [Fixed]
+
+* LibopenjpegImage
+    * Fixe sur la lecture des images à tuile unique suite au zonage
 
 ## 1.1.0
 

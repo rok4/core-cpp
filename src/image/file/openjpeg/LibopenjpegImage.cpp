@@ -307,7 +307,11 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
             }
 
         } else {
-            opj_set_decode_area(jp2_codec, jp2_image, 0, current_strip * rowsperstrip, width, std::min((current_strip + 1) * rowsperstrip, height));
+            /* Get the decoded area */
+            if ( ! ( opj_set_decode_area(jp2_codec, jp2_image, 0, current_strip * rowsperstrip, width, std::min((current_strip + 1) * rowsperstrip, height))) ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Cannot read aera " << current_strip << " of image " << filename ;
+                return 0;
+            }
 
             /* Get the decoded image */
             if ( ! ( opj_decode ( jp2_codec, jp2_stream, jp2_image ) && opj_end_decompress ( jp2_codec, jp2_stream ) ) ) {
@@ -315,9 +319,13 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
                 return 0;
             }
 
-            for (int l = 0; l < rowsperstrip; l++) {
+            // on prend la hauteur de la zone (area) en cours suite au decoupage afin d'eviter des
+            // appels hors limites
+            int current_rowsperstrip = jp2_image->comps[0].h;
+            BOOST_LOG_TRIVIAL(debug) << "current rowsperstrip height: " << current_rowsperstrip;
+            for (int l = 0; l < current_rowsperstrip; l++) {
                 for (int i = 0; i < width; i++) {
-                    int index = width * (l % rowsperstrip) + i;
+                    int index = width * (l % current_rowsperstrip) + i;
                     for (int j = 0; j < channels; j++) {
                         *( (T*) (strip_buffer + l * row_size + i * pixelSize + j * sizeof(T)) ) = jp2_image->comps[j].data[index];
                     }
