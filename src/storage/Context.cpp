@@ -52,68 +52,70 @@
 
 namespace ContextType {
 
-/**
- * \~french \brief Noms des types de contextes
- * \~english \brief Available context type names
- */
-const char *eContextTypeName[] = {
-    "unknown",
-    "file",
-    "ceph",
-    "swift",
-    "s3"
-};
+    /**
+     * \~french \brief Noms des types de contextes
+     * \~english \brief Available context type names
+     */
+    const char *eContextTypeName[] = {
+        "unknown",
+        "file",
+        "ceph",
+        "swift",
+        "s3"
+    };
 
-std::string toString ( eContextType ct ) {
-    return std::string ( eContextTypeName[ct] );
-}
-
-eContextType fromString ( std::string strct ) {
-    int i;
-    for ( i = contexttype_size; i ; --i ) {
-        if ( strct.compare ( eContextTypeName[i] ) == 0 )
-            break;
+    std::string toString ( eContextType ct ) {
+        return std::string ( eContextTypeName[ct] );
     }
-    return static_cast<eContextType> ( i );
-}
 
+    eContextType fromString ( std::string strct ) {
+        int i;
+        for ( i = contexttype_size; i ; --i ) {
+            if ( strct.compare ( eContextTypeName[i] ) == 0 )
+                break;
+        }
+        return static_cast<eContextType> ( i );
+    }
 
-void split_path(std::string path, ContextType::eContextType& type, std::string& fo, std::string& tray) {
+    void split_path(std::string path, ContextType::eContextType& type, std::string& fo, std::string& tray) {
 
-    std::stringstream ss(path);
-    std::string token;
-    char delim = ':';
-    std::getline(ss, token, delim);
-    std::string storage_type = token;
+        std::stringstream ss(path);
+        std::string token;
+        char delim = ':';
+        std::getline(ss, token, delim);
+        std::string storage_type = token; // ex. S3
 
-    
-    if (storage_type != path) {
-        // Un type de stockage a été précisé, on l'enlève pour passer à la suite
-        type = ContextType::fromString(storage_type);
-        if (type == ContextType::UNKNOWN) {
+        
+        if (storage_type != path) {
+            // Un type de stockage a été précisé, on l'enlève pour passer à la suite
+            type = ContextType::fromString(storage_type);
+            if (type == ContextType::UNKNOWN) {
+                type = ContextType::FILECONTEXT;
+            }
+            path.erase(0, storage_type.length() + 3); // ex. on enlève S3://
+        } else {
             type = ContextType::FILECONTEXT;
         }
-        path.erase(0, storage_type.length() + 3);
-    } else {
-        type = ContextType::FILECONTEXT;
-    }
 
 
-    if (type == ContextType::FILECONTEXT) {
-        // Dans le cas d'un stockage fichier, le nom du fichier est l'ensemble et on ne définit pas de contenant
-        fo = path;
+        if (type == ContextType::FILECONTEXT) {
+            // Dans le cas d'un stockage fichier, le nom du fichier est l'ensemble et on ne définit pas de contenant
+            fo = path;
+            return;
+        }
+
+        // Dans le cas d'un stockage objet, on sépare le contenant du nom de l'objet
+        // Pour S3, le cluster peut être precisé (facultatif) :
+        //   ex. s3://pyramids@s3.storage.fr:1234/BDORTHO/...
+        ss = std::stringstream(path);
+        delim = '/';
+        std::getline(ss, token, delim);
+        tray = token; // ex. pour S3, layers, pyramids, ... = type de bucket avec/sans cluster
+
+
+        path.erase(0, tray.length() + 1);
+        fo = path; // ex. pour S3, le chemin du fichier dans le bucket
         return;
     }
-
-    // Dans le cas d'un stockage objet, on sépare le contenant du nom de l'objet
-    ss = std::stringstream(path);
-    delim = '/';
-    std::getline(ss, token, delim);
-    tray = token;
-
-    path.erase(0, tray.length() + 1);
-    fo = path;
-    return;
-}
 
 }

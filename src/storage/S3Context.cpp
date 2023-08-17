@@ -56,46 +56,112 @@
 #include <time.h>
 #include "utils/Cache.h"
 
-S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_name(b) {
 
-    char* u = getenv (ROK4_S3_URL);
+S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_name(b), initialized(true) {
+
+    // Le cluster est il renseigné dans la clef ?
+    //  ex. bucket@cluster
+    // Pour eviter les doublons, le port du cluster doit être renseigné !
+    std::string cluster_name;
+    std::size_t found_cluster = b.find("@");
+    if (found_cluster != std::string::npos) {
+        cluster_name = b.substr(found_cluster + 1);
+        this->bucket_name = b.substr(0, found_cluster);
+    }
+
+    // separateur des clusters (les variables d'environnement)
+    const char delim = ';';
+    // index des informations du cluster (les variables d'environnement)
+    int index = -1;
+
+    char* u = getenv (ROK4_S3_URL); // liste d'urls des clusters
     if (u == NULL) {
-        url.assign("http://localhost:8080");
+        this->url.assign("http://localhost:8080");
     } else {
-        url.assign(u);
+        std::vector<std::string> list_urls;
+        std::stringstream urls(std::string ((char*)u));
+ 
+        std::string s;
+        while (std::getline(urls, s, delim)) {
+            list_urls.push_back(s);
+        }
+        // Si le cluster n'est pas renseigné, par defaut, on prend le 1er element dans la liste.
+        // Sinon, on le recherche dans la liste des urls des clusters
+        if (cluster_name.empty()) {
+            this->url = list_urls.at(0);
+            index = 0;
+        } else {
+            for (std::string current_url : list_urls) {
+                index++;
+                if (current_url.find(cluster_name) != std::string::npos) {
+                    this->url = current_url;
+                    break;
+                }
+            }
+        }
+        // test 
+        if (this->url.empty()) {
+            this->initialized = false;
+        }
     }
 
-    // On calcule host = url sans le protocole ni le port
-
-    host = url;
-    std::size_t found = host.find("://");
-    if (found != std::string::npos) {
-        host = host.substr(found + 3);
+    // Si l'url est vide, pas la peine de chercher le host...
+    if (!this->url.empty()) {
+        
+        // On calcule host = url sans le protocole ni le port
+        this->host = this->url;
+        std::size_t found = host.find("://");
+        if (found != std::string::npos) {
+            this->host = this->host.substr(found + 3);
+        }
+        found = this->host.find(":");
+        if (found != std::string::npos) {
+            this->host = this->host.substr(0, found);
+        }    
     }
-    found = host.find(":");
-    if (found != std::string::npos) {
-        host = host.substr(0, found);
-    }    
-
+        
     char* k = getenv (ROK4_S3_KEY);
     if (k == NULL) {
-        key.assign("KEY");
+        this->key.assign("KEY");
     } else {
-        key.assign(k);
+        std::stringstream keys(std::string ((char*)k));
+        std::string s;
+        int i = -1;
+        while (std::getline(keys, s, delim)) {
+            i++;
+            if (i == index) {
+                this->key.assign(s);
+            }
+        }
+        // test 
+        if (this->key.empty()) {
+            this->initialized = false;
+        }
     }
 
     char* sk = getenv (ROK4_S3_SECRETKEY);
     if (sk == NULL) {
-        secret_key.assign("SECRETKEY");
+        this->secret_key.assign("SECRETKEY");
     } else {
-        secret_key.assign(sk);
+        std::stringstream secretkeys(std::string ((char*)sk));
+        std::string s;
+        int i = -1;
+        while (std::getline(secretkeys, s, delim)) {
+            i++;
+            if (i == index) {
+                this->secret_key.assign(s);
+            }
+        }
+        // test 
+        if (this->secret_key.empty()) {
+            this->initialized = false;
+        }
     }
 
     if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
-        ssl_no_verify=true;
+        this->ssl_no_verify=true;
     }
 }
-
 
 bool S3Context::connection() {
     connected = true;
@@ -172,7 +238,7 @@ static const char mon_name[][4] = {
 
 int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
 
-    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << " / " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << host << " / " << name;
 
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -273,7 +339,7 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
     
     size = -1;
     
-    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << " / " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << host << " / " << name;
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
     CURLcode res;

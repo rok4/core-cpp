@@ -106,6 +106,8 @@ private:
      */
     bool ssl_no_verify;
 
+    bool initialized;
+
     /**
      * \~french \brief Calcule la signature à partir du header
      * \~english \brief Calculate header's signature
@@ -143,7 +145,7 @@ public:
     ContextType::eContextType getType();
     std::string getTypeStr();
     std::string getTray();
-        
+
     int read(uint8_t* data, int offset, int size, std::string name);
     uint8_t* readFull(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
@@ -179,7 +181,6 @@ public:
         return oss.str() ;
     }
     
-
     /**
      * \~french \brief Récupère l'URL publique #public_url et constitue l'en-tête HTTP #authHdr
      * \~english \brief Get public URL #public_url and constitute the HTTP header #authHdr
@@ -189,7 +190,11 @@ public:
     void closeConnection() {
         connected = false;
     }
-    
+
+    bool isInitialized() {
+        return initialized;
+    }
+
     ~S3Context() {
         closeConnection();
     }

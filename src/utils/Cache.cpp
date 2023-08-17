@@ -77,7 +77,7 @@ Context * StoragePool::get_context(ContextType::eContextType type,std::string tr
 
     std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
     if ( it != pool.end() ) {
-        //le contenant est déjà existant et donc connecté
+        // le contenant est déjà existant et donc connecté
         return it->second;
 
     } else {
@@ -93,7 +93,13 @@ Context * StoragePool::get_context(ContextType::eContextType type,std::string tr
                 ctx = new SwiftContext(tray);
                 break;
             case ContextType::S3CONTEXT:
+                // Pour S3, tray = bucket@cluster
                 ctx = new S3Context(tray);
+                if (! ((S3Context *) ctx)->isInitialized()) {
+                    //ERREUR
+                    BOOST_LOG_TRIVIAL(error) << "Le contexte n'a pas pu être initialisé !?";
+                    return NULL;
+                }
                 break;
             case ContextType::FILECONTEXT:
                 ctx = new FileContext(tray);

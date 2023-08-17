@@ -512,6 +512,10 @@ std::string SwiftContext::getTray() {
     return container_name;
 }
 
+bool SwiftContext::writeFromFile(std::string fileName, std::string objectName) {
+    BOOST_LOG_TRIVIAL(warning) << "Not yet implemented !";
+    return false;
+}
 
 bool SwiftContext::openToWrite(std::string name) {
 
