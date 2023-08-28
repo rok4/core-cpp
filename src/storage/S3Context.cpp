@@ -57,20 +57,19 @@
 #include "utils/Cache.h"
 
 
-S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_name(b), initialized(true) {
+S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_name(b), cluster_name(""), initialized(true) {
 
     // Le cluster est il renseigné dans la clef ?
     //  ex. bucket@cluster
     // Pour eviter les doublons, le port du cluster doit être renseigné !
-    std::string cluster_name;
     std::size_t found_cluster = b.find("@");
     if (found_cluster != std::string::npos) {
-        cluster_name = b.substr(found_cluster + 1);
+        this->cluster_name = b.substr(found_cluster + 1);
         this->bucket_name = b.substr(0, found_cluster);
     }
 
     // separateur des clusters (les variables d'environnement)
-    const char delim = ';';
+    const char delim = ',';
     // index des informations du cluster (les variables d'environnement)
     int index = -1;
 
@@ -87,13 +86,13 @@ S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_n
         }
         // Si le cluster n'est pas renseigné, par defaut, on prend le 1er element dans la liste.
         // Sinon, on le recherche dans la liste des urls des clusters
-        if (cluster_name.empty()) {
+        if (this->cluster_name.empty()) {
             this->url = list_urls.at(0);
             index = 0;
         } else {
             for (std::string current_url : list_urls) {
                 index++;
-                if (current_url.find(cluster_name) != std::string::npos) {
+                if (current_url.find(this->cluster_name) != std::string::npos) {
                     this->url = current_url;
                     break;
                 }
@@ -238,7 +237,7 @@ static const char mon_name[][4] = {
 
 int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
 
-    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << host << " / " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
 
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -339,7 +338,7 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
     
     size = -1;
     
-    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << host << " / " << name;
+    BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
     CURLcode res;
@@ -477,6 +476,10 @@ std::string S3Context::getTypeStr() {
 
 std::string S3Context::getTray() {
     return bucket_name;
+}
+
+std::string S3Context::getCluster() {
+    return cluster_name;
 }
 
 std::string S3Context::getPath(std::string racine,int x,int y,int pathDepth){

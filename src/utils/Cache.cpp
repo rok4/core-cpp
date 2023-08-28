@@ -77,6 +77,7 @@ Context * StoragePool::get_context(ContextType::eContextType type,std::string tr
 
     std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
     if ( it != pool.end() ) {
+        BOOST_LOG_TRIVIAL(debug) << "Storage context already added " << ContextType::toString(it->first.first) << " / '" << it->first.second << "'" ;
         // le contenant est déjà existant et donc connecté
         return it->second;
 
@@ -122,5 +123,4 @@ Context * StoragePool::get_context(ContextType::eContextType type,std::string tr
 
         return ctx;
     }
-
 }

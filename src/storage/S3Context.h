@@ -83,11 +83,13 @@ private:
      * \~english \brief S3 API Host (URL without protocol or port)
      */
     std::string host;
+
     /**
      * \~french \brief Clé S3
      * \~english \brief S3 key
      */
     std::string key;
+
     /**
      * \~french \brief Clé de hachage S3
      * \~english \brief S3 hash key
@@ -99,6 +101,12 @@ private:
      * \~english \brief S3 container name
      */
     std::string bucket_name;
+
+     /**
+     * \~french \brief Nom du cluster S3
+     * \~english \brief S3 cluster name
+     */
+    std::string cluster_name;
     
     /**
      * \~french \brief  Ne pas vérifier les certificats SSL avec Curl?
@@ -145,6 +153,7 @@ public:
     ContextType::eContextType getType();
     std::string getTypeStr();
     std::string getTray();
+    std::string getCluster();
 
     int read(uint8_t* data, int offset, int size, std::string name);
     uint8_t* readFull(int& size, std::string name);
