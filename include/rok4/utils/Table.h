@@ -79,7 +79,7 @@ class Table
             res << ",\"geometry\":\"" << geometry << "\"";
             res << ",\"maxzoom\":\"" << max << "\"";
             res << ",\"minzoom\":\"" << min << "\"";
-            res << ",\"filedsCount\":\"" << attributes.size() << "\"";
+            res << ",\"fieldsCount\":\"" << attributes.size() << "\"";
             res << ",\"fields\":{";
             for (int i = 0; i < attributes.size(); i++) {
                 if (i != 0) {
