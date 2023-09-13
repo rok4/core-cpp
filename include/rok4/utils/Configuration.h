@@ -110,11 +110,11 @@ class Configuration
 
             std::string id;
 
-            unsigned int idBegin=file.rfind ( "/" );
+            size_t idBegin=file.rfind ( "/" );
             if ( idBegin == std::string::npos ) {
                 idBegin=0;
             }
-            unsigned int idEnd=file.rfind ( extension );
+            size_t idEnd=file.rfind ( extension );
             if ( idEnd == std::string::npos ) {
                 idEnd=file.size();
             }

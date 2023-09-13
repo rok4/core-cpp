@@ -185,6 +185,8 @@ public:
      * \~english \brief Get public URL #public_url and constitute the HTTP header #authHdr
      */
     bool connection();
+    
+    bool exists(std::string name);
 
     void closeConnection() {
         connected = false;

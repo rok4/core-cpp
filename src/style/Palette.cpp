@@ -318,3 +318,4 @@ Colour Palette::getColour ( double index ) {
     return tmp;
 }
 
+
