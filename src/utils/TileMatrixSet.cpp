@@ -152,7 +152,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     } else if (context->exists(fo_name + ".json")) {
         data = context->readFull(size, fo_name + ".json");
     } else {
-        errorMessage = "Cannot read TMS "  + path + ", with or without extion .json";
+        errorMessage = "Cannot read TMS "  + path + ", with or without extension .json";
         return;
     }
 

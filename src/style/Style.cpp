@@ -186,7 +186,7 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
     } else if (context->exists(fo_name + ".json")) {
         data = context->readFull(size, fo_name + ".json");
     } else {
-        errorMessage = "Cannot read style " + path + ", with or without extion .json";
+        errorMessage = "Cannot read style " + path + ", with or without extension .json";
         return;
     }
 
