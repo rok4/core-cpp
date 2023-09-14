@@ -139,6 +139,8 @@ public:
      */
     bool connection();
 
+    bool exists(std::string name);
+
     /**
      * \~french \brief Nettoie les objets librados
      * \~english \brief Clean librados objects

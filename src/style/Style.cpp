@@ -155,16 +155,16 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
     palette = 0;
     aspect = 0;
 
-    /********************** Id */
-
-    id = Configuration::getFileName(filePath, ".json");
-    BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file or object";
-
-    /********************** Read */
-
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
     ContextType::split_path(path, storage_type, fo_name, tray_name);
+
+    /********************** Id */
+
+    id = Configuration::getFileName(fo_name, ".json");
+    BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file or object";
+
+    /********************** Read */
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
@@ -173,11 +173,20 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
     }
 
     int size = -1;
-    uint8_t* data = context->readFull(size, fo_name);
+    uint8_t* data;
 
-    if (size < 0) {
-        errorMessage = "Cannot read style "  + path ;
-        if (data != NULL) delete[] data;
+    // On supprime l'extension JSON si elle est dans le chemin, on testera avec dans un deuxième temps
+    size_t pos = fo_name.rfind ( ".json" );
+    if ( pos != std::string::npos ) {
+        fo_name = fo_name.erase (pos, 5);
+    }
+
+    if (context->exists(fo_name)) {
+        data = context->readFull(size, fo_name);
+    } else if (context->exists(fo_name + ".json")) {
+        data = context->readFull(size, fo_name + ".json");
+    } else {
+        errorMessage = "Cannot read style " + path + ", with or without extension .json";
         return;
     }
 

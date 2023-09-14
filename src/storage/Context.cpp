@@ -80,39 +80,31 @@ eContextType fromString ( std::string strct ) {
 
 void split_path(std::string path, ContextType::eContextType& type, std::string& fo, std::string& tray) {
 
-    std::stringstream ss(path);
-    std::string token;
-    char delim = ':';
-    std::getline(ss, token, delim);
-    std::string storage_type = token;
-
-    
-    if (storage_type != path) {
-        // Un type de stockage a été précisé, on l'enlève pour passer à la suite
+    size_t pos = path.find ( "://" );
+    if ( pos == std::string::npos ) {
+        // Il n'y a pas de préfixe de stockage, on considère le mode fichier
+        type = ContextType::FILECONTEXT;
+    } else {
+        std::string storage_type = path.substr ( 0, pos );
         type = ContextType::fromString(storage_type);
         if (type == ContextType::UNKNOWN) {
             type = ContextType::FILECONTEXT;
         }
-        path.erase(0, storage_type.length() + 3);
-    } else {
-        type = ContextType::FILECONTEXT;
+        path = path.erase ( 0, storage_type.length() + 3);
     }
-
 
     if (type == ContextType::FILECONTEXT) {
         // Dans le cas d'un stockage fichier, le nom du fichier est l'ensemble et on ne définit pas de contenant
         fo = path;
+        tray = "";
         return;
     }
 
     // Dans le cas d'un stockage objet, on sépare le contenant du nom de l'objet
-    ss = std::stringstream(path);
-    delim = '/';
-    std::getline(ss, token, delim);
-    tray = token;
+    pos = path.find ( "/" );
+    tray = path.substr ( 0, pos );
+    fo = path.substr ( pos + 1, std::string::npos );
 
-    path.erase(0, tray.length() + 1);
-    fo = path;
     return;
 }
 
