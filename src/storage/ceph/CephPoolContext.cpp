@@ -330,3 +330,22 @@ std::string CephPoolContext::getPath(std::string racine,int x,int y,int pathDept
 std::string CephPoolContext::getPath(std::string name) {  
     return pool_name + "/" + name;
 }
+
+bool CephPoolContext::exists(std::string name) {
+
+    BOOST_LOG_TRIVIAL(debug) << "Exists (CEPH) ? " << getPath(name);
+
+    if (! connected) {
+        BOOST_LOG_TRIVIAL(error) << "Try to test object existence using the unconnected ceph pool context " << pool_name;
+        return false;
+    }
+
+    uint64_t fullSize;
+    time_t time;
+    int ret = rados_stat(io_ctx, name.c_str(), &fullSize, &time);
+    if (ret < 0) {
+        return false;
+    } else {
+        return true;
+    }
+}

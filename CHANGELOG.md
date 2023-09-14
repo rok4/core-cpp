@@ -1,3 +1,17 @@
+## 1.1.2
+
+### [Changed]
+
+* Le test d'existence d'un objet ou d'un fichier n'est plus une lecture de 1 octet mais une implémentation spécifique à chaque type
+* Les TMS et les styles sont cherchés sur le stockage avec et sans extension JSON
+
+### [Fixed]
+
+* Table
+    * Correction d'une typo dans l'écriture du metadata.json : filedsCount -> fieldsCount
+* Style
+    * La valeur de nodata en sortie d'un style est la première valeur de la palette (et non la couleur pour la valeur 0)
+
 ## 1.1.1
 
 ### [Fixed]

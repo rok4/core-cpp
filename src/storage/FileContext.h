@@ -150,6 +150,8 @@ public:
     
     bool connection();
 
+    bool exists(std::string name);
+
     void closeConnection() {
         connected = false;
     }

@@ -116,6 +116,10 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     crs = NULL;
     isQTree = true;
 
+    ContextType::eContextType storage_type;
+    std::string tray_name, fo_name;
+    ContextType::split_path(path, storage_type, fo_name, tray_name);
+
     /********************** Id */
     id = Configuration::getFileName(filePath, ".json");
 
@@ -128,10 +132,6 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     /********************** Read */
 
-    ContextType::eContextType storage_type;
-    std::string tray_name, fo_name;
-    ContextType::split_path(path, storage_type, fo_name, tray_name);
-
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
         errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read TMS";
@@ -139,11 +139,20 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
 
     int size = -1;
-    uint8_t* data = context->readFull(size, fo_name);
+    uint8_t* data;
 
-    if (size < 0) {
-        errorMessage = "Cannot read TMS "  + path ;
-        if (data != NULL) delete[] data;
+    // On supprime l'extension JSON si elle est dans le chemin, on testera avec dans un deuxième temps
+    size_t pos = fo_name.rfind ( ".json" );
+    if ( pos != std::string::npos ) {
+        fo_name = fo_name.erase (pos, 5);
+    }
+
+    if (context->exists(fo_name)) {
+        data = context->readFull(size, fo_name);
+    } else if (context->exists(fo_name + ".json")) {
+        data = context->readFull(size, fo_name + ".json");
+    } else {
+        errorMessage = "Cannot read TMS "  + path + ", with or without extension .json";
         return;
     }
 

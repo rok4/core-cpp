@@ -170,12 +170,9 @@ public:
      * \~french \brief Précise si l'objet demandé existe dans ce contexte
      * \param[in] name Nom de l'objet dont on veut savoir l'existence 
      * \~english \brief Precise if provided object exists in this context
-     * \param[in] name Object's name whose existency is asked
+     * \param[in] name Object's name whose existence is asked
      */
-    bool exists(std::string name) {
-        uint8_t test;
-        return (read(&test, 0, 1, name) == 1);
-    }
+    virtual bool exists(std::string name) = 0;
 
     /**
      * \~french \brief Précise si le contexte est connecté

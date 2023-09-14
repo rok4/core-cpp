@@ -727,7 +727,7 @@ public:
             d = directory;
         }
 
-        std::string tms_path = d + "/" + id + ".json";
+        std::string tms_path = d + "/" + id;
 
         TileMatrixSet* tms = new TileMatrixSet(tms_path);
         if ( ! tms->isOk() ) {
@@ -894,7 +894,7 @@ public:
             d = directory;
         }
 
-        std::string style_path = d + "/" + id + ".json";
+        std::string style_path = d + "/" + id;
 
         Style* style = new Style(style_path, inspire);
         if ( ! style->isOk() ) {

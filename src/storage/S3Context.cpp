@@ -438,7 +438,6 @@ bool S3Context::openToWrite(std::string name) {
 
 bool S3Context::closeToWrite(std::string name) {
 
-
     std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
     if ( it1 == writingBuffers.end() ) {
         BOOST_LOG_TRIVIAL(error) << "The S3 writing buffer with name " << name << "does not exist, cannot flush it";
@@ -528,4 +527,78 @@ bool S3Context::closeToWrite(std::string name) {
     writingBuffers.erase(it1);
 
     return true;
+}
+
+bool S3Context::exists(std::string name) {
+
+    BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << getPath(name);
+
+    CURLcode res;
+    struct curl_slist *list = NULL;
+
+    CURL* curl = CurlPool::getCurlEnv();
+
+    std::string fullUrl = url + "/" + bucket_name + "/" + name;
+
+    time_t current;
+
+    time(&current);
+    struct tm * ptm = gmtime ( &current );
+
+    static char gmt_time[40];
+    sprintf(
+        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
+        wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
+        ptm->tm_hour, ptm->tm_min, ptm->tm_sec
+    );
+
+    std::string content_type = "application/octet-stream";
+    std::string resource = "/" + bucket_name + "/" + name;
+    std::string stringToSign = "HEAD\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+    std::string signature = getAuthorizationHeader(stringToSign);
+
+    // Constitution du header
+
+    char hd_host[256];
+    sprintf(hd_host, "Host: %s", host.c_str());
+    list = curl_slist_append(list, hd_host);
+
+    char d[100];
+    sprintf(d, "Date: %s", gmt_time);
+    list = curl_slist_append(list, d);
+
+    char ct[50];
+    sprintf(ct, "Content-Type: %s", content_type.c_str());
+    list = curl_slist_append(list, ct);
+
+    char auth[512];
+    sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
+
+    list = curl_slist_append(list, auth);
+
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
+    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
+    curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
+    if(ssl_no_verify){
+      curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    }
+
+    res = curl_easy_perform(curl);
+    
+    curl_slist_free_all(list);
+
+    if( CURLE_OK != res) {
+        BOOST_LOG_TRIVIAL(error) << "Cannot test object existence from S3 : " << bucket_name + "/" + name;
+        BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
+        return false;
+    }
+
+    long http_code = 0;
+    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    if (http_code >= 200 && http_code <= 299) {
+        return true;
+    } else {
+        return false;
+    }
 }
