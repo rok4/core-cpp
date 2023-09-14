@@ -1,20 +1,16 @@
-## 1.2.0
-
-Mise en place du multi cluster S3
-
-### [Added]
-
-* Possibilité de renseigner un cluster dans le descripteur d'une couche au niveau du tag _pyramids::path_
-* Détection du cluster lors de l'appel d'une tuile dans la pyramide
+## 1.1.2
 
 ### [Changed]
 
-* Possibilité d'ajouter une liste de cluster S3 dans les variables d'environnements _ROK4_S3_URL_, _ROK4_S3_KEY_ et _ROK4_S3_SECRETKEY_
+* Le test d'existence d'un objet ou d'un fichier n'est plus une lecture de 1 octet mais une implémentation spécifique à chaque type
+* Les TMS et les styles sont cherchés sur le stockage avec et sans extension JSON
 
 ### [Fixed]
 
 * Table
     * Correction d'une typo dans l'écriture du metadata.json : filedsCount -> fieldsCount
+* Style
+    * La valeur de nodata en sortie d'un style est la première valeur de la palette (et non la couleur pour la valeur 0)
 
 ## 1.1.1
 
