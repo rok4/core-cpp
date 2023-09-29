@@ -140,6 +140,8 @@ public:
      * \param[in] origLUrl LegendURL to copy
      */
     LegendURL ( const LegendURL &origLUrl ) {
+        href = origLUrl.href;
+        format = origLUrl.format;
         height = origLUrl.height;
         width = origLUrl.width;
         maxScaleDenominator = origLUrl.maxScaleDenominator;
