@@ -64,7 +64,9 @@
 #include "rok4/storage/Context.h"
 
 #define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
+#define ROK4_TMS_NO_CACHE "ROK4_TMS_NO_CACHE"
 #define ROK4_STYLES_DIRECTORY "ROK4_STYLES_DIRECTORY"
+#define ROK4_STYLES_NO_CACHE "ROK4_STYLES_NO_CACHE"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -702,11 +704,11 @@ public:
     /**
      * \~french
      * \brief Retourne le TMS d'après son identifiant
-     * \details Si le TMS demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \details Si le TMS demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du TMS voulu
 
      * \brief Retourne the TMS according to its identifier
-     * \details If TMS is still not in the book, it is searched in the known directory and loaded
+     * \details If TMS is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted TMS identifier
      */
     static TileMatrixSet* get_tms(std::string id) {
@@ -733,12 +735,17 @@ public:
         if ( ! tms->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
             delete tms;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce TMS
-            book.insert ( std::pair<std::string, TileMatrixSet*>(id, NULL) );
             return NULL;
         }
 
-        book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
+        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
+            // On veut utiliser le cache, on met donc ce nouveau TMS dans l'annuaire pour le trouver la porchaine fois
+            book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
+        } else {
+            // On met le TMS directement dans la corbeille, pour que le nettoyage se fasse bien
+            trash.push_back(tms);
+        }
+
         return tms;
     }
 
@@ -869,14 +876,15 @@ public:
     /**
      * \~french
      * \brief Retourne le style d'après son identifiant
-     * \details Si le style demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \details Si le style demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du style voulu
 
      * \brief Retourne the style according to its identifier
-     * \details If style is still not in the book, it is searched in the known directory and loaded
+     * \details If style is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted style identifier
      */
     static Style* get_style(std::string id) {
+
         std::map<std::string, Style*>::iterator it = book.find ( id );
         if ( it != book.end() ) {
             return it->second;
@@ -900,20 +908,23 @@ public:
         if ( ! style->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
             delete style;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
-            book.insert ( std::pair<std::string, Style*>(id, NULL) );
             return NULL;
         }
 
         if ( containForbiddenChars(style->getIdentifier()) ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
-            book.insert ( std::pair<std::string, Style*>(id, NULL) );
             return NULL;
         }
 
-        book.insert ( std::pair<std::string, Style*>(id, style) );
+        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
+            // On veut utiliser le cache, on met donc ce nouveau style dans l'annuaire pour le trouver la porchaine fois
+            book.insert ( std::pair<std::string, Style*>(id, style) );
+        } else {
+            // On met le style directement dans la corbeille, pour que le nettoyage se fasse bien
+            trash.push_back(style);
+        }
+
         return style;
     }
 

@@ -43,7 +43,9 @@ Leur définition est contrôlée à l'usage.
 
 * Pour le chargement de la configuration (non obligatoire, possibilité de surcharger via des appels)
     - `ROK4_TMS_DIRECTORY` : dossier (fichier ou objet) contenant les TMS. Le TMS `PM` sera chargé depuis le fichier/objet `<ROK4_TMS_DIRECTORY>/PM.json`
+    - `ROK4_TMS_NO_CACHE` : ne pas utiliser le système de cache pour le chargement des TMS (on recharge le TMS depuis le fichier / objet à chaque chargement de couche). Toute valeur désactivera le cache
     - `ROK4_STYLES_DIRECTORY` : dossier (fichier ou objet) contenant les styles. Le style `normal` sera chargé depuis le fichier/objet `<ROK4_STYLES_DIRECTORY>/normal.json`
+    - `ROK4_STYLES_NO_CACHE` : ne pas utiliser le système de cache pour le chargement des styles (on recharge le style depuis le fichier / objet à chaque chargement de couche). Toute valeur désactivera le cache.
 * Pour le stockage S3
     - `ROK4_S3_URL`
     - `ROK4_S3_KEY`
