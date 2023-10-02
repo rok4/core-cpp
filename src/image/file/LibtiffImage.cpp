@@ -550,7 +550,11 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
             TIFFGetField(tif, TIFFTAG_TILEWIDTH, &tile_width);
             TIFFGetField(tif, TIFFTAG_TILELENGTH, &tile_height);
 
-            int tilenumber_widthwise = width / tile_width + 1;
+            int tilenumber_widthwise = width / tile_width;
+            if (width % tile_width != 0) {
+                // On ajoute la tuile incomplète
+                tilenumber_widthwise++;
+            }
 
             int tile_size = tile_width * tile_height * pixelSize;
             int tile_row_size = tile_width * pixelSize;

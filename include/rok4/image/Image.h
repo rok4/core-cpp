@@ -508,7 +508,7 @@ public:
      * \return X phasis
      */
     double inline getPhaseX() {
-        return bbox.getPhaseX(resx);
+        return bbox.getPhaseXmin(resx);
     }
 
     /**
@@ -521,7 +521,7 @@ public:
      * \return Y phasis
      */
     double inline getPhaseY() {
-        return bbox.getPhaseY(resy);
+        return bbox.getPhaseYmin(resy);
     }
 
     /**

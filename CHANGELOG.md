@@ -1,3 +1,16 @@
+## 1.2.0
+
+### [Fixed]
+
+* `LegendURL` : la fonction de copie d'une instance recopie bien le format et le href
+* `LibtiffImage` : correction du calcul de nombre de tuile dans la largeur lors de la lecture d'une image dont la largeur est un multiple de la taille de la tuile 
+* `BoundingBox` : lorsque l'on met en phase une bbox, les 4 bords doivent être traités indépendemment les uns des autres (avec un calcul de phase pour chacun)
+
+### [Changed]
+
+* La variable d'environnement `ROK4_TMS_NO_CACHE` permet de désactiver le cache de chargement des TMS
+* La variable d'environnement `ROK4_STYLES_NO_CACHE` permet de désactiver le cache de chargement des styles
+
 ## 1.1.2
 
 ### [Changed]
