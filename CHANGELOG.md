@@ -1,3 +1,9 @@
+## 1.2.1
+
+### [Fixed]
+
+* `LibopenjpegImage` : la lecture des images JPEG 2000 tuilées recharge l'image à la lecture de chaque tuile
+
 ## 1.2.0
 
 ### [Fixed]
