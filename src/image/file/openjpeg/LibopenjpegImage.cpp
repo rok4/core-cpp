@@ -112,7 +112,7 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     // Set decoding parameters to default values
     opj_dparameters_t parameters;
     opj_image_t* image = NULL;
-    opj_stream_t *stream = NULL;
+    opj_stream_t* stream = NULL;
     opj_codec_t* codec = NULL;
 
     opj_set_default_decoder_parameters ( &parameters );
@@ -120,7 +120,7 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
     /************** INITIALISATION DES OBJETS OPENJPEG *********/
 
-    // Ouverture du fichier bianire en lecture
+    // Ouverture du fichier binaire en lecture
     FILE *file = NULL;
     file = std::fopen ( filename.c_str() , "rb" );
 
@@ -142,17 +142,20 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     std::fclose ( file );
 
     // Format MAGIC Code
+    OPJ_CODEC_FORMAT codec_format;
     if ( memcmp ( magic_code, JP2_RFC3745_MAGIC, 12 ) == 0 || memcmp ( magic_code, JP2_MAGIC, 4 ) == 0 ) {
-        codec = opj_create_decompress ( OPJ_CODEC_JP2 );
+        codec_format = OPJ_CODEC_JP2;
         BOOST_LOG_TRIVIAL(debug) <<  "Ok, use format JP2 !" ;
     } else if ( memcmp ( magic_code, J2K_CODESTREAM_MAGIC, 4 ) == 0 ) {
-        codec = opj_create_decompress ( OPJ_CODEC_J2K );
+        codec_format = OPJ_CODEC_J2K;
         BOOST_LOG_TRIVIAL(debug) <<  "Ok, use format J2K !" ;
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Unhandled format for the JPEG2000 file " << filename ;
         free ( magic_code );
         return NULL;
     }
+
+    codec = opj_create_decompress ( codec_format );
 
     // Nettoyage
     free ( magic_code );
@@ -192,7 +195,7 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     int width = image->comps[0].w;
     int height = image->comps[0].h;
     int channels = image->numcomps;
-    bool tiled = false;
+    int tile_width = 0;
     int rowsperstrip = 0;
 
     SampleFormat::eSampleFormat sf = SampleFormat::UINT;
@@ -212,13 +215,17 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
     opj_codestream_info_v2_t *jp2_code_stream_info = opj_get_cstr_info(codec);
     if (jp2_code_stream_info->tw == 1 && jp2_code_stream_info->th == 1) {
-        tiled = false;
-        rowsperstrip = 256;
+        tile_width = 0;
+        rowsperstrip = 512;
     } else {
-        tiled = true;
+        tile_width = jp2_code_stream_info->tdx;
         rowsperstrip = jp2_code_stream_info->tdy;
     }
     opj_destroy_cstr_info(&jp2_code_stream_info);
+
+    opj_stream_destroy ( stream );
+    opj_image_destroy( image );
+    opj_destroy_codec ( codec );
 
     /********************** CONTROLES **************************/
 
@@ -244,7 +251,7 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     return new LibopenjpegImage (
         width, height, resx, resy, channels, bbox, filename,
         sf, bitspersample, ph, Compression::JPEG2000,
-        image, stream, codec, rowsperstrip, tiled
+        parameters, codec_format, rowsperstrip, tile_width
     );
 
 }
@@ -255,11 +262,11 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 LibopenjpegImage::LibopenjpegImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
     SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
-    opj_image_t* image, opj_stream_t* stream, opj_codec_t* codec, int rowsperstrip, bool tiled ) :
+    opj_dparameters_t parameters, OPJ_CODEC_FORMAT codec_format, int rowsperstrip, int tw ) :
 
     FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
 
-    jp2_image ( image ), jp2_stream ( stream ), jp2_codec ( codec ), rowsperstrip(rowsperstrip), tiled(tiled) {
+    jp2_parameters ( parameters ), jp2_codec(codec_format), rowsperstrip(rowsperstrip), tile_width(tw) {
 
     current_strip = -1;
     int strip_size = width*rowsperstrip*pixelSize;
@@ -274,63 +281,132 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
 
     if ( line / rowsperstrip != current_strip ) {
 
+        opj_image_t* image = NULL;
+        opj_stream_t* stream = NULL;
+        opj_codec_t* codec = NULL;
+
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
         int row_size = width * pixelSize;
 
-        if (tiled) {
+        if (tile_width != 0) {
 
-            opj_codestream_info_v2_t *jp2_code_stream_info = opj_get_cstr_info(jp2_codec);
-            int tilenumber_widthwise = jp2_code_stream_info->tw;
-            int tile_width = jp2_code_stream_info->tdx;
+            int tilenumber_widthwise = ceil((double) width / tile_width);
+            int tilenumber_heightwise = ceil((double) height / rowsperstrip);
             int tile_row_size = tile_width * pixelSize;
-            opj_destroy_cstr_info(&jp2_code_stream_info);
+            int tile_size = tile_width * rowsperstrip * pixelSize;
 
             for (int t = 0; t < tilenumber_widthwise; t++) {
-                int tile_index = tilenumber_widthwise * current_strip + t;
-                opj_get_decoded_tile(jp2_codec, jp2_stream, jp2_image, (OPJ_UINT32)tile_index);
+                OPJ_UINT32 tile_index = tilenumber_widthwise * current_strip + t;
+
+                codec = opj_create_decompress ( jp2_codec );
+
+                /* catch events using our callbacks and give a local context */
+                opj_set_info_handler ( codec, info_callback,00 );
+                opj_set_error_handler ( codec, error_callback,00 );
+
+                /* Setup the decoder decoding parameters using user parameters */
+                if ( ! opj_setup_decoder ( codec, &jp2_parameters ) ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Unable to setup the decoder to read the tile of the JPEG2000 file " << filename ;
+                    return 0;
+                }
+
+                stream = opj_stream_create_default_file_stream ( filename.c_str(),1 );
+                if ( ! stream ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Unable to create the stream to read the tile of the JPEG2000 file " << filename ;
+                    return 0;
+                }
+
+                /* Read the main header of the codestream and if necessary the JP2 boxes*/
+                if ( ! opj_read_header ( stream, codec, &image ) ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Unable to read the header to read the tile of the JPEG2000 file " << filename ;
+                    return 0;
+                }
+
+                if ( ! ( opj_get_decoded_tile(codec, stream, image, tile_index) && opj_end_decompress ( codec, stream ) ) ) {
+                    BOOST_LOG_TRIVIAL(error) <<  "Cannot read tile number " << tile_index << " of image " << filename ;
+                    return 0;
+                }
 
                 int current_width = tile_width;
                 if (t == tilenumber_widthwise - 1) {
                     // on lit la dernière tuile, potentiellement non complète
-                    current_width = width % tile_width;
+                    current_width = width - (tilenumber_widthwise - 1) * tile_width;
                 }
 
-                for (int l = 0; l < rowsperstrip; l++) {
+                int current_height = rowsperstrip;
+                if (current_strip == tilenumber_heightwise - 1) {
+                    // on lit la dernière ligne de tuile, potentiellement non complète
+                    current_height = height - (tilenumber_heightwise - 1) * rowsperstrip;
+                }
+
+                for (int l = 0; l < current_height; l++) {
                     for (int i = 0; i < current_width; i++) {
                         int index = current_width * l + i;
                         for (int j = 0; j < channels; j++) {
-                            *( (T*) (strip_buffer + l * row_size + t * tile_row_size + i * pixelSize + j * sizeof(T)) ) = jp2_image->comps[j].data[index];
+                            *( (T*) (strip_buffer + l * row_size + t * tile_row_size + i * pixelSize + j * sizeof(T)) ) = image->comps[j].data[index];
                         }
                     }
                 }
+
+                opj_stream_destroy ( stream );
+                opj_image_destroy( image );
+                opj_destroy_codec ( codec );
             }
 
         } else {
             /* Get the decoded area */
-            if ( ! ( opj_set_decode_area(jp2_codec, jp2_image, 0, current_strip * rowsperstrip, width, std::min((current_strip + 1) * rowsperstrip, height))) ) {
-                BOOST_LOG_TRIVIAL(error) <<  "Cannot read aera " << current_strip << " of image " << filename ;
+
+            codec = opj_create_decompress ( jp2_codec );
+
+            /* catch events using our callbacks and give a local context */
+            opj_set_info_handler ( codec, info_callback,00 );
+            opj_set_error_handler ( codec, error_callback,00 );
+
+            /* Setup the decoder decoding parameters using user parameters */
+            if ( !opj_setup_decoder ( codec, &jp2_parameters ) ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to setup the decoder to read the area of the JPEG2000 file " << filename ;
+                return 0;
+            }
+
+            stream = opj_stream_create_default_file_stream ( filename.c_str(),1 );
+            if ( ! stream ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to create the stream to read the area of the JPEG2000 file " << filename ;
+                return 0;
+            }
+
+            /* Read the main header of the codestream and if necessary the JP2 boxes*/
+            if ( ! opj_read_header ( stream, codec, &image ) ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read the header to read the area of the JPEG2000 file " << filename ;
+                return 0;
+            }
+
+            if ( ! ( opj_set_decode_area(codec, image, 0, current_strip * rowsperstrip, width, std::min((current_strip + 1) * rowsperstrip, height))) ) {
+                BOOST_LOG_TRIVIAL(error) <<  "Cannot read area " << current_strip << " of image " << filename ;
                 return 0;
             }
 
             /* Get the decoded image */
-            if ( ! ( opj_decode ( jp2_codec, jp2_stream, jp2_image ) && opj_end_decompress ( jp2_codec, jp2_stream ) ) ) {
+            if ( ! ( opj_decode ( codec, stream, image ) && opj_end_decompress ( codec, stream ) ) ) {
                 BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image " << filename ;
                 return 0;
             }
 
             // on prend la hauteur de la zone (area) en cours suite au decoupage afin d'eviter des
             // appels hors limites
-            int current_rowsperstrip = jp2_image->comps[0].h;
-            BOOST_LOG_TRIVIAL(debug) << "current rowsperstrip height: " << current_rowsperstrip;
+            int current_rowsperstrip = image->comps[0].h;
             for (int l = 0; l < current_rowsperstrip; l++) {
                 for (int i = 0; i < width; i++) {
                     int index = width * (l % current_rowsperstrip) + i;
                     for (int j = 0; j < channels; j++) {
-                        *( (T*) (strip_buffer + l * row_size + i * pixelSize + j * sizeof(T)) ) = jp2_image->comps[j].data[index];
+                        *( (T*) (strip_buffer + l * row_size + i * pixelSize + j * sizeof(T)) ) = image->comps[j].data[index];
                     }
                 }
             }
+
+            opj_stream_destroy ( stream );
+            opj_image_destroy( image );
+            opj_destroy_codec ( codec );
         }
     }
 
