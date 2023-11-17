@@ -1,10 +1,16 @@
-## 1.2.1
+## 1.2.3
+
+### [Fixed]
+
+* `Level` : Ajout de pixels de marge lors de la reprojection des données d'un niveau de pyramide
+
+## 1.2.2
 
 ### [Fixed]
 
 * `LibopenjpegImage` : la lecture des images JPEG 2000 tuilées recharge l'image à la lecture de chaque tuile
 
-## 1.2.0
+## 1.2.1
 
 ### [Fixed]
 
