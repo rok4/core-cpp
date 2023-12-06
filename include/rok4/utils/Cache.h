@@ -56,6 +56,8 @@
 #include <sstream>
 #include <curl/curl.h>
 #include <proj.h>
+#include <thread>
+#include <mutex>
 
 
 #include "rok4/utils/TileMatrixSet.h"
@@ -471,6 +473,14 @@ private:
     static int validity;
 
     /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache des index
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent index cache updates
+     */
+    static std::mutex mtx;
+
+    /**
      * \~french
      * \brief Constructeur
      * \~english
@@ -533,14 +543,16 @@ public:
         // mais c'est via cette dalle symbolique que la donnée est a priori requêtée
         // donc c'est ce nom qu'on utilisera pour l'interrogation du cache
 
+        mtx.lock();
+
         IndexElement* elem = new IndexElement(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);
 
         // L'information n'est a priori pas dans le cache car 
-        // Soit elle était dans le cache et valide, alors on aurait utiliser ce cahe et on n'aurait pas fait appel à cet ajout
+        // Soit elle était dans le cache et valide, alors on aurait utilisé ce cache et on n'aurait pas fait appel à cet ajout
         // Soit elle était dans le cache mais obsolète, alors on l'aurait déjà supprimé du cache
 
         if (cache.size() == size) {
-            // On réupcère le dernier élément du cache
+            // On récupère le dernier élément du cache
             IndexElement* last = cache.back();
             // On le vire du cache
             cache.pop_back();
@@ -552,6 +564,8 @@ public:
         // update reference
         cache.push_front(elem);
         map[origin_slab_name] = cache.begin();
+
+        mtx.unlock();
     };
 
     /** \~french
@@ -579,9 +593,19 @@ public:
             // Gestion de la péremption du cache (une heure max)
             std::time_t now = std::time(NULL);
             if (now - (*(it->second))->date > validity) {
-                delete *(it->second);
-                cache.erase(it->second);
-                map.erase(it);
+                mtx.lock();
+
+                // on le cherche à nouveau pour vérifier qu'il n'a pas déjà été supprimé par un thread concurrent
+                it = map.find ( key );
+
+                if ( it != map.end() ) {
+                    delete *(it->second);
+                    cache.erase(it->second);
+                    map.erase(it);
+                }
+
+                mtx.unlock();
+
                 return false;
             }
 
@@ -605,11 +629,13 @@ public:
      * \~english \brief Clean all element from the cache
      */
     static void cleanCache () {
+        mtx.lock();
         std::list<IndexElement*>::iterator it;
         for (it = cache.begin(); it != cache.end(); ++it) {
             delete *it;
         }
         cache.clear();
+        mtx.unlock();
     }
 };
 
@@ -654,6 +680,14 @@ private:
      */
     static std::vector<TileMatrixSet*> trash;
 
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent TMS cache updates
+     */
+    static std::mutex mtx;
+
 public:
 
 
@@ -662,11 +696,13 @@ public:
      * \~english \brief Empty book and put content into trash
      */
     static void send_to_trash () {
+        mtx.lock();
         std::map<std::string, TileMatrixSet*>::iterator it;
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
         book.empty();
+        mtx.unlock();
     }
 
     /**
@@ -674,10 +710,12 @@ public:
      * \~english \brief Empty trash
      */
     static void empty_trash () {
+        mtx.lock();
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
         trash.empty();
+        mtx.unlock();
     }
 
 
@@ -694,7 +732,7 @@ public:
     }
 
     /**
-     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
      */
     static std::map<std::string,TileMatrixSet*> get_book () {
@@ -731,20 +769,32 @@ public:
 
         std::string tms_path = d + "/" + id;
 
+        mtx.lock();
+        // Si on fait du cache de TMS, on revérifie que ce TMS n'a pas déjà été ajouté par un thread concurrent entre temps
+        if(getenv (ROK4_TMS_NO_CACHE) == NULL) {
+            if ( it != book.end() ) {
+                // On a effectivement depuis déjà enregistré ce TMS
+                return it->second;
+            }
+        }
+
         TileMatrixSet* tms = new TileMatrixSet(tms_path);
         if ( ! tms->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
             delete tms;
+            mtx.unlock();
             return NULL;
         }
 
-        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
-            // On veut utiliser le cache, on met donc ce nouveau TMS dans l'annuaire pour le trouver la porchaine fois
+        if(getenv (ROK4_TMS_NO_CACHE) == NULL) {
+            // On veut utiliser le cache, on met donc ce nouveau TMS dans l'annuaire pour le trouver la prochaine fois
             book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
         } else {
             // On met le TMS directement dans la corbeille, pour que le nettoyage se fasse bien
             trash.push_back(tms);
         }
+        
+        mtx.unlock();
 
         return tms;
     }
@@ -816,6 +866,14 @@ private:
      */
     static std::vector<Style*> trash;
 
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent TMS cache updates
+     */
+    static std::mutex mtx;
+
 public:
 
 
@@ -824,11 +882,13 @@ public:
      * \~english \brief Empty book and put content into trash
      */
     static void send_to_trash () {
+        mtx.lock();
         std::map<std::string, Style*>::iterator it;
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
         book.empty();
+        mtx.unlock();
     }
 
     /**
@@ -836,10 +896,12 @@ public:
      * \~english \brief Empty trash
      */
     static void empty_trash () {
+        mtx.lock();
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
         trash.empty();
+        mtx.unlock();
     }
 
 
@@ -866,7 +928,7 @@ public:
 
 
     /**
-     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
      */
     static std::map<std::string,Style*> get_book () {
@@ -904,16 +966,27 @@ public:
 
         std::string style_path = d + "/" + id;
 
+        mtx.lock();
+        // Si on fait du cache de style, on revérifie que ce style n'a pas déjà été ajouté par un thread concurrent entre temps
+        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
+            if ( it != book.end() ) {
+                // On a effectivement depuis déjà enregistré ce style
+                return it->second;
+            }
+        }
+
         Style* style = new Style(style_path, inspire);
         if ( ! style->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
             delete style;
+            mtx.unlock();
             return NULL;
         }
 
         if ( containForbiddenChars(style->getIdentifier()) ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
+            mtx.unlock();
             return NULL;
         }
 
@@ -925,6 +998,7 @@ public:
             trash.push_back(style);
         }
 
+        mtx.unlock();
         return style;
     }
 

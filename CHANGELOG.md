@@ -1,3 +1,9 @@
+## 1.2.4
+
+### [Fixed]
+
+* `Cache` : les modifications dans le cache quand il n'est pas par thread (index des dalles, TMS et styles) se font en xxclusion mutuelle (mutex lock et unlock)
+
 ## 1.2.3
 
 ### [Fixed]
