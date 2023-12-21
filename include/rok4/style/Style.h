@@ -285,7 +285,7 @@ public:
      */
     int getNodata (int** nodata) {
         if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
-            Colour c = palette->getColour(0);
+            Colour c = palette->getColoursMap()->begin()->second;
             if (palette->isNoAlpha()) {
                 (*nodata) = new int[3];
                 (*nodata)[0] = c.r;

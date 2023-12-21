@@ -200,3 +200,8 @@ std::string FileContext::getPath(std::string name) {
     return root_dir + name;
 }
 
+bool FileContext::exists(std::string name) {
+    BOOST_LOG_TRIVIAL(debug) << "Exists (FILE) ? " << getPath(name);
+    struct stat buffer;   
+    return (stat (getPath(name).c_str(), &buffer) == 0);
+}

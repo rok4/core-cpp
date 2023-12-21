@@ -61,15 +61,18 @@ std::list<IndexElement *> IndexCache::cache;
 std::unordered_map<std::string, std::list<IndexElement *>::iterator> IndexCache::map;
 int IndexCache::size = 100;
 int IndexCache::validity = 300;
+std::mutex IndexCache::mtx;
 
 std::map<std::string, TileMatrixSet*> TmsBook::book;
 std::vector<TileMatrixSet*> TmsBook::trash;
 std::string TmsBook::directory = "";
+std::mutex TmsBook::mtx;
 
 std::map<std::string, Style*> StyleBook::book;
 std::vector<Style*> StyleBook::trash;
 std::string StyleBook::directory = "";
 bool StyleBook::inspire = false;
+std::mutex StyleBook::mtx;
 
 Context * StoragePool::get_context(ContextType::eContextType type,std::string tray) {
     Context* ctx;

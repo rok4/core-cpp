@@ -209,16 +209,16 @@ public:
 
     /**
      * \~french
-     * \brief Calcul de la phase dans le sens des X
-     * \details La phase en X est le décalage entre le bord bas de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \brief Calcul de la phase de X min
+     * \details La phase de Xmin est le décalage entre le bord gauche de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
-     * \return phase X
+     * \return phase X min
      * \~english
-     * \brief Phasis calculation, X wise
+     * \brief X min phasis calculation
      * \param[in] res Resolution, unity to quantify phase
-     * \return X phasis
+     * \return X min phasis
      */
-    double getPhaseX(T res) {
+    double getPhaseXmin(T res) {
         double intpart;
         double phi = modf ( xmin/res, &intpart );
         if ( phi < 0. ) {
@@ -229,16 +229,58 @@ public:
 
     /**
      * \~french
-     * \brief Calcul de la phase dans le sens des Y
-     * \details La phase en Y est le décalage entre le bord haut du pixel et le 0 des ordonnées, évalué en pixel. On a donc un nombre décimal appartenant à [0,1[.
-     * \return phase Y
+     * \brief Calcul de la phase de X max
+     * \details La phase de Xmax est le décalage entre le bord droit de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \param[in] res Résolution, unité de quantification de la phase
+     * \return phase X max
      * \~english
-     * \brief Phasis calculation, Y wise
-     * \return Y phasis
+     * \brief X max phasis calculation
+     * \param[in] res Resolution, unity to quantify phase
+     * \return X max phasis
      */
-    double getPhaseY(T res) {
+    double getPhaseXmax(T res) {
+        double intpart;
+        double phi = modf ( xmax/res, &intpart );
+        if ( phi < 0. ) {
+            phi += 1.0;
+        }
+        return phi;
+    }
+
+    /**
+     * \~french
+     * \brief Calcul de la phase de Y min
+     * \details La phase de Ymin est le décalage entre le bord bas de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \param[in] res Résolution, unité de quantification de la phase
+     * \return phase Y min
+     * \~english
+     * \brief Y min phasis calculation
+     * \param[in] res Resolution, unity to quantify phase
+     * \return Y min phasis
+     */
+    double getPhaseYmin(T res) {
         double intpart;
         double phi = modf ( ymin/res, &intpart );
+        if ( phi < 0. ) {
+            phi += 1.0;
+        }
+        return phi;
+    }
+
+    /**
+     * \~french
+     * \brief Calcul de la phase de Y max
+     * \details La phase de Ymax est le décalage entre le bord haut de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \param[in] res Résolution, unité de quantification de la phase
+     * \return phase Y max
+     * \~english
+     * \brief Y max phasis calculation
+     * \param[in] res Resolution, unity to quantify phase
+     * \return Y max phasis
+     */
+    double getPhaseYmax(T res) {
+        double intpart;
+        double phi = modf ( ymax/res, &intpart );
         if ( phi < 0. ) {
             phi += 1.0;
         }
@@ -256,14 +298,14 @@ public:
         double phaseDiff = 0;
 
         // phase de la bbox fournie, de référence, sur laquelle se caser
-        double phaseX = other.getPhaseX(resx);
-        double phaseY = other.getPhaseY(resy);
+        // la bbox en entrée est en accord avec les résolutions fournies,
+        // c'est à dire que la phase est la même pour le min et le max
+        // ce n'est pas forcément le cas pour la bbox à mettre en phase
+        double phaseX = other.getPhaseXmin(resx);
+        double phaseY = other.getPhaseYmin(resy);
 
         // Mise en phase de xmin (sans que celui ci puisse être plus petit)
-        phi = getPhaseX(resx);
-        if ( phi < 0. ) {
-            phi += 1.0;
-        }
+        phi = getPhaseXmin(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -274,10 +316,7 @@ public:
         }
 
         // Mise en phase de xmax (sans que celui ci puisse être plus grand)
-        phi = getPhaseX(resx);
-        if ( phi < 0. ) {
-            phi += 1.0;
-        }
+        phi = getPhaseXmax(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -288,10 +327,7 @@ public:
         }
 
         // Mise en phase de ymin (sans que celui ci puisse être plus petit)
-        phi = getPhaseY(resy);
-        if ( phi < 0. ) {
-            phi += 1.0;
-        }
+        phi = getPhaseYmin(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;
@@ -302,10 +338,7 @@ public:
         }
 
         // Mise en phase de ymax (sans que celui ci puisse être plus grand)
-        phi = getPhaseY(resy);
-        if ( phi < 0. ) {
-            phi += 1.0;
-        }
+        phi = getPhaseYmax(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;

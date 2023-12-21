@@ -244,6 +244,8 @@ public:
      */
     bool connection();
 
+    bool exists(std::string name);
+
     /**
      * \~french \brief Returne le jeton d'authentification #token
      * \~english \brief Returns authentification token #token

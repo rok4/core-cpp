@@ -621,3 +621,49 @@ std::string SwiftContext::getPath(std::string racine,int x,int y,int pathDepth){
 std::string SwiftContext::getPath(std::string name) {  
     return container_name + "/" + name;
 }
+
+
+bool SwiftContext::exists(std::string name) {
+
+    BOOST_LOG_TRIVIAL(debug) << "Exists (SWIFT) ? " << getPath(name);
+
+    if (! connected) {
+        BOOST_LOG_TRIVIAL(error) << "Try to test object existence using the unconnected swift context " << container_name;
+        return false;
+    }
+        
+    CURLcode res;
+    struct curl_slist *list = NULL;
+    CURL* curl = CurlPool::getCurlEnv();
+
+    std::string fullUrl;
+    fullUrl = public_url + "/" + container_name + "/" + name;
+
+    list = curl_slist_append(list, token.c_str());
+
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
+    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
+    if(ssl_no_verify){
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    }
+
+    res = curl_easy_perform(curl);
+    
+    curl_slist_free_all(list);
+
+    if( CURLE_OK != res) {
+        BOOST_LOG_TRIVIAL(error) << "Cannot test object existence from SWIFT : " << container_name + "/" + name;
+        BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
+        return false;
+    }
+
+    long http_code = 0;
+    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    if (http_code >= 200 && http_code <= 299) {
+        return true;
+    } else {
+        return false;
+    }
+
+}

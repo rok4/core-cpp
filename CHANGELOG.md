@@ -1,3 +1,48 @@
+## 1.2.4
+
+### [Fixed]
+
+* `Cache` : les modifications dans le cache quand il n'est pas par thread (index des dalles, TMS et styles) se font en xxclusion mutuelle (mutex lock et unlock)
+
+## 1.2.3
+
+### [Fixed]
+
+* `Level` : Ajout de pixels de marge lors de la reprojection des données d'un niveau de pyramide
+
+## 1.2.2
+
+### [Fixed]
+
+* `LibopenjpegImage` : la lecture des images JPEG 2000 tuilées recharge l'image à la lecture de chaque tuile
+
+## 1.2.1
+
+### [Fixed]
+
+* `LegendURL` : la fonction de copie d'une instance recopie bien le format et le href
+* `LibtiffImage` : correction du calcul de nombre de tuile dans la largeur lors de la lecture d'une image dont la largeur est un multiple de la taille de la tuile 
+* `BoundingBox` : lorsque l'on met en phase une bbox, les 4 bords doivent être traités indépendemment les uns des autres (avec un calcul de phase pour chacun)
+
+### [Changed]
+
+* La variable d'environnement `ROK4_TMS_NO_CACHE` permet de désactiver le cache de chargement des TMS
+* La variable d'environnement `ROK4_STYLES_NO_CACHE` permet de désactiver le cache de chargement des styles
+
+## 1.1.2
+
+### [Changed]
+
+* Le test d'existence d'un objet ou d'un fichier n'est plus une lecture de 1 octet mais une implémentation spécifique à chaque type
+* Les TMS et les styles sont cherchés sur le stockage avec et sans extension JSON
+
+### [Fixed]
+
+* Table
+    * Correction d'une typo dans l'écriture du metadata.json : filedsCount -> fieldsCount
+* Style
+    * La valeur de nodata en sortie d'un style est la première valeur de la palette (et non la couleur pour la valeur 0)
+
 ## 1.1.1
 
 ### [Fixed]

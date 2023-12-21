@@ -56,6 +56,8 @@
 #include <sstream>
 #include <curl/curl.h>
 #include <proj.h>
+#include <thread>
+#include <mutex>
 
 
 #include "rok4/utils/TileMatrixSet.h"
@@ -64,7 +66,9 @@
 #include "rok4/storage/Context.h"
 
 #define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
+#define ROK4_TMS_NO_CACHE "ROK4_TMS_NO_CACHE"
 #define ROK4_STYLES_DIRECTORY "ROK4_STYLES_DIRECTORY"
+#define ROK4_STYLES_NO_CACHE "ROK4_STYLES_NO_CACHE"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -469,6 +473,14 @@ private:
     static int validity;
 
     /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache des index
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent index cache updates
+     */
+    static std::mutex mtx;
+
+    /**
      * \~french
      * \brief Constructeur
      * \~english
@@ -531,14 +543,16 @@ public:
         // mais c'est via cette dalle symbolique que la donnée est a priori requêtée
         // donc c'est ce nom qu'on utilisera pour l'interrogation du cache
 
+        mtx.lock();
+
         IndexElement* elem = new IndexElement(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);
 
         // L'information n'est a priori pas dans le cache car 
-        // Soit elle était dans le cache et valide, alors on aurait utiliser ce cahe et on n'aurait pas fait appel à cet ajout
+        // Soit elle était dans le cache et valide, alors on aurait utilisé ce cache et on n'aurait pas fait appel à cet ajout
         // Soit elle était dans le cache mais obsolète, alors on l'aurait déjà supprimé du cache
 
         if (cache.size() == size) {
-            // On réupcère le dernier élément du cache
+            // On récupère le dernier élément du cache
             IndexElement* last = cache.back();
             // On le vire du cache
             cache.pop_back();
@@ -550,6 +564,8 @@ public:
         // update reference
         cache.push_front(elem);
         map[origin_slab_name] = cache.begin();
+
+        mtx.unlock();
     };
 
     /** \~french
@@ -577,9 +593,19 @@ public:
             // Gestion de la péremption du cache (une heure max)
             std::time_t now = std::time(NULL);
             if (now - (*(it->second))->date > validity) {
-                delete *(it->second);
-                cache.erase(it->second);
-                map.erase(it);
+                mtx.lock();
+
+                // on le cherche à nouveau pour vérifier qu'il n'a pas déjà été supprimé par un thread concurrent
+                it = map.find ( key );
+
+                if ( it != map.end() ) {
+                    delete *(it->second);
+                    cache.erase(it->second);
+                    map.erase(it);
+                }
+
+                mtx.unlock();
+
                 return false;
             }
 
@@ -603,11 +629,13 @@ public:
      * \~english \brief Clean all element from the cache
      */
     static void cleanCache () {
+        mtx.lock();
         std::list<IndexElement*>::iterator it;
         for (it = cache.begin(); it != cache.end(); ++it) {
             delete *it;
         }
         cache.clear();
+        mtx.unlock();
     }
 };
 
@@ -652,6 +680,14 @@ private:
      */
     static std::vector<TileMatrixSet*> trash;
 
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent TMS cache updates
+     */
+    static std::mutex mtx;
+
 public:
 
 
@@ -660,11 +696,13 @@ public:
      * \~english \brief Empty book and put content into trash
      */
     static void send_to_trash () {
+        mtx.lock();
         std::map<std::string, TileMatrixSet*>::iterator it;
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
         book.empty();
+        mtx.unlock();
     }
 
     /**
@@ -672,10 +710,12 @@ public:
      * \~english \brief Empty trash
      */
     static void empty_trash () {
+        mtx.lock();
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
         trash.empty();
+        mtx.unlock();
     }
 
 
@@ -692,7 +732,7 @@ public:
     }
 
     /**
-     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
      */
     static std::map<std::string,TileMatrixSet*> get_book () {
@@ -702,11 +742,11 @@ public:
     /**
      * \~french
      * \brief Retourne le TMS d'après son identifiant
-     * \details Si le TMS demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \details Si le TMS demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du TMS voulu
 
      * \brief Retourne the TMS according to its identifier
-     * \details If TMS is still not in the book, it is searched in the known directory and loaded
+     * \details If TMS is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted TMS identifier
      */
     static TileMatrixSet* get_tms(std::string id) {
@@ -727,18 +767,35 @@ public:
             d = directory;
         }
 
-        std::string tms_path = d + "/" + id + ".json";
+        std::string tms_path = d + "/" + id;
+
+        mtx.lock();
+        // Si on fait du cache de TMS, on revérifie que ce TMS n'a pas déjà été ajouté par un thread concurrent entre temps
+        if(getenv (ROK4_TMS_NO_CACHE) == NULL) {
+            if ( it != book.end() ) {
+                // On a effectivement depuis déjà enregistré ce TMS
+                return it->second;
+            }
+        }
 
         TileMatrixSet* tms = new TileMatrixSet(tms_path);
         if ( ! tms->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
             delete tms;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce TMS
-            book.insert ( std::pair<std::string, TileMatrixSet*>(id, NULL) );
+            mtx.unlock();
             return NULL;
         }
 
-        book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
+        if(getenv (ROK4_TMS_NO_CACHE) == NULL) {
+            // On veut utiliser le cache, on met donc ce nouveau TMS dans l'annuaire pour le trouver la prochaine fois
+            book.insert ( std::pair<std::string, TileMatrixSet*>(id, tms) );
+        } else {
+            // On met le TMS directement dans la corbeille, pour que le nettoyage se fasse bien
+            trash.push_back(tms);
+        }
+        
+        mtx.unlock();
+
         return tms;
     }
 
@@ -809,6 +866,14 @@ private:
      */
     static std::vector<Style*> trash;
 
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent TMS cache updates
+     */
+    static std::mutex mtx;
+
 public:
 
 
@@ -817,11 +882,13 @@ public:
      * \~english \brief Empty book and put content into trash
      */
     static void send_to_trash () {
+        mtx.lock();
         std::map<std::string, Style*>::iterator it;
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
         book.empty();
+        mtx.unlock();
     }
 
     /**
@@ -829,10 +896,12 @@ public:
      * \~english \brief Empty trash
      */
     static void empty_trash () {
+        mtx.lock();
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
         trash.empty();
+        mtx.unlock();
     }
 
 
@@ -859,7 +928,7 @@ public:
 
 
     /**
-     * \~french \brief Renseigne l'ensemble de l'annuaire
+     * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
      */
     static std::map<std::string,Style*> get_book () {
@@ -869,14 +938,15 @@ public:
     /**
      * \~french
      * \brief Retourne le style d'après son identifiant
-     * \details Si le style demandé n'est pas encore dans l'annuaire, il est recherché dans le répertoire connu et chargé
+     * \details Si le style demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du style voulu
 
      * \brief Retourne the style according to its identifier
-     * \details If style is still not in the book, it is searched in the known directory and loaded
+     * \details If style is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted style identifier
      */
     static Style* get_style(std::string id) {
+
         std::map<std::string, Style*>::iterator it = book.find ( id );
         if ( it != book.end() ) {
             return it->second;
@@ -894,26 +964,41 @@ public:
             d = directory;
         }
 
-        std::string style_path = d + "/" + id + ".json";
+        std::string style_path = d + "/" + id;
+
+        mtx.lock();
+        // Si on fait du cache de style, on revérifie que ce style n'a pas déjà été ajouté par un thread concurrent entre temps
+        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
+            if ( it != book.end() ) {
+                // On a effectivement depuis déjà enregistré ce style
+                return it->second;
+            }
+        }
 
         Style* style = new Style(style_path, inspire);
         if ( ! style->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
             delete style;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
-            book.insert ( std::pair<std::string, Style*>(id, NULL) );
+            mtx.unlock();
             return NULL;
         }
 
         if ( containForbiddenChars(style->getIdentifier()) ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
-            // On stocke une valeur nulle pour retenir l'impossibilité de charger ce style
-            book.insert ( std::pair<std::string, Style*>(id, NULL) );
+            mtx.unlock();
             return NULL;
         }
 
-        book.insert ( std::pair<std::string, Style*>(id, style) );
+        if(getenv (ROK4_STYLES_NO_CACHE) == NULL) {
+            // On veut utiliser le cache, on met donc ce nouveau style dans l'annuaire pour le trouver la porchaine fois
+            book.insert ( std::pair<std::string, Style*>(id, style) );
+        } else {
+            // On met le style directement dans la corbeille, pour que le nettoyage se fasse bien
+            trash.push_back(style);
+        }
+
+        mtx.unlock();
         return style;
     }
 
