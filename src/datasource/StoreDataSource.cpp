@@ -167,7 +167,8 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
 
                     if (originalTrayName != tray_name) {
                         // Récupération ou ajout du nouveau contexte de stockage
-                        context = StoragePool::get_context(context->getType(), tray_name);
+                        // On reprécise le contexte d'origine, pour utiliser le même cluster en cas S3
+                        context = StoragePool::get_context(context->getType(), tray_name, context);
                         // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
                         if (context == NULL) {
                             data = NULL;

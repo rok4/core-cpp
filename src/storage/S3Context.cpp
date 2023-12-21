@@ -48,6 +48,7 @@
  */
 
 #include "storage/S3Context.h"
+#include "S3Context.h"
 #include "utils/LibcurlStruct.h"
 #include <curl/curl.h>
 #include <rok4/storage/Context.h>
@@ -56,115 +57,156 @@
 #include <time.h>
 #include "utils/Cache.h"
 
+std::vector<std::string> S3Context::env_hosts;
+std::vector<std::string> S3Context::env_keys;
+std::vector<std::string> S3Context::env_secret_keys;
+std::vector<std::string> S3Context::env_cluster_names;
+std::vector<std::string> S3Context::env_urls;
+bool S3Context::ssl_no_verify = false;
 
-S3Context::S3Context (std::string b) : Context(), ssl_no_verify(false), bucket_name(b), cluster_name(""), initialized(true) {
-
-    // Le cluster est il renseigné dans la clef ?
-    //  ex. bucket@cluster
-    // Pour eviter les doublons, le port du cluster doit être renseigné !
-    std::size_t found_cluster = b.find("@");
-    if (found_cluster != std::string::npos) {
-        this->cluster_name = b.substr(found_cluster + 1);
-        this->bucket_name = b.substr(0, found_cluster);
+bool S3Context::load_env() {
+    if (! env_hosts.empty()) {
+        return true;
     }
 
-    // separateur des clusters (les variables d'environnement)
+    std::string urls, keys, secret_keys;
+    char* e;
+    std::stringstream ss;
+    std::string token, tmp;
     const char delim = ',';
-    // index des informations du cluster (les variables d'environnement)
-    int index = -1;
+    std::size_t pos;
 
-    char* u = getenv (ROK4_S3_URL); // liste d'urls des clusters
-    if (u == NULL) {
-        this->url.assign("http://localhost:8080");
+    // Chargement des variables d'environnement et ajout des valeurs par défaut
+
+    e = getenv (ROK4_S3_URL);
+    if (e == NULL) {
+        urls = "http://localhost:9000";
     } else {
-        std::vector<std::string> list_urls;
-        std::stringstream urls(std::string ((char*)u));
- 
-        std::string s;
-        while (std::getline(urls, s, delim)) {
-            list_urls.push_back(s);
-        }
-        // Si le cluster n'est pas renseigné, par defaut, on prend le 1er element dans la liste.
-        // Sinon, on le recherche dans la liste des urls des clusters
-        if (this->cluster_name.empty()) {
-            this->url = list_urls.at(0);
-            index = 0;
+        urls = std::string (e);
+    }
+    ss = std::stringstream(urls);
+    while (std::getline(ss, token, delim)) {
+        env_urls.push_back(token);
+
+        // On enlève le protocole
+        pos = token.find("://");
+        if (pos != std::string::npos) {
+            tmp = token.substr(pos + 3);
         } else {
-            for (std::string current_url : list_urls) {
-                index++;
-                if (current_url.find(this->cluster_name) != std::string::npos) {
-                    this->url = current_url;
-                    break;
-                }
-            }
+            tmp = token;
         }
-        // test 
-        if (this->url.empty()) {
-            this->initialized = false;
+
+        // On a le nom du cluster
+        env_cluster_names.push_back(tmp);
+
+        // On enlève le port pour avoir l'hôte
+        pos = tmp.find(":");
+        if (pos != std::string::npos) {
+            env_hosts.push_back(tmp.substr(0, pos));
+        } else {
+            env_hosts.push_back(tmp);
         }
     }
 
-    // Si l'url est vide, pas la peine de chercher le host...
-    if (!this->url.empty()) {
-        
-        // On calcule host = url sans le protocole ni le port
-        this->host = this->url;
-        std::size_t found = host.find("://");
-        if (found != std::string::npos) {
-            this->host = this->host.substr(found + 3);
-        }
-        found = this->host.find(":");
-        if (found != std::string::npos) {
-            this->host = this->host.substr(0, found);
-        }    
-    }
-        
-    char* k = getenv (ROK4_S3_KEY);
-    if (k == NULL) {
-        this->key.assign("KEY");
+    e = getenv (ROK4_S3_KEY);
+    if (e == NULL) {
+        keys = "rok4";
     } else {
-        std::stringstream keys(std::string ((char*)k));
-        std::string s;
-        int i = -1;
-        while (std::getline(keys, s, delim)) {
-            i++;
-            if (i == index) {
-                this->key.assign(s);
-            }
-        }
-        // test 
-        if (this->key.empty()) {
-            this->initialized = false;
-        }
+        keys = std::string (e);
+    }
+    ss = std::stringstream(keys);
+    while (std::getline(ss, token, delim)) {
+        env_keys.push_back(token);
     }
 
-    char* sk = getenv (ROK4_S3_SECRETKEY);
-    if (sk == NULL) {
-        this->secret_key.assign("SECRETKEY");
+    e = getenv (ROK4_S3_SECRETKEY);
+    if (e == NULL) {
+        secret_keys = "rok4S3storage";
     } else {
-        std::stringstream secretkeys(std::string ((char*)sk));
-        std::string s;
-        int i = -1;
-        while (std::getline(secretkeys, s, delim)) {
-            i++;
-            if (i == index) {
-                this->secret_key.assign(s);
-            }
-        }
-        // test 
-        if (this->secret_key.empty()) {
-            this->initialized = false;
-        }
+        secret_keys = std::string(e);
+    }
+    ss = std::stringstream(secret_keys);
+    while (std::getline(ss, token, delim)) {
+        env_secret_keys.push_back(token);
     }
 
     if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
-        this->ssl_no_verify=true;
+        ssl_no_verify = true;
     }
+
+    // Analyse des valeurs
+
+    if (env_urls.size() != env_keys.size() || env_urls.size() != env_secret_keys.size()) {
+        BOOST_LOG_TRIVIAL(error) << "S3 informations in environment variables are inconsistent : same number of element in each list is required";
+        // On vide les listes pour signaler l'erreur de chargement
+        env_urls.clear();
+        env_keys.clear();
+        env_secret_keys.clear();
+        return false;
+    }
+
+    return true;    
+}
+
+
+std::string S3Context::get_default_cluster() {
+    if (! load_env()) {
+        BOOST_LOG_TRIVIAL(error) << "Cannot load environment variables to use S3 storage";
+        return "";
+    }
+    return env_cluster_names.at(0);
+}
+
+S3Context::S3Context (std::string b) : Context(), bucket_name(b), cluster_name("") {
+
+    if (! load_env()) {
+        BOOST_LOG_TRIVIAL(error) << "Cannot load environment variables to use S3 storage";
+        return;
+    }
+
+    // Le cluster est il renseigné dans la clef ?
+    // ex. bucket@cluster
+    // Pour eviter les doublons, le port du cluster doit être renseigné !
+
+    std::size_t pos = b.find("@");
+    if (pos != std::string::npos) {
+        this->cluster_name = b.substr(pos + 1);
+        // On supprime le nom du cluster du nom du bucket
+        this->bucket_name = b.substr(0, pos);
+    } else {
+        // Pas de nom de cluster dans le nom de bucket, on met celui par défaut, le premier
+        this->cluster_name = env_cluster_names.at(0);
+    }
+
+    // On cherche l'index des informations S3 pour ce bucket
+    int index = -1;
+    for (int i = 0; i < env_cluster_names.size(); i++) {
+        if (env_cluster_names.at(i) == this->cluster_name) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        BOOST_LOG_TRIVIAL(error) << "No S3 informations for S3 cluster '" << this->cluster_name << "'";
+        // Le fait que le host soit vide sera utilisé pour empêcher la connection et l'utilisation de ce contexte S3
+        return;
+    }
+
+    this->host = env_hosts.at(index);
+    this->key = env_keys.at(index);
+    this->secret_key = env_secret_keys.at(index);
+    this->url = env_urls.at(index);
 }
 
 bool S3Context::connection() {
-    connected = true;
-    return true;
+    if (host == "") {
+        connected = false;
+        return false;
+    } else {
+        connected = true;
+        return true;
+    }
 }
 
 static const std::string base64_chars =

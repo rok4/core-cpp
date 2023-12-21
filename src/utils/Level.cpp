@@ -180,26 +180,11 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
+        // On fournit le contexte de stockage de la pyramide. Cela permet de s'assurer que celui du niveau est sur le même cluster S3
+        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value(), pyramid->getContext());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;
-        }
-
-        // INFO
-        // Règles des contextes pour les niveaux (bucket_name = pyramids):
-        //  1. Si le niveau de la pyramide a un contexte sans cluster (par defaut)
-        //    > On utilise le contexte de la pyramide !
-        //  2. Si le niveau de la pyramide a un contexte avec cluster
-        //    > On utilise le contexte du niveau !
-        std::string cluster_level = ((S3Context*) context)->getCluster();
-        if (cluster_level.empty()) {
-            Context* ctx_pyramid = pyramid->getContext();
-            std::string cluster_pyramid = ((S3Context*) ctx_pyramid)->getCluster();
-            if (!cluster_pyramid.empty()) {
-                BOOST_LOG_TRIVIAL(debug) <<  "Using pyramid s3 storage context for the level " << id << " because the cluster is populated" ;
-                context = ctx_pyramid;
-            }
         }
     }
 #if CEPH_ENABLED

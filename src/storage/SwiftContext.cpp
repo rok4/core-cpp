@@ -512,11 +512,6 @@ std::string SwiftContext::getTray() {
     return container_name;
 }
 
-bool SwiftContext::writeFromFile(std::string fileName, std::string objectName) {
-    BOOST_LOG_TRIVIAL(warning) << "Not yet implemented !";
-    return false;
-}
-
 bool SwiftContext::openToWrite(std::string name) {
 
     std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
