@@ -52,6 +52,7 @@ class Pyramid;
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 #include "rok4/utils/Cache.h"
+#include "rok4/storage/Context.h"
 
 #define DEFAULT_NODATAVALUE 255
 
@@ -67,6 +68,12 @@ typedef std::function<bool(std::pair<std::string, Level*>, std::pair<std::string
 class Pyramid : public Configuration {
 
 private:
+
+    /**
+     * \~french \brief Contexte de stockage
+     * \~english \brief Storage context
+     */
+    Context* context;
 
     /**
      * \~french \brief Liste des différents niveaux de la pyramide
@@ -145,6 +152,14 @@ public:
      * \param[in] obj pyramid
      */
     Pyramid (Pyramid* p);
+
+    /**
+     * \~french
+     * \brief Contexte de stockage
+     * \~english
+     * \brief Storage context
+     */
+    Context* getContext ();
 
     /**
      * \~french

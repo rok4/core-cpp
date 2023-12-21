@@ -93,6 +93,7 @@ void split_path(std::string path, ContextType::eContextType& type, std::string& 
         path = path.erase ( 0, storage_type.length() + 3);
     }
 
+
     if (type == ContextType::FILECONTEXT) {
         // Dans le cas d'un stockage fichier, le nom du fichier est l'ensemble et on ne définit pas de contenant
         fo = path;

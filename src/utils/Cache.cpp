@@ -74,13 +74,47 @@ std::string StyleBook::directory = "";
 bool StyleBook::inspire = false;
 std::mutex StyleBook::mtx;
 
-Context * StoragePool::get_context(ContextType::eContextType type,std::string tray) {
+Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
+
+    if (reference_context != 0 && reference_context->getType() != type) {
+        BOOST_LOG_TRIVIAL(error) << "Asked storage context and reference one have to own the same type";
+        return NULL;
+    }
+
+    if (type == ContextType::S3CONTEXT) {
+        // Dans le cas S3, le nom du bucket peut contenir le nom du cluster ou pas
+        // Pour voir si on a déjà ce contexte de stockage, il faut que "tray" contienne le nom du bucket et du cluster
+        // pour ne pas confondre 2 buckets avec le même nom sur deux clusters différents
+        // On va donc s'assurer d'avoir ce nom de cluster :
+        //    - soit il y est déjà et on le laisse
+        //    - soit il n'y est pas et on met celui du contexte de référence
+        //    - soit il n'y est pas et pas de contexte de référence => on met celui par défaut
+
+        size_t pos = tray.find ( "@" );
+        if ( pos == std::string::npos ) {
+            std::string cluster_name;
+            if (reference_context == 0) {
+                cluster_name = S3Context::get_default_cluster();
+                if (cluster_name == "") {
+                    // Le chargement des informations a échoué (déjà loggé)
+                    return NULL;
+                }
+            } else {
+                // On ajoute le nom du cluster au nom du bucket
+                cluster_name = ((S3Context *)reference_context)->getCluster();
+            }
+
+            tray = tray + "@" + cluster_name;
+        }
+    }
+
     Context* ctx;
     std::pair<ContextType::eContextType,std::string> key = make_pair(type,tray);
 
     std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
     if ( it != pool.end() ) {
-        //le contenant est déjà existant et donc connecté
+        BOOST_LOG_TRIVIAL(debug) << "Storage context already added " << ContextType::toString(it->first.first) << " / '" << it->first.second << "'" ;
+        // le contenant est déjà existant et donc connecté
         return it->second;
 
     } else {
@@ -102,22 +136,20 @@ Context * StoragePool::get_context(ContextType::eContextType type,std::string tr
                 ctx = new FileContext(tray);
                 break;
             default:
-                //ERREUR
-                BOOST_LOG_TRIVIAL(error) << "Ce type de contexte n'est pas géré.";
+                BOOST_LOG_TRIVIAL(error) << "Unhandled storage context type";
                 return NULL;
         }
 
         // on connecte pour vérifier que ce contexte est valide
-        if (!(ctx->connection())) {
-            BOOST_LOG_TRIVIAL(error) << "Impossible de connecter au contexte de type " << ContextType::toString(type) << ", contenant " << tray;
+        if (! ctx->connection()) {
+            BOOST_LOG_TRIVIAL(error) << "Cannot connect " << ContextType::toString(type) << " storage context, tray '" << tray << "'";
             delete ctx;
             return NULL;
         }
 
-        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::toString(key.first) << " / '" << key.second << "'" ;
+        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::toString(type) << ", tray '" << tray << "'";
         pool.insert(make_pair(key,ctx));
 
         return ctx;
     }
-
 }

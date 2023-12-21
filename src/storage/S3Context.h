@@ -71,7 +71,49 @@
 class S3Context : public Context {
     
 private:
-    
+
+    /**
+     * \~french \brief Liste des URL S3
+     * \~english \brief List of S3 URLs
+     */
+    static std::vector<std::string> env_urls;
+
+    /**
+     * \~french \brief Liste des hôtes S3
+     * \~english \brief List of S3 hosts
+     */
+    static std::vector<std::string> env_hosts;
+
+    /**
+     * \~french \brief Liste des noms de cluster S3
+     * \~english \brief List of S3 cluster names
+     */
+    static std::vector<std::string> env_cluster_names;
+
+    /**
+     * \~french \brief Liste des clés S3
+     * \~english \brief List of S3 keys
+     */
+    static std::vector<std::string> env_keys;
+
+    /**
+     * \~french \brief Liste des clés secrètes S3
+     * \~english \brief List of S3 secret keys
+     */
+    static std::vector<std::string> env_secret_keys;
+
+    /**
+     * \~french \brief  Ne pas vérifier les certificats SSL avec Curl?
+     * \~english \brief Don't verify SSL certificats with Curl ?
+     */
+    static bool ssl_no_verify;
+
+    /**
+     * \~french \brief Charge les informations S3 depuis les variables d'environnement
+     * \~english \brief Load S3 informations from environment variables
+     */
+    static bool load_env();
+
     /**
      * \~french \brief URL de l'API S3, avec protocole et port
      * \~english \brief S3 API URL, with protocol and port
@@ -83,11 +125,13 @@ private:
      * \~english \brief S3 API Host (URL without protocol or port)
      */
     std::string host;
+
     /**
      * \~french \brief Clé S3
      * \~english \brief S3 key
      */
     std::string key;
+
     /**
      * \~french \brief Clé de hachage S3
      * \~english \brief S3 hash key
@@ -95,16 +139,16 @@ private:
     std::string secret_key;
 
     /**
-     * \~french \brief Nom du conteneur S3
-     * \~english \brief S3 container name
+     * \~french \brief Nom du conteneur S3, sans nom du cluster
+     * \~english \brief S3 container name, without cluster name
      */
     std::string bucket_name;
-    
-    /**
-     * \~french \brief  Ne pas vérifier les certificats SSL avec Curl?
-     * \~english \brief Don't verify SSL certificats with Curl ?
+
+     /**
+     * \~french \brief Nom du cluster S3 (hôte avec le port)
+     * \~english \brief S3 cluster name (host with port)
      */
-    bool ssl_no_verify;
+    std::string cluster_name;
 
     /**
      * \~french \brief Calcule la signature à partir du header
@@ -143,7 +187,14 @@ public:
     ContextType::eContextType getType();
     std::string getTypeStr();
     std::string getTray();
-        
+    std::string getCluster();
+
+    /**
+     * \~french \brief Retourne le nom de cluster par défaut (le premier)
+     * \~english \brief Get default S3 cluster name (first one)
+     */
+    static std::string get_default_cluster();
+
     int read(uint8_t* data, int offset, int size, std::string name);
     uint8_t* readFull(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
@@ -171,6 +222,7 @@ public:
         oss << "\t- Key = " << key << std::endl;
         oss << "\t- Secrete Key = " << secret_key << std::endl;
         oss << "\t- Bucket name = " << bucket_name << std::endl;
+        oss << "\t- Cluster name = " << cluster_name << std::endl;
         if (connected) {
             oss << "\t- CONNECTED !" << std::endl;
         } else {
@@ -179,7 +231,6 @@ public:
         return oss.str() ;
     }
     
-
     /**
      * \~french \brief Récupère l'URL publique #public_url et constitue l'en-tête HTTP #authHdr
      * \~english \brief Get public URL #public_url and constitute the HTTP header #authHdr
@@ -191,7 +242,7 @@ public:
     void closeConnection() {
         connected = false;
     }
-    
+
     ~S3Context() {
         closeConnection();
     }

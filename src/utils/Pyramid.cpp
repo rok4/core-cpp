@@ -213,7 +213,7 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     std::string tray_name, fo_name;
     ContextType::split_path(path, storage_type, fo_name, tray_name);
     
-    Context* context = StoragePool::get_context(storage_type, tray_name);
+    context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
         errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read pyramid's descriptor";
         return;
@@ -275,6 +275,8 @@ Pyramid::Pyramid (Pyramid* obj) {
         memcpy ( nodataValue, obj->nodataValue, channels * sizeof(int) );
     }
 }
+
+Context* Pyramid::getContext() { return context; }
 
 bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topLevel) {
 

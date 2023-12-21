@@ -180,7 +180,8 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         racine = doc["storage"]["image_prefix"].string_value();
 
-        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value());
+        // On fournit le contexte de stockage de la pyramide. Cela permet de s'assurer que celui du niveau est sur le même cluster S3
+        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value(), pyramid->getContext());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;
