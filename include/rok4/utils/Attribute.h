@@ -96,6 +96,10 @@ class Attribute
                 std::string tmp;
                 for (json11::Json v : doc["values"].array_items()) {
                     tmp = v.string_value();
+                    // on double les backslash, en évitant de traiter les backslash déjà doublés
+                    boost::replace_all(tmp, "\\\\", "\\");
+                    boost::replace_all(tmp, "\\", "\\\\");
+                    // On échappe les doubles quotes
                     boost::replace_all(tmp, "\"", "\\\"");
                     values.push_back(tmp);
                 }
