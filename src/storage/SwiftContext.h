@@ -188,18 +188,6 @@ public:
     bool write(uint8_t* data, int offset, int size, std::string name);
     bool writeFull(uint8_t* data, int size, std::string name);
 
-    /**
-     * \~french
-     * \brief Écrit un objet Swift depuis un fichier
-     * \param[in] fileName Nom du fichier à téléverser dans Swift
-     * \param[in] objectName Nom de l'objet Swift
-     * \~english
-     * \brief Écrit un objet Swift depuis un fichier
-     * \param[in] fileName File path to upload into Swift
-     * \param[in] objectName Swift object's name
-     */
-    bool writeFromFile(std::string fileName, std::string objectName);
-
     bool openToWrite(std::string name);
     bool closeToWrite(std::string name);
 

@@ -1,3 +1,17 @@
+## 1.3.0
+
+### [Added]
+
+* Gestion du multi cluster S3 :
+    * nom du cluster = hôte du cluster avec le port (pas de protocole)
+    * Pour préciser le cluster auquel on s'adresse, le nom du bucket aura la forme `<nom du bucker>@<nom du cluster>`
+    * Les variables d'environnement `ROK4_S3_URL`, `ROK4_S3_KEY` et `ROK4_S3_SECRETKEY` peuvent contenir une liste de valeurs séparées par des virgules
+    * **Dans** les descripteurs de pyramide et leur liste ou les objets symboliques, on peut ne pas préciser le nom du cluster : on sait alors qu'on travaille sur le même cluster que celui de l'objet d'origine
+
+### [Fixed]
+
+* Attribute : dans les valeurs des attributs, on échappe les éventuelles back quotes
+
 ## 1.2.4
 
 ### [Fixed]
