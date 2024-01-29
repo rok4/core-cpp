@@ -176,14 +176,6 @@ public:
     bool addLevels (Pyramid* p, std::string bottomLevel, std::string topLevel);
 
     /**
-     * \~french \brief Récupère le premier niveau
-     * \return level premier niveau
-     * \~english \brief Get the first level
-     * \return level first level
-     */
-    Level* getFirstLevel();
-
-    /**
      * \~french \brief Récupère le plus haut niveau
      * \return level plus haut niveau
      * \~english \brief Get the highest level

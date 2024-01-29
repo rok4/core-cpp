@@ -85,16 +85,36 @@ jobs:
           cd build
           make doc
           cd ..
-          cp README.md CHANGELOG.md dist/
 
-      - name: Upload documentation
-        if: "matrix.os == 'ubuntu-20.04'"
-        uses: actions/upload-artifact@v3
+          cp docs/mkdocs.yml target/mkdocs.yml
+          cp -r docs/overrides target/
+          cp -r docs/assets target/docs/
+          cp docs/documentation.md target/docs/documentation.md
+          cp docs/README.hdr.md target/docs/README.md
+          cp docs/CHANGELOG.hdr.md target/docs/CHANGELOG.md
+          cp docs/CONTRIBUTING.hdr.md target/docs/CONTRIBUTING.md
+          sed "s#x.y.z#${{ github.ref_name }}#g" README.md >>target/docs/README.md
+          cat CHANGELOG.md >>target/docs/CHANGELOG.md
+          cat CONTRIBUTING.md >>target/docs/CONTRIBUTING.md
+
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
-          name: dist-cpp
-          path: dist/
-          if-no-files-found: error
-          retention-days: 1
+          python-version: "3.10"
+          cache: 'pip'
+
+      - name: Install Mkdocs
+        run: pip install -r docs/requirements.txt
+
+      - name: Publish documentation
+        if: "matrix.os == 'ubuntu-20.04'"
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          cd target/
+          mike deploy --push --update-aliases --branch gh-pages -t "Version ${{ github.ref_name }}" ${{ github.ref_name }} latest
+          mike set-default --push --branch gh-pages ${{ github.ref_name }}
+
 
   commit_documentation:
     name: Add documentation into gh-pages branch
