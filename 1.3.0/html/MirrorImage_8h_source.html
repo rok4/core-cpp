@@ -1,0 +1,207 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('MirrorImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">MirrorImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="MirrorImage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifndef MIRROR_IMAGE_H</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define MIRROR_IMAGE_H</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;boost/log/trivial.hpp&gt;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Utils_8h.html">utils/Utils.h</a>&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classMirrorImage.html">   72</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMirrorImage.html">MirrorImage</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">/*   mirrorSize</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">        &lt;---------&gt;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">         ________________________________________</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">        |                                        |  /\</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">        |             position 0                 |  |   mirrorSize</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">        |________________________________________|  V</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">        |         |                    |         |</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">        |         |                    |         |</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">        | position|                    |position |</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">        |   3     |   Image source     |    1    |</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">        |         |                    |         |</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">        |         |                    |         |</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">        |_________|____________________|_________|</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">        |                                        |</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">        |             position 2                 |</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">        |________________________________________| */</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMirrorImageFactory.html">MirrorImageFactory</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classImage.html">Image</a>* sourceImage;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">int</span> position;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    uint mirrorSize;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">int</span> _getline ( T* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classMirrorImage.html#a4740d3a9f1daf6a6f159c4b0dfbe0714">  156</a></span>&#160;    <a class="code" href="classMirrorImage.html#a4740d3a9f1daf6a6f159c4b0dfbe0714">MirrorImage</a> ( <span class="keywordtype">int</span> <a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, <a class="code" href="classImage.html">Image</a>* image, <span class="keywordtype">int</span> position,uint mirrorSize ) : <a class="code" href="classImage.html">Image</a> ( <a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>,<a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>,<a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>,image-&gt;<a class="code" href="classImage.html#a976df6b197dd0c5c8b670c0fa69bd8c1">getResX</a>(),image-&gt;<a class="code" href="classImage.html#afe1ff2ed592288783b3dbd87cfdfc882">getResY</a>(),<a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a> ), sourceImage ( image ), position ( position ), mirrorSize ( mirrorSize ) {}</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMirrorImage.html#a712a4a93113619ee6bd7ac7535b88a93">getline</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMirrorImage.html#a712a4a93113619ee6bd7ac7535b88a93">getline</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMirrorImage.html#a712a4a93113619ee6bd7ac7535b88a93">getline</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="classMirrorImage.html#a708fb1a56a0b1e5975289c828631d163">  170</a></span>&#160;    <a class="code" href="classMirrorImage.html#a708fb1a56a0b1e5975289c828631d163">~MirrorImage</a>() {}</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="classMirrorImage.html#ac621fb2733560a835d142ee622dbebda">  177</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMirrorImage.html#ac621fb2733560a835d142ee622dbebda">print</a>() {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;------ MirrorImage -------&quot;</span> ;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Mirror&#39;s position = &quot;</span> &lt;&lt; position ;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Mirror&#39;s size = &quot;</span> &lt;&lt; mirrorSize ;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;};</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="classMirrorImageFactory.html">  192</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMirrorImageFactory.html">MirrorImageFactory</a> {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="classMirrorImage.html">MirrorImage</a>* <a class="code" href="classMirrorImageFactory.html#a22bf57ca119221325317c81f643ebef6">createMirrorImage</a> ( <a class="code" href="classImage.html">Image</a>* pImageSrc, <span class="keywordtype">int</span> position,uint mirrorSize );</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;};</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassMirrorImageFactory_html_a22bf57ca119221325317c81f643ebef6"><div class="ttname"><a href="classMirrorImageFactory.html#a22bf57ca119221325317c81f643ebef6">MirrorImageFactory::createMirrorImage</a></div><div class="ttdeci">MirrorImage * createMirrorImage(Image *pImageSrc, int position, uint mirrorSize)</div><div class="ttdoc">Teste et calcule les caractéristiques d'une image miroir et crée un objet MirrorImage.</div><div class="ttdef"><b>Definition:</b> MirrorImage.cpp:56</div></div>
+<div class="ttc" id="aclassImage_html_a51df43db420c9c0b57536cb2dd36de5c"><div class="ttname"><a href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">Image::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Hauteur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:90</div></div>
+<div class="ttc" id="aclassImage_html_a3a792f6f0da13e8efa5e97d4cdbf0226"><div class="ttname"><a href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">Image::bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bbox</div><div class="ttdoc">Emprise rectangulaire au sol de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:102</div></div>
+<div class="ttc" id="aclassImage_html_a976df6b197dd0c5c8b670c0fa69bd8c1"><div class="ttname"><a href="classImage.html#a976df6b197dd0c5c8b670c0fa69bd8c1">Image::getResX</a></div><div class="ttdeci">double getResX() const</div><div class="ttdoc">Retourne la résolution dans le sens des X.</div><div class="ttdef"><b>Definition:</b> Image.h:359</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format.</div></div>
+<div class="ttc" id="aclassImage_html_afe1ff2ed592288783b3dbd87cfdfc882"><div class="ttname"><a href="classImage.html#afe1ff2ed592288783b3dbd87cfdfc882">Image::getResY</a></div><div class="ttdeci">double getResY() const</div><div class="ttdoc">Retourne la résolution dans le sens des Y.</div><div class="ttdef"><b>Definition:</b> Image.h:370</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:72</div></div>
+<div class="ttc" id="aclassMirrorImageFactory_html"><div class="ttname"><a href="classMirrorImageFactory.html">MirrorImageFactory</a></div><div class="ttdoc">Usine de création d'une image miroir.</div><div class="ttdef"><b>Definition:</b> MirrorImage.h:192</div></div>
+<div class="ttc" id="aclassImage_html_ab8d12f635013c04159cd4d3d972bac88"><div class="ttname"><a href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">Image::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Largeur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:84</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassMirrorImage_html"><div class="ttname"><a href="classMirrorImage.html">MirrorImage</a></div><div class="ttdoc">Manipulation d'une image miroir.</div><div class="ttdef"><b>Definition:</b> MirrorImage.h:72</div></div>
+<div class="ttc" id="aUtils_8h_html"><div class="ttname"><a href="Utils_8h.html">Utils.h</a></div><div class="ttdoc">Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ...</div></div>
+<div class="ttc" id="aclassMirrorImage_html_a712a4a93113619ee6bd7ac7535b88a93"><div class="ttname"><a href="classMirrorImage.html#a712a4a93113619ee6bd7ac7535b88a93">MirrorImage::getline</a></div><div class="ttdeci">int getline(uint8_t *buffer, int line)</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div><div class="ttdef"><b>Definition:</b> MirrorImage.cpp:165</div></div>
+<div class="ttc" id="aclassImage_html_a73572ed4b7f15054c5a598c6aabffd86"><div class="ttname"><a href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">Image::channels</a></div><div class="ttdeci">int channels</div><div class="ttdoc">Nombre de canaux de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:79</div></div>
+<div class="ttc" id="aclassMirrorImage_html_ac621fb2733560a835d142ee622dbebda"><div class="ttname"><a href="classMirrorImage.html#ac621fb2733560a835d142ee622dbebda">MirrorImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image miroir.</div><div class="ttdef"><b>Definition:</b> MirrorImage.h:177</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassMirrorImage_html_a708fb1a56a0b1e5975289c828631d163"><div class="ttname"><a href="classMirrorImage.html#a708fb1a56a0b1e5975289c828631d163">MirrorImage::~MirrorImage</a></div><div class="ttdeci">~MirrorImage()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> MirrorImage.h:170</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:713</div></div>
+<div class="ttc" id="aclassMirrorImage_html_a4740d3a9f1daf6a6f159c4b0dfbe0714"><div class="ttname"><a href="classMirrorImage.html#a4740d3a9f1daf6a6f159c4b0dfbe0714">MirrorImage::MirrorImage</a></div><div class="ttdeci">MirrorImage(int width, int height, int channels, BoundingBox&lt; double &gt; bbox, Image *image, int position, uint mirrorSize)</div><div class="ttdoc">Crée un objet MirrorImage à partir de tous ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> MirrorImage.h:156</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a6a17ec937b4e07383dde71de6c9d000.html">image</a></li><li class="navelem"><a class="el" href="MirrorImage_8h.html">MirrorImage.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

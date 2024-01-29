@@ -1,0 +1,24 @@
+<map id="src/image/file/LibpngImage.h" name="src/image/file/LibpngImage.h">
+<area shape="rect" id="node1" title="Définition des classes LibpngImage et LibpngImageFactory." alt="" coords="253,5,442,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,60,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="84,80,152,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="177,80,241,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="150,229,211,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="427,229,492,256"/>
+<area shape="rect" id="node7" href="$Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format." alt="" coords="517,229,634,256"/>
+<area shape="rect" id="node10" href="$FileImage_8h.html" title="Définition des classes FileImage et FileImageFactory." alt="" coords="455,80,605,107"/>
+<area shape="rect" id="node11" href="$Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="693,155,831,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="633,304,688,331"/>
+<area shape="rect" id="node9" title=" " alt="" coords="543,304,608,331"/>
+<area shape="rect" id="node19" href="$PixelConverter_8h.html" title="Définition de la classe PixelConverter, permettant de convertir à la volée les pixels." alt="" coords="220,155,435,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="955,229,1023,256"/>
+<area shape="rect" id="node13" href="$BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="712,304,879,331"/>
+<area shape="rect" id="node17" title=" " alt="" coords="878,379,937,405"/>
+<area shape="rect" id="node18" href="$CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="709,229,828,256"/>
+<area shape="rect" id="node14" title=" " alt="" coords="360,379,495,405"/>
+<area shape="rect" id="node15" title=" " alt="" coords="689,379,744,405"/>
+<area shape="rect" id="node16" title=" " alt="" coords="769,379,838,405"/>
+<area shape="rect" id="node20" href="$Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="286,229,403,256"/>
+<area shape="rect" id="node21" title=" " alt="" coords="301,304,362,331"/>
+<area shape="rect" id="node22" title=" " alt="" coords="386,304,458,331"/>
+</map>

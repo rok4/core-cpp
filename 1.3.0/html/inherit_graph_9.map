@@ -1,0 +1,9 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classDataSource.html" title=" " alt="" coords="5,148,96,175"/>
+<area shape="rect" id="node2" href="$classBufferedDataSource.html" title=" " alt="" coords="150,5,290,32"/>
+<area shape="rect" id="node3" href="$classDataSourceDecoder.html" title=" " alt="" coords="146,57,294,98"/>
+<area shape="rect" id="node4" href="$classPaletteDataSource.html" title=" " alt="" coords="154,123,286,149"/>
+<area shape="rect" id="node5" href="$classRawDataSource.html" title=" " alt="" coords="161,173,279,200"/>
+<area shape="rect" id="node6" href="$classStoreDataSource.html" title="Lecture d&#39;une source de données." alt="" coords="159,224,281,251"/>
+<area shape="rect" id="node7" href="$classTiffHeaderDataSource.html" title=" " alt="" coords="144,275,296,301"/>
+</map>

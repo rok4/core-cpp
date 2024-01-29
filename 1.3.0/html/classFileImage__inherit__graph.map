@@ -1,0 +1,10 @@
+<map id="FileImage" name="FileImage">
+<area shape="rect" id="node1" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="325,80,403,107"/>
+<area shape="rect" id="node3" href="$classBilzImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="5,155,85,181"/>
+<area shape="rect" id="node4" href="$classLibjpegImage.html" title="Manipulation d&#39;une image JPEG." alt="" coords="109,155,208,181"/>
+<area shape="rect" id="node5" href="$classLibkakaduImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie kakadu." alt="" coords="232,155,349,181"/>
+<area shape="rect" id="node6" href="$classLibopenjpegImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie openjpeg." alt="" coords="374,155,501,181"/>
+<area shape="rect" id="node7" href="$classLibpngImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="525,155,621,181"/>
+<area shape="rect" id="node8" href="$classLibtiffImage.html" title="Manipulation d&#39;une image TIFF." alt="" coords="645,155,736,181"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="335,5,393,32"/>
+</map>

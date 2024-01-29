@@ -1,0 +1,5 @@
+<map id="src/storage/S3Context.h" name="src/storage/S3Context.h">
+<area shape="rect" id="node1" title="Définition de la classe S3Context." alt="" coords="103,5,267,32"/>
+<area shape="rect" id="node2" href="$S3Context_8cpp.html" title="Implémentation de la classe S3Context." alt="" coords="5,80,184,107"/>
+<area shape="rect" id="node3" href="$Cache_8cpp.html" title="Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="209,80,343,107"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="DataStream" name="DataStream">
+<area shape="rect" id="node1" title=" " alt="" coords="5,157,97,184"/>
+<area shape="rect" id="node2" href="$classAscEncoder.html" title=" " alt="" coords="194,5,287,32"/>
+<area shape="rect" id="node3" href="$classBilEncoder.html" title=" " alt="" coords="198,56,283,83"/>
+<area shape="rect" id="node4" href="$classDataStreamFromDataSource.html" title=" " alt="" coords="145,107,336,133"/>
+<area shape="rect" id="node5" href="$classJPEGEncoder.html" title=" " alt="" coords="188,157,293,184"/>
+<area shape="rect" id="node6" href="$classPNGEncoder.html" title=" " alt="" coords="191,208,290,235"/>
+<area shape="rect" id="node7" href="$classRawDataStream.html" title=" " alt="" coords="181,259,300,285"/>
+<area shape="rect" id="node8" href="$classTiffEncoder.html" title=" " alt="" coords="196,309,285,336"/>
+<area shape="rect" id="node9" href="$classTiffDeflateEncoder.html" title=" " alt="" coords="390,233,553,260"/>
+<area shape="rect" id="node10" href="$classTiffLZWEncoder.html" title=" " alt="" coords="397,284,546,311"/>
+<area shape="rect" id="node11" href="$classTiffPackBitsEncoder.html" title=" " alt="" coords="384,335,559,361"/>
+<area shape="rect" id="node12" href="$classTiffRawEncoder.html" title=" " alt="" coords="397,385,545,412"/>
+</map>

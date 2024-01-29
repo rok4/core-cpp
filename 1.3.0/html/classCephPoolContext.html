@@ -1,0 +1,599 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classCephPoolContext.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="classCephPoolContext-members.html">Liste de tous les membres</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe CephPoolContext</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Création d'un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des données stockées sous forme d'objets.  
+ <a href="classCephPoolContext.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CephPoolContext_8h_source.html">CephPoolContext.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe d'héritage de CephPoolContext:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCephPoolContext__inherit__graph.png" border="0" usemap="#CephPoolContext_inherit__map" alt="Inheritance graph"/></div>
+<map name="CephPoolContext_inherit__map" id="CephPoolContext_inherit__map">
+<area shape="rect" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="5,80,131,107"/>
+<area shape="rect" href="classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="34,5,102,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">légende</a>]</span></center></div>
+<div class="dynheader">
+Graphe de collaboration de CephPoolContext:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCephPoolContext__coll__graph.png" border="0" usemap="#CephPoolContext_coll__map" alt="Collaboration graph"/></div>
+<map name="CephPoolContext_coll__map" id="CephPoolContext_coll__map">
+<area shape="rect" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="5,80,131,107"/>
+<area shape="rect" href="classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="34,5,102,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">légende</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:af304bed70d974b81d03350af563141ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#af304bed70d974b81d03350af563141ec">CephPoolContext</a> (std::string pool)</td></tr>
+<tr class="memdesc:af304bed70d974b81d03350af563141ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur pour un contexte Ceph, avec les valeur par défaut.  <a href="classCephPoolContext.html#af304bed70d974b81d03350af563141ec">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af304bed70d974b81d03350af563141ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e357f4e62cc15f810a5f954e34e880"><td class="memItemLeft" align="right" valign="top"><a id="a64e357f4e62cc15f810a5f954e34e880"></a>
+<a class="el" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a64e357f4e62cc15f810a5f954e34e880">getType</a> ()</td></tr>
+<tr class="memdesc:a64e357f4e62cc15f810a5f954e34e880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le type du contexte. <br /></td></tr>
+<tr class="separator:a64e357f4e62cc15f810a5f954e34e880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a250a9f8132f5e0529fb7171fd3929099"><td class="memItemLeft" align="right" valign="top"><a id="a250a9f8132f5e0529fb7171fd3929099"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a250a9f8132f5e0529fb7171fd3929099">getTypeStr</a> ()</td></tr>
+<tr class="memdesc:a250a9f8132f5e0529fb7171fd3929099"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le type du contexte, sous forme de texte. <br /></td></tr>
+<tr class="separator:a250a9f8132f5e0529fb7171fd3929099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa12091932e1442310da0b427a14c5145"><td class="memItemLeft" align="right" valign="top"><a id="aa12091932e1442310da0b427a14c5145"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#aa12091932e1442310da0b427a14c5145">getTray</a> ()</td></tr>
+<tr class="memdesc:aa12091932e1442310da0b427a14c5145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le contenant dans le contexte. <br /></td></tr>
+<tr class="separator:aa12091932e1442310da0b427a14c5145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a5b5ad19ef0f4b8f58c8dd2faa46f7"><td class="memItemLeft" align="right" valign="top"><a id="a32a5b5ad19ef0f4b8f58c8dd2faa46f7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a32a5b5ad19ef0f4b8f58c8dd2faa46f7">connection</a> ()</td></tr>
+<tr class="memdesc:a32a5b5ad19ef0f4b8f58c8dd2faa46f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instancie les objets librados #cluster and #io_ctx. <br /></td></tr>
+<tr class="separator:a32a5b5ad19ef0f4b8f58c8dd2faa46f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a312c92b7462b933f70fe8e7aba94ccf2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a312c92b7462b933f70fe8e7aba94ccf2">exists</a> (std::string name)</td></tr>
+<tr class="memdesc:a312c92b7462b933f70fe8e7aba94ccf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si l'objet demandé existe dans ce contexte.  <a href="classCephPoolContext.html#a312c92b7462b933f70fe8e7aba94ccf2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a312c92b7462b933f70fe8e7aba94ccf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70f85dbb947e36c4cac7aeb91e215715"><td class="memItemLeft" align="right" valign="top"><a id="a70f85dbb947e36c4cac7aeb91e215715"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a70f85dbb947e36c4cac7aeb91e215715">closeConnection</a> ()</td></tr>
+<tr class="memdesc:a70f85dbb947e36c4cac7aeb91e215715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nettoie les objets librados. <br /></td></tr>
+<tr class="separator:a70f85dbb947e36c4cac7aeb91e215715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743f1b6dcfa921fd4bf83459c78d3bf8"><td class="memItemLeft" align="right" valign="top"><a id="a743f1b6dcfa921fd4bf83459c78d3bf8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a743f1b6dcfa921fd4bf83459c78d3bf8">getPoolUser</a> ()</td></tr>
+<tr class="memdesc:a743f1b6dcfa921fd4bf83459c78d3bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le nom de l'utilisateur ceph. <br /></td></tr>
+<tr class="separator:a743f1b6dcfa921fd4bf83459c78d3bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea7839ef4b2410a7678ad42ce4fa6de"><td class="memItemLeft" align="right" valign="top"><a id="a2ea7839ef4b2410a7678ad42ce4fa6de"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a2ea7839ef4b2410a7678ad42ce4fa6de">getPoolConf</a> ()</td></tr>
+<tr class="memdesc:a2ea7839ef4b2410a7678ad42ce4fa6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le fichier de configuration ceph. <br /></td></tr>
+<tr class="separator:a2ea7839ef4b2410a7678ad42ce4fa6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d715cf8e1358ee98de5e1dd28c2b08"><td class="memItemLeft" align="right" valign="top"><a id="a57d715cf8e1358ee98de5e1dd28c2b08"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a57d715cf8e1358ee98de5e1dd28c2b08">getClusterName</a> ()</td></tr>
+<tr class="memdesc:a57d715cf8e1358ee98de5e1dd28c2b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le nom du cluster ceph. <br /></td></tr>
+<tr class="separator:a57d715cf8e1358ee98de5e1dd28c2b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b19753dc4d75f8c0f8dc69e192c3315"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a3b19753dc4d75f8c0f8dc69e192c3315">read</a> (uint8_t *data, int offset, int size, std::string name)</td></tr>
+<tr class="memdesc:a3b19753dc4d75f8c0f8dc69e192c3315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récupère la donnée dans l'objet.  <a href="classCephPoolContext.html#a3b19753dc4d75f8c0f8dc69e192c3315">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3b19753dc4d75f8c0f8dc69e192c3315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a129430f5c9ddf8cdfac3cb662c86b1e0"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a129430f5c9ddf8cdfac3cb662c86b1e0">readFull</a> (int &amp;size, std::string name)</td></tr>
+<tr class="memdesc:a129430f5c9ddf8cdfac3cb662c86b1e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récupère l'objet ou fichier en entier.  <a href="classCephPoolContext.html#a129430f5c9ddf8cdfac3cb662c86b1e0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a129430f5c9ddf8cdfac3cb662c86b1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa01e10aa9edd4c9a5a43b5c48ca3bb03"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#aa01e10aa9edd4c9a5a43b5c48ca3bb03">write</a> (uint8_t *data, int offset, int size, std::string name)</td></tr>
+<tr class="memdesc:aa01e10aa9edd4c9a5a43b5c48ca3bb03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit de la donnée dans l'objet ou fichier.  <a href="classCephPoolContext.html#aa01e10aa9edd4c9a5a43b5c48ca3bb03">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa01e10aa9edd4c9a5a43b5c48ca3bb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac83d202e049c5a246e3dd5c00da79146"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#ac83d202e049c5a246e3dd5c00da79146">writeFull</a> (uint8_t *data, int size, std::string name)</td></tr>
+<tr class="memdesc:ac83d202e049c5a246e3dd5c00da79146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit intégralement un objet ou fichier.  <a href="classCephPoolContext.html#ac83d202e049c5a246e3dd5c00da79146">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac83d202e049c5a246e3dd5c00da79146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b778fe9c4d3e2861848486bf63ccad6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a7b778fe9c4d3e2861848486bf63ccad6">openToWrite</a> (std::string name)</td></tr>
+<tr class="memdesc:a7b778fe9c4d3e2861848486bf63ccad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare l'objet ou fichier en écriture.  <a href="classCephPoolContext.html#a7b778fe9c4d3e2861848486bf63ccad6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7b778fe9c4d3e2861848486bf63ccad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af977759c79d0cdc935b0433271f8ff93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#af977759c79d0cdc935b0433271f8ff93">closeToWrite</a> (std::string name)</td></tr>
+<tr class="memdesc:af977759c79d0cdc935b0433271f8ff93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine l'écriture d'un objet ou fichier.  <a href="classCephPoolContext.html#af977759c79d0cdc935b0433271f8ff93">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af977759c79d0cdc935b0433271f8ff93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab82c3cc1e87b08014d53fa9dcf3b5d72"><td class="memItemLeft" align="right" valign="top"><a id="ab82c3cc1e87b08014d53fa9dcf3b5d72"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#ab82c3cc1e87b08014d53fa9dcf3b5d72">getPath</a> (std::string racine, int x, int y, int pathDepth)</td></tr>
+<tr class="memdesc:ab82c3cc1e87b08014d53fa9dcf3b5d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le chemin pour une tuile X/Y relatif à ce contexte. <br /></td></tr>
+<tr class="separator:ab82c3cc1e87b08014d53fa9dcf3b5d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abacd78a14a74a5c7c0d02327f9aae5c7"><td class="memItemLeft" align="right" valign="top"><a id="abacd78a14a74a5c7c0d02327f9aae5c7"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#abacd78a14a74a5c7c0d02327f9aae5c7">getPath</a> (std::string name)</td></tr>
+<tr class="memdesc:abacd78a14a74a5c7c0d02327f9aae5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le chemin complet pour un fichier/objet relatif à ce contexte. <br /></td></tr>
+<tr class="separator:abacd78a14a74a5c7c0d02327f9aae5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a399968475f77d857444a30c8b3718b69"><td class="memItemLeft" align="right" valign="top"><a id="a399968475f77d857444a30c8b3718b69"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#a399968475f77d857444a30c8b3718b69">print</a> ()</td></tr>
+<tr class="memdesc:a399968475f77d857444a30c8b3718b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sortie des informations sur le contexte. <br /></td></tr>
+<tr class="separator:a399968475f77d857444a30c8b3718b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1835c7a59b1f5e3ac4388529f61a601"><td class="memItemLeft" align="right" valign="top"><a id="aa1835c7a59b1f5e3ac4388529f61a601"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCephPoolContext.html#aa1835c7a59b1f5e3ac4388529f61a601">toString</a> ()</td></tr>
+<tr class="memdesc:aa1835c7a59b1f5e3ac4388529f61a601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une chaîne de caracère décrivant le contexte. <br /></td></tr>
+<tr class="separator:aa1835c7a59b1f5e3ac4388529f61a601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classContext"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classContext')"><img src="closed.png" alt="-"/>&#160;Fonctions membres publiques hérités de <a class="el" href="classContext.html">Context</a></td></tr>
+<tr class="memitem:aaeeb68335e00c974649bb933d9ee18bf inherit pub_methods_classContext"><td class="memItemLeft" align="right" valign="top"><a id="aaeeb68335e00c974649bb933d9ee18bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aaeeb68335e00c974649bb933d9ee18bf">setAttempts</a> (int a)</td></tr>
+<tr class="memdesc:aaeeb68335e00c974649bb933d9ee18bf inherit pub_methods_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie le nombre de tentative. <br /></td></tr>
+<tr class="separator:aaeeb68335e00c974649bb933d9ee18bf inherit pub_methods_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb97d6a180b57806cbaa5d967ca286d8 inherit pub_methods_classContext"><td class="memItemLeft" align="right" valign="top"><a id="aeb97d6a180b57806cbaa5d967ca286d8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aeb97d6a180b57806cbaa5d967ca286d8">isConnected</a> ()</td></tr>
+<tr class="memdesc:aeb97d6a180b57806cbaa5d967ca286d8 inherit pub_methods_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si le contexte est connecté <br /></td></tr>
+<tr class="separator:aeb97d6a180b57806cbaa5d967ca286d8 inherit pub_methods_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be937c21e267c8d55decced9d1bcf90 inherit pub_methods_classContext"><td class="memItemLeft" align="right" valign="top"><a id="a8be937c21e267c8d55decced9d1bcf90"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a8be937c21e267c8d55decced9d1bcf90">~Context</a> ()</td></tr>
+<tr class="memdesc:a8be937c21e267c8d55decced9d1bcf90 inherit pub_methods_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur. <br /></td></tr>
+<tr class="separator:a8be937c21e267c8d55decced9d1bcf90 inherit pub_methods_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Membres hérités additionnels</h2></td></tr>
+<tr class="inherit_header pro_methods_classContext"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classContext')"><img src="closed.png" alt="-"/>&#160;Fonctions membres protégées hérités de <a class="el" href="classContext.html">Context</a></td></tr>
+<tr class="memitem:a652cdcd2eedc8dbd9110bd284c5d5cf0 inherit pro_methods_classContext"><td class="memItemLeft" align="right" valign="top"><a id="a652cdcd2eedc8dbd9110bd284c5d5cf0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a652cdcd2eedc8dbd9110bd284c5d5cf0">Context</a> ()</td></tr>
+<tr class="memdesc:a652cdcd2eedc8dbd9110bd284c5d5cf0 inherit pro_methods_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un objet <a class="el" href="classContext.html" title="Création d&#39;un contexte de stockage abstrait.">Context</a>. <br /></td></tr>
+<tr class="separator:a652cdcd2eedc8dbd9110bd284c5d5cf0 inherit pro_methods_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classContext"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classContext')"><img src="closed.png" alt="-"/>&#160;Attributs protégés hérités de <a class="el" href="classContext.html">Context</a></td></tr>
+<tr class="memitem:aef0b73a3fb8a28ef96b9c19cd6628d7d inherit pro_attribs_classContext"><td class="memItemLeft" align="right" valign="top"><a id="aef0b73a3fb8a28ef96b9c19cd6628d7d"></a>
+std::map&lt; std::string, std::vector&lt; char &gt; * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">writingBuffers</a></td></tr>
+<tr class="memdesc:aef0b73a3fb8a28ef96b9c19cd6628d7d inherit pro_attribs_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffers pour les écritures différées. <br /></td></tr>
+<tr class="separator:aef0b73a3fb8a28ef96b9c19cd6628d7d inherit pro_attribs_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2099d377b9c3242ce5effcfcb4a53f0b inherit pro_attribs_classContext"><td class="memItemLeft" align="right" valign="top"><a id="a2099d377b9c3242ce5effcfcb4a53f0b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">connected</a></td></tr>
+<tr class="memdesc:a2099d377b9c3242ce5effcfcb4a53f0b inherit pro_attribs_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si le contexte est connecté <br /></td></tr>
+<tr class="separator:a2099d377b9c3242ce5effcfcb4a53f0b inherit pro_attribs_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a251784a75af2fc7d6735883b150b4997 inherit pro_attribs_classContext"><td class="memItemLeft" align="right" valign="top"><a id="a251784a75af2fc7d6735883b150b4997"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a251784a75af2fc7d6735883b150b4997">attempts</a></td></tr>
+<tr class="memdesc:a251784a75af2fc7d6735883b150b4997 inherit pro_attribs_classContext"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de tentatives pour en lecture ou écriture. <br /></td></tr>
+<tr class="separator:a251784a75af2fc7d6735883b150b4997 inherit pro_attribs_classContext"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Création d'un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des données stockées sous forme d'objets. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Institut national de l'information géographique et forestière </dd></dl>
+</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<a id="af304bed70d974b81d03350af563141ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af304bed70d974b81d03350af563141ec">&#9670;&nbsp;</a></span>CephPoolContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CephPoolContext::CephPoolContext </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>pool</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructeur pour un contexte Ceph, avec les valeur par défaut. </p>
+<p>Les valeurs sont récupérées dans les variables d'environnement ou sont celles par défaut </p><table class="doxtable">
+<tr>
+<th>Attribut</th><th>Variable d'environnement</th><th>Valeur par défaut </th></tr>
+<tr>
+<td>user_name</td><td>ROK4_CEPH_USERNAME</td><td>client.admin </td></tr>
+<tr>
+<td>cluster_name</td><td>ROK4_CEPH_CLUSTERNAME</td><td>ceph </td></tr>
+<tr>
+<td>conf_file</td><td>ROK4_CEPH_CONFFILE</td><td>/etc/ceph/ceph.conf </td></tr>
+</table>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pool</td><td>Pool avec lequel on veut communiquer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="af977759c79d0cdc935b0433271f8ff93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af977759c79d0cdc935b0433271f8ff93">&#9670;&nbsp;</a></span>closeToWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CephPoolContext::closeToWrite </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Termine l'écriture d'un objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on a voulu écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémente <a class="el" href="classContext.html#af47bd261b4cd0d8bb8c356667fef7d71">Context</a>.</p>
+
+</div>
+</div>
+<a id="a312c92b7462b933f70fe8e7aba94ccf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a312c92b7462b933f70fe8e7aba94ccf2">&#9670;&nbsp;</a></span>exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CephPoolContext::exists </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Précise si l'objet demandé existe dans ce contexte. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dont on veut savoir l'existence </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémente <a class="el" href="classContext.html#adede03c3037470a3883c618cc124814b">Context</a>.</p>
+
+</div>
+</div>
+<a id="a7b778fe9c4d3e2861848486bf63ccad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b778fe9c4d3e2861848486bf63ccad6">&#9670;&nbsp;</a></span>openToWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CephPoolContext::openToWrite </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prépare l'objet ou fichier en écriture. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on va vouloir écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémente <a class="el" href="classContext.html#a3d00f7c1e240e1076e484e3a14a8b581">Context</a>.</p>
+
+</div>
+</div>
+<a id="a3b19753dc4d75f8c0f8dc69e192c3315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b19753dc4d75f8c0f8dc69e192c3315">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CephPoolContext::read </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Récupère la donnée dans l'objet. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">data</td><td>Buffer où stocker la donnée lue. Doit être initialisé et assez grand </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>À partir d'où on veut lire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut lire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet que l'on veut lire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Taille effectivement lue, un nombre négatif en cas d'erreur </dd></dl>
+
+<p>Implémente <a class="el" href="classContext.html#a291686bc8ef877d4b1409d388c21ae5e">Context</a>.</p>
+
+</div>
+</div>
+<a id="a129430f5c9ddf8cdfac3cb662c86b1e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129430f5c9ddf8cdfac3cb662c86b1e0">&#9670;&nbsp;</a></span>readFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t * CephPoolContext::readFull </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Récupère l'objet ou fichier en entier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">size</td><td>Taille effectivement lue, un nombre négatif en cas d'erreur </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet que l'on veut lire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Buffer stockant la donnée lue. </dd></dl>
+
+<p>Implémente <a class="el" href="classContext.html#a9cd3fea94371df69938f1fdbc8451b99">Context</a>.</p>
+
+</div>
+</div>
+<a id="aa01e10aa9edd4c9a5a43b5c48ca3bb03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa01e10aa9edd4c9a5a43b5c48ca3bb03">&#9670;&nbsp;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CephPoolContext::write </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit de la donnée dans l'objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Buffer contenant la donnée à écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>À partir d'où on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on veut écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémente <a class="el" href="classContext.html#a3a5f83d35bb49c39086c9f461897f229">Context</a>.</p>
+
+</div>
+</div>
+<a id="ac83d202e049c5a246e3dd5c00da79146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac83d202e049c5a246e3dd5c00da79146">&#9670;&nbsp;</a></span>writeFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CephPoolContext::writeFull </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit intégralement un objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Buffer contenant la donnée à écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet à écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémente <a class="el" href="classContext.html#ad3d063b344963fb63412559a302b1bc7">Context</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>src/storage/ceph/<a class="el" href="CephPoolContext_8h_source.html">CephPoolContext.h</a></li>
+<li>src/storage/ceph/<a class="el" href="CephPoolContext_8cpp.html">CephPoolContext.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classCephPoolContext.html">CephPoolContext</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

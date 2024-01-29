@@ -1,0 +1,12 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classConfiguration.html" title=" " alt="" coords="5,208,104,235"/>
+<area shape="rect" id="node2" href="$classAspect.html" title=" " alt="" coords="170,5,233,32"/>
+<area shape="rect" id="node3" href="$classEstompage.html" title=" " alt="" coords="157,56,245,83"/>
+<area shape="rect" id="node4" href="$classLevel.html" title=" " alt="" coords="175,107,228,133"/>
+<area shape="rect" id="node5" href="$classPalette.html" title=" " alt="" coords="170,157,233,184"/>
+<area shape="rect" id="node6" href="$classPente.html" title=" " alt="" coords="173,208,229,235"/>
+<area shape="rect" id="node7" href="$classPyramid.html" title="Implementation des pyramides Une pyramide est associee a un layer et comporte plusieurs niveaux." alt="" coords="166,259,237,285"/>
+<area shape="rect" id="node8" href="$classStyle.html" title="Gestion des styles (affichages et métadonnées)" alt="" coords="175,309,227,336"/>
+<area shape="rect" id="node9" href="$classTileMatrix.html" title="Gestion d&#39;une matrice de tuiles." alt="" coords="162,360,241,387"/>
+<area shape="rect" id="node10" href="$classTileMatrixSet.html" title="Gestion d&#39;une pyramid de matrices de tuiles." alt="" coords="152,411,251,437"/>
+</map>
