@@ -1,0 +1,8 @@
+<map id="src/utils/LibcurlStruct.h" name="src/utils/LibcurlStruct.h">
+<area shape="rect" id="node1" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="198,5,354,32"/>
+<area shape="rect" id="node2" href="$S3Context_8cpp.html" title="Implémentation de la classe S3Context." alt="" coords="5,155,184,181"/>
+<area shape="rect" id="node3" href="$S3Context_8h.html" title="Définition de la classe S3Context." alt="" coords="97,80,261,107"/>
+<area shape="rect" id="node5" href="$SwiftContext_8cpp.html" title="Implémentation de la classe SwiftContext." alt="" coords="396,155,588,181"/>
+<area shape="rect" id="node6" href="$SwiftContext_8h.html" title="Définition de la classe SwiftContext." alt="" coords="285,80,464,107"/>
+<area shape="rect" id="node4" href="$Cache_8cpp.html" title="Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="227,155,362,181"/>
+</map>

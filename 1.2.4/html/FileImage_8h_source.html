@@ -1,0 +1,346 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('FileImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">FileImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="FileImage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifndef FILEIMAGE_H</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define FILEIMAGE_H</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">rok4/image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="PixelConverter_8h.html">rok4/processors/PixelConverter.h</a>&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#define IMAGE_MAX_FILENAME_LENGTH 512</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classFileImage.html">   81</a></span>&#160;<span class="keyword">class </span><a class="code" href="classFileImage.html">FileImage</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classFileImage.html#afcd65ddce65e949b21f0f57f39dad36e">   88</a></span>&#160;    std::string <a class="code" href="classFileImage.html#afcd65ddce65e949b21f0f57f39dad36e">filename</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">   93</a></span>&#160;    <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">photometric</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">  100</a></span>&#160;    <a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> <a class="code" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">esType</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">  105</a></span>&#160;    <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">compression</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">  110</a></span>&#160;    <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">  115</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classFileImage.html#a63e3b9c5696668217eb81bea4a008462">  121</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a63e3b9c5696668217eb81bea4a008462">pixelSize</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">  127</a></span>&#160;    <a class="code" href="classPixelConverter.html">PixelConverter</a>* <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="classFileImage.html#a6a78f86a47ce30b6422c562734f6a0ee">FileImage</a> (</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, <a class="code" href="classBoundingBox.html">BoundingBox&lt; double &gt;</a> <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, std::string name,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a>, <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a>, <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">photometric</a>, <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">compression</a>,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> <a class="code" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">esType</a> = ExtraSample::ALPHA_UNASSOC</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    );</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="classFileImage.html#ac6b8bd64b8a229bdbb50b8efef089e4f">  172</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classFileImage.html#ac6b8bd64b8a229bdbb50b8efef089e4f">unassociateAlpha</a> ( T* buffer ) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        T coeff;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">sizeof</span>(T) == 1) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="comment">// pour les entiers sur 8 bits</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            coeff = (T) 255;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">sizeof</span>(T) == 2) {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="comment">// pour les entiers sur 16 bits</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            coeff = (T) 65535;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            coeff = (T) 1;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        T* pix = buffer;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordtype">int</span> alphaInd = <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a> - 1;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>; i++, pix += <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            T alpha = *(pix + alphaInd);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">if</span> (alpha == coeff) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                <span class="comment">// Opacité pleine</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">if</span> (alpha == 0) {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                <span class="comment">// Transparence complète</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                memset(pix, 0, <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; alphaInd; c++) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                pix[c] = pix[c] * coeff / alpha;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#aef80c6735183bee1073ffb2ecdc1f472">getline</a> ( uint8_t *buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#aef80c6735183bee1073ffb2ecdc1f472">getline</a> ( <span class="keywordtype">float</span> *buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#aef80c6735183bee1073ffb2ecdc1f472">getline</a> ( uint16_t *buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f6ff8919e74e0568f8e4f3f10d1141">writeImage</a> ( <a class="code" href="classImage.html">Image</a>* pIn ) = 0;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f6ff8919e74e0568f8e4f3f10d1141">writeImage</a> ( uint8_t* buffer ) = 0;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f6ff8919e74e0568f8e4f3f10d1141">writeImage</a> ( uint16_t* buffer ) = 0;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f6ff8919e74e0568f8e4f3f10d1141">writeImage</a> ( <span class="keywordtype">float</span>* buffer ) = 0;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a4ee3d223e943c39ecb3a8bffc3153a82">writeLine</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a4ee3d223e943c39ecb3a8bffc3153a82">writeLine</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a4ee3d223e943c39ecb3a8bffc3153a82">writeLine</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line ) = 0;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="classFileImage.html#a7f643d82e4cb00e52ba2f567e3a97ba7">  281</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="classFileImage.html#a7f643d82e4cb00e52ba2f567e3a97ba7">getFilename</a>() {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#afcd65ddce65e949b21f0f57f39dad36e">filename</a>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="classFileImage.html#af3f0b374a2d8f38fe1743addfaf6f892">  292</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code" href="classFileImage.html#af3f0b374a2d8f38fe1743addfaf6f892">getPhotometric</a>() {</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">photometric</a>;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    }</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    </div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="line" href="classFileImage.html#a1f0896c0d39642151dbd748dc9d789c8">  304</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> <a class="code" href="classFileImage.html#a1f0896c0d39642151dbd748dc9d789c8">getExtraSample</a>() {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">esType</a>;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    </div>
+<div class="line"><a name="l00314"></a><span class="lineno"><a class="line" href="classFileImage.html#acd4e0609ae5522e0f28d461e6f4afbef">  314</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classFileImage.html#acd4e0609ae5522e0f28d461e6f4afbef">setExtraSample</a>(<a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> es) {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <a class="code" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">esType</a> = es;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    }</div>
+<div class="line"><a name="l00325"></a><span class="lineno"><a class="line" href="classFileImage.html#a12733ac846b501284ac190b1a6956ca9">  325</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="classFileImage.html#a12733ac846b501284ac190b1a6956ca9">getCompression</a>() {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">compression</a>;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="classFileImage.html#ad673e36ca974a2c91305e4b8bfe47c95">  337</a></span>&#160;    <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classFileImage.html#ad673e36ca974a2c91305e4b8bfe47c95">getSampleFormat</a>() {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>) <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a2bd787ded71b259921717cd1670a5da0">getSampleFormat</a>();</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a>;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="classFileImage.html#afea02639f90cd458de57a5a38bc94906">  349</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#afea02639f90cd458de57a5a38bc94906">getBitsPerSample</a>() {</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>) <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a16458a696954bedf4baee02a54e1733b">getBitsPerSample</a>();</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    }</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="classFileImage.html#a5fdcc6437d4c414b364af014322315f4">  362</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a5fdcc6437d4c414b364af014322315f4">getChannels</a>() {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>) <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a77cb613ceb506988f175dc8669fb00fa">getSamplesPerPixel</a>();</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="classFileImage.html#a3964a872d1e956564bc3aa9819eda6bf">  373</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#a3964a872d1e956564bc3aa9819eda6bf">getPixelSize</a> () {</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>) <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a16458a696954bedf4baee02a54e1733b">getBitsPerSample</a>() * <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a77cb613ceb506988f175dc8669fb00fa">getSamplesPerPixel</a>() / 8;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#a63e3b9c5696668217eb81bea4a008462">pixelSize</a>;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="classFileImage.html#a69944ff93de942b65a8a45e83dffffe0">  389</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classFileImage.html#a69944ff93de942b65a8a45e83dffffe0">addConverter</a>(<a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> osf, <span class="keywordtype">int</span> obps, <span class="keywordtype">int</span> ospp) {</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="comment">// Si il n&#39;y a pas besoin de conversion, on évite d&#39;en mettre une</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a> == osf &amp;&amp; <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a> == obps &amp;&amp; <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a> == ospp) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a> = <span class="keyword">new</span> <a class="code" href="classPixelConverter.html">PixelConverter</a>(<a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a>, <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a>, <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, osf, obps, ospp);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#ad03048437d78e987e1af075175ab5ed7">youCan</a>();</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00405"></a><span class="lineno"><a class="line" href="classFileImage.html#af2b8c271b1270667c069aa0711b63247">  405</a></span>&#160;    <a class="code" href="classFileImage.html#af2b8c271b1270667c069aa0711b63247">~FileImage</a>() {</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        <span class="keyword">delete</span> <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    }</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160; </div>
+<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="classFileImage.html#a2d2112ec32866e04bb16f9feb9073276">  414</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classFileImage.html#a2d2112ec32866e04bb16f9feb9073276">print</a>() {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- File name : &quot;</span> &lt;&lt; <a class="code" href="classFileImage.html#afcd65ddce65e949b21f0f57f39dad36e">filename</a> ;</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Compression : &quot;</span> &lt;&lt; <a class="code" href="namespaceCompression.html#a780243376caf9cd44d85a097b76be087">Compression::toString</a> ( <a class="code" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">compression</a> ) ;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Photometric : &quot;</span> &lt;&lt; <a class="code" href="namespacePhotometric.html#a46a2c6539ea24f7a464f25c0eb9eab6c">Photometric::toString</a> ( <a class="code" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">photometric</a> ) ;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Bits per sample : &quot;</span> &lt;&lt; <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a> ;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Sample format : &quot;</span> &lt;&lt; <a class="code" href="namespaceSampleFormat.html#ac2e1b10c3dac95ccb3da0f8a73d3a692">SampleFormat::toString</a> ( <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a> ) ;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">esType</a> == ExtraSample::ALPHA_ASSOC) BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Alpha have to be unassociated&quot;</span>;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>) {</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\tWith pixel converter: &quot;</span> ;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t\tSample format: &quot;</span> &lt;&lt; <a class="code" href="namespaceSampleFormat.html#ac2e1b10c3dac95ccb3da0f8a73d3a692">SampleFormat::toString</a>(<a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a2bd787ded71b259921717cd1670a5da0">getSampleFormat</a>()) ;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t\tBits per sample: &quot;</span> &lt;&lt; <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a16458a696954bedf4baee02a54e1733b">getBitsPerSample</a>() ;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t\tSamples per pixel: &quot;</span> &lt;&lt; <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a77cb613ceb506988f175dc8669fb00fa">getSamplesPerPixel</a>() ;</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t\tPixel size: &quot;</span> &lt;&lt; <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a16458a696954bedf4baee02a54e1733b">getBitsPerSample</a>() * <a class="code" href="classFileImage.html#aa61744b3923c972f84856b30f208c438">converter</a>-&gt;<a class="code" href="classPixelConverter.html#a77cb613ceb506988f175dc8669fb00fa">getSamplesPerPixel</a>() / 8 ;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;};</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
+<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="classFileImageFactory.html">  438</a></span>&#160;<span class="keyword">class </span><a class="code" href="classFileImageFactory.html">FileImageFactory</a> {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <a class="code" href="classFileImage.html">FileImage</a>* <a class="code" href="classFileImageFactory.html#ad2a742f35588e10c02c183188a059a83">createImageToRead</a> ( std::string filename, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox = <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a>(0,0,0,0), <span class="keywordtype">double</span> resx = -1, <span class="keywordtype">double</span> resy = -1 );</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <a class="code" href="classFileImage.html">FileImage</a>* <a class="code" href="classFileImageFactory.html#a99e6e4483fb4bb211ff6b59495209fc0">createImageToWrite</a> (</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        std::string filename, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox, <span class="keywordtype">double</span> resx, <span class="keywordtype">double</span> resy, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height,</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        <span class="keywordtype">int</span> channels, <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sampleformat, <span class="keywordtype">int</span> bitspersample, <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> photometric, <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> compression</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    );</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;};</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassFileImage_html_a52f06c64138e2af3adb4c73964c2972b"><div class="ttname"><a href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">FileImage::compression</a></div><div class="ttdeci">Compression::eCompression compression</div><div class="ttdoc">Compression des données (jpeg, packbits...)</div><div class="ttdef"><b>Definition:</b> FileImage.h:105</div></div>
+<div class="ttc" id="aclassFileImage_html_a4ee3d223e943c39ecb3a8bffc3153a82"><div class="ttname"><a href="classFileImage.html#a4ee3d223e943c39ecb3a8bffc3153a82">FileImage::writeLine</a></div><div class="ttdeci">virtual int writeLine(uint8_t *buffer, int line)=0</div><div class="ttdoc">Ecrit une ligne de l'image, à partir d'un buffer d'entiers sur 8 bits.</div></div>
+<div class="ttc" id="aclassFileImage_html_af2b8c271b1270667c069aa0711b63247"><div class="ttname"><a href="classFileImage.html#af2b8c271b1270667c069aa0711b63247">FileImage::~FileImage</a></div><div class="ttdeci">~FileImage()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> FileImage.h:405</div></div>
+<div class="ttc" id="aclassPixelConverter_html"><div class="ttname"><a href="classPixelConverter.html">PixelConverter</a></div><div class="ttdoc">Outil de conversion des images à la volée.</div><div class="ttdef"><b>Definition:</b> PixelConverter.h:64</div></div>
+<div class="ttc" id="aclassImage_html_a51df43db420c9c0b57536cb2dd36de5c"><div class="ttname"><a href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">Image::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Hauteur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:90</div></div>
+<div class="ttc" id="aclassFileImage_html_a3964a872d1e956564bc3aa9819eda6bf"><div class="ttname"><a href="classFileImage.html#a3964a872d1e956564bc3aa9819eda6bf">FileImage::getPixelSize</a></div><div class="ttdeci">int getPixelSize()</div><div class="ttdoc">Retourne la taille en octet d'un pixel.</div><div class="ttdef"><b>Definition:</b> FileImage.h:373</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a2400cfa91cf2e98ca0cca9024b029203"><div class="ttname"><a href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a></div><div class="ttdeci">ePhotometric</div><div class="ttdoc">Énumération des photométries disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:183</div></div>
+<div class="ttc" id="aclassFileImage_html_a12733ac846b501284ac190b1a6956ca9"><div class="ttname"><a href="classFileImage.html#a12733ac846b501284ac190b1a6956ca9">FileImage::getCompression</a></div><div class="ttdeci">Compression::eCompression getCompression()</div><div class="ttdoc">Retourne la compression des données.</div><div class="ttdef"><b>Definition:</b> FileImage.h:325</div></div>
+<div class="ttc" id="aclassFileImage_html_acd4e0609ae5522e0f28d461e6f4afbef"><div class="ttname"><a href="classFileImage.html#acd4e0609ae5522e0f28d461e6f4afbef">FileImage::setExtraSample</a></div><div class="ttdeci">void setExtraSample(ExtraSample::eExtraSample es)</div><div class="ttdoc">Modifie le type du canal supplémentaire.</div><div class="ttdef"><b>Definition:</b> FileImage.h:314</div></div>
+<div class="ttc" id="aclassImage_html_a3a792f6f0da13e8efa5e97d4cdbf0226"><div class="ttname"><a href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">Image::bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bbox</div><div class="ttdoc">Emprise rectangulaire au sol de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:102</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format.</div></div>
+<div class="ttc" id="aclassFileImage_html_ad673e36ca974a2c91305e4b8bfe47c95"><div class="ttname"><a href="classFileImage.html#ad673e36ca974a2c91305e4b8bfe47c95">FileImage::getSampleFormat</a></div><div class="ttdeci">SampleFormat::eSampleFormat getSampleFormat()</div><div class="ttdoc">Retourne le format des canaux (entier, flottant)</div><div class="ttdef"><b>Definition:</b> FileImage.h:337</div></div>
+<div class="ttc" id="aclassFileImage_html_a63e3b9c5696668217eb81bea4a008462"><div class="ttname"><a href="classFileImage.html#a63e3b9c5696668217eb81bea4a008462">FileImage::pixelSize</a></div><div class="ttdeci">int pixelSize</div><div class="ttdoc">Taille d'un pixel en octet.</div><div class="ttdef"><b>Definition:</b> FileImage.h:121</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:72</div></div>
+<div class="ttc" id="aclassImage_html_ab8d12f635013c04159cd4d3d972bac88"><div class="ttname"><a href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">Image::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Largeur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:84</div></div>
+<div class="ttc" id="aPixelConverter_8h_html"><div class="ttname"><a href="PixelConverter_8h.html">PixelConverter.h</a></div><div class="ttdoc">Définition de la classe PixelConverter, permettant de convertir à la volée les pixels.</div></div>
+<div class="ttc" id="aclassFileImageFactory_html_a99e6e4483fb4bb211ff6b59495209fc0"><div class="ttname"><a href="classFileImageFactory.html#a99e6e4483fb4bb211ff6b59495209fc0">FileImageFactory::createImageToWrite</a></div><div class="ttdeci">FileImage * createImageToWrite(std::string filename, BoundingBox&lt; double &gt; bbox, double resx, double resy, int width, int height, int channels, SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression)</div><div class="ttdoc">Crée un objet FileImage, pour l'écriture.</div><div class="ttdef"><b>Definition:</b> FileImage.cpp:159</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassFileImage_html_a1f0896c0d39642151dbd748dc9d789c8"><div class="ttname"><a href="classFileImage.html#a1f0896c0d39642151dbd748dc9d789c8">FileImage::getExtraSample</a></div><div class="ttdeci">ExtraSample::eExtraSample getExtraSample()</div><div class="ttdoc">Retourne le type du canal supplémentaire.</div><div class="ttdef"><b>Definition:</b> FileImage.h:304</div></div>
+<div class="ttc" id="aclassFileImage_html_a7f643d82e4cb00e52ba2f567e3a97ba7"><div class="ttname"><a href="classFileImage.html#a7f643d82e4cb00e52ba2f567e3a97ba7">FileImage::getFilename</a></div><div class="ttdeci">std::string getFilename()</div><div class="ttdoc">Retourne le chemin du fichier image.</div><div class="ttdef"><b>Definition:</b> FileImage.h:281</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a46a2c6539ea24f7a464f25c0eb9eab6c"><div class="ttname"><a href="namespacePhotometric.html#a46a2c6539ea24f7a464f25c0eb9eab6c">Photometric::toString</a></div><div class="ttdeci">std::string toString(ePhotometric ph)</div><div class="ttdoc">Conversion d'une photométrie vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:115</div></div>
+<div class="ttc" id="aclassImage_html_a73572ed4b7f15054c5a598c6aabffd86"><div class="ttname"><a href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">Image::channels</a></div><div class="ttdeci">int channels</div><div class="ttdoc">Nombre de canaux de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:79</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ac2e1b10c3dac95ccb3da0f8a73d3a692"><div class="ttname"><a href="namespaceSampleFormat.html#ac2e1b10c3dac95ccb3da0f8a73d3a692">SampleFormat::toString</a></div><div class="ttdeci">std::string toString(eSampleFormat sf)</div><div class="ttdoc">Conversion d'une format du canal vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:161</div></div>
+<div class="ttc" id="aclassFileImage_html_ac6b8bd64b8a229bdbb50b8efef089e4f"><div class="ttname"><a href="classFileImage.html#ac6b8bd64b8a229bdbb50b8efef089e4f">FileImage::unassociateAlpha</a></div><div class="ttdeci">void unassociateAlpha(T *buffer)</div><div class="ttdoc">Désassocie le canal alpha.</div><div class="ttdef"><b>Definition:</b> FileImage.h:172</div></div>
+<div class="ttc" id="aclassFileImage_html_a963895a69e4eec135fc68b0e0cc016a3"><div class="ttname"><a href="classFileImage.html#a963895a69e4eec135fc68b0e0cc016a3">FileImage::esType</a></div><div class="ttdeci">ExtraSample::eExtraSample esType</div><div class="ttdoc">type de l'éventuel canal supplémentaire</div><div class="ttdef"><b>Definition:</b> FileImage.h:100</div></div>
+<div class="ttc" id="aclassFileImage_html_ac7f33ad9b8087ccb3df505a26a2547cb"><div class="ttname"><a href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">FileImage::bitspersample</a></div><div class="ttdeci">int bitspersample</div><div class="ttdoc">Nombre de bits par canal.</div><div class="ttdef"><b>Definition:</b> FileImage.h:115</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="anamespaceCompression_html_a780243376caf9cd44d85a097b76be087"><div class="ttname"><a href="namespaceCompression.html#a780243376caf9cd44d85a097b76be087">Compression::toString</a></div><div class="ttdeci">std::string toString(eCompression comp)</div><div class="ttdoc">Conversion d'une compression vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:86</div></div>
+<div class="ttc" id="aclassFileImageFactory_html"><div class="ttname"><a href="classFileImageFactory.html">FileImageFactory</a></div><div class="ttdoc">Usine de création d'une image associée à un fichier.</div><div class="ttdef"><b>Definition:</b> FileImage.h:438</div></div>
+<div class="ttc" id="aclassFileImage_html_a5fdcc6437d4c414b364af014322315f4"><div class="ttname"><a href="classFileImage.html#a5fdcc6437d4c414b364af014322315f4">FileImage::getChannels</a></div><div class="ttdeci">int getChannels()</div><div class="ttdoc">Retourne le nombre de canaux par pixel.</div><div class="ttdef"><b>Definition:</b> FileImage.h:362</div></div>
+<div class="ttc" id="aclassFileImage_html_afcd65ddce65e949b21f0f57f39dad36e"><div class="ttname"><a href="classFileImage.html#afcd65ddce65e949b21f0f57f39dad36e">FileImage::filename</a></div><div class="ttdeci">std::string filename</div><div class="ttdoc">Chemin du fichier image.</div><div class="ttdef"><b>Definition:</b> FileImage.h:88</div></div>
+<div class="ttc" id="aclassFileImage_html_a2d2112ec32866e04bb16f9feb9073276"><div class="ttname"><a href="classFileImage.html#a2d2112ec32866e04bb16f9feb9073276">FileImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> FileImage.h:414</div></div>
+<div class="ttc" id="aclassPixelConverter_html_ad03048437d78e987e1af075175ab5ed7"><div class="ttname"><a href="classPixelConverter.html#ad03048437d78e987e1af075175ab5ed7">PixelConverter::youCan</a></div><div class="ttdeci">bool youCan()</div><div class="ttdoc">La conversion est-elle possible ?</div><div class="ttdef"><b>Definition:</b> PixelConverter.h:154</div></div>
+<div class="ttc" id="aclassPixelConverter_html_a2bd787ded71b259921717cd1670a5da0"><div class="ttname"><a href="classPixelConverter.html#a2bd787ded71b259921717cd1670a5da0">PixelConverter::getSampleFormat</a></div><div class="ttdeci">SampleFormat::eSampleFormat getSampleFormat()</div><div class="ttdoc">Retourne le format de canal en sortie.</div><div class="ttdef"><b>Definition:</b> PixelConverter.h:162</div></div>
+<div class="ttc" id="aclassPixelConverter_html_a77cb613ceb506988f175dc8669fb00fa"><div class="ttname"><a href="classPixelConverter.html#a77cb613ceb506988f175dc8669fb00fa">PixelConverter::getSamplesPerPixel</a></div><div class="ttdeci">int getSamplesPerPixel()</div><div class="ttdoc">Retourne le nombre de canaux en sortie.</div><div class="ttdef"><b>Definition:</b> PixelConverter.h:178</div></div>
+<div class="ttc" id="aclassFileImage_html"><div class="ttname"><a href="classFileImage.html">FileImage</a></div><div class="ttdoc">Manipulation d'une image associée à un fichier.</div><div class="ttdef"><b>Definition:</b> FileImage.h:81</div></div>
+<div class="ttc" id="aclassFileImage_html_a6a78f86a47ce30b6422c562734f6a0ee"><div class="ttname"><a href="classFileImage.html#a6a78f86a47ce30b6422c562734f6a0ee">FileImage::FileImage</a></div><div class="ttdeci">FileImage(int width, int height, double resx, double resy, int channels, BoundingBox&lt; double &gt; bbox, std::string name, SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample esType=ExtraSample::ALPHA_UNASSOC)</div><div class="ttdoc">Crée un objet FileImage à partir de tous ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> FileImage.cpp:201</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:79</div></div>
+<div class="ttc" id="aclassFileImage_html_a6300101f266b0c964bdbaa62d738c85c"><div class="ttname"><a href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">FileImage::photometric</a></div><div class="ttdeci">Photometric::ePhotometric photometric</div><div class="ttdoc">Photométrie des données (rgb, gray...)</div><div class="ttdef"><b>Definition:</b> FileImage.h:93</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:713</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_a03cd3369209d3bb2f8991d613c392f94"><div class="ttname"><a href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a></div><div class="ttdeci">eExtraSample</div><div class="ttdoc">Énumération des types de canal supplémentaire.</div><div class="ttdef"><b>Definition:</b> Format.h:232</div></div>
+<div class="ttc" id="aclassFileImage_html_afb139ad8712d46199a01229dbdba7308"><div class="ttname"><a href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">FileImage::sampleformat</a></div><div class="ttdeci">SampleFormat::eSampleFormat sampleformat</div><div class="ttdoc">Format des canaux.</div><div class="ttdef"><b>Definition:</b> FileImage.h:110</div></div>
+<div class="ttc" id="aclassFileImage_html_afea02639f90cd458de57a5a38bc94906"><div class="ttname"><a href="classFileImage.html#afea02639f90cd458de57a5a38bc94906">FileImage::getBitsPerSample</a></div><div class="ttdeci">int getBitsPerSample()</div><div class="ttdoc">Retourne le nombre de bits par canal.</div><div class="ttdef"><b>Definition:</b> FileImage.h:349</div></div>
+<div class="ttc" id="aclassFileImageFactory_html_ad2a742f35588e10c02c183188a059a83"><div class="ttname"><a href="classFileImageFactory.html#ad2a742f35588e10c02c183188a059a83">FileImageFactory::createImageToRead</a></div><div class="ttdeci">FileImage * createImageToRead(std::string filename, BoundingBox&lt; double &gt; bbox=BoundingBox&lt; double &gt;(0, 0, 0, 0), double resx=-1, double resy=-1)</div><div class="ttdoc">Crée un objet FileImage, pour la lecture.</div><div class="ttdef"><b>Definition:</b> FileImage.cpp:69</div></div>
+<div class="ttc" id="aclassFileImage_html_aa61744b3923c972f84856b30f208c438"><div class="ttname"><a href="classFileImage.html#aa61744b3923c972f84856b30f208c438">FileImage::converter</a></div><div class="ttdeci">PixelConverter * converter</div><div class="ttdoc">Module de conversion des pixels à la volée.</div><div class="ttdef"><b>Definition:</b> FileImage.h:127</div></div>
+<div class="ttc" id="anamespaceCompression_html_ab59ae0c9640db55b2cbed59310434030"><div class="ttname"><a href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a></div><div class="ttdeci">eCompression</div><div class="ttdoc">Énumération des compressions disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:128</div></div>
+<div class="ttc" id="aclassFileImage_html_ac7f6ff8919e74e0568f8e4f3f10d1141"><div class="ttname"><a href="classFileImage.html#ac7f6ff8919e74e0568f8e4f3f10d1141">FileImage::writeImage</a></div><div class="ttdeci">virtual int writeImage(Image *pIn)=0</div><div class="ttdoc">Ecrit une image, à partir d'une image source.</div></div>
+<div class="ttc" id="aclassFileImage_html_a69944ff93de942b65a8a45e83dffffe0"><div class="ttname"><a href="classFileImage.html#a69944ff93de942b65a8a45e83dffffe0">FileImage::addConverter</a></div><div class="ttdeci">bool addConverter(SampleFormat::eSampleFormat osf, int obps, int ospp)</div><div class="ttdoc">Ajoute un convertisseur si nécessaire.</div><div class="ttdef"><b>Definition:</b> FileImage.h:389</div></div>
+<div class="ttc" id="aclassFileImage_html_af3f0b374a2d8f38fe1743addfaf6f892"><div class="ttname"><a href="classFileImage.html#af3f0b374a2d8f38fe1743addfaf6f892">FileImage::getPhotometric</a></div><div class="ttdeci">Photometric::ePhotometric getPhotometric()</div><div class="ttdoc">Retourne la photométrie des données image (rgb, gray...)</div><div class="ttdef"><b>Definition:</b> FileImage.h:292</div></div>
+<div class="ttc" id="aclassImage_html_aef8f90faecc126e872d6412d8b4db27c"><div class="ttname"><a href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">Image::resy</a></div><div class="ttdeci">double resy</div><div class="ttdoc">Resolution de l'image, dans le sens des Y.</div><div class="ttdef"><b>Definition:</b> Image.h:125</div></div>
+<div class="ttc" id="aclassFileImage_html_aef80c6735183bee1073ffb2ecdc1f472"><div class="ttname"><a href="classFileImage.html#aef80c6735183bee1073ffb2ecdc1f472">FileImage::getline</a></div><div class="ttdeci">virtual int getline(uint8_t *buffer, int line)=0</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div></div>
+<div class="ttc" id="aclassImage_html_afe29aeaf20398569b02db53e87b07707"><div class="ttname"><a href="classImage.html#afe29aeaf20398569b02db53e87b07707">Image::resx</a></div><div class="ttdeci">double resx</div><div class="ttdoc">Resolution de l'image, dans le sens des X.</div><div class="ttdef"><b>Definition:</b> Image.h:120</div></div>
+<div class="ttc" id="aclassPixelConverter_html_a16458a696954bedf4baee02a54e1733b"><div class="ttname"><a href="classPixelConverter.html#a16458a696954bedf4baee02a54e1733b">PixelConverter::getBitsPerSample</a></div><div class="ttdeci">int getBitsPerSample()</div><div class="ttdoc">Retourne le nombre de bits par canal en sortie.</div><div class="ttdef"><b>Definition:</b> PixelConverter.h:170</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_128fc099d035536e093f6a644b1f5923.html">image</a></li><li class="navelem"><a class="el" href="dir_2b77f5eb02a4b727f4a4627193e2bb2a.html">file</a></li><li class="navelem"><a class="el" href="FileImage_8h.html">FileImage.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

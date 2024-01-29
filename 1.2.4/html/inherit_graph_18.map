@@ -1,0 +1,28 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="5,461,64,488"/>
+<area shape="rect" id="node2" href="$classAspectImage.html" title=" " alt="" coords="151,5,249,32"/>
+<area shape="rect" id="node3" href="$classCompoundImage.html" title=" " alt="" coords="139,56,261,83"/>
+<area shape="rect" id="node4" href="$classConvertedChannelsImage.html" title=" " alt="" coords="113,107,287,133"/>
+<area shape="rect" id="node5" href="$classDecimatedImage.html" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="139,157,261,184"/>
+<area shape="rect" id="node6" href="$classEmptyImage.html" title="Création d&#39;une image monochrome, utile pour simulée une image source ou remplir de nodata." alt="" coords="152,208,248,235"/>
+<area shape="rect" id="node7" href="$classEstompageImage.html" title=" " alt="" coords="138,259,262,285"/>
+<area shape="rect" id="node8" href="$classExtendedCompoundImage.html" title="Manipulation d&#39;un paquet d&#39;images compatibles." alt="" coords="112,309,288,336"/>
+<area shape="rect" id="node9" href="$classExtendedCompoundMask.html" title="Manipulation d&#39;un masque composé, s&#39;appuyant sur une image composée." alt="" coords="114,360,286,387"/>
+<area shape="rect" id="node10" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="161,411,239,437"/>
+<area shape="rect" id="node17" href="$classImageDecoder.html" title=" " alt="" coords="147,461,253,488"/>
+<area shape="rect" id="node18" href="$classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions." alt="" coords="153,512,247,539"/>
+<area shape="rect" id="node19" href="$classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné" alt="" coords="155,563,245,589"/>
+<area shape="rect" id="node20" href="$classMirrorImage.html" title="Manipulation d&#39;une image miroir." alt="" coords="155,613,245,640"/>
+<area shape="rect" id="node21" href="$classPenteImage.html" title=" " alt="" coords="154,664,246,691"/>
+<area shape="rect" id="node22" href="$classRawImage.html" title=" " alt="" coords="157,715,243,741"/>
+<area shape="rect" id="node23" href="$classReprojectedImage.html" title="Manipulation d&#39;image reprojetée." alt="" coords="136,765,264,792"/>
+<area shape="rect" id="node24" href="$classResampledImage.html" title="Manipulation d&#39;image réechantillonnée." alt="" coords="138,816,262,843"/>
+<area shape="rect" id="node25" href="$classRok4Image.html" title="Manipulation d&#39;une image ROK4 Server." alt="" coords="155,867,245,893"/>
+<area shape="rect" id="node26" href="$classStyledImage.html" title=" " alt="" coords="153,917,247,944"/>
+<area shape="rect" id="node11" href="$classBilzImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="359,284,439,311"/>
+<area shape="rect" id="node12" href="$classLibjpegImage.html" title="Manipulation d&#39;une image JPEG." alt="" coords="350,335,449,361"/>
+<area shape="rect" id="node13" href="$classLibkakaduImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie kakadu." alt="" coords="341,385,458,412"/>
+<area shape="rect" id="node14" href="$classLibopenjpegImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie openjpeg." alt="" coords="336,436,463,463"/>
+<area shape="rect" id="node15" href="$classLibpngImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="351,487,447,513"/>
+<area shape="rect" id="node16" href="$classLibtiffImage.html" title="Manipulation d&#39;une image TIFF." alt="" coords="354,537,445,564"/>
+</map>

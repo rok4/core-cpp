@@ -1,0 +1,730 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Cache_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Cache.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Cache_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef CACHE_H</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define CACHE_H</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span><span class="comment">// pour uint8_t</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;boost/log/trivial.hpp&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;curl/curl.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;proj.h&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/TileMatrixSet.h&quot;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Style_8h.html">rok4/style/Style.h</a>&quot;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Utils_8h.html">rok4/utils/Utils.h</a>&quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Context_8h.html">rok4/storage/Context.h</a>&quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#define ROK4_TMS_DIRECTORY &quot;ROK4_TMS_DIRECTORY&quot;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define ROK4_TMS_NO_CACHE &quot;ROK4_TMS_NO_CACHE&quot;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#define ROK4_STYLES_DIRECTORY &quot;ROK4_STYLES_DIRECTORY&quot;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define ROK4_STYLES_NO_CACHE &quot;ROK4_STYLES_NO_CACHE&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classCurlPool.html">   79</a></span>&#160;<span class="keyword">class </span><a class="code" href="classCurlPool.html">CurlPool</a> {  </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">static</span> std::map&lt;pthread_t, CURL*&gt; pool;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classCurlPool.html">CurlPool</a>(){};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classCurlPool.html#a9c516d5a3fcadd8659476722c30d5c21">  107</a></span>&#160;    <a class="code" href="classCurlPool.html#a9c516d5a3fcadd8659476722c30d5c21">~CurlPool</a>(){};</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classCurlPool.html#aeb0a59812caba0b47c7fe6ce94b78dbd">  115</a></span>&#160;    <span class="keyword">static</span> CURL* <a class="code" href="classCurlPool.html#aeb0a59812caba0b47c7fe6ce94b78dbd">getCurlEnv</a>() {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        pthread_t i = pthread_self();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        std::map&lt;pthread_t, CURL*&gt;::iterator it = pool.find ( i );</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">if</span> ( it == pool.end() ) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            CURL* c = curl_easy_init();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            pool.insert ( std::pair&lt;pthread_t, CURL*&gt;(i,c) );</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            curl_easy_reset(it-&gt;second);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classCurlPool.html#aab207402c3c0987fb1b90344dad42981">  133</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classCurlPool.html#aab207402c3c0987fb1b90344dad42981">printNumCurls</a> () {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt; <span class="stringliteral">&quot;Nombre de contextes curl : &quot;</span> &lt;&lt; pool.size();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classCurlPool.html#a18a2d1152df02c7d9ee0f0e72ab1f19e">  141</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classCurlPool.html#a18a2d1152df02c7d9ee0f0e72ab1f19e">cleanCurlPool</a> () {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        std::map&lt;pthread_t, CURL*&gt;::iterator it;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">for</span> (it = pool.begin(); it != pool.end(); ++it) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            curl_easy_cleanup(it-&gt;second);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        pool.clear();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;};</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="classProjPool.html">  158</a></span>&#160;<span class="keyword">class </span><a class="code" href="classProjPool.html">ProjPool</a> {  </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">static</span> std::map&lt;pthread_t, PJ_CONTEXT*&gt; pool;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="classProjPool.html">ProjPool</a>(){};</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="classProjPool.html#a302326518c3718374549c6614cd5b209">  186</a></span>&#160;    <a class="code" href="classProjPool.html#a302326518c3718374549c6614cd5b209">~ProjPool</a>(){};</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="classProjPool.html#adf03f40023f670256f2ab79e1e648e00">  194</a></span>&#160;    <span class="keyword">static</span> PJ_CONTEXT* <a class="code" href="classProjPool.html#adf03f40023f670256f2ab79e1e648e00">getProjEnv</a>() {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        pthread_t i = pthread_self();</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        std::map&lt;pthread_t, PJ_CONTEXT*&gt;::iterator it = pool.find ( i );</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span> ( it == pool.end() ) {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            PJ_CONTEXT* pjc = proj_context_create();</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            proj_log_level(pjc, PJ_LOG_NONE);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            pool.insert ( std::pair&lt;pthread_t, PJ_CONTEXT*&gt;(i,pjc) );</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <span class="keywordflow">return</span> pjc;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="classProjPool.html#a49618d4d556fa5a3c295a1dd1dd215ed">  212</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classProjPool.html#a49618d4d556fa5a3c295a1dd1dd215ed">printNumProjs</a> () {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;Nombre de contextes proj : &quot;</span> &lt;&lt; pool.size() ;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="classProjPool.html#aaf2139da4ef0a9760649fa479a336c6f">  220</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classProjPool.html#aaf2139da4ef0a9760649fa479a336c6f">cleanProjPool</a> () {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        std::map&lt;pthread_t, PJ_CONTEXT*&gt;::iterator it;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">for</span> (it = pool.begin(); it != pool.end(); ++it) {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            proj_context_destroy(it-&gt;second);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        }</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        pool.clear();</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;};</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="classStoragePool.html">  237</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStoragePool.html">StoragePool</a> {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <a class="code" href="classStoragePool.html">StoragePool</a>(){};</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">static</span> std::map&lt;std::pair&lt;ContextType::eContextType,std::string&gt;,<a class="code" href="classContext.html">Context</a>*&gt; pool;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="classStoragePool.html#a37edd0d9aad00d2eb7091b20aa57a284">  265</a></span>&#160;    <span class="keyword">static</span> std::string <a class="code" href="classStoragePool.html#a37edd0d9aad00d2eb7091b20aa57a284">toString</a>() {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        std::ostringstream oss;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        oss.setf ( std::ios::fixed,std::ios::floatfield );</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        oss &lt;&lt; <span class="stringliteral">&quot;------ Context pool -------&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        oss &lt;&lt; <span class="stringliteral">&quot;\t- context number = &quot;</span> &lt;&lt; pool.size() &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        std::map&lt;std::pair&lt;ContextType::eContextType,std::string&gt;, <a class="code" href="classContext.html">Context</a>*&gt;::iterator it = pool.begin();</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordflow">while</span> (it != pool.end()) {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            std::pair&lt;ContextType::eContextType,std::string&gt; key = it-&gt;first;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            oss &lt;&lt; <span class="stringliteral">&quot;\t\t- pot = &quot;</span> &lt;&lt; key.first &lt;&lt; <span class="stringliteral">&quot;/&quot;</span> &lt;&lt; key.second &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            oss &lt;&lt; it-&gt;second-&gt;<a class="code" href="classContext.html#a8f68555bb2e622a62ba58e60f7a8a3e9">toString</a>() &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            it++;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keywordflow">return</span> oss.str() ;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">static</span> <a class="code" href="classContext.html">Context</a> * <a class="code" href="classStoragePool.html#a25db8714f87f4db52cba282f0e1c48dc">get_context</a>(<a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a> type,std::string tray) ;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="classStoragePool.html#a2aed931b8b1821dec992e56180b4309c">  310</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStoragePool.html#a2aed931b8b1821dec992e56180b4309c">getStorageCounts</a> (<span class="keywordtype">int</span>&amp; file_count, <span class="keywordtype">int</span>&amp; s3_count, <span class="keywordtype">int</span>&amp; ceph_count, <span class="keywordtype">int</span>&amp; swift_count) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        file_count = 0;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        s3_count = 0;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        ceph_count = 0;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        swift_count = 0;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        std::map&lt;std::pair&lt;ContextType::eContextType,std::string&gt;, <a class="code" href="classContext.html">Context</a>*&gt;::iterator it = pool.begin();</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        <span class="keywordflow">while</span> (it != pool.end()) {</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            std::pair&lt;ContextType::eContextType,std::string&gt; key = it-&gt;first;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            <span class="keywordflow">switch</span>(key.first) {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#if CEPH_ENABLED</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                <span class="keywordflow">case</span> ContextType::CEPHCONTEXT:</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                    ceph_count++;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                <span class="keywordflow">case</span> ContextType::SWIFTCONTEXT:</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                    swift_count++;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="keywordflow">case</span> ContextType::S3CONTEXT:</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                    s3_count++;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                <span class="keywordflow">case</span> ContextType::FILECONTEXT:</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                    file_count++;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            it++;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        }</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    }</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="classStoragePool.html#a72f22181a26877cf31e509529effd78a">  344</a></span>&#160;    <span class="keyword">static</span> std::map&lt;std::pair&lt;ContextType::eContextType,std::string&gt;,<a class="code" href="classContext.html">Context</a>*&gt; <a class="code" href="classStoragePool.html#a72f22181a26877cf31e509529effd78a">getPool</a>() {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keywordflow">return</span> pool;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00354"></a><span class="lineno"><a class="line" href="classStoragePool.html#aad24c2c5403f963429bc8944afbb5d99">  354</a></span>&#160;    <a class="code" href="classStoragePool.html#aad24c2c5403f963429bc8944afbb5d99">~StoragePool</a>() {};</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="classStoragePool.html#a88480baafd279f5a8f59c9fd7f10576c">  360</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStoragePool.html#a88480baafd279f5a8f59c9fd7f10576c">cleanStoragePool</a> () {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        std::map&lt;std::pair&lt;ContextType::eContextType,std::string&gt;,<a class="code" href="classContext.html">Context</a>*&gt;::iterator it;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <span class="keywordflow">for</span> (it=pool.begin(); it!=pool.end(); ++it) {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            <span class="keyword">delete</span> it-&gt;second;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            it-&gt;second = NULL;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    }</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;};</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno"><a class="line" href="classIndexElement.html">  376</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIndexElement.html">IndexElement</a> {</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classIndexCache.html">IndexCache</a>;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="classIndexElement.html#af68e6a1f143a5697de80ff01429bbc69">  384</a></span>&#160;    std::time_t <a class="code" href="classIndexElement.html#af68e6a1f143a5697de80ff01429bbc69">date</a>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="classIndexElement.html#a544da2a7f8459e2f145c13ca2ce21755">  389</a></span>&#160;    std::string <a class="code" href="classIndexElement.html#a544da2a7f8459e2f145c13ca2ce21755">key</a>;</div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="classIndexElement.html#a6a3269a902fa1af97e0bcfba5645d8a4">  394</a></span>&#160;    std::string <a class="code" href="classIndexElement.html#a6a3269a902fa1af97e0bcfba5645d8a4">name</a>;</div>
+<div class="line"><a name="l00399"></a><span class="lineno"><a class="line" href="classIndexElement.html#a78faad8a958d4fc99433963ba80bd5a6">  399</a></span>&#160;    <a class="code" href="classContext.html">Context</a>* <a class="code" href="classIndexElement.html#a78faad8a958d4fc99433963ba80bd5a6">context</a>;</div>
+<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="classIndexElement.html#af61eb03eca1f98cd4f6b20abfc24ca36">  404</a></span>&#160;    std::vector&lt;uint32_t&gt; <a class="code" href="classIndexElement.html#af61eb03eca1f98cd4f6b20abfc24ca36">offsets</a>;</div>
+<div class="line"><a name="l00409"></a><span class="lineno"><a class="line" href="classIndexElement.html#a2f40e02ed7dd18ca76120f4e12d2ad47">  409</a></span>&#160;    std::vector&lt;uint32_t&gt; <a class="code" href="classIndexElement.html#a2f40e02ed7dd18ca76120f4e12d2ad47">sizes</a>;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="classIndexElement.html#a95925f2b993ad3a66f9a57454863af5b">  428</a></span>&#160;    <a class="code" href="classIndexElement.html#a95925f2b993ad3a66f9a57454863af5b">IndexElement</a>(std::string k, <a class="code" href="classContext.html">Context</a>* c, std::string n, <span class="keywordtype">int</span> tiles_number, uint8_t* os, uint8_t* ss) {</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <a class="code" href="classIndexElement.html#a544da2a7f8459e2f145c13ca2ce21755">key</a> = k;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        <a class="code" href="classIndexElement.html#a78faad8a958d4fc99433963ba80bd5a6">context</a> = c;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <a class="code" href="classIndexElement.html#a6a3269a902fa1af97e0bcfba5645d8a4">name</a> = n;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        <a class="code" href="classIndexElement.html#af68e6a1f143a5697de80ff01429bbc69">date</a> = std::time(NULL);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tiles_number; i++) {</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <a class="code" href="classIndexElement.html#af61eb03eca1f98cd4f6b20abfc24ca36">offsets</a>.push_back(*((uint32_t*) (os + i*4)));</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            <a class="code" href="classIndexElement.html#a2f40e02ed7dd18ca76120f4e12d2ad47">sizes</a>.push_back(*((uint32_t*) (ss + i*4)));</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        }        </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    };</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;};</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="classIndexCache.html">  446</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIndexCache.html">IndexCache</a> {  </div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keyword">static</span> std::list&lt;IndexElement *&gt; cache;</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keyword">static</span> std::unordered_map&lt;std::string, std::list&lt;IndexElement *&gt;::iterator&gt; map;</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> size;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> validity;</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160; </div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <span class="keyword">static</span> std::mutex mtx;</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <a class="code" href="classIndexCache.html">IndexCache</a>(){};</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno"><a class="line" href="classIndexCache.html#a90366420f2712e51ccfc7f42359b3a1a">  499</a></span>&#160;    <a class="code" href="classIndexCache.html#a90366420f2712e51ccfc7f42359b3a1a">~IndexCache</a>(){};</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
+<div class="line"><a name="l00508"></a><span class="lineno"><a class="line" href="classIndexCache.html#a66ed3ee038a90642b5494c9d26fc64d6">  508</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classIndexCache.html#a66ed3ee038a90642b5494c9d26fc64d6">setCacheSize</a>(<span class="keywordtype">int</span> s) {</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;        size = s;</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    };</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00519"></a><span class="lineno"><a class="line" href="classIndexCache.html#adc4ffb5fd18c298e6da176a33b16cde4">  519</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classIndexCache.html#adc4ffb5fd18c298e6da176a33b16cde4">setValidity</a>(<span class="keywordtype">int</span> v) {</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        validity = v;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    };</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160; </div>
+<div class="line"><a name="l00540"></a><span class="lineno"><a class="line" href="classIndexCache.html#a02a25adc46fad1218041048fe59d18a0">  540</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classIndexCache.html#a02a25adc46fad1218041048fe59d18a0">add_slab_infos</a>(std::string origin_slab_name, <a class="code" href="classContext.html">Context</a>* data_context, std::string data_slab_name, <span class="keywordtype">int</span> tiles_number, uint8_t* offsets, uint8_t* sizes) {</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="comment">// On utilise le nom original de la dalle (celle à lire a priori) comme clé dans la map</span></div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        <span class="comment">// Potentiellement ce nom est différent de la vraie dalle contenant la donnée (dans le cas d&#39;une dalle symbolique)</span></div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        <span class="comment">// mais c&#39;est via cette dalle symbolique que la donnée est a priori requêtée</span></div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        <span class="comment">// donc c&#39;est ce nom qu&#39;on utilisera pour l&#39;interrogation du cache</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160; </div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        <a class="code" href="classIndexElement.html">IndexElement</a>* elem = <span class="keyword">new</span> <a class="code" href="classIndexElement.html">IndexElement</a>(origin_slab_name, data_context, data_slab_name, tiles_number, offsets, sizes);</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160; </div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;        <span class="comment">// L&#39;information n&#39;est a priori pas dans le cache car </span></div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;        <span class="comment">// Soit elle était dans le cache et valide, alors on aurait utilisé ce cache et on n&#39;aurait pas fait appel à cet ajout</span></div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        <span class="comment">// Soit elle était dans le cache mais obsolète, alors on l&#39;aurait déjà supprimé du cache</span></div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160; </div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;        <span class="keywordflow">if</span> (cache.size() == size) {</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;            <span class="comment">// On récupère le dernier élément du cache</span></div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;            <a class="code" href="classIndexElement.html">IndexElement</a>* last = cache.back();</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;            <span class="comment">// On le vire du cache</span></div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;            cache.pop_back();</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;            <span class="comment">// On le déréférence de la map d&#39;accès</span></div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;            map.erase(last-&gt;<a class="code" href="classIndexElement.html#a544da2a7f8459e2f145c13ca2ce21755">key</a>);</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;            <span class="keyword">delete</span> last;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;        }</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    </div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        <span class="comment">// update reference</span></div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        cache.push_front(elem);</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;        map[origin_slab_name] = cache.begin();</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    };</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160; </div>
+<div class="line"><a name="l00588"></a><span class="lineno"><a class="line" href="classIndexCache.html#a0796421d31f88d2971bd7bdbb97c67c2">  588</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classIndexCache.html#a0796421d31f88d2971bd7bdbb97c67c2">get_slab_infos</a>(std::string key, <span class="keywordtype">int</span> tile_number, <a class="code" href="classContext.html">Context</a>** data_context, std::string* data_slab_name, uint32_t* offset, uint32_t* size) {</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        std::unordered_map&lt;std::string, std::list&lt;IndexElement *&gt;::iterator&gt;::iterator it = map.find ( key );</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;        <span class="keywordflow">if</span> ( it == map.end() ) {</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;            <span class="comment">// Gestion de la péremption du cache (une heure max)</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;            std::time_t now = std::time(NULL);</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;            <span class="keywordflow">if</span> (now - (*(it-&gt;second))-&gt;date &gt; validity) {</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                mtx.lock();</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160; </div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                <span class="comment">// on le cherche à nouveau pour vérifier qu&#39;il n&#39;a pas déjà été supprimé par un thread concurrent</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;                it = map.find ( key );</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                <span class="keywordflow">if</span> ( it != map.end() ) {</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;                    <span class="keyword">delete</span> *(it-&gt;second);</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;                    cache.erase(it-&gt;second);</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;                    map.erase(it);</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                }</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                mtx.unlock();</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160; </div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;            }</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160; </div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;            *data_slab_name = (*(it-&gt;second))-&gt;name;</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;            *data_context = (*(it-&gt;second))-&gt;context;</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;            *offset = (*(it-&gt;second))-&gt;offsets.at(tile_number);</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;            *size = (*(it-&gt;second))-&gt;sizes.at(tile_number);</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160; </div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;            <span class="comment">// On fait le choix de ne pas remettre en tête du cache cet élément, même s&#39;il vient d&#39;être accéder</span></div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;            <span class="comment">// C&#39;est parce qu&#39;en plus d&#39;avoir une taille limite, les élément cachés ont une date de péromption</span></div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;            <span class="comment">// Il serait donc dommage de remettre en avant (donc plus loin d&#39;une suppression par taille de cache atteinte)</span></div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;            <span class="comment">// un élément qui va de toute manière finir par être obsolète.</span></div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;            <span class="comment">// C&#39;est une différence avec une cache LRU classique</span></div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        }</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    };</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
+<div class="line"><a name="l00631"></a><span class="lineno"><a class="line" href="classIndexCache.html#a2c6ef5de3635bd57be3ff2b011f703c5">  631</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classIndexCache.html#a2c6ef5de3635bd57be3ff2b011f703c5">cleanCache</a> () {</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;        std::list&lt;IndexElement*&gt;::iterator it;</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;        <span class="keywordflow">for</span> (it = cache.begin(); it != cache.end(); ++it) {</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;            <span class="keyword">delete</span> *it;</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        }</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        cache.clear();</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    }</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;};</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
+<div class="line"><a name="l00649"></a><span class="lineno"><a class="line" href="classTmsBook.html">  649</a></span>&#160;<span class="keyword">class </span><a class="code" href="classTmsBook.html">TmsBook</a> {</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160; </div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160; </div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;    <a class="code" href="classTmsBook.html">TmsBook</a>(){};</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160; </div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    <span class="keyword">static</span> std::string directory;</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160; </div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="keyword">static</span> std::map&lt;std::string,TileMatrixSet*&gt; book;</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160; </div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="keyword">static</span> std::vector&lt;TileMatrixSet*&gt; trash;</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160; </div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="keyword">static</span> std::mutex mtx;</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160; </div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160; </div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160; </div>
+<div class="line"><a name="l00698"></a><span class="lineno"><a class="line" href="classTmsBook.html#a25137d53b1cc3bb92f8de9272d680a74">  698</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classTmsBook.html#a25137d53b1cc3bb92f8de9272d680a74">send_to_trash</a> () {</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        std::map&lt;std::string, TileMatrixSet*&gt;::iterator it;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        <span class="keywordflow">for</span> (it = book.begin(); it != book.end(); ++it) {</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;            trash.push_back(it-&gt;second);</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;        }</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        book.empty();</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;    }</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
+<div class="line"><a name="l00712"></a><span class="lineno"><a class="line" href="classTmsBook.html#a0525b4a656c36ca7b20c02131510b1b7">  712</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classTmsBook.html#a0525b4a656c36ca7b20c02131510b1b7">empty_trash</a> () {</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; trash.size(); i++) {</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            <span class="keyword">delete</span> trash.at(i);</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        }</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        trash.empty();</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;    }</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160; </div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160; </div>
+<div class="line"><a name="l00726"></a><span class="lineno"><a class="line" href="classTmsBook.html#ae7946f66a6304fdbb802d70fd8cb1247">  726</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classTmsBook.html#ae7946f66a6304fdbb802d70fd8cb1247">set_directory</a> (std::string d) {</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        <span class="comment">// Suppression du slash final</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        <span class="keywordflow">if</span> (d.compare ( d.size()-1,1,<span class="stringliteral">&quot;/&quot;</span> ) == 0) {</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;            d.pop_back();</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        }</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        directory = d;</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;    }</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160; </div>
+<div class="line"><a name="l00738"></a><span class="lineno"><a class="line" href="classTmsBook.html#ae087c02c625135c3316f115c720d7519">  738</a></span>&#160;    <span class="keyword">static</span> std::map&lt;std::string,TileMatrixSet*&gt; <a class="code" href="classTmsBook.html#ae087c02c625135c3316f115c720d7519">get_book</a> () {</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        <span class="keywordflow">return</span> book;</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    }</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160; </div>
+<div class="line"><a name="l00752"></a><span class="lineno"><a class="line" href="classTmsBook.html#a2f113442895d029145821f217746f618">  752</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>* <a class="code" href="classTmsBook.html#a2f113442895d029145821f217746f618">get_tms</a>(std::string <span class="keywordtype">id</span>) {</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        std::map&lt;std::string, TileMatrixSet*&gt;::iterator it = book.find ( <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        <span class="keywordflow">if</span> ( it != book.end() ) {</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;            <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;        }</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160; </div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        std::string d;</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        <span class="keywordflow">if</span> (directory.empty()) {</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;            <span class="keywordtype">char</span>* e = getenv (ROK4_TMS_DIRECTORY);</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;            <span class="keywordflow">if</span> (e == NULL) {</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                d.assign(<span class="stringliteral">&quot;/usr/share/rok4/tilematrixsets&quot;</span>);</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;                d.assign(e);</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;            }</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            d = directory;</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;        }</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160; </div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        std::string tms_path = d + <span class="stringliteral">&quot;/&quot;</span> + id;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160; </div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;        <span class="comment">// Si on fait du cache de TMS, on revérifie que ce TMS n&#39;a pas déjà été ajouté par un thread concurrent entre temps</span></div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;        <span class="keywordflow">if</span>(getenv (ROK4_TMS_NO_CACHE) == NULL) {</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;            <span class="keywordflow">if</span> ( it != book.end() ) {</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                <span class="comment">// On a effectivement depuis déjà enregistré ce TMS</span></div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;            }</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;        }</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160; </div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        <a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>* tms = <span class="keyword">new</span> <a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>(tms_path);</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keywordflow">if</span> ( ! tms-&gt;<a class="code" href="classConfiguration.html#ad150f815ba21c648df61cb7367436699">isOk</a>() ) {</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;            BOOST_LOG_TRIVIAL(error) &lt;&lt; tms-&gt;<a class="code" href="classConfiguration.html#a7ad59a454e7903b3daa9324a6b5349fa">getErrorMessage</a>();</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            <span class="keyword">delete</span> tms;</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;            mtx.unlock();</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        }</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160; </div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keywordflow">if</span>(getenv (ROK4_TMS_NO_CACHE) == NULL) {</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            <span class="comment">// On veut utiliser le cache, on met donc ce nouveau TMS dans l&#39;annuaire pour le trouver la prochaine fois</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            book.insert ( std::pair&lt;std::string, TileMatrixSet*&gt;(<span class="keywordtype">id</span>, tms) );</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            <span class="comment">// On met le TMS directement dans la corbeille, pour que le nettoyage se fasse bien</span></div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            trash.push_back(tms);</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;        }</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;        </div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160; </div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;        <span class="keywordflow">return</span> tms;</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;    }</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160; </div>
+<div class="line"><a name="l00806"></a><span class="lineno"><a class="line" href="classTmsBook.html#a59c23adf69a92b257c160973e90ef75a">  806</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classTmsBook.html#a59c23adf69a92b257c160973e90ef75a">get_tms_count</a> () {</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;        <span class="keywordflow">return</span> book.size();</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    }</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160; </div>
+<div class="line"><a name="l00816"></a><span class="lineno"><a class="line" href="classTmsBook.html#ac12e8baddb633a6e9cc29629acc98827">  816</a></span>&#160;    <a class="code" href="classTmsBook.html#ac12e8baddb633a6e9cc29629acc98827">~TmsBook</a>() {};</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160; </div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;};</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160; </div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160; </div>
+<div class="line"><a name="l00827"></a><span class="lineno"><a class="line" href="classStyleBook.html">  827</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStyleBook.html">StyleBook</a> {</div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160; </div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160; </div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;    <a class="code" href="classStyleBook.html">StyleBook</a>(){};</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160; </div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;    <span class="keyword">static</span> std::string directory;</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160; </div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> inspire;</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160; </div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <span class="keyword">static</span> std::map&lt;std::string,Style*&gt; book;</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160; </div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="keyword">static</span> std::vector&lt;Style*&gt; trash;</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160; </div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;    <span class="keyword">static</span> std::mutex mtx;</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160; </div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160; </div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160; </div>
+<div class="line"><a name="l00884"></a><span class="lineno"><a class="line" href="classStyleBook.html#a225faa8ed96c430decd2c63296866d77">  884</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStyleBook.html#a225faa8ed96c430decd2c63296866d77">send_to_trash</a> () {</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;        std::map&lt;std::string, Style*&gt;::iterator it;</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;        <span class="keywordflow">for</span> (it = book.begin(); it != book.end(); ++it) {</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;            trash.push_back(it-&gt;second);</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;        }</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        book.empty();</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    }</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160; </div>
+<div class="line"><a name="l00898"></a><span class="lineno"><a class="line" href="classStyleBook.html#a4b326cbf5b96c7f7a2d1b722b3b2c325">  898</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStyleBook.html#a4b326cbf5b96c7f7a2d1b722b3b2c325">empty_trash</a> () {</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; trash.size(); i++) {</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;            <span class="keyword">delete</span> trash.at(i);</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        }</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;        trash.empty();</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;    }</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160; </div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160; </div>
+<div class="line"><a name="l00912"></a><span class="lineno"><a class="line" href="classStyleBook.html#ac27de2e505eaf444e3d5dd79f9c68288">  912</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStyleBook.html#ac27de2e505eaf444e3d5dd79f9c68288">set_directory</a> (std::string d) {</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        <span class="comment">// Suppression du slash final</span></div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;        <span class="keywordflow">if</span> (d.compare ( d.size()-1,1,<span class="stringliteral">&quot;/&quot;</span> ) == 0) {</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;            d.pop_back();</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;        }</div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;        directory = d;</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;    }</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160; </div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160; </div>
+<div class="line"><a name="l00925"></a><span class="lineno"><a class="line" href="classStyleBook.html#ae0a215ebae8c4ecb7228a1530520a868">  925</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classStyleBook.html#ae0a215ebae8c4ecb7228a1530520a868">set_inspire</a> (<span class="keywordtype">bool</span> i) {</div>
+<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;        inspire = i;</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    }</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160; </div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160; </div>
+<div class="line"><a name="l00934"></a><span class="lineno"><a class="line" href="classStyleBook.html#a4f3457b1c7eeff06eb032e5d364d0691">  934</a></span>&#160;    <span class="keyword">static</span> std::map&lt;std::string,Style*&gt; <a class="code" href="classStyleBook.html#a4f3457b1c7eeff06eb032e5d364d0691">get_book</a> () {</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;        <span class="keywordflow">return</span> book;</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;    }</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160; </div>
+<div class="line"><a name="l00948"></a><span class="lineno"><a class="line" href="classStyleBook.html#a69d087aefb912379f442125343bab4a2">  948</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classStyle.html">Style</a>* <a class="code" href="classStyleBook.html#a69d087aefb912379f442125343bab4a2">get_style</a>(std::string <span class="keywordtype">id</span>) {</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160; </div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;        std::map&lt;std::string, Style*&gt;::iterator it = book.find ( <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        <span class="keywordflow">if</span> ( it != book.end() ) {</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;            <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;        }</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160; </div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        std::string d;</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        <span class="keywordflow">if</span> (directory.empty()) {</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;            <span class="keywordtype">char</span>* e = getenv (ROK4_STYLES_DIRECTORY);</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;            <span class="keywordflow">if</span> (e == NULL) {</div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;                d.assign(<span class="stringliteral">&quot;/usr/share/rok4/styles&quot;</span>);</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;                d.assign(e);</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;            }</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;            d = directory;</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        }</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160; </div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        std::string style_path = d + <span class="stringliteral">&quot;/&quot;</span> + id;</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160; </div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;        mtx.lock();</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;        <span class="comment">// Si on fait du cache de style, on revérifie que ce style n&#39;a pas déjà été ajouté par un thread concurrent entre temps</span></div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        <span class="keywordflow">if</span>(getenv (ROK4_STYLES_NO_CACHE) == NULL) {</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;            <span class="keywordflow">if</span> ( it != book.end() ) {</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;                <span class="comment">// On a effectivement depuis déjà enregistré ce style</span></div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;                <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;            }</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;        }</div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160; </div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;        <a class="code" href="classStyle.html">Style</a>* style = <span class="keyword">new</span> <a class="code" href="classStyle.html">Style</a>(style_path, inspire);</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <span class="keywordflow">if</span> ( ! style-&gt;<a class="code" href="classConfiguration.html#ad150f815ba21c648df61cb7367436699">isOk</a>() ) {</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;            BOOST_LOG_TRIVIAL(error) &lt;&lt; style-&gt;<a class="code" href="classConfiguration.html#a7ad59a454e7903b3daa9324a6b5349fa">getErrorMessage</a>();</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;            <span class="keyword">delete</span> style;</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;            mtx.unlock();</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;        }</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160; </div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="Utils_8h.html#ab9ecf8f486696e06f25390ad827e0b47">containForbiddenChars</a>(style-&gt;<a class="code" href="classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0">getIdentifier</a>()) ) {</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;            BOOST_LOG_TRIVIAL(error) &lt;&lt; <span class="stringliteral">&quot;Style identifier contains forbidden chars&quot;</span> ;</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;            <span class="keyword">delete</span> style;</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;            mtx.unlock();</div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;        }</div>
+<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160; </div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        <span class="keywordflow">if</span>(getenv (ROK4_STYLES_NO_CACHE) == NULL) {</div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;            <span class="comment">// On veut utiliser le cache, on met donc ce nouveau style dans l&#39;annuaire pour le trouver la porchaine fois</span></div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            book.insert ( std::pair&lt;std::string, Style*&gt;(<span class="keywordtype">id</span>, style) );</div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;            <span class="comment">// On met le style directement dans la corbeille, pour que le nettoyage se fasse bien</span></div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;            trash.push_back(style);</div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;        }</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160; </div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        mtx.unlock();</div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;        <span class="keywordflow">return</span> style;</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;    }</div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160; </div>
+<div class="line"><a name="l01009"></a><span class="lineno"><a class="line" href="classStyleBook.html#a223bd769dc8fbbe97ed7612809828132"> 1009</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classStyleBook.html#a223bd769dc8fbbe97ed7612809828132">get_styles_count</a> () {</div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;        <span class="keywordflow">return</span> book.size();</div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;    }</div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160; </div>
+<div class="line"><a name="l01019"></a><span class="lineno"><a class="line" href="classStyleBook.html#a65c6667b82aa0f901d7906a367ecb188"> 1019</a></span>&#160;    <a class="code" href="classStyleBook.html#a65c6667b82aa0f901d7906a367ecb188">~StyleBook</a>() {};</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160; </div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;};</div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160; </div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassConfiguration_html_a7ad59a454e7903b3daa9324a6b5349fa"><div class="ttname"><a href="classConfiguration.html#a7ad59a454e7903b3daa9324a6b5349fa">Configuration::getErrorMessage</a></div><div class="ttdeci">std::string getErrorMessage()</div><div class="ttdoc">Retourne le message d'erreur.</div><div class="ttdef"><b>Definition:</b> Configuration.h:100</div></div>
+<div class="ttc" id="aclassStyleBook_html"><div class="ttname"><a href="classStyleBook.html">StyleBook</a></div><div class="ttdoc">Création d'un annuaire de styles.</div><div class="ttdef"><b>Definition:</b> Cache.h:827</div></div>
+<div class="ttc" id="aStyle_8h_html"><div class="ttname"><a href="Style_8h.html">Style.h</a></div><div class="ttdoc">Définition de la classe Style modélisant les styles.</div></div>
+<div class="ttc" id="aclassIndexElement_html_a78faad8a958d4fc99433963ba80bd5a6"><div class="ttname"><a href="classIndexElement.html#a78faad8a958d4fc99433963ba80bd5a6">IndexElement::context</a></div><div class="ttdeci">Context * context</div><div class="ttdoc">Contexte de stockage de la dalle de donnée.</div><div class="ttdef"><b>Definition:</b> Cache.h:399</div></div>
+<div class="ttc" id="aclassStoragePool_html_a88480baafd279f5a8f59c9fd7f10576c"><div class="ttname"><a href="classStoragePool.html#a88480baafd279f5a8f59c9fd7f10576c">StoragePool::cleanStoragePool</a></div><div class="ttdeci">static void cleanStoragePool()</div><div class="ttdoc">Nettoie tous les contextes de stockage dans l'annuaire et le vide.</div><div class="ttdef"><b>Definition:</b> Cache.h:360</div></div>
+<div class="ttc" id="aclassStyleBook_html_ac27de2e505eaf444e3d5dd79f9c68288"><div class="ttname"><a href="classStyleBook.html#ac27de2e505eaf444e3d5dd79f9c68288">StyleBook::set_directory</a></div><div class="ttdeci">static void set_directory(std::string d)</div><div class="ttdoc">Renseigne le répertoire des style.</div><div class="ttdef"><b>Definition:</b> Cache.h:912</div></div>
+<div class="ttc" id="aclassProjPool_html_a302326518c3718374549c6614cd5b209"><div class="ttname"><a href="classProjPool.html#a302326518c3718374549c6614cd5b209">ProjPool::~ProjPool</a></div><div class="ttdeci">~ProjPool()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:186</div></div>
+<div class="ttc" id="aclassStoragePool_html"><div class="ttname"><a href="classStoragePool.html">StoragePool</a></div><div class="ttdoc">Création d'un pool de contextes de stockage.</div><div class="ttdef"><b>Definition:</b> Cache.h:237</div></div>
+<div class="ttc" id="aUtils_8h_html_ab9ecf8f486696e06f25390ad827e0b47"><div class="ttname"><a href="Utils_8h.html#ab9ecf8f486696e06f25390ad827e0b47">containForbiddenChars</a></div><div class="ttdeci">bool containForbiddenChars(std::string str)</div><div class="ttdoc">Recherche des caractères interdits pour éviter l'injection.</div><div class="ttdef"><b>Definition:</b> Utils.h:78</div></div>
+<div class="ttc" id="aclassStyleBook_html_ae0a215ebae8c4ecb7228a1530520a868"><div class="ttname"><a href="classStyleBook.html#ae0a215ebae8c4ecb7228a1530520a868">StyleBook::set_inspire</a></div><div class="ttdeci">static void set_inspire(bool i)</div><div class="ttdoc">Renseigne la restiction inspire des style.</div><div class="ttdef"><b>Definition:</b> Cache.h:925</div></div>
+<div class="ttc" id="aclassStoragePool_html_a72f22181a26877cf31e509529effd78a"><div class="ttname"><a href="classStoragePool.html#a72f22181a26877cf31e509529effd78a">StoragePool::getPool</a></div><div class="ttdeci">static std::map&lt; std::pair&lt; ContextType::eContextType, std::string &gt;, Context * &gt; getPool()</div><div class="ttdoc">Obtient l'annuaire de contextes.</div><div class="ttdef"><b>Definition:</b> Cache.h:344</div></div>
+<div class="ttc" id="aclassStoragePool_html_aad24c2c5403f963429bc8944afbb5d99"><div class="ttname"><a href="classStoragePool.html#aad24c2c5403f963429bc8944afbb5d99">StoragePool::~StoragePool</a></div><div class="ttdeci">~StoragePool()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:354</div></div>
+<div class="ttc" id="aclassTmsBook_html_ac12e8baddb633a6e9cc29629acc98827"><div class="ttname"><a href="classTmsBook.html#ac12e8baddb633a6e9cc29629acc98827">TmsBook::~TmsBook</a></div><div class="ttdeci">~TmsBook()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:816</div></div>
+<div class="ttc" id="aclassIndexCache_html_a02a25adc46fad1218041048fe59d18a0"><div class="ttname"><a href="classIndexCache.html#a02a25adc46fad1218041048fe59d18a0">IndexCache::add_slab_infos</a></div><div class="ttdeci">static void add_slab_infos(std::string origin_slab_name, Context *data_context, std::string data_slab_name, int tiles_number, uint8_t *offsets, uint8_t *sizes)</div><div class="ttdoc">Ajoute un élément au cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:540</div></div>
+<div class="ttc" id="aclassContext_html"><div class="ttname"><a href="classContext.html">Context</a></div><div class="ttdoc">Création d'un contexte de stockage abstrait.</div><div class="ttdef"><b>Definition:</b> Context.h:124</div></div>
+<div class="ttc" id="aclassProjPool_html"><div class="ttname"><a href="classProjPool.html">ProjPool</a></div><div class="ttdoc">Création d'un pool de contextes Proj.</div><div class="ttdef"><b>Definition:</b> Cache.h:158</div></div>
+<div class="ttc" id="aclassIndexElement_html_a2f40e02ed7dd18ca76120f4e12d2ad47"><div class="ttname"><a href="classIndexElement.html#a2f40e02ed7dd18ca76120f4e12d2ad47">IndexElement::sizes</a></div><div class="ttdeci">std::vector&lt; uint32_t &gt; sizes</div><div class="ttdoc">Tailles des tuiles dans la dalle.</div><div class="ttdef"><b>Definition:</b> Cache.h:409</div></div>
+<div class="ttc" id="aclassStoragePool_html_a37edd0d9aad00d2eb7091b20aa57a284"><div class="ttname"><a href="classStoragePool.html#a37edd0d9aad00d2eb7091b20aa57a284">StoragePool::toString</a></div><div class="ttdeci">static std::string toString()</div><div class="ttdoc">Retourne une chaîne de caracère décrivant l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:265</div></div>
+<div class="ttc" id="aclassStyleBook_html_a69d087aefb912379f442125343bab4a2"><div class="ttname"><a href="classStyleBook.html#a69d087aefb912379f442125343bab4a2">StyleBook::get_style</a></div><div class="ttdeci">static Style * get_style(std::string id)</div><div class="ttdoc">Retourne le style d'après son identifiant.</div><div class="ttdef"><b>Definition:</b> Cache.h:948</div></div>
+<div class="ttc" id="aclassProjPool_html_a49618d4d556fa5a3c295a1dd1dd215ed"><div class="ttname"><a href="classProjPool.html#a49618d4d556fa5a3c295a1dd1dd215ed">ProjPool::printNumProjs</a></div><div class="ttdeci">static void printNumProjs()</div><div class="ttdoc">Affiche le nombre de contextes proj dans l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:212</div></div>
+<div class="ttc" id="aclassStyleBook_html_a4b326cbf5b96c7f7a2d1b722b3b2c325"><div class="ttname"><a href="classStyleBook.html#a4b326cbf5b96c7f7a2d1b722b3b2c325">StyleBook::empty_trash</a></div><div class="ttdeci">static void empty_trash()</div><div class="ttdoc">Vide la corbeille.</div><div class="ttdef"><b>Definition:</b> Cache.h:898</div></div>
+<div class="ttc" id="aclassTmsBook_html_a25137d53b1cc3bb92f8de9272d680a74"><div class="ttname"><a href="classTmsBook.html#a25137d53b1cc3bb92f8de9272d680a74">TmsBook::send_to_trash</a></div><div class="ttdeci">static void send_to_trash()</div><div class="ttdoc">Vide l'annuaire et met le contenu à la corbeille.</div><div class="ttdef"><b>Definition:</b> Cache.h:698</div></div>
+<div class="ttc" id="aclassCurlPool_html_aab207402c3c0987fb1b90344dad42981"><div class="ttname"><a href="classCurlPool.html#aab207402c3c0987fb1b90344dad42981">CurlPool::printNumCurls</a></div><div class="ttdeci">static void printNumCurls()</div><div class="ttdoc">Affiche le nombre d'objet curl dans l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:133</div></div>
+<div class="ttc" id="aUtils_8h_html"><div class="ttname"><a href="Utils_8h.html">Utils.h</a></div><div class="ttdoc">Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ...</div></div>
+<div class="ttc" id="aclassIndexCache_html_a66ed3ee038a90642b5494c9d26fc64d6"><div class="ttname"><a href="classIndexCache.html#a66ed3ee038a90642b5494c9d26fc64d6">IndexCache::setCacheSize</a></div><div class="ttdeci">static void setCacheSize(int s)</div><div class="ttdoc">Définit la taille du cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:508</div></div>
+<div class="ttc" id="aclassTmsBook_html_a0525b4a656c36ca7b20c02131510b1b7"><div class="ttname"><a href="classTmsBook.html#a0525b4a656c36ca7b20c02131510b1b7">TmsBook::empty_trash</a></div><div class="ttdeci">static void empty_trash()</div><div class="ttdoc">Vide la corbeille.</div><div class="ttdef"><b>Definition:</b> Cache.h:712</div></div>
+<div class="ttc" id="aclassCurlPool_html_a18a2d1152df02c7d9ee0f0e72ab1f19e"><div class="ttname"><a href="classCurlPool.html#a18a2d1152df02c7d9ee0f0e72ab1f19e">CurlPool::cleanCurlPool</a></div><div class="ttdeci">static void cleanCurlPool()</div><div class="ttdoc">Nettoie tous les objets curl dans l'annuaire et le vide.</div><div class="ttdef"><b>Definition:</b> Cache.h:141</div></div>
+<div class="ttc" id="aclassStyle_html"><div class="ttname"><a href="classStyle.html">Style</a></div><div class="ttdoc">Gestion des styles (affichages et métadonnées)</div><div class="ttdef"><b>Definition:</b> Style.h:112</div></div>
+<div class="ttc" id="aclassIndexCache_html_adc4ffb5fd18c298e6da176a33b16cde4"><div class="ttname"><a href="classIndexCache.html#adc4ffb5fd18c298e6da176a33b16cde4">IndexCache::setValidity</a></div><div class="ttdeci">static void setValidity(int v)</div><div class="ttdoc">Définit la durée de validité</div><div class="ttdef"><b>Definition:</b> Cache.h:519</div></div>
+<div class="ttc" id="aclassTmsBook_html_ae087c02c625135c3316f115c720d7519"><div class="ttname"><a href="classTmsBook.html#ae087c02c625135c3316f115c720d7519">TmsBook::get_book</a></div><div class="ttdeci">static std::map&lt; std::string, TileMatrixSet * &gt; get_book()</div><div class="ttdoc">Retourne l'ensemble de l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:738</div></div>
+<div class="ttc" id="aclassStyleBook_html_a225faa8ed96c430decd2c63296866d77"><div class="ttname"><a href="classStyleBook.html#a225faa8ed96c430decd2c63296866d77">StyleBook::send_to_trash</a></div><div class="ttdeci">static void send_to_trash()</div><div class="ttdoc">Vide l'annuaire et met le contenu à la corbeille.</div><div class="ttdef"><b>Definition:</b> Cache.h:884</div></div>
+<div class="ttc" id="aclassIndexElement_html"><div class="ttname"><a href="classIndexElement.html">IndexElement</a></div><div class="ttdoc">Élément du cache des index de dalle.</div><div class="ttdef"><b>Definition:</b> Cache.h:376</div></div>
+<div class="ttc" id="aclassCurlPool_html"><div class="ttname"><a href="classCurlPool.html">CurlPool</a></div><div class="ttdoc">Création d'un pool d'environnement Curl.</div><div class="ttdef"><b>Definition:</b> Cache.h:79</div></div>
+<div class="ttc" id="aclassIndexCache_html_a90366420f2712e51ccfc7f42359b3a1a"><div class="ttname"><a href="classIndexCache.html#a90366420f2712e51ccfc7f42359b3a1a">IndexCache::~IndexCache</a></div><div class="ttdeci">~IndexCache()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:499</div></div>
+<div class="ttc" id="aclassStyleBook_html_a223bd769dc8fbbe97ed7612809828132"><div class="ttname"><a href="classStyleBook.html#a223bd769dc8fbbe97ed7612809828132">StyleBook::get_styles_count</a></div><div class="ttdeci">static int get_styles_count()</div><div class="ttdoc">Retourne le nombre de styles dans l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:1009</div></div>
+<div class="ttc" id="aclassStyle_html_af7ea3caec11c2b8b887dbe39b0c501d0"><div class="ttname"><a href="classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0">Style::getIdentifier</a></div><div class="ttdeci">std::string getIdentifier()</div><div class="ttdoc">Retourne l'identifiant public du style.</div><div class="ttdef"><b>Definition:</b> Style.h:210</div></div>
+<div class="ttc" id="aclassTmsBook_html_a59c23adf69a92b257c160973e90ef75a"><div class="ttname"><a href="classTmsBook.html#a59c23adf69a92b257c160973e90ef75a">TmsBook::get_tms_count</a></div><div class="ttdeci">static int get_tms_count()</div><div class="ttdoc">Retourne le nombre de TMS dans l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:806</div></div>
+<div class="ttc" id="aclassStoragePool_html_a25db8714f87f4db52cba282f0e1c48dc"><div class="ttname"><a href="classStoragePool.html#a25db8714f87f4db52cba282f0e1c48dc">StoragePool::get_context</a></div><div class="ttdeci">static Context * get_context(ContextType::eContextType type, std::string tray)</div><div class="ttdoc">Récupère un contexte de stockage.</div><div class="ttdef"><b>Definition:</b> Cache.cpp:77</div></div>
+<div class="ttc" id="aclassProjPool_html_aaf2139da4ef0a9760649fa479a336c6f"><div class="ttname"><a href="classProjPool.html#aaf2139da4ef0a9760649fa479a336c6f">ProjPool::cleanProjPool</a></div><div class="ttdeci">static void cleanProjPool()</div><div class="ttdoc">Nettoie tous les contextes proj dans l'annuaire et le vide.</div><div class="ttdef"><b>Definition:</b> Cache.h:220</div></div>
+<div class="ttc" id="aclassIndexElement_html_a544da2a7f8459e2f145c13ca2ce21755"><div class="ttname"><a href="classIndexElement.html#a544da2a7f8459e2f145c13ca2ce21755">IndexElement::key</a></div><div class="ttdeci">std::string key</div><div class="ttdoc">Clé sous laquelle l'élément est enregistré dans le cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:389</div></div>
+<div class="ttc" id="aclassProjPool_html_adf03f40023f670256f2ab79e1e648e00"><div class="ttname"><a href="classProjPool.html#adf03f40023f670256f2ab79e1e648e00">ProjPool::getProjEnv</a></div><div class="ttdeci">static PJ_CONTEXT * getProjEnv()</div><div class="ttdoc">Retourne un contexte Proj propre au thread appelant.</div><div class="ttdef"><b>Definition:</b> Cache.h:194</div></div>
+<div class="ttc" id="aclassIndexCache_html"><div class="ttname"><a href="classIndexCache.html">IndexCache</a></div><div class="ttdoc">Création d'un cache des index de dalle.</div><div class="ttdef"><b>Definition:</b> Cache.h:446</div></div>
+<div class="ttc" id="aclassTmsBook_html"><div class="ttname"><a href="classTmsBook.html">TmsBook</a></div><div class="ttdoc">Création d'un annuaire de Tile Matrix Sets.</div><div class="ttdef"><b>Definition:</b> Cache.h:649</div></div>
+<div class="ttc" id="aclassIndexCache_html_a2c6ef5de3635bd57be3ff2b011f703c5"><div class="ttname"><a href="classIndexCache.html#a2c6ef5de3635bd57be3ff2b011f703c5">IndexCache::cleanCache</a></div><div class="ttdeci">static void cleanCache()</div><div class="ttdoc">Nettoie tous les objets dans le cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:631</div></div>
+<div class="ttc" id="aclassContext_html_a8f68555bb2e622a62ba58e60f7a8a3e9"><div class="ttname"><a href="classContext.html#a8f68555bb2e622a62ba58e60f7a8a3e9">Context::toString</a></div><div class="ttdeci">virtual std::string toString()=0</div><div class="ttdoc">Retourne une chaîne de caracère décrivant le contexte.</div></div>
+<div class="ttc" id="aclassTmsBook_html_a2f113442895d029145821f217746f618"><div class="ttname"><a href="classTmsBook.html#a2f113442895d029145821f217746f618">TmsBook::get_tms</a></div><div class="ttdeci">static TileMatrixSet * get_tms(std::string id)</div><div class="ttdoc">Retourne le TMS d'après son identifiant.</div><div class="ttdef"><b>Definition:</b> Cache.h:752</div></div>
+<div class="ttc" id="aclassIndexElement_html_af61eb03eca1f98cd4f6b20abfc24ca36"><div class="ttname"><a href="classIndexElement.html#af61eb03eca1f98cd4f6b20abfc24ca36">IndexElement::offsets</a></div><div class="ttdeci">std::vector&lt; uint32_t &gt; offsets</div><div class="ttdoc">Offsets des tuiles dans la dalle.</div><div class="ttdef"><b>Definition:</b> Cache.h:404</div></div>
+<div class="ttc" id="aclassCurlPool_html_a9c516d5a3fcadd8659476722c30d5c21"><div class="ttname"><a href="classCurlPool.html#a9c516d5a3fcadd8659476722c30d5c21">CurlPool::~CurlPool</a></div><div class="ttdeci">~CurlPool()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:107</div></div>
+<div class="ttc" id="aclassTileMatrixSet_html"><div class="ttname"><a href="classTileMatrixSet.html">TileMatrixSet</a></div><div class="ttdoc">Gestion d'une pyramid de matrices de tuiles.</div><div class="ttdef"><b>Definition:</b> TileMatrixSet.h:100</div></div>
+<div class="ttc" id="aclassIndexElement_html_af68e6a1f143a5697de80ff01429bbc69"><div class="ttname"><a href="classIndexElement.html#af68e6a1f143a5697de80ff01429bbc69">IndexElement::date</a></div><div class="ttdeci">std::time_t date</div><div class="ttdoc">Date d'enregistrement dans le cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:384</div></div>
+<div class="ttc" id="aclassTmsBook_html_ae7946f66a6304fdbb802d70fd8cb1247"><div class="ttname"><a href="classTmsBook.html#ae7946f66a6304fdbb802d70fd8cb1247">TmsBook::set_directory</a></div><div class="ttdeci">static void set_directory(std::string d)</div><div class="ttdoc">Renseigne le répertoire des TMS.</div><div class="ttdef"><b>Definition:</b> Cache.h:726</div></div>
+<div class="ttc" id="aclassIndexCache_html_a0796421d31f88d2971bd7bdbb97c67c2"><div class="ttname"><a href="classIndexCache.html#a0796421d31f88d2971bd7bdbb97c67c2">IndexCache::get_slab_infos</a></div><div class="ttdeci">static bool get_slab_infos(std::string key, int tile_number, Context **data_context, std::string *data_slab_name, uint32_t *offset, uint32_t *size)</div><div class="ttdoc">Demande un élément du cache.</div><div class="ttdef"><b>Definition:</b> Cache.h:588</div></div>
+<div class="ttc" id="aclassStoragePool_html_a2aed931b8b1821dec992e56180b4309c"><div class="ttname"><a href="classStoragePool.html#a2aed931b8b1821dec992e56180b4309c">StoragePool::getStorageCounts</a></div><div class="ttdeci">static void getStorageCounts(int &amp;file_count, int &amp;s3_count, int &amp;ceph_count, int &amp;swift_count)</div><div class="ttdoc">Retourne le nombre de contextes de stockage dans l'annuaire par type.</div><div class="ttdef"><b>Definition:</b> Cache.h:310</div></div>
+<div class="ttc" id="aclassConfiguration_html_ad150f815ba21c648df61cb7367436699"><div class="ttname"><a href="classConfiguration.html#ad150f815ba21c648df61cb7367436699">Configuration::isOk</a></div><div class="ttdeci">bool isOk()</div><div class="ttdoc">Précise si des erreurs ont été rencontrées.</div><div class="ttdef"><b>Definition:</b> Configuration.h:90</div></div>
+<div class="ttc" id="aclassIndexElement_html_a6a3269a902fa1af97e0bcfba5645d8a4"><div class="ttname"><a href="classIndexElement.html#a6a3269a902fa1af97e0bcfba5645d8a4">IndexElement::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom de la dalle dans laquelle lire la donnée.</div><div class="ttdef"><b>Definition:</b> Cache.h:394</div></div>
+<div class="ttc" id="aclassStyleBook_html_a65c6667b82aa0f901d7906a367ecb188"><div class="ttname"><a href="classStyleBook.html#a65c6667b82aa0f901d7906a367ecb188">StyleBook::~StyleBook</a></div><div class="ttdeci">~StyleBook()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:1019</div></div>
+<div class="ttc" id="aclassIndexElement_html_a95925f2b993ad3a66f9a57454863af5b"><div class="ttname"><a href="classIndexElement.html#a95925f2b993ad3a66f9a57454863af5b">IndexElement::IndexElement</a></div><div class="ttdeci">IndexElement(std::string k, Context *c, std::string n, int tiles_number, uint8_t *os, uint8_t *ss)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> Cache.h:428</div></div>
+<div class="ttc" id="aclassStyleBook_html_a4f3457b1c7eeff06eb032e5d364d0691"><div class="ttname"><a href="classStyleBook.html#a4f3457b1c7eeff06eb032e5d364d0691">StyleBook::get_book</a></div><div class="ttdeci">static std::map&lt; std::string, Style * &gt; get_book()</div><div class="ttdoc">Retourne l'ensemble de l'annuaire.</div><div class="ttdef"><b>Definition:</b> Cache.h:934</div></div>
+<div class="ttc" id="aContext_8h_html"><div class="ttname"><a href="Context_8h.html">Context.h</a></div><div class="ttdoc">Définition de la classe Context.</div></div>
+<div class="ttc" id="aclassCurlPool_html_aeb0a59812caba0b47c7fe6ce94b78dbd"><div class="ttname"><a href="classCurlPool.html#aeb0a59812caba0b47c7fe6ce94b78dbd">CurlPool::getCurlEnv</a></div><div class="ttdeci">static CURL * getCurlEnv()</div><div class="ttdoc">Retourne un objet Curl propre au thread appelant.</div><div class="ttdef"><b>Definition:</b> Cache.h:115</div></div>
+<div class="ttc" id="anamespaceContextType_html_a10d9a049b6f2be134b08b67c1e0df28d"><div class="ttname"><a href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a></div><div class="ttdeci">eContextType</div><div class="ttdoc">Énumération des types de contextes.</div><div class="ttdef"><b>Definition:</b> Context.h:68</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="Cache_8h.html">Cache.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Format_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Format.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Format_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#ifndef FORMAT_H</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define FORMAT_H</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#define ROK4_IMAGE_HEADER_SIZE 2048</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#define ROK4_SYMLINK_SIGNATURE_SIZE 8</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define ROK4_SYMLINK_SIGNATURE &quot;SYMLINK#&quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#define JPEG_BLOC_SIZE 16</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceSampleFormat.html">SampleFormat</a> {</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">   79</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">eSampleFormat</a> {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    UINT = 1,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    FLOAT = 2</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="namespaceSampleFormat.html#a6290eb0d998f678e08e6d0a30e6ac673">   89</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceSampleFormat.html#a6290eb0d998f678e08e6d0a30e6ac673">sampleformat_size</a> = 2;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">eSampleFormat</a> <a class="code" href="namespaceSampleFormat.html#ab4ead4d62b4509ca353cb12cab3bf018">fromString</a> ( std::string strSf );</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;std::string <a class="code" href="namespaceSampleFormat.html#ac2e1b10c3dac95ccb3da0f8a73d3a692">toString</a> ( <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">eSampleFormat</a> sf );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceCompression.html">Compression</a> {</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">  128</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">eCompression</a> {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    NONE = 1,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    DEFLATE = 2,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    JPEG = 3,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    JPEG90 = 4,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    PNG = 5,</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    LZW = 6,</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    PACKBITS = 7,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    JPEG2000 = 8</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;};</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="namespaceCompression.html#abd75fc3819e871bbec66edf920e958b7">  144</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceCompression.html#abd75fc3819e871bbec66edf920e958b7">compression_size</a> = 8;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">eCompression</a> <a class="code" href="namespaceCompression.html#a86ac3444e8f1f0dfdea6b92259ef7af5">fromString</a> ( std::string strComp );</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;std::string <a class="code" href="namespaceCompression.html#a780243376caf9cd44d85a097b76be087">toString</a> ( <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">eCompression</a> comp );</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePhotometric.html">Photometric</a> {</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">  183</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">ePhotometric</a> {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    GRAY = 1,</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    RGB = 2,</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    PALETTE = 3,</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    YCBCR = 4,</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    MASK = 5</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;};</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="namespacePhotometric.html#a3d580c0180c2e29c0f945e51a518109c">  196</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacePhotometric.html#a3d580c0180c2e29c0f945e51a518109c">photometric_size</a> = 5;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">ePhotometric</a> <a class="code" href="namespacePhotometric.html#a0301b0471b3d0d349ae5a3d1a58ab1e0">fromString</a> ( std::string strPh );</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;std::string <a class="code" href="namespacePhotometric.html#a46a2c6539ea24f7a464f25c0eb9eab6c">toString</a> ( <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">ePhotometric</a> ph );</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceExtraSample.html">ExtraSample</a> {</div>
+<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">  232</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">eExtraSample</a> {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    ALPHA_ASSOC = 1,</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    ALPHA_UNASSOC = 2</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;};</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="namespaceExtraSample.html#accf4b3d09064a1ac0ea942893a5dfc83">  242</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceExtraSample.html#accf4b3d09064a1ac0ea942893a5dfc83">extraSample_size</a> = 2;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">eExtraSample</a> <a class="code" href="namespaceExtraSample.html#a6b7f164c9c037b489a3d2491545e903d">fromString</a> ( std::string strES );</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;std::string <a class="code" href="namespaceExtraSample.html#afb985bb5d800d03b8110c07df771e421">toString</a> ( <a class="code" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">eExtraSample</a> es );</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;}</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRok4Format.html">Rok4Format</a> {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">  279</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    TIFF_RAW_UINT8 = 1,</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    TIFF_JPG_UINT8 = 2,</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    TIFF_JPG90_UINT8 = 3,</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    TIFF_PNG_UINT8 = 4,</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    TIFF_LZW_UINT8 = 5,</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    TIFF_ZIP_UINT8 = 6,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    TIFF_PKB_UINT8 = 7,</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    TIFF_RAW_FLOAT32 = 8,</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    TIFF_LZW_FLOAT32 = 9,</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    TIFF_ZIP_FLOAT32 = 10,</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    TIFF_PKB_FLOAT32 = 11,</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    TIFF_PBF_MVT = 12</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;};</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="namespaceRok4Format.html#ade80ee8011a76836df2208a1e4f15951">  302</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceRok4Format.html#ade80ee8011a76836df2208a1e4f15951">eformat_size</a> = 12;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> <a class="code" href="namespaceRok4Format.html#ad74f79eb6f808d0ff6da58d6fcef7788">fromString</a> ( std::string strFormat );</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRok4Format.html#ad569ef15aacb8db2250b2f7218763d87">isRaster</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="namespaceRok4Format.html#ac27753d018389683e8f6729f307892d3">getCompression</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="namespaceRok4Format.html#a9ae6ccde242477ed6e8200ea0193494c">getSampleFormat</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="keywordtype">int</span> <a class="code" href="namespaceRok4Format.html#acd594c9ea7ef46c4cb05e9ee66b76646">getBitsPerSample</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;std::string <a class="code" href="namespaceRok4Format.html#a617a13ff9590ccbcd33d4890cf2c9f12">toString</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;std::string <a class="code" href="namespaceRok4Format.html#a81dbb8a3cd37f442aa638b36c290b245">toMimeType</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;std::string <a class="code" href="namespaceRok4Format.html#acac1019efa7f83f378c4d139e6ac55ae">toExtension</a> ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> <a class="code" href="namespaceRok4Format.html#a8e0d67437825a71fdec7683ec77befb2">fromMimeType</a> ( std::string mime );</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;std::string toEncoding ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keywordtype">int</span> getChannelSize ( <a class="code" href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">eformat_data</a> format );</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;}</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">#endif //FORMAT_H</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="anamespaceRok4Format_html_a617a13ff9590ccbcd33d4890cf2c9f12"><div class="ttname"><a href="namespaceRok4Format.html#a617a13ff9590ccbcd33d4890cf2c9f12">Rok4Format::toString</a></div><div class="ttdeci">std::string toString(eformat_data format)</div><div class="ttdoc">Conversion d'un format vers une chaîne de caractère.</div><div class="ttdef"><b>Definition:</b> Format.cpp:352</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_a9ae6ccde242477ed6e8200ea0193494c"><div class="ttname"><a href="namespaceRok4Format.html#a9ae6ccde242477ed6e8200ea0193494c">Rok4Format::getSampleFormat</a></div><div class="ttdeci">SampleFormat::eSampleFormat getSampleFormat(eformat_data format)</div><div class="ttdoc">Donne le format des canaux du format.</div><div class="ttdef"><b>Definition:</b> Format.cpp:364</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_ad74f79eb6f808d0ff6da58d6fcef7788"><div class="ttname"><a href="namespaceRok4Format.html#ad74f79eb6f808d0ff6da58d6fcef7788">Rok4Format::fromString</a></div><div class="ttdeci">eformat_data fromString(std::string strFormat)</div><div class="ttdoc">Conversion d'une chaîne de caractère vers un format.</div><div class="ttdef"><b>Definition:</b> Format.cpp:343</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_ade80ee8011a76836df2208a1e4f15951"><div class="ttname"><a href="namespaceRok4Format.html#ade80ee8011a76836df2208a1e4f15951">Rok4Format::eformat_size</a></div><div class="ttdeci">const int eformat_size</div><div class="ttdoc">Nombre de formats disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:302</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a2400cfa91cf2e98ca0cca9024b029203"><div class="ttname"><a href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a></div><div class="ttdeci">ePhotometric</div><div class="ttdoc">Énumération des photométries disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:183</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_accf4b3d09064a1ac0ea942893a5dfc83"><div class="ttname"><a href="namespaceExtraSample.html#accf4b3d09064a1ac0ea942893a5dfc83">ExtraSample::extraSample_size</a></div><div class="ttdeci">const int extraSample_size</div><div class="ttdoc">Nombre de type de canal supplémentaire disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:242</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_acac1019efa7f83f378c4d139e6ac55ae"><div class="ttname"><a href="namespaceRok4Format.html#acac1019efa7f83f378c4d139e6ac55ae">Rok4Format::toExtension</a></div><div class="ttdeci">std::string toExtension(eformat_data format)</div><div class="ttdoc">Conversion d'un format vers une chaîne de caractère (extension)</div><div class="ttdef"><b>Definition:</b> Format.cpp:376</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_a8e0d67437825a71fdec7683ec77befb2"><div class="ttname"><a href="namespaceRok4Format.html#a8e0d67437825a71fdec7683ec77befb2">Rok4Format::fromMimeType</a></div><div class="ttdeci">eformat_data fromMimeType(std::string mime)</div><div class="ttdoc">Conversion d'une chaîne de caractère (type MIME) vers un format.</div><div class="ttdef"><b>Definition:</b> Format.cpp:380</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ab4ead4d62b4509ca353cb12cab3bf018"><div class="ttname"><a href="namespaceSampleFormat.html#ab4ead4d62b4509ca353cb12cab3bf018">SampleFormat::fromString</a></div><div class="ttdeci">eSampleFormat fromString(std::string strSF)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers une format du canal de l'énumération.</div><div class="ttdef"><b>Definition:</b> Format.cpp:152</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_ad569ef15aacb8db2250b2f7218763d87"><div class="ttname"><a href="namespaceRok4Format.html#ad569ef15aacb8db2250b2f7218763d87">Rok4Format::isRaster</a></div><div class="ttdeci">bool isRaster(eformat_data format)</div><div class="ttdoc">Dit si un format est raster ou non.</div><div class="ttdef"><b>Definition:</b> Format.cpp:356</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html"><div class="ttname"><a href="namespaceSampleFormat.html">SampleFormat</a></div><div class="ttdoc">Gestion des informations liées au format de canal.</div><div class="ttdef"><b>Definition:</b> Format.cpp:144</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a46a2c6539ea24f7a464f25c0eb9eab6c"><div class="ttname"><a href="namespacePhotometric.html#a46a2c6539ea24f7a464f25c0eb9eab6c">Photometric::toString</a></div><div class="ttdeci">std::string toString(ePhotometric ph)</div><div class="ttdoc">Conversion d'une photométrie vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:115</div></div>
+<div class="ttc" id="anamespaceCompression_html_abd75fc3819e871bbec66edf920e958b7"><div class="ttname"><a href="namespaceCompression.html#abd75fc3819e871bbec66edf920e958b7">Compression::compression_size</a></div><div class="ttdeci">const int compression_size</div><div class="ttdoc">Nombre de compressions disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:144</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_a6b7f164c9c037b489a3d2491545e903d"><div class="ttname"><a href="namespaceExtraSample.html#a6b7f164c9c037b489a3d2491545e903d">ExtraSample::fromString</a></div><div class="ttdeci">eExtraSample fromString(std::string strPh)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers un type de canal supplémentaire de l'énumération.</div><div class="ttdef"><b>Definition:</b> Format.cpp:129</div></div>
+<div class="ttc" id="anamespaceExtraSample_html"><div class="ttname"><a href="namespaceExtraSample.html">ExtraSample</a></div><div class="ttdoc">Gestion des informations liées aux canaux supplémentaires.</div><div class="ttdef"><b>Definition:</b> Format.cpp:121</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a0301b0471b3d0d349ae5a3d1a58ab1e0"><div class="ttname"><a href="namespacePhotometric.html#a0301b0471b3d0d349ae5a3d1a58ab1e0">Photometric::fromString</a></div><div class="ttdeci">ePhotometric fromString(std::string strPh)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers une photométrie de l'énumération.</div><div class="ttdef"><b>Definition:</b> Format.cpp:103</div></div>
+<div class="ttc" id="anamespaceCompression_html_a86ac3444e8f1f0dfdea6b92259ef7af5"><div class="ttname"><a href="namespaceCompression.html#a86ac3444e8f1f0dfdea6b92259ef7af5">Compression::fromString</a></div><div class="ttdeci">eCompression fromString(std::string strComp)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers une compression de l'énumération.</div><div class="ttdef"><b>Definition:</b> Format.cpp:77</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ac2e1b10c3dac95ccb3da0f8a73d3a692"><div class="ttname"><a href="namespaceSampleFormat.html#ac2e1b10c3dac95ccb3da0f8a73d3a692">SampleFormat::toString</a></div><div class="ttdeci">std::string toString(eSampleFormat sf)</div><div class="ttdoc">Conversion d'une format du canal vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:161</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_ac64802ddd219f3988467005e858f36e1"><div class="ttname"><a href="namespaceRok4Format.html#ac64802ddd219f3988467005e858f36e1">Rok4Format::eformat_data</a></div><div class="ttdeci">eformat_data</div><div class="ttdoc">Énumération des formats d'images disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:279</div></div>
+<div class="ttc" id="anamespaceCompression_html_a780243376caf9cd44d85a097b76be087"><div class="ttname"><a href="namespaceCompression.html#a780243376caf9cd44d85a097b76be087">Compression::toString</a></div><div class="ttdeci">std::string toString(eCompression comp)</div><div class="ttdoc">Conversion d'une compression vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:86</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_acd594c9ea7ef46c4cb05e9ee66b76646"><div class="ttname"><a href="namespaceRok4Format.html#acd594c9ea7ef46c4cb05e9ee66b76646">Rok4Format::getBitsPerSample</a></div><div class="ttdeci">int getBitsPerSample(eformat_data format)</div><div class="ttdoc">Donne la le nombre de bits par canal du format.</div><div class="ttdef"><b>Definition:</b> Format.cpp:368</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_ac27753d018389683e8f6729f307892d3"><div class="ttname"><a href="namespaceRok4Format.html#ac27753d018389683e8f6729f307892d3">Rok4Format::getCompression</a></div><div class="ttdeci">Compression::eCompression getCompression(eformat_data format)</div><div class="ttdoc">Donne la compression du format.</div><div class="ttdef"><b>Definition:</b> Format.cpp:360</div></div>
+<div class="ttc" id="anamespacePhotometric_html"><div class="ttname"><a href="namespacePhotometric.html">Photometric</a></div><div class="ttdoc">Gestion des informations liées à la photométrie.</div><div class="ttdef"><b>Definition:</b> Format.cpp:92</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a3d580c0180c2e29c0f945e51a518109c"><div class="ttname"><a href="namespacePhotometric.html#a3d580c0180c2e29c0f945e51a518109c">Photometric::photometric_size</a></div><div class="ttdeci">const int photometric_size</div><div class="ttdoc">Nombre de photométries disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:196</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_a81dbb8a3cd37f442aa638b36c290b245"><div class="ttname"><a href="namespaceRok4Format.html#a81dbb8a3cd37f442aa638b36c290b245">Rok4Format::toMimeType</a></div><div class="ttdeci">std::string toMimeType(eformat_data format)</div><div class="ttdoc">Conversion d'un format vers une chaîne de caractère (type MIME)</div><div class="ttdef"><b>Definition:</b> Format.cpp:372</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_afb985bb5d800d03b8110c07df771e421"><div class="ttname"><a href="namespaceExtraSample.html#afb985bb5d800d03b8110c07df771e421">ExtraSample::toString</a></div><div class="ttdeci">std::string toString(eExtraSample es)</div><div class="ttdoc">Conversion d'un type de canal supplémentaire vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:138</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:79</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_a03cd3369209d3bb2f8991d613c392f94"><div class="ttname"><a href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a></div><div class="ttdeci">eExtraSample</div><div class="ttdoc">Énumération des types de canal supplémentaire.</div><div class="ttdef"><b>Definition:</b> Format.h:232</div></div>
+<div class="ttc" id="anamespaceCompression_html"><div class="ttname"><a href="namespaceCompression.html">Compression</a></div><div class="ttdoc">Gestion des informations liées à la compression.</div><div class="ttdef"><b>Definition:</b> Format.cpp:63</div></div>
+<div class="ttc" id="anamespaceCompression_html_ab59ae0c9640db55b2cbed59310434030"><div class="ttname"><a href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a></div><div class="ttdeci">eCompression</div><div class="ttdoc">Énumération des compressions disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:128</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_a6290eb0d998f678e08e6d0a30e6ac673"><div class="ttname"><a href="namespaceSampleFormat.html#a6290eb0d998f678e08e6d0a30e6ac673">SampleFormat::sampleformat_size</a></div><div class="ttdeci">const int sampleformat_size</div><div class="ttdoc">Nombre de formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:89</div></div>
+<div class="ttc" id="anamespaceRok4Format_html"><div class="ttname"><a href="namespaceRok4Format.html">Rok4Format</a></div><div class="ttdoc">Gestion des informations liées au format des données.</div><div class="ttdef"><b>Definition:</b> Format.cpp:167</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_808e8837897e587afb30cd68d1ddfbf3.html">enums</a></li><li class="navelem"><a class="el" href="Format_8h.html">Format.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

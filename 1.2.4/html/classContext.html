@@ -1,0 +1,542 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classContext.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pro-methods">Fonctions membres protégées</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a> &#124;
+<a href="classContext-members.html">Liste de tous les membres</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe Context<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Création d'un contexte de stockage abstrait.  
+ <a href="classContext.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Context_8h_source.html">Context.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe d'héritage de Context:</div>
+<div class="dyncontent">
+<div class="center"><img src="classContext__inherit__graph.png" border="0" usemap="#Context_inherit__map" alt="Inheritance graph"/></div>
+<map name="Context_inherit__map" id="Context_inherit__map">
+<area shape="rect" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="221,5,289,32"/>
+<area shape="rect" href="classCephPoolContext.html" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="5,80,131,107"/>
+<area shape="rect" href="classFileContext.html" title="Création d&#39;un contexte File (dossier racine), pour pouvoir récupérer des données stockées sous forme ..." alt="" coords="155,80,245,107"/>
+<area shape="rect" href="classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d..." alt="" coords="269,80,353,107"/>
+<area shape="rect" href="classSwiftContext.html" title="Création d&#39;un contexte Swift (connexion à un cluster + conteneur particulier), pour pouvoir récupérer..." alt="" coords="377,80,476,107"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">légende</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:aaeeb68335e00c974649bb933d9ee18bf"><td class="memItemLeft" align="right" valign="top"><a id="aaeeb68335e00c974649bb933d9ee18bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aaeeb68335e00c974649bb933d9ee18bf">setAttempts</a> (int a)</td></tr>
+<tr class="memdesc:aaeeb68335e00c974649bb933d9ee18bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie le nombre de tentative. <br /></td></tr>
+<tr class="separator:aaeeb68335e00c974649bb933d9ee18bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7b128eab75400261c183c2694f3cdf1"><td class="memItemLeft" align="right" valign="top"><a id="aa7b128eab75400261c183c2694f3cdf1"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aa7b128eab75400261c183c2694f3cdf1">connection</a> ()=0</td></tr>
+<tr class="memdesc:aa7b128eab75400261c183c2694f3cdf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connecte le contexte. <br /></td></tr>
+<tr class="separator:aa7b128eab75400261c183c2694f3cdf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adede03c3037470a3883c618cc124814b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#adede03c3037470a3883c618cc124814b">exists</a> (std::string name)=0</td></tr>
+<tr class="memdesc:adede03c3037470a3883c618cc124814b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si l'objet demandé existe dans ce contexte.  <a href="classContext.html#adede03c3037470a3883c618cc124814b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adede03c3037470a3883c618cc124814b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb97d6a180b57806cbaa5d967ca286d8"><td class="memItemLeft" align="right" valign="top"><a id="aeb97d6a180b57806cbaa5d967ca286d8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aeb97d6a180b57806cbaa5d967ca286d8">isConnected</a> ()</td></tr>
+<tr class="memdesc:aeb97d6a180b57806cbaa5d967ca286d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si le contexte est connecté <br /></td></tr>
+<tr class="separator:aeb97d6a180b57806cbaa5d967ca286d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291686bc8ef877d4b1409d388c21ae5e"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a291686bc8ef877d4b1409d388c21ae5e">read</a> (uint8_t *data, int offset, int size, std::string name)=0</td></tr>
+<tr class="memdesc:a291686bc8ef877d4b1409d388c21ae5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récupère la donnée dans l'objet.  <a href="classContext.html#a291686bc8ef877d4b1409d388c21ae5e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a291686bc8ef877d4b1409d388c21ae5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd3fea94371df69938f1fdbc8451b99"><td class="memItemLeft" align="right" valign="top">virtual uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a9cd3fea94371df69938f1fdbc8451b99">readFull</a> (int &amp;size, std::string name)=0</td></tr>
+<tr class="memdesc:a9cd3fea94371df69938f1fdbc8451b99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récupère l'objet ou fichier en entier.  <a href="classContext.html#a9cd3fea94371df69938f1fdbc8451b99">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9cd3fea94371df69938f1fdbc8451b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a5f83d35bb49c39086c9f461897f229"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a3a5f83d35bb49c39086c9f461897f229">write</a> (uint8_t *data, int offset, int size, std::string name)=0</td></tr>
+<tr class="memdesc:a3a5f83d35bb49c39086c9f461897f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit de la donnée dans l'objet ou fichier.  <a href="classContext.html#a3a5f83d35bb49c39086c9f461897f229">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3a5f83d35bb49c39086c9f461897f229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3d063b344963fb63412559a302b1bc7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#ad3d063b344963fb63412559a302b1bc7">writeFull</a> (uint8_t *data, int size, std::string name)=0</td></tr>
+<tr class="memdesc:ad3d063b344963fb63412559a302b1bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit intégralement un objet ou fichier.  <a href="classContext.html#ad3d063b344963fb63412559a302b1bc7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad3d063b344963fb63412559a302b1bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d00f7c1e240e1076e484e3a14a8b581"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a3d00f7c1e240e1076e484e3a14a8b581">openToWrite</a> (std::string name)=0</td></tr>
+<tr class="memdesc:a3d00f7c1e240e1076e484e3a14a8b581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare l'objet ou fichier en écriture.  <a href="classContext.html#a3d00f7c1e240e1076e484e3a14a8b581">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3d00f7c1e240e1076e484e3a14a8b581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af47bd261b4cd0d8bb8c356667fef7d71"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#af47bd261b4cd0d8bb8c356667fef7d71">closeToWrite</a> (std::string name)=0</td></tr>
+<tr class="memdesc:af47bd261b4cd0d8bb8c356667fef7d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine l'écriture d'un objet ou fichier.  <a href="classContext.html#af47bd261b4cd0d8bb8c356667fef7d71">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af47bd261b4cd0d8bb8c356667fef7d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcb3460c520ba5e0ffaa171121fd4c2d"><td class="memItemLeft" align="right" valign="top"><a id="abcb3460c520ba5e0ffaa171121fd4c2d"></a>
+virtual <a class="el" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#abcb3460c520ba5e0ffaa171121fd4c2d">getType</a> ()=0</td></tr>
+<tr class="memdesc:abcb3460c520ba5e0ffaa171121fd4c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le type du contexte. <br /></td></tr>
+<tr class="separator:abcb3460c520ba5e0ffaa171121fd4c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57ebff13cb5e3e0dd0f21ecfef8f4950"><td class="memItemLeft" align="right" valign="top"><a id="a57ebff13cb5e3e0dd0f21ecfef8f4950"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a57ebff13cb5e3e0dd0f21ecfef8f4950">getTypeStr</a> ()=0</td></tr>
+<tr class="memdesc:a57ebff13cb5e3e0dd0f21ecfef8f4950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le type du contexte, sous forme de texte. <br /></td></tr>
+<tr class="separator:a57ebff13cb5e3e0dd0f21ecfef8f4950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a882ff02feb87d1cf5998577bff41258a"><td class="memItemLeft" align="right" valign="top"><a id="a882ff02feb87d1cf5998577bff41258a"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a882ff02feb87d1cf5998577bff41258a">getTray</a> ()=0</td></tr>
+<tr class="memdesc:a882ff02feb87d1cf5998577bff41258a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le contenant dans le contexte. <br /></td></tr>
+<tr class="separator:a882ff02feb87d1cf5998577bff41258a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34e132cc8c1e3c543d1f0d1b511db6f6"><td class="memItemLeft" align="right" valign="top"><a id="a34e132cc8c1e3c543d1f0d1b511db6f6"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a34e132cc8c1e3c543d1f0d1b511db6f6">getPath</a> (std::string racine, int x, int y, int pathDepth=2)=0</td></tr>
+<tr class="memdesc:a34e132cc8c1e3c543d1f0d1b511db6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le chemin pour une tuile X/Y relatif à ce contexte. <br /></td></tr>
+<tr class="separator:a34e132cc8c1e3c543d1f0d1b511db6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e31365c24ee325b9368e298866e707d"><td class="memItemLeft" align="right" valign="top"><a id="a9e31365c24ee325b9368e298866e707d"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a9e31365c24ee325b9368e298866e707d">getPath</a> (std::string name)=0</td></tr>
+<tr class="memdesc:a9e31365c24ee325b9368e298866e707d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le chemin complet pour un fichier/objet relatif à ce contexte. <br /></td></tr>
+<tr class="separator:a9e31365c24ee325b9368e298866e707d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac88e365a07d576cc0585860b4dec11c2"><td class="memItemLeft" align="right" valign="top"><a id="ac88e365a07d576cc0585860b4dec11c2"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#ac88e365a07d576cc0585860b4dec11c2">print</a> ()=0</td></tr>
+<tr class="memdesc:ac88e365a07d576cc0585860b4dec11c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sortie des informations sur le contexte. <br /></td></tr>
+<tr class="separator:ac88e365a07d576cc0585860b4dec11c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f68555bb2e622a62ba58e60f7a8a3e9"><td class="memItemLeft" align="right" valign="top"><a id="a8f68555bb2e622a62ba58e60f7a8a3e9"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a8f68555bb2e622a62ba58e60f7a8a3e9">toString</a> ()=0</td></tr>
+<tr class="memdesc:a8f68555bb2e622a62ba58e60f7a8a3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une chaîne de caracère décrivant le contexte. <br /></td></tr>
+<tr class="separator:a8f68555bb2e622a62ba58e60f7a8a3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad83189720d6d42a5578abb5738b9f60f"><td class="memItemLeft" align="right" valign="top"><a id="ad83189720d6d42a5578abb5738b9f60f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#ad83189720d6d42a5578abb5738b9f60f">closeConnection</a> ()=0</td></tr>
+<tr class="memdesc:ad83189720d6d42a5578abb5738b9f60f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déconnecte le contexte. <br /></td></tr>
+<tr class="separator:ad83189720d6d42a5578abb5738b9f60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be937c21e267c8d55decced9d1bcf90"><td class="memItemLeft" align="right" valign="top"><a id="a8be937c21e267c8d55decced9d1bcf90"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a8be937c21e267c8d55decced9d1bcf90">~Context</a> ()</td></tr>
+<tr class="memdesc:a8be937c21e267c8d55decced9d1bcf90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur. <br /></td></tr>
+<tr class="separator:a8be937c21e267c8d55decced9d1bcf90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Fonctions membres protégées</h2></td></tr>
+<tr class="memitem:a652cdcd2eedc8dbd9110bd284c5d5cf0"><td class="memItemLeft" align="right" valign="top"><a id="a652cdcd2eedc8dbd9110bd284c5d5cf0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a652cdcd2eedc8dbd9110bd284c5d5cf0">Context</a> ()</td></tr>
+<tr class="memdesc:a652cdcd2eedc8dbd9110bd284c5d5cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un objet <a class="el" href="classContext.html" title="Création d&#39;un contexte de stockage abstrait.">Context</a>. <br /></td></tr>
+<tr class="separator:a652cdcd2eedc8dbd9110bd284c5d5cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr class="memitem:aef0b73a3fb8a28ef96b9c19cd6628d7d"><td class="memItemLeft" align="right" valign="top"><a id="aef0b73a3fb8a28ef96b9c19cd6628d7d"></a>
+std::map&lt; std::string, std::vector&lt; char &gt; * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">writingBuffers</a></td></tr>
+<tr class="memdesc:aef0b73a3fb8a28ef96b9c19cd6628d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffers pour les écritures différées. <br /></td></tr>
+<tr class="separator:aef0b73a3fb8a28ef96b9c19cd6628d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2099d377b9c3242ce5effcfcb4a53f0b"><td class="memItemLeft" align="right" valign="top"><a id="a2099d377b9c3242ce5effcfcb4a53f0b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">connected</a></td></tr>
+<tr class="memdesc:a2099d377b9c3242ce5effcfcb4a53f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précise si le contexte est connecté <br /></td></tr>
+<tr class="separator:a2099d377b9c3242ce5effcfcb4a53f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a251784a75af2fc7d6735883b150b4997"><td class="memItemLeft" align="right" valign="top"><a id="a251784a75af2fc7d6735883b150b4997"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classContext.html#a251784a75af2fc7d6735883b150b4997">attempts</a></td></tr>
+<tr class="memdesc:a251784a75af2fc7d6735883b150b4997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de tentatives pour en lecture ou écriture. <br /></td></tr>
+<tr class="separator:a251784a75af2fc7d6735883b150b4997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Création d'un contexte de stockage abstrait. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Institut national de l'information géographique et forestière </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="af47bd261b4cd0d8bb8c356667fef7d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af47bd261b4cd0d8bb8c356667fef7d71">&#9670;&nbsp;</a></span>closeToWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Context::closeToWrite </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Termine l'écriture d'un objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on a voulu écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#aa63ed26e83e13483962b32286cedafb1">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#af977759c79d0cdc935b0433271f8ff93">CephPoolContext</a>, <a class="el" href="classS3Context.html#a5579359ed08c8f2626464f5912122374">S3Context</a>, et <a class="el" href="classFileContext.html#a63faa0483a381a98f274e5668ba447b4">FileContext</a>.</p>
+
+</div>
+</div>
+<a id="adede03c3037470a3883c618cc124814b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adede03c3037470a3883c618cc124814b">&#9670;&nbsp;</a></span>exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Context::exists </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Précise si l'objet demandé existe dans ce contexte. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dont on veut savoir l'existence </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#aaa310ceac935b5ca21350eccd0336a3a">SwiftContext</a>, <a class="el" href="classS3Context.html#a5f841a4eb6e904388aec6ca0eec63669">S3Context</a>, <a class="el" href="classFileContext.html#a68171abf3ebadbcf241a1b4696372b51">FileContext</a>, et <a class="el" href="classCephPoolContext.html#a312c92b7462b933f70fe8e7aba94ccf2">CephPoolContext</a>.</p>
+
+</div>
+</div>
+<a id="a3d00f7c1e240e1076e484e3a14a8b581"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d00f7c1e240e1076e484e3a14a8b581">&#9670;&nbsp;</a></span>openToWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Context::openToWrite </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prépare l'objet ou fichier en écriture. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on va vouloir écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#a0b1cf471c7f466be635a67f9b20841ee">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#a7b778fe9c4d3e2861848486bf63ccad6">CephPoolContext</a>, <a class="el" href="classS3Context.html#a477df1a3500cef0e799415fc6b5be6ee">S3Context</a>, et <a class="el" href="classFileContext.html#aa0358b030649b8d5b0292f1e5c2bd539">FileContext</a>.</p>
+
+</div>
+</div>
+<a id="a291686bc8ef877d4b1409d388c21ae5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291686bc8ef877d4b1409d388c21ae5e">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Context::read </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Récupère la donnée dans l'objet. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">data</td><td>Buffer où stocker la donnée lue. Doit être initialisé et assez grand </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>À partir d'où on veut lire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut lire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet que l'on veut lire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Taille effectivement lue, un nombre négatif en cas d'erreur </dd></dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#a761fbf6b3daeda08223a87b7ad45fd19">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#a3b19753dc4d75f8c0f8dc69e192c3315">CephPoolContext</a>, <a class="el" href="classS3Context.html#a44d5f8822b6c3a19a55e0863a1b23efc">S3Context</a>, et <a class="el" href="classFileContext.html#a2a7c9505b387bd9db7e952bfea2870bc">FileContext</a>.</p>
+
+</div>
+</div>
+<a id="a9cd3fea94371df69938f1fdbc8451b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cd3fea94371df69938f1fdbc8451b99">&#9670;&nbsp;</a></span>readFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uint8_t* Context::readFull </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Récupère l'objet ou fichier en entier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">size</td><td>Taille effectivement lue, un nombre négatif en cas d'erreur </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet que l'on veut lire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Buffer stockant la donnée lue. </dd></dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#af1d9eac24c1c0195ee7d406361cdf1dc">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#a129430f5c9ddf8cdfac3cb662c86b1e0">CephPoolContext</a>, <a class="el" href="classS3Context.html#ad84945f0b20511402fd25423be8d4cda">S3Context</a>, et <a class="el" href="classFileContext.html#acbe1b2aca30c8cd37e59adeb637bc037">FileContext</a>.</p>
+
+</div>
+</div>
+<a id="a3a5f83d35bb49c39086c9f461897f229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a5f83d35bb49c39086c9f461897f229">&#9670;&nbsp;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Context::write </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit de la donnée dans l'objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Buffer contenant la donnée à écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>À partir d'où on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet dans lequel on veut écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#adc0475a3016e46eb4b979bc43239ae93">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#aa01e10aa9edd4c9a5a43b5c48ca3bb03">CephPoolContext</a>, <a class="el" href="classS3Context.html#a09627e664c3ace77760cd16a9332d34c">S3Context</a>, et <a class="el" href="classFileContext.html#a999b70a0b7deec91d380bec34d734d37">FileContext</a>.</p>
+
+</div>
+</div>
+<a id="ad3d063b344963fb63412559a302b1bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3d063b344963fb63412559a302b1bc7">&#9670;&nbsp;</a></span>writeFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Context::writeFull </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit intégralement un objet ou fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Buffer contenant la donnée à écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Nombre d'octet que l'on veut écrire </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Nom de l'objet à écrire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implémenté dans <a class="el" href="classSwiftContext.html#a4064ff30d1a91a0871af41b3e530f424">SwiftContext</a>, <a class="el" href="classCephPoolContext.html#ac83d202e049c5a246e3dd5c00da79146">CephPoolContext</a>, <a class="el" href="classS3Context.html#aab9942fa6466d8ac1a479158e5cfbf2e">S3Context</a>, et <a class="el" href="classFileContext.html#ad86165910f330abd532477cbd474f98a">FileContext</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>include/rok4/storage/<a class="el" href="Context_8h_source.html">Context.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classContext.html">Context</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

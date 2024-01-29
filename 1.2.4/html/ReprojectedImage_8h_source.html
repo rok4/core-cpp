@@ -1,0 +1,271 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('ReprojectedImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">ReprojectedImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="ReprojectedImage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef REPROJECT_H</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define REPROJECT_H</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">rok4/image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Grid_8h.html">rok4/processors/Grid.h</a>&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Interpolation_8h.html">rok4/enums/Interpolation.h</a>&quot;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Kernel_8h.html">rok4/processors/Kernel.h</a>&quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;mm_malloc.h&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classReprojectedImage.html">   76</a></span>&#160;<span class="keyword">class </span><a class="code" href="classReprojectedImage.html">ReprojectedImage</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="classImage.html">Image</a>* sourceImage;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">bool</span> useMask;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">const</span> <a class="code" href="classKernel.html">Kernel</a>&amp; K;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">int</span> Kx;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">int</span> Ky;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">double</span> ratioX;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">double</span> ratioY;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="classGrid.html">Grid</a>* grid;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">float</span>*  __buffer;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">int</span> memorizedLines;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">int</span>* src_line_index;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">float</span>** src_image_buffer;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">float</span>** src_mask_buffer;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">int</span> dst_line_index;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">float</span>* dst_image_buffer[4];</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">float</span>* mux_dst_image_buffer;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">float</span>* dst_mask_buffer[4];</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">float</span>* mux_dst_mask_buffer;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordtype">float</span>* X[4];</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">float</span>* Y[4];</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">float</span>* Wx[1024];</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordtype">float</span>* Wy[1024];</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">float</span>* WWx;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">float</span>* WWy;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordtype">int</span> xmin[1024];</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordtype">int</span> ymin[1024];</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordtype">float</span>* tmp1Img;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordtype">float</span>* tmp2Img;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keywordtype">float</span>* tmp1Msk;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordtype">float</span>* tmp2Msk;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordtype">float</span>* computeDestLine ( <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordtype">int</span> getSourceLineIndex ( <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="classReprojectedImage.html#a8e9372cde028e73ce5ebaa3fe6e4b5e0">  320</a></span>&#160;    <a class="code" href="classReprojectedImage.html#a8e9372cde028e73ce5ebaa3fe6e4b5e0">ReprojectedImage</a> ( <a class="code" href="classImage.html">Image</a> *image, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, <a class="code" href="classGrid.html">Grid</a>* grid, <a class="code" href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a> KT = Interpolation::LANCZOS_2, <span class="keywordtype">bool</span> bMask = <span class="keyword">false</span> ) : <a class="code" href="classImage.html">Image</a> ( grid-&gt;<a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, grid-&gt;<a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>,image-&gt;<a class="code" href="classImage.html#a943b9608c5d4a9bc3b2d06545f040eae">getChannels</a>(), <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a> ),sourceImage ( image ), grid ( grid ), K ( <a class="code" href="classKernel.html">Kernel</a>::getInstance ( KT ) ), useMask ( bMask ) {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <a class="code" href="classReprojectedImage.html#a99203b821d6a8f3fc5c208b26ca87b2c">initialize</a>();</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    }</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
+<div class="line"><a name="l00343"></a><span class="lineno"><a class="line" href="classReprojectedImage.html#a7a3feaf9a76dd0fb2f655d995d4646c9">  343</a></span>&#160;    <a class="code" href="classReprojectedImage.html#a7a3feaf9a76dd0fb2f655d995d4646c9">ReprojectedImage</a> ( <a class="code" href="classImage.html">Image</a> *image, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <a class="code" href="classGrid.html">Grid</a>* grid, <a class="code" href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a> KT = Interpolation::LANCZOS_2, <span class="keywordtype">bool</span> bMask = <span class="keyword">false</span> ) : <a class="code" href="classImage.html">Image</a> ( grid-&gt;<a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, grid-&gt;<a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>,image-&gt;<a class="code" href="classImage.html#a943b9608c5d4a9bc3b2d06545f040eae">getChannels</a>(), <a class="code" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <a class="code" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a> ),sourceImage ( image ), grid ( grid ), K ( <a class="code" href="classKernel.html">Kernel</a>::getInstance ( KT ) ), useMask ( bMask ) {</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <a class="code" href="classReprojectedImage.html#a99203b821d6a8f3fc5c208b26ca87b2c">initialize</a>();</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classReprojectedImage.html#a99203b821d6a8f3fc5c208b26ca87b2c">initialize</a>();</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classReprojectedImage.html#a55c198a4fd0484d84600c070f06d0120">getline</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classReprojectedImage.html#a55c198a4fd0484d84600c070f06d0120">getline</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classReprojectedImage.html#a55c198a4fd0484d84600c070f06d0120">getline</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno"><a class="line" href="classReprojectedImage.html#a171767195327bb5db9992060c40272d0">  375</a></span>&#160;    <a class="code" href="classReprojectedImage.html#a171767195327bb5db9992060c40272d0">~ReprojectedImage</a>() {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        _mm_free ( __buffer );</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <span class="keyword">delete</span>[] src_image_buffer;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keyword">delete</span>[] src_line_index;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <span class="keywordflow">if</span> ( useMask ) {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="keyword">delete</span>[] src_mask_buffer;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordflow">if</span> ( ! <a class="code" href="classImage.html#a0a0ea1d72a21d530eb0867a219058dc1">isMask</a> ) {</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="comment">// Le masque utilise la même grille, c&#39;est pourquoi seule l&#39;image de données supprime la grille.</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            <span class="keyword">delete</span> grid;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            <span class="keyword">delete</span> sourceImage;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        }</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    }</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="classReprojectedImage.html#a7dbbe1ddd4229d5a248ded2612ea6f98">  397</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classReprojectedImage.html#a7dbbe1ddd4229d5a248ded2612ea6f98">print</a>() {</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;--------- ReprojectedImage -----------&quot;</span> ;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Kernel size, x wise = &quot;</span> &lt;&lt; Kx &lt;&lt; <span class="stringliteral">&quot;, y wise = &quot;</span> &lt;&lt; Ky ;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Ratio, x wise = &quot;</span> &lt;&lt; ratioX &lt;&lt; <span class="stringliteral">&quot;, y wise = &quot;</span> &lt;&lt; ratioY ;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Source lines buffer size = &quot;</span> &lt;&lt; memorizedLines ;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <span class="keywordflow">if</span> ( useMask ) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Use mask in interpolation&quot;</span> ;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Doesn&#39;t use mask in interpolation&quot;</span> ;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        }</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        grid-&gt;<a class="code" href="classGrid.html#a8f86511ed049044225a4116dd1c2a2e2">print</a>();</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    }</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;};</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassReprojectedImage_html_a7a3feaf9a76dd0fb2f655d995d4646c9"><div class="ttname"><a href="classReprojectedImage.html#a7a3feaf9a76dd0fb2f655d995d4646c9">ReprojectedImage::ReprojectedImage</a></div><div class="ttdeci">ReprojectedImage(Image *image, BoundingBox&lt; double &gt; bbox, double resx, double resy, Grid *grid, Interpolation::KernelType KT=Interpolation::LANCZOS_2, bool bMask=false)</div><div class="ttdoc">Crée un objet ReprojectedImage à partir de tous ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.h:343</div></div>
+<div class="ttc" id="aKernel_8h_html"><div class="ttname"><a href="Kernel_8h.html">Kernel.h</a></div><div class="ttdoc">Définition de la classe Kernel, classe mère des différents noyaux d'interpolation.</div></div>
+<div class="ttc" id="aclassReprojectedImage_html"><div class="ttname"><a href="classReprojectedImage.html">ReprojectedImage</a></div><div class="ttdoc">Manipulation d'image reprojetée.</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.h:76</div></div>
+<div class="ttc" id="aclassReprojectedImage_html_a7dbbe1ddd4229d5a248ded2612ea6f98"><div class="ttname"><a href="classReprojectedImage.html#a7dbbe1ddd4229d5a248ded2612ea6f98">ReprojectedImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image reprojetée.</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.h:397</div></div>
+<div class="ttc" id="aclassReprojectedImage_html_a99203b821d6a8f3fc5c208b26ca87b2c"><div class="ttname"><a href="classReprojectedImage.html#a99203b821d6a8f3fc5c208b26ca87b2c">ReprojectedImage::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdoc">Initialise les buffers de calcul.</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.cpp:56</div></div>
+<div class="ttc" id="aclassImage_html_a51df43db420c9c0b57536cb2dd36de5c"><div class="ttname"><a href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">Image::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Hauteur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:90</div></div>
+<div class="ttc" id="aclassGrid_html_a8f86511ed049044225a4116dd1c2a2e2"><div class="ttname"><a href="classGrid.html#a8f86511ed049044225a4116dd1c2a2e2">Grid::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur la grille de reprojection.</div><div class="ttdef"><b>Definition:</b> Grid.h:254</div></div>
+<div class="ttc" id="aclassImage_html_a3a792f6f0da13e8efa5e97d4cdbf0226"><div class="ttname"><a href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">Image::bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bbox</div><div class="ttdoc">Emprise rectangulaire au sol de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:102</div></div>
+<div class="ttc" id="aclassReprojectedImage_html_a8e9372cde028e73ce5ebaa3fe6e4b5e0"><div class="ttname"><a href="classReprojectedImage.html#a8e9372cde028e73ce5ebaa3fe6e4b5e0">ReprojectedImage::ReprojectedImage</a></div><div class="ttdeci">ReprojectedImage(Image *image, BoundingBox&lt; double &gt; bbox, Grid *grid, Interpolation::KernelType KT=Interpolation::LANCZOS_2, bool bMask=false)</div><div class="ttdoc">Crée un objet ReprojectedImage à partir de tous ses éléments constitutifs, sauf les résolutions (calc...</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.h:320</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:72</div></div>
+<div class="ttc" id="aclassImage_html_ab8d12f635013c04159cd4d3d972bac88"><div class="ttname"><a href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">Image::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Largeur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:84</div></div>
+<div class="ttc" id="aGrid_8h_html"><div class="ttname"><a href="Grid_8h.html">Grid.h</a></div><div class="ttdoc">Définition de la classe Grid.</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassImage_html_a0a0ea1d72a21d530eb0867a219058dc1"><div class="ttname"><a href="classImage.html#a0a0ea1d72a21d530eb0867a219058dc1">Image::isMask</a></div><div class="ttdeci">bool isMask</div><div class="ttdoc">L'image est-ell un masque ?</div><div class="ttdef"><b>Definition:</b> Image.h:96</div></div>
+<div class="ttc" id="aInterpolation_8h_html_af0a27c124419a642b9c294f7ae4a46f9"><div class="ttname"><a href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a></div><div class="ttdeci">KernelType</div><div class="ttdoc">Énumération des interpolations.</div><div class="ttdef"><b>Definition:</b> Interpolation.h:62</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassReprojectedImage_html_a171767195327bb5db9992060c40272d0"><div class="ttname"><a href="classReprojectedImage.html#a171767195327bb5db9992060c40272d0">ReprojectedImage::~ReprojectedImage</a></div><div class="ttdeci">~ReprojectedImage()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.h:375</div></div>
+<div class="ttc" id="aInterpolation_8h_html"><div class="ttname"><a href="Interpolation_8h.html">Interpolation.h</a></div><div class="ttdoc">Définition de l'énumération des interpolations disponibles et des conversions.</div></div>
+<div class="ttc" id="aclassKernel_html"><div class="ttname"><a href="classKernel.html">Kernel</a></div><div class="ttdoc">Gestion du noyau d'interpolation.</div><div class="ttdef"><b>Definition:</b> Kernel.h:64</div></div>
+<div class="ttc" id="aclassReprojectedImage_html_a55c198a4fd0484d84600c070f06d0120"><div class="ttname"><a href="classReprojectedImage.html#a55c198a4fd0484d84600c070f06d0120">ReprojectedImage::getline</a></div><div class="ttdeci">int getline(float *buffer, int line)</div><div class="ttdoc">Retourne une ligne en flottant 32 bits. Les canaux sont entrelacés. Si les données ne sont pas intrin...</div><div class="ttdef"><b>Definition:</b> ReprojectedImage.cpp:318</div></div>
+<div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdoc">Gestion d'une grille de reprojection.</div><div class="ttdef"><b>Definition:</b> Grid.h:76</div></div>
+<div class="ttc" id="aclassImage_html_a943b9608c5d4a9bc3b2d06545f040eae"><div class="ttname"><a href="classImage.html#a943b9608c5d4a9bc3b2d06545f040eae">Image::getChannels</a></div><div class="ttdeci">virtual int getChannels()</div><div class="ttdoc">Retourne le nombre de canaux par pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:192</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:713</div></div>
+<div class="ttc" id="aclassImage_html_aef8f90faecc126e872d6412d8b4db27c"><div class="ttname"><a href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">Image::resy</a></div><div class="ttdeci">double resy</div><div class="ttdoc">Resolution de l'image, dans le sens des Y.</div><div class="ttdef"><b>Definition:</b> Image.h:125</div></div>
+<div class="ttc" id="aclassImage_html_afe29aeaf20398569b02db53e87b07707"><div class="ttname"><a href="classImage.html#afe29aeaf20398569b02db53e87b07707">Image::resx</a></div><div class="ttdeci">double resx</div><div class="ttdoc">Resolution de l'image, dans le sens des X.</div><div class="ttdef"><b>Definition:</b> Image.h:120</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_128fc099d035536e093f6a644b1f5923.html">image</a></li><li class="navelem"><a class="el" href="ReprojectedImage_8h.html">ReprojectedImage.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

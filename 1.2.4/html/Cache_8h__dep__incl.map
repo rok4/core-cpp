@@ -1,0 +1,12 @@
+<map id="include/rok4/utils/Cache.h" name="include/rok4/utils/Cache.h">
+<area shape="rect" id="node1" title="Définition des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="811,5,931,47"/>
+<area shape="rect" id="node2" href="$StoreDataSource_8cpp.html" title="Implémentation des classes StoreDataSource et StoreDataSourceFactory." alt="" coords="5,95,176,136"/>
+<area shape="rect" id="node3" href="$Grid_8cpp.html" title="Implémentation de la classe Grid." alt="" coords="201,102,362,129"/>
+<area shape="rect" id="node4" href="$S3Context_8cpp.html" title="Implémentation de la classe S3Context." alt="" coords="387,102,565,129"/>
+<area shape="rect" id="node5" href="$SwiftContext_8cpp.html" title="Implémentation de la classe SwiftContext." alt="" coords="589,102,781,129"/>
+<area shape="rect" id="node6" href="$Style_8cpp.html" title="Implémentation de la classe Style modélisant les styles." alt="" coords="805,102,936,129"/>
+<area shape="rect" id="node7" href="$Cache_8cpp.html" title="Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="961,102,1095,129"/>
+<area shape="rect" id="node8" href="$CRS_8cpp.html" title="Implémente de la gestion des systèmes de référence." alt="" coords="1119,102,1246,129"/>
+<area shape="rect" id="node9" href="$Level_8h_source.html" title=" " alt="" coords="1271,95,1391,136"/>
+<area shape="rect" id="node10" href="$Pyramid_8h_source.html" title=" " alt="" coords="1271,184,1391,225"/>
+</map>

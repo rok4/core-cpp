@@ -1,0 +1,265 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('LibpngImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">LibpngImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="LibpngImage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifndef LIBPNG_IMAGE_H</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define LIBPNG_IMAGE_H</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;png.h&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="FileImage_8h.html">image/file/FileImage.h</a>&quot;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classLibpngImage.html">   76</a></span>&#160;<span class="keyword">class </span><a class="code" href="classLibpngImage.html">LibpngImage</a> : <span class="keyword">public</span> <a class="code" href="classFileImage.html">FileImage</a> {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classLibpngImageFactory.html">LibpngImageFactory</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    png_bytep * data;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">int</span> _getline ( T* buffer, <span class="keywordtype">int</span> line );    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="classLibpngImage.html#a89b1e30e029fa660f73e321b1d98d139">LibpngImage</a> (</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, <a class="code" href="classBoundingBox.html">BoundingBox&lt; double &gt;</a> <a class="code" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, std::string name,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">sampleformat</a>, <span class="keywordtype">int</span> <a class="code" href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">bitspersample</a>, <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code" href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">photometric</a>, <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">compression</a>,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        png_bytep* pngData</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    );</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> canRead ( <span class="keywordtype">int</span> bps, <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sf) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> ( </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            ( bps == 1 &amp;&amp; sf == SampleFormat::UINT ) ||</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            ( bps == 2 &amp;&amp; sf == SampleFormat::UINT ) ||</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            ( bps == 4 &amp;&amp; sf == SampleFormat::UINT ) ||</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            ( bps == 8 &amp;&amp; sf == SampleFormat::UINT )</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> canWrite ( <span class="keywordtype">int</span> bps, <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sf) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a7d67010f8a40e75ab88207f9e0dedd63">getline</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a7d67010f8a40e75ab88207f9e0dedd63">getline</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a7d67010f8a40e75ab88207f9e0dedd63">getline</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classLibpngImage.html#aae14505c36030f6692284a480f82daea">  160</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#aae14505c36030f6692284a480f82daea">writeImage</a> ( <a class="code" href="classImage.html">Image</a>* pIn ) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="classLibpngImage.html#a1d9bc7c0349479a1aa73e19ab4fe8b3a">  172</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a1d9bc7c0349479a1aa73e19ab4fe8b3a">writeImage</a> ( uint8_t* buffer ) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="classLibpngImage.html#a7f37d59b9689ad573faf2200b44b862b">  184</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a7f37d59b9689ad573faf2200b44b862b">writeImage</a> ( uint16_t* buffer ) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="classLibpngImage.html#ae80bcaeeccc0d39a0ab380119e1aec8b">  196</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#ae80bcaeeccc0d39a0ab380119e1aec8b">writeImage</a> ( <span class="keywordtype">float</span>* buffer)  {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="classLibpngImage.html#a9049670340ba29ea0719508a9892ee09">  209</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a9049670340ba29ea0719508a9892ee09">writeLine</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line ) {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="classLibpngImage.html#a3aabc84d62ae968eeafa168a4fb0635c">  222</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#a3aabc84d62ae968eeafa168a4fb0635c">writeLine</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line ) {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno"><a class="line" href="classLibpngImage.html#af4dd43058b132e73f6ae7cbf66469ad1">  235</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classLibpngImage.html#af4dd43058b132e73f6ae7cbf66469ad1">writeLine</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line) {</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write PNG image&quot;</span> ;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    </div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="classLibpngImage.html#ab65584add60d6faa2f922569ec599ae1">  249</a></span>&#160;    <a class="code" href="classLibpngImage.html#ab65584add60d6faa2f922569ec599ae1">~LibpngImage</a>() {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="comment">/* cleanup heap allocation */</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>; y++)</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            free(data[y]);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        free(data);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="classLibpngImage.html#a81c81a4485389bcb641c129737b2e778">  261</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLibpngImage.html#a81c81a4485389bcb641c129737b2e778">print</a>() {</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;---------- LibpngImage ------------&quot;</span> ;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <a class="code" href="classFileImage.html#a2d2112ec32866e04bb16f9feb9073276">FileImage::print</a>();</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;};</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="classLibpngImageFactory.html">  273</a></span>&#160;<span class="keyword">class </span><a class="code" href="classLibpngImageFactory.html">LibpngImageFactory</a> {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="classLibpngImage.html">LibpngImage</a>* <a class="code" href="classLibpngImageFactory.html#a72946b39fc70ffd7cb27863f03c13c54">createLibpngImageToRead</a> ( std::string filename, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox, <span class="keywordtype">double</span> resx, <span class="keywordtype">double</span> resy );</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;};</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassFileImage_html_a52f06c64138e2af3adb4c73964c2972b"><div class="ttname"><a href="classFileImage.html#a52f06c64138e2af3adb4c73964c2972b">FileImage::compression</a></div><div class="ttdeci">Compression::eCompression compression</div><div class="ttdoc">Compression des données (jpeg, packbits...)</div><div class="ttdef"><b>Definition:</b> FileImage.h:105</div></div>
+<div class="ttc" id="aclassImage_html_a51df43db420c9c0b57536cb2dd36de5c"><div class="ttname"><a href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">Image::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Hauteur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:90</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a89b1e30e029fa660f73e321b1d98d139"><div class="ttname"><a href="classLibpngImage.html#a89b1e30e029fa660f73e321b1d98d139">LibpngImage::LibpngImage</a></div><div class="ttdeci">LibpngImage(int width, int height, double resx, double resy, int channels, BoundingBox&lt; double &gt; bbox, std::string name, SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression, png_bytep *pngData)</div><div class="ttdoc">Crée un objet LibpngImage à partir de tous ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> LibpngImage.cpp:262</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a2400cfa91cf2e98ca0cca9024b029203"><div class="ttname"><a href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a></div><div class="ttdeci">ePhotometric</div><div class="ttdoc">Énumération des photométries disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:183</div></div>
+<div class="ttc" id="aclassLibpngImage_html_ab65584add60d6faa2f922569ec599ae1"><div class="ttname"><a href="classLibpngImage.html#ab65584add60d6faa2f922569ec599ae1">LibpngImage::~LibpngImage</a></div><div class="ttdeci">~LibpngImage()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:249</div></div>
+<div class="ttc" id="aclassImage_html_a3a792f6f0da13e8efa5e97d4cdbf0226"><div class="ttname"><a href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">Image::bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bbox</div><div class="ttdoc">Emprise rectangulaire au sol de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:102</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a81c81a4485389bcb641c129737b2e778"><div class="ttname"><a href="classLibpngImage.html#a81c81a4485389bcb641c129737b2e778">LibpngImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image PNG.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:261</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format.</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:72</div></div>
+<div class="ttc" id="aclassLibpngImage_html_ae80bcaeeccc0d39a0ab380119e1aec8b"><div class="ttname"><a href="classLibpngImage.html#ae80bcaeeccc0d39a0ab380119e1aec8b">LibpngImage::writeImage</a></div><div class="ttdeci">int writeImage(float *buffer)</div><div class="ttdoc">Ecrit une image PNG, à partir d'un buffer de flottants.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:196</div></div>
+<div class="ttc" id="aclassImage_html_ab8d12f635013c04159cd4d3d972bac88"><div class="ttname"><a href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">Image::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Largeur de l'image en pixel.</div><div class="ttdef"><b>Definition:</b> Image.h:84</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a7f37d59b9689ad573faf2200b44b862b"><div class="ttname"><a href="classLibpngImage.html#a7f37d59b9689ad573faf2200b44b862b">LibpngImage::writeImage</a></div><div class="ttdeci">int writeImage(uint16_t *buffer)</div><div class="ttdoc">Ecrit une image PNG, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:184</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassLibpngImage_html_a1d9bc7c0349479a1aa73e19ab4fe8b3a"><div class="ttname"><a href="classLibpngImage.html#a1d9bc7c0349479a1aa73e19ab4fe8b3a">LibpngImage::writeImage</a></div><div class="ttdeci">int writeImage(uint8_t *buffer)</div><div class="ttdoc">Ecrit une image PNG, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:172</div></div>
+<div class="ttc" id="aclassLibpngImage_html_aae14505c36030f6692284a480f82daea"><div class="ttname"><a href="classLibpngImage.html#aae14505c36030f6692284a480f82daea">LibpngImage::writeImage</a></div><div class="ttdeci">int writeImage(Image *pIn)</div><div class="ttdoc">Ecrit une image PNG, à partir d'une image source.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:160</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a3aabc84d62ae968eeafa168a4fb0635c"><div class="ttname"><a href="classLibpngImage.html#a3aabc84d62ae968eeafa168a4fb0635c">LibpngImage::writeLine</a></div><div class="ttdeci">int writeLine(uint16_t *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image PNG, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:222</div></div>
+<div class="ttc" id="aclassImage_html_a73572ed4b7f15054c5a598c6aabffd86"><div class="ttname"><a href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">Image::channels</a></div><div class="ttdeci">int channels</div><div class="ttdoc">Nombre de canaux de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:79</div></div>
+<div class="ttc" id="aclassLibpngImageFactory_html_a72946b39fc70ffd7cb27863f03c13c54"><div class="ttname"><a href="classLibpngImageFactory.html#a72946b39fc70ffd7cb27863f03c13c54">LibpngImageFactory::createLibpngImageToRead</a></div><div class="ttdeci">LibpngImage * createLibpngImageToRead(std::string filename, BoundingBox&lt; double &gt; bbox, double resx, double resy)</div><div class="ttdoc">Crée un objet LibpngImage, pour la lecture.</div><div class="ttdef"><b>Definition:</b> LibpngImage.cpp:82</div></div>
+<div class="ttc" id="aclassFileImage_html_ac7f33ad9b8087ccb3df505a26a2547cb"><div class="ttname"><a href="classFileImage.html#ac7f33ad9b8087ccb3df505a26a2547cb">FileImage::bitspersample</a></div><div class="ttdeci">int bitspersample</div><div class="ttdoc">Nombre de bits par canal.</div><div class="ttdef"><b>Definition:</b> FileImage.h:115</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassLibpngImage_html"><div class="ttname"><a href="classLibpngImage.html">LibpngImage</a></div><div class="ttdoc">Manipulation d'une image PNG.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:76</div></div>
+<div class="ttc" id="aclassLibpngImageFactory_html"><div class="ttname"><a href="classLibpngImageFactory.html">LibpngImageFactory</a></div><div class="ttdoc">Usine de création d'une image PNG.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:273</div></div>
+<div class="ttc" id="aclassLibpngImage_html_af4dd43058b132e73f6ae7cbf66469ad1"><div class="ttname"><a href="classLibpngImage.html#af4dd43058b132e73f6ae7cbf66469ad1">LibpngImage::writeLine</a></div><div class="ttdeci">int writeLine(float *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image PNG, à partir d'un buffer de flottants.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:235</div></div>
+<div class="ttc" id="aclassFileImage_html_a2d2112ec32866e04bb16f9feb9073276"><div class="ttname"><a href="classFileImage.html#a2d2112ec32866e04bb16f9feb9073276">FileImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> FileImage.h:414</div></div>
+<div class="ttc" id="aFileImage_8h_html"><div class="ttname"><a href="FileImage_8h.html">FileImage.h</a></div><div class="ttdoc">Définition des classes FileImage et FileImageFactory.</div></div>
+<div class="ttc" id="aclassFileImage_html"><div class="ttname"><a href="classFileImage.html">FileImage</a></div><div class="ttdoc">Manipulation d'une image associée à un fichier.</div><div class="ttdef"><b>Definition:</b> FileImage.h:81</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:79</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a9049670340ba29ea0719508a9892ee09"><div class="ttname"><a href="classLibpngImage.html#a9049670340ba29ea0719508a9892ee09">LibpngImage::writeLine</a></div><div class="ttdeci">int writeLine(uint8_t *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image PNG, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition:</b> LibpngImage.h:209</div></div>
+<div class="ttc" id="aclassFileImage_html_a6300101f266b0c964bdbaa62d738c85c"><div class="ttname"><a href="classFileImage.html#a6300101f266b0c964bdbaa62d738c85c">FileImage::photometric</a></div><div class="ttdeci">Photometric::ePhotometric photometric</div><div class="ttdoc">Photométrie des données (rgb, gray...)</div><div class="ttdef"><b>Definition:</b> FileImage.h:93</div></div>
+<div class="ttc" id="aclassFileImage_html_afb139ad8712d46199a01229dbdba7308"><div class="ttname"><a href="classFileImage.html#afb139ad8712d46199a01229dbdba7308">FileImage::sampleformat</a></div><div class="ttdeci">SampleFormat::eSampleFormat sampleformat</div><div class="ttdoc">Format des canaux.</div><div class="ttdef"><b>Definition:</b> FileImage.h:110</div></div>
+<div class="ttc" id="anamespaceCompression_html_ab59ae0c9640db55b2cbed59310434030"><div class="ttname"><a href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a></div><div class="ttdeci">eCompression</div><div class="ttdoc">Énumération des compressions disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:128</div></div>
+<div class="ttc" id="aclassImage_html_aef8f90faecc126e872d6412d8b4db27c"><div class="ttname"><a href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">Image::resy</a></div><div class="ttdeci">double resy</div><div class="ttdoc">Resolution de l'image, dans le sens des Y.</div><div class="ttdef"><b>Definition:</b> Image.h:125</div></div>
+<div class="ttc" id="aclassLibpngImage_html_a7d67010f8a40e75ab88207f9e0dedd63"><div class="ttname"><a href="classLibpngImage.html#a7d67010f8a40e75ab88207f9e0dedd63">LibpngImage::getline</a></div><div class="ttdeci">int getline(uint8_t *buffer, int line)</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div><div class="ttdef"><b>Definition:</b> LibpngImage.cpp:297</div></div>
+<div class="ttc" id="aclassImage_html_afe29aeaf20398569b02db53e87b07707"><div class="ttname"><a href="classImage.html#afe29aeaf20398569b02db53e87b07707">Image::resx</a></div><div class="ttdeci">double resx</div><div class="ttdoc">Resolution de l'image, dans le sens des X.</div><div class="ttdef"><b>Definition:</b> Image.h:120</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a6a17ec937b4e07383dde71de6c9d000.html">image</a></li><li class="navelem"><a class="el" href="dir_1e709757fd5b1bd84ccdeac1a106c90f.html">file</a></li><li class="navelem"><a class="el" href="LibpngImage_8h.html">LibpngImage.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

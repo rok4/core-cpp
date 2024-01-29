@@ -1,0 +1,16 @@
+<map id="include/rok4/image/MergeImage.h" name="include/rok4/image/MergeImage.h">
+<area shape="rect" id="node1" title="Définition des classes MergeImage, MergeImageFactory et MergeMask et du namespace Merge." alt="" coords="329,5,459,47"/>
+<area shape="rect" id="node2" href="$Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="272,95,409,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="496,169,561,196"/>
+<area shape="rect" id="node13" title=" " alt="" coords="485,95,543,121"/>
+<area shape="rect" id="node14" href="$Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format." alt="" coords="29,95,175,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="69,169,135,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="404,169,472,196"/>
+<area shape="rect" id="node6" href="$BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="148,244,315,271"/>
+<area shape="rect" id="node10" title=" " alt="" coords="337,319,395,345"/>
+<area shape="rect" id="node11" href="$CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="159,169,277,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,319,140,345"/>
+<area shape="rect" id="node8" title=" " alt="" coords="164,319,219,345"/>
+<area shape="rect" id="node9" title=" " alt="" coords="243,319,313,345"/>
+<area shape="rect" id="node12" title=" " alt="" coords="44,244,99,271"/>
+</map>

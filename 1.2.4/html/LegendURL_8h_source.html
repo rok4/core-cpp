@@ -1,0 +1,242 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('LegendURL_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">LegendURL.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="LegendURL_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef LEGENDURL_H</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define LEGENDURL_H</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ResourceLocator_8h.html">rok4/utils/ResourceLocator.h</a>&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classLegendURL.html">   61</a></span>&#160;<span class="keyword">class </span><a class="code" href="classLegendURL.html">LegendURL</a> : <span class="keyword">public</span> <a class="code" href="classResourceLocator.html">ResourceLocator</a> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">int</span> width;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">int</span> height;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">double</span> minScaleDenominator;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">double</span> maxScaleDenominator;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classLegendURL.html#aadcd1afb1f54b69af6ada33009ed809f">   93</a></span>&#160;    <a class="code" href="classLegendURL.html#aadcd1afb1f54b69af6ada33009ed809f">LegendURL</a> ( json11::Json doc ) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;format&quot;</span>].is_string()) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;format&quot;</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> = doc[<span class="stringliteral">&quot;format&quot;</span>].string_value();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;url&quot;</span>].is_string()) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;url&quot;</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> = doc[<span class="stringliteral">&quot;url&quot;</span>].string_value();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;height&quot;</span>].is_number()) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;height&quot;</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        height = doc[<span class="stringliteral">&quot;height&quot;</span>].number_value();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;width&quot;</span>].is_number()) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;width&quot;</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        width = doc[<span class="stringliteral">&quot;width&quot;</span>].number_value();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;min_scale_denominator&quot;</span>].is_number()) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;min_scale_denominator&quot;</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        minScaleDenominator = doc[<span class="stringliteral">&quot;min_scale_denominator&quot;</span>].number_value();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span> (! doc[<span class="stringliteral">&quot;max_scale_denominator&quot;</span>].is_number()) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a> = <span class="stringliteral">&quot;max_scale_denominator&quot;</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        maxScaleDenominator = doc[<span class="stringliteral">&quot;max_scale_denominator&quot;</span>].number_value();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    };</div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classLegendURL.html#ad6d24f8db116d685ed77935b95f290c5">  142</a></span>&#160;    <a class="code" href="classLegendURL.html#ad6d24f8db116d685ed77935b95f290c5">LegendURL</a> ( <span class="keyword">const</span> <a class="code" href="classLegendURL.html">LegendURL</a> &amp;origLUrl ) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> = origLUrl.<a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> = origLUrl.<a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        height = origLUrl.height;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        width = origLUrl.width;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        maxScaleDenominator = origLUrl.maxScaleDenominator;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        minScaleDenominator = origLUrl.minScaleDenominator;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    };</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classLegendURL.html#a8c6b3b351cd3711181844df295b0562a">  156</a></span>&#160;    <a class="code" href="classLegendURL.html">LegendURL</a>&amp; <a class="code" href="classLegendURL.html#a8c6b3b351cd3711181844df295b0562a">operator= </a>( <a class="code" href="classLegendURL.html">LegendURL</a> <span class="keyword">const</span> &amp; other ) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span> ( <span class="keyword">this</span> != &amp;other ) {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <a class="code" href="classResourceLocator.html#a2024b280ef315dabcb0ee02e17cf30fe">ResourceLocator::operator= </a>( other );</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            this-&gt;height = other.height;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            this-&gt;width = other.width;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            this-&gt;maxScaleDenominator = other.maxScaleDenominator;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            this-&gt;minScaleDenominator = other.minScaleDenominator;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    };</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classLegendURL.html#a5bd8d6cfc0ed8e2bd26f8812d5d54823">  174</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classLegendURL.html#a5bd8d6cfc0ed8e2bd26f8812d5d54823">operator== </a>( <span class="keyword">const</span> <a class="code" href="classLegendURL.html">LegendURL</a>&amp; other )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">return</span> ( this-&gt;width == other.width &amp;&amp; this-&gt;height == other.height</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                &amp;&amp; this-&gt;minScaleDenominator == other.minScaleDenominator</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                &amp;&amp; this-&gt;maxScaleDenominator == other.maxScaleDenominator</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                &amp;&amp; this-&gt;getFormat().compare ( other.<a class="code" href="classResourceLocator.html#ad6fff746471a0e3a5947297ce369206f">getFormat</a>() ) == 0</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                &amp;&amp; this-&gt;getHRef().compare ( other.<a class="code" href="classResourceLocator.html#a8633805284b13c4f9d8227bcb39bf722">getHRef</a>() ) == 0 );</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    };</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classLegendURL.html#aa31f0cd87478e111e9afe4837a8a14a9">  189</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classLegendURL.html#aa31f0cd87478e111e9afe4837a8a14a9">operator!= </a>( <span class="keyword">const</span> <a class="code" href="classLegendURL.html">LegendURL</a>&amp; other )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">return</span> ! ( *<span class="keyword">this</span> == other );</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    };</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="classLegendURL.html#aa5ba6deced6efc35eeaf1ba61907e553">  201</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classLegendURL.html#aa5ba6deced6efc35eeaf1ba61907e553">getWidth</a>() {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">return</span> width;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="classLegendURL.html#ace27306aca7f1bc9f16dc727619b8941">  213</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classLegendURL.html#ace27306aca7f1bc9f16dc727619b8941">getHeight</a>() {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">return</span> height;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="classLegendURL.html#ad207dcf0bade4cc6b272445d05a7acb4">  225</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="classLegendURL.html#ad207dcf0bade4cc6b272445d05a7acb4">getMinScaleDenominator</a>() {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">return</span> minScaleDenominator;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="classLegendURL.html#a7e629c14154d1476043dc7ec91798ebf">  237</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="classLegendURL.html#a7e629c14154d1476043dc7ec91798ebf">getMaxScaleDenominator</a>() {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">return</span> maxScaleDenominator;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    }</div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="classLegendURL.html#a709d46873d4d682f5676772bdc3242a7">  246</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classLegendURL.html#a709d46873d4d682f5676772bdc3242a7">~LegendURL</a>() {};</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;};</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#endif // LEGENDURL_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassLegendURL_html_ace27306aca7f1bc9f16dc727619b8941"><div class="ttname"><a href="classLegendURL.html#ace27306aca7f1bc9f16dc727619b8941">LegendURL::getHeight</a></div><div class="ttdeci">int getHeight()</div><div class="ttdoc">Retourne la hauteur de l'image.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:213</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a3da0ec556c23f76d4366afb76c007e76"><div class="ttname"><a href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">ResourceLocator::missingField</a></div><div class="ttdeci">std::string missingField</div><div class="ttdoc">Éventuel attribut manquant lors de la construction.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:77</div></div>
+<div class="ttc" id="aclassLegendURL_html_a7e629c14154d1476043dc7ec91798ebf"><div class="ttname"><a href="classLegendURL.html#a7e629c14154d1476043dc7ec91798ebf">LegendURL::getMaxScaleDenominator</a></div><div class="ttdeci">double getMaxScaleDenominator()</div><div class="ttdoc">Retourne l'échelle maximum.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:237</div></div>
+<div class="ttc" id="aclassLegendURL_html"><div class="ttname"><a href="classLegendURL.html">LegendURL</a></div><div class="ttdoc">Gestion des éléments de légendes des documents de capacités.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:61</div></div>
+<div class="ttc" id="aclassResourceLocator_html"><div class="ttname"><a href="classResourceLocator.html">ResourceLocator</a></div><div class="ttdoc">Gestion des éléments des ressources externes des documents de capacités.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:61</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a8633805284b13c4f9d8227bcb39bf722"><div class="ttname"><a href="classResourceLocator.html#a8633805284b13c4f9d8227bcb39bf722">ResourceLocator::getHRef</a></div><div class="ttdeci">const std::string getHRef() const</div><div class="ttdoc">Retourne le lien vers le fichier sous la forme d'une URL.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:169</div></div>
+<div class="ttc" id="aclassLegendURL_html_ad207dcf0bade4cc6b272445d05a7acb4"><div class="ttname"><a href="classLegendURL.html#ad207dcf0bade4cc6b272445d05a7acb4">LegendURL::getMinScaleDenominator</a></div><div class="ttdeci">double getMinScaleDenominator()</div><div class="ttdoc">Retourne l'échelle minimum.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:225</div></div>
+<div class="ttc" id="aclassLegendURL_html_ad6d24f8db116d685ed77935b95f290c5"><div class="ttname"><a href="classLegendURL.html#ad6d24f8db116d685ed77935b95f290c5">LegendURL::LegendURL</a></div><div class="ttdeci">LegendURL(const LegendURL &amp;origLUrl)</div><div class="ttdoc">Constructeur de copie.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:142</div></div>
+<div class="ttc" id="aclassResourceLocator_html_ac400bf191da6a12a6456d8d0ea208a4c"><div class="ttname"><a href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">ResourceLocator::format</a></div><div class="ttdeci">std::string format</div><div class="ttdoc">Type mime du fichier référencé</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:67</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a2024b280ef315dabcb0ee02e17cf30fe"><div class="ttname"><a href="classResourceLocator.html#a2024b280ef315dabcb0ee02e17cf30fe">ResourceLocator::operator=</a></div><div class="ttdeci">ResourceLocator &amp; operator=(ResourceLocator const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:118</div></div>
+<div class="ttc" id="aclassLegendURL_html_a8c6b3b351cd3711181844df295b0562a"><div class="ttname"><a href="classLegendURL.html#a8c6b3b351cd3711181844df295b0562a">LegendURL::operator=</a></div><div class="ttdeci">LegendURL &amp; operator=(LegendURL const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:156</div></div>
+<div class="ttc" id="aclassResourceLocator_html_ad6fff746471a0e3a5947297ce369206f"><div class="ttname"><a href="classResourceLocator.html#ad6fff746471a0e3a5947297ce369206f">ResourceLocator::getFormat</a></div><div class="ttdeci">const std::string getFormat() const</div><div class="ttdoc">Retourne le type mime du fichier référencé</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:157</div></div>
+<div class="ttc" id="aclassLegendURL_html_aa5ba6deced6efc35eeaf1ba61907e553"><div class="ttname"><a href="classLegendURL.html#aa5ba6deced6efc35eeaf1ba61907e553">LegendURL::getWidth</a></div><div class="ttdeci">int getWidth()</div><div class="ttdoc">Retourne la largeur de l'image.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:201</div></div>
+<div class="ttc" id="aclassLegendURL_html_aadcd1afb1f54b69af6ada33009ed809f"><div class="ttname"><a href="classLegendURL.html#aadcd1afb1f54b69af6ada33009ed809f">LegendURL::LegendURL</a></div><div class="ttdeci">LegendURL(json11::Json doc)</div><div class="ttdoc">Crée un LegendURL à partir d'un élément JSON.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:93</div></div>
+<div class="ttc" id="aclassLegendURL_html_a709d46873d4d682f5676772bdc3242a7"><div class="ttname"><a href="classLegendURL.html#a709d46873d4d682f5676772bdc3242a7">LegendURL::~LegendURL</a></div><div class="ttdeci">virtual ~LegendURL()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:246</div></div>
+<div class="ttc" id="aclassLegendURL_html_aa31f0cd87478e111e9afe4837a8a14a9"><div class="ttname"><a href="classLegendURL.html#aa31f0cd87478e111e9afe4837a8a14a9">LegendURL::operator!=</a></div><div class="ttdeci">bool operator!=(const LegendURL &amp;other) const</div><div class="ttdoc">Test d'inégalite de 2 LegendURLs.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:189</div></div>
+<div class="ttc" id="aResourceLocator_8h_html"><div class="ttname"><a href="ResourceLocator_8h.html">ResourceLocator.h</a></div><div class="ttdoc">Définition de la classe RessourceLocator gérant les liens vers les ressources externe dans les docume...</div></div>
+<div class="ttc" id="aclassLegendURL_html_a5bd8d6cfc0ed8e2bd26f8812d5d54823"><div class="ttname"><a href="classLegendURL.html#a5bd8d6cfc0ed8e2bd26f8812d5d54823">LegendURL::operator==</a></div><div class="ttdeci">bool operator==(const LegendURL &amp;other) const</div><div class="ttdoc">Test d'egalite de 2 LegendURLs.</div><div class="ttdef"><b>Definition:</b> LegendURL.h:174</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a3c34cd464837344fd12996d8c11a9f4c"><div class="ttname"><a href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">ResourceLocator::href</a></div><div class="ttdeci">std::string href</div><div class="ttdoc">Lien vers le fichier sous la forme d'une URL.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:72</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="LegendURL_8h.html">LegendURL.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>
