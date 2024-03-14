@@ -489,10 +489,7 @@ int Pyramid::getBitsPerSample() {
 
 Level* Pyramid::getHighestLevel() { return highestLevel; }
 Level* Pyramid::getLowestLevel() { return lowestLevel; }
-Level * Pyramid::getFirstLevel() {
-    std::map<std::string, Level*>::iterator it ( levels.begin() );
-    return it->second;
-}
+
 TileMatrixSet* Pyramid::getTms() { return tms; }
 std::map<std::string, Level*>& Pyramid::getLevels() { return levels; }
 

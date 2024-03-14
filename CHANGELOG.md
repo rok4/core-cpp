@@ -1,3 +1,9 @@
+## 1.3.1
+
+### [Fixed]
+
+* `S3Context` : pour éviter des conflits dans une utilisation multithreadée, la sortie de la fonction HMAC (openssl) est dédiée.
+
 ## 1.3.0
 
 ### [Added]
