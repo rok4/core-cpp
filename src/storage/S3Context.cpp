@@ -48,14 +48,16 @@
  */
 
 #include "storage/S3Context.h"
-#include "S3Context.h"
-#include "utils/LibcurlStruct.h"
+
 #include <curl/curl.h>
+#include <openssl/hmac.h>
 #include <rok4/storage/Context.h>
 #include <sys/stat.h>
-#include <openssl/hmac.h>
 #include <time.h>
+
+#include "S3Context.h"
 #include "utils/Cache.h"
+#include "utils/LibcurlStruct.h"
 
 std::vector<std::string> S3Context::env_hosts;
 std::vector<std::string> S3Context::env_keys;
@@ -65,12 +67,12 @@ std::vector<std::string> S3Context::env_urls;
 bool S3Context::ssl_no_verify = false;
 
 bool S3Context::load_env() {
-    if (! env_hosts.empty()) {
+    if (!env_hosts.empty()) {
         return true;
     }
 
     std::string urls, keys, secret_keys;
-    char* e;
+    char *e;
     std::stringstream ss;
     std::string token, tmp;
     const char delim = ',';
@@ -78,11 +80,11 @@ bool S3Context::load_env() {
 
     // Chargement des variables d'environnement et ajout des valeurs par défaut
 
-    e = getenv (ROK4_S3_URL);
+    e = getenv(ROK4_S3_URL);
     if (e == NULL) {
         urls = "http://localhost:9000";
     } else {
-        urls = std::string (e);
+        urls = std::string(e);
     }
     ss = std::stringstream(urls);
     while (std::getline(ss, token, delim)) {
@@ -108,18 +110,18 @@ bool S3Context::load_env() {
         }
     }
 
-    e = getenv (ROK4_S3_KEY);
+    e = getenv(ROK4_S3_KEY);
     if (e == NULL) {
         keys = "rok4";
     } else {
-        keys = std::string (e);
+        keys = std::string(e);
     }
     ss = std::stringstream(keys);
     while (std::getline(ss, token, delim)) {
         env_keys.push_back(token);
     }
 
-    e = getenv (ROK4_S3_SECRETKEY);
+    e = getenv(ROK4_S3_SECRETKEY);
     if (e == NULL) {
         secret_keys = "rok4S3storage";
     } else {
@@ -130,7 +132,7 @@ bool S3Context::load_env() {
         env_secret_keys.push_back(token);
     }
 
-    if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
+    if (getenv(ROK4_SSL_NO_VERIFY) != NULL) {
         ssl_no_verify = true;
     }
 
@@ -145,21 +147,19 @@ bool S3Context::load_env() {
         return false;
     }
 
-    return true;    
+    return true;
 }
 
-
 std::string S3Context::get_default_cluster() {
-    if (! load_env()) {
+    if (!load_env()) {
         BOOST_LOG_TRIVIAL(error) << "Cannot load environment variables to use S3 storage";
         return "";
     }
     return env_cluster_names.at(0);
 }
 
-S3Context::S3Context (std::string b) : Context(), bucket_name(b), cluster_name("") {
-
-    if (! load_env()) {
+S3Context::S3Context(std::string b) : Context(), bucket_name(b), cluster_name("") {
+    if (!load_env()) {
         BOOST_LOG_TRIVIAL(error) << "Cannot load environment variables to use S3 storage";
         return;
     }
@@ -210,21 +210,17 @@ bool S3Context::connection() {
 }
 
 static const std::string base64_chars =
-             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-             "abcdefghijklmnopqrstuvwxyz"
-             "0123456789+/";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
+    "0123456789+/";
 
-std::string S3Context::getAuthorizationHeader(std::string toSign) {
-
-    // Using sha1 hash engine here.
-    unsigned char* bytes_to_encode = HMAC(EVP_sha1(), secret_key.c_str(), secret_key.length(), ( const unsigned char*) toSign.c_str(), toSign.length(), NULL, NULL);
-
-    std::string signature;
+std::string base64_encode(unsigned char const *bytes_to_encode, unsigned int in_len) {
+    std::string ret;
     int i = 0;
     int j = 0;
     unsigned char char_array_3[3];
     unsigned char char_array_4[4];
-    int in_len = 20;
+
     while (in_len--) {
         char_array_3[i++] = *(bytes_to_encode++);
         if (i == 3) {
@@ -233,14 +229,14 @@ std::string S3Context::getAuthorizationHeader(std::string toSign) {
             char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
             char_array_4[3] = char_array_3[2] & 0x3f;
 
-            for(i = 0; (i <4) ; i++)
-                signature += base64_chars[char_array_4[i]];
-                i = 0;
+            for (i = 0; (i < 4); i++)
+                ret += base64_chars[char_array_4[i]];
+            i = 0;
         }
     }
 
     if (i) {
-        for(j = i; j < 3; j++)
+        for (j = i; j < 3; j++)
             char_array_3[j] = '\0';
 
         char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
@@ -249,13 +245,21 @@ std::string S3Context::getAuthorizationHeader(std::string toSign) {
         char_array_4[3] = char_array_3[2] & 0x3f;
 
         for (j = 0; (j < i + 1); j++)
-            signature += base64_chars[char_array_4[j]];
+            ret += base64_chars[char_array_4[j]];
 
-        while((i++ < 3))
-            signature += '=';
+        while ((i++ < 3))
+            ret += '=';
     }
 
-    //delete[] bytes_to_encode;
+    return ret;
+}
+
+std::string S3Context::getAuthorizationHeader(std::string toSign) {
+    unsigned char bytes_to_encode[EVP_MAX_MD_SIZE];
+    unsigned int bytes_to_encode_len;
+
+    HMAC(EVP_sha1(), secret_key.c_str(), secret_key.length(), (const unsigned char *)toSign.c_str(), toSign.length(), bytes_to_encode, &bytes_to_encode_len);
+    std::string signature = base64_encode(bytes_to_encode, bytes_to_encode_len);
 
     return signature;
 }
@@ -265,8 +269,7 @@ std::string S3Context::getAuthorizationHeader(std::string toSign) {
  * \~english \brief Short english day names
  */
 static const char wday_name[][4] = {
-    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-};
+    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
 /**
  * \~french \brief Noms court des mois en anglais
@@ -274,11 +277,9 @@ static const char wday_name[][4] = {
  */
 static const char mon_name[][4] = {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-};
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
-int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
-
+int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
 
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
@@ -287,26 +288,25 @@ int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
     struct curl_slist *list = NULL;
     DataStruct chunk;
     chunk.nbPassage = 0;
-    chunk.data = (char*) malloc(1);
+    chunk.data = (char *)malloc(1);
     chunk.size = 0;
 
     int lastBytes = offset + size - 1;
 
-    CURL* curl = CurlPool::getCurlEnv();
+    CURL *curl = CurlPool::getCurlEnv();
 
     std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
     time_t current;
 
     time(&current);
-    struct tm * ptm = gmtime ( &current );
+    struct tm *ptm = gmtime(&current);
 
     static char gmt_time[40];
     sprintf(
         gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec
-    );
+        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
     std::string content_type = "application/octet-stream";
     std::string resource = "/" + bucket_name + "/" + name;
@@ -341,28 +341,27 @@ int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
     curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if(ssl_no_verify){
-      curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    if (ssl_no_verify) {
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     }
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &chunk);
-
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
     BOOST_LOG_TRIVIAL(debug) << "S3 READ START (" << size << ") " << pthread_self();
     res = curl_easy_perform(curl);
     BOOST_LOG_TRIVIAL(debug) << "S3 READ END (" << size << ") " << pthread_self();
-    
-    curl_slist_free_all(list);
-    //delete[] gmt_time;
 
-    if( CURLE_OK != res) {
+    curl_slist_free_all(list);
+    // delete[] gmt_time;
+
+    if (CURLE_OK != res) {
         BOOST_LOG_TRIVIAL(error) << "Cannot read data from S3 : " << size << " bytes (from the " << offset << " one) in the object " << name;
         BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
         return -1;
     }
 
     long http_code = 0;
-    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code < 200 || http_code > 299) {
         BOOST_LOG_TRIVIAL(error) << "Cannot read data from S3 : " << size << " bytes (from the " << offset << " one) in the object " << name;
         BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
@@ -375,11 +374,9 @@ int S3Context::read(uint8_t* data, int offset, int size, std::string name) {
     return chunk.size;
 }
 
-
-uint8_t* S3Context::readFull(int& size, std::string name) {
-    
+uint8_t *S3Context::readFull(int &size, std::string name) {
     size = -1;
-    
+
     BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -387,24 +384,23 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
     struct curl_slist *list = NULL;
     DataStruct chunk;
     chunk.nbPassage = 0;
-    chunk.data = (char*) malloc(1);
+    chunk.data = (char *)malloc(1);
     chunk.size = 0;
 
-    CURL* curl = CurlPool::getCurlEnv();
+    CURL *curl = CurlPool::getCurlEnv();
 
     std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
     time_t current;
 
     time(&current);
-    struct tm * ptm = gmtime ( &current );
+    struct tm *ptm = gmtime(&current);
 
     static char gmt_time[40];
     sprintf(
         gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec
-    );
+        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
     std::string content_type = "application/octet-stream";
     std::string resource = "/" + bucket_name + "/" + name;
@@ -435,25 +431,25 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
     curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if(ssl_no_verify){
-      curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    if (ssl_no_verify) {
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     }
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &chunk);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
     res = curl_easy_perform(curl);
-    
-    curl_slist_free_all(list);
-    //delete[] gmt_time;
 
-    if( CURLE_OK != res) {
+    curl_slist_free_all(list);
+    // delete[] gmt_time;
+
+    if (CURLE_OK != res) {
         BOOST_LOG_TRIVIAL(error) << "Cannot read full object from S3 : " << name;
         BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
         return NULL;
     }
 
     long http_code = 0;
-    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code < 200 || http_code > 299) {
         BOOST_LOG_TRIVIAL(error) << "Cannot read full object from S3 : " << name;
         BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
@@ -462,23 +458,23 @@ uint8_t* S3Context::readFull(int& size, std::string name) {
     }
 
     size = chunk.size;
-    uint8_t* data = new uint8_t[chunk.size];
+    uint8_t *data = new uint8_t[chunk.size];
     memcpy(data, chunk.data, chunk.size);
 
     return data;
 }
 
-bool S3Context::write(uint8_t* data, int offset, int size, std::string name) {
+bool S3Context::write(uint8_t *data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 write : " << size << " bytes (from the " << offset << " one) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
+    if (it1 == writingBuffers.end()) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No writing buffer for the name " << name;
         return false;
     }
     BOOST_LOG_TRIVIAL(debug) << "old length: " << it1->second->size();
-   
+
     // Calcul de la taille finale et redimensionnement éventuel du vector
     if (it1->second->size() < size + offset) {
         it1->second->resize(size + offset);
@@ -490,11 +486,11 @@ bool S3Context::write(uint8_t* data, int offset, int size, std::string name) {
     return true;
 }
 
-bool S3Context::writeFull(uint8_t* data, int size, std::string name) {
+bool S3Context::writeFull(uint8_t *data, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 write : " << size << " bytes (one shot) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
+    if (it1 == writingBuffers.end()) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No S3 writing buffer for the name " << name;
         return false;
@@ -524,33 +520,29 @@ std::string S3Context::getCluster() {
     return cluster_name;
 }
 
-std::string S3Context::getPath(std::string racine,int x,int y,int pathDepth){
+std::string S3Context::getPath(std::string racine, int x, int y, int pathDepth) {
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
-std::string S3Context::getPath(std::string name) {  
+std::string S3Context::getPath(std::string name) {
     return bucket_name + "/" + name;
 }
 
 bool S3Context::openToWrite(std::string name) {
-
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 != writingBuffers.end() ) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
+    if (it1 != writingBuffers.end()) {
         BOOST_LOG_TRIVIAL(error) << "A S3 writing buffer already exists for the name " << name;
         return false;
-
     } else {
-        writingBuffers.insert ( std::pair<std::string,std::vector<char>*>(name, new std::vector<char>()) );
+        writingBuffers.insert(std::pair<std::string, std::vector<char> *>(name, new std::vector<char>()));
     }
 
     return true;
 }
 
-
 bool S3Context::closeToWrite(std::string name) {
-
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
+    if (it1 == writingBuffers.end()) {
         BOOST_LOG_TRIVIAL(error) << "The S3 writing buffer with name " << name << "does not exist, cannot flush it";
         return false;
     }
@@ -559,21 +551,20 @@ bool S3Context::closeToWrite(std::string name) {
 
     CURLcode res;
     struct curl_slist *list = NULL;
-    CURL* curl = CurlPool::getCurlEnv();
+    CURL *curl = CurlPool::getCurlEnv();
 
     std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
     time_t current;
 
     time(&current);
-    struct tm * ptm = gmtime ( &current );
+    struct tm *ptm = gmtime(&current);
 
     static char gmt_time[40];
     sprintf(
         gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec
-    );
+        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
     std::string content_type = "application/octet-stream";
     std::string resource = "/" + bucket_name + "/" + name;
@@ -595,7 +586,7 @@ bool S3Context::closeToWrite(std::string name) {
     list = curl_slist_append(list, ct);
 
     char cl[50];
-    sprintf(cl, "Content-Length: %d",(int)it1->second->size());
+    sprintf(cl, "Content-Length: %d", (int)it1->second->size());
     list = curl_slist_append(list, cl);
 
     std::string ex = "Expect:";
@@ -607,28 +598,27 @@ bool S3Context::closeToWrite(std::string name) {
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
     curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if(ssl_no_verify){
-      curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    if (ssl_no_verify) {
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     }
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
-    
+
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, &((*(it1->second))[0]));
     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, it1->second->size());
 
     res = curl_easy_perform(curl);
     curl_slist_free_all(list);
 
-
-    if( CURLE_OK != res) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the object " << name ;
+    if (CURLE_OK != res) {
+        BOOST_LOG_TRIVIAL(error) << "Unable to flush " << it1->second->size() << " bytes in the object " << name;
         BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
         return false;
     }
 
     long http_code = 0;
-    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code < 200 || http_code > 299) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the object " << name ;
+        BOOST_LOG_TRIVIAL(error) << "Unable to flush " << it1->second->size() << " bytes in the object " << name;
         BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
         return false;
     }
@@ -641,27 +631,25 @@ bool S3Context::closeToWrite(std::string name) {
 }
 
 bool S3Context::exists(std::string name) {
-
     BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << getPath(name);
 
     CURLcode res;
     struct curl_slist *list = NULL;
 
-    CURL* curl = CurlPool::getCurlEnv();
+    CURL *curl = CurlPool::getCurlEnv();
 
     std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
     time_t current;
 
     time(&current);
-    struct tm * ptm = gmtime ( &current );
+    struct tm *ptm = gmtime(&current);
 
     static char gmt_time[40];
     sprintf(
         gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
         wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec
-    );
+        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
     std::string content_type = "application/octet-stream";
     std::string resource = "/" + bucket_name + "/" + name;
@@ -691,22 +679,22 @@ bool S3Context::exists(std::string name) {
     curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
     curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
-    if(ssl_no_verify){
-      curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    if (ssl_no_verify) {
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     }
 
     res = curl_easy_perform(curl);
-    
+
     curl_slist_free_all(list);
 
-    if( CURLE_OK != res) {
+    if (CURLE_OK != res) {
         BOOST_LOG_TRIVIAL(error) << "Cannot test object existence from S3 : " << bucket_name + "/" + name;
         BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
         return false;
     }
 
     long http_code = 0;
-    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code >= 200 && http_code <= 299) {
         return true;
     } else {
