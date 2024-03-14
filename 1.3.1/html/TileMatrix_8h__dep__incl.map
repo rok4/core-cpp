@@ -1,0 +1,15 @@
+<map id="include/rok4/utils/TileMatrix.h" name="include/rok4/utils/TileMatrix.h">
+<area shape="rect" id="node1" title="Définition de la classe TileMatrix gérant une matrice de tuiles représentant un niveau d&#39;une pyramide..." alt="" coords="375,5,509,47"/>
+<area shape="rect" id="node2" href="$TileMatrix_8cpp.html" title="Implémentation de la classe TileMatrix gérant une matrice de tuile représentant un niveau d&#39;une pyram..." alt="" coords="234,102,405,129"/>
+<area shape="rect" id="node3" href="$Level_8h_source.html" title=" " alt="" coords="5,273,140,315"/>
+<area shape="rect" id="node5" href="$TileMatrixSet_8h_source.html" title=" " alt="" coords="849,95,984,136"/>
+<area shape="rect" id="node4" href="$Pyramid_8h_source.html" title=" " alt="" coords="741,363,876,404"/>
+<area shape="rect" id="node6" href="$Cache_8h.html" title="Définition des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="849,184,984,225"/>
+<area shape="rect" id="node7" href="$StoreDataSource_8cpp.html" title="Implémentation des classes StoreDataSource et StoreDataSourceFactory." alt="" coords="189,273,375,315"/>
+<area shape="rect" id="node8" href="$Grid_8cpp.html" title="Implémentation de la classe Grid." alt="" coords="399,281,573,307"/>
+<area shape="rect" id="node9" href="$S3Context_8cpp.html" title="Implémentation de la classe S3Context." alt="" coords="597,281,789,307"/>
+<area shape="rect" id="node10" href="$SwiftContext_8cpp.html" title="Implémentation de la classe SwiftContext." alt="" coords="813,281,1021,307"/>
+<area shape="rect" id="node11" href="$Style_8cpp.html" title="Implémentation de la classe Style modélisant les styles." alt="" coords="1045,281,1186,307"/>
+<area shape="rect" id="node12" href="$Cache_8cpp.html" title="Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool." alt="" coords="1210,281,1354,307"/>
+<area shape="rect" id="node13" href="$CRS_8cpp.html" title="Implémente de la gestion des systèmes de référence." alt="" coords="1378,281,1509,307"/>
+</map>

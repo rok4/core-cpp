@@ -1,0 +1,28 @@
+var classTileMatrix =
+[
+    [ "TileMatrix", "classTileMatrix.html#afe18b5a47bb6db49e0d4aaafb90b5910", null ],
+    [ "~TileMatrix", "classTileMatrix.html#a433bb97bcacae2185bbb0deeca7ee106", null ],
+    [ "bboxFromTileLimits", "classTileMatrix.html#ab8d7684c6f09a320aff131e03abbc54a", null ],
+    [ "bboxToTileLimits", "classTileMatrix.html#a6be1772ab7f4c93d113d2738b4884419", null ],
+    [ "getId", "classTileMatrix.html#a70f99b31cdf74c4212db3a63a9700a5d", null ],
+    [ "getMatrixH", "classTileMatrix.html#ac389396954d8e29312b5f33cd4190567", null ],
+    [ "getMatrixW", "classTileMatrix.html#af59773af8e0779d0ffd7b0a29ed86b50", null ],
+    [ "getRes", "classTileMatrix.html#a71183b3ac9392b27c79346edde1304ad", null ],
+    [ "getTileH", "classTileMatrix.html#a35f90d016603a13115c75caa27d750e3", null ],
+    [ "getTileW", "classTileMatrix.html#a6a9a8bc049bae6ca3a5097117c0a5680", null ],
+    [ "getX0", "classTileMatrix.html#a618bb8ed7f962abbd3c7f64314afa88d", null ],
+    [ "getY0", "classTileMatrix.html#afb91c78baca9513b89dcf870313c4027", null ],
+    [ "operator!=", "classTileMatrix.html#a2160609dc3754cc22460c127a4917e46", null ],
+    [ "operator=", "classTileMatrix.html#a07e5c649478e092f03ec91c61b618d49", null ],
+    [ "operator==", "classTileMatrix.html#a0b9ff6884e2ce2cf1560c0482d3e6145", null ],
+    [ "tileIndicesToBbox", "classTileMatrix.html#a35a1264826fa81aed9ada6e6ffc89e70", null ],
+    [ "TileMatrixSet", "classTileMatrix.html#aadf8f0b3f5c5c2ba691e942b4d8d61ad", null ],
+    [ "id", "classTileMatrix.html#ad0baef82dfc340b0ca23ce412b02b149", null ],
+    [ "matrixH", "classTileMatrix.html#aa12f5df20021021bedb30d82fe1b8f99", null ],
+    [ "matrixW", "classTileMatrix.html#afc9a6bad536823fdca424ba6dbae60dc", null ],
+    [ "res", "classTileMatrix.html#ade0a11db8585ab78f6e3622ec051080f", null ],
+    [ "tileH", "classTileMatrix.html#ad824c6fbc03ac4a74df60060bfacfcca", null ],
+    [ "tileW", "classTileMatrix.html#a77d16f21789db773c07f26530f82f5aa", null ],
+    [ "x0", "classTileMatrix.html#a7f9886d9675f8e54ee683abc8d00d395", null ],
+    [ "y0", "classTileMatrix.html#aad55dd4e85cc495aab5e0539baa43a53", null ]
+];

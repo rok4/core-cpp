@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('TileMatrix_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">TileMatrix.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="TileMatrix_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef TILEMATRIX_H</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define TILEMATRIX_H</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="TileMatrixLimits_8h.html">rok4/utils/TileMatrixLimits.h</a>&quot;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="BoundingBox_8h.html">rok4/utils/BoundingBox.h</a>&quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classTileMatrix.html">   81</a></span>&#160;<span class="keyword">class </span><a class="code" href="classTileMatrix.html">TileMatrix</a> : <span class="keyword">public</span> <a class="code" href="classConfiguration.html">Configuration</a> {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classTileMatrix.html#ad0baef82dfc340b0ca23ce412b02b149">   90</a></span>&#160;    std::string <a class="code" href="classTileMatrix.html#ad0baef82dfc340b0ca23ce412b02b149">id</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classTileMatrix.html#ade0a11db8585ab78f6e3622ec051080f">   95</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#ade0a11db8585ab78f6e3622ec051080f">res</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classTileMatrix.html#a7f9886d9675f8e54ee683abc8d00d395">  100</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#a7f9886d9675f8e54ee683abc8d00d395">x0</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classTileMatrix.html#aad55dd4e85cc495aab5e0539baa43a53">  105</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#aad55dd4e85cc495aab5e0539baa43a53">y0</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classTileMatrix.html#a77d16f21789db773c07f26530f82f5aa">  110</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#a77d16f21789db773c07f26530f82f5aa">tileW</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classTileMatrix.html#ad824c6fbc03ac4a74df60060bfacfcca">  115</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#ad824c6fbc03ac4a74df60060bfacfcca">tileH</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classTileMatrix.html#afc9a6bad536823fdca424ba6dbae60dc">  120</a></span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#afc9a6bad536823fdca424ba6dbae60dc">matrixW</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classTileMatrix.html#aa12f5df20021021bedb30d82fe1b8f99">  125</a></span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#aa12f5df20021021bedb30d82fe1b8f99">matrixH</a>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="classTileMatrix.html#afe18b5a47bb6db49e0d4aaafb90b5910">TileMatrix</a>(json11::Json doc);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="classTileMatrix.html">TileMatrix</a>&amp; <a class="code" href="classTileMatrix.html#a07e5c649478e092f03ec91c61b618d49">operator= </a>( <a class="code" href="classTileMatrix.html">TileMatrix</a> <span class="keyword">const</span>&amp; other );</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classTileMatrix.html#a0b9ff6884e2ce2cf1560c0482d3e6145">operator== </a>( <span class="keyword">const</span> <a class="code" href="classTileMatrix.html">TileMatrix</a>&amp; other ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classTileMatrix.html#a2160609dc3754cc22460c127a4917e46">operator!= </a>( <span class="keyword">const</span> <a class="code" href="classTileMatrix.html">TileMatrix</a>&amp; other ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::string <a class="code" href="classTileMatrix.html#a70f99b31cdf74c4212db3a63a9700a5d">getId</a>();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#a71183b3ac9392b27c79346edde1304ad">getRes</a>();</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#a618bb8ed7f962abbd3c7f64314afa88d">getX0</a>();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classTileMatrix.html#afb91c78baca9513b89dcf870313c4027">getY0</a>();</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#a6a9a8bc049bae6ca3a5097117c0a5680">getTileW</a>();</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#a35f90d016603a13115c75caa27d750e3">getTileH</a>();</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#af59773af8e0779d0ffd7b0a29ed86b50">getMatrixW</a>();</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="classTileMatrix.html#ac389396954d8e29312b5f33cd4190567">getMatrixH</a>();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a> <a class="code" href="classTileMatrix.html#a6be1772ab7f4c93d113d2738b4884419">bboxToTileLimits</a>(<a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classTileMatrix.html#ab8d7684c6f09a320aff131e03abbc54a">bboxFromTileLimits</a>(<a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a> limits);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> tileIndicesToBbox (<span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classTileMatrix.html#a433bb97bcacae2185bbb0deeca7ee106">~TileMatrix</a>();</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;};</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TILEMATRIX_H_ */</span><span class="preprocessor"></span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassTileMatrix_html_a7f9886d9675f8e54ee683abc8d00d395"><div class="ttname"><a href="classTileMatrix.html#a7f9886d9675f8e54ee683abc8d00d395">TileMatrix::x0</a></div><div class="ttdeci">double x0</div><div class="ttdoc">Abcisse du point en haut à gauche dans le système de coordonnées associé.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:100</div></div>
+<div class="ttc" id="aclassTileMatrix_html_afb91c78baca9513b89dcf870313c4027"><div class="ttname"><a href="classTileMatrix.html#afb91c78baca9513b89dcf870313c4027">TileMatrix::getY0</a></div><div class="ttdeci">double getY0()</div><div class="ttdoc">Retourne l'ordonnée du point en haut à gauche dans le système de coordonnées associé.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:111</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a2160609dc3754cc22460c127a4917e46"><div class="ttname"><a href="classTileMatrix.html#a2160609dc3754cc22460c127a4917e46">TileMatrix::operator!=</a></div><div class="ttdeci">bool operator!=(const TileMatrix &amp;other) const</div><div class="ttdoc">Test d'inégalite de 2 TileMatrix.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:157</div></div>
+<div class="ttc" id="aclassTileMatrix_html_ad824c6fbc03ac4a74df60060bfacfcca"><div class="ttname"><a href="classTileMatrix.html#ad824c6fbc03ac4a74df60060bfacfcca">TileMatrix::tileH</a></div><div class="ttdeci">int tileH</div><div class="ttdoc">Longueur d'une tuile.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:115</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a433bb97bcacae2185bbb0deeca7ee106"><div class="ttname"><a href="classTileMatrix.html#a433bb97bcacae2185bbb0deeca7ee106">TileMatrix::~TileMatrix</a></div><div class="ttdeci">virtual ~TileMatrix()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:161</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a6a9a8bc049bae6ca3a5097117c0a5680"><div class="ttname"><a href="classTileMatrix.html#a6a9a8bc049bae6ca3a5097117c0a5680">TileMatrix::getTileW</a></div><div class="ttdeci">int getTileW()</div><div class="ttdoc">Retourne la largeur d'une tuile.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:114</div></div>
+<div class="ttc" id="aclassTileMatrix_html"><div class="ttname"><a href="classTileMatrix.html">TileMatrix</a></div><div class="ttdoc">Gestion d'une matrice de tuiles.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:81</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a6be1772ab7f4c93d113d2738b4884419"><div class="ttname"><a href="classTileMatrix.html#a6be1772ab7f4c93d113d2738b4884419">TileMatrix::bboxToTileLimits</a></div><div class="ttdeci">TileMatrixLimits bboxToTileLimits(BoundingBox&lt; double &gt; bbox)</div><div class="ttdoc">Calcule les tuiles limites du niveau pour la bbox donnée.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:163</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a71183b3ac9392b27c79346edde1304ad"><div class="ttname"><a href="classTileMatrix.html#a71183b3ac9392b27c79346edde1304ad">TileMatrix::getRes</a></div><div class="ttdeci">double getRes()</div><div class="ttdoc">Retourne la résolution d'une tuile.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:105</div></div>
+<div class="ttc" id="aclassTileMatrix_html_ade0a11db8585ab78f6e3622ec051080f"><div class="ttname"><a href="classTileMatrix.html#ade0a11db8585ab78f6e3622ec051080f">TileMatrix::res</a></div><div class="ttdeci">double res</div><div class="ttdoc">Résolution des tuiles.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:95</div></div>
+<div class="ttc" id="aTileMatrixLimits_8h_html"><div class="ttname"><a href="TileMatrixLimits_8h.html">TileMatrixLimits.h</a></div><div class="ttdoc">Définition de la classe TileMatrixLimits gérant les indices extrêmes de tuiles pour un niveau.</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassTileMatrix_html_af59773af8e0779d0ffd7b0a29ed86b50"><div class="ttname"><a href="classTileMatrix.html#af59773af8e0779d0ffd7b0a29ed86b50">TileMatrix::getMatrixW</a></div><div class="ttdeci">long int getMatrixW()</div><div class="ttdoc">Retourne le nombre de tuiles dans la largeur de la matrice.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:120</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html"><div class="ttname"><a href="classTileMatrixLimits.html">TileMatrixLimits</a></div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:57</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a0b9ff6884e2ce2cf1560c0482d3e6145"><div class="ttname"><a href="classTileMatrix.html#a0b9ff6884e2ce2cf1560c0482d3e6145">TileMatrix::operator==</a></div><div class="ttdeci">bool operator==(const TileMatrix &amp;other) const</div><div class="ttdoc">Test d'egalite de 2 TileMatrix.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:146</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a35f90d016603a13115c75caa27d750e3"><div class="ttname"><a href="classTileMatrix.html#a35f90d016603a13115c75caa27d750e3">TileMatrix::getTileH</a></div><div class="ttdeci">int getTileH()</div><div class="ttdoc">Retourne la longueur d'une tuile.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:117</div></div>
+<div class="ttc" id="aclassTileMatrix_html_ac389396954d8e29312b5f33cd4190567"><div class="ttname"><a href="classTileMatrix.html#ac389396954d8e29312b5f33cd4190567">TileMatrix::getMatrixH</a></div><div class="ttdeci">long int getMatrixH()</div><div class="ttdoc">Retourne le nombre de tuiles dans la longueur de la matrice.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:123</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a618bb8ed7f962abbd3c7f64314afa88d"><div class="ttname"><a href="classTileMatrix.html#a618bb8ed7f962abbd3c7f64314afa88d">TileMatrix::getX0</a></div><div class="ttdeci">double getX0()</div><div class="ttdoc">Retourne l'abscisse du point en haut à gauche dans le système de coordonnées associé.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:108</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a77d16f21789db773c07f26530f82f5aa"><div class="ttname"><a href="classTileMatrix.html#a77d16f21789db773c07f26530f82f5aa">TileMatrix::tileW</a></div><div class="ttdeci">int tileW</div><div class="ttdoc">Largeur d'une tuile.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:110</div></div>
+<div class="ttc" id="aclassTileMatrix_html_afe18b5a47bb6db49e0d4aaafb90b5910"><div class="ttname"><a href="classTileMatrix.html#afe18b5a47bb6db49e0d4aaafb90b5910">TileMatrix::TileMatrix</a></div><div class="ttdeci">TileMatrix(json11::Json doc)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:53</div></div>
+<div class="ttc" id="aclassConfiguration_html"><div class="ttname"><a href="classConfiguration.html">Configuration</a></div><div class="ttdef"><b>Definition:</b> Configuration.h:49</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a07e5c649478e092f03ec91c61b618d49"><div class="ttname"><a href="classTileMatrix.html#a07e5c649478e092f03ec91c61b618d49">TileMatrix::operator=</a></div><div class="ttdeci">TileMatrix &amp; operator=(TileMatrix const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:131</div></div>
+<div class="ttc" id="aclassTileMatrix_html_afc9a6bad536823fdca424ba6dbae60dc"><div class="ttname"><a href="classTileMatrix.html#afc9a6bad536823fdca424ba6dbae60dc">TileMatrix::matrixW</a></div><div class="ttdeci">long int matrixW</div><div class="ttdoc">Nombre de tuiles dans la matrice en largeur.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:120</div></div>
+<div class="ttc" id="aclassTileMatrix_html_ad0baef82dfc340b0ca23ce412b02b149"><div class="ttname"><a href="classTileMatrix.html#ad0baef82dfc340b0ca23ce412b02b149">TileMatrix::id</a></div><div class="ttdeci">std::string id</div><div class="ttdoc">Identifiant.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:90</div></div>
+<div class="ttc" id="aclassTileMatrix_html_a70f99b31cdf74c4212db3a63a9700a5d"><div class="ttname"><a href="classTileMatrix.html#a70f99b31cdf74c4212db3a63a9700a5d">TileMatrix::getId</a></div><div class="ttdeci">std::string getId()</div><div class="ttdoc">Retourne l'indentifiant.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:127</div></div>
+<div class="ttc" id="aclassTileMatrix_html_aa12f5df20021021bedb30d82fe1b8f99"><div class="ttname"><a href="classTileMatrix.html#aa12f5df20021021bedb30d82fe1b8f99">TileMatrix::matrixH</a></div><div class="ttdeci">long int matrixH</div><div class="ttdoc">Nombre de tuiles dans la matrice en longueur.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:125</div></div>
+<div class="ttc" id="aclassTileMatrixSet_html"><div class="ttname"><a href="classTileMatrixSet.html">TileMatrixSet</a></div><div class="ttdoc">Gestion d'une pyramid de matrices de tuiles.</div><div class="ttdef"><b>Definition:</b> TileMatrixSet.h:100</div></div>
+<div class="ttc" id="aclassTileMatrix_html_aad55dd4e85cc495aab5e0539baa43a53"><div class="ttname"><a href="classTileMatrix.html#aad55dd4e85cc495aab5e0539baa43a53">TileMatrix::y0</a></div><div class="ttdeci">double y0</div><div class="ttdoc">Ordonnée du point en haut à gauche dans le système de coordonnées associé.</div><div class="ttdef"><b>Definition:</b> TileMatrix.h:105</div></div>
+<div class="ttc" id="aclassTileMatrix_html_ab8d7684c6f09a320aff131e03abbc54a"><div class="ttname"><a href="classTileMatrix.html#ab8d7684c6f09a320aff131e03abbc54a">TileMatrix::bboxFromTileLimits</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bboxFromTileLimits(TileMatrixLimits limits)</div><div class="ttdoc">Calcule la bbox à partir des tuiles limites du niveau.</div><div class="ttdef"><b>Definition:</b> TileMatrix.cpp:177</div></div>
+<div class="ttc" id="aBoundingBox_8h_html"><div class="ttname"><a href="BoundingBox_8h.html">BoundingBox.h</a></div><div class="ttdoc">Implémentation de la classe template BoundingBox.</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="TileMatrix_8h.html">TileMatrix.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

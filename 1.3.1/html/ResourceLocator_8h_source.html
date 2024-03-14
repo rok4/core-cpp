@@ -1,0 +1,182 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('ResourceLocator_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">ResourceLocator.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="ResourceLocator_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef RESOURCELOCATOR_H</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define RESOURCELOCATOR_H</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;json11.hpp&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classResourceLocator.html">   61</a></span>&#160;<span class="keyword">class </span><a class="code" href="classResourceLocator.html">ResourceLocator</a> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">   67</a></span>&#160;    std::string <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">   72</a></span>&#160;    std::string <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">   77</a></span>&#160;    std::string <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classResourceLocator.html#aa8e2d0226211c4859bb58ea0587ef829">   85</a></span>&#160;    <a class="code" href="classResourceLocator.html#aa8e2d0226211c4859bb58ea0587ef829">ResourceLocator</a> ( ) : <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> ( <span class="stringliteral">&quot;&quot;</span> ), <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> ( <span class="stringliteral">&quot;&quot;</span> ) {};</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a515f7e9e6ecfaf3a142453f7cd19598d">   96</a></span>&#160;    <a class="code" href="classResourceLocator.html#a515f7e9e6ecfaf3a142453f7cd19598d">ResourceLocator</a> ( std::string <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>, std::string <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> ) : <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> ( <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> ), <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> ( <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> ) {};</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classResourceLocator.html#aab480d680d80054f26d05db6155e98d8">  107</a></span>&#160;    <a class="code" href="classResourceLocator.html#aab480d680d80054f26d05db6155e98d8">ResourceLocator</a> ( <span class="keyword">const</span> <a class="code" href="classResourceLocator.html">ResourceLocator</a> &amp;origRL ) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> = origRL.<a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> = origRL.<a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    };</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::string getMissingField() {<span class="keywordflow">return</span> <a class="code" href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">missingField</a>;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a2024b280ef315dabcb0ee02e17cf30fe">  118</a></span>&#160;    <a class="code" href="classResourceLocator.html">ResourceLocator</a>&amp; <a class="code" href="classResourceLocator.html#a2024b280ef315dabcb0ee02e17cf30fe">operator= </a>( <a class="code" href="classResourceLocator.html">ResourceLocator</a> <span class="keyword">const</span>&amp; other ) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">if</span> ( <span class="keyword">this</span> != &amp;other ) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            this-&gt;format = other.<a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            this-&gt;href = other.<a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    };</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classResourceLocator.html#ab6e1af6b469d76f71d555fc094d0ca25">  133</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classResourceLocator.html#ab6e1af6b469d76f71d555fc094d0ca25">operator== </a>( <span class="keyword">const</span> <a class="code" href="classResourceLocator.html">ResourceLocator</a>&amp; other )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">return</span> ( ( this-&gt;format.compare ( other.<a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a> ) == 0 )</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                &amp;&amp; ( this-&gt;href.compare ( other.<a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a> ) == 0 ) );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    };</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a8e5e8fc70bf57f08cf4607b1deca02c4">  145</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classResourceLocator.html#a8e5e8fc70bf57f08cf4607b1deca02c4">operator!= </a>( <span class="keyword">const</span> <a class="code" href="classResourceLocator.html">ResourceLocator</a>&amp; other )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> ! ( *<span class="keyword">this</span> == other );</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    };</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="classResourceLocator.html#ad6fff746471a0e3a5947297ce369206f">  157</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string <a class="code" href="classResourceLocator.html#ad6fff746471a0e3a5947297ce369206f">getFormat</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">format</a>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classResourceLocator.html#a8633805284b13c4f9d8227bcb39bf722">  169</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string <a class="code" href="classResourceLocator.html#a8633805284b13c4f9d8227bcb39bf722">getHRef</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">href</a>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="classResourceLocator.html#abe2f0abdcb73b7e9e2b8a91e61a62dc9">  179</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classResourceLocator.html#abe2f0abdcb73b7e9e2b8a91e61a62dc9">~ResourceLocator</a>() {};</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;};</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="preprocessor">#endif // RESOURCELOCATOR_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassResourceLocator_html_aab480d680d80054f26d05db6155e98d8"><div class="ttname"><a href="classResourceLocator.html#aab480d680d80054f26d05db6155e98d8">ResourceLocator::ResourceLocator</a></div><div class="ttdeci">ResourceLocator(const ResourceLocator &amp;origRL)</div><div class="ttdoc">Constructeur de copie.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:107</div></div>
+<div class="ttc" id="aclassResourceLocator_html_abe2f0abdcb73b7e9e2b8a91e61a62dc9"><div class="ttname"><a href="classResourceLocator.html#abe2f0abdcb73b7e9e2b8a91e61a62dc9">ResourceLocator::~ResourceLocator</a></div><div class="ttdeci">virtual ~ResourceLocator()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:179</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a3da0ec556c23f76d4366afb76c007e76"><div class="ttname"><a href="classResourceLocator.html#a3da0ec556c23f76d4366afb76c007e76">ResourceLocator::missingField</a></div><div class="ttdeci">std::string missingField</div><div class="ttdoc">Éventuel attribut manquant lors de la construction.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:77</div></div>
+<div class="ttc" id="aclassResourceLocator_html"><div class="ttname"><a href="classResourceLocator.html">ResourceLocator</a></div><div class="ttdoc">Gestion des éléments des ressources externes des documents de capacités.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:61</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a8633805284b13c4f9d8227bcb39bf722"><div class="ttname"><a href="classResourceLocator.html#a8633805284b13c4f9d8227bcb39bf722">ResourceLocator::getHRef</a></div><div class="ttdeci">const std::string getHRef() const</div><div class="ttdoc">Retourne le lien vers le fichier sous la forme d'une URL.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:169</div></div>
+<div class="ttc" id="aclassResourceLocator_html_ac400bf191da6a12a6456d8d0ea208a4c"><div class="ttname"><a href="classResourceLocator.html#ac400bf191da6a12a6456d8d0ea208a4c">ResourceLocator::format</a></div><div class="ttdeci">std::string format</div><div class="ttdoc">Type mime du fichier référencé</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:67</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a2024b280ef315dabcb0ee02e17cf30fe"><div class="ttname"><a href="classResourceLocator.html#a2024b280ef315dabcb0ee02e17cf30fe">ResourceLocator::operator=</a></div><div class="ttdeci">ResourceLocator &amp; operator=(ResourceLocator const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:118</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a8e5e8fc70bf57f08cf4607b1deca02c4"><div class="ttname"><a href="classResourceLocator.html#a8e5e8fc70bf57f08cf4607b1deca02c4">ResourceLocator::operator!=</a></div><div class="ttdeci">bool operator!=(const ResourceLocator &amp;other) const</div><div class="ttdoc">Test d'inégalite de 2 ResourceLocators.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:145</div></div>
+<div class="ttc" id="aclassResourceLocator_html_ad6fff746471a0e3a5947297ce369206f"><div class="ttname"><a href="classResourceLocator.html#ad6fff746471a0e3a5947297ce369206f">ResourceLocator::getFormat</a></div><div class="ttdeci">const std::string getFormat() const</div><div class="ttdoc">Retourne le type mime du fichier référencé</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:157</div></div>
+<div class="ttc" id="aclassResourceLocator_html_ab6e1af6b469d76f71d555fc094d0ca25"><div class="ttname"><a href="classResourceLocator.html#ab6e1af6b469d76f71d555fc094d0ca25">ResourceLocator::operator==</a></div><div class="ttdeci">bool operator==(const ResourceLocator &amp;other) const</div><div class="ttdoc">Test d'egalite de 2 ResourceLocators.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:133</div></div>
+<div class="ttc" id="aclassResourceLocator_html_aa8e2d0226211c4859bb58ea0587ef829"><div class="ttname"><a href="classResourceLocator.html#aa8e2d0226211c4859bb58ea0587ef829">ResourceLocator::ResourceLocator</a></div><div class="ttdeci">ResourceLocator()</div><div class="ttdoc">Crée un ResourceLocator vide.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:85</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a3c34cd464837344fd12996d8c11a9f4c"><div class="ttname"><a href="classResourceLocator.html#a3c34cd464837344fd12996d8c11a9f4c">ResourceLocator::href</a></div><div class="ttdeci">std::string href</div><div class="ttdoc">Lien vers le fichier sous la forme d'une URL.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:72</div></div>
+<div class="ttc" id="aclassResourceLocator_html_a515f7e9e6ecfaf3a142453f7cd19598d"><div class="ttname"><a href="classResourceLocator.html#a515f7e9e6ecfaf3a142453f7cd19598d">ResourceLocator::ResourceLocator</a></div><div class="ttdeci">ResourceLocator(std::string format, std::string href)</div><div class="ttdoc">Crée un ResourceLocator à partir de ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> ResourceLocator.h:96</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="ResourceLocator_8h.html">ResourceLocator.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

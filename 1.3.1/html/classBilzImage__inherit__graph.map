@@ -1,0 +1,5 @@
+<map id="BilzImage" name="BilzImage">
+<area shape="rect" id="node1" title="Manipulation d&#39;une image PNG." alt="" coords="5,155,92,181"/>
+<area shape="rect" id="node2" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="17,5,80,32"/>
+</map>

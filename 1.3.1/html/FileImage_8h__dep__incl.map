@@ -1,0 +1,17 @@
+<map id="include/rok4/image/file/FileImage.h" name="include/rok4/image/file/FileImage.h">
+<area shape="rect" id="node1" title="Définition des classes FileImage et FileImageFactory." alt="" coords="826,5,973,47"/>
+<area shape="rect" id="node2" href="$BilzImage_8h.html" title="Définition des classes BilzImage et BilzImageFactory." alt="" coords="173,102,364,129"/>
+<area shape="rect" id="node4" href="$FileImage_8cpp.html" title="Implémentation des classes FileImage et FileImageFactory." alt="" coords="490,191,695,218"/>
+<area shape="rect" id="node5" href="$LibkakaduImage_8h.html" title="Définition des classes LibkakaduImage et LibkakaduImageFactory." alt="" coords="1341,95,1501,136"/>
+<area shape="rect" id="node7" href="$LibjpegImage_8h.html" title="Définition des classes LibjpegImage et LibjpegImageFactory." alt="" coords="388,102,603,129"/>
+<area shape="rect" id="node9" href="$LibpngImage_8h.html" title="Définition des classes LibpngImage et LibpngImageFactory." alt="" coords="678,102,889,129"/>
+<area shape="rect" id="node11" href="$LibtiffImage_8h.html" title="Définition des classes LibtiffImage et LibtiffImageFactory." alt="" coords="913,102,1117,129"/>
+<area shape="rect" id="node13" href="$LibopenjpegImage_8h.html" title="Définition des classes LibopenjpegImage et LibopenjpegImageFactory." alt="" coords="1141,95,1316,136"/>
+<area shape="rect" id="node15" href="$TiffNodataManager_8h.html" title="Définition de la classe TiffNodataManager, permettant de modifier la couleur de nodata des images à c..." alt="" coords="1525,95,1711,136"/>
+<area shape="rect" id="node3" href="$BilzImage_8cpp.html" title="Implémentation des classes BilzImage et BilzImageFactory." alt="" coords="5,191,212,218"/>
+<area shape="rect" id="node6" href="$LibkakaduImage_8cpp.html" title="Implémentation des classes LibkakaduImage et LibkakaduImageFactory." alt="" coords="1413,184,1573,225"/>
+<area shape="rect" id="node8" href="$LibjpegImage_8cpp.html" title="Implémentation des classes LibjpegImage et LibjpegImageFactory." alt="" coords="237,191,466,218"/>
+<area shape="rect" id="node10" href="$LibpngImage_8cpp.html" title="Implémentation des classes LibpngImage et LibpngImageFactory." alt="" coords="720,191,945,218"/>
+<area shape="rect" id="node12" href="$LibtiffImage_8cpp.html" title="Implémentation des classes LibtiffImage et LibtiffImageFactory." alt="" coords="970,191,1189,218"/>
+<area shape="rect" id="node14" href="$LibopenjpegImage_8cpp.html" title="Implémentation des classes LibopenjpegImage et LibopenjpegImageFactory." alt="" coords="1213,184,1388,225"/>
+</map>
