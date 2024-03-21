@@ -1,3 +1,12 @@
+## 1.4.0
+
+### [Added]
+
+* Stockage objet (S3, Swift et Ceph) 
+    * Possibilité de définir un nombre de tentatives pour les lectures (1 par défaut) : variable d'environnement `ROK4_OBJECT_READ_ATTEMPTS` 
+    * Possibilité de définir un nombre de tentatives pour les écritures (1 par défaut) : variable d'environnement `ROK4_OBJECT_WRITE_ATTEMPTS` 
+    * Possibilité de définir un temps d'attente, en secondes, entre les tentatives (5 par défaut) : variable d'environnement `ROK4_OBJECT_ATTEMPTS_WAIT`
+
 ## 1.3.1
 
 ### [Fixed]
@@ -22,7 +31,7 @@
 
 ### [Fixed]
 
-* `Cache` : les modifications dans le cache quand il n'est pas par thread (index des dalles, TMS et styles) se font en xxclusion mutuelle (mutex lock et unlock)
+* `Cache` : les modifications dans le cache quand il n'est pas par thread (index des dalles, TMS et styles) se font en exclusion mutuelle (mutex lock et unlock)
 
 ## 1.2.3
 

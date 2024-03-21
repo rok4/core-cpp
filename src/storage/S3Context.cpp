@@ -280,98 +280,109 @@ static const char mon_name[][4] = {
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
+
     BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
 
+    int attempt = 1;
+    while (attempt <= read_attempts) {
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
-    CURLcode res;
-    struct curl_slist *list = NULL;
-    DataStruct chunk;
-    chunk.nbPassage = 0;
-    chunk.data = (char *)malloc(1);
-    chunk.size = 0;
+        CURLcode res;
+        struct curl_slist *list = NULL;
+        DataStruct chunk;
+        chunk.nbPassage = 0;
+        chunk.data = (char *)malloc(1);
+        chunk.size = 0;
 
-    int lastBytes = offset + size - 1;
+        int lastBytes = offset + size - 1;
 
-    CURL *curl = CurlPool::getCurlEnv();
+        CURL *curl = CurlPool::getCurlEnv();
 
-    std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
-    time_t current;
+        time_t current;
 
-    time(&current);
-    struct tm *ptm = gmtime(&current);
+        time(&current);
+        struct tm *ptm = gmtime(&current);
 
-    static char gmt_time[40];
-    sprintf(
-        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
-        wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+        static char gmt_time[40];
+        sprintf(
+            gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
+            wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
+            ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
-    std::string content_type = "application/octet-stream";
-    std::string resource = "/" + bucket_name + "/" + name;
-    std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-    std::string signature = getAuthorizationHeader(stringToSign);
+        std::string content_type = "application/octet-stream";
+        std::string resource = "/" + bucket_name + "/" + name;
+        std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(stringToSign);
 
-    // Constitution du header
+        // Constitution du header
 
-    char range[50];
-    sprintf(range, "Range: bytes=%d-%d", offset, lastBytes);
-    list = curl_slist_append(list, range);
+        char range[50];
+        sprintf(range, "Range: bytes=%d-%d", offset, lastBytes);
+        list = curl_slist_append(list, range);
 
-    char hd_host[256];
-    sprintf(hd_host, "Host: %s", host.c_str());
-    list = curl_slist_append(list, hd_host);
+        char hd_host[256];
+        sprintf(hd_host, "Host: %s", host.c_str());
+        list = curl_slist_append(list, hd_host);
 
-    char d[100];
-    sprintf(d, "Date: %s", gmt_time);
-    list = curl_slist_append(list, d);
+        char d[100];
+        sprintf(d, "Date: %s", gmt_time);
+        list = curl_slist_append(list, d);
 
-    char ct[50];
-    sprintf(ct, "Content-Type: %s", content_type.c_str());
-    list = curl_slist_append(list, ct);
+        char ct[50];
+        sprintf(ct, "Content-Type: %s", content_type.c_str());
+        list = curl_slist_append(list, ct);
 
-    std::string ex = "Expect:";
-    list = curl_slist_append(list, ex.c_str());
+        std::string ex = "Expect:";
+        list = curl_slist_append(list, ex.c_str());
 
-    char auth[512];
-    sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
+        char auth[512];
+        sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
 
-    list = curl_slist_append(list, auth);
+        list = curl_slist_append(list, auth);
 
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if (ssl_no_verify) {
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
+        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        if (ssl_no_verify) {
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        }
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        BOOST_LOG_TRIVIAL(debug) << "S3 READ START (" << size << ") " << pthread_self();
+        res = curl_easy_perform(curl);
+        BOOST_LOG_TRIVIAL(debug) << "S3 READ END (" << size << ") " << pthread_self();
+
+        curl_slist_free_all(list);
+        // delete[] gmt_time;
+
+        if (CURLE_OK != res) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        long http_code = 0;
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+        if (http_code < 200 || http_code > 299) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        memcpy(data, chunk.data, chunk.size);
+
+        return chunk.size;
     }
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
-    BOOST_LOG_TRIVIAL(debug) << "S3 READ START (" << size << ") " << pthread_self();
-    res = curl_easy_perform(curl);
-    BOOST_LOG_TRIVIAL(debug) << "S3 READ END (" << size << ") " << pthread_self();
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
 
-    curl_slist_free_all(list);
-    // delete[] gmt_time;
-
-    if (CURLE_OK != res) {
-        BOOST_LOG_TRIVIAL(error) << "Cannot read data from S3 : " << size << " bytes (from the " << offset << " one) in the object " << name;
-        BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-        return -1;
-    }
-
-    long http_code = 0;
-    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-    if (http_code < 200 || http_code > 299) {
-        BOOST_LOG_TRIVIAL(error) << "Cannot read data from S3 : " << size << " bytes (from the " << offset << " one) in the object " << name;
-        BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
-        BOOST_LOG_TRIVIAL(error) << "Response HTTP : " << chunk.data;
-        return -1;
-    }
-
-    memcpy(data, chunk.data, chunk.size);
-
-    return chunk.size;
+    return -1;
 }
 
 uint8_t *S3Context::readFull(int &size, std::string name) {
@@ -380,88 +391,97 @@ uint8_t *S3Context::readFull(int &size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
-    CURLcode res;
-    struct curl_slist *list = NULL;
-    DataStruct chunk;
-    chunk.nbPassage = 0;
-    chunk.data = (char *)malloc(1);
-    chunk.size = 0;
+    int attempt = 1;
+    while (attempt <= read_attempts) {
+        CURLcode res;
+        struct curl_slist *list = NULL;
+        DataStruct chunk;
+        chunk.nbPassage = 0;
+        chunk.data = (char *)malloc(1);
+        chunk.size = 0;
 
-    CURL *curl = CurlPool::getCurlEnv();
+        CURL *curl = CurlPool::getCurlEnv();
 
-    std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
-    time_t current;
+        time_t current;
 
-    time(&current);
-    struct tm *ptm = gmtime(&current);
+        time(&current);
+        struct tm *ptm = gmtime(&current);
 
-    static char gmt_time[40];
-    sprintf(
-        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
-        wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+        static char gmt_time[40];
+        sprintf(
+            gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
+            wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
+            ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
-    std::string content_type = "application/octet-stream";
-    std::string resource = "/" + bucket_name + "/" + name;
-    std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-    std::string signature = getAuthorizationHeader(stringToSign);
+        std::string content_type = "application/octet-stream";
+        std::string resource = "/" + bucket_name + "/" + name;
+        std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(stringToSign);
 
-    // Constitution du header
+        // Constitution du header
 
-    char hd_host[256];
-    sprintf(hd_host, "Host: %s", host.c_str());
-    list = curl_slist_append(list, hd_host);
+        char hd_host[256];
+        sprintf(hd_host, "Host: %s", host.c_str());
+        list = curl_slist_append(list, hd_host);
 
-    char d[100];
-    sprintf(d, "Date: %s", gmt_time);
-    list = curl_slist_append(list, d);
+        char d[100];
+        sprintf(d, "Date: %s", gmt_time);
+        list = curl_slist_append(list, d);
 
-    char ct[50];
-    sprintf(ct, "Content-Type: %s", content_type.c_str());
-    list = curl_slist_append(list, ct);
+        char ct[50];
+        sprintf(ct, "Content-Type: %s", content_type.c_str());
+        list = curl_slist_append(list, ct);
 
-    std::string ex = "Expect:";
-    list = curl_slist_append(list, ex.c_str());
+        std::string ex = "Expect:";
+        list = curl_slist_append(list, ex.c_str());
 
-    char auth[512];
-    sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
+        char auth[512];
+        sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
 
-    list = curl_slist_append(list, auth);
+        list = curl_slist_append(list, auth);
 
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if (ssl_no_verify) {
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
+        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        if (ssl_no_verify) {
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        }
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        res = curl_easy_perform(curl);
+
+        curl_slist_free_all(list);
+        // delete[] gmt_time;
+
+        if (CURLE_OK != res) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        long http_code = 0;
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+        if (http_code < 200 || http_code > 299) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        size = chunk.size;
+        uint8_t *data = new uint8_t[chunk.size];
+        memcpy(data, chunk.data, chunk.size);
+        return data;
     }
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
-    res = curl_easy_perform(curl);
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to full read S3 object" << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
 
-    curl_slist_free_all(list);
-    // delete[] gmt_time;
-
-    if (CURLE_OK != res) {
-        BOOST_LOG_TRIVIAL(error) << "Cannot read full object from S3 : " << name;
-        BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-        return NULL;
-    }
-
-    long http_code = 0;
-    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-    if (http_code < 200 || http_code > 299) {
-        BOOST_LOG_TRIVIAL(error) << "Cannot read full object from S3 : " << name;
-        BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
-        BOOST_LOG_TRIVIAL(error) << "Response HTTP : " << chunk.data;
-        return NULL;
-    }
-
-    size = chunk.size;
-    uint8_t *data = new uint8_t[chunk.size];
-    memcpy(data, chunk.data, chunk.size);
-
-    return data;
+    return NULL;
 }
 
 bool S3Context::write(uint8_t *data, int offset, int size, std::string name) {
@@ -549,83 +569,94 @@ bool S3Context::closeToWrite(std::string name) {
 
     BOOST_LOG_TRIVIAL(debug) << "Write buffered " << it1->second->size() << " bytes in the S3 object " << name;
 
-    CURLcode res;
-    struct curl_slist *list = NULL;
-    CURL *curl = CurlPool::getCurlEnv();
+    int attempt = 1;
+    while (attempt <= write_attempts) {
 
-    std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        CURLcode res;
+        struct curl_slist *list = NULL;
+        CURL *curl = CurlPool::getCurlEnv();
 
-    time_t current;
+        std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
-    time(&current);
-    struct tm *ptm = gmtime(&current);
+        time_t current;
 
-    static char gmt_time[40];
-    sprintf(
-        gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
-        wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
-        ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+        time(&current);
+        struct tm *ptm = gmtime(&current);
 
-    std::string content_type = "application/octet-stream";
-    std::string resource = "/" + bucket_name + "/" + name;
-    std::string stringToSign = "PUT\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-    std::string signature = getAuthorizationHeader(stringToSign);
+        static char gmt_time[40];
+        sprintf(
+            gmt_time, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
+            wday_name[ptm->tm_wday], ptm->tm_mday, mon_name[ptm->tm_mon], 1900 + ptm->tm_year,
+            ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
 
-    // Constitution du header
+        std::string content_type = "application/octet-stream";
+        std::string resource = "/" + bucket_name + "/" + name;
+        std::string stringToSign = "PUT\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(stringToSign);
 
-    char hd_host[256];
-    sprintf(hd_host, "Host: %s", host.c_str());
-    list = curl_slist_append(list, hd_host);
+        // Constitution du header
 
-    char d[100];
-    sprintf(d, "Date: %s", gmt_time);
-    list = curl_slist_append(list, d);
+        char hd_host[256];
+        sprintf(hd_host, "Host: %s", host.c_str());
+        list = curl_slist_append(list, hd_host);
 
-    char ct[50];
-    sprintf(ct, "Content-Type: %s", content_type.c_str());
-    list = curl_slist_append(list, ct);
+        char d[100];
+        sprintf(d, "Date: %s", gmt_time);
+        list = curl_slist_append(list, d);
 
-    char cl[50];
-    sprintf(cl, "Content-Length: %d", (int)it1->second->size());
-    list = curl_slist_append(list, cl);
+        char ct[50];
+        sprintf(ct, "Content-Type: %s", content_type.c_str());
+        list = curl_slist_append(list, ct);
 
-    std::string ex = "Expect:";
-    list = curl_slist_append(list, ex.c_str());
+        char cl[50];
+        sprintf(cl, "Content-Length: %d", (int)it1->second->size());
+        list = curl_slist_append(list, cl);
 
-    char auth[512];
-    sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
-    list = curl_slist_append(list, auth);
+        std::string ex = "Expect:";
+        list = curl_slist_append(list, ex.c_str());
 
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
-    if (ssl_no_verify) {
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        char auth[512];
+        sprintf(auth, "Authorization: AWS %s:%s", key.c_str(), signature.c_str());
+        list = curl_slist_append(list, auth);
+
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
+        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        if (ssl_no_verify) {
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+        }
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, &((*(it1->second))[0]));
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, it1->second->size());
+
+        res = curl_easy_perform(curl);
+        curl_slist_free_all(list);
+
+        if (CURLE_OK != res) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        long http_code = 0;
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+        if (http_code < 200 || http_code > 299) {
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
+            BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
+            attempt++;
+            sleep(waiting_time);
+            continue;
+        }
+
+        BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
+        delete it1->second;
+        writingBuffers.erase(it1);
+        return true;
     }
-    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
 
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, &((*(it1->second))[0]));
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, it1->second->size());
-
-    res = curl_easy_perform(curl);
-    curl_slist_free_all(list);
-
-    if (CURLE_OK != res) {
-        BOOST_LOG_TRIVIAL(error) << "Unable to flush " << it1->second->size() << " bytes in the object " << name;
-        BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-        return false;
-    }
-
-    long http_code = 0;
-    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-    if (http_code < 200 || http_code > 299) {
-        BOOST_LOG_TRIVIAL(error) << "Unable to flush " << it1->second->size() << " bytes in the object " << name;
-        BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
-        return false;
-    }
-
-    BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
-    delete it1->second;
-    writingBuffers.erase(it1);
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << write_attempts << " tries" ;
 
     return true;
 }

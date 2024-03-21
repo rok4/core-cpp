@@ -46,6 +46,10 @@ Leur définition est contrôlée à l'usage.
     - `ROK4_TMS_NO_CACHE` : ne pas utiliser le système de cache pour le chargement des TMS (on recharge le TMS depuis le fichier / objet à chaque chargement de couche). Toute valeur désactivera le cache
     - `ROK4_STYLES_DIRECTORY` : dossier (fichier ou objet) contenant les styles. Le style `normal` sera chargé depuis le fichier/objet `<ROK4_STYLES_DIRECTORY>/normal.json`
     - `ROK4_STYLES_NO_CACHE` : ne pas utiliser le système de cache pour le chargement des styles (on recharge le style depuis le fichier / objet à chaque chargement de couche). Toute valeur désactivera le cache.
+* Pour le stockage objet (non obligatoire, possibilité de surcharger via des appels)
+    - `ROK4_OBJECT_READ_ATTEMPTS` : nombre de tentatives pour les lectures
+    - `ROK4_OBJECT_WRITE_ATTEMPTS` : nombre de tentatives pour les écritures
+    - `ROK4_OBJECT_ATTEMPTS_WAIT` : temps d'attente en secondes entre les tentatives
 * Pour le stockage S3
     - `ROK4_S3_URL`
     - `ROK4_S3_KEY`

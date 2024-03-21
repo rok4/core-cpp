@@ -110,3 +110,21 @@ void split_path(std::string path, ContextType::eContextType& type, std::string& 
 }
 
 }
+
+Context::Context () : connected(false) {
+
+    char* e = getenv (ROK4_OBJECT_READ_ATTEMPTS);
+    if (e == NULL || sscanf ( e, "%d", &read_attempts ) != 1 ) {
+        read_attempts = 1;
+    }
+
+    e = getenv (ROK4_OBJECT_WRITE_ATTEMPTS);
+    if (e == NULL || sscanf ( e, "%d", &write_attempts ) != 1 ) {
+        write_attempts = 1;
+    }
+
+    e = getenv (ROK4_OBJECT_ATTEMPTS_WAIT);
+    if (e == NULL || sscanf ( e, "%d", &waiting_time ) != 1 ) {
+        waiting_time = 5;
+    }
+}
