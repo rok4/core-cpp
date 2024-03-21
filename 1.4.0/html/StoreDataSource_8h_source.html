@@ -1,0 +1,214 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('StoreDataSource_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">StoreDataSource.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="StoreDataSource_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifndef STOREDATASOURCE_H</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define STOREDATASOURCE_H</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &quot;datasource/DataSource.h&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Context_8h.html">storage/Context.h</a>&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classStoreDataSource.html">   69</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStoreDataSource.html">StoreDataSource</a> : <span class="keyword">public</span> <a class="code" href="classDataSource.html">DataSource</a> {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a236e3fbd5dacab83f263ec8760dbda8c">   76</a></span>&#160;    std::string <a class="code" href="classStoreDataSource.html#a236e3fbd5dacab83f263ec8760dbda8c">name</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a6c87c8e360a594a4631b762e4d2ad6e2">   82</a></span>&#160;    <a class="code" href="classContext.html">Context</a>* <a class="code" href="classStoreDataSource.html#a6c87c8e360a594a4631b762e4d2ad6e2">context</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a2fc9e39878a0ebd22db5f0706299e46d">   88</a></span>&#160;    uint32_t <a class="code" href="classStoreDataSource.html#a2fc9e39878a0ebd22db5f0706299e46d">offset</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a566246b1fe0409ae324ce8fa4b1bf10a">   93</a></span>&#160;    uint32_t <a class="code" href="classStoreDataSource.html#a566246b1fe0409ae324ce8fa4b1bf10a">wanted_size</a>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">    /****** Quand on veut lire une tuile dans une dalle ******/</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a402cffc014182180da0194be770937b2">  100</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStoreDataSource.html#a402cffc014182180da0194be770937b2">tile_indice</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a5947427f3bde24e10cf4b463922bb20d">  105</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStoreDataSource.html#a5947427f3bde24e10cf4b463922bb20d">tiles_number</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">    /*********************************************************/</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">  114</a></span>&#160;    uint8_t* <a class="code" href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">data</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#abb15937f7d7df0ee23b3e1fb6b8cb382">  119</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classStoreDataSource.html#abb15937f7d7df0ee23b3e1fb6b8cb382">alreadyTried</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a72cdb5a1bebce2e0ca79c292f6e77b24">  124</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classStoreDataSource.html#a72cdb5a1bebce2e0ca79c292f6e77b24">size</a>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">  129</a></span>&#160;    std::string <a class="code" href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">encoding</a>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">  134</a></span>&#160;    std::string <a class="code" href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">type</a>;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="classStoreDataSource.html#a7bc02e91e88ca2b2208ba6412ce8c3b1">StoreDataSource</a> ( std::string n, <a class="code" href="classContext.html">Context</a>* c, <span class="keyword">const</span> uint32_t o, <span class="keyword">const</span> uint32_t s, std::string <a class="code" href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">type</a>, std::string <a class="code" href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">encoding</a> = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="classStoreDataSource.html#a7bc02e91e88ca2b2208ba6412ce8c3b1">StoreDataSource</a> (<span class="keyword">const</span> <span class="keywordtype">int</span> tile_ind, <span class="keyword">const</span> <span class="keywordtype">int</span> tiles_nb, std::string n, <a class="code" href="classContext.html">Context</a>* c, std::string <a class="code" href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">type</a>, std::string <a class="code" href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">encoding</a> = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> uint8_t* <a class="code" href="classStoreDataSource.html#a60aa8046e77d9d887caeca6abd301cfc">getData</a> ( <span class="keywordtype">size_t</span> &amp;tile_size );</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#abfcf83b40b1510f766ad3f1d462ed81a">  204</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classStoreDataSource.html#abfcf83b40b1510f766ad3f1d462ed81a">releaseData</a>() {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">data</a>) {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keyword">delete</span>[] <a class="code" href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">data</a>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <a class="code" href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">data</a> = 0;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a749abe8dc106cecc85ae3d2828b9eec5">  218</a></span>&#160;    <a class="code" href="classStoreDataSource.html#a749abe8dc106cecc85ae3d2828b9eec5">~StoreDataSource</a>(){</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="classStoreDataSource.html#abfcf83b40b1510f766ad3f1d462ed81a">releaseData</a>();</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    }</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#a537681e4acf50b73de8e67ea9bc96740">  226</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStoreDataSource.html#a537681e4acf50b73de8e67ea9bc96740">getHttpStatus</a>() {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">return</span> 200;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#aa0d17b45b6f1e17e8347f6296d45b1c4">  234</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classStoreDataSource.html#aa0d17b45b6f1e17e8347f6296d45b1c4">getLength</a>() {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classStoreDataSource.html#a72cdb5a1bebce2e0ca79c292f6e77b24">size</a>;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#af665c05dfebbff43b7e52631640e2a58">  242</a></span>&#160;    std::string <a class="code" href="classStoreDataSource.html#af665c05dfebbff43b7e52631640e2a58">getEncoding</a>() {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">encoding</a>;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="classStoreDataSource.html#acf8382b14f2351b463e74a1bdf75feea">  250</a></span>&#160;    std::string <a class="code" href="classStoreDataSource.html#acf8382b14f2351b463e74a1bdf75feea">getType</a>() {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">type</a>;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;};</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#endif // STOREDATASOURCE_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassStoreDataSource_html_acf8382b14f2351b463e74a1bdf75feea"><div class="ttname"><a href="classStoreDataSource.html#acf8382b14f2351b463e74a1bdf75feea">StoreDataSource::getType</a></div><div class="ttdeci">std::string getType()</div><div class="ttdoc">Retourne le mime-type type.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:250</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a537681e4acf50b73de8e67ea9bc96740"><div class="ttname"><a href="classStoreDataSource.html#a537681e4acf50b73de8e67ea9bc96740">StoreDataSource::getHttpStatus</a></div><div class="ttdeci">int getHttpStatus()</div><div class="ttdoc">Retourne 200.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:226</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a5aca31c8d0871e5da99968b849a4ab74"><div class="ttname"><a href="classStoreDataSource.html#a5aca31c8d0871e5da99968b849a4ab74">StoreDataSource::encoding</a></div><div class="ttdeci">std::string encoding</div><div class="ttdoc">Encodage de la donnée.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:129</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_ae38eba8af5aae9b0d964b5c7c1f7b0ac"><div class="ttname"><a href="classStoreDataSource.html#ae38eba8af5aae9b0d964b5c7c1f7b0ac">StoreDataSource::type</a></div><div class="ttdeci">std::string type</div><div class="ttdoc">Mime-type de la donnée.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:134</div></div>
+<div class="ttc" id="aclassContext_html"><div class="ttname"><a href="classContext.html">Context</a></div><div class="ttdoc">Création d'un contexte de stockage abstrait.</div><div class="ttdef"><b>Definition:</b> Context.h:128</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a402cffc014182180da0194be770937b2"><div class="ttname"><a href="classStoreDataSource.html#a402cffc014182180da0194be770937b2">StoreDataSource::tile_indice</a></div><div class="ttdeci">int tile_indice</div><div class="ttdoc">Numéro de la tuile dans la dalle.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:100</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_abb15937f7d7df0ee23b3e1fb6b8cb382"><div class="ttname"><a href="classStoreDataSource.html#abb15937f7d7df0ee23b3e1fb6b8cb382">StoreDataSource::alreadyTried</a></div><div class="ttdeci">bool alreadyTried</div><div class="ttdoc">A-t-on déjà essayé de lire la donnée.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:119</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a72cdb5a1bebce2e0ca79c292f6e77b24"><div class="ttname"><a href="classStoreDataSource.html#a72cdb5a1bebce2e0ca79c292f6e77b24">StoreDataSource::size</a></div><div class="ttdeci">size_t size</div><div class="ttdoc">Taille utile dans data.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:124</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a7bc02e91e88ca2b2208ba6412ce8c3b1"><div class="ttname"><a href="classStoreDataSource.html#a7bc02e91e88ca2b2208ba6412ce8c3b1">StoreDataSource::StoreDataSource</a></div><div class="ttdeci">StoreDataSource(std::string n, Context *c, const uint32_t o, const uint32_t s, std::string type, std::string encoding=&quot;&quot;)</div><div class="ttdoc">Crée un objet StoreDataSource à lecture partielle générique.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.cpp:61</div></div>
+<div class="ttc" id="aclassStoreDataSource_html"><div class="ttname"><a href="classStoreDataSource.html">StoreDataSource</a></div><div class="ttdoc">Lecture d'une source de données.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:69</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_abfcf83b40b1510f766ad3f1d462ed81a"><div class="ttname"><a href="classStoreDataSource.html#abfcf83b40b1510f766ad3f1d462ed81a">StoreDataSource::releaseData</a></div><div class="ttdeci">bool releaseData()</div><div class="ttdoc">Supprime la donnée mémorisée (data)</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:204</div></div>
+<div class="ttc" id="aclassDataSource_html"><div class="ttname"><a href="classDataSource.html">DataSource</a></div><div class="ttdef"><b>Definition:</b> DataSource.h:55</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a6c87c8e360a594a4631b762e4d2ad6e2"><div class="ttname"><a href="classStoreDataSource.html#a6c87c8e360a594a4631b762e4d2ad6e2">StoreDataSource::context</a></div><div class="ttdeci">Context * context</div><div class="ttdoc">Contexte de stockage d'origine.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:82</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a60aa8046e77d9d887caeca6abd301cfc"><div class="ttname"><a href="classStoreDataSource.html#a60aa8046e77d9d887caeca6abd301cfc">StoreDataSource::getData</a></div><div class="ttdeci">virtual const uint8_t * getData(size_t &amp;tile_size)</div><div class="ttdoc">Récupère la donnée depuis la source.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.cpp:82</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a2fc9e39878a0ebd22db5f0706299e46d"><div class="ttname"><a href="classStoreDataSource.html#a2fc9e39878a0ebd22db5f0706299e46d">StoreDataSource::offset</a></div><div class="ttdeci">uint32_t offset</div><div class="ttdoc">Offset de la donnée voulue.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:88</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_aa0d17b45b6f1e17e8347f6296d45b1c4"><div class="ttname"><a href="classStoreDataSource.html#aa0d17b45b6f1e17e8347f6296d45b1c4">StoreDataSource::getLength</a></div><div class="ttdeci">unsigned int getLength()</div><div class="ttdoc">Retourne la taille des données.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:234</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a566246b1fe0409ae324ce8fa4b1bf10a"><div class="ttname"><a href="classStoreDataSource.html#a566246b1fe0409ae324ce8fa4b1bf10a">StoreDataSource::wanted_size</a></div><div class="ttdeci">uint32_t wanted_size</div><div class="ttdoc">Taille de la donnée voulue.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:93</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a5947427f3bde24e10cf4b463922bb20d"><div class="ttname"><a href="classStoreDataSource.html#a5947427f3bde24e10cf4b463922bb20d">StoreDataSource::tiles_number</a></div><div class="ttdeci">int tiles_number</div><div class="ttdoc">Nombre de tuile dans la dalle.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:105</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a236e3fbd5dacab83f263ec8760dbda8c"><div class="ttname"><a href="classStoreDataSource.html#a236e3fbd5dacab83f263ec8760dbda8c">StoreDataSource::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nom de la source de donnée.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:76</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a1b83d3a53b3a97af6f6b2604c76ce8f7"><div class="ttname"><a href="classStoreDataSource.html#a1b83d3a53b3a97af6f6b2604c76ce8f7">StoreDataSource::data</a></div><div class="ttdeci">uint8_t * data</div><div class="ttdoc">Donnée (tuile) voulue.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:114</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_a749abe8dc106cecc85ae3d2828b9eec5"><div class="ttname"><a href="classStoreDataSource.html#a749abe8dc106cecc85ae3d2828b9eec5">StoreDataSource::~StoreDataSource</a></div><div class="ttdeci">~StoreDataSource()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:218</div></div>
+<div class="ttc" id="aclassStoreDataSource_html_af665c05dfebbff43b7e52631640e2a58"><div class="ttname"><a href="classStoreDataSource.html#af665c05dfebbff43b7e52631640e2a58">StoreDataSource::getEncoding</a></div><div class="ttdeci">std::string getEncoding()</div><div class="ttdoc">Retourne l'encodage encoding.</div><div class="ttdef"><b>Definition:</b> StoreDataSource.h:242</div></div>
+<div class="ttc" id="aContext_8h_html"><div class="ttname"><a href="Context_8h.html">Context.h</a></div><div class="ttdoc">Définition de la classe Context.</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bf8fa666d0c0d2fc6fbcee3ae67ad7b.html">datasource</a></li><li class="navelem"><a class="el" href="StoreDataSource_8h.html">StoreDataSource.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

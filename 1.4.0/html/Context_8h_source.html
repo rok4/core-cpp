@@ -1,0 +1,273 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Context_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Context.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Context_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#ifndef CONTEXT_H</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define CONTEXT_H</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span><span class="comment">// pour uint8_t</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;boost/log/trivial.hpp&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define ROK4_OBJECT_READ_ATTEMPTS &quot;ROK4_OBJECT_READ_ATTEMPTS&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define ROK4_OBJECT_WRITE_ATTEMPTS &quot;ROK4_OBJECT_WRITE_ATTEMPTS&quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#define ROK4_OBJECT_ATTEMPTS_WAIT &quot;ROK4_OBJECT_ATTEMPTS_WAIT&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceContextType.html">ContextType</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">   72</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">eContextType</a> {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    UNKNOWN,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    FILECONTEXT,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    CEPHCONTEXT,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    SWIFTCONTEXT,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    S3CONTEXT</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="namespaceContextType.html#a014a7668271440896441c6f54861302a">   84</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceContextType.html#a014a7668271440896441c6f54861302a">contexttype_size</a> = 4;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">eContextType</a> <a class="code" href="namespaceContextType.html#a52d431f6178a6513330e77f688a37142">fromString</a> ( std::string strct );</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;std::string <a class="code" href="namespaceContextType.html#a6c53322c135b90f6a70a2c796dba06e3">toString</a> ( <a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">eContextType</a> ct );</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceContextType.html#acb981e0da005fe8bd02b8081c6503071">split_path</a>(std::string path, <a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a>&amp; type, std::string&amp; fo, std::string&amp; tray);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="classContext.html">  128</a></span>&#160;<span class="keyword">class </span><a class="code" href="classContext.html">Context</a> {  </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">  136</a></span>&#160;    std::map&lt;std::string, std::vector&lt;char&gt;*&gt; <a class="code" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">writingBuffers</a>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">  142</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">connected</a>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="classContext.html#af86c2cd2adea4efc4489a23699098f73">  148</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classContext.html#af86c2cd2adea4efc4489a23699098f73">read_attempts</a>;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="classContext.html#a51b964db576d4d4309310aac349e10af">  154</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classContext.html#a51b964db576d4d4309310aac349e10af">write_attempts</a>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classContext.html#ae133b65ffe624c24c957fcf344b46f1c">  160</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classContext.html#ae133b65ffe624c24c957fcf344b46f1c">waiting_time</a>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="classContext.html#a652cdcd2eedc8dbd9110bd284c5d5cf0">Context</a> ();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classContext.html#a47442b3592e03df98f950336265aa5cb">  176</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classContext.html#a47442b3592e03df98f950336265aa5cb">setWaitingTime</a> (<span class="keywordtype">int</span> t) {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (t &lt; 0) t = 0;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="classContext.html#ae133b65ffe624c24c957fcf344b46f1c">waiting_time</a> = t;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="classContext.html#ac372f3bfb279e074ae2fc8e121c4fbcd">  185</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classContext.html#ac372f3bfb279e074ae2fc8e121c4fbcd">setReadAttempts</a> (<span class="keywordtype">int</span> a) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">if</span> (a &lt; 1) a = 1;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <a class="code" href="classContext.html#af86c2cd2adea4efc4489a23699098f73">read_attempts</a> = a;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="classContext.html#a52140ee9e77ab10c092e273282f324aa">  194</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classContext.html#a52140ee9e77ab10c092e273282f324aa">setWriteAttempts</a> (<span class="keywordtype">int</span> a) {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordflow">if</span> (a &lt; 1) a = 1;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <a class="code" href="classContext.html#a51b964db576d4d4309310aac349e10af">write_attempts</a> = a;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="classContext.html#aaeeb68335e00c974649bb933d9ee18bf">  203</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classContext.html#aaeeb68335e00c974649bb933d9ee18bf">setAttempts</a> (<span class="keywordtype">int</span> a) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">if</span> (a &lt; 1) a = 1;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <a class="code" href="classContext.html#af86c2cd2adea4efc4489a23699098f73">read_attempts</a> = a;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <a class="code" href="classContext.html#a51b964db576d4d4309310aac349e10af">write_attempts</a> = a;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#aa7b128eab75400261c183c2694f3cdf1">connection</a>() = 0;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#adede03c3037470a3883c618cc124814b">exists</a>(std::string name) = 0;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="classContext.html#aeb97d6a180b57806cbaa5d967ca286d8">  227</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classContext.html#aeb97d6a180b57806cbaa5d967ca286d8">isConnected</a>() {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">connected</a>;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classContext.html#a291686bc8ef877d4b1409d388c21ae5e">read</a>(uint8_t* data, <span class="keywordtype">int</span> offset, <span class="keywordtype">int</span> size, std::string name) = 0;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">virtual</span> uint8_t* <a class="code" href="classContext.html#a9cd3fea94371df69938f1fdbc8451b99">readFull</a>(<span class="keywordtype">int</span>&amp; size, std::string name) = 0;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#a3a5f83d35bb49c39086c9f461897f229">write</a>(uint8_t* data, <span class="keywordtype">int</span> offset, <span class="keywordtype">int</span> size, std::string name) = 0;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#ad3d063b344963fb63412559a302b1bc7">writeFull</a>(uint8_t* data, <span class="keywordtype">int</span> size, std::string name) = 0;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#a3d00f7c1e240e1076e484e3a14a8b581">openToWrite</a>(std::string name) = 0;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classContext.html#af47bd261b4cd0d8bb8c356667fef7d71">closeToWrite</a>(std::string name) = 0;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a> <a class="code" href="classContext.html#abcb3460c520ba5e0ffaa171121fd4c2d">getType</a>() = 0;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classContext.html#a57ebff13cb5e3e0dd0f21ecfef8f4950">getTypeStr</a>() = 0;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classContext.html#a882ff02feb87d1cf5998577bff41258a">getTray</a>() = 0;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classContext.html#a34e132cc8c1e3c543d1f0d1b511db6f6">getPath</a>(std::string racine,<span class="keywordtype">int</span> x,<span class="keywordtype">int</span> y,<span class="keywordtype">int</span> pathDepth = 2) = 0;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classContext.html#a34e132cc8c1e3c543d1f0d1b511db6f6">getPath</a>(std::string name) = 0;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classContext.html#ac88e365a07d576cc0585860b4dec11c2">print</a>() = 0;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classContext.html#a8f68555bb2e622a62ba58e60f7a8a3e9">toString</a>() = 0;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classContext.html#ad83189720d6d42a5578abb5738b9f60f">closeConnection</a>() = 0;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno"><a class="line" href="classContext.html#a8be937c21e267c8d55decced9d1bcf90">  352</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classContext.html#a8be937c21e267c8d55decced9d1bcf90">~Context</a>() {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        std::map&lt;std::string,std::vector&lt;char&gt;*&gt;::iterator it;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keywordflow">for</span> (it = <a class="code" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">writingBuffers</a>.begin(); it != <a class="code" href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">writingBuffers</a>.end(); ++it) {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            <span class="keyword">delete</span> it-&gt;second;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    }</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;};</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="anamespaceContextType_html_acb981e0da005fe8bd02b8081c6503071"><div class="ttname"><a href="namespaceContextType.html#acb981e0da005fe8bd02b8081c6503071">ContextType::split_path</a></div><div class="ttdeci">void split_path(std::string path, ContextType::eContextType &amp;type, std::string &amp;fo, std::string &amp;tray)</div><div class="ttdoc">Connecte le contexte.</div><div class="ttdef"><b>Definition:</b> Context.cpp:81</div></div>
+<div class="ttc" id="aclassContext_html_ad83189720d6d42a5578abb5738b9f60f"><div class="ttname"><a href="classContext.html#ad83189720d6d42a5578abb5738b9f60f">Context::closeConnection</a></div><div class="ttdeci">virtual void closeConnection()=0</div><div class="ttdoc">Déconnecte le contexte.</div></div>
+<div class="ttc" id="aclassContext_html_a47442b3592e03df98f950336265aa5cb"><div class="ttname"><a href="classContext.html#a47442b3592e03df98f950336265aa5cb">Context::setWaitingTime</a></div><div class="ttdeci">void setWaitingTime(int t)</div><div class="ttdoc">Modifie le temps d'attente entre deux tentatives.</div><div class="ttdef"><b>Definition:</b> Context.h:176</div></div>
+<div class="ttc" id="anamespaceContextType_html_a6c53322c135b90f6a70a2c796dba06e3"><div class="ttname"><a href="namespaceContextType.html#a6c53322c135b90f6a70a2c796dba06e3">ContextType::toString</a></div><div class="ttdeci">std::string toString(eContextType ct)</div><div class="ttdoc">Conversion d'un type de contexte vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Context.cpp:67</div></div>
+<div class="ttc" id="aclassContext_html_ac372f3bfb279e074ae2fc8e121c4fbcd"><div class="ttname"><a href="classContext.html#ac372f3bfb279e074ae2fc8e121c4fbcd">Context::setReadAttempts</a></div><div class="ttdeci">void setReadAttempts(int a)</div><div class="ttdoc">Modifie le nombre de tentative pour la lecture.</div><div class="ttdef"><b>Definition:</b> Context.h:185</div></div>
+<div class="ttc" id="aclassContext_html"><div class="ttname"><a href="classContext.html">Context</a></div><div class="ttdoc">Création d'un contexte de stockage abstrait.</div><div class="ttdef"><b>Definition:</b> Context.h:128</div></div>
+<div class="ttc" id="aclassContext_html_a291686bc8ef877d4b1409d388c21ae5e"><div class="ttname"><a href="classContext.html#a291686bc8ef877d4b1409d388c21ae5e">Context::read</a></div><div class="ttdeci">virtual int read(uint8_t *data, int offset, int size, std::string name)=0</div><div class="ttdoc">Récupère la donnée dans l'objet.</div></div>
+<div class="ttc" id="aclassContext_html_a2099d377b9c3242ce5effcfcb4a53f0b"><div class="ttname"><a href="classContext.html#a2099d377b9c3242ce5effcfcb4a53f0b">Context::connected</a></div><div class="ttdeci">bool connected</div><div class="ttdoc">Précise si le contexte est connecté</div><div class="ttdef"><b>Definition:</b> Context.h:142</div></div>
+<div class="ttc" id="aclassContext_html_abcb3460c520ba5e0ffaa171121fd4c2d"><div class="ttname"><a href="classContext.html#abcb3460c520ba5e0ffaa171121fd4c2d">Context::getType</a></div><div class="ttdeci">virtual ContextType::eContextType getType()=0</div><div class="ttdoc">Retourne le type du contexte.</div></div>
+<div class="ttc" id="aclassContext_html_adede03c3037470a3883c618cc124814b"><div class="ttname"><a href="classContext.html#adede03c3037470a3883c618cc124814b">Context::exists</a></div><div class="ttdeci">virtual bool exists(std::string name)=0</div><div class="ttdoc">Précise si l'objet demandé existe dans ce contexte.</div></div>
+<div class="ttc" id="aclassContext_html_a52140ee9e77ab10c092e273282f324aa"><div class="ttname"><a href="classContext.html#a52140ee9e77ab10c092e273282f324aa">Context::setWriteAttempts</a></div><div class="ttdeci">void setWriteAttempts(int a)</div><div class="ttdoc">Modifie le nombre de tentative pour l'écriture.</div><div class="ttdef"><b>Definition:</b> Context.h:194</div></div>
+<div class="ttc" id="aclassContext_html_a51b964db576d4d4309310aac349e10af"><div class="ttname"><a href="classContext.html#a51b964db576d4d4309310aac349e10af">Context::write_attempts</a></div><div class="ttdeci">int write_attempts</div><div class="ttdoc">Nombre de tentatives pour en écriture.</div><div class="ttdef"><b>Definition:</b> Context.h:154</div></div>
+<div class="ttc" id="aclassContext_html_aef0b73a3fb8a28ef96b9c19cd6628d7d"><div class="ttname"><a href="classContext.html#aef0b73a3fb8a28ef96b9c19cd6628d7d">Context::writingBuffers</a></div><div class="ttdeci">std::map&lt; std::string, std::vector&lt; char &gt; * &gt; writingBuffers</div><div class="ttdoc">Buffers pour les écritures différées.</div><div class="ttdef"><b>Definition:</b> Context.h:136</div></div>
+<div class="ttc" id="aclassContext_html_af47bd261b4cd0d8bb8c356667fef7d71"><div class="ttname"><a href="classContext.html#af47bd261b4cd0d8bb8c356667fef7d71">Context::closeToWrite</a></div><div class="ttdeci">virtual bool closeToWrite(std::string name)=0</div><div class="ttdoc">Termine l'écriture d'un objet ou fichier.</div></div>
+<div class="ttc" id="aclassContext_html_a8be937c21e267c8d55decced9d1bcf90"><div class="ttname"><a href="classContext.html#a8be937c21e267c8d55decced9d1bcf90">Context::~Context</a></div><div class="ttdeci">virtual ~Context()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Context.h:352</div></div>
+<div class="ttc" id="aclassContext_html_a882ff02feb87d1cf5998577bff41258a"><div class="ttname"><a href="classContext.html#a882ff02feb87d1cf5998577bff41258a">Context::getTray</a></div><div class="ttdeci">virtual std::string getTray()=0</div><div class="ttdoc">Retourne le contenant dans le contexte.</div></div>
+<div class="ttc" id="aclassContext_html_a3d00f7c1e240e1076e484e3a14a8b581"><div class="ttname"><a href="classContext.html#a3d00f7c1e240e1076e484e3a14a8b581">Context::openToWrite</a></div><div class="ttdeci">virtual bool openToWrite(std::string name)=0</div><div class="ttdoc">Prépare l'objet ou fichier en écriture.</div></div>
+<div class="ttc" id="anamespaceContextType_html_a014a7668271440896441c6f54861302a"><div class="ttname"><a href="namespaceContextType.html#a014a7668271440896441c6f54861302a">ContextType::contexttype_size</a></div><div class="ttdeci">const int contexttype_size</div><div class="ttdoc">Nombre de types de stockage disponibles.</div><div class="ttdef"><b>Definition:</b> Context.h:84</div></div>
+<div class="ttc" id="aclassContext_html_a57ebff13cb5e3e0dd0f21ecfef8f4950"><div class="ttname"><a href="classContext.html#a57ebff13cb5e3e0dd0f21ecfef8f4950">Context::getTypeStr</a></div><div class="ttdeci">virtual std::string getTypeStr()=0</div><div class="ttdoc">Retourne le type du contexte, sous forme de texte.</div></div>
+<div class="ttc" id="aclassContext_html_a9cd3fea94371df69938f1fdbc8451b99"><div class="ttname"><a href="classContext.html#a9cd3fea94371df69938f1fdbc8451b99">Context::readFull</a></div><div class="ttdeci">virtual uint8_t * readFull(int &amp;size, std::string name)=0</div><div class="ttdoc">Récupère l'objet ou fichier en entier.</div></div>
+<div class="ttc" id="aclassContext_html_a652cdcd2eedc8dbd9110bd284c5d5cf0"><div class="ttname"><a href="classContext.html#a652cdcd2eedc8dbd9110bd284c5d5cf0">Context::Context</a></div><div class="ttdeci">Context()</div><div class="ttdoc">Crée un objet Context.</div><div class="ttdef"><b>Definition:</b> Context.cpp:114</div></div>
+<div class="ttc" id="aclassContext_html_aaeeb68335e00c974649bb933d9ee18bf"><div class="ttname"><a href="classContext.html#aaeeb68335e00c974649bb933d9ee18bf">Context::setAttempts</a></div><div class="ttdeci">void setAttempts(int a)</div><div class="ttdoc">Modifie le nombre de tentative pour l'écriture et la lecture.</div><div class="ttdef"><b>Definition:</b> Context.h:203</div></div>
+<div class="ttc" id="aclassContext_html_a3a5f83d35bb49c39086c9f461897f229"><div class="ttname"><a href="classContext.html#a3a5f83d35bb49c39086c9f461897f229">Context::write</a></div><div class="ttdeci">virtual bool write(uint8_t *data, int offset, int size, std::string name)=0</div><div class="ttdoc">Écrit de la donnée dans l'objet ou fichier.</div></div>
+<div class="ttc" id="aclassContext_html_aa7b128eab75400261c183c2694f3cdf1"><div class="ttname"><a href="classContext.html#aa7b128eab75400261c183c2694f3cdf1">Context::connection</a></div><div class="ttdeci">virtual bool connection()=0</div><div class="ttdoc">Connecte le contexte.</div></div>
+<div class="ttc" id="aclassContext_html_a8f68555bb2e622a62ba58e60f7a8a3e9"><div class="ttname"><a href="classContext.html#a8f68555bb2e622a62ba58e60f7a8a3e9">Context::toString</a></div><div class="ttdeci">virtual std::string toString()=0</div><div class="ttdoc">Retourne une chaîne de caracère décrivant le contexte.</div></div>
+<div class="ttc" id="anamespaceContextType_html"><div class="ttname"><a href="namespaceContextType.html">ContextType</a></div><div class="ttdoc">Gestion des informations liées au format de canal.</div><div class="ttdef"><b>Definition:</b> Context.cpp:53</div></div>
+<div class="ttc" id="aclassContext_html_ae133b65ffe624c24c957fcf344b46f1c"><div class="ttname"><a href="classContext.html#ae133b65ffe624c24c957fcf344b46f1c">Context::waiting_time</a></div><div class="ttdeci">int waiting_time</div><div class="ttdoc">Temps d'attente en secondes entre 2 tentatives.</div><div class="ttdef"><b>Definition:</b> Context.h:160</div></div>
+<div class="ttc" id="aclassContext_html_aeb97d6a180b57806cbaa5d967ca286d8"><div class="ttname"><a href="classContext.html#aeb97d6a180b57806cbaa5d967ca286d8">Context::isConnected</a></div><div class="ttdeci">bool isConnected()</div><div class="ttdoc">Précise si le contexte est connecté</div><div class="ttdef"><b>Definition:</b> Context.h:227</div></div>
+<div class="ttc" id="anamespaceContextType_html_a52d431f6178a6513330e77f688a37142"><div class="ttname"><a href="namespaceContextType.html#a52d431f6178a6513330e77f688a37142">ContextType::fromString</a></div><div class="ttdeci">eContextType fromString(std::string strct)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers un type de stockage.</div><div class="ttdef"><b>Definition:</b> Context.cpp:71</div></div>
+<div class="ttc" id="aclassContext_html_ac88e365a07d576cc0585860b4dec11c2"><div class="ttname"><a href="classContext.html#ac88e365a07d576cc0585860b4dec11c2">Context::print</a></div><div class="ttdeci">virtual void print()=0</div><div class="ttdoc">Sortie des informations sur le contexte.</div></div>
+<div class="ttc" id="aclassContext_html_a34e132cc8c1e3c543d1f0d1b511db6f6"><div class="ttname"><a href="classContext.html#a34e132cc8c1e3c543d1f0d1b511db6f6">Context::getPath</a></div><div class="ttdeci">virtual std::string getPath(std::string racine, int x, int y, int pathDepth=2)=0</div><div class="ttdoc">Retourne le chemin pour une tuile X/Y relatif à ce contexte.</div></div>
+<div class="ttc" id="aclassContext_html_af86c2cd2adea4efc4489a23699098f73"><div class="ttname"><a href="classContext.html#af86c2cd2adea4efc4489a23699098f73">Context::read_attempts</a></div><div class="ttdeci">int read_attempts</div><div class="ttdoc">Nombre de tentatives pour en lecture.</div><div class="ttdef"><b>Definition:</b> Context.h:148</div></div>
+<div class="ttc" id="aclassContext_html_ad3d063b344963fb63412559a302b1bc7"><div class="ttname"><a href="classContext.html#ad3d063b344963fb63412559a302b1bc7">Context::writeFull</a></div><div class="ttdeci">virtual bool writeFull(uint8_t *data, int size, std::string name)=0</div><div class="ttdoc">Écrit intégralement un objet ou fichier.</div></div>
+<div class="ttc" id="anamespaceContextType_html_a10d9a049b6f2be134b08b67c1e0df28d"><div class="ttname"><a href="namespaceContextType.html#a10d9a049b6f2be134b08b67c1e0df28d">ContextType::eContextType</a></div><div class="ttdeci">eContextType</div><div class="ttdoc">Énumération des types de contextes.</div><div class="ttdef"><b>Definition:</b> Context.h:72</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_ec233ac035728cd19cd47c0506da3dd1.html">storage</a></li><li class="navelem"><a class="el" href="Context_8h.html">Context.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

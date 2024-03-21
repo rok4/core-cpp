@@ -1,0 +1,13 @@
+<map id="include/rok4/image/Image.h" name="include/rok4/image/Image.h">
+<area shape="rect" id="node1" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="197,5,343,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,76,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="100,95,171,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="195,95,271,121"/>
+<area shape="rect" id="node5" href="$BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="347,169,532,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="277,244,340,271"/>
+<area shape="rect" id="node10" href="$CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="397,95,522,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="546,244,698,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="365,244,423,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="447,244,522,271"/>
+<area shape="rect" id="node11" title=" " alt="" coords="557,169,615,196"/>
+</map>

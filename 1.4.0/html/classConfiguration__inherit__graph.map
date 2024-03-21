@@ -1,0 +1,12 @@
+<map id="Configuration" name="Configuration">
+<area shape="rect" id="node1" title=" " alt="" coords="363,5,472,32"/>
+<area shape="rect" id="node2" href="$classAspect.html" title=" " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" href="$classEstompage.html" title=" " alt="" coords="97,80,191,107"/>
+<area shape="rect" id="node4" href="$classLevel.html" title=" " alt="" coords="215,80,273,107"/>
+<area shape="rect" id="node5" href="$classPalette.html" title=" " alt="" coords="297,80,364,107"/>
+<area shape="rect" id="node6" href="$classPente.html" title=" " alt="" coords="388,80,447,107"/>
+<area shape="rect" id="node7" href="$classPyramid.html" title="Implementation des pyramides Une pyramide est associee a un layer et comporte plusieurs niveaux." alt="" coords="471,80,547,107"/>
+<area shape="rect" id="node8" href="$classStyle.html" title="Gestion des styles (affichages et métadonnées)" alt="" coords="571,80,626,107"/>
+<area shape="rect" id="node9" href="$classTileMatrix.html" title="Gestion d&#39;une matrice de tuiles." alt="" coords="651,80,739,107"/>
+<area shape="rect" id="node10" href="$classTileMatrixSet.html" title="Gestion d&#39;une pyramid de matrices de tuiles." alt="" coords="763,80,872,107"/>
+</map>

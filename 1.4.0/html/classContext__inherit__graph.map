@@ -1,0 +1,7 @@
+<map id="Context" name="Context">
+<area shape="rect" id="node1" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="235,5,308,32"/>
+<area shape="rect" id="node2" href="$classCephPoolContext.html" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node3" href="$classFileContext.html" title="Création d&#39;un contexte File (dossier racine), pour pouvoir récupérer des données stockées sous forme ..." alt="" coords="165,80,261,107"/>
+<area shape="rect" id="node4" href="$classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d..." alt="" coords="285,80,375,107"/>
+<area shape="rect" id="node5" href="$classSwiftContext.html" title="Création d&#39;un contexte Swift (connexion à un cluster + conteneur particulier), pour pouvoir récupérer..." alt="" coords="399,80,504,107"/>
+</map>

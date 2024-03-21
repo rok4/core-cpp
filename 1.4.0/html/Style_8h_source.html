@@ -1,0 +1,336 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Style_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Style.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Style_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">class </span><a class="code" href="classStyle.html">Style</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#ifndef STYLE_H</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define STYLE_H</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="LegendURL_8h.html">rok4/utils/LegendURL.h</a>&quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Keyword_8h.html">rok4/utils/Keyword.h</a>&quot;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &quot;rok4/style/Palette.h&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Pente_8h.html">rok4/style/Pente.h</a>&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Estompage_8h.html">rok4/style/Estompage.h</a>&quot;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Aspect_8h.html">rok4/style/Aspect.h</a>&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Interpolation_8h.html">rok4/enums/Interpolation.h</a>&quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/Configuration.h&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classStyle.html">  112</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStyle.html">Style</a> : <span class="keyword">public</span> <a class="code" href="classConfiguration.html">Configuration</a> {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;private :</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    std::string id;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    std::string identifier;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">bool</span> usableForBroadcast;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    std::vector&lt;std::string&gt; titles;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    std::vector&lt;std::string&gt; abstracts;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    std::vector&lt;Keyword&gt; keywords;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    std::vector&lt;LegendURL&gt; legendURLs;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <a class="code" href="classPalette.html">Palette</a>* palette;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="classPente.html">Pente</a>* pente;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <a class="code" href="classAspect.html">Aspect</a>* aspect;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <a class="code" href="classEstompage.html">Estompage</a>* estompage;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">bool</span> parse(json11::Json&amp; doc, <span class="keywordtype">bool</span> inspire);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="classStyle.html#a1be61dca20723d51345973761477fcae">Style</a> ( std::string path, <span class="keywordtype">bool</span> inspire );</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="classStyle.html#a984ef83d69f251d609d40371f29a087c">  198</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="classStyle.html#a984ef83d69f251d609d40371f29a087c">getId</a>() {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">return</span> id;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0">  210</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0">getIdentifier</a>() {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">return</span> identifier;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="classStyle.html#acc4f976171ae56b08281496a2cc6c71a">  222</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#acc4f976171ae56b08281496a2cc6c71a">isUsableForBroadcast</a>() {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keywordflow">return</span> usableForBroadcast;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    }</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="classStyle.html#ab191c4f2db323f4e2d067a1816fbbf6d">  230</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#ab191c4f2db323f4e2d067a1816fbbf6d">youCan</a> (<span class="keywordtype">int</span> spp) {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">isEstompage</a>() || <a class="code" href="classStyle.html#a0086a1d42518916c198898efc17341dd">isPente</a>() || <a class="code" href="classStyle.html#a0e4616370adee46b096816417f690bfd">isAspect</a>()) {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            <span class="keywordflow">return</span> (spp == 1);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="classStyle.html#ae94220aaebae6cd9332f35a02535a7bc">  242</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStyle.html#ae94220aaebae6cd9332f35a02535a7bc">getChannels</a> (<span class="keywordtype">int</span> origChannels) {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;getColoursMap() &amp;&amp; ! palette-&gt;getColoursMap()-&gt;empty()) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            <span class="keywordflow">if</span> (palette-&gt;isNoAlpha()) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                <span class="keywordflow">return</span> 3;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                <span class="keywordflow">return</span> 4;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">isEstompage</a>() || <a class="code" href="classStyle.html#a0086a1d42518916c198898efc17341dd">isPente</a>() || <a class="code" href="classStyle.html#a0e4616370adee46b096816417f690bfd">isAspect</a>()) {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                <span class="keywordflow">return</span> origChannels;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="classStyle.html#a682823c52582c2854fed84496bf2fc92">  262</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStyle.html#a682823c52582c2854fed84496bf2fc92">getBitsPerSample</a> (<span class="keywordtype">int</span> origBitsPerSample) {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;getColoursMap() &amp;&amp; ! palette-&gt;getColoursMap()-&gt;empty()) {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordflow">return</span> 8;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keywordflow">return</span> origBitsPerSample;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    }</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="classStyle.html#aaa7959e47e0861e8fdacb34397853d21">  274</a></span>&#160;    <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classStyle.html#aaa7959e47e0861e8fdacb34397853d21">getSampleFormat</a> (<a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sf) {</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;getColoursMap() &amp;&amp; ! palette-&gt;getColoursMap()-&gt;empty()) {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            <span class="keywordflow">return</span> SampleFormat::UINT;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            <span class="keywordflow">return</span> sf;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="classStyle.html#ab6bdd69c8d457f07d60a3b5ec2db2380">  286</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classStyle.html#ab6bdd69c8d457f07d60a3b5ec2db2380">getNodata</a> (<span class="keywordtype">int</span>** nodata) {</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;getColoursMap() &amp;&amp; ! palette-&gt;getColoursMap()-&gt;empty()) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <a class="code" href="classColour.html">Colour</a> c = palette-&gt;getColoursMap()-&gt;begin()-&gt;second;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="keywordflow">if</span> (palette-&gt;isNoAlpha()) {</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                (*nodata) = <span class="keyword">new</span> <span class="keywordtype">int</span>[3];</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                (*nodata)[0] = c.r;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                (*nodata)[1] = c.g;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                (*nodata)[2] = c.b;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                <span class="keywordflow">return</span> 3;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                (*nodata) = <span class="keyword">new</span> <span class="keywordtype">int</span>[4];</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                (*nodata)[0] = c.r;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                (*nodata)[1] = c.g;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                (*nodata)[2] = c.b;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                (*nodata)[3] = c.a;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                <span class="keywordflow">return</span> 4;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">isEstompage</a>() || <a class="code" href="classStyle.html#a0086a1d42518916c198898efc17341dd">isPente</a>() || <a class="code" href="classStyle.html#a0e4616370adee46b096816417f690bfd">isAspect</a>()) {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                (*nodata) = <span class="keyword">new</span> <span class="keywordtype">int</span>[1];</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                (*nodata)[0] = 0;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            }</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="classStyle.html#a2bdb7ac7a7fbd8f17f5646cb873d3efa">  318</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#a2bdb7ac7a7fbd8f17f5646cb873d3efa">isIdentity</a> () {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;getColoursMap() &amp;&amp; ! palette-&gt;getColoursMap()-&gt;empty()) {</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        }</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">isEstompage</a>() || <a class="code" href="classStyle.html#a0086a1d42518916c198898efc17341dd">isPente</a>() || <a class="code" href="classStyle.html#a0e4616370adee46b096816417f690bfd">isAspect</a>()) {</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    }</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno"><a class="line" href="classStyle.html#a689bebcb66fa320d9086961025fd5858">  338</a></span>&#160;    <span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code" href="classStyle.html#a689bebcb66fa320d9086961025fd5858">getTitles</a>() {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordflow">return</span> titles;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="classStyle.html#a6e98b600bac12204dd290dea9309c666">  350</a></span>&#160;    <span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code" href="classStyle.html#a6e98b600bac12204dd290dea9309c666">getAbstracts</a>() {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">return</span> abstracts;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    }</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="classStyle.html#ad1903d744563dab18366525589388060">  362</a></span>&#160;    <span class="keyword">inline</span> std::vector&lt;Keyword&gt;* <a class="code" href="classStyle.html#ad1903d744563dab18366525589388060">getKeywords</a>() {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keywordflow">return</span> &amp;keywords;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    }</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="classStyle.html#a9712ee94699502618c4eb93ffe7f78d6">  374</a></span>&#160;    <span class="keyword">inline</span> std::vector&lt;LegendURL&gt; <a class="code" href="classStyle.html#a9712ee94699502618c4eb93ffe7f78d6">getLegendURLs</a>() {</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keywordflow">return</span> legendURLs;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno"><a class="line" href="classStyle.html#a928bb57c56ac3b07c670ad00cdc4e77c">  386</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classPalette.html">Palette</a>* <a class="code" href="classStyle.html#a928bb57c56ac3b07c670ad00cdc4e77c">getPalette</a>() {</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keywordflow">return</span> palette;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    }</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">  398</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">isEstompage</a>() {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keywordflow">return</span> (estompage != 0);</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    }</div>
+<div class="line"><a name="l00407"></a><span class="lineno"><a class="line" href="classStyle.html#aa789c47541a59191a8b9da853555264f">  407</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classEstompage.html">Estompage</a>* <a class="code" href="classStyle.html#aa789c47541a59191a8b9da853555264f">getEstompage</a>() {</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        <span class="keywordflow">return</span> estompage;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    }</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    </div>
+<div class="line"><a name="l00419"></a><span class="lineno"><a class="line" href="classStyle.html#a0086a1d42518916c198898efc17341dd">  419</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#a0086a1d42518916c198898efc17341dd">isPente</a>() {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="keywordflow">return</span> (pente != 0);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
+<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="classStyle.html#a883f5da5d4df543c671d6f7e9587e85f">  428</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classPente.html">Pente</a>* <a class="code" href="classStyle.html#a883f5da5d4df543c671d6f7e9587e85f">getPente</a>() {</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keywordflow">return</span> pente;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="classStyle.html#a0e4616370adee46b096816417f690bfd">  440</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classStyle.html#a0e4616370adee46b096816417f690bfd">isAspect</a>() {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        <span class="keywordflow">return</span> (aspect != 0);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    }</div>
+<div class="line"><a name="l00449"></a><span class="lineno"><a class="line" href="classStyle.html#a0ba97a41a2575bdaa275d3aa18f92823">  449</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classAspect.html">Aspect</a>* <a class="code" href="classStyle.html#a0ba97a41a2575bdaa275d3aa18f92823">getAspect</a>() {</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        <span class="keywordflow">return</span> aspect;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    }</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    </div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    </div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classStyle.html#a7c798ef9b77bc94719542feade497725">~Style</a>();</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;};</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="preprocessor">#endif // STYLE_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassStyle_html_aa789c47541a59191a8b9da853555264f"><div class="ttname"><a href="classStyle.html#aa789c47541a59191a8b9da853555264f">Style::getEstompage</a></div><div class="ttdeci">Estompage * getEstompage()</div><div class="ttdoc">Retourn l'estompage.</div><div class="ttdef"><b>Definition:</b> Style.h:407</div></div>
+<div class="ttc" id="aclassStyle_html_a1be61dca20723d51345973761477fcae"><div class="ttname"><a href="classStyle.html#a1be61dca20723d51345973761477fcae">Style::Style</a></div><div class="ttdeci">Style(std::string path, bool inspire)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> Style.cpp:151</div></div>
+<div class="ttc" id="aclassAspect_html"><div class="ttname"><a href="classAspect.html">Aspect</a></div><div class="ttdef"><b>Definition:</b> Aspect.h:56</div></div>
+<div class="ttc" id="aclassStyle_html_ab6bdd69c8d457f07d60a3b5ec2db2380"><div class="ttname"><a href="classStyle.html#ab6bdd69c8d457f07d60a3b5ec2db2380">Style::getNodata</a></div><div class="ttdeci">int getNodata(int **nodata)</div><div class="ttdoc">Valeur de nodata après style.</div><div class="ttdef"><b>Definition:</b> Style.h:286</div></div>
+<div class="ttc" id="aKeyword_8h_html"><div class="ttname"><a href="Keyword_8h.html">Keyword.h</a></div><div class="ttdoc">Définition de la classe Keyword gérant les mots-clés des documents de capacités.</div></div>
+<div class="ttc" id="aclassEstompage_html"><div class="ttname"><a href="classEstompage.html">Estompage</a></div><div class="ttdef"><b>Definition:</b> Estompage.h:53</div></div>
+<div class="ttc" id="aclassStyle_html_a883f5da5d4df543c671d6f7e9587e85f"><div class="ttname"><a href="classStyle.html#a883f5da5d4df543c671d6f7e9587e85f">Style::getPente</a></div><div class="ttdeci">Pente * getPente()</div><div class="ttdoc">Retourn la pente.</div><div class="ttdef"><b>Definition:</b> Style.h:428</div></div>
+<div class="ttc" id="aclassStyle_html_a928bb57c56ac3b07c670ad00cdc4e77c"><div class="ttname"><a href="classStyle.html#a928bb57c56ac3b07c670ad00cdc4e77c">Style::getPalette</a></div><div class="ttdeci">Palette * getPalette()</div><div class="ttdoc">Retourne la table de correspondance.</div><div class="ttdef"><b>Definition:</b> Style.h:386</div></div>
+<div class="ttc" id="aclassPalette_html"><div class="ttname"><a href="classPalette.html">Palette</a></div><div class="ttdef"><b>Definition:</b> Palette.h:63</div></div>
+<div class="ttc" id="aclassStyle_html_a2bdb7ac7a7fbd8f17f5646cb873d3efa"><div class="ttname"><a href="classStyle.html#a2bdb7ac7a7fbd8f17f5646cb873d3efa">Style::isIdentity</a></div><div class="ttdeci">bool isIdentity()</div><div class="ttdoc">Est ce que le style est une identité</div><div class="ttdef"><b>Definition:</b> Style.h:318</div></div>
+<div class="ttc" id="aclassColour_html"><div class="ttname"><a href="classColour.html">Colour</a></div><div class="ttdef"><b>Definition:</b> Palette.h:48</div></div>
+<div class="ttc" id="aPente_8h_html"><div class="ttname"><a href="Pente_8h.html">Pente.h</a></div><div class="ttdoc">D�finition de la classe Pente.</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format.</div></div>
+<div class="ttc" id="aclassStyle_html_a6e98b600bac12204dd290dea9309c666"><div class="ttname"><a href="classStyle.html#a6e98b600bac12204dd290dea9309c666">Style::getAbstracts</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getAbstracts()</div><div class="ttdoc">Retourne la liste des résumés.</div><div class="ttdef"><b>Definition:</b> Style.h:350</div></div>
+<div class="ttc" id="aclassStyle_html_a682823c52582c2854fed84496bf2fc92"><div class="ttname"><a href="classStyle.html#a682823c52582c2854fed84496bf2fc92">Style::getBitsPerSample</a></div><div class="ttdeci">int getBitsPerSample(int origBitsPerSample)</div><div class="ttdoc">Combien de bits par canal en sortie du style.</div><div class="ttdef"><b>Definition:</b> Style.h:262</div></div>
+<div class="ttc" id="aclassStyle_html_a9712ee94699502618c4eb93ffe7f78d6"><div class="ttname"><a href="classStyle.html#a9712ee94699502618c4eb93ffe7f78d6">Style::getLegendURLs</a></div><div class="ttdeci">std::vector&lt; LegendURL &gt; getLegendURLs()</div><div class="ttdoc">Retourne la liste des légendes.</div><div class="ttdef"><b>Definition:</b> Style.h:374</div></div>
+<div class="ttc" id="aclassStyle_html"><div class="ttname"><a href="classStyle.html">Style</a></div><div class="ttdoc">Gestion des styles (affichages et métadonnées)</div><div class="ttdef"><b>Definition:</b> Style.h:112</div></div>
+<div class="ttc" id="aclassStyle_html_acc4f976171ae56b08281496a2cc6c71a"><div class="ttname"><a href="classStyle.html#acc4f976171ae56b08281496a2cc6c71a">Style::isUsableForBroadcast</a></div><div class="ttdeci">bool isUsableForBroadcast()</div><div class="ttdoc">Précise si le style est utilisable à la diffusion.</div><div class="ttdef"><b>Definition:</b> Style.h:222</div></div>
+<div class="ttc" id="aclassStyle_html_a7c798ef9b77bc94719542feade497725"><div class="ttname"><a href="classStyle.html#a7c798ef9b77bc94719542feade497725">Style::~Style</a></div><div class="ttdeci">virtual ~Style()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> Style.cpp:208</div></div>
+<div class="ttc" id="aclassStyle_html_a0ba97a41a2575bdaa275d3aa18f92823"><div class="ttname"><a href="classStyle.html#a0ba97a41a2575bdaa275d3aa18f92823">Style::getAspect</a></div><div class="ttdeci">Aspect * getAspect()</div><div class="ttdoc">Retourn l'aspect.</div><div class="ttdef"><b>Definition:</b> Style.h:449</div></div>
+<div class="ttc" id="aclassStyle_html_ada06b885b3a4b24565f803455acb88e1"><div class="ttname"><a href="classStyle.html#ada06b885b3a4b24565f803455acb88e1">Style::isEstompage</a></div><div class="ttdeci">bool isEstompage()</div><div class="ttdoc">Détermine si le style décrit un estompage.</div><div class="ttdef"><b>Definition:</b> Style.h:398</div></div>
+<div class="ttc" id="aclassStyle_html_ae94220aaebae6cd9332f35a02535a7bc"><div class="ttname"><a href="classStyle.html#ae94220aaebae6cd9332f35a02535a7bc">Style::getChannels</a></div><div class="ttdeci">int getChannels(int origChannels)</div><div class="ttdoc">Combien de canaux en sortie du style.</div><div class="ttdef"><b>Definition:</b> Style.h:242</div></div>
+<div class="ttc" id="aEstompage_8h_html"><div class="ttname"><a href="Estompage_8h.html">Estompage.h</a></div><div class="ttdoc">Définition de la classe Estompage modélisant l'estompage.</div></div>
+<div class="ttc" id="aclassStyle_html_ad1903d744563dab18366525589388060"><div class="ttname"><a href="classStyle.html#ad1903d744563dab18366525589388060">Style::getKeywords</a></div><div class="ttdeci">std::vector&lt; Keyword &gt; * getKeywords()</div><div class="ttdoc">Retourne la liste des mots-clés.</div><div class="ttdef"><b>Definition:</b> Style.h:362</div></div>
+<div class="ttc" id="aclassStyle_html_ab191c4f2db323f4e2d067a1816fbbf6d"><div class="ttname"><a href="classStyle.html#ab191c4f2db323f4e2d067a1816fbbf6d">Style::youCan</a></div><div class="ttdeci">bool youCan(int spp)</div><div class="ttdoc">L'application du style est-elle possible ?</div><div class="ttdef"><b>Definition:</b> Style.h:230</div></div>
+<div class="ttc" id="aclassStyle_html_af7ea3caec11c2b8b887dbe39b0c501d0"><div class="ttname"><a href="classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0">Style::getIdentifier</a></div><div class="ttdeci">std::string getIdentifier()</div><div class="ttdoc">Retourne l'identifiant public du style.</div><div class="ttdef"><b>Definition:</b> Style.h:210</div></div>
+<div class="ttc" id="aclassStyle_html_aaa7959e47e0861e8fdacb34397853d21"><div class="ttname"><a href="classStyle.html#aaa7959e47e0861e8fdacb34397853d21">Style::getSampleFormat</a></div><div class="ttdeci">SampleFormat::eSampleFormat getSampleFormat(SampleFormat::eSampleFormat sf)</div><div class="ttdoc">Quel format de canal en sortie en sortie du style.</div><div class="ttdef"><b>Definition:</b> Style.h:274</div></div>
+<div class="ttc" id="aInterpolation_8h_html"><div class="ttname"><a href="Interpolation_8h.html">Interpolation.h</a></div><div class="ttdoc">Définition de l'énumération des interpolations disponibles et des conversions.</div></div>
+<div class="ttc" id="aLegendURL_8h_html"><div class="ttname"><a href="LegendURL_8h.html">LegendURL.h</a></div><div class="ttdoc">Définition de la classe LegendURL gérant les éléments de légendes des documents de capacités.</div></div>
+<div class="ttc" id="aclassStyle_html_a689bebcb66fa320d9086961025fd5858"><div class="ttname"><a href="classStyle.html#a689bebcb66fa320d9086961025fd5858">Style::getTitles</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getTitles()</div><div class="ttdoc">Retourne la liste des titres.</div><div class="ttdef"><b>Definition:</b> Style.h:338</div></div>
+<div class="ttc" id="aclassStyle_html_a0e4616370adee46b096816417f690bfd"><div class="ttname"><a href="classStyle.html#a0e4616370adee46b096816417f690bfd">Style::isAspect</a></div><div class="ttdeci">bool isAspect()</div><div class="ttdoc">Return vrai si le style est une exposition.</div><div class="ttdef"><b>Definition:</b> Style.h:440</div></div>
+<div class="ttc" id="aclassConfiguration_html"><div class="ttname"><a href="classConfiguration.html">Configuration</a></div><div class="ttdef"><b>Definition:</b> Configuration.h:49</div></div>
+<div class="ttc" id="aAspect_8h_html"><div class="ttname"><a href="Aspect_8h.html">Aspect.h</a></div><div class="ttdoc">Définition de la classe Aspect.</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:79</div></div>
+<div class="ttc" id="aclassStyle_html_a0086a1d42518916c198898efc17341dd"><div class="ttname"><a href="classStyle.html#a0086a1d42518916c198898efc17341dd">Style::isPente</a></div><div class="ttdeci">bool isPente()</div><div class="ttdoc">Return vrai si le style est une pente.</div><div class="ttdef"><b>Definition:</b> Style.h:419</div></div>
+<div class="ttc" id="aclassPente_html"><div class="ttname"><a href="classPente.html">Pente</a></div><div class="ttdef"><b>Definition:</b> Pente.h:56</div></div>
+<div class="ttc" id="aclassStyle_html_a984ef83d69f251d609d40371f29a087c"><div class="ttname"><a href="classStyle.html#a984ef83d69f251d609d40371f29a087c">Style::getId</a></div><div class="ttdeci">std::string getId()</div><div class="ttdoc">Retourne l'identifiant du style.</div><div class="ttdef"><b>Definition:</b> Style.h:198</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_7fd798f2a1fec1e069bb7af232d890b2.html">style</a></li><li class="navelem"><a class="el" href="Style_8h.html">Style.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

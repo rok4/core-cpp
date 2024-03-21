@@ -1,0 +1,128 @@
+var hierarchy =
+[
+    [ "Attribute", "classAttribute.html", null ],
+    [ "BilzImageFactory", "classBilzImageFactory.html", null ],
+    [ "BoundingBox< T >", "classBoundingBox.html", null ],
+    [ "BoundingBox< double >", "classBoundingBox.html", null ],
+    [ "Colour", "classColour.html", null ],
+    [ "Configuration", "classConfiguration.html", [
+      [ "Aspect", "classAspect.html", null ],
+      [ "Estompage", "classEstompage.html", null ],
+      [ "Level", "classLevel.html", null ],
+      [ "Palette", "classPalette.html", null ],
+      [ "Pente", "classPente.html", null ],
+      [ "Pyramid", "classPyramid.html", null ],
+      [ "Style", "classStyle.html", null ],
+      [ "TileMatrix", "classTileMatrix.html", null ],
+      [ "TileMatrixSet", "classTileMatrixSet.html", null ]
+    ] ],
+    [ "Context", "classContext.html", [
+      [ "CephPoolContext", "classCephPoolContext.html", null ],
+      [ "FileContext", "classFileContext.html", null ],
+      [ "S3Context", "classS3Context.html", null ],
+      [ "SwiftContext", "classSwiftContext.html", null ]
+    ] ],
+    [ "CRS", "classCRS.html", null ],
+    [ "CurlPool", "classCurlPool.html", null ],
+    [ "DataSource", "classDataSource.html", [
+      [ "BufferedDataSource", "classBufferedDataSource.html", null ],
+      [ "DataSourceDecoder< Decoder >", "classDataSourceDecoder.html", null ],
+      [ "PaletteDataSource", "classPaletteDataSource.html", null ],
+      [ "RawDataSource", "classRawDataSource.html", null ],
+      [ "StoreDataSource", "classStoreDataSource.html", null ],
+      [ "TiffHeaderDataSource", "classTiffHeaderDataSource.html", null ]
+    ] ],
+    [ "DataStream", "classDataStream.html", [
+      [ "AscEncoder", "classAscEncoder.html", null ],
+      [ "BilEncoder", "classBilEncoder.html", null ],
+      [ "DataStreamFromDataSource", "classDataStreamFromDataSource.html", null ],
+      [ "JPEGEncoder", "classJPEGEncoder.html", null ],
+      [ "PNGEncoder", "classPNGEncoder.html", null ],
+      [ "RawDataStream", "classRawDataStream.html", null ],
+      [ "TiffEncoder", "classTiffEncoder.html", [
+        [ "TiffDeflateEncoder< T >", "classTiffDeflateEncoder.html", null ],
+        [ "TiffLZWEncoder< T >", "classTiffLZWEncoder.html", null ],
+        [ "TiffPackBitsEncoder< T >", "classTiffPackBitsEncoder.html", null ],
+        [ "TiffRawEncoder< T >", "classTiffRawEncoder.html", null ]
+      ] ]
+    ] ],
+    [ "DataStruct", "structDataStruct.html", null ],
+    [ "DecimatedImageFactory", "classDecimatedImageFactory.html", null ],
+    [ "DeflateDecoder", "structDeflateDecoder.html", null ],
+    [ "ExtendedCompoundImageFactory", "classExtendedCompoundImageFactory.html", null ],
+    [ "FileImageFactory", "classFileImageFactory.html", null ],
+    [ "Grid", "classGrid.html", null ],
+    [ "HeaderStruct", "structHeaderStruct.html", null ],
+    [ "Image", "classImage.html", [
+      [ "AspectImage", "classAspectImage.html", null ],
+      [ "CompoundImage", "classCompoundImage.html", null ],
+      [ "ConvertedChannelsImage", "classConvertedChannelsImage.html", null ],
+      [ "DecimatedImage", "classDecimatedImage.html", null ],
+      [ "EmptyImage", "classEmptyImage.html", null ],
+      [ "EstompageImage", "classEstompageImage.html", null ],
+      [ "ExtendedCompoundImage", "classExtendedCompoundImage.html", null ],
+      [ "ExtendedCompoundMask", "classExtendedCompoundMask.html", null ],
+      [ "FileImage", "classFileImage.html", [
+        [ "BilzImage", "classBilzImage.html", null ],
+        [ "LibjpegImage", "classLibjpegImage.html", null ],
+        [ "LibkakaduImage", "classLibkakaduImage.html", null ],
+        [ "LibopenjpegImage", "classLibopenjpegImage.html", null ],
+        [ "LibpngImage", "classLibpngImage.html", null ],
+        [ "LibtiffImage", "classLibtiffImage.html", null ]
+      ] ],
+      [ "ImageDecoder", "classImageDecoder.html", null ],
+      [ "MergeImage", "classMergeImage.html", null ],
+      [ "MergeMask", "classMergeMask.html", null ],
+      [ "MirrorImage", "classMirrorImage.html", null ],
+      [ "PenteImage", "classPenteImage.html", null ],
+      [ "RawImage", "classRawImage.html", null ],
+      [ "ReprojectedImage", "classReprojectedImage.html", null ],
+      [ "ResampledImage", "classResampledImage.html", null ],
+      [ "Rok4Image", "classRok4Image.html", null ],
+      [ "StyledImage", "classStyledImage.html", null ]
+    ] ],
+    [ "IndexCache", "classIndexCache.html", null ],
+    [ "IndexElement", "classIndexElement.html", null ],
+    [ "InvalidDecoder", "structInvalidDecoder.html", null ],
+    [ "JpegDecoder", "structJpegDecoder.html", null ],
+    [ "kdu_message", null, [
+      [ "kdu_stream_message", "classkdu__stream__message.html", null ]
+    ] ],
+    [ "Kernel", "classKernel.html", [
+      [ "CatRom", "classCatRom.html", null ],
+      [ "Lanczos< s >", "classLanczos.html", null ],
+      [ "Linear", "classLinear.html", null ],
+      [ "NearestNeighbour", "classNearestNeighbour.html", null ]
+    ] ],
+    [ "Keyword", "classKeyword.html", null ],
+    [ "LibjpegImageFactory", "classLibjpegImageFactory.html", null ],
+    [ "LibkakaduImageFactory", "classLibkakaduImageFactory.html", null ],
+    [ "LibopenjpegImageFactory", "classLibopenjpegImageFactory.html", null ],
+    [ "LibpngImageFactory", "classLibpngImageFactory.html", null ],
+    [ "LibtiffImageFactory", "classLibtiffImageFactory.html", null ],
+    [ "Line", "classLine.html", null ],
+    [ "LzwDecoder", "structLzwDecoder.html", null ],
+    [ "lzwDecoder", "classlzwDecoder.html", null ],
+    [ "lzwEncoder", "classlzwEncoder.html", null ],
+    [ "MergeImageFactory", "classMergeImageFactory.html", null ],
+    [ "MirrorImageFactory", "classMirrorImageFactory.html", null ],
+    [ "my_error_mgr", "structmy__error__mgr.html", null ],
+    [ "PackBitsDecoder", "structPackBitsDecoder.html", null ],
+    [ "TiffHeader::param", "structTiffHeader_1_1param.html", null ],
+    [ "PixelConverter", "classPixelConverter.html", null ],
+    [ "pkbDecoder", "classpkbDecoder.html", null ],
+    [ "pkbEncoder", "classpkbEncoder.html", null ],
+    [ "PngDecoder", "structPngDecoder.html", null ],
+    [ "TiffHeader::projParams", "structTiffHeader_1_1projParams.html", null ],
+    [ "ProjPool", "classProjPool.html", null ],
+    [ "ResourceLocator", "classResourceLocator.html", [
+      [ "LegendURL", "classLegendURL.html", null ]
+    ] ],
+    [ "Rok4ImageFactory", "classRok4ImageFactory.html", null ],
+    [ "StoragePool", "classStoragePool.html", null ],
+    [ "StyleBook", "classStyleBook.html", null ],
+    [ "Table", "classTable.html", null ],
+    [ "TiffNodataManager< T >", "classTiffNodataManager.html", null ],
+    [ "TileMatrixLimits", "classTileMatrixLimits.html", null ],
+    [ "TmsBook", "classTmsBook.html", null ]
+];

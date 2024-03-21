@@ -1,0 +1,25 @@
+var classStyle =
+[
+    [ "Style", "classStyle.html#a1be61dca20723d51345973761477fcae", null ],
+    [ "~Style", "classStyle.html#a7c798ef9b77bc94719542feade497725", null ],
+    [ "getAbstracts", "classStyle.html#a6e98b600bac12204dd290dea9309c666", null ],
+    [ "getAspect", "classStyle.html#a0ba97a41a2575bdaa275d3aa18f92823", null ],
+    [ "getBitsPerSample", "classStyle.html#a682823c52582c2854fed84496bf2fc92", null ],
+    [ "getChannels", "classStyle.html#ae94220aaebae6cd9332f35a02535a7bc", null ],
+    [ "getEstompage", "classStyle.html#aa789c47541a59191a8b9da853555264f", null ],
+    [ "getId", "classStyle.html#a984ef83d69f251d609d40371f29a087c", null ],
+    [ "getIdentifier", "classStyle.html#af7ea3caec11c2b8b887dbe39b0c501d0", null ],
+    [ "getKeywords", "classStyle.html#ad1903d744563dab18366525589388060", null ],
+    [ "getLegendURLs", "classStyle.html#a9712ee94699502618c4eb93ffe7f78d6", null ],
+    [ "getNodata", "classStyle.html#ab6bdd69c8d457f07d60a3b5ec2db2380", null ],
+    [ "getPalette", "classStyle.html#a928bb57c56ac3b07c670ad00cdc4e77c", null ],
+    [ "getPente", "classStyle.html#a883f5da5d4df543c671d6f7e9587e85f", null ],
+    [ "getSampleFormat", "classStyle.html#aaa7959e47e0861e8fdacb34397853d21", null ],
+    [ "getTitles", "classStyle.html#a689bebcb66fa320d9086961025fd5858", null ],
+    [ "isAspect", "classStyle.html#a0e4616370adee46b096816417f690bfd", null ],
+    [ "isEstompage", "classStyle.html#ada06b885b3a4b24565f803455acb88e1", null ],
+    [ "isIdentity", "classStyle.html#a2bdb7ac7a7fbd8f17f5646cb873d3efa", null ],
+    [ "isPente", "classStyle.html#a0086a1d42518916c198898efc17341dd", null ],
+    [ "isUsableForBroadcast", "classStyle.html#acc4f976171ae56b08281496a2cc6c71a", null ],
+    [ "youCan", "classStyle.html#ab191c4f2db323f4e2d067a1816fbbf6d", null ]
+];
