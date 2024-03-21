@@ -297,7 +297,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= attempts) {
+    while (attempt <= read_attempts) {
         
         CURLcode res;
         struct curl_slist *list = NULL;
@@ -364,6 +364,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
+            sleep(waiting_time);
             continue;
         }
 
@@ -371,7 +372,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         return chunk.size;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) in the Swift object " << name  << " after " << attempts << " tries" ;
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
     return -1;
 }
 
@@ -389,7 +390,7 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= attempts) {
+    while (attempt <= read_attempts) {
         
         CURLcode res;
         struct curl_slist *list = NULL;
@@ -448,6 +449,7 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
+            sleep(waiting_time);
             continue;
         }
 
@@ -456,6 +458,8 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
         memcpy(data, chunk.data, chunk.size);
         return data;
     }
+
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to full read Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
 
     return NULL;
 }
@@ -541,7 +545,7 @@ bool SwiftContext::closeToWrite(std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= attempts) {
+    while (attempt <= write_attempts) {
         CURLcode res;
         struct curl_slist *list = NULL;
         CURL* curl = CurlPool::getCurlEnv();
@@ -566,9 +570,11 @@ bool SwiftContext::closeToWrite(std::string name) {
         curl_slist_free_all(list);
 
         if( CURLE_OK != res) {
-            BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the Swift object " << name ;
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-            return false;
+            attempt++;
+            sleep(waiting_time);
+            continue;
         }
 
         long http_code = 0;
@@ -595,6 +601,7 @@ bool SwiftContext::closeToWrite(std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
+            sleep(waiting_time);
             continue;
         }
 
@@ -604,7 +611,7 @@ bool SwiftContext::closeToWrite(std::string name) {
         return true;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the Swift object " << name << " after " << attempts << " tries" ;
+    BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the Swift object " << name << " after " << write_attempts << " tries" ;
 
     return false;
 }

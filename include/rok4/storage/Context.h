@@ -55,6 +55,10 @@
 #include <string.h>
 #include <sstream>
 
+#define ROK4_OBJECT_READ_ATTEMPTS "ROK4_OBJECT_READ_ATTEMPTS"
+#define ROK4_OBJECT_WRITE_ATTEMPTS "ROK4_OBJECT_WRITE_ATTEMPTS"
+#define ROK4_OBJECT_ATTEMPTS_WAIT "ROK4_OBJECT_ATTEMPTS_WAIT"
+
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french \brief Gestion des informations liées au format de canal
@@ -138,26 +142,68 @@ protected:
     bool connected;
 
     /**
-     * \~french \brief Nombre de tentatives pour en lecture ou écriture
-     * \~english \brief Attempts number to read or write
+     * \~french \brief Nombre de tentatives pour en lecture
+     * \~english \brief Attempts number to read
      */
-    int attempts;
+    int read_attempts;
+
+    /**
+     * \~french \brief Nombre de tentatives pour en écriture
+     * \~english \brief Attempts number to write
+     */
+    int write_attempts;
+
+    /**
+     * \~french \brief Temps d'attente en secondes entre 2 tentatives
+     * \~english \brief Waiting time, in seconds between two attempts
+     */
+    int waiting_time;
 
     /**
      * \~french \brief Crée un objet Context
      * \~english \brief Create a Context object
      */
-    Context () : connected(false), attempts(1) {  }
+    Context ();
 
 public:
 
     /**
-     * \~french \brief Modifie le nombre de tentative
-     * \~english \brief Change attempts number
+     * \~french \brief Modifie le temps d'attente entre deux tentatives
+     * \param[in] t Temps en secondes
+     * \~english \brief Change waiting time between two attempts
+     * \param[in] t Time, in seconds
+     */
+    void setWaitingTime (int t) {
+        if (t < 0) t = 0;
+        waiting_time = t;
+    }
+
+    /**
+     * \~french \brief Modifie le nombre de tentative pour la lecture
+     * \~english \brief Change attempts number for readings
+     */
+    void setReadAttempts (int a) {
+        if (a < 1) a = 1;
+        read_attempts = a;
+    }
+
+    /**
+     * \~french \brief Modifie le nombre de tentative pour l'écriture
+     * \~english \brief Change attempts number for writtings
+     */
+    void setWriteAttempts (int a) {
+        if (a < 1) a = 1;
+        write_attempts = a;
+    }
+
+    /**
+     * \~french \brief Modifie le nombre de tentative pour l'écriture et la lecture
+     * \~english \brief Change attempts number for writtings and readings
      */
     void setAttempts (int a) {
         if (a < 1) a = 1;
-        attempts = a;
+        read_attempts = a;
+        write_attempts = a;
     }
 
     /**
