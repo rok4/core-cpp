@@ -91,7 +91,7 @@ private:
      * \~french \brief Format des tuiles
      * \~english \brief Format of the tiles
      */
-    Rok4Format::eformat_data format;
+    Rok4Format::eFormat format;
 
     /**
      * \~french \brief Référence au niveau le plus haut
@@ -223,7 +223,7 @@ public:
      * \~english \brief Get the format
      * \return format
      */
-    Rok4Format::eformat_data getFormat() ;
+    Rok4Format::eFormat getFormat() ;
 
     /**
      * \~french \brief Destructeur
@@ -270,14 +270,6 @@ public:
      * \~english \brief Return the first noData value
      */
     int getFirstnodataValue ();
-
-    /**
-     * \~french \brief Récupère le nombre de bits par sample
-     * \return format
-     * \~english \brief Get the number of bits per sample
-     * \return format
-     */
-    int getBitsPerSample();
 
     /**
      * \~french \brief Récupère le nombre de canaux d'une tuile

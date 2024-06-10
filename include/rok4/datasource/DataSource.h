@@ -176,17 +176,6 @@ private:
     std::string encoding;
     unsigned int length;
 public:
-     /**
-     * Constructeur.
-     */
-    RawDataSource ( uint8_t *dat, size_t dataS, std::string t, std::string e, unsigned int l){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
-        type = t;
-        encoding = e;
-        length = l;
-    }
     
     /**
      * Constructeur.

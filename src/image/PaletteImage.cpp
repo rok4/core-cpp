@@ -35,57 +35,60 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#include "image/StyledImage.h"
+#include "image/PaletteImage.h"
 
 #include <boost/log/trivial.hpp>
 
-int StyledImage::getline ( float* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && palette->getColoursMap() && !palette->getColoursMap()->empty() ) {
+int PaletteImage::getline ( float* buffer, int line ) {
+    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
+    } else {
+        return origImage->getline ( buffer, line );
     }
-
-    //Styled image do not translate to float
-    return origImage->getline ( buffer, line );
 }
 
-int StyledImage::getline ( uint16_t* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && palette->getColoursMap() && !palette->getColoursMap()->empty() ) {
+int PaletteImage::getline ( uint16_t* buffer, int line ) {
+    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
+    } else {
+        return origImage->getline ( buffer, line );
     }
-
-    //Styled image do not translate to uint16_t
-    return origImage->getline ( buffer, line );
 }
 
-int StyledImage::getline ( uint8_t* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && palette->getColoursMap() && !palette->getColoursMap()->empty() ) {
+int PaletteImage::getline ( uint8_t* buffer, int line ) {
+    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
+    } else {
+        return origImage->getline ( buffer, line );
     }
-
-    return origImage->getline ( buffer, line );
 }
 
-StyledImage::StyledImage ( Image* image, int expectedChannels, Palette* palette ) : Image ( image->getWidth(), image->getHeight(), expectedChannels, image->getBbox() ), origImage ( image ), palette ( palette ) {
-    if ( !this->palette->getColoursMap()->empty() ) {
-        channels = expectedChannels;
+PaletteImage::PaletteImage ( Image* image, Palette* palette ) : Image ( image->getWidth(), image->getHeight(), 1, image->getBbox() ), origImage ( image ), palette ( palette ) {
+    // Il n'y aura application de la palette et modification des canaux que si
+    // - la palette n'est pas vide
+    // - l'image source est sur un canal
+    if ( origImage->getChannels() == 1 && ! this->palette->is_empty() ) {
+        if (this->palette->is_no_alpha()) {
+            channels = 3;
+        } else {
+            channels = 4;
+        }
     } else {
         channels = image->getChannels();
     }
 }
 
-StyledImage::~StyledImage() {
+PaletteImage::~PaletteImage() {
     delete origImage;
 }
 
 template<typename T>
-int StyledImage::_getline ( T* buffer, int line ) {
+int PaletteImage::_getline ( T* buffer, int line ) {
     float* source = new float[origImage->getWidth() * origImage->getChannels()];
     origImage->getline ( source, line );
-    //TODO Optimize It
-    int i = 0;
     switch ( channels ) {
     case 4:
-        for ( ; i < origImage->getWidth() ; i++ ) {
+        for (int i = 0; i < origImage->getWidth() ; i++ ) {
             Colour iColour = palette->getColour ( * ( source+i ) );
             * ( buffer+i*4 ) = (T) iColour.r;
             * ( buffer+i*4+1 ) = (T) iColour.g;
@@ -93,7 +96,7 @@ int StyledImage::_getline ( T* buffer, int line ) {
             * ( buffer+i*4+3 ) = (T) iColour.a;
         }
     case 3:
-        for ( ; i < origImage->getWidth() ; i++ ) {
+        for (int i = 0; i < origImage->getWidth() ; i++ ) {
             Colour iColour = palette->getColour ( * ( source+i ) );
             * ( buffer+i*3 ) = (T) iColour.r;
             * ( buffer+i*3+1 ) = (T) iColour.g;

@@ -106,7 +106,6 @@ protected:
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] pngData image complète, dans un tableau
@@ -120,31 +119,17 @@ protected:
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] pngData whole image, in an array
      */
     LibpngImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
         png_bytep* pngData
     );
 
 public:
-    
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 1 && sf == SampleFormat::UINT ) ||
-            ( bps == 2 && sf == SampleFormat::UINT ) ||
-            ( bps == 4 && sf == SampleFormat::UINT ) ||
-            ( bps == 8 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return false;
-    }
 
     int getline ( uint8_t* buffer, int line );
     int getline ( uint16_t* buffer, int line );

@@ -158,7 +158,7 @@ FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< 
 /* ----- Pour l'écriture ----- */
 FileImage* FileImageFactory::createImageToWrite (
     std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression ) {
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression ) {
 
     // Récupération de l'extension du fichier
     const char * pch;
@@ -171,7 +171,7 @@ FileImage* FileImageFactory::createImageToWrite (
         LibtiffImageFactory LTIF;
         return LTIF.createLibtiffImageToWrite (
             name, bbox, resx, resy, width, height, channels,
-            sampleformat, bitspersample, photometric, compression, 16
+            sampleformat, photometric, compression, 16
         );
     }
     
@@ -183,7 +183,7 @@ FileImage* FileImageFactory::createImageToWrite (
         LibtiffImageFactory LTIF;
         return LTIF.createLibtiffImageToWrite (
             name, bbox, resx, resy, width, height, channels,
-            sampleformat, bitspersample, photometric, compression, 16
+            sampleformat, photometric, compression, 16
         );
     }
 
@@ -200,13 +200,13 @@ FileImage* FileImageFactory::createImageToWrite (
 
 FileImage::FileImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample esType ) :
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample esType ) :
 
     Image ( width,height,channels,resx,resy,bbox ),
-    sampleformat ( sampleformat ), bitspersample ( bitspersample ), photometric ( photometric ), compression ( compression ),
+    sampleformat ( sampleformat ), photometric ( photometric ), compression ( compression ),
     esType(esType), filename(name) {
 
-    pixelSize = bitspersample * channels / 8;
+    pixelSize = SampleFormat::getBitsPerSample(sampleformat) * channels / 8;
     converter = NULL;
 }
 

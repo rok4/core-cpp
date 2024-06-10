@@ -150,7 +150,6 @@ protected:
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] tiff interface de la librairie TIFF entre le fichier et l'objet
@@ -166,7 +165,6 @@ protected:
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] tiff interface between file and object
@@ -175,7 +173,7 @@ protected:
      */
     LibtiffImage (
         int width, int height, double resx, double resy, int ch, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
         Compression::eCompression compression, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
     );
     
@@ -226,23 +224,6 @@ protected:
 
 public:
     
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT ) ||
-            ( bps == 8 && sf == SampleFormat::UINT ) ||
-            ( bps == 1 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 8 && sf == SampleFormat::UINT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT )
-        );
-    }
-
     int getline ( uint8_t* buffer, int line );
     int getline ( uint16_t *buffer, int line );
     int getline ( float* buffer, int line );
@@ -382,7 +363,6 @@ public:
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométie des données
      * \param[in] compression compression des données
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
@@ -400,7 +380,6 @@ public:
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] rowsperstrip data buffering size, in line number
@@ -408,7 +387,7 @@ public:
      */
     LibtiffImage* createLibtiffImageToWrite (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
         Compression::eCompression compression, uint16_t rowsperstrip = 16
     );
 };

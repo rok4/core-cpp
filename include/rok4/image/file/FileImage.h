@@ -108,11 +108,6 @@ protected:
      * \~english \brief Sample format
      */
     SampleFormat::eSampleFormat sampleformat;
-    /**
-     * \~french \brief Nombre de bits par canal
-     * \~english \brief Number of bits per sample
-     */
-    int bitspersample;
     
     /**
      * \~french \brief Taille d'un pixel en octet
@@ -137,7 +132,6 @@ protected:
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] esType type du canal supplémentaire, si présent.
@@ -151,14 +145,13 @@ protected:
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] esType extra sample type
      */
     FileImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
         ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
     );
 
@@ -338,18 +331,6 @@ public:
         if (converter) return converter->getSampleFormat();
         return sampleformat;
     }
-    /**
-     * \~french
-     * \brief Retourne le nombre de bits par canal
-     * \return nombre de bits par canal
-     * \~english
-     * \brief Return number of bits per sample
-     * \return number of bits per sample
-     */
-    int getBitsPerSample() {
-        if (converter) return converter->getBitsPerSample();
-        return bitspersample;
-    }
 
     /**
      * \~french
@@ -371,7 +352,7 @@ public:
      * \brief Return the pixel's byte size
      */
     int getPixelSize () {
-        if (converter) return converter->getBitsPerSample() * converter->getSamplesPerPixel() / 8;
+        if (converter) return converter->getPixelSize();
         return pixelSize;
     }
 
@@ -382,16 +363,15 @@ public:
      * \li Lors de la demande du format de l'image, on retournera celui post conversion
      * \li Lors de la lecture d'une ligne, la conversion sera faite de manière transparente pour l'utilisateur de la FileImage
      * \param[in] osf Format du canal voulu en sortie
-     * \param[in] obps Nombre de bits par canal voulu en sortie
      * \param[in] ospp Nombre de canaux voulu en sortie
      * \return Vrai si pas de conversion ou conversion possible, faux sinon
      */
-    bool addConverter(SampleFormat::eSampleFormat osf, int obps, int ospp) {
+    bool addConverter(SampleFormat::eSampleFormat osf, int ospp) {
 
         // Si il n'y a pas besoin de conversion, on évite d'en mettre une
-        if (sampleformat == osf && bitspersample == obps && channels == ospp) return true;
+        if (sampleformat == osf && channels == ospp) return true;
 
-        converter = new PixelConverter(width, sampleformat, bitspersample, channels, osf, obps, ospp);
+        converter = new PixelConverter(width, sampleformat, channels, osf, ospp);
 
         return converter->youCan();
     }
@@ -416,15 +396,13 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- File name : " << filename ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Compression : " << Compression::toString ( compression ) ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Photometric : " << Photometric::toString ( photometric ) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Bits per sample : " << bitspersample ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Sample format : " << SampleFormat::toString ( sampleformat ) ;
         if (esType == ExtraSample::ALPHA_ASSOC) BOOST_LOG_TRIVIAL(info) <<  "\t- Alpha have to be unassociated";
         if (converter) {
             BOOST_LOG_TRIVIAL(info) <<  "\tWith pixel converter: " ;
             BOOST_LOG_TRIVIAL(info) <<  "\t\tSample format: " << SampleFormat::toString(converter->getSampleFormat()) ;
-            BOOST_LOG_TRIVIAL(info) <<  "\t\tBits per sample: " << converter->getBitsPerSample() ;
             BOOST_LOG_TRIVIAL(info) <<  "\t\tSamples per pixel: " << converter->getSamplesPerPixel() ;
-            BOOST_LOG_TRIVIAL(info) <<  "\t\tPixel size: " << converter->getBitsPerSample() * converter->getSamplesPerPixel() / 8 ;
+            BOOST_LOG_TRIVIAL(info) <<  "\t\tPixel size: " << converter->getPixelSize();
         }
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
@@ -467,7 +445,6 @@ public:
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométie des données
      * \param[in] compression compression des données
      * \return un pointeur d'objet d'une classe fille de FileImage, NULL en cas d'erreur
@@ -482,14 +459,13 @@ public:
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \return a FileImage's child class object pointer, NULL if error
      */
     FileImage* createImageToWrite (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height,
-        int channels, SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression
+        int channels, SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression
     );
 
 };

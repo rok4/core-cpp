@@ -71,7 +71,7 @@ private:
     int pathDepth;        //used only for file context
 
     // Format de stockage
-    Rok4Format::eformat_data format; //format d'image des tuiles
+    Rok4Format::eFormat format; //format d'image des tuiles
     uint32_t tilesPerWidth;   //nombre de tuiles par dalle dans le sens de la largeur
     uint32_t tilesPerHeight;  //nombre de tuiles par dalle dans le sens de la hauteur
 
@@ -105,7 +105,7 @@ public:
 
 
     TileMatrix* getTm() ;
-    Rok4Format::eformat_data getFormat() ;
+    Rok4Format::eFormat getFormat() ;
     int getChannels() ;
 
     TileMatrixLimits getTileLimits() ;

@@ -66,42 +66,11 @@ bool Colour::operator!= ( const Colour& other ) const {
     return ! ( *this == other );
 }
 
-
-
 Palette::Palette() : pngPaletteInitialised ( false ), rgbContinuous ( false ), alphaContinuous ( false ), noAlpha( false ) {
     pngPaletteSize = 0;
     pngPalette = NULL;
 }
 
-Palette::Palette ( size_t pngPaletteSize, uint8_t* pngPaletteData )  : pngPaletteSize ( pngPaletteSize ) ,pngPaletteInitialised ( true ), rgbContinuous ( false ), alphaContinuous ( false ), noAlpha( false ) {
-    pngPalette = new uint8_t[pngPaletteSize];
-    memcpy ( pngPalette,pngPaletteData,pngPaletteSize );
-    BOOST_LOG_TRIVIAL(debug) <<  "Constructor ColourMapSize " << coloursMap.size() ;
-}
-
-
-
-Palette::Palette ( const Palette& pal ) : pngPaletteSize ( 0 ) {
-
-    pngPaletteInitialised = pal.pngPaletteInitialised;
-    pngPaletteSize = pal.pngPaletteSize;
-    rgbContinuous = pal.rgbContinuous;
-    alphaContinuous = pal.alphaContinuous;
-    coloursMap = pal.coloursMap;
-    noAlpha = pal.noAlpha;
-    if ( pngPaletteSize !=0 ) {
-        pngPalette = new uint8_t[pngPaletteSize];
-        memcpy ( pngPalette,pal.pngPalette,pngPaletteSize );
-    } else {
-        pngPalette = NULL;
-    }
-    BOOST_LOG_TRIVIAL(debug) <<  "Constructor ColourMapSize " << coloursMap.size() ;
-}
-
-
-/**
- *
- */
 Palette::Palette ( json11::Json doc ) : Configuration(), pngPaletteSize ( 0 ) ,pngPalette ( NULL ) ,pngPaletteInitialised ( false ) {
 
     if (! doc.is_object()) {

@@ -78,8 +78,9 @@ namespace SampleFormat {
  */
 enum eSampleFormat {
     UNKNOWN = 0,
-    UINT = 1,
-    FLOAT = 2
+    UINT8 = 1,
+    UINT16 = 2,
+    FLOAT32 = 3
 };
 
 /**
@@ -107,6 +108,14 @@ eSampleFormat fromString ( std::string strSf );
  * \return string namming the sample format
  */
 std::string toString ( eSampleFormat sf );
+
+/**
+ * \~french \brief Donne le nombre de bits par canal du format
+ * \param[in] format format à connaître
+ * \~english \brief Precise format's bits per sample
+ * \param[in] format format to know
+ */
+int getBitsPerSample ( eSampleFormat format );
 
 }
 
@@ -276,7 +285,7 @@ namespace Rok4Format {
  * \~french \brief Énumération des formats d'images disponibles
  * \~english \brief Available images formats enumeration
  */
-enum eformat_data {
+enum eFormat {
     UNKNOWN = 0,
 
     TIFF_RAW_UINT8 = 1,
@@ -309,7 +318,7 @@ const int eformat_size = 12;
  * \param[in] strFormat string to convert
  * \return the binding format, UNKNOWN (0) if string is not recognized
  */
-eformat_data fromString ( std::string strFormat );
+eFormat fromString ( std::string strFormat );
 
 
 /**
@@ -318,7 +327,7 @@ eformat_data fromString ( std::string strFormat );
  * \~english \brief Say if a format is raster format
  * \param[in] format format to know
  */
-bool isRaster ( eformat_data format );
+bool isRaster ( eFormat format );
 
 /**
  * \~french \brief Donne la compression du format
@@ -326,7 +335,7 @@ bool isRaster ( eformat_data format );
  * \~english \brief Precise format's compression
  * \param[in] format format to know
  */
-Compression::eCompression getCompression ( eformat_data format );
+Compression::eCompression getCompression ( eFormat format );
 
 /**
  * \~french \brief Donne le format des canaux du format
@@ -334,15 +343,15 @@ Compression::eCompression getCompression ( eformat_data format );
  * \~english \brief Precise format's sample format
  * \param[in] format format to know
  */
-SampleFormat::eSampleFormat getSampleFormat ( eformat_data format );
+SampleFormat::eSampleFormat getSampleFormat ( eFormat format );
 
 /**
- * \~french \brief Donne la le nombre de bits par canal du format
+ * \~french \brief Donne le nombre de bits par canal du format
  * \param[in] format format à connaître
  * \~english \brief Precise format's bits per sample
  * \param[in] format format to know
  */
-int getBitsPerSample ( eformat_data format );
+int getBitsPerSample ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère
@@ -352,7 +361,7 @@ int getBitsPerSample ( eformat_data format );
  * \param[in] format format to convert
  * \return string namming the format
  */
-std::string toString ( eformat_data format );
+std::string toString ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (type MIME)
@@ -362,7 +371,7 @@ std::string toString ( eformat_data format );
  * \param[in] format format to convert
  * \return MIME type of the format
  */
-std::string toMimeType ( eformat_data format );
+std::string toMimeType ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (extension)
@@ -372,7 +381,7 @@ std::string toMimeType ( eformat_data format );
  * \param[in] format format to convert
  * \return extension of the format
  */
-std::string toExtension ( eformat_data format );
+std::string toExtension ( eFormat format );
 
 /**
  * \~french \brief Conversion d'une chaîne de caractère (type MIME) vers un format
@@ -382,11 +391,11 @@ std::string toExtension ( eformat_data format );
  * \param[in] MIME type of the format
  * \return format format
  */
-eformat_data fromMimeType ( std::string mime );
+eFormat fromMimeType ( std::string mime );
 
-std::string toEncoding ( eformat_data format );
+std::string toEncoding ( eFormat format );
 
-int getChannelSize ( eformat_data format );
+int getChannelSize ( eFormat format );
 
 }
 

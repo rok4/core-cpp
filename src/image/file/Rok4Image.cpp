@@ -118,22 +118,25 @@ static const uint8_t white[4] = {255,255,255,255};
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
 
-static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf ) {
-    switch ( sf ) {
-    case SAMPLEFORMAT_UINT :
-        return SampleFormat::UINT;
-    case SAMPLEFORMAT_IEEEFP :
-        return SampleFormat::FLOAT;
-    default :
+static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf, int bps ) {
+    if (sf == SAMPLEFORMAT_UINT && bps == 8) {
+        return SampleFormat::UINT8;
+    } else if (sf == SAMPLEFORMAT_UINT && bps == 16) {
+        return SampleFormat::UINT16;
+    } else if (sf == SAMPLEFORMAT_IEEEFP && bps == 32) {
+        return SampleFormat::FLOAT32;
+    } else {
         return SampleFormat::UNKNOWN;
     }
 }
 
 static uint16_t fromROK4SampleFormat ( SampleFormat::eSampleFormat sf ) {
     switch ( sf ) {
-    case SampleFormat::UINT :
+    case SampleFormat::UINT8 :
         return SAMPLEFORMAT_UINT;
-    case SampleFormat::FLOAT :
+    case SampleFormat::UINT16 :
+        return SAMPLEFORMAT_UINT;
+    case SampleFormat::FLOAT32 :
         return SAMPLEFORMAT_IEEEFP;
     default :
         return 0;
@@ -365,9 +368,8 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
     
     /********************** CONTROLES **************************/
 
-    if ( ! Rok4Image::canRead ( bitspersample, toROK4SampleFormat ( sf ) ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( toROK4SampleFormat ( sf ) ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << name ;
+    if ( toROK4SampleFormat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : format (" << sf << ") and " << bitspersample << " bits per sample" <<  " for the image to read : " << name ;
         return NULL;
     }
 
@@ -384,7 +386,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
 
     Rok4Image* ri = new Rok4Image (
         width, height, resx, resy, channels, bbox, name,
-        toROK4SampleFormat( sf ), bitspersample, toROK4Photometric ( ph ), toROK4Compression ( comp ), es,
+        toROK4SampleFormat( sf, bitspersample ), toROK4Photometric ( ph ), toROK4Compression ( comp ), es,
         tileWidth, tileHeight, c
     );
 
@@ -398,7 +400,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToRead ( std::string name, BoundingB
 
 Rok4Image* Rok4ImageFactory::createRok4ImageToWrite (
     std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
     Compression::eCompression compression, int tileWidth, int tileHeight, Context* c  ) {
 
     if (width % tileWidth != 0 || height % tileHeight != 0) {
@@ -412,7 +414,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToWrite (
             return NULL;
         }
 
-        if (sampleformat != SampleFormat::UINT || bitspersample != 8) {
+        if (sampleformat != SampleFormat::UINT8) {
             BOOST_LOG_TRIVIAL(error) << "JPEG compression just handle 8-bits integer samples";
             return NULL;
         }
@@ -425,16 +427,10 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToWrite (
         photometric = Photometric::RGB;
 
     if (compression == Compression::PNG) {
-        if (sampleformat != SampleFormat::UINT || bitspersample != 8) {
+        if (sampleformat != SampleFormat::UINT8) {
             BOOST_LOG_TRIVIAL(error) << "PNG compression just handle 8-bits integer samples";
             return NULL;
         }
-    }
-    
-    if ( ! Rok4Image::canWrite ( bitspersample, sampleformat ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( sampleformat ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to write : " << name ;
-        return NULL;
     }
     
     if ( resx > 0 && resy > 0 ) {
@@ -450,7 +446,7 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToWrite (
 
     return new Rok4Image (
         width, height, resx, resy, channels, bbox, name,
-        sampleformat, bitspersample, photometric, compression, ExtraSample::ALPHA_UNASSOC, tileWidth, tileHeight, c
+        sampleformat, photometric, compression, ExtraSample::ALPHA_UNASSOC, tileWidth, tileHeight, c
     );
 
 
@@ -468,16 +464,16 @@ Rok4Image* Rok4ImageFactory::createRok4ImageToWrite (
 
 Rok4Image::Rok4Image (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string n,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
     Compression::eCompression compression, ExtraSample::eExtraSample es, int tileWidth, int tileHeight, Context* c ) :
 
     Image ( width, height, channels, resx, resy, bbox),
-    isVector(false), sampleformat ( sampleformat ), bitspersample ( bitspersample ), photometric ( photometric ), compression ( compression ), esType(es),
+    isVector(false), sampleformat ( sampleformat ), photometric ( photometric ), compression ( compression ), esType(es),
     tileWidth (tileWidth), tileHeight(tileHeight), context(c)
 {
 
     name = n;
-    pixelSize = bitspersample * channels / 8;
+    pixelSize = SampleFormat::getBitsPerSample(sampleformat) * channels / 8;
 
     tileWidthwise = width/tileWidth;
     tileHeightwise = height/tileHeight;
@@ -499,7 +495,7 @@ Rok4Image::Rok4Image ( std::string n, int tpw, int tph, Context* c ) :
 
     Image ( 1, 1, 0, 1.0, 1.0, BoundingBox<double> ( 0.0, 0.0, 1.0, 1.0 )),
     isVector ( true ), context(c),
-    sampleformat ( SampleFormat::UNKNOWN ), bitspersample ( 0 ), photometric ( Photometric::UNKNOWN ), 
+    sampleformat ( SampleFormat::UNKNOWN ), photometric ( Photometric::UNKNOWN ), 
     compression ( Compression::UNKNOWN ), esType(ExtraSample::UNKNOWN),
     tileWidth (tileWidth), tileHeight(tileHeight)
 {
@@ -644,7 +640,7 @@ int Rok4Image::getline ( uint8_t* buffer, int line ) {
 
 int Rok4Image::getline ( uint16_t* buffer, int line ) {
     
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en entiers 16 bits mais l'image lue est sur des entiers 8 bits
         // On convertit
         uint8_t* buffer_t = new uint8_t[width*channels];
@@ -654,9 +650,9 @@ int Rok4Image::getline ( uint16_t* buffer, int line ) {
         convert ( buffer,buffer_t,width*channels );
         delete [] buffer_t;
         return width * channels;
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) {
+    } else if ( sampleformat == SampleFormat::UINT16 ) {
         return _getline(buffer, line);   
-    } else { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) {
         // La donnée est en float mais on la veut sur des entiers 16 bits : on met donc un float sur deux entiers 16 bits
         if (_getline(buffer, line) == 0) {
             return 0;
@@ -669,7 +665,7 @@ int Rok4Image::getline ( uint16_t* buffer, int line ) {
 
 int Rok4Image::getline ( float* buffer, int line ) {
 
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers sur 8 bits
         // On convertit
         uint8_t* buffer_t = new uint8_t[width*channels];
@@ -679,7 +675,7 @@ int Rok4Image::getline ( float* buffer, int line ) {
         convert ( buffer,buffer_t,width*channels );
         delete [] buffer_t;
         return width*channels;
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) {
+    } else if ( sampleformat == SampleFormat::UINT16 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers sur 16 bits
         // On convertit
         uint16_t* buffer_t = new uint16_t[width*channels];
@@ -689,7 +685,7 @@ int Rok4Image::getline ( float* buffer, int line ) {
         convert ( buffer,buffer_t,width*channels );
         delete [] buffer_t;
         return width*channels;
-    } else { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) {
         return _getline(buffer, line);  
     }
 
@@ -753,7 +749,7 @@ int Rok4Image::writeImage ( Image* pIn, bool crop )
     uint8_t* tile = new uint8_t[tileHeight*rawTileLineSize];
 
     // Ecriture de l'image
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         uint8_t* lines = new uint8_t[tileHeight*imageLineSize];
 
         for ( int y = 0; y < tileHeightwise; y++ ) {
@@ -779,7 +775,7 @@ int Rok4Image::writeImage ( Image* pIn, bool crop )
         }
         
         delete [] lines;
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) {
+    } else if ( sampleformat == SampleFormat::UINT16 ) {
         uint16_t* lines = new uint16_t[tileHeight*imageLineSize];
         
         for ( int y = 0; y < tileHeightwise; y++ ) {
@@ -805,7 +801,7 @@ int Rok4Image::writeImage ( Image* pIn, bool crop )
             }
         }
         delete [] lines;
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) {
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) {
         float* lines = new float[tileHeight*imageLineSize];
         
         for ( int y = 0; y < tileHeightwise; y++ ) {
@@ -942,6 +938,7 @@ bool Rok4Image::writeHeader()
         writeTIFFTAG(&p, TIFFTAG_TILEBYTECOUNTS, TIFF_LONG, tilesNumber, ROK4_IMAGE_HEADER_SIZE + 4 * tilesNumber);
 
     } else {
+        int bitspersample = SampleFormat::getBitsPerSample(sampleformat);
         // We can have 4 samples per pixel, each sample with the same size
         * ( ( uint16_t* ) ( p ) ) = (uint16_t) bitspersample;
         * ( ( uint16_t* ) ( p + 2 ) ) = (uint16_t) bitspersample;

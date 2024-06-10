@@ -483,10 +483,6 @@ SampleFormat::eSampleFormat Pyramid::getSampleFormat() {
     return Rok4Format::getSampleFormat(format);
 }
 
-int Pyramid::getBitsPerSample() {
-    return Rok4Format::getBitsPerSample(format);
-}
-
 Level* Pyramid::getHighestLevel() { return highestLevel; }
 Level* Pyramid::getLowestLevel() { return lowestLevel; }
 
@@ -511,7 +507,7 @@ Level* Pyramid::getLevel(std::string id) {
     return it->second;
 }
 
-Rok4Format::eformat_data Pyramid::getFormat() { return format; }
+Rok4Format::eFormat Pyramid::getFormat() { return format; }
 Photometric::ePhotometric Pyramid::getPhotometric() { return photo; }
 int Pyramid::getChannels() { return channels; }
 int* Pyramid::getNodataValue() { return nodataValue; }

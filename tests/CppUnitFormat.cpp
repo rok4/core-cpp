@@ -57,15 +57,15 @@ CPPUNIT_TEST_SUITE_REGISTRATION ( CppUnitFormat );
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION ( CppUnitFormat, "CppUnitFormat" );
 
 void CppUnitFormat::testFormat() {
-    Rok4Format::eformat_data ukn = Rok4Format::UNKNOWN;
-    Rok4Format::eformat_data tri8 = Rok4Format::TIFF_RAW_UINT8;
-    Rok4Format::eformat_data tji8 = Rok4Format::TIFF_JPG_UINT8;
-    Rok4Format::eformat_data tpi8 = Rok4Format::TIFF_PNG_UINT8;
-    Rok4Format::eformat_data tli8 = Rok4Format::TIFF_LZW_UINT8;
-    Rok4Format::eformat_data trf32 = Rok4Format::TIFF_RAW_FLOAT32;
-    Rok4Format::eformat_data tlf32 = Rok4Format::TIFF_LZW_FLOAT32;
-    Rok4Format::eformat_data tzi8 = Rok4Format::TIFF_ZIP_UINT8;
-    Rok4Format::eformat_data tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
+    Rok4Format::eFormat ukn = Rok4Format::UNKNOWN;
+    Rok4Format::eFormat tri8 = Rok4Format::TIFF_RAW_UINT8;
+    Rok4Format::eFormat tji8 = Rok4Format::TIFF_JPG_UINT8;
+    Rok4Format::eFormat tpi8 = Rok4Format::TIFF_PNG_UINT8;
+    Rok4Format::eFormat tli8 = Rok4Format::TIFF_LZW_UINT8;
+    Rok4Format::eFormat trf32 = Rok4Format::TIFF_RAW_FLOAT32;
+    Rok4Format::eFormat tlf32 = Rok4Format::TIFF_LZW_FLOAT32;
+    Rok4Format::eFormat tzi8 = Rok4Format::TIFF_ZIP_UINT8;
+    Rok4Format::eFormat tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
 
     CPPUNIT_ASSERT_MESSAGE ( "Unknown is false", ! ( ukn ) );
     CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::toString ( tri8 ).compare ( "TIFF_RAW_UINT8" ) == 0 );
@@ -91,15 +91,15 @@ void CppUnitFormat::formatFromString() {
 }
 
 void CppUnitFormat::formatToMime() {
-    Rok4Format::eformat_data ukn = Rok4Format::UNKNOWN;
-    Rok4Format::eformat_data tri8 = Rok4Format::TIFF_RAW_UINT8;
-    Rok4Format::eformat_data tji8 = Rok4Format::TIFF_JPG_UINT8;
-    Rok4Format::eformat_data tpi8 = Rok4Format::TIFF_PNG_UINT8;
-    Rok4Format::eformat_data tli8 = Rok4Format::TIFF_LZW_UINT8;
-    Rok4Format::eformat_data trf32 = Rok4Format::TIFF_RAW_FLOAT32;
-    Rok4Format::eformat_data tlf32 = Rok4Format::TIFF_LZW_FLOAT32;
-    Rok4Format::eformat_data tzi8 = Rok4Format::TIFF_ZIP_UINT8;
-    Rok4Format::eformat_data tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
+    Rok4Format::eFormat ukn = Rok4Format::UNKNOWN;
+    Rok4Format::eFormat tri8 = Rok4Format::TIFF_RAW_UINT8;
+    Rok4Format::eFormat tji8 = Rok4Format::TIFF_JPG_UINT8;
+    Rok4Format::eFormat tpi8 = Rok4Format::TIFF_PNG_UINT8;
+    Rok4Format::eFormat tli8 = Rok4Format::TIFF_LZW_UINT8;
+    Rok4Format::eFormat trf32 = Rok4Format::TIFF_RAW_FLOAT32;
+    Rok4Format::eFormat tlf32 = Rok4Format::TIFF_LZW_FLOAT32;
+    Rok4Format::eFormat tzi8 = Rok4Format::TIFF_ZIP_UINT8;
+    Rok4Format::eFormat tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
 
     CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::toMimeType ( tri8 ).compare ( "image/tiff" ) == 0 );
     CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::toMimeType ( tji8 ).compare ( "image/jpeg" ) == 0 );

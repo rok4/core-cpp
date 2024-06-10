@@ -340,7 +340,6 @@ bool TiffNodataManager<T>::treatNodata ( char* inputImage, char* outputImage, ch
     width = sourceImage->getWidth();
     height = sourceImage->getHeight();
 
-    int bitspersample = sourceImage->getBitsPerSample();
     Photometric::ePhotometric photometric = sourceImage->getPhotometric();
     Compression::eCompression compression = sourceImage->getCompression();
     SampleFormat::eSampleFormat sampleformat = sourceImage->getSampleFormat();
@@ -398,7 +397,7 @@ bool TiffNodataManager<T>::treatNodata ( char* inputImage, char* outputImage, ch
 
         FileImage* destImage = FIF.createImageToWrite(
             outputImage, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
-            samplesperpixel, sampleformat, bitspersample, photometric, compression
+            samplesperpixel, sampleformat, photometric, compression
         );
 
         if ( destImage == NULL )  {
@@ -421,7 +420,7 @@ bool TiffNodataManager<T>::treatNodata ( char* inputImage, char* outputImage, ch
         if (containNodata) {
             FileImage* destMask = FIF.createImageToWrite(
                 outputMask, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
-                1, SampleFormat::UINT, 8, Photometric::MASK, Compression::DEFLATE
+                1, SampleFormat::UINT8, Photometric::MASK, Compression::DEFLATE
             );
 
             if ( destMask == NULL )  {

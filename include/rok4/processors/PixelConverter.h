@@ -76,17 +76,6 @@ private:
     SampleFormat::eSampleFormat outSampleFormat;
 
     /**
-     * \~french \brief Nombre de bits d'un canal en entrée
-     * \~english \brief Input number of bits per sample
-     */
-    int inBitsPerSample;
-    /**
-     * \~french \brief Nombre de bits d'un canal en sortie
-     * \~english \brief Output number of bits per sample
-     */
-    int outBitsPerSample;
-
-    /**
      * \~french \brief Nombre de canal en entrée
      * \~english \brief Input number of channel
      */
@@ -115,32 +104,23 @@ public:
      ** \~english
      * \brief Create a PixelConverter
      */
-    PixelConverter ( int w, SampleFormat::eSampleFormat isf, int ibps, int ispp, SampleFormat::eSampleFormat osf, int obps, int ospp ) : 
-        width(w), inSampleFormat (isf), inBitsPerSample(ibps), inSamplesPerPixel(ispp),
-        outSampleFormat (osf), outBitsPerSample(obps), outSamplesPerPixel(ospp) 
+    PixelConverter ( int w, SampleFormat::eSampleFormat isf, int ispp, SampleFormat::eSampleFormat osf, int ospp ) : 
+        width(w), inSampleFormat (isf), inSamplesPerPixel(ispp),
+        outSampleFormat (osf), outSamplesPerPixel(ospp) 
     {
         yesWeCan = false;
-        
-        if (inSampleFormat == SampleFormat::FLOAT || outSampleFormat == SampleFormat::FLOAT) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle float samples";
+
+        if (inSampleFormat != SampleFormat::UINT8) {
+            BOOST_LOG_TRIVIAL(warning) << "PixelConverter only handle 8 bits sample";
             return;
         }
         if (inSampleFormat != outSampleFormat) {
             BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle different samples format";
             return;
         }
-        if (inBitsPerSample != outBitsPerSample) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle different number of bits per sample";
-            return;
-        }
 
         if (inSamplesPerPixel == outSamplesPerPixel) {
             BOOST_LOG_TRIVIAL(warning) << "PixelConverter have not to be used if number of samples per pixel is the same";
-            return;
-        }
-
-        if (inBitsPerSample != 8) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter only handle 8 bits sample";
             return;
         }
 
@@ -164,11 +144,13 @@ public:
     }
 
     /**
-     * \~french \brief Retourne le nombre de bits par canal en sortie
-     * \~english \brief Get the output number of bits per channel
+     * \~french
+     * \brief Retourne la taille en octet d'un pixel en sortie
+     * \~english
+     * \brief Return the output pixel's byte size
      */
-    int getBitsPerSample () {
-        return outBitsPerSample;
+    int getPixelSize () {
+        return SampleFormat::getBitsPerSample(outSampleFormat) * outSamplesPerPixel / 8;
     }
 
     /**
@@ -188,7 +170,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- PixelConverter ------------" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Width : " << width ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- SampleFormat : " << SampleFormat::toString(inSampleFormat) << " -> " << SampleFormat::toString(outSampleFormat) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Bits per sample : " << inBitsPerSample << " -> " << outBitsPerSample ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Samples per pixel : " << inSamplesPerPixel << " -> " << outSamplesPerPixel ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

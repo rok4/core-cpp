@@ -55,7 +55,7 @@ private:
 protected:
     Image *image;
     int line;
-    virtual size_t write_IHDR ( uint8_t *buffer, size_t size, uint8_t colortype/* = pixel_t::png_colortype*/ );
+    virtual size_t write_IHDR ( uint8_t *buffer, size_t size );
     virtual size_t write_IDAT ( uint8_t *buffer, size_t size );
     virtual size_t write_IEND ( uint8_t *buffer, size_t size );
     void addCRC ( uint8_t *buffer, uint32_t length );

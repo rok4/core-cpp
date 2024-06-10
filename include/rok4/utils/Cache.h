@@ -847,14 +847,6 @@ private:
     static std::string directory;
 
     /**
-     * \~french
-     * \brief Veut-on des styles inspire
-     * \~english
-     * \brief Only inspire styles ?
-     */
-    static bool inspire;
-
-    /**
      * \~french \brief Annuaire de styles
      * \details La clé est l'identifiant du style
      * \~english \brief Book of styles
@@ -919,16 +911,6 @@ public:
         directory = d;
     }
 
-
-    /**
-     * \~french \brief Renseigne la restiction inspire des style
-     * \~english \brief Set inspire restriction for styles
-     */
-    static void set_inspire (bool i) {
-        inspire = i;
-    }
-
-
     /**
      * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
@@ -977,7 +959,7 @@ public:
             }
         }
 
-        Style* style = new Style(style_path, inspire);
+        Style* style = new Style(style_path);
         if ( ! style->isOk() ) {
             BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
             delete style;
@@ -985,7 +967,7 @@ public:
             return NULL;
         }
 
-        if ( containForbiddenChars(style->getIdentifier()) ) {
+        if ( containForbiddenChars(style->get_identifier()) ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
             mtx.unlock();

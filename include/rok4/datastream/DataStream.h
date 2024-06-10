@@ -114,18 +114,6 @@ private:
     std::string encoding;
     unsigned int length;
 public:
-    /**
-     * Constructeur.
-     */
-    RawDataStream ( uint8_t *dat, size_t dataS, std::string t, std::string e, unsigned int l){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
-        pos = 0;
-        type = t;
-        encoding = e;
-        length = l;
-    }
     
     /**
      * Constructeur.

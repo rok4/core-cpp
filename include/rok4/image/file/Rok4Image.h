@@ -196,11 +196,6 @@ private:
      * \~english \brief Sample format
      */
     SampleFormat::eSampleFormat sampleformat;
-    /**
-     * \~french \brief Nombre de bits par canal
-     * \~english \brief Number of bits per sample
-     */
-    int bitspersample;
     
     /**
      * \~french \brief Taille d'un pixel en octet
@@ -444,7 +439,6 @@ protected:
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] esType type du canal supplémentaire, si présent.
@@ -461,7 +455,6 @@ protected:
      * \param[in] bbox bounding box
      * \param[in] name path to image file
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] esType extra sample type
@@ -471,7 +464,7 @@ protected:
      */
     Rok4Image (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample es,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample es,
         int tileWidth, int tileHeight,
         Context* context
     );
@@ -483,22 +476,6 @@ protected:
     Rok4Image ( std::string name, int tilePerWidth, int tilePerHeight, Context* context );
 
 public:
-    
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT ) || 
-            ( bps == 8 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT ) || 
-            ( bps == 8 && sf == SampleFormat::UINT )
-        );
-    }
 
     /**
      * \~french
@@ -554,18 +531,6 @@ public:
     inline SampleFormat::eSampleFormat getSampleFormat() {
         return sampleformat;
     }
-
-    /**
-     * \~french
-     * \brief Retourne le nombre de bits par canal
-     * \return nombre de bits par canal
-     * \~english
-     * \brief Return number of bits per sample
-     * \return number of bits per sample
-     */
-    inline int getBitsPerSample() {
-        return bitspersample;
-    }
     
     /**
      * \~french
@@ -617,7 +582,6 @@ public:
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Compression : " << Compression::toString ( compression ) ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Photometric : " << Photometric::toString ( photometric ) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Bits per sample : " << bitspersample ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Sample format : " << SampleFormat::toString ( sampleformat ) ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- tile width = " << tileWidth << ", tile height = " << tileHeight ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Image name : " << name ;
@@ -790,7 +754,6 @@ public:
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
      * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
      * \param[in] photometric photométie des données
      * \param[in] compression compression des données
      * \param[in] tileWidth largeur en pixel de la tuile
@@ -811,7 +774,6 @@ public:
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
      * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] tileWidth tile's pixel width
@@ -821,7 +783,7 @@ public:
      */
     Rok4Image* createRok4ImageToWrite (
         std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
         Compression::eCompression compression, int tileWidth, int tileHeight, Context* context
     );
 

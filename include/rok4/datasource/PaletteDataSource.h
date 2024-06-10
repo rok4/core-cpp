@@ -45,9 +45,6 @@ class PaletteDataSource : public DataSource {
 private:
     DataSource* dataSource;
     Palette* palette;
-    bool fakePalette;
-    //bool transparent;
-    //uint8_t PLTE[3*256+12];
     size_t dataSize;
     uint8_t* data;
 public:
@@ -56,19 +53,18 @@ public:
      * @param dataSource la source de l'image PNG
      * @param palette une palette de couleur compatible PNG
      */
-    //PaletteDataSource(DataSource* dataSource, bool transparent=false, const uint8_t rgb[3]=BLACK);
     PaletteDataSource ( DataSource* dataSource, Palette* palette );
 
-    inline bool releaseData()                   {
+    inline bool releaseData() {
         return dataSource->releaseData();
     }
-    inline std::string getType()                {
+    inline std::string getType() {
         return dataSource->getType();
     }
-    inline int getHttpStatus()                  {
+    inline int getHttpStatus() {
         return dataSource->getHttpStatus();
     }
-    inline std::string getEncoding()                {
+    inline std::string getEncoding() {
         return dataSource->getEncoding();
     }
     virtual unsigned int getLength();

@@ -71,7 +71,6 @@ std::mutex TmsBook::mtx;
 std::map<std::string, Style*> StyleBook::book;
 std::vector<Style*> StyleBook::trash;
 std::string StyleBook::directory = "";
-bool StyleBook::inspire = false;
 std::mutex StyleBook::mtx;
 
 Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
@@ -113,7 +112,6 @@ Context * StoragePool::get_context(ContextType::eContextType type, std::string t
 
     std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
     if ( it != pool.end() ) {
-        BOOST_LOG_TRIVIAL(debug) << "Storage context already added " << ContextType::toString(it->first.first) << " / '" << it->first.second << "'" ;
         // le contenant est déjà existant et donc connecté
         return it->second;
 

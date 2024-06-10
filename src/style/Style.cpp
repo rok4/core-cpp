@@ -54,7 +54,7 @@
 
 #include "storage/Context.h"
 
-bool Style::parse(json11::Json& doc, bool inspire) {
+bool Style::parse(json11::Json& doc) {
 
     /********************** Default values */
 
@@ -62,29 +62,19 @@ bool Style::parse(json11::Json& doc, bool inspire) {
     aspect = 0;
     estompage = 0;
     palette = 0;
-    usableForBroadcast = true;
 
     // Chargement
 
     if (doc["identifier"].is_string()) {
         identifier = doc["identifier"].string_value();
-    } else {
-        usableForBroadcast = false;
     }
 
     if (doc["title"].is_string()) {
         titles.push_back ( doc["title"].string_value() );
     }
-    if (titles.size() == 0) {
-        usableForBroadcast = false;
-    }
 
     if (doc["abstract"].is_string()) {
         abstracts.push_back ( doc["abstract"].string_value() );
-    }
-    if ( abstracts.size() == 0 && inspire ) {
-        errorMessage = "No abstract in style " + id + " : not INSPIRE compliant" ;
-        return false;
     }
 
     if (doc["keywords"].is_array()) {
@@ -104,12 +94,7 @@ bool Style::parse(json11::Json& doc, bool inspire) {
             errorMessage = "Invalid legend: have to own a field " + leg.getMissingField();
             return false;
         }
-        legendURLs.push_back(leg);
-    }
-
-    if ( legendURLs.size() == 0 && inspire ) {
-        errorMessage = "No legend in style " + id + " : not INSPIRE compliant" ;
-        return false;
+        legends.push_back(leg);
     }
 
     palette = new Palette(doc["palette"].object_items());
@@ -119,7 +104,6 @@ bool Style::parse(json11::Json& doc, bool inspire) {
     }
 
     if (doc["estompage"].is_object()) {
-        usableForBroadcast = false;
         estompage = new Estompage(doc["estompage"].object_items());
         if (! estompage->isOk()) {
             errorMessage = "Estompage issue for style " + id + ": " + estompage->getErrorMessage();
@@ -127,8 +111,11 @@ bool Style::parse(json11::Json& doc, bool inspire) {
         }
     }
     
-    if ( estompage == 0 && doc["pente"].is_object()) {
-        usableForBroadcast = false;
+    if ( doc["pente"].is_object() ) {
+        if (estompage != 0) {
+            errorMessage = "Style " + id + " define estompage and pente rules";
+            return false;
+        }
         pente = new Pente(doc["pente"].object_items());
         if (! pente->isOk()) {
             errorMessage = "Pente issue for style " + id + ": " + pente->getErrorMessage();
@@ -136,8 +123,11 @@ bool Style::parse(json11::Json& doc, bool inspire) {
         }
     }
     
-    if ( estompage == 0 && pente == 0 && doc["exposition"].is_object()) {
-        usableForBroadcast = false;
+    if ( doc["exposition"].is_object()) {
+        if (estompage != 0 || pente != 0) {
+            errorMessage = "Style " + id + " define exposition and estompage or pente rules";
+            return false;
+        }
         aspect = new Aspect(doc["exposition"].object_items());
         if (! aspect->isOk()) {
             errorMessage = "Aspect issue for style " + id + ": " + aspect->getErrorMessage();
@@ -148,7 +138,7 @@ bool Style::parse(json11::Json& doc, bool inspire) {
     return true;
 }
 
-Style::Style ( std::string path, bool inspire ) : Configuration(path) {
+Style::Style ( std::string path ) : Configuration(path) {
 
     pente = 0;
     estompage = 0;
@@ -200,7 +190,7 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
 
     /********************** Parse */
 
-    if (! parse(doc, inspire)) {
+    if (! parse(doc)) {
         return;
     }
 }

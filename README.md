@@ -98,7 +98,7 @@ int main( int argc, char *argv[] ) {
     FileImageFactory FIF;
     FileImage* output = FIF.createImageToWrite(
         "hello.tif", img->getBbox(), img->getResX(), img->getResY(), img->getWidth(), img->getHeight(),
-        p->getChannels(), p->getSampleFormat(), p->getBitsPerSample(), p->getPhotometric(), Compression::eCompression::DEFLATE
+        p->getChannels(), p->getSampleFormat(), p->getPhotometric(), Compression::eCompression::DEFLATE
     );
 
     if (output == NULL) {

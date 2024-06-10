@@ -80,11 +80,13 @@ BilzImage* BilzImageFactory::createBilzImageToRead ( std::string filename, Bound
     
     switch (bitspersample) {
         case 32 :
-            sf = SampleFormat::FLOAT;
+            sf = SampleFormat::FLOAT32;
             break;
         case 16 :
+            sf = SampleFormat::UINT16;
+            break;
         case 8 :
-            sf = SampleFormat::UINT;
+            sf = SampleFormat::UINT8;
             break;
         default :
             BOOST_LOG_TRIVIAL(error) <<  "Unhandled number of bits per sample (" << bitspersample << ") for image " << filename ;
@@ -106,12 +108,6 @@ BilzImage* BilzImageFactory::createBilzImageToRead ( std::string filename, Bound
     }
     
     /********************** CONTROLES **************************/
-    
-    if ( ! BilzImage::canRead ( bitspersample, sf ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( sf ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << filename ;
-        return NULL;
-    }
 
     if ( resx > 0 && resy > 0 ) {
         if (! Image::dimensionsAreConsistent(resx, resy, width, height, bbox)) {
@@ -161,7 +157,7 @@ BilzImage* BilzImageFactory::createBilzImageToRead ( std::string filename, Bound
     
     return new BilzImage (
         width, height, resx, resy, channels, bbox, filename,
-        sf, bitspersample, ph, comp,
+        sf, ph, comp,
         bilData
     );
     
@@ -173,10 +169,10 @@ BilzImage* BilzImageFactory::createBilzImageToRead ( std::string filename, Bound
 
 BilzImage::BilzImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
     uint8_t* bilData ) :
 
-    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
+    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, photometric, compression ),
 
     data(bilData) {
         
@@ -197,7 +193,7 @@ int BilzImage::_getline ( T* buffer, int line ) {
         memcpy(buffertmp, data + line * width * pixelSize, width * pixelSize);
     } else {
     
-        int samplesize = bitspersample / 8;
+        int samplesize = sizeof(T);
         
         for (int s = 0; s < channels; s++) {
             uint8_t* deb = data + line * width * pixelSize;
@@ -219,16 +215,16 @@ int BilzImage::_getline ( T* buffer, int line ) {
 }
 
 int BilzImage::getline ( uint8_t* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         return _getline ( buffer,line );
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         /* On ne convertit pas les entiers 16 bits en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer entier 16 bits sur le buffer entier, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         uint16_t int16line[width * getChannels()];
         _getline ( int16line, line );
         memcpy ( buffer, int16line, width * getPixelSize() );
         return width * getPixelSize();
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer flottant sur le buffer entier, de même taille en octet (4 fois plus grand en "nombre de cases")*/
         float floatline[width * getChannels()];
@@ -241,16 +237,16 @@ int BilzImage::getline ( uint8_t* buffer, int line ) {
 
 int BilzImage::getline ( uint16_t* buffer, int line ) {
     
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en entier 16 bits mais l'image lue est sur 8 bits : on convertit
         uint8_t* buffer_t = new uint8_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         return _getline ( buffer,line );        
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 16 bits (aucun intérêt)
         * On va copier le buffer flottant sur le buffer entier 16 bits, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         float floatline[width * channels];
@@ -262,21 +258,21 @@ int BilzImage::getline ( uint16_t* buffer, int line ) {
 }
 
 int BilzImage::getline ( float* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
         uint8_t* buffer_t = new uint8_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
         uint16_t* buffer_t = new uint16_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();   
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         return _getline ( buffer, line );
     }
     return 0;

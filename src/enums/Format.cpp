@@ -145,8 +145,19 @@ namespace SampleFormat {
 
 const char *sampleformat_name[] = {
     "UNKNOWN",
-    "UINT",
-    "FLOAT"
+
+    "UINT8",
+    "UINT16",
+    "FLOAT32"
+};
+
+
+const int esampleformat_bitspersample[] = {
+    -1,
+
+    8,
+    16,
+    32
 };
 
 eSampleFormat fromString ( std::string strSF ) {
@@ -160,6 +171,10 @@ eSampleFormat fromString ( std::string strSF ) {
 
 std::string toString ( eSampleFormat sf ) {
     return std::string ( sampleformat_name[sf] );
+}
+
+int getBitsPerSample ( eSampleFormat sf ) {
+    return esampleformat_bitspersample[sf];
 }
 
 }
@@ -304,22 +319,21 @@ const Compression::eCompression eformat_compression[] = {
 const SampleFormat::eSampleFormat eformat_sampleformat[] = {
     SampleFormat::UNKNOWN,
 
-    SampleFormat::UINT,
-    SampleFormat::UINT,
-    SampleFormat::UINT,
-    SampleFormat::UINT,
-    SampleFormat::UINT,
-    SampleFormat::UINT,
-    SampleFormat::UINT,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
+    SampleFormat::UINT8,
 
-    SampleFormat::FLOAT,
-    SampleFormat::FLOAT,
-    SampleFormat::FLOAT,
-    SampleFormat::FLOAT,
+    SampleFormat::FLOAT32,
+    SampleFormat::FLOAT32,
+    SampleFormat::FLOAT32,
+    SampleFormat::FLOAT32,
 
     SampleFormat::UNKNOWN
 };
-
 
 const int eformat_bitspersample[] = {
     -1,
@@ -340,57 +354,57 @@ const int eformat_bitspersample[] = {
     -1
 };
 
-eformat_data fromString ( std::string strFormat ) {
+eFormat fromString ( std::string strFormat ) {
     int i;
     for ( i=eformat_size; i ; --i ) {
         if ( strFormat.compare ( eformat_name[i] ) ==0 )
             break;
     }
-    return static_cast<eformat_data> ( i );
+    return static_cast<eFormat> ( i );
 }
 
-std::string toString ( eformat_data format ) {
+std::string toString ( eFormat format ) {
     return std::string ( eformat_name[format] );
 }
 
-bool isRaster ( eformat_data format ) {
+bool isRaster ( eFormat format ) {
     return eformat_israster[format];
 }
 
-Compression::eCompression getCompression ( eformat_data format ) {
+Compression::eCompression getCompression ( eFormat format ) {
     return eformat_compression[format];
 }
 
-SampleFormat::eSampleFormat getSampleFormat ( eformat_data format ) {
+SampleFormat::eSampleFormat getSampleFormat ( eFormat format ) {
     return eformat_sampleformat[format];
 }
 
-int getBitsPerSample ( eformat_data format ) {
+int getBitsPerSample ( eFormat format ) {
     return eformat_bitspersample[format];
 }
 
-std::string toMimeType ( eformat_data format ) {
+std::string toMimeType ( eFormat format ) {
     return std::string ( eformat_mime[format] );
 }
 
-std::string toExtension ( eformat_data format ) {
+std::string toExtension ( eFormat format ) {
     return std::string ( eformat_extension[format] );
 }
 
-eformat_data fromMimeType ( std::string mime ) {
+eFormat fromMimeType ( std::string mime ) {
     int i;
     for ( i=eformat_size; i ; --i ) {
         if ( mime.compare ( eformat_mime[i] ) == 0 )
             break;
     }
-    return static_cast<eformat_data> ( i );
+    return static_cast<eFormat> ( i );
 }
 
-std::string toEncoding ( eformat_data format ) {
+std::string toEncoding ( eFormat format ) {
     return std::string ( eformat_encoding[format] );
 }
 
-int getChannelSize ( eformat_data format ) {
+int getChannelSize ( eFormat format ) {
     return eformat_channelsize[format];
 }
 

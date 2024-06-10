@@ -652,7 +652,7 @@ Image* Level::getTile ( int x, int y, int left, int top, int right, int bottom )
 }
 
 TileMatrix* Level::getTm () { return tm; }
-Rok4Format::eformat_data Level::getFormat () { return format; }
+Rok4Format::eFormat Level::getFormat () { return format; }
 int Level::getChannels () { return channels; }
 TileMatrixLimits Level::getTileLimits () { return tmLimits; }
 

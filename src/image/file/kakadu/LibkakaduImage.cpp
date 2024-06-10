@@ -82,7 +82,7 @@ static kdu_message_formatter pretty_cerr(&cerr_message);
 LibkakaduImage* LibkakaduImageFactory::createLibkakaduImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
     
     int width = 0, height = 0, bitspersample = 0, channels = 0, rowsperstrip = 0;
-    SampleFormat::eSampleFormat sf = SampleFormat::UINT;
+    SampleFormat::eSampleFormat sf = SampleFormat::UNKNOWN;
     Photometric::ePhotometric ph = Photometric::UNKNOWN;
 
     /************** RECUPERATION DES INFORMATIONS **************/
@@ -145,6 +145,18 @@ LibkakaduImage* LibkakaduImageFactory::createLibkakaduImageToRead ( std::string 
         BOOST_LOG_TRIVIAL(debug) << jp2_in.access_channels().get_num_colours() << " != " << channels;
         BOOST_LOG_TRIVIAL(debug) << "file : " << filename;
     }
+
+    switch (bitspersample){
+        case 8:
+            sf = SampleFormat::UINT8;
+            break;
+        case 16:
+            sf = SampleFormat::UINT16;
+            break;
+        
+        default:
+            break;
+    }
     
     switch(channels) {
         case 1:
@@ -177,9 +189,9 @@ LibkakaduImage* LibkakaduImageFactory::createLibkakaduImageToRead ( std::string 
     
     /********************** CONTROLES **************************/
 
-    if ( ! LibkakaduImage::canRead ( bitspersample, sf ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( sf ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << filename ;
+
+    if ( sf == SampleFormat::UNKNOWN ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Not supported JPEG2000 with " << bitspersample << " bits per sample bands for the image to read : " << filename ;
         return NULL;
     }
 
@@ -207,7 +219,7 @@ LibkakaduImage* LibkakaduImageFactory::createLibkakaduImageToRead ( std::string 
     */
     LibkakaduImage* o_LibkakaduImage = new LibkakaduImage (
         width, height, resx, resy, channels, bbox, filename,
-        sf, bitspersample, ph, Compression::JPEG2000,
+        sf, ph, Compression::JPEG2000,
         rowsperstrip
     );
     if(!o_LibkakaduImage->init()){
@@ -224,10 +236,10 @@ LibkakaduImage* LibkakaduImageFactory::createLibkakaduImageToRead ( std::string 
 
 LibkakaduImage::LibkakaduImage (
     int width, int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
     int rps ) :
 
-    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
+    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, photometric, compression ),
     rowsperstrip(rps)
     
 {    
@@ -362,7 +374,7 @@ void LibkakaduImage::_loadstrip() {
     while(nochEinmal && ! incomplete_region.is_empty()) {
         nochEinmal = decompressor.process(
             channel_bufs, false, channels, buffer_origin, width*channels, 1, 
-            width * rowsperstrip, incomplete_region, new_region, bitspersample, false
+            width * rowsperstrip, incomplete_region, new_region, SampleFormat::getBitsPerSample(sampleformat), false
         );
     }
     
@@ -410,16 +422,16 @@ int LibkakaduImage::_getline ( T* buffer, int line ) {
 }
 
 int LibkakaduImage::getline ( uint8_t* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         return _getline ( buffer,line );
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         /* On ne convertit pas les entiers 16 bits en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer entier 16 bits sur le buffer entier, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         uint16_t int16line[width * getChannels()];
         _getline ( int16line, line );
         memcpy ( buffer, int16line, width * getPixelSize() );
         return width * getPixelSize();
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer flottant sur le buffer entier, de même taille en octet (4 fois plus grand en "nombre de cases")*/
         float floatline[width * getChannels()];
@@ -433,16 +445,16 @@ int LibkakaduImage::getline ( uint8_t* buffer, int line ) {
 
 int LibkakaduImage::getline ( uint16_t* buffer, int line ) {
     
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en entier 16 bits mais l'image lue est sur 8 bits : on convertit
         uint8_t* buffer_t = new uint8_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         return _getline ( buffer,line );        
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 16 bits (aucun intérêt)
         * On va copier le buffer flottant sur le buffer entier 16 bits, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         float floatline[width * channels];
@@ -454,21 +466,21 @@ int LibkakaduImage::getline ( uint16_t* buffer, int line ) {
 }
 
 int LibkakaduImage::getline ( float* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sampleformat == SampleFormat::UINT8 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
         uint8_t* buffer_t = new uint8_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sampleformat == SampleFormat::UINT16 ) { // uint16
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
         uint16_t* buffer_t = new uint16_t[width * getChannels()];
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * getChannels() );
         delete [] buffer_t;
         return width * getChannels();   
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sampleformat == SampleFormat::FLOAT32 ) { // float
         return _getline ( buffer, line );
     }
     return 0;

@@ -4,7 +4,7 @@
 #include "datastream/TiffHeader.h"
 
 TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
-        Rok4Format::eformat_data format, int channel,
+        Rok4Format::eFormat format, int channel,
         int width, int height, size_t tileSize ) :
     dataSource ( dataSource ),
     format ( format ), channel ( channel ),

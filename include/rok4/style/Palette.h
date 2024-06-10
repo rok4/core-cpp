@@ -71,14 +71,9 @@ private:
     bool noAlpha;
 
 public:
-    /**
-     *
-     * @param colours : doit contenir une valeur par niveau compris entre 0 et la dernière valeure possible
-     * @param alpha : doit contenir une valeur par niveau compris entre 0 et la dernière valeure possible ou être vide (désactivation de la transparence)
-     */
     Palette();
-    Palette ( size_t pngPaletteSize, uint8_t* pngPalette );
-    Palette ( const Palette& pal );
+    // Palette ( size_t pngPaletteSize, uint8_t* pngPalette );
+    // Palette ( const Palette& pal );
     Palette ( json11::Json doc );
 
     Palette & operator= ( const Palette& pal );
@@ -93,14 +88,11 @@ public:
     std::map<double,Colour>* getColoursMap() {
         return &coloursMap;
     }
-    bool isRGBContinuous() {
-        return rgbContinuous;
-    }
-    bool isAlphaContinuous() {
-        return alphaContinuous;
-    }
-    bool isNoAlpha() {
+    bool is_no_alpha() {
         return noAlpha;
+    }
+    bool is_empty() {
+        return coloursMap.empty();
     }
     Colour getColour ( double index );
 

@@ -41,9 +41,7 @@
 #include "rok4/image/Image.h"
 #include "rok4/style/Palette.h"
 
-
-
-class StyledImage : public Image {
+class PaletteImage : public Image {
 private:
     Image* origImage;
     Palette* palette;
@@ -56,8 +54,8 @@ public:
     virtual int getline ( float* buffer, int line );
     virtual int getline ( uint16_t* buffer, int line );
     virtual int getline ( uint8_t* buffer, int line );
-    StyledImage ( Image* image, int expectedChannels, Palette* palette );
-    virtual ~StyledImage();
+    PaletteImage ( Image* image, Palette* palette );
+    virtual ~PaletteImage();
 
     /** \~french
      * \brief Sortie des informations sur l'image estompée
@@ -66,7 +64,7 @@ public:
      */
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "------ StyledImage -------" ;
+        BOOST_LOG_TRIVIAL(info) <<  "------ PaletteImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->getColoursMap()->size() ;
         
