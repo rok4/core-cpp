@@ -262,7 +262,7 @@ public:
      * \~french \brief Retourne une chaîne de caracère décrivant l'annuaire
      * \~english \brief Return a string describing the pool
      */
-    static std::string toString() {
+    static std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ Context pool -------" << std::endl;
@@ -272,7 +272,7 @@ public:
         while (it != pool.end()) {
             std::pair<ContextType::eContextType,std::string> key = it->first;
             oss << "\t\t- pot = " << key.first << "/" << key.second << std::endl;
-            oss << it->second->toString() << std::endl;
+            oss << it->second->to_string() << std::endl;
             it++;
         }
 

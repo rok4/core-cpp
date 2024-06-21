@@ -168,12 +168,12 @@ private:
         
         for ( int i = 0; i < ( int ) sourceImages.size(); i++ ) {
             
-            double y = sourceImages[i]->l2y ( 0 );
+            double y = sourceImages[i]->line_to_y ( 0 );
             
-            rowsOffsets.push_back(y2l ( y ));
-            c0s.push_back(std::max ( 0,x2c ( sourceImages[i]->getXmin() + 0.5*sourceImages[i]->getResX() ) ));
-            c1s.push_back(std::min ( width - 1,x2c ( sourceImages[i]->getXmax() - 0.5*sourceImages[i]->getResX() ) ));
-            c2s.push_back(std::max ( 0, sourceImages[i]->x2c ( bbox.xmin + 0.5*resx ) ) );
+            rowsOffsets.push_back(y_to_line ( y ));
+            c0s.push_back(std::max ( 0,x_to_column ( sourceImages[i]->get_xmin() + 0.5*sourceImages[i]->get_resx() ) ));
+            c1s.push_back(std::min ( width - 1,x_to_column ( sourceImages[i]->get_xmax() - 0.5*sourceImages[i]->get_resx() ) ));
+            c2s.push_back(std::max ( 0, sourceImages[i]->x_to_column ( bbox.xmin + 0.5*resx ) ) );
         }
     }
 
@@ -253,7 +253,7 @@ public:
      */
     bool useMasks() {
         for ( uint i=0; i < sourceImages.size(); i++ ) {
-            if ( getMask ( i ) ) return true;
+            if ( get_mask ( i ) ) return true;
         }
         return false;
     }
@@ -268,8 +268,8 @@ public:
      * \param[in] i source image indice, whose mask is wanted
      * \return mask
      */
-    Image* getMask ( int i ) {
-        return sourceImages.at ( i )->getMask();
+    Image* get_mask ( int i ) {
+        return sourceImages.at ( i )->get_mask();
     }
     /**
      * \~french
@@ -281,7 +281,7 @@ public:
      * \param[in] i wanted source image indice
      * \return image
      */
-    Image* getImage ( int i ) {
+    Image* get_source_image ( int i ) {
         return sourceImages.at ( i );
     }
 
@@ -336,13 +336,13 @@ public:
      * \brief Return the nodata value
      * \return nodata value
      */
-    int* getNodata() {
+    int* get_nodata() {
         return nodata;
     }
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( float* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( float* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /**
      * \~french
@@ -353,7 +353,7 @@ public:
      */
     virtual ~ExtendedCompoundImage() {
         delete[] nodata;
-        if ( ! isMask ) {
+        if ( ! is_mask ) {
             for ( uint i=0; i < sourceImages.size(); i++ ) {
                 delete sourceImages[i];
             }
@@ -472,12 +472,12 @@ public:
      * \param[in] ECI Compounded image
      */
     ExtendedCompoundMask ( ExtendedCompoundImage* ECI ) :
-        Image ( ECI->getWidth(), ECI->getHeight(), 1, ECI->getResX(), ECI->getResY(),ECI->getBbox() ),
+        Image ( ECI->get_width(), ECI->get_height(), 1, ECI->get_resx(), ECI->get_resy(),ECI->get_bbox() ),
         ECI ( ECI ) {}
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( float* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( float* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /**
      * \~french

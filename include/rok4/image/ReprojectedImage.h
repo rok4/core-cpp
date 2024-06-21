@@ -79,7 +79,7 @@ private:
      * \~french \brief Image source, à réechantillonner
      * \~english \brief Source image, to resample
      */
-    Image* sourceImage;
+    Image* source_image;
 
     /**
      * \~french \brief Précise si les masques doivent intervenir dans l'interpolation (lourd)
@@ -111,14 +111,14 @@ private:
      * \~english \brief Ratio between destination resolution and source resolution, widthwise
      * \details X ratio = X destination resolution / X source resolution
      */
-    double ratioX;
+    double ratio_x;
     /**
      * \~french \brief Rapport des résolutions source et finale, dans le sens des Y
      * \details Ratio de rééchantillonage en Y = résolution Y cible / résolution Y source
      * \~english \brief Ratio between destination resolution and source resolution, heighthwise
      * \details Y ratio = Y destination resolution / Y source resolution
      */
-    double ratioY;
+    double ratio_y;
 
     /**
      * \~french \brief Grille de reprojection
@@ -294,7 +294,7 @@ private:
 
     /** \~french
      * \brief Retourne l'index dans le buffer #src_image_buffer (et #src_mask_buffer) de la ligne source voulue
-     * \details On ne mémorise que #memorizedLines lignes sources. Lorsque l'on a besoin d'une ligne source, on en demande l'index. Si cette ligne est déjà chargée dans le buffer, on retourne directement l'index. Sinon, on récupère la ligne de #sourceImage, on la stocke, on met à jour la table des index #src_line_index, et on retourne l'index de la ligne voulue.
+     * \details On ne mémorise que #memorizedLines lignes sources. Lorsque l'on a besoin d'une ligne source, on en demande l'index. Si cette ligne est déjà chargée dans le buffer, on retourne directement l'index. Sinon, on récupère la ligne de #source_image, on la stocke, on met à jour la table des index #src_line_index, et on retourne l'index de la ligne voulue.
      * \param[in] line Indice de la ligne source dont on veut l'indice
      * \return Indice de la ligne voulue dans le buffer des sources
      */
@@ -317,7 +317,7 @@ public:
      * \param[in] KT interpolation kernel to use for reprojecting
      * \param[in] bUseMask precise if reprojecting use masks
      */
-    ReprojectedImage ( Image *image, BoundingBox<double> bbox, Grid* grid, Interpolation::KernelType KT = Interpolation::LANCZOS_2, bool bMask = false ) : Image ( grid->width, grid->height,image->getChannels(), bbox ),sourceImage ( image ), grid ( grid ), K ( Kernel::getInstance ( KT ) ), useMask ( bMask ) {
+    ReprojectedImage ( Image *image, BoundingBox<double> bbox, Grid* grid, Interpolation::KernelType KT = Interpolation::LANCZOS_2, bool bMask = false ) : Image ( grid->width, grid->height,image->get_channels(), bbox ),source_image ( image ), grid ( grid ), K ( Kernel::getInstance ( KT ) ), useMask ( bMask ) {
         initialize();
     }
 
@@ -340,7 +340,7 @@ public:
      * \param[in] KT interpolation kernel to use for reprojecting
      * \param[in] bUseMask precise if reprojecting use masks
      */
-    ReprojectedImage ( Image *image, BoundingBox<double> bbox, double resx, double resy, Grid* grid, Interpolation::KernelType KT = Interpolation::LANCZOS_2, bool bMask = false ) : Image ( grid->width, grid->height,image->getChannels(), resx, resy, bbox ),sourceImage ( image ), grid ( grid ), K ( Kernel::getInstance ( KT ) ), useMask ( bMask ) {
+    ReprojectedImage ( Image *image, BoundingBox<double> bbox, double resx, double resy, Grid* grid, Interpolation::KernelType KT = Interpolation::LANCZOS_2, bool bMask = false ) : Image ( grid->width, grid->height,image->get_channels(), resx, resy, bbox ),source_image ( image ), grid ( grid ), K ( Kernel::getInstance ( KT ) ), useMask ( bMask ) {
         initialize();
     }
 
@@ -351,9 +351,9 @@ public:
      */
     void initialize();
 
-    int getline ( float* buffer, int line );
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /**
      * \~french \brief Destructeur par défaut
@@ -362,7 +362,7 @@ public:
      * \li du buffer d'index #src_line_index
      * \li des buffers #src_image_buffer et #src_mask_buffer
      *
-     * Et suppression de #sourceImage.
+     * Et suppression de #source_image.
      *
      * \~english \brief Default destructor
      * \details Desallocate global :
@@ -370,7 +370,7 @@ public:
      * \li index buffer #src_line_index
      * \li buffers #src_image_buffer and #src_mask_buffer
      *
-     * And remove #sourceImage
+     * And remove #source_image
      */
     ~ReprojectedImage() {
         _mm_free ( __buffer );
@@ -382,10 +382,10 @@ public:
             delete[] src_mask_buffer;
         }
 
-        if ( ! isMask ) {
+        if ( ! is_mask ) {
             // Le masque utilise la même grille, c'est pourquoi seule l'image de données supprime la grille.
             delete grid;
-            delete sourceImage;
+            delete source_image;
         }
     }
 
@@ -399,7 +399,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "--------- ReprojectedImage -----------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Kernel size, x wise = " << Kx << ", y wise = " << Ky ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Ratio, x wise = " << ratioX << ", y wise = " << ratioY ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Ratio, x wise = " << ratio_x << ", y wise = " << ratio_y ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Source lines buffer size = " << memorizedLines ;
         if ( useMask ) {
             BOOST_LOG_TRIVIAL(info) <<  "\t- Use mask in interpolation" ;

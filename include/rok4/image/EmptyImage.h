@@ -74,7 +74,7 @@ public:
         for ( int c = 0; c < channels; c++ ) color[c] = _color[c];
     }
 
-    virtual int getline ( uint8_t *buffer, int line ) {
+    virtual int get_line ( uint8_t *buffer, int line ) {
 
         for ( int i = 0; i < width; i++ )
             for ( int c = 0; c < channels; c++ )
@@ -83,7 +83,7 @@ public:
         return width * channels;
     };
     
-    virtual int getline ( uint16_t *buffer, int line ) {
+    virtual int get_line ( uint16_t *buffer, int line ) {
         for ( int i = 0; i < width; i++ )
             for ( int c = 0; c < channels; c++ )
                 buffer[channels*i + c] = ( uint16_t ) color[c];
@@ -91,7 +91,7 @@ public:
         return width * channels;
     };
     
-    virtual int getline ( float *buffer, int line ) {
+    virtual int get_line ( float *buffer, int line ) {
 
         for ( int i = 0; i < width; i++ )
             for ( int c = 0; c < channels; c++ )

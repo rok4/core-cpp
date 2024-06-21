@@ -43,7 +43,7 @@
 
 class PaletteImage : public Image {
 private:
-    Image* origImage;
+    Image* source_image;
     Palette* palette;
     int channels;
 
@@ -51,9 +51,9 @@ private:
     int _getline ( T* buffer, int line );
 
 public:
-    virtual int getline ( float* buffer, int line );
-    virtual int getline ( uint16_t* buffer, int line );
-    virtual int getline ( uint8_t* buffer, int line );
+    virtual int get_line ( float* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
     PaletteImage ( Image* image, Palette* palette );
     virtual ~PaletteImage();
 

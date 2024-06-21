@@ -240,7 +240,7 @@ public:
      * \~french \brief Quel format de canal en sortie en sortie du style
      * \~english \brief Which sample format after style
      */
-    SampleFormat::eSampleFormat getSampleFormat (SampleFormat::eSampleFormat sf) {
+    SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
         if (palette && ! palette->is_empty()) {
             return SampleFormat::UINT8;
         } else {
@@ -252,7 +252,7 @@ public:
      * \~french \brief Valeur de nodata après style
      * \~english \brief Style nodata value
      */
-    int getNodata (int** nodata) {
+    int get_nodata (int** nodata) {
         if (palette && ! palette->is_empty()) {
             Colour c = palette->getColoursMap()->begin()->second;
             if (palette->is_no_alpha()) {

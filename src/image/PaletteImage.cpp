@@ -39,56 +39,56 @@
 
 #include <boost/log/trivial.hpp>
 
-int PaletteImage::getline ( float* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
+int PaletteImage::get_line ( float* buffer, int line ) {
+    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
-        return origImage->getline ( buffer, line );
+        return source_image->get_line ( buffer, line );
     }
 }
 
-int PaletteImage::getline ( uint16_t* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
+int PaletteImage::get_line ( uint16_t* buffer, int line ) {
+    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
-        return origImage->getline ( buffer, line );
+        return source_image->get_line ( buffer, line );
     }
 }
 
-int PaletteImage::getline ( uint8_t* buffer, int line ) {
-    if ( origImage->getChannels() == 1 && ! palette->is_empty() ) {
+int PaletteImage::get_line ( uint8_t* buffer, int line ) {
+    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
-        return origImage->getline ( buffer, line );
+        return source_image->get_line ( buffer, line );
     }
 }
 
-PaletteImage::PaletteImage ( Image* image, Palette* palette ) : Image ( image->getWidth(), image->getHeight(), 1, image->getBbox() ), origImage ( image ), palette ( palette ) {
+PaletteImage::PaletteImage ( Image* image, Palette* palette ) : Image ( image->get_width(), image->get_height(), 1, image->get_bbox() ), source_image ( image ), palette ( palette ) {
     // Il n'y aura application de la palette et modification des canaux que si
     // - la palette n'est pas vide
     // - l'image source est sur un canal
-    if ( origImage->getChannels() == 1 && ! this->palette->is_empty() ) {
+    if ( source_image->get_channels() == 1 && ! this->palette->is_empty() ) {
         if (this->palette->is_no_alpha()) {
             channels = 3;
         } else {
             channels = 4;
         }
     } else {
-        channels = image->getChannels();
+        channels = image->get_channels();
     }
 }
 
 PaletteImage::~PaletteImage() {
-    delete origImage;
+    delete source_image;
 }
 
 template<typename T>
 int PaletteImage::_getline ( T* buffer, int line ) {
-    float* source = new float[origImage->getWidth() * origImage->getChannels()];
-    origImage->getline ( source, line );
+    float* source = new float[source_image->get_width() * source_image->get_channels()];
+    source_image->get_line ( source, line );
     switch ( channels ) {
     case 4:
-        for (int i = 0; i < origImage->getWidth() ; i++ ) {
+        for (int i = 0; i < source_image->get_width() ; i++ ) {
             Colour iColour = palette->getColour ( * ( source+i ) );
             * ( buffer+i*4 ) = (T) iColour.r;
             * ( buffer+i*4+1 ) = (T) iColour.g;
@@ -96,7 +96,7 @@ int PaletteImage::_getline ( T* buffer, int line ) {
             * ( buffer+i*4+3 ) = (T) iColour.a;
         }
     case 3:
-        for (int i = 0; i < origImage->getWidth() ; i++ ) {
+        for (int i = 0; i < source_image->get_width() ; i++ ) {
             Colour iColour = palette->getColour ( * ( source+i ) );
             * ( buffer+i*3 ) = (T) iColour.r;
             * ( buffer+i*3+1 ) = (T) iColour.g;

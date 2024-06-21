@@ -42,33 +42,37 @@
 #include "rok4/style/Palette.h"
 
 class PaletteDataSource : public DataSource {
+    
 private:
-    DataSource* dataSource;
+
+    DataSource* source_data;
     Palette* palette;
-    size_t dataSize;
+    size_t data_size;
     uint8_t* data;
+
 public:
+
     /**
      * Constructeur.
-     * @param dataSource la source de l'image PNG
+     * @param source_data la source de l'image PNG
      * @param palette une palette de couleur compatible PNG
      */
-    PaletteDataSource ( DataSource* dataSource, Palette* palette );
+    PaletteDataSource ( DataSource* source_data, Palette* palette );
 
-    inline bool releaseData() {
-        return dataSource->releaseData();
+    inline bool release_data() {
+        return source_data->release_data();
     }
-    inline std::string getType() {
-        return dataSource->getType();
+    inline std::string get_type() {
+        return source_data->get_type();
     }
-    inline int getHttpStatus() {
-        return dataSource->getHttpStatus();
+    inline int get_http_status() {
+        return source_data->get_http_status();
     }
-    inline std::string getEncoding() {
-        return dataSource->getEncoding();
+    inline std::string get_encoding() {
+        return source_data->get_encoding();
     }
-    virtual unsigned int getLength();
-    virtual const uint8_t* getData ( size_t& size );
+    virtual unsigned int get_length();
+    virtual const uint8_t* get_data ( size_t& size );
     virtual ~PaletteDataSource();
 };
 

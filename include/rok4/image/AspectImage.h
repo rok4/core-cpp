@@ -38,9 +38,10 @@
 #ifndef ASPECTIMAGE_H
 #define ASPECTIMAGE_H
 
+#include <string>
+
 #include "rok4/image/Image.h"
 #include "rok4/style/Aspect.h"
-#include <string>
 
 
 class AspectImage : public Image {
@@ -52,7 +53,7 @@ private:
     ** \~english
     * \brief Origin image used to compute the aspect
     */
-    Image* origImage;
+    Image* source_image;
 
     /** \~french
     * \brief Buffer contenant l'exposition calculée
@@ -66,21 +67,21 @@ private:
     ** \~english
     * \brief Memorize lines number
     */
-    int memorizedOrigLines;
+    int memorized_source_lines;
 
     /** \~french
     * \brief Buffer contenant les lignes sources
     ** \~english
     * \brief Source lines memory buffer
     */
-    float* origLinesBuffer;
+    float* source_lines_buffer;
 
     /** \~french
     * \brief Numéros des lignes en mémoire
     ** \~english
     * \brief Memorized lines indexes
     */
-    int* origLines;
+    int* source_lines;
 
     /** \~french
     * \brief Matrice de convolution
@@ -104,11 +105,11 @@ private:
     std::string algo;
 
     /** \~french
-    * \brief minSlope : indique la valeur de pente à partir de laquelle l'exposition est calculee
+    * \brief min_slope : indique la valeur de pente à partir de laquelle l'exposition est calculee
     ** \~english
-    * \brief minSlope : indicate the value of slope from which aspect is computed
+    * \brief min_slope : indicate the value of slope from which aspect is computed
     */
-    float minSlope;
+    float min_slope;
 
 
     /** \~french
@@ -126,21 +127,21 @@ public:
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( float* buffer, int line );
+    virtual int get_line ( float* buffer, int line );
 
     /** \~french
     * \brief Récupère la ligne
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( uint8_t* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
 
     /** \~french
     * \brief Récupère la ligne
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( uint16_t* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
 
     /** \~french
     * \brief Constructeur
@@ -166,7 +167,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "------ AspectImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << algo ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- min Slope = " << minSlope ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- min Slope = " << min_slope ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

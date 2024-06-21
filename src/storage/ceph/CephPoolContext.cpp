@@ -259,7 +259,7 @@ bool CephPoolContext::writeFull(uint8_t* data, int size, std::string name) {
     return true;
 }
 
-ContextType::eContextType CephPoolContext::getType() {
+ContextType::eContextType CephPoolContext::get_type() {
     return ContextType::CEPHCONTEXT;
 }
 

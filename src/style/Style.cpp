@@ -158,7 +158,7 @@ Style::Style ( std::string path ) : Configuration(path) {
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read style";
+        errorMessage = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read style";
         return;
     }
 

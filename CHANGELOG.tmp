@@ -1,2 +1,8 @@
 * Suppression de la notion 'inspire' dans la gestion des styles
 * Le format de canal contient le nombre de bits d'encodage
+* Passage en snake case des noms des attributs et des méthodes
+* Suppression de la classe ConvertedChannelsImage
+* Changement de nom StyledImage -> PaletteImage
+* Suppression de la gestion de la compilation avec la librairie Kakadu
+* Passage complet en snake case
+* Internalisation de la lib json

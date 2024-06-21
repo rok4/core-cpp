@@ -84,7 +84,7 @@ private:
     
     /******************** PYRAMIDE RASTER *********************/
     int channels;
-    int* nodataValue;
+    int* nodata_value;
 
     DataSource* getEncodedTile ( int x, int y );
     DataSource* getDecodedTile ( int x, int y );
@@ -106,7 +106,7 @@ public:
 
     TileMatrix* getTm() ;
     Rok4Format::eFormat getFormat() ;
-    int getChannels() ;
+    int get_channels() ;
 
     TileMatrixLimits getTileLimits() ;
     uint32_t getMaxTileRow() ;

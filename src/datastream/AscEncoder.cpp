@@ -54,25 +54,25 @@ size_t AscEncoder::read ( uint8_t *buffer, size_t size ) {
     if(line==0 ){
         //On traite l'entete
         tmp_stream << std::setprecision(8)
-                   << "ncols        " << image->getWidth() << std::endl
-                   << "nrows        " << image->getHeight() << std::endl
-                   << "xllcorner    " << image->getXmin() << std::endl
-                   << "yllcorner    " << image->getYmin() << std::endl
-                   << "cellsize     " << image->getResXmeter() << std::endl
+                   << "ncols        " << image->get_width() << std::endl
+                   << "nrows        " << image->get_height() << std::endl
+                   << "xllcorner    " << image->get_xmin() << std::endl
+                   << "yllcorner    " << image->get_ymin() << std::endl
+                   << "cellsize     " << image->get_resx(true) << std::endl
                    << "NODATA_value " << std::setprecision(2) << nodata_value ;
     }
 
     // stockage d'une ligne de donnée (1 canal)
-    float* buffer_line=new float[image->getWidth()];
+    float* buffer_line=new float[image->get_width()];
 
-    if( line < image->getHeight() ){
+    if( line < image->get_height() ){
 
-        image->getline(buffer_line,line++);
+        image->get_line(buffer_line,line++);
 
         tmp_stream << std::endl;
-        for( int i=0;i<image->getWidth();i++){
+        for( int i=0;i<image->get_width();i++){
         // formattage des données
-            tmp_stream << " " << buffer_line[(i*image->getChannels())];
+            tmp_stream << " " << buffer_line[(i*image->get_channels())];
         }
 
         tmp_str = tmp_stream.str();
@@ -99,5 +99,5 @@ AscEncoder::~AscEncoder() {
 }
 
 bool AscEncoder::eof() {
-    return line>=image->getHeight();
+    return line>=image->get_height();
 }

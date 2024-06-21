@@ -134,7 +134,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read TMS";
+        errorMessage = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read TMS";
         return;
     }
 
@@ -294,14 +294,14 @@ TileMatrix* TileMatrixSet::getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatr
 
     if (bboxThis.reproject(CRS::getEpsg4326(), getCrs()) && bboxIn.reproject(CRS::getEpsg4326(), tmsIn->getCrs())) {
 
-        double ratioX, ratioY, resOutX, resOutY;
+        double ratio_x, ratio_y, resOutX, resOutY;
         double resIn = tmIn->getRes();
 
-        ratioX = (bboxThis.xmax - bboxThis.xmin) / (bboxIn.xmax - bboxIn.xmin);
-        ratioY = (bboxThis.ymax - bboxThis.ymin) / (bboxIn.ymax - bboxIn.ymin);
+        ratio_x = (bboxThis.xmax - bboxThis.xmin) / (bboxIn.xmax - bboxIn.xmin);
+        ratio_y = (bboxThis.ymax - bboxThis.ymin) / (bboxIn.ymax - bboxIn.ymin);
 
-        resOutX = resIn * ratioX;
-        resOutY = resIn * ratioY;
+        resOutX = resIn * ratio_x;
+        resOutY = resIn * ratio_y;
 
         double resolution = sqrt ( resOutX * resOutY );
 

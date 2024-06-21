@@ -85,9 +85,9 @@ protected:
             ResampledImage* R = new ResampledImage ( image, rwidth, rheight,
                     resx, resy, BoundingBox<double> ( xmin, ymin, xmax, ymax ),
                     Interpolation::CUBIC, false );
-            float buffer[R->getWidth() *R->getChannels()];
+            float buffer[R->get_width() *R->get_channels()];
             for ( int i = 0; i < rheight; i++ ) {
-                R->getline ( buffer, i );
+                R->get_line ( buffer, i );
                 for ( int j = 0; j < rwidth; j++ )
                     for ( int c = 0; c < channels; c++ ) {
                         CPPUNIT_ASSERT_DOUBLES_EQUAL ( color[c], buffer[j*channels + c], 1e-4 );
@@ -132,7 +132,7 @@ protected:
             Image* image = new EmptyImage ( 1300, 1000, channels, color );
             ResampledImage* R = new ResampledImage ( image, 800, 600, 0.5, 0.5, BoundingBox<double> ( 0., 0., 800., 600. ),
                     Interpolation::KernelType ( kernel_type ), false );
-            for ( int l = 0; l < 600; l++ ) R->getline ( buffer, l );
+            for ( int l = 0; l < 600; l++ ) R->get_line ( buffer, l );
             delete R;
         }
         gettimeofday ( &NOW, NULL );

@@ -40,6 +40,5 @@
 
 #cmakedefine CEPH_ENABLED @CEPH_ENABLED@
 #cmakedefine KDU_ENABLED @KDU_ENABLED@
-#cmakedefine KDU_THREADING @KDU_THREADING@
 
 #endif

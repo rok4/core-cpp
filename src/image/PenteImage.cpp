@@ -45,54 +45,54 @@
 #define DEG_TO_RAD      .0174532925199432958
 #include <string>
 
-int PenteImage::getline ( float* buffer, int line ) {
+int PenteImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int PenteImage::getline ( uint16_t* buffer, int line ) {
+int PenteImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int PenteImage::getline ( uint8_t* buffer, int line ) {
+int PenteImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 //definition des variables
 PenteImage::PenteImage (Image* image, Pente* p) :
-    Image ( image->getWidth() - 2, image->getHeight() - 2, 1),
-    origImage ( image ), algo (p->getAlgo()),unit (p->getUnit()), slopeNoData (p->getSlopeNoData()), imgNoData (p->getImgNoData()), maxSlope (p->getMaxSlope())
+    Image ( image->get_width() - 2, image->get_height() - 2, 1),
+    source_image ( image ), algo (p->getAlgo()),unit (p->getUnit()), slopeNoData (p->getSlopeNoData()), imgNoData (p->getImgNoData()), maxSlope (p->getMaxSlope())
     {
 
     // On réduit la bbox d'un pixel de chaque côté
-    BoundingBox<double> bb = origImage->getBbox();
-    bb.xmin += origImage->getResX();
-    bb.ymin += origImage->getResY();
-    bb.xmax -= origImage->getResX();
-    bb.ymax -= origImage->getResY();
-    setBbox(bb);
+    BoundingBox<double> bb = source_image->get_bbox();
+    bb.xmin += source_image->get_resx();
+    bb.ymin += source_image->get_resy();
+    bb.xmax -= source_image->get_resx();
+    bb.ymax -= source_image->get_resy();
+    set_bbox(bb);
 
-    setCRS(origImage->getCRS());
+    set_crs(source_image->get_crs());
 
     // On calcule une seule fois la résolution en mètre
-    resxmeter = getResXmeter();
-    resymeter = getResYmeter();
+    resxmeter = get_resx(true);
+    resymeter = get_resy(true);
 
     // Buffer de lignes sources
-    memorizedOrigLines = 3;
+    memorized_source_lines = 3;
 
-    origLines = new int[memorizedOrigLines];
-    for (int i = 0; i < memorizedOrigLines; i++) {
-        origLines[i] = -1;
+    source_lines = new int[memorized_source_lines];
+    for (int i = 0; i < memorized_source_lines; i++) {
+        source_lines[i] = -1;
     }
-    origLinesBuffer = new float[origImage->getWidth() * memorizedOrigLines];
+    source_lines_buffer = new float[source_image->get_width() * memorized_source_lines];
 
 }
 
 
 PenteImage::~PenteImage() {
-    delete origImage;
-    delete[] origLines;
-    delete[] origLinesBuffer;
+    delete source_image;
+    delete[] source_lines;
+    delete[] source_lines_buffer;
 }
 
 
@@ -104,31 +104,31 @@ int PenteImage::_getline ( T* buffer, int line ) {
     // Plus généralement, pour avoir la ligne n de l'image estompée, on a besoin des lignes
     // n, n+1 et n+2 de l'image source
 
-    // On range les lignes sources dans un buffer qui peut en stocker "memorizedOrigLines"
-    // La ligne source n est stockée en (n % memorizedOrigLines) ème position
+    // On range les lignes sources dans un buffer qui peut en stocker "memorized_source_lines"
+    // La ligne source n est stockée en (n % memorized_source_lines) ème position
 
     // calcul des emplacements dans le buffer des 3 lignes sources nécessaires
-    float* line1 = origLinesBuffer + (line % memorizedOrigLines) * origImage->getWidth();
-    float* line2 = origLinesBuffer + ((line + 1) % memorizedOrigLines) * origImage->getWidth();
-    float* line3 = origLinesBuffer + ((line + 2) % memorizedOrigLines) * origImage->getWidth();
+    float* line1 = source_lines_buffer + (line % memorized_source_lines) * source_image->get_width();
+    float* line2 = source_lines_buffer + ((line + 1) % memorized_source_lines) * source_image->get_width();
+    float* line3 = source_lines_buffer + ((line + 2) % memorized_source_lines) * source_image->get_width();
 
     // ligne du dessus
-    if (origLines[line % memorizedOrigLines] != line) {
+    if (source_lines[line % memorized_source_lines] != line) {
         // la ligne source 'line' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line1 , line);
-        origLines[line % memorizedOrigLines] = line;
+        source_image->get_line (line1 , line);
+        source_lines[line % memorized_source_lines] = line;
     }
     // ligne du milieu
-    if (origLines[(line + 1) % memorizedOrigLines] != line + 1) {
+    if (source_lines[(line + 1) % memorized_source_lines] != line + 1) {
         // la ligne source 'line + 1' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line2 , line + 1);
-        origLines[(line + 1) % memorizedOrigLines] = line + 1;
+        source_image->get_line (line2 , line + 1);
+        source_lines[(line + 1) % memorized_source_lines] = line + 1;
     }
     // ligne du dessous
-    if (origLines[(line + 2) % memorizedOrigLines] != line + 2) {
+    if (source_lines[(line + 2) % memorized_source_lines] != line + 2) {
         // la ligne source 'line + 2' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line3 , line + 2);
-        origLines[(line + 2) % memorizedOrigLines] = line + 2;
+        source_image->get_line (line3 , line + 2);
+        source_lines[(line + 2) % memorized_source_lines] = line + 2;
     }
     
 	//on commence a la premiere colonne

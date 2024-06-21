@@ -47,27 +47,27 @@
 #include "rok4/utils/Utils.h"
 
 struct JpegDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size );
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size );
 };
 
 struct PngDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size );
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size );
 };
 
 struct LzwDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size );
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size );
 };
 
 struct DeflateDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size );
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size );
 };
 
 struct PackBitsDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size );
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size );
 };
 
 struct InvalidDecoder {
-    static const uint8_t* decode ( DataSource* encData, size_t &size ) {
+    static const uint8_t* decode ( DataSource* encoded_data, size_t &size ) {
         size = 0;
         return 0;
     }
@@ -82,49 +82,49 @@ struct InvalidDecoder {
 template <class Decoder>
 class DataSourceDecoder : public DataSource {
 private:
-    DataSource* encData;
-    const uint8_t* decData;
-    size_t decSize;
+    DataSource* encoded_data;
+    const uint8_t* decoded_data;
+    size_t decoded_size;
 public:
-    DataSourceDecoder ( DataSource* encData ) : encData ( encData ), decData ( 0 ), decSize ( 0 ) {}
+    DataSourceDecoder ( DataSource* encoded_data ) : encoded_data ( encoded_data ), decoded_data ( 0 ), decoded_size ( 0 ) {}
 
     ~DataSourceDecoder() {
-        if ( decData )
-            delete[] decData;
-        delete encData;
+        if ( decoded_data )
+            delete[] decoded_data;
+        delete encoded_data;
     }
 
-    const uint8_t* getData ( size_t &size ) {
-        if ( !decData && encData ) {
-            decData = Decoder::decode ( encData, decSize );
-            if ( !decData ) {
-                delete encData;
-                encData = 0;
+    const uint8_t* get_data ( size_t &size ) {
+        if ( !decoded_data && encoded_data ) {
+            decoded_data = Decoder::decode ( encoded_data, decoded_size );
+            if ( !decoded_data ) {
+                delete encoded_data;
+                encoded_data = 0;
             }
         }
-        size = decSize;
-        return decData;
+        size = decoded_size;
+        return decoded_data;
     }
 
-    bool releaseData() {
-        if ( encData ) encData->releaseData();
-        if ( decData ) delete[] decData;
-        decData = 0;
+    bool release_data() {
+        if ( encoded_data ) encoded_data->release_data();
+        if ( decoded_data ) delete[] decoded_data;
+        decoded_data = 0;
         return true;
     }
 
-    std::string getType() {
+    std::string get_type() {
         return "image/bil";
     }
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
     
-    unsigned int getLength() {
-        return decSize;
+    unsigned int get_length() {
+        return decoded_size;
     }
 };
 
@@ -132,8 +132,10 @@ public:
 
 
 class ImageDecoder : public Image {
+
 private:
-    DataSource* dataSource;
+
+    DataSource* source_data;
 
     int source_width;
     int source_height;
@@ -143,15 +145,15 @@ private:
     int channel_size; // type des images source : 1=uint8_t   2=uint16_t    4=float
 
     // La donnee brute (source) est de type uint8_t
-    const uint8_t* rawData;
+    const uint8_t* raw_data;
 
-    int getDataline ( uint8_t* buffer, int line );
+    int get_data_line ( uint8_t* buffer, int line );
 
-    int getDataline ( uint16_t* buffer, int line );
+    int get_data_line ( uint16_t* buffer, int line );
 
-    int getDataline ( float* buffer, int line );
+    int get_data_line ( float* buffer, int line );
 
-    template<typename T> inline int getNoDataline ( T* buffer, int line ) {
+    template<typename T> inline int get_nodata_line ( T* buffer, int line ) {
         memset ( buffer, 0, width * channels * sizeof ( T ) );
         return width * channels;
     }
@@ -160,50 +162,51 @@ private:
     template<typename T>
     inline int _getline ( T* buffer, int line ) {
 
-        if ( rawData ) { // Est ce que l'on a de la donnee
-            return getDataline ( buffer, line );
-            // TODO: libérer le dataSource lorsque l'on lit la dernière ligne de l'image...
-        } else if ( dataSource ) { // Non alors on essaye de la l'initialiser depuis dataSource
+        if ( raw_data ) { // Est ce que l'on a de la donnee
+            return get_data_line ( buffer, line );
+            // TODO: libérer le source_data lorsque l'on lit la dernière ligne de l'image...
+        } else if ( source_data ) { // Non alors on essaye de la l'initialiser depuis source_data
             size_t size;
-            if ( rawData = dataSource->getData ( size ) ) {
-                return getDataline ( buffer, line );
+            if ( raw_data = source_data->get_data ( size ) ) {
+                return get_data_line ( buffer, line );
             } else {
-                delete dataSource;
-                dataSource = 0;
+                delete source_data;
+                source_data = 0;
             }
         }
         //BOOST_LOG_TRIVIAL(debug) << "Decoding error, fill with black";
-        return getNoDataline ( buffer, line );
+        return get_nodata_line ( buffer, line );
     }
 
 public:
-    ImageDecoder ( DataSource* dataSource, int source_width, int source_height, int channels,
+
+    ImageDecoder ( DataSource* source_data, int source_width, int source_height, int channels,
                    BoundingBox<double> bbox = BoundingBox<double> ( 0.,0.,0.,0. ),
                    int margin_left = 0, int margin_top = 0, int margin_right = 0, int margin_bottom = 0, int channel_size=1 ) :
         Image ( source_width - margin_left - margin_right, source_height - margin_top - margin_bottom, channels, bbox ),
-        dataSource ( dataSource ),
+        source_data ( source_data ),
         source_width ( source_width ),
         source_height ( source_height ),
         margin_top ( margin_top ),
         margin_left ( margin_left ),
         channel_size ( channel_size ),
-        rawData ( 0 ) {}
+        raw_data ( 0 ) {}
 
     /* Implémentation de l'interface Image */
-    inline int getline ( uint8_t* buffer, int line ) {
+    inline int get_line ( uint8_t* buffer, int line ) {
         return _getline ( buffer, line );
     }
-    inline int getline ( uint16_t* buffer, int line ) {
+    inline int get_line ( uint16_t* buffer, int line ) {
         return _getline ( buffer, line );
     }
-    inline int getline ( float* buffer, int line )   {
+    inline int get_line ( float* buffer, int line )   {
         return _getline ( buffer, line );
     }
 
     ~ImageDecoder() {
-        if ( dataSource ) {
-            dataSource->releaseData();
-            delete dataSource;
+        if ( source_data ) {
+            source_data->release_data();
+            delete source_data;
         }
     }
 

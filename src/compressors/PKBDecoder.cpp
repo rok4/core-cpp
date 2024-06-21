@@ -60,12 +60,12 @@ uint8_t * pkbDecoder::decode(const uint8_t * in, size_t inSize, size_t &outSize)
         if (header <= 0) { // Run
             count = 1 - header;
             if (outPos + count > outSize) {
-                uint8_t* tmpBuffer = new uint8_t[(outSize*2)];
-                if (tmpBuffer) { // Enlarge your Buffer
-                    memset(tmpBuffer+outSize ,0,outSize);
-                    memcpy(tmpBuffer, out, outSize);
+                uint8_t* tmp_buffer = new uint8_t[(outSize*2)];
+                if (tmp_buffer) { // Enlarge your Buffer
+                    memset(tmp_buffer+outSize ,0,outSize);
+                    memcpy(tmp_buffer, out, outSize);
                     delete[] out;
-                    out = tmpBuffer;
+                    out = tmp_buffer;
                     outSize *=2;
                 } else { //Allocation error
                     outSize = 0;
@@ -80,12 +80,12 @@ uint8_t * pkbDecoder::decode(const uint8_t * in, size_t inSize, size_t &outSize)
         } else if ( header < 128 ) { // Literal
             count = 1 + header;
             if (outPos + count > outSize) {
-                uint8_t* tmpBuffer = new uint8_t[(outSize*2)];
-                if (tmpBuffer) { // Enlarge your Buffer
-                    memset(tmpBuffer+outSize ,0,outSize);
-                    memcpy(tmpBuffer, out, outSize);
+                uint8_t* tmp_buffer = new uint8_t[(outSize*2)];
+                if (tmp_buffer) { // Enlarge your Buffer
+                    memset(tmp_buffer+outSize ,0,outSize);
+                    memcpy(tmp_buffer, out, outSize);
                     delete[] out;
-                    out = tmpBuffer;
+                    out = tmp_buffer;
                     outSize *=2;
                 } else { //Allocation error
                     outSize = 0;

@@ -54,7 +54,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt -y install zlib1g-dev libcurl4-openssl-dev libproj-dev libssl-dev libturbojpeg0-dev \
-            libjpeg-dev libc6-dev libjson11-1-dev libboost-log-dev libboost-filesystem-dev libboost-system-dev \
+            libjpeg-dev libc6-dev libboost-log-dev libboost-filesystem-dev libboost-system-dev \
             libsqlite3-dev libpng-dev libtiff5-dev libopenjp2-7-dev librados-dev \
             gettext build-essential cmake libcppunit-dev doxygen graphviz
 

@@ -91,7 +91,7 @@ bool Pyramid::parse(json11::Json& doc) {
         return false;
     }
 
-    format = Rok4Format::fromString ( formatStr );
+    format = Rok4Format::from_string ( formatStr );
     if ( ! ( format ) ) {
         errorMessage =  "Le format [" + formatStr + "] n'est pas gere." ;
         return false;
@@ -99,7 +99,7 @@ bool Pyramid::parse(json11::Json& doc) {
 
     /******************* PYRAMIDE RASTER *********************/
     
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         if (! doc["raster_specifications"].is_object()) {
             errorMessage = "raster_specifications have to be provided and be an object for raster format";
             return false;
@@ -114,7 +114,7 @@ bool Pyramid::parse(json11::Json& doc) {
             return false;
         }
 
-        photo = Photometric::fromString ( photometricStr );
+        photo = Photometric::from_string ( photometricStr );
         if ( ! ( photo ) ) {
             errorMessage =  "La photométrie [" + photometricStr + "] n'est pas gere." ;
             return false;
@@ -129,7 +129,7 @@ bool Pyramid::parse(json11::Json& doc) {
         }
 
         // NODATAVALUE
-        nodataValue = new int[channels];
+        nodata_value = new int[channels];
         if (doc["raster_specifications"]["nodata"].is_string()) {
             std::string nodataValueStr = doc["raster_specifications"]["nodata"].string_value();
             std::size_t found = nodataValueStr.find_first_of(",");
@@ -140,7 +140,7 @@ bool Pyramid::parse(json11::Json& doc) {
                 curVal = DEFAULT_NODATAVALUE;
             }
             int i = 0;
-            nodataValue[i] = curVal;
+            nodata_value[i] = curVal;
             i++;
             while (found!=std::string::npos && i < channels) {
                 found = endOfValues.find_first_of(",");
@@ -150,7 +150,7 @@ bool Pyramid::parse(json11::Json& doc) {
                 if (currentValue == "") {
                     curVal = DEFAULT_NODATAVALUE;
                 }
-                nodataValue[i] = curVal;
+                nodata_value[i] = curVal;
                 i++;
             }
             if (i < channels) {
@@ -205,7 +205,7 @@ bool Pyramid::parse(json11::Json& doc) {
 
 Pyramid::Pyramid(std::string path) : Configuration(path) {
 
-    nodataValue = NULL;
+    nodata_value = NULL;
 
     /********************** Read */
 
@@ -215,7 +215,7 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     
     context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read pyramid's descriptor";
+        errorMessage = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read pyramid's descriptor";
         return;
     }
 
@@ -265,14 +265,14 @@ Pyramid::Pyramid (Pyramid* obj) {
     format = obj->format;
     lowestLevel = NULL;
     highestLevel = NULL;
-    nodataValue = NULL;
+    nodata_value = NULL;
 
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         photo = obj->photo;
         channels = obj->channels;
 
-        nodataValue = new int[channels];
-        memcpy ( nodataValue, obj->nodataValue, channels * sizeof(int) );
+        nodata_value = new int[channels];
+        memcpy ( nodata_value, obj->nodata_value, channels * sizeof(int) );
     }
 }
 
@@ -290,7 +290,7 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
         return false;
     }
 
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         if (photo != obj->photo) {
             BOOST_LOG_TRIVIAL(error) << "Photometric have to be the same for all used pyramids";
             return false;
@@ -434,8 +434,8 @@ Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, 
 
         if (croped.hasNullArea()) {
             BOOST_LOG_TRIVIAL(debug) <<   "BBox decoupée d'aire nulle"  ;
-            EmptyImage* fond = new EmptyImage(width, height, channels, nodataValue);
-            fond->setBbox(bbox);
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
             return fond;
         }
 
@@ -449,25 +449,25 @@ Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, 
             images.push_back ( tmp );
         } else {
             BOOST_LOG_TRIVIAL(error) <<   "Image decoupée non valide"  ;
-            EmptyImage* fond = new EmptyImage(width, height, channels, nodataValue);
-            fond->setBbox(bbox);
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
             return fond;
         }
 
         ExtendedCompoundImageFactory facto;
-        return facto.createExtendedCompoundImage ( width, height, channels, bbox, images, nodataValue, 0 );
+        return facto.createExtendedCompoundImage ( width, height, channels, bbox, images, nodata_value, 0 );
         
     } else {
 
         BOOST_LOG_TRIVIAL(error) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->getProjCode() ;
-        BOOST_LOG_TRIVIAL(error) <<  bbox.toString() ;
+        BOOST_LOG_TRIVIAL(error) <<  bbox.to_string() ;
         return 0;
     }
 }
 
 Pyramid::~Pyramid() {
 
-    if (nodataValue != NULL) delete[] nodataValue;
+    if (nodata_value != NULL) delete[] nodata_value;
 
     std::map<std::string, Level*>::iterator iLevel;
     for ( iLevel=levels.begin(); iLevel!=levels.end(); iLevel++ )
@@ -476,11 +476,11 @@ Pyramid::~Pyramid() {
 }
 
 Compression::eCompression Pyramid::getSampleCompression() {
-    return Rok4Format::getCompression(format);
+    return Rok4Format::get_compression(format);
 }
 
-SampleFormat::eSampleFormat Pyramid::getSampleFormat() {
-    return Rok4Format::getSampleFormat(format);
+SampleFormat::eSampleFormat Pyramid::get_sample_format() {
+    return Rok4Format::get_sample_format(format);
 }
 
 Level* Pyramid::getHighestLevel() { return highestLevel; }
@@ -508,7 +508,7 @@ Level* Pyramid::getLevel(std::string id) {
 }
 
 Rok4Format::eFormat Pyramid::getFormat() { return format; }
-Photometric::ePhotometric Pyramid::getPhotometric() { return photo; }
-int Pyramid::getChannels() { return channels; }
-int* Pyramid::getNodataValue() { return nodataValue; }
-int Pyramid::getFirstnodataValue () { return nodataValue[0]; }
+Photometric::ePhotometric Pyramid::get_photometric() { return photo; }
+int Pyramid::get_channels() { return channels; }
+int* Pyramid::getNodataValue() { return nodata_value; }
+int Pyramid::getFirstnodataValue () { return nodata_value[0]; }

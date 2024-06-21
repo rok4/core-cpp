@@ -49,16 +49,17 @@
  * \li MirrorImageFactory : factory to create MirrorImage object
  */
 
-#include "image/MirrorImage.h"
 #include <boost/log/trivial.hpp>
+
+#include "image/MirrorImage.h"
 #include "utils/Utils.h"
 
 MirrorImage* MirrorImageFactory::createMirrorImage ( Image* pImageSrc, int position, uint mirrorSize ) {
 
-    int wTopBottom = pImageSrc->getWidth() +2*mirrorSize;
+    int wTopBottom = pImageSrc->get_width() +2*mirrorSize;
     int wLeftRight = mirrorSize;
     int hTopBottom = mirrorSize;
-    int hLeftRight = pImageSrc->getHeight();
+    int hLeftRight = pImageSrc->get_height();
 
     double xmin,ymin,xmax,ymax;
 
@@ -67,43 +68,43 @@ MirrorImage* MirrorImageFactory::createMirrorImage ( Image* pImageSrc, int posit
         return NULL;
     }
 
-    if ( mirrorSize > pImageSrc->getWidth() || mirrorSize > pImageSrc->getHeight() ) {
+    if ( mirrorSize > pImageSrc->get_width() || mirrorSize > pImageSrc->get_height() ) {
         BOOST_LOG_TRIVIAL(error) <<  "Image is smaller than what we need for mirrors (we need "<< mirrorSize << " pixels)" ;
         return NULL;
     }
 
     if ( position == 0 ) {
         // TOP
-        xmin=pImageSrc->getXmin()-pImageSrc->getResX() *mirrorSize;
-        xmax=pImageSrc->getXmax() +pImageSrc->getResX() *mirrorSize;
-        ymin=pImageSrc->getYmax();
-        ymax=pImageSrc->getYmax() +pImageSrc->getResY() *mirrorSize;
+        xmin=pImageSrc->get_xmin()-pImageSrc->get_resx() *mirrorSize;
+        xmax=pImageSrc->get_xmax() +pImageSrc->get_resx() *mirrorSize;
+        ymin=pImageSrc->get_ymax();
+        ymax=pImageSrc->get_ymax() +pImageSrc->get_resy() *mirrorSize;
         BoundingBox<double> bbox ( xmin,ymin,xmax,ymax );
-        return new MirrorImage ( wTopBottom,hTopBottom,pImageSrc->getChannels(),bbox,pImageSrc,0,mirrorSize );
+        return new MirrorImage ( wTopBottom,hTopBottom,pImageSrc->get_channels(),bbox,pImageSrc,0,mirrorSize );
     } else if ( position == 1 ) {
         // RIGHT
-        xmin=pImageSrc->getXmax();
-        xmax=pImageSrc->getXmax() +pImageSrc->getResX() *mirrorSize;
-        ymin=pImageSrc->getYmin();
-        ymax=pImageSrc->getYmax();
+        xmin=pImageSrc->get_xmax();
+        xmax=pImageSrc->get_xmax() +pImageSrc->get_resx() *mirrorSize;
+        ymin=pImageSrc->get_ymin();
+        ymax=pImageSrc->get_ymax();
         BoundingBox<double> bbox ( xmin,ymin,xmax,ymax );
-        return new MirrorImage ( wLeftRight,hLeftRight,pImageSrc->getChannels(),bbox,pImageSrc,1,mirrorSize );
+        return new MirrorImage ( wLeftRight,hLeftRight,pImageSrc->get_channels(),bbox,pImageSrc,1,mirrorSize );
     } else if ( position == 2 ) {
         // BOTTOM
-        xmin=pImageSrc->getXmin()-pImageSrc->getResX() *mirrorSize;
-        xmax=pImageSrc->getXmax() +pImageSrc->getResX() *mirrorSize;
-        ymin=pImageSrc->getYmin()-pImageSrc->getResY() *mirrorSize;
-        ymax=pImageSrc->getYmin();
+        xmin=pImageSrc->get_xmin()-pImageSrc->get_resx() *mirrorSize;
+        xmax=pImageSrc->get_xmax() +pImageSrc->get_resx() *mirrorSize;
+        ymin=pImageSrc->get_ymin()-pImageSrc->get_resy() *mirrorSize;
+        ymax=pImageSrc->get_ymin();
         BoundingBox<double> bbox ( xmin,ymin,xmax,ymax );
-        return new MirrorImage ( wTopBottom,hTopBottom,pImageSrc->getChannels(),bbox,pImageSrc,2,mirrorSize );
+        return new MirrorImage ( wTopBottom,hTopBottom,pImageSrc->get_channels(),bbox,pImageSrc,2,mirrorSize );
     } else if ( position == 3 ) {
         // LEFT
-        xmin=pImageSrc->getXmin()-pImageSrc->getResX() *mirrorSize;
-        xmax=pImageSrc->getXmin();
-        ymin=pImageSrc->getYmin();
-        ymax=pImageSrc->getYmax();
+        xmin=pImageSrc->get_xmin()-pImageSrc->get_resx() *mirrorSize;
+        xmax=pImageSrc->get_xmin();
+        ymin=pImageSrc->get_ymin();
+        ymax=pImageSrc->get_ymax();
         BoundingBox<double> bbox ( xmin,ymin,xmax,ymax );
-        return new MirrorImage ( wLeftRight,hLeftRight,pImageSrc->getChannels(),bbox,pImageSrc,3,mirrorSize );
+        return new MirrorImage ( wLeftRight,hLeftRight,pImageSrc->get_channels(),bbox,pImageSrc,3,mirrorSize );
     } else {
         return NULL;
     }
@@ -113,43 +114,43 @@ MirrorImage* MirrorImageFactory::createMirrorImage ( Image* pImageSrc, int posit
 template <typename T>
 int MirrorImage::_getline ( T* buffer, int line ) {
     uint32_t line_size=width*channels;
-    T* buf0=new T[sourceImage->getWidth() *channels];
+    T* buf0=new T[source_image->get_width() *channels];
 
 
     if ( position == 0 ) {
         // TOP
         int lineSrc = height - line -1;
 
-        sourceImage->getline ( buf0,lineSrc );
+        source_image->get_line ( buf0,lineSrc );
 
-        memcpy ( &buffer[mirrorSize*channels],buf0,sourceImage->getWidth() *channels*sizeof ( T ) );
+        memcpy ( &buffer[mirrorSize*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
         for ( int j = 0; j < mirrorSize; j++ ) {
             memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // left
-            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( sourceImage->getWidth() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
+            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
         }
 
     } else if ( position == 1 ) {
         // RIGHT
-        sourceImage->getline ( buf0,line );
+        source_image->get_line ( buf0,line );
         for ( int j = 0; j < mirrorSize; j++ ) {
-            memcpy ( &buffer[j*channels],&buf0[ ( sourceImage->getWidth()-j-1 ) *channels],channels*sizeof ( T ) ); // right
+            memcpy ( &buffer[j*channels],&buf0[ ( source_image->get_width()-j-1 ) *channels],channels*sizeof ( T ) ); // right
         }
 
     } else if ( position == 2 ) {
         // BOTTOM
-        int lineSrc = sourceImage->getHeight() - line -1;
+        int lineSrc = source_image->get_height() - line -1;
 
-        sourceImage->getline ( buf0,lineSrc );
+        source_image->get_line ( buf0,lineSrc );
 
-        memcpy ( &buffer[mirrorSize*channels],buf0,sourceImage->getWidth() *channels*sizeof ( T ) );
+        memcpy ( &buffer[mirrorSize*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
         for ( int j = 0; j < mirrorSize; j++ ) {
             memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // left
-            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( sourceImage->getWidth() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
+            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
         }
 
     } else if ( position == 3 ) {
         // LEFT
-        sourceImage->getline ( buf0,line );
+        source_image->get_line ( buf0,line );
         for ( int j = 0; j < mirrorSize; j++ ) {
             memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // right
         }
@@ -161,17 +162,17 @@ int MirrorImage::_getline ( T* buffer, int line ) {
     return width*channels;
 }
 
-/* Implementation de getline pour les uint8_t */
-int MirrorImage::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MirrorImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les uint16_t */
-int MirrorImage::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les uint16_t */
+int MirrorImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les float */
-int MirrorImage::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int MirrorImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }

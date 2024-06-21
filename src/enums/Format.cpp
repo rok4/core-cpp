@@ -74,7 +74,7 @@ const char *compression_name[] = {
     "JPEG2000"
 };
 
-eCompression fromString ( std::string strComp ) {
+eCompression from_string ( std::string strComp ) {
     int i;
     for ( i = compression_size; i ; --i ) {
         if ( strComp.compare ( compression_name[i] ) == 0 )
@@ -83,7 +83,7 @@ eCompression fromString ( std::string strComp ) {
     return static_cast<eCompression> ( i );
 }
 
-std::string toString ( eCompression comp ) {
+std::string to_string ( eCompression comp ) {
     return std::string ( compression_name[comp] );
 }
 
@@ -100,7 +100,7 @@ const char *photometric_name[] = {
     "MASK"
 };
 
-ePhotometric fromString ( std::string strPh ) {  
+ePhotometric from_string ( std::string strPh ) {  
 
     int i;
     std::transform(strPh.begin(), strPh.end(), strPh.begin(), toupper);
@@ -112,7 +112,7 @@ ePhotometric fromString ( std::string strPh ) {
     return static_cast<ePhotometric> ( i );
 }
 
-std::string toString ( ePhotometric ph ) {
+std::string to_string ( ePhotometric ph ) {
     return std::string ( photometric_name[ph] );
 }
 
@@ -122,11 +122,12 @@ namespace ExtraSample {
 
 const char *extraSample_name[] = {
     "UNKNOWN",
+    "NONE",
     "ASSOCIATED ALPHA",
     "UNASSOCIATED ALPHA"
 };
 
-eExtraSample fromString ( std::string strPh ) {
+eExtraSample from_string ( std::string strPh ) {
     int i;
     for ( i = extraSample_size; i ; --i ) {
         if ( strPh.compare ( extraSample_name[i] ) == 0 )
@@ -160,7 +161,7 @@ const int esampleformat_bitspersample[] = {
     32
 };
 
-eSampleFormat fromString ( std::string strSF ) {
+eSampleFormat from_string ( std::string strSF ) {
     int i;
     for ( i = sampleformat_size; i ; --i ) {
         if ( strSF.compare ( sampleformat_name[i] ) == 0 )
@@ -169,11 +170,11 @@ eSampleFormat fromString ( std::string strSF ) {
     return static_cast<eSampleFormat> ( i );
 }
 
-std::string toString ( eSampleFormat sf ) {
+std::string to_string ( eSampleFormat sf ) {
     return std::string ( sampleformat_name[sf] );
 }
 
-int getBitsPerSample ( eSampleFormat sf ) {
+int get_bits_per_sample ( eSampleFormat sf ) {
     return esampleformat_bitspersample[sf];
 }
 
@@ -354,7 +355,7 @@ const int eformat_bitspersample[] = {
     -1
 };
 
-eFormat fromString ( std::string strFormat ) {
+eFormat from_string ( std::string strFormat ) {
     int i;
     for ( i=eformat_size; i ; --i ) {
         if ( strFormat.compare ( eformat_name[i] ) ==0 )
@@ -367,45 +368,32 @@ std::string toString ( eFormat format ) {
     return std::string ( eformat_name[format] );
 }
 
-bool isRaster ( eFormat format ) {
+bool is_raster ( eFormat format ) {
     return eformat_israster[format];
 }
 
-Compression::eCompression getCompression ( eFormat format ) {
+Compression::eCompression get_compression ( eFormat format ) {
     return eformat_compression[format];
 }
 
-SampleFormat::eSampleFormat getSampleFormat ( eFormat format ) {
+SampleFormat::eSampleFormat get_sample_format ( eFormat format ) {
     return eformat_sampleformat[format];
 }
 
-int getBitsPerSample ( eFormat format ) {
+int get_bits_per_sample ( eFormat format ) {
     return eformat_bitspersample[format];
 }
 
-std::string toMimeType ( eFormat format ) {
+std::string to_mime_type ( eFormat format ) {
     return std::string ( eformat_mime[format] );
 }
 
-std::string toExtension ( eFormat format ) {
+std::string to_extension ( eFormat format ) {
     return std::string ( eformat_extension[format] );
 }
 
-eFormat fromMimeType ( std::string mime ) {
-    int i;
-    for ( i=eformat_size; i ; --i ) {
-        if ( mime.compare ( eformat_mime[i] ) == 0 )
-            break;
-    }
-    return static_cast<eFormat> ( i );
-}
-
-std::string toEncoding ( eFormat format ) {
+std::string to_encoding ( eFormat format ) {
     return std::string ( eformat_encoding[format] );
-}
-
-int getChannelSize ( eFormat format ) {
-    return eformat_channelsize[format];
 }
 
 }

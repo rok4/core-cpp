@@ -65,39 +65,39 @@ public:
      * @return Pointeur vers les données qui ne doit pas être utilisé après destruction ou libération des données (0 en cas d'échec)
      *
      */
-    virtual const uint8_t* getData ( size_t &size ) = 0;
+    virtual const uint8_t* get_data ( size_t &size ) = 0;
 
     /**
      * Libère les données mémoire allouées.
      *
-     * Le pointeur obtenu par getData() ne doit plus être utilisé après un appel à releaseData().
+     * Le pointeur obtenu par get_data() ne doit plus être utilisé après un appel à releaseData().
      * Le choix de libérer effectivement les données est laissé à l'implémentation, un nouvel appel
-     * à getData() doit pouvoir être possible après libération même si ce n'est pas la logique voulue.
+     * à get_data() doit pouvoir être possible après libération même si ce n'est pas la logique voulue.
      * Dans ce cas, la classe doit recharger en mémoire les données libérées.
      *
      * @return true en cas de succès.
      */
-    virtual bool releaseData() = 0;
+    virtual bool release_data() = 0;
 
     /**
      * Indique le type MIME associé à la donnée source.
      */
-    virtual std::string getType() = 0;
+    virtual std::string get_type() = 0;
 
     /**
      * Indique le statut Http associé à la donnée source.
      */
-    virtual int getHttpStatus() = 0;
+    virtual int get_http_status() = 0;
     
     /**
      * Indique l'encodage Http associé à la donnée source.
      */
-    virtual std::string getEncoding() = 0;
+    virtual std::string get_encoding() = 0;
     
     /**
      * Indique la taille de la réponse en octets.
      */
-    virtual unsigned int getLength() = 0;
+    virtual unsigned int get_length() = 0;
 };
 
 
@@ -105,20 +105,24 @@ public:
  * Classe transformant un DataStream en DataSource.
  */
 class BufferedDataSource : public DataSource {
+
 private:
+
     std::string type;
     std::string encoding;
-    int httpStatus;
-    size_t dataSize;
+    int http_status;
+    size_t data_size;
     uint8_t* data;
     unsigned int length;
     bool status;
+
 public:
+
     /**
      * Constructeur.
      * Le paramètre dataStream est complètement lu. Il est donc inutilisable par la suite.
      */
-    BufferedDataSource ( DataStream* dataStream );
+    BufferedDataSource ( DataStream* datastream );
 
     /** Destructeur **/
     virtual ~BufferedDataSource() {
@@ -126,42 +130,42 @@ public:
     }
 
     /** Implémentation de l'interface DataSource **/
-    const uint8_t* getData ( size_t &size ) {
-        size = dataSize;
+    const uint8_t* get_data ( size_t &size ) {
+        size = data_size;
         return data;
     }
 
     /**
-     * Le buffer ne peut pas être libéré car on n'a pas de moyen de le reremplir pour un éventuel futur getData
+     * Le buffer ne peut pas être libéré car on n'a pas de moyen de le reremplir pour un éventuel futur get_data
      * @return false
      */
-    bool releaseData() {
+    bool release_data() {
         return false;
     }
 
     /** @return le type du dataStream */
-    std::string getType() {
+    std::string get_type() {
         return type;
     }
 
     /** @return le status du dataStream */
-    int getHttpStatus() {
-        return httpStatus;
+    int get_http_status() {
+        return http_status;
     }
     
      /** @return l'encodage du dataStream */
-    std::string getEncoding() {
+    std::string get_encoding() {
         return encoding;
     }
 
     /** @return la taille du buffer */
-   size_t getSize() {
-       return dataSize;
+   size_t get_size() {
+       return data_size;
    }
    
    /** @return la taille du datastream */
-   unsigned int getLength() {
-       return dataSize;
+   unsigned int get_length() {
+       return data_size;
    }
 };
 
@@ -169,21 +173,24 @@ public:
  * Classe de données brutes.
  */
 class RawDataSource : public DataSource {
+
 private:
-    size_t dataSize;
+
+    size_t data_size;
     uint8_t* data;
     std::string type;
     std::string encoding;
     unsigned int length;
+    
 public:
     
     /**
      * Constructeur.
      */
     RawDataSource ( uint8_t *dat, size_t dataS, std::string t, std::string e){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
+        data_size = dataS;
+        data = new uint8_t[data_size];
+        memcpy ( data, dat, data_size );
         type = t;
         encoding = e;
         length = 0;
@@ -193,9 +200,9 @@ public:
      * Constructeur.
      */
     RawDataSource ( const uint8_t *dat, size_t dataS){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
+        data_size = dataS;
+        data = new uint8_t[data_size];
+        memcpy ( data, dat, data_size );
         type = "";
         encoding = "";
         length = 0;
@@ -208,16 +215,16 @@ public:
     }
 
     /** Implémentation de l'interface DataSource **/
-    const uint8_t* getData ( size_t &size ) {
-        size = dataSize;
+    const uint8_t* get_data ( size_t &size ) {
+        size = data_size;
         return data;
     }
 
     /**
-     * Le buffer ne peut pas être libéré car on n'a pas de moyen de le reremplir pour un éventuel futur getData
+     * Le buffer ne peut pas être libéré car on n'a pas de moyen de le reremplir pour un éventuel futur get_data
      * @return false
      */
-    bool releaseData() {
+    bool release_data() {
         if (data)
           delete[] data;
         data = 0;
@@ -225,27 +232,27 @@ public:
     }
 
     /** @return le type du dataStream */
-    std::string getType() {
+    std::string get_type() {
         return type;
     }
 
     /** @return le status du dataStream */
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
 
      /** @return l'encodage du dataStream */
-    std::string getEncoding() {
+    std::string get_encoding() {
         return encoding;
     }
 
     /** @return la taille du buffer */
-   size_t getSize() {
-       return dataSize;
+   size_t get_size() {
+       return data_size;
    }
    
    /** @return le taille du dataStream */
-    unsigned int getLength() {
+    unsigned int get_length() {
         return length;
     }
 };

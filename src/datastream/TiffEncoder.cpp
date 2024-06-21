@@ -43,26 +43,18 @@
 #include "datastream/TiffPackBitsEncoder.h"
 
 
-TiffEncoder::TiffEncoder(Image *image, int line, bool isGeoTiff): image(image), line(line), isGeoTiff(isGeoTiff) {
-    tmpBuffer = NULL;
-    tmpBufferPos = 0;
-    tmpBufferSize = 0;
+TiffEncoder::TiffEncoder(Image *image, int line, bool is_geotiff): image(image), line(line), is_geotiff(is_geotiff) {
+    tmp_buffer = NULL;
+    tmp_buffer_pos = 0;
+    tmp_buffer_size = 0;
     header = NULL;
-    sizeHeader = 0;
-}
-
-TiffEncoder::TiffEncoder(Image *image, int line ): image(image), line(line), isGeoTiff(false) {
-    tmpBuffer = NULL;
-    tmpBufferPos = 0;
-    tmpBufferSize = 0;
-    header = NULL;
-    sizeHeader = 0;
+    header_size = 0;
 }
 
 TiffEncoder::~TiffEncoder() {
     delete image;
-    if ( tmpBuffer )
-      delete[] tmpBuffer;
+    if ( tmp_buffer )
+      delete[] tmp_buffer;
     if ( header )
       delete[] header;
 }
@@ -70,33 +62,33 @@ TiffEncoder::~TiffEncoder() {
 size_t TiffEncoder::read(uint8_t* buffer, size_t size) {
     size_t offset = 0, dataToCopy=0;
     
-    if ( !tmpBuffer ) {
+    if ( !tmp_buffer ) {
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation du buffer d'image";
-        prepareBuffer();
+        prepare_buffer();
     }
     
     if ( !header ) {
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation de l'en-tete";
-        prepareHeader();
-        if ( isGeoTiff ){
-            this->header = TiffHeader::insertGeoTags(image, this->header, &(this->sizeHeader) );
+        prepare_header();
+        if ( is_geotiff ){
+            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size) );
         }
     }
     
     // Si pas assez de place pour le header, ne rien écrire.
-    if ( size < sizeHeader ) return 0;
+    if ( size < header_size ) return 0;
       
     if ( line == -1 ) { // écrire le header tiff
-	memcpy ( buffer, header, sizeHeader );
-	offset = sizeHeader;
+	memcpy ( buffer, header, header_size );
+	offset = header_size;
 	line = 0;
     }
 
     if ( size - offset > 0 ) { // il reste de la place
-	if ( tmpBufferPos <= tmpBufferSize ) { // il reste de la donnée
-	    dataToCopy = std::min ( size-offset, tmpBufferSize - tmpBufferPos );
-	    memcpy ( buffer+offset, tmpBuffer+tmpBufferPos, dataToCopy );
-	    tmpBufferPos+=dataToCopy;
+	if ( tmp_buffer_pos <= tmp_buffer_size ) { // il reste de la donnée
+	    dataToCopy = std::min ( size-offset, tmp_buffer_size - tmp_buffer_pos );
+	    memcpy ( buffer+offset, tmp_buffer+tmp_buffer_pos, dataToCopy );
+	    tmp_buffer_pos+=dataToCopy;
 	    offset+=dataToCopy;
 	}
     }
@@ -105,23 +97,23 @@ size_t TiffEncoder::read(uint8_t* buffer, size_t size) {
 }
 
 bool TiffEncoder::eof() {
-    return ( tmpBufferPos>=tmpBufferSize );
+    return ( tmp_buffer_pos>=tmp_buffer_size );
 }
 
-unsigned int TiffEncoder::getLength(){
-    if ( !tmpBuffer ) {
+unsigned int TiffEncoder::get_length(){
+    if ( !tmp_buffer ) {
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation du buffer d'image";
-        prepareBuffer();
+        prepare_buffer();
     }
     
     if ( !header ) {
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation de l'en-tete";
-        prepareHeader();
-        if ( isGeoTiff ){
-            this->header = TiffHeader::insertGeoTags(image, this->header, &(this->sizeHeader) );
+        prepare_header();
+        if ( is_geotiff ){
+            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size) );
         }
     }
-    return sizeHeader + tmpBufferSize;
+    return header_size + tmp_buffer_size;
     
 }
 

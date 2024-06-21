@@ -99,14 +99,14 @@ protected:
             Image* image = new EmptyImage ( 1024, 768, channels, color );
             BoundingBox<double> bbox_src ( grid->bbox.xmin - 100, grid->bbox.ymin - 100, grid->bbox.xmax + 100, grid->bbox.ymax + 100 );
             bbox_src.crs = "IGNF:LAMB93";
-            image->setBbox (bbox_src);
-            image->setCRS(crs_src);
+            image->set_bbox (bbox_src);
+            image->set_crs(crs_src);
 
-            grid->affine_transform ( 1./image->getResX(), -image->getBbox().xmin/image->getResX() - 0.5,
-                                     -1./image->getResY(), image->getBbox().ymax/image->getResY() - 0.5 );
+            grid->affine_transform ( 1./image->get_resx(), -image->get_bbox().xmin/image->get_resx() - 0.5,
+                                     -1./image->get_resy(), image->get_bbox().ymax/image->get_resy() - 0.5 );
 
             ReprojectedImage* R = new ReprojectedImage ( image,  bbox_dst, grid, Interpolation::KernelType ( kernel_type ) );
-            for ( int l = 0; l < 600; l++ ) R->getline ( buffer, l );
+            for ( int l = 0; l < 600; l++ ) R->get_line ( buffer, l );
             delete R;
             delete crs_src;
             delete crs_dst;

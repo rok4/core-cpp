@@ -198,7 +198,7 @@ public:
      * \brief Return the image width
      * \return width
      */
-    inline int getWidth() {
+    inline int get_width() {
         return width;
     }
 
@@ -210,7 +210,7 @@ public:
      * \brief Return the image height
      * \return height
      */
-    inline int getHeight() {
+    inline int get_height() {
         return height;
     }
 

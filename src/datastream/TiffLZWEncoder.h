@@ -38,66 +38,65 @@
 #ifndef _TIFFLZWENCODER_
 #define _TIFFLZWENCODER_
 
-#include "datastream/DataStream.h"
-#include "image/Image.h"
-#include "compressors/LZWEncoder.h"
-#include "datastream/TiffHeader.h"
-#include "datastream/TiffEncoder.h"
+#include <string.h>  // Pour memcpy
 
-#include <iostream>
-#include <string.h> // Pour memcpy
 #include <algorithm>
+#include <iostream>
+
+#include "compressors/LZWEncoder.h"
+#include "datastream/DataStream.h"
+#include "datastream/TiffEncoder.h"
+#include "datastream/TiffHeader.h"
+#include "image/Image.h"
 
 template <typename T>
 class TiffLZWEncoder : public TiffEncoder {
-protected:
-    size_t rawBufferSize;
-    T* rawBuffer;
-    
-    virtual void prepareHeader(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffLZWEncoder : preparation de l'en-tete";
-	sizeHeader = TiffHeader::headerSize ( image->getChannels() );
-	header = new uint8_t[sizeHeader];
-	if ( image->getChannels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_LZW_FLOAT32_GRAY, sizeHeader);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_LZW_INT8_GRAY, sizeHeader);
-	    }
-	else if ( image->getChannels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_LZW_INT8_RGB, sizeHeader);
-	else if ( image->getChannels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_LZW_INT8_RGBA, sizeHeader);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->getWidth();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->getHeight();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->getHeight();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmpBufferSize ;
-    }
-    
-    virtual void prepareBuffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffLZWEncoder : preparation du buffer d'image";
-	int linesize = image->getWidth()*image->getChannels();
-	rawBuffer = new T[image->getHeight()*image->getWidth()*image->getChannels()];
-	rawBufferSize = 0;
-	int lRead = 0;
-	for ( ; lRead < image->getHeight() ; lRead++ ) {
-	    image->getline ( rawBuffer + rawBufferSize, lRead );
-	    rawBufferSize += linesize;
-	}
-	rawBufferSize *= sizeof ( T );
-	lzwEncoder encoder;
-	tmpBuffer = encoder.encode ( ( uint8_t* ) rawBuffer,rawBufferSize, tmpBufferSize );
-	delete[] rawBuffer;
-	rawBuffer = NULL;
+   protected:
+    size_t raw_buffer_size;
+    T* raw_buffer;
+
+    virtual void prepare_header() {
+        BOOST_LOG_TRIVIAL(debug) << "TiffLZWEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size(image->get_channels());
+        header = new uint8_t[header_size];
+        if (image->get_channels() == 1)
+            if (sizeof(T) == sizeof(float)) {
+                memcpy(header, TiffHeader::TIFF_HEADER_LZW_FLOAT32_GRAY, header_size);
+            } else {
+                memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_GRAY, header_size);
+            }
+        else if (image->get_channels() == 3)
+            memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_RGB, header_size);
+        else if (image->get_channels() == 4)
+            memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_RGBA, header_size);
+        *((uint32_t*)(header + 18)) = image->get_width();
+        *((uint32_t*)(header + 30)) = image->get_height();
+        *((uint32_t*)(header + 102)) = image->get_height();
+        *((uint32_t*)(header + 114)) = tmp_buffer_size;
     }
 
-public:
-    TiffLZWEncoder ( Image *image, bool isGeoTiff = false ) : TiffEncoder( image, -1, isGeoTiff ) , rawBufferSize ( 0 ), rawBuffer ( NULL ) {}
+    virtual void prepare_buffer() {
+        BOOST_LOG_TRIVIAL(debug) << "TiffLZWEncoder : preparation du buffer d'image";
+        int linesize = image->get_width() * image->get_channels();
+        raw_buffer = new T[image->get_height() * image->get_width() * image->get_channels()];
+        raw_buffer_size = 0;
+        int lRead = 0;
+        for (; lRead < image->get_height(); lRead++) {
+            image->get_line(raw_buffer + raw_buffer_size, lRead);
+            raw_buffer_size += linesize;
+        }
+        raw_buffer_size *= sizeof(T);
+        lzwEncoder encoder;
+        tmp_buffer = encoder.encode((uint8_t*)raw_buffer, raw_buffer_size, tmp_buffer_size);
+        delete[] raw_buffer;
+        raw_buffer = NULL;
+    }
+
+   public:
+    TiffLZWEncoder(Image* image, bool is_geotiff = false) : TiffEncoder(image, -1, is_geotiff), raw_buffer_size(0), raw_buffer(NULL) {}
+
     ~TiffLZWEncoder() {
     }
-   
 };
 
 #endif
-
-

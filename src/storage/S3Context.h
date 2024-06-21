@@ -184,7 +184,7 @@ public:
      */
     S3Context (std::string b);
 
-    ContextType::eContextType getType();
+    ContextType::eContextType get_type();
     std::string getTypeStr();
     std::string getTray();
     std::string getCluster();
@@ -214,7 +214,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- Bucket name = " << bucket_name ;
     }
 
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ S3 Context -------" << std::endl;

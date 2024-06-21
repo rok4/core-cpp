@@ -67,15 +67,15 @@
 //        Il faudra la changer lorsqu'on aura des images non 8bits.
 
 Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configuration(path) {
-    nodataValue = NULL;
+    nodata_value = NULL;
 
     // Copie d'informations depuis la pyramide
     format = pyramid->getFormat();
 
-    if (Rok4Format::isRaster(format)) {
-        channels = pyramid->getChannels();        
-        nodataValue = new int[channels];
-        memcpy ( nodataValue, pyramid->getNodataValue(), channels * sizeof(int) );
+    if (Rok4Format::is_raster(format)) {
+        channels = pyramid->get_channels();        
+        nodata_value = new int[channels];
+        memcpy ( nodata_value, pyramid->getNodataValue(), channels * sizeof(int) );
     } else {
         channels = 0;
     }
@@ -324,7 +324,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
 
 Level::Level ( Level* obj ) : Configuration(obj->filePath), tmLimits(obj->tmLimits) {
-    nodataValue = NULL;
+    nodata_value = NULL;
     tm = obj->tm;
 
     channels = obj->channels;
@@ -338,16 +338,16 @@ Level::Level ( Level* obj ) : Configuration(obj->filePath), tmLimits(obj->tmLimi
 
     context = obj->context;
 
-    if (Rok4Format::isRaster(format)) {
-        nodataValue = new int[channels];
-        memcpy ( nodataValue, obj->nodataValue, channels * sizeof(int) );
+    if (Rok4Format::is_raster(format)) {
+        nodata_value = new int[channels];
+        memcpy ( nodata_value, obj->nodata_value, channels * sizeof(int) );
     } else {
         tables = obj->tables;
     }
 }
 
 Level::~Level() {
-    if (nodataValue != NULL) delete[] nodataValue;
+    if (nodata_value != NULL) delete[] nodata_value;
 }
 
 
@@ -402,10 +402,10 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
         return 0;
     }
 
-    image->setBbox ( BoundingBox<double> ( tm->getX0() + tm->getRes() * bbox_int.xmin, tm->getY0() - tm->getRes() * bbox_int.ymax, tm->getX0() + tm->getRes() * bbox_int.xmax, tm->getY0() - tm->getRes() * bbox_int.ymin ) );
+    image->set_bbox ( BoundingBox<double> ( tm->getX0() + tm->getRes() * bbox_int.xmin, tm->getY0() - tm->getRes() * bbox_int.ymax, tm->getX0() + tm->getRes() * bbox_int.xmax, tm->getY0() - tm->getRes() * bbox_int.ymin ) );
 
-    grid->affine_transform ( 1./image->getResX(), -image->getBbox().xmin/image->getResX() - 0.5,
-                             -1./image->getResY(), image->getBbox().ymax/image->getResY() - 0.5 );
+    grid->affine_transform ( 1./image->get_resx(), -image->get_bbox().xmin/image->get_resx() - 0.5,
+                             -1./image->get_resy(), image->get_bbox().ymax/image->get_resy() - 0.5 );
 
     return new ReprojectedImage ( image, bbox, grid, interpolation );
 }
@@ -455,7 +455,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
     }
 
     // On affecte la bonne bbox à l'image source afin que la classe de réechantillonnage calcule les bonnes valeurs d'offset
-    if (! imageout->setDimensions ( bbox_int.xmax - bbox_int.xmin, bbox_int.ymax - bbox_int.ymin, BoundingBox<double> ( bbox_int ), 1.0, 1.0 ) ) {
+    if (! imageout->set_dimensions ( bbox_int.xmax - bbox_int.xmin, bbox_int.ymax - bbox_int.ymin, BoundingBox<double> ( bbox_int ), 1.0, 1.0 ) ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Dimensions invalid !"  ;
         return 0;
     }
@@ -563,32 +563,32 @@ DataSource* Level::getEncodedTile ( int x, int y ) { // TODO: return 0 sur des c
         return NULL;
     }
     BOOST_LOG_TRIVIAL(debug) << path;
-    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, context, Rok4Format::toMimeType ( format ), Rok4Format::toEncoding( format ) );
+    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, context, Rok4Format::to_mime_type ( format ), Rok4Format::to_encoding( format ) );
 }
 
 DataSource* Level::getDecodedTile ( int x, int y ) {
 
-    DataSource* encData = getEncodedTile ( x, y );
-    if (encData == NULL) return 0;
+    DataSource* encoded_data = getEncodedTile ( x, y );
+    if (encoded_data == NULL) return 0;
 
     size_t size;
-    if (encData->getData ( size ) == NULL) {
-        delete encData;
+    if (encoded_data->get_data ( size ) == NULL) {
+        delete encoded_data;
         return 0;
     }
 
     if ( format==Rok4Format::TIFF_RAW_UINT8 || format==Rok4Format::TIFF_RAW_FLOAT32 )
-        return encData;
+        return encoded_data;
     else if ( format==Rok4Format::TIFF_JPG_UINT8 || format==Rok4Format::TIFF_JPG90_UINT8 )
-        return new DataSourceDecoder<JpegDecoder> ( encData );
+        return new DataSourceDecoder<JpegDecoder> ( encoded_data );
     else if ( format==Rok4Format::TIFF_PNG_UINT8 )
-        return new DataSourceDecoder<PngDecoder> ( encData );
+        return new DataSourceDecoder<PngDecoder> ( encoded_data );
     else if ( format==Rok4Format::TIFF_LZW_UINT8 || format == Rok4Format::TIFF_LZW_FLOAT32 )
-        return new DataSourceDecoder<LzwDecoder> ( encData );
+        return new DataSourceDecoder<LzwDecoder> ( encoded_data );
     else if ( format==Rok4Format::TIFF_ZIP_UINT8 || format == Rok4Format::TIFF_ZIP_FLOAT32 )
-        return new DataSourceDecoder<DeflateDecoder> ( encData );
+        return new DataSourceDecoder<DeflateDecoder> ( encoded_data );
     else if ( format==Rok4Format::TIFF_PKB_UINT8 || format == Rok4Format::TIFF_PKB_FLOAT32 )
-        return new DataSourceDecoder<PackBitsDecoder> ( encData );
+        return new DataSourceDecoder<PackBitsDecoder> ( encoded_data );
     BOOST_LOG_TRIVIAL(error) <<  "Type d'encodage inconnu : " <<format  ;
     return 0;
 }
@@ -600,7 +600,7 @@ DataSource* Level::getTile (int x, int y) {
     if (source == NULL) return NULL;
 
     size_t size;
-    if (source->getData ( size ) == NULL) {
+    if (source->get_data ( size ) == NULL) {
         delete source;
         return NULL;
     }
@@ -639,9 +639,9 @@ Image* Level::getTile ( int x, int y, int left, int top, int right, int bottom )
             tm->getTileW() - left - right, // width
             tm->getTileH() - top - bottom, // height
             channels,
-            nodataValue
+            nodata_value
         );
-        ei->setBbox(bb);
+        ei->set_bbox(bb);
         return ei;
     } else {
         return new ImageDecoder (
@@ -653,7 +653,7 @@ Image* Level::getTile ( int x, int y, int left, int top, int right, int bottom )
 
 TileMatrix* Level::getTm () { return tm; }
 Rok4Format::eFormat Level::getFormat () { return format; }
-int Level::getChannels () { return channels; }
+int Level::get_channels () { return channels; }
 TileMatrixLimits Level::getTileLimits () { return tmLimits; }
 
 uint32_t Level::getMaxTileRow() {

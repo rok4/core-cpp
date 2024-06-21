@@ -91,7 +91,7 @@ const int contexttype_size = 4;
  * \param[in] strComp string to convert
  * \return the binding storage type, FILECONTEXT (0) if string is not recognized
  */
-eContextType fromString ( std::string strct );
+eContextType from_string ( std::string strct );
 
 /**
  * \~french \brief Conversion d'un type de contexte vers une chaîne de caractères
@@ -101,7 +101,7 @@ eContextType fromString ( std::string strct );
  * \param[in] ct context type to convert
  * \return string namming the context type
  */
-std::string toString ( eContextType ct );
+std::string to_string ( eContextType ct );
 
 
 /**
@@ -302,7 +302,7 @@ public:
      * \~french \brief Retourne le type du contexte
      * \~english \brief Return the context's type
      */
-    virtual ContextType::eContextType getType() = 0;
+    virtual ContextType::eContextType get_type() = 0;
     /**
      * \~french \brief Retourne le type du contexte, sous forme de texte
      * \~english \brief Return the context's type, as string
@@ -337,7 +337,7 @@ public:
      * \~french \brief Retourne une chaîne de caracère décrivant le contexte
      * \~english \brief Return a string describing the context
      */
-    virtual std::string toString() = 0;
+    virtual std::string to_string() = 0;
 
     /**
      * \~french \brief Déconnecte le contexte

@@ -61,7 +61,7 @@ const char *einterpolation_name[] = {
 const int einterpolation_size = 6;
 
 
-Interpolation::KernelType fromString ( std::string strInterpolation ) {
+Interpolation::KernelType from_string ( std::string strInterpolation ) {
     int i;
     //handle be4 element : lanczos to lanczos_2
     if ( strInterpolation.compare ( "lanczos" ) ==0 ) {
@@ -76,7 +76,7 @@ Interpolation::KernelType fromString ( std::string strInterpolation ) {
     return static_cast<Interpolation::KernelType> ( i );
 }
 
-std::string toString ( Interpolation::KernelType KT ) {
+std::string to_string ( Interpolation::KernelType KT ) {
     return std::string ( einterpolation_name[KT] );
 }
 

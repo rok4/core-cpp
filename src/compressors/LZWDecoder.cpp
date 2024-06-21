@@ -161,12 +161,12 @@ uint8_t* lzwDecoder::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
 
             for (lzwWord::iterator it = outString.begin(); it != outString.end(); it++) {
                 if (outPos >= outSize) {
-                    uint8_t* tmpBuffer = new uint8_t[(outSize*2)];
-                    if (tmpBuffer) { // Enlarge your Buffer
-                        memset(tmpBuffer+outSize ,0,outSize);
-                        memcpy(tmpBuffer, out, outSize);
+                    uint8_t* tmp_buffer = new uint8_t[(outSize*2)];
+                    if (tmp_buffer) { // Enlarge your Buffer
+                        memset(tmp_buffer+outSize ,0,outSize);
+                        memcpy(tmp_buffer, out, outSize);
                         delete[] out;
-                        out = tmpBuffer;
+                        out = tmp_buffer;
                         outSize *=2;
                     } else { //Allocation error
                         outPos = 0;

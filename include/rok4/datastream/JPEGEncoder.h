@@ -44,12 +44,14 @@
 
 /** D */
 class JPEGEncoder : public DataStream {
+    
 private:
+
     Image *image;
 
     int status;
-    int bufferLimit;
-    uint8_t *linebuffer;
+    int buffer_limit;
+    uint8_t *buffer_line;
 
     struct jpeg_compress_struct cinfo;
     struct jpeg_error_mgr jerr;
@@ -65,6 +67,7 @@ private:
     }
 
 public:
+
     /** D */
     JPEGEncoder ( Image* image, int quality = 75 );
 
@@ -80,19 +83,19 @@ public:
         return ( cinfo.next_scanline >= cinfo.image_height );
     }
 
-    std::string getType() {
+    std::string get_type() {
         return "image/jpeg";
     }
 
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
     
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
     
-    unsigned int getLength() {
+    unsigned int get_length() {
         return 0;
     }
 };

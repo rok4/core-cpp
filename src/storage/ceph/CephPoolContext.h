@@ -129,7 +129,7 @@ public:
      */
     CephPoolContext (std::string pool);
 
-    ContextType::eContextType getType();
+    ContextType::eContextType get_type();
     std::string getTypeStr();
     std::string getTray();
     
@@ -197,7 +197,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- pool name = " << pool_name ;
     }
 
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ Ceph Context -------" << std::endl;

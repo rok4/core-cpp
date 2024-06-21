@@ -52,10 +52,11 @@
 #ifndef STOREDATASOURCE_H
 #define STOREDATASOURCE_H
 
-#include "datasource/DataSource.h"
-#include "storage/Context.h"
 #include <stdlib.h>
 #include <string>
+
+#include "datasource/DataSource.h"
+#include "storage/Context.h"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -194,14 +195,14 @@ public:
      * \param[out] tile_size Real size of data in the returned pointed buffer
      * \return Data pointer
      */
-    virtual const uint8_t* getData ( size_t &tile_size );
+    virtual const uint8_t* get_data ( size_t &tile_size );
 
 
     /**
      * \~french \brief Supprime la donnée mémorisée (#data)
      * \~english \brief Delete memorized data (#data)
      */
-    bool releaseData() {
+    bool release_data() {
         if (data) {
             delete[] data;
         }
@@ -211,19 +212,19 @@ public:
 
     /**
      * \~french \brief Destructeur
-     * \details Appelle #releaseData
+     * \details Appelle #release_data
      * \~english \brief Destructor
-     * \details Call #releaseData
+     * \details Call #release_data
      */
     ~StoreDataSource(){
-        releaseData();
+        release_data();
     }
 
     /**
      * \~french \brief Retourne 200
      * \~english \brief Return 200
      */
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
 
@@ -231,7 +232,7 @@ public:
      * \~french \brief Retourne la taille des données
      * \~english \brief Return data size
      */
-    unsigned int getLength() {
+    unsigned int get_length() {
         return size;
     }
 
@@ -239,7 +240,7 @@ public:
      * \~french \brief Retourne l'encodage #encoding
      * \~english \brief Return #encoding
      */
-    std::string getEncoding() {
+    std::string get_encoding() {
         return encoding;
     }
 
@@ -247,7 +248,7 @@ public:
      * \~french \brief Retourne le mime-type #type
      * \~english \brief Return the mime-type #type
      */
-    std::string getType() {
+    std::string get_type() {
         return type;
     }
 

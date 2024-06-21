@@ -113,7 +113,7 @@ protected:
      * \param[in] channel nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
-     * \param[in] sampleformat format des canaux
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] bilData image complète, dans un tableau
@@ -126,23 +126,23 @@ protected:
      * \param[in] channel number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
-     * \param[in] sampleformat samples' format
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] bilData whole image, in an array
      */
     BilzImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression,
         uint8_t* bilData
     );
 
 public:
     
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -151,7 +151,7 @@ public:
      * \param[in] pIn source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( Image* pIn ) {
+    int write_image ( Image* pIn ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -163,7 +163,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint8_t* buffer ) {
+    int write_image ( uint8_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -175,7 +175,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint16_t* buffer ) {
+    int write_image ( uint16_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -187,7 +187,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( float* buffer)  {
+    int write_image ( float* buffer)  {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -200,7 +200,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint8_t* buffer, int line ) {
+    int write_line ( uint8_t* buffer, int line ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -213,7 +213,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint16_t* buffer, int line) {
+    int write_line ( uint16_t* buffer, int line) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -226,7 +226,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( float* buffer, int line) {
+    int write_line ( float* buffer, int line) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }

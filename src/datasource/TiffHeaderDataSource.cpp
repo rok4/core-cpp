@@ -3,21 +3,21 @@
 
 #include "datastream/TiffHeader.h"
 
-TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
+TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* source_data,
         Rok4Format::eFormat format, int channel,
-        int width, int height, size_t tileSize ) :
-    dataSource ( dataSource ),
+        int width, int height, size_t tile_size ) :
+    source_data ( source_data ),
     format ( format ), channel ( channel ),
-    width ( width ), height ( height ) , tileSize ( tileSize ) {
-    size_t header_size = TiffHeader::headerSize ( channel );
+    width ( width ), height ( height ) , tile_size ( tile_size ) {
+    size_t header_size = TiffHeader::header_size ( channel );
     const uint8_t* tmp;
-    dataSize = header_size;
-    if ( dataSource ) {
-        tmp = dataSource->getData ( tileSize );
-        dataSize+= tileSize;
+    data_size = header_size;
+    if ( source_data ) {
+        tmp = source_data->get_data ( tile_size );
+        data_size+= tile_size;
     }
 
-    data = new uint8_t[dataSize];
+    data = new uint8_t[data_size];
 
     switch ( format ) {
     case Rok4Format::TIFF_RAW_UINT8:
@@ -97,25 +97,25 @@ TiffHeaderDataSource::TiffHeaderDataSource ( DataSource* dataSource,
     * ( ( uint32_t* ) ( data+18 ) )  = width;
     * ( ( uint32_t* ) ( data+30 ) )  = height;
     * ( ( uint32_t* ) ( data+102 ) ) = height;
-    * ( ( uint32_t* ) ( data+114 ) ) = tileSize;
+    * ( ( uint32_t* ) ( data+114 ) ) = tile_size;
 
-    if ( dataSource ) {
-        memcpy ( data+header_size, tmp, tileSize );
+    if ( source_data ) {
+        memcpy ( data+header_size, tmp, tile_size );
     }
 }
 
 
 
 
-const uint8_t* TiffHeaderDataSource::getData ( size_t& size ) {
-    size = dataSize;
+const uint8_t* TiffHeaderDataSource::get_data ( size_t& size ) {
+    size = data_size;
     return data;
 }
 
 TiffHeaderDataSource::~TiffHeaderDataSource() {
-    if ( dataSource ) {
-        dataSource->releaseData();
-        delete dataSource;
+    if ( source_data ) {
+        source_data->release_data();
+        delete source_data;
     }
     if ( data )
         delete[] data;

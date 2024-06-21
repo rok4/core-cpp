@@ -83,13 +83,13 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
 
     for ( int i = 0; i < images.size(); i++ ) {
 
-        int srcSpp = images[i]->getChannels();
-        images[i]->getline ( imageLine,line );
+        int srcSpp = images[i]->get_channels();
+        images[i]->get_line ( imageLine,line );
 
-        if ( images[i]->getMask() == NULL ) {
+        if ( images[i]->get_mask() == NULL ) {
             memset ( maskLine, 255, width );
         } else {
-            images[i]->getMask()->getline ( maskLine,line );
+            images[i]->get_mask()->get_line ( maskLine,line );
         }
 
         if ( transparentValue == NULL ) {
@@ -132,18 +132,18 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
     return width*channels*sizeof( tBuf );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeImage::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeImage::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les float */
-int MergeImage::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int MergeImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
@@ -154,11 +154,11 @@ MergeImage* MergeImageFactory::createMergeImage ( std::vector< Image* >& images,
         return NULL;
     }
 
-    int width = images.at ( 0 )->getWidth();
-    int height = images.at ( 0 )->getHeight();
+    int width = images.at ( 0 )->get_width();
+    int height = images.at ( 0 )->get_height();
 
     for ( int i = 1; i < images.size(); i++ ) {
-        if ( images.at ( i )->getWidth() != width || images.at ( i )->getHeight() != height ) {
+        if ( images.at ( i )->get_width() != width || images.at ( i )->get_height() != height ) {
             BOOST_LOG_TRIVIAL(error) <<  "All images must have same dimensions" ;
             images.at ( 0 )->print();
             images.at ( i )->print();
@@ -174,15 +174,15 @@ MergeImage* MergeImageFactory::createMergeImage ( std::vector< Image* >& images,
     return new MergeImage ( images, channels, bgValue, transparentValue, composition );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeMask::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeMask::get_line ( uint8_t* buffer, int line ) {
     memset ( buffer,0,width );
 
     uint8_t* buffer_m = new uint8_t[width];
 
     for ( uint i = 0; i < MI->getImages()->size(); i++ ) {
 
-        if ( MI->getMask ( i ) == NULL ) {
+        if ( MI->get_mask ( i ) == NULL ) {
             /* L'image n'a pas de masque, on la considère comme pleine. Ca ne sert à rien d'aller voir plus loin,
              * cette ligne du masque est déjà pleine */
             memset ( buffer, 255, width );
@@ -190,7 +190,7 @@ int MergeMask::getline ( uint8_t* buffer, int line ) {
             return width;
         } else {
             // Récupération du masque de l'image courante de l'MI.
-            MI->getMask ( i )->getline ( buffer_m,line );
+            MI->get_mask ( i )->get_line ( buffer_m,line );
             // On ajoute au masque actuel (on écrase si la valeur est différente de 0)
             for ( int j = 0; j < width; j++ ) {
                 if ( buffer_m[j] ) {
@@ -204,19 +204,19 @@ int MergeMask::getline ( uint8_t* buffer, int line ) {
     return width;
 }
 
-/* Implementation de getline pour les uint16 */
-int MergeMask::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les uint16 */
+int MergeMask::get_line ( uint16_t* buffer, int line ) {
     uint8_t* buffer_t = new uint8_t[width*channels];
-    int retour = getline ( buffer_t,line );
+    int retour = get_line ( buffer_t,line );
     convert ( buffer,buffer_t,width*channels );
     delete [] buffer_t;
     return retour;
 }
 
-/* Implementation de getline pour les float */
-int MergeMask::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int MergeMask::get_line ( float* buffer, int line ) {
     uint8_t* buffer_t = new uint8_t[width*channels];
-    int retour = getline ( buffer_t,line );
+    int retour = get_line ( buffer_t,line );
     convert ( buffer,buffer_t,width*channels );
     delete [] buffer_t;
     return retour;
@@ -234,7 +234,7 @@ const char *mergeType_name[] = {
     "TOP"
 };
 
-eMergeType fromString ( std::string strMergeMethod ) {
+eMergeType from_string ( std::string strMergeMethod ) {
     int i;
     for ( i = mergeType_size; i ; --i ) {
         if ( strMergeMethod.compare ( mergeType_name[i] ) == 0 )
@@ -243,7 +243,7 @@ eMergeType fromString ( std::string strMergeMethod ) {
     return static_cast<eMergeType> ( i );
 }
 
-std::string toString ( eMergeType mergeMethod ) {
+std::string to_string ( eMergeType mergeMethod ) {
     return std::string ( mergeType_name[mergeMethod] );
 }
 }

@@ -64,11 +64,11 @@ const char *eContextTypeName[] = {
     "s3"
 };
 
-std::string toString ( eContextType ct ) {
+std::string to_string ( eContextType ct ) {
     return std::string ( eContextTypeName[ct] );
 }
 
-eContextType fromString ( std::string strct ) {
+eContextType from_string ( std::string strct ) {
     int i;
     for ( i = contexttype_size; i ; --i ) {
         if ( strct.compare ( eContextTypeName[i] ) == 0 )
@@ -86,7 +86,7 @@ void split_path(std::string path, ContextType::eContextType& type, std::string& 
         type = ContextType::FILECONTEXT;
     } else {
         std::string storage_type = path.substr ( 0, pos );
-        type = ContextType::fromString(storage_type);
+        type = ContextType::from_string(storage_type);
         if (type == ContextType::UNKNOWN) {
             type = ContextType::FILECONTEXT;
         }

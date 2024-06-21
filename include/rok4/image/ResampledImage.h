@@ -79,7 +79,7 @@ private:
      * \~french \brief Image source, à réechantillonner
      * \~english \brief Source image, to resample
      */
-    Image* sourceImage;
+    Image* source_image;
 
     /**
      * \~french \brief Précise si les masques doivent intervenir dans l'interpolation (lourd)
@@ -110,14 +110,14 @@ private:
      * \~english \brief Ratio between destination resolution and source resolution, widthwise
      * \details X ratio = X destination resolution / X source resolution
      */
-    double ratioX;
+    double ratio_x;
     /**
      * \~french \brief Rapport des résolutions source et finale, dans le sens des Y
      * \details Ratio de rééchantillonage en Y = résolution Y cible / résolution Y source
      * \~english \brief Ratio between destination resolution and source resolution, heighthwise
      * \details Y ratio = Y destination resolution / Y source resolution
      */
-    double ratioY;
+    double ratio_y;
 
     /**
      * \~french \brief Décalage entre le haut de l'image source et le haut de l'image réechantillonnée
@@ -275,25 +275,25 @@ public:
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( float* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /** \~french
      * \brief Retourne une ligne entièrement réechantillonnée, entière sur 8 bits
-     * \details Elle ne fait que convertir le résultat du #getline flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
+     * \details Elle ne fait que convertir le résultat du #get_line flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
      * \param[in,out] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( uint8_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
     
     /** \~french
      * \brief Retourne une ligne entièrement réechantillonnée, entière sur 16 bits
-     * \details Elle ne fait que convertir le résultat du #getline flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
+     * \details Elle ne fait que convertir le résultat du #get_line flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
      * \param[in,out] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /** \~french
      * \brief Crée un objet ResampledImage à partir de tous ses éléments constitutifs
@@ -326,7 +326,7 @@ public:
      * \li du buffer d'index #resampled_line_index
      * \li des buffers #resampled_image et #resampled_mask
      *
-     * Et suppression de #sourceImage.
+     * Et suppression de #source_image.
      *
      * \~english \brief Default destructor
      * \details Desallocate :
@@ -341,8 +341,8 @@ public:
         delete[] resampled_line_index;
         delete[] resampled_image;
         if ( useMask ) delete[] resampled_mask;
-        if ( ! isMask ) {
-            delete sourceImage;
+        if ( ! is_mask ) {
+            delete source_image;
         }
     }
 

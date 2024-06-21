@@ -56,17 +56,13 @@
 #include "image/file/LibpngImage.h"
 #include "image/file/LibjpegImage.h"
 #include "image/file/BilzImage.h"
-#ifdef KDU_ENABLED
-#include "image/file/kakadu/LibkakaduImage.h"
-#else
 #include "image/file/openjpeg/LibopenjpegImage.h"
-#endif
 
 /* ------------------------------------------------------------------------------------------------ */
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< double > bbox, double resx, double resy ) {
+FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBox< double > bbox, double resx, double resy ) {
 
     // Récupération de l'extension du fichier
     const char * pch;
@@ -95,14 +91,7 @@ FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< 
     }
     
     /******************** (Z)BIL ********************/
-    else if ( strncmp ( pch+1, "bil", 3 ) == 0 || strncmp ( pch+1, "BIL", 3 ) == 0) {
-        BOOST_LOG_TRIVIAL(debug) <<  "(Z)BIL image to read : " << name ;
-
-        BilzImageFactory BZIF;
-        return BZIF.createBilzImageToRead ( name, bbox, resx, resy );
-    }
-    
-    else if ( strncmp ( pch+1, "zbil", 4 ) == 0 || strncmp ( pch+1, "ZBIL", 4 ) == 0 ) {
+    else if ( strncmp ( pch+1, "bil", 3 ) == 0 || strncmp ( pch+1, "BIL", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "(Z)BIL image to read : " << name ;
 
         BilzImageFactory BZIF;
@@ -128,23 +117,11 @@ FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< 
     /******************* JPEG 2000 ******************/
     else if ( strncmp ( pch+1, "jp2", 3 ) == 0 || strncmp ( pch+1, "JP2", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "JPEG2000 image to read : " << name ;
-        
-#ifdef KDU_ENABLED
-
-        BOOST_LOG_TRIVIAL(debug) << "\tDriver : KAKADU";
-        BOOST_LOG_TRIVIAL(debug) << "\tThreading : " << KDU_THREADING;
-
-        LibkakaduImageFactory DRVKDU;
-        return DRVKDU.createLibkakaduImageToRead(name, bbox, resx, resy);
-
-#else
 
         BOOST_LOG_TRIVIAL(debug) << "\tDriver : OPENJPEG";
 
         LibopenjpegImageFactory DRVOJ;
         return DRVOJ.createLibopenjpegImageToRead(name, bbox, resx, resy);
-    
-#endif
     }
 
     /* /!\ Format inconnu en lecture /!\ */
@@ -156,9 +133,9 @@ FileImage* FileImageFactory::createImageToRead ( std::string name, BoundingBox< 
 }
 
 /* ----- Pour l'écriture ----- */
-FileImage* FileImageFactory::createImageToWrite (
+FileImage* FileImageFactory::create_image_to_write (
     std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression ) {
+    SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression ) {
 
     // Récupération de l'extension du fichier
     const char * pch;
@@ -171,7 +148,7 @@ FileImage* FileImageFactory::createImageToWrite (
         LibtiffImageFactory LTIF;
         return LTIF.createLibtiffImageToWrite (
             name, bbox, resx, resy, width, height, channels,
-            sampleformat, photometric, compression, 16
+            sample_format, photometric, compression, 16
         );
     }
     
@@ -183,7 +160,7 @@ FileImage* FileImageFactory::createImageToWrite (
         LibtiffImageFactory LTIF;
         return LTIF.createLibtiffImageToWrite (
             name, bbox, resx, resy, width, height, channels,
-            sampleformat, photometric, compression, 16
+            sample_format, photometric, compression, 16
         );
     }
 
@@ -200,13 +177,13 @@ FileImage* FileImageFactory::createImageToWrite (
 
 FileImage::FileImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample esType ) :
+    SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression, ExtraSample::eExtraSample extra_sample ) :
 
     Image ( width,height,channels,resx,resy,bbox ),
-    sampleformat ( sampleformat ), photometric ( photometric ), compression ( compression ),
-    esType(esType), filename(name) {
+    sample_format ( sample_format ), photometric ( photometric ), compression ( compression ),
+    extra_sample(extra_sample), filename(name) {
 
-    pixelSize = SampleFormat::getBitsPerSample(sampleformat) * channels / 8;
+    pixel_size = SampleFormat::get_bits_per_sample(sample_format) * channels / 8;
     converter = NULL;
 }
 

@@ -43,17 +43,17 @@
 //TODO modification du header : 25 | Colour type  passage de 0 à 2
 //TODO ajout de la palette
 
-PaletteDataSource::PaletteDataSource ( DataSource *dataSource, Palette* p ) : dataSource ( dataSource ) {
+PaletteDataSource::PaletteDataSource ( DataSource *source_data, Palette* p ) : source_data ( source_data ) {
     palette = p;
 
-    if ( dataSource->getType().compare ( "image/png" ) == 0 && palette != 0 && ! palette->is_empty() && palette->getPalettePNGSize() != 0 ) {
+    if ( source_data->get_type().compare ( "image/png" ) == 0 && palette != 0 && ! palette->is_empty() && palette->getPalettePNGSize() != 0 ) {
         // On récupère le contenu du fichier
         size_t tmp_size;
-        const uint8_t* tmp = dataSource->getData ( tmp_size );
-        dataSize = tmp_size + palette->getPalettePNGSize() +1;
+        const uint8_t* tmp = source_data->get_data ( tmp_size );
+        data_size = tmp_size + palette->getPalettePNGSize() +1;
         size_t pos = 33;
         // Taille en sortie = taille en entrée +  3*256+12 (PLTE) + 256+12 (tRNS)
-        data = new uint8_t[dataSize];
+        data = new uint8_t[data_size];
         // Copie de l'entete
         memcpy ( data,tmp, pos );
         data[25] = 3; // mode palette
@@ -69,33 +69,33 @@ PaletteDataSource::PaletteDataSource ( DataSource *dataSource, Palette* p ) : da
     } else {
         // Si la datasource en entrée n'est pas de type image/png, que la palette est nulle ou vide on n'applique pas la palette
         // On retournera alors taille et donnée directement depuis la datasource en entrée
-        dataSize = 0;
+        data_size = 0;
         data = NULL;
     }
 
 }
 
 
-const uint8_t* PaletteDataSource::getData ( size_t& size ) {
+const uint8_t* PaletteDataSource::get_data ( size_t& size ) {
     if ( data != NULL ) {
-        size = dataSize;
+        size = data_size;
         return data;
     } else {
-        return dataSource->getData ( size );
+        return source_data->get_data ( size );
     }
 }
 
-unsigned int PaletteDataSource::getLength ( ) {
-    if ( dataSize != 0 ) {
-        return dataSize;
+unsigned int PaletteDataSource::get_length ( ) {
+    if ( data_size != 0 ) {
+        return data_size;
     } else {
-        return dataSource->getLength();
+        return source_data->get_length();
     }
 }
 
 PaletteDataSource::~PaletteDataSource() {
-    dataSource->releaseData();
-    delete dataSource;
+    source_data->release_data();
+    delete source_data;
     if ( data != NULL )
         delete[] data;
 }

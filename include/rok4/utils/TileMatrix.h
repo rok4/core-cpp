@@ -65,17 +65,20 @@
  *
  * XML definition of a TileMatrix :
  * \brief Handles a matrix of tiles
- * \details \~ \code{.xml}
- * <tileMatrix>
- *    <id>Lvl 8</id>
- *    <resolution>611.4962262814100</resolution>
- *    <topLeftCornerX>-20037508.3427892480</topLeftCornerX>
- *    <topLeftCornerY>20037508.3427892480</topLeftCornerY>
- *    <tileWidth>256</tileWidth>
- *    <tileHeight>256</tileHeight>
- *    <matrixWidth>256</matrixWidth>
- *    <matrixHeight>256</matrixHeight>
- * </tileMatrix>
+ * \details \~ \code{.json}
+ *      {
+ *         "id" : "0",
+ *         "scaleDenominator" : 585142857.142857,
+ *         "matrixWidth" : 1,
+ *         "tileWidth" : 256,
+ *         "matrixHeight" : 1,
+ *         "tileHeight" : 256,
+ *         "pointOfOrigin" : [
+ *            0,
+ *            12000000
+ *         ],
+ *         "cellSize" : 163840
+ *      }
  * \endcode
  */
 class TileMatrix : public Configuration {

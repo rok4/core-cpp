@@ -16,7 +16,6 @@ Installations système requises (listées dans le paquet debian, installées ave
 * `libturbojpeg0-dev`
 * `libjpeg-dev`
 * `libc6-dev`
-* `libjson11-1-dev`
 * `libboost-log-dev`
 * `libboost-filesystem-dev`
 * `libboost-system-dev`
@@ -205,8 +204,6 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS( "Rok4" DEFAULT_MSG ROK4_INCLUDE_DIR ROK4_LIBR
 
 ### Variables CMake
 
-* `KDU_ENABLED` : active la compilation avec le driver Kakadu pour la lecture des fichiers JPEG2000. Valeur par défaut : `0`
-* `KDU_THREADING` : renseigne le niveau de parallélisation dans le cas de l'utilisation de Kakadu. Valeur par défaut : `0`
 * `CEPH_ENABLED` : active la compilation la classe de gestion du stockage Ceph. Valeur par défaut : `0`, `1` pour activer.
 * `UNITTEST_ENABLED` : active la compilation des tests unitaires. Valeur par défaut : `1`, `0` pour désactiver.
 * `DOC_ENABLED` : active la compilation de la documentation. Valeur par défaut : `1`, `0` pour désactiver.

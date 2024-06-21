@@ -119,7 +119,7 @@ private:
      * \~french \brief Donne les valeurs des noData pour la pyramide
      * \~english \brief Give the noData value
      */
-    int* nodataValue;
+    int* nodata_value;
 
     /**
      * \~french \brief Nombre de canaux pour les tuiles
@@ -239,7 +239,7 @@ public:
      * \~english \brief Indicate the photometry of the pyramid
      * \return photo
      */
-    Photometric::ePhotometric getPhotometric();
+    Photometric::ePhotometric get_photometric();
 
     /**
      * \~french \brief Récupère le sample
@@ -247,7 +247,7 @@ public:
      * \~english \brief Get the sample
      * \return format
      */
-    SampleFormat::eSampleFormat getSampleFormat();
+    SampleFormat::eSampleFormat get_sample_format();
 
     /**
      * \~french \brief Récupère la compression
@@ -259,9 +259,9 @@ public:
 
     /**
      * \~french \brief Indique les valeurs de noData
-     * \return nodataValue
+     * \return nodata_value
      * \~english \brief Indicate the noData values
-     * \return nodataValue
+     * \return nodata_value
      */
     int* getNodataValue() ;
 
@@ -277,7 +277,7 @@ public:
      * \~english \brief Get the number of channels of a tile
      * \return number of channels
      */
-    int getChannels() ;
+    int get_channels() ;
 
     /**
      * \~french \brief Récupère le meilleur niveau pour une résolution donnée

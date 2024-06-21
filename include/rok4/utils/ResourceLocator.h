@@ -47,7 +47,8 @@
 #define RESOURCELOCATOR_H
 
 #include <string>
-#include <json11.hpp>
+
+#include "thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière

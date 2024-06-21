@@ -107,12 +107,12 @@ uint8_t* lzwEncoder::encode(const uint8_t* in, size_t inSize, size_t& outSize)
             lastCode = nextCode;
         } else { // Write Code and append to dictionary
             if (outPos + 2 > outBufferSize) {
-                uint8_t* tmpBuffer = new uint8_t[(outBufferSize*2)];
-                if (tmpBuffer) { // Enlarge your Buffer
-                    memset(tmpBuffer+outBufferSize ,0,outBufferSize);
-                    memcpy(tmpBuffer, out, outBufferSize);
+                uint8_t* tmp_buffer = new uint8_t[(outBufferSize*2)];
+                if (tmp_buffer) { // Enlarge your Buffer
+                    memset(tmp_buffer+outBufferSize ,0,outBufferSize);
+                    memcpy(tmp_buffer, out, outBufferSize);
                     delete[] out;
-                    out = tmpBuffer;
+                    out = tmp_buffer;
                     outBufferSize *=2;
                 } else { //Allocation error
                     outSize = 0;
@@ -229,13 +229,13 @@ uint8_t* lzwEncoder::encodeAlt(const uint8_t* in, size_t inSize, size_t& outSize
     out = streamEncode(in, inSize, out, outPos);
     while (out != oldout ) {
 
-        uint8_t* tmpBuffer = new uint8_t[(outSize*2)];
-        if (tmpBuffer) { // Enlarge your Buffer
-            memset(tmpBuffer+outSize ,0,outSize);
-            memcpy(tmpBuffer, outBuffer, outSize);
+        uint8_t* tmp_buffer = new uint8_t[(outSize*2)];
+        if (tmp_buffer) { // Enlarge your Buffer
+            memset(tmp_buffer+outSize ,0,outSize);
+            memcpy(tmp_buffer, outBuffer, outSize);
             delete[] outBuffer;
-            outBuffer = tmpBuffer;
-            tmpBuffer = NULL;
+            outBuffer = tmp_buffer;
+            tmp_buffer = NULL;
             outSize *=2;
         } else { //Allocation error
             outSize = 0;

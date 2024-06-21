@@ -55,14 +55,14 @@
 
 void ReprojectedImage::initialize () {
 
-    ratioX = grid->getRatioX();
-    ratioY = grid->getRatioY();
+    ratio_x = grid->getRatioX();
+    ratio_y = grid->getRatioY();
 
     // On calcule le nombre de pixels sources à considérer dans l'interpolation, dans le sens des x et des y
-    Kx = ceil ( 2 * K.size ( ratioX ) );
-    Ky = ceil ( 2 * K.size ( ratioY ) );
+    Kx = ceil ( 2 * K.size ( ratio_x ) );
+    Ky = ceil ( 2 * K.size ( ratio_y ) );
 
-    if ( ! sourceImage->getMask() ) {
+    if ( ! source_image->get_mask() ) {
         useMask = false;
     }
 
@@ -71,8 +71,8 @@ void ReprojectedImage::initialize () {
     /* -------------------- PLACE MEMOIRE ------------------- */
 
     // nombre d'éléments d'une ligne de l'image source, arrondi au multiple de 4 supérieur.
-    int srcImgSize = 4* ( ( sourceImage->getWidth() *channels + 3 ) /4 );
-    int srcMskSize = 4* ( ( sourceImage->getWidth() + 3 ) /4 );
+    int srcImgSize = 4* ( ( source_image->get_width() *channels + 3 ) /4 );
+    int srcMskSize = 4* ( ( source_image->get_width() + 3 ) /4 );
 
     // nombre d'éléments d'une ligne de l'image calculée, arrondi au multiple de 4 supérieur.
     int outImgSize = 4* ( ( width*channels + 3 ) /4 );
@@ -184,8 +184,8 @@ void ReprojectedImage::initialize () {
     for ( int i = 0; i < 1024; i++ ) {
         int lgX = Kx;
         int lgY = Ky;
-        xmin[i] = K.weight ( Wx[i], lgX, double ( i ) /1024. + Kx, sourceImage->getWidth() ) - Kx;
-        ymin[i] = K.weight ( Wy[i], lgY, double ( i ) /1024. + Ky, sourceImage->getHeight() ) - Ky;
+        xmin[i] = K.weight ( Wx[i], lgX, double ( i ) /1024. + Kx, source_image->get_width() ) - Kx;
+        ymin[i] = K.weight ( Wy[i], lgY, double ( i ) /1024. + Ky, source_image->get_height() ) - Ky;
     }
 }
 
@@ -197,10 +197,10 @@ int ReprojectedImage::getSourceLineIndex ( int line ) {
     }
 
     // Récupération de la ligne voulue
-    sourceImage->getline ( src_image_buffer[line % memorizedLines], line );
+    source_image->get_line ( src_image_buffer[line % memorizedLines], line );
 
     if ( useMask ) {
-        sourceImage->getMask()->getline ( src_mask_buffer[line % memorizedLines], line );
+        source_image->get_mask()->get_line ( src_mask_buffer[line % memorizedLines], line );
     }
 
     // Mis à jour de l'index
@@ -218,7 +218,7 @@ float* ReprojectedImage::computeDestLine ( int line ) {
 
     for ( int i = 0; i < 4; i++ ) {
         if ( 4*dst_line_index+i < height ) {
-            grid->getline ( 4*dst_line_index+i, X[i], Y[i] );
+            grid->get_line ( 4*dst_line_index+i, X[i], Y[i] );
         } else {
             memcpy ( X[i], X[0], width*sizeof ( float ) );
             memcpy ( Y[i], Y[0], width*sizeof ( float ) );
@@ -303,19 +303,19 @@ float* ReprojectedImage::computeDestLine ( int line ) {
     return dst_image_buffer[line%4];
 }
 
-int ReprojectedImage::getline ( uint8_t* buffer, int line ) {
+int ReprojectedImage::get_line ( uint8_t* buffer, int line ) {
     const float* dst_line = computeDestLine ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;
 }
 
-int ReprojectedImage::getline ( uint16_t* buffer, int line ) {
+int ReprojectedImage::get_line ( uint16_t* buffer, int line ) {
     const float* dst_line = computeDestLine ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;
 }
 
-int ReprojectedImage::getline ( float* buffer, int line ) {
+int ReprojectedImage::get_line ( float* buffer, int line ) {
     const float* dst_line = computeDestLine ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;

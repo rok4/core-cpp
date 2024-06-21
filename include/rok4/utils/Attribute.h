@@ -111,7 +111,7 @@ class Attribute
 
         std::string getMissingField() {return missingField;}
         std::string getName() {return name;}
-        std::string getType() {return type;}
+        std::string get_type() {return type;}
         std::vector<std::string> getValues() {return values;}
         std::string getCount() {return count;}
         std::string getMin() {return min;}

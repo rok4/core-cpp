@@ -244,7 +244,7 @@ public:
      * \param[in,out] Y buffer dans lequel stocker les ordonnées de la ligne
      * \~english \brief Return a grid's line, completed by linear interpolation
      */
-    int getline ( int line, float* X, float* Y );
+    int get_line ( int line, float* X, float* Y );
 
     /** \~french
      * \brief Sortie des informations sur la grille de reprojection
@@ -254,7 +254,7 @@ public:
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "\t--------- Grid -----------" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Size : " << width << ", " << height ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- BBOX : " << bbox.toString() ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- BBOX : " << bbox.to_string() ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Reprojected points number :" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t\t- X wise : " << nbx ;
         BOOST_LOG_TRIVIAL(info) <<  "\t\t- Y wise : " << nby ;

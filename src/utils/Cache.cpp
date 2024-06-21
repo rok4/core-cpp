@@ -75,7 +75,7 @@ std::mutex StyleBook::mtx;
 
 Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
 
-    if (reference_context != 0 && reference_context->getType() != type) {
+    if (reference_context != 0 && reference_context->get_type() != type) {
         BOOST_LOG_TRIVIAL(error) << "Asked storage context and reference one have to own the same type";
         return NULL;
     }
@@ -140,12 +140,12 @@ Context * StoragePool::get_context(ContextType::eContextType type, std::string t
 
         // on connecte pour vérifier que ce contexte est valide
         if (! ctx->connection()) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot connect " << ContextType::toString(type) << " storage context, tray '" << tray << "'";
+            BOOST_LOG_TRIVIAL(error) << "Cannot connect " << ContextType::to_string(type) << " storage context, tray '" << tray << "'";
             delete ctx;
             return NULL;
         }
 
-        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::toString(type) << ", tray '" << tray << "'";
+        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::to_string(type) << ", tray '" << tray << "'";
         pool.insert(make_pair(key,ctx));
 
         return ctx;

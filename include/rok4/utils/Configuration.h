@@ -42,9 +42,10 @@
 #include <dirent.h>
 #include <string>
 #include <libgen.h>
-#include <json11.hpp>
 #include <sys/stat.h>
 #include <boost/log/trivial.hpp>
+
+#include "thirdparty/json11.hpp"
 
 class Configuration
 {

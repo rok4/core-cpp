@@ -38,22 +38,24 @@
 #ifndef _TIFFDEFLATEENCODER_
 #define _TIFFDEFLATEENCODER_
 
-#include "datastream/DataStream.h"
-#include "image/Image.h"
-#include "datastream/TiffHeader.h"
-#include "datastream/TiffEncoder.h"
+#include <string.h>  // Pour memcpy
 #include <zlib.h>
-#include <iostream>
-#include <string.h> // Pour memcpy
+
 #include <algorithm>
+#include <iostream>
+
+#include "datastream/DataStream.h"
+#include "datastream/TiffEncoder.h"
+#include "datastream/TiffHeader.h"
+#include "image/Image.h"
 
 template <typename T>
 class TiffDeflateEncoder : public TiffEncoder {
+
 protected:
-    T* linebuffer;
-
-
+    T* buffer_line;
     z_stream zstream;
+
     bool encode() {
         int rawLine = 0;
         int error = 0;
@@ -61,112 +63,106 @@ protected:
         zstream.zfree = Z_NULL;
         zstream.opaque = Z_NULL;
         zstream.data_type = Z_BINARY;
-        deflateInit ( &zstream, 6 ); // taux de compression zlib
+        deflateInit(&zstream, 6);  // taux de compression zlib
         zstream.avail_in = 0;
-        zstream.next_out  = tmpBuffer;
-        zstream.avail_out = tmpBufferSize;
+        zstream.next_out = tmp_buffer;
+        zstream.avail_out = tmp_buffer_size;
 
-        while ( rawLine >= 0 && rawLine < image->getHeight() && zstream.avail_out > 0 ) { // compresser les données dans des chunck idat
-            if ( zstream.avail_in == 0 ) {                                    // si plus de donnée en entrée de la zlib, on lit une nouvelle ligne
-                image->getline ( linebuffer, rawLine++ );
-                zstream.next_in  = ( uint8_t* ) ( linebuffer );
-                zstream.avail_in = image->getWidth() * image->getChannels() * sizeof ( T );
+        while (rawLine >= 0 && rawLine < image->get_height() && zstream.avail_out > 0) {  // compresser les données dans des chunck idat
+            if (zstream.avail_in == 0) {                                                 // si plus de donnée en entrée de la zlib, on lit une nouvelle ligne
+                image->get_line(buffer_line, rawLine++);
+                zstream.next_in = (uint8_t*)(buffer_line);
+                zstream.avail_in = image->get_width() * image->get_channels() * sizeof(T);
             }
-            error = deflate ( &zstream, Z_NO_FLUSH );
-            switch ( error ) {
-            case Z_OK :
-                break;
-            case Z_MEM_ERROR :
-                BOOST_LOG_TRIVIAL(debug) <<  "MEM_ERROR" ;
-                deflateEnd ( &zstream );
-                return false;              // return 0 en cas d'erreur.
-            case Z_STREAM_ERROR :
-                BOOST_LOG_TRIVIAL(debug) <<  "STREAM_ERROR" ;
-                deflateEnd ( &zstream );
-                return false;              // return 0 en cas d'erreur.
-            case Z_VERSION_ERROR :
-                BOOST_LOG_TRIVIAL(debug) <<  "VERSION_ERROR" ;
-                deflateEnd ( &zstream );
-                return false;              // return 0 en cas d'erreur.
-            default :
-                BOOST_LOG_TRIVIAL(debug) <<  "OTHER_ERROR" ;
-                deflateEnd ( &zstream );
-                return false;              // return 0 en cas d'erreur.
-            }
-//             if ( error != Z_OK ) {
-//                 deflateReset ( &zstream );
-//                 return false;              // return 0 en cas d'erreur.
-//             }
-        }
-
-        if ( rawLine == image->getHeight() && zstream.avail_out > 6 ) { // plus d'entrée : il faut finaliser la compression
-            int r = deflate ( &zstream, Z_FINISH );
-            if ( r == Z_STREAM_END ) rawLine++;                   // on indique que l'on a compressé fini en passant rawLine ) height+1
-            else if ( r != Z_OK ) {
-                deflateEnd ( &zstream );
-                return false;                      // une erreur
+            error = deflate(&zstream, Z_NO_FLUSH);
+            switch (error) {
+                case Z_OK:
+                    break;
+                case Z_MEM_ERROR:
+                    BOOST_LOG_TRIVIAL(debug) << "MEM_ERROR";
+                    deflateEnd(&zstream);
+                    return false;  // return 0 en cas d'erreur.
+                case Z_STREAM_ERROR:
+                    BOOST_LOG_TRIVIAL(debug) << "STREAM_ERROR";
+                    deflateEnd(&zstream);
+                    return false;  // return 0 en cas d'erreur.
+                case Z_VERSION_ERROR:
+                    BOOST_LOG_TRIVIAL(debug) << "VERSION_ERROR";
+                    deflateEnd(&zstream);
+                    return false;  // return 0 en cas d'erreur.
+                default:
+                    BOOST_LOG_TRIVIAL(debug) << "OTHER_ERROR";
+                    deflateEnd(&zstream);
+                    return false;  // return 0 en cas d'erreur.
             }
         }
 
-        if ( deflateEnd ( &zstream ) != Z_OK ) return false;
+        if (rawLine == image->get_height() && zstream.avail_out > 6) {  // plus d'entrée : il faut finaliser la compression
+            int r = deflate(&zstream, Z_FINISH);
+            if (r == Z_STREAM_END)
+                rawLine++;  // on indique que l'on a compressé fini en passant rawLine ) height+1
+            else if (r != Z_OK) {
+                deflateEnd(&zstream);
+                return false;  // une erreur
+            }
+        }
 
-        uint32_t length = zstream.total_out;   // taille des données écritres
-        tmpBufferSize = length;
+        if (deflateEnd(&zstream) != Z_OK) return false;
+
+        uint32_t length = zstream.total_out;  // taille des données écritres
+        tmp_buffer_size = length;
         return true;
     }
-    
-    virtual void prepareHeader(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffDeflateEncoder : preparation de l'en-tete";
-	sizeHeader = TiffHeader::headerSize ( image->getChannels() );
-	header = new uint8_t[sizeHeader];
-	if ( image->getChannels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_ZIP_FLOAT32_GRAY, sizeHeader);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_ZIP_INT8_GRAY, sizeHeader);
-	    }
-	else if ( image->getChannels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_ZIP_INT8_RGB, sizeHeader);
-	else if ( image->getChannels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_ZIP_INT8_RGBA, sizeHeader);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->getWidth();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->getHeight();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->getHeight();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmpBufferSize ;
+
+    virtual void prepare_header() {
+        BOOST_LOG_TRIVIAL(debug) << "TiffDeflateEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size(image->get_channels());
+        header = new uint8_t[header_size];
+        if (image->get_channels() == 1)
+            if (sizeof(T) == sizeof(float)) {
+                memcpy(header, TiffHeader::TIFF_HEADER_ZIP_FLOAT32_GRAY, header_size);
+            } else {
+                memcpy(header, TiffHeader::TIFF_HEADER_ZIP_INT8_GRAY, header_size);
+            }
+        else if (image->get_channels() == 3)
+            memcpy(header, TiffHeader::TIFF_HEADER_ZIP_INT8_RGB, header_size);
+        else if (image->get_channels() == 4)
+            memcpy(header, TiffHeader::TIFF_HEADER_ZIP_INT8_RGBA, header_size);
+        *((uint32_t*)(header + 18)) = image->get_width();
+        *((uint32_t*)(header + 30)) = image->get_height();
+        *((uint32_t*)(header + 102)) = image->get_height();
+        *((uint32_t*)(header + 114)) = tmp_buffer_size;
     }
-    
-    virtual void prepareBuffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffDeflateEncoder : preparation du buffer d'image";
-	tmpBufferSize = image->getWidth() * image->getChannels() * image->getHeight() * 2 * sizeof(T) ;
-	tmpBuffer = new uint8_t[tmpBufferSize];
-	while ( !encode() ) {
-	    tmpBufferSize *= 2;
-	    delete[] tmpBuffer;
-	    tmpBuffer = new uint8_t[tmpBufferSize];
-	}
+
+    virtual void prepare_buffer() {
+        BOOST_LOG_TRIVIAL(debug) << "TiffDeflateEncoder : preparation du buffer d'image";
+        tmp_buffer_size = image->get_width() * image->get_channels() * image->get_height() * 2 * sizeof(T);
+        tmp_buffer = new uint8_t[tmp_buffer_size];
+        while (!encode()) {
+            tmp_buffer_size *= 2;
+            delete[] tmp_buffer;
+            tmp_buffer = new uint8_t[tmp_buffer_size];
+        }
     }
 
 public:
-    TiffDeflateEncoder ( Image *image, bool isGeoTiff = false ) : TiffEncoder( image, -1, isGeoTiff ) {
-//         zstream.zalloc = Z_NULL;
-//         zstream.zfree = Z_NULL;
-//         zstream.opaque = Z_NULL;
-//         zstream.data_type = Z_BINARY;
-//         deflateInit ( &zstream, 6 ); // taux de compression zlib
-//         zstream.avail_in = 0;
-        linebuffer = new T[image->getWidth() * image->getChannels()];
+    TiffDeflateEncoder(Image* image, bool is_geotiff = false) : TiffEncoder(image, -1, is_geotiff) {
+        //         zstream.zalloc = Z_NULL;
+        //         zstream.zfree = Z_NULL;
+        //         zstream.opaque = Z_NULL;
+        //         zstream.data_type = Z_BINARY;
+        //         deflateInit ( &zstream, 6 ); // taux de compression zlib
+        //         zstream.avail_in = 0;
+        buffer_line = new T[image->get_width() * image->get_channels()];
     }
     ~TiffDeflateEncoder() {
-        if ( linebuffer ) delete[] linebuffer;
-//         deflateEnd ( &zstream );
-    }
-    
-    std::string getEncoding() {
-        return "deflate";
+        if (buffer_line) delete[] buffer_line;
+        //         deflateEnd ( &zstream );
     }
 
+    std::string get_encoding() {
+        return "deflate";
+    }
 };
 
 #endif
-
-

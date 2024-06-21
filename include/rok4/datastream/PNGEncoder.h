@@ -45,14 +45,16 @@
 
 /** D */
 class PNGEncoder : public DataStream {
+
 private:
 
-    uint8_t* linebuffer;
+    uint8_t* buffer_line;
 
     z_stream zstream;
 
 
 protected:
+
     Image *image;
     int line;
     virtual size_t write_IHDR ( uint8_t *buffer, size_t size );
@@ -63,6 +65,7 @@ protected:
     Palette* stubpalette;
 
 public:
+
     /** D */
     PNGEncoder ( Image* image, Palette* palette=NULL );
     /** D */
@@ -72,18 +75,18 @@ public:
     size_t read ( uint8_t* buffer, size_t size );
     bool eof();
 
-    std::string getType() {
+    std::string get_type() {
         return "image/png";
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
 
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
     
-    unsigned int getLength() {
+    unsigned int get_length() {
         return 0;
     }
 };

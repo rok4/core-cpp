@@ -42,25 +42,29 @@
 #include "rok4/image/Image.h"
 
 class AscEncoder : public DataStream {
+
+private:
+
     Image* image;
     size_t line;
     float nodata_value;
 
 public:
+
     AscEncoder ( Image* image ) : image ( image ), line ( 0 ){}
     ~AscEncoder();
     size_t read ( uint8_t *buffer, size_t size );
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
-    std::string getType() {
+    std::string get_type() {
         return "text/asc";
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
     bool eof();
-    unsigned int getLength(){
+    unsigned int get_length(){
         return 0;
     }
 

@@ -37,24 +37,24 @@
 
 #include "image/CompoundImage.h"
 
-int CompoundImage::computeWidth ( std::vector<std::vector<Image*> > &images ) {
+int CompoundImage::compute_width ( std::vector<std::vector<Image*> > &images ) {
     int width = 0;
-    for ( int x = 0; x < images[0].size(); x++ ) width += images[0][x]->getWidth();
+    for ( int x = 0; x < images[0].size(); x++ ) width += images[0][x]->get_width();
     return width;
 }
 
-int CompoundImage::computeHeight ( std::vector<std::vector<Image*> > &images ) {
+int CompoundImage::compute_height ( std::vector<std::vector<Image*> > &images ) {
     int height = 0;
-    for ( int y = 0; y < images.size(); y++ ) height += images[y][0]->getHeight();
+    for ( int y = 0; y < images.size(); y++ ) height += images[y][0]->get_height();
     return height;
 }
 
-BoundingBox<double> CompoundImage::computeBbox ( std::vector<std::vector<Image*> > &images ) {
-    double xmin = images[images.size()-1][0]->getBbox().xmin;
-    double ymin = images[images.size()-1][0]->getBbox().ymin;
+BoundingBox<double> CompoundImage::compute_bbox ( std::vector<std::vector<Image*> > &images ) {
+    double xmin = images[images.size()-1][0]->get_bbox().xmin;
+    double ymin = images[images.size()-1][0]->get_bbox().ymin;
 
-    double xmax = images[0][images[0].size()-1]->getBbox().xmax;
-    double ymax = images[0][images[0].size()-1]->getBbox().ymax;
+    double xmax = images[0][images[0].size()-1]->get_bbox().xmax;
+    double ymax = images[0][images[0].size()-1]->get_bbox().ymax;
 
     return BoundingBox<double> ( xmin, ymin, xmax, ymax );
 }
@@ -65,34 +65,34 @@ inline int CompoundImage::_getline ( T* buffer, int line ) {
     if (line >= height) {
         return 0;
     }
-    while ( top + images[y][0]->getHeight() <= line ) top += images[y++][0]->getHeight();
-    while ( top > line ) top -= images[--y][0]->getHeight();
+    while ( top + source_images[y][0]->get_height() <= line ) top += source_images[y++][0]->get_height();
+    while ( top > line ) top -= source_images[--y][0]->get_height();
     // on calcule l'indice de la ligne dans la sous tuile
     line -= top;
-    for ( int x = 0; x < images[y].size(); x++ )
-        buffer += images[y][x]->getline ( buffer, line );
+    for ( int x = 0; x < source_images[y].size(); x++ )
+        buffer += source_images[y][x]->get_line ( buffer, line );
     return width*channels;
 }
 
 /** D */
-int CompoundImage::getline ( uint8_t* buffer, int line ) {
+int CompoundImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 /** D */
-int CompoundImage::getline ( uint16_t* buffer, int line ) {
+int CompoundImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 /** D */
-int CompoundImage::getline ( float* buffer, int line ) {
+int CompoundImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 /** D */
 CompoundImage::CompoundImage ( std::vector< std::vector<Image*> >& images ) :
-    Image ( computeWidth ( images ), computeHeight ( images ), images[0][0]->getChannels(), images[0][0]->getResX(),images[0][0]->getResY(), computeBbox ( images ) ),
-    images ( images ),
+    Image ( compute_width ( images ), compute_height ( images ), images[0][0]->get_channels(), images[0][0]->get_resx(),images[0][0]->get_resy(), compute_bbox ( images ) ),
+    source_images ( images ),
     top ( 0 ),
     y ( 0 ) {}
 

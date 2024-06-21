@@ -99,7 +99,7 @@ public:
     bool write(uint8_t* data, int offset, int size, std::string name);
     bool writeFull(uint8_t* data, int size, std::string name);
 
-    ContextType::eContextType getType();
+    ContextType::eContextType get_type();
     std::string getTypeStr();
     std::string getTray();
  
@@ -140,7 +140,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- root directory = " << root_dir ;
     }
 
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ File Context -------" << std::endl;

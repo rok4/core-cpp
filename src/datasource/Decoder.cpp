@@ -97,9 +97,9 @@ const uint8_t* JpegDecoder::decode ( DataSource* source, size_t &size ) {
     if ( !source ) return 0;
 
     size_t encSize;
-    const uint8_t* encData = source->getData ( encSize );
+    const uint8_t* encoded_data = source->get_data ( encSize );
 
-    if ( !encData ) return 0;
+    if ( !encoded_data ) return 0;
 
     struct jpeg_decompress_struct cinfo;
     struct my_error_mgr jerr;
@@ -114,7 +114,7 @@ const uint8_t* JpegDecoder::decode ( DataSource* source, size_t &size ) {
     cinfo.src->resync_to_restart = jpeg_resync_to_restart; // use default method
     cinfo.src->term_source = term_source;
 
-    cinfo.src->next_input_byte = encData;
+    cinfo.src->next_input_byte = encoded_data;
     cinfo.src->bytes_in_buffer = encSize;
 
     // Initialisation de la gestion des erreurs
@@ -177,9 +177,9 @@ const uint8_t* PngDecoder::decode ( DataSource* source, size_t &size ) {
     if ( !source ) return 0;
 
     size_t encSize;
-    const uint8_t* encData = source->getData ( encSize );
+    const uint8_t* encoded_data = source->get_data ( encSize );
 
-    if ( !encData ) return 0;
+    if ( !encoded_data ) return 0;
 
     // Initialisation du flux
     z_stream zstream;
@@ -200,14 +200,14 @@ const uint8_t* PngDecoder::decode ( DataSource* source, size_t &size ) {
         return 0;
     }
 
-    int height = bswap_32 ( * ( ( const uint32_t* ) ( encData + 16 ) ) );
-    int width = bswap_32 ( * ( ( const uint32_t* ) ( encData + 20 ) ) );
+    int height = bswap_32 ( * ( ( const uint32_t* ) ( encoded_data + 16 ) ) );
+    int width = bswap_32 ( * ( ( const uint32_t* ) ( encoded_data + 20 ) ) );
     // TODO: vérifier cohérence header...
     int channels;
 
-//      TODO if(encData[24] != 8) ERROR
+//      TODO if(encoded_data[24] != 8) ERROR
 
-    switch ( encData[25] ) {
+    switch ( encoded_data[25] ) {
     case 0: // Gray
         channels = 1;
         break;
@@ -230,7 +230,7 @@ const uint8_t* PngDecoder::decode ( DataSource* source, size_t &size ) {
     uint8_t* raw_data = new uint8_t[height * width * channels];
     int linesize = width * channels;
 
-    zstream.next_in = ( uint8_t* ) ( encData + 41 ); // 41 = 33 header + 8(chunk idat)
+    zstream.next_in = ( uint8_t* ) ( encoded_data + 41 ); // 41 = 33 header + 8(chunk idat)
     zstream.avail_in = encSize - 57;     // 57 = 41 + 4(crc) + 12(IEND)
 
     // Decompression du flux ligne par ligne
@@ -276,13 +276,13 @@ const uint8_t* PackBitsDecoder::decode ( DataSource* source, size_t& size ) {
     if ( !source ) return 0;
 
     size_t encSize;
-    const uint8_t* encData = source->getData ( encSize );
+    const uint8_t* encoded_data = source->get_data ( encSize );
 
-    if ( !encData ) return 0;
+    if ( !encoded_data ) return 0;
 
     // Initialisation du flux
     pkbDecoder decoder;
-    uint8_t* raw_data = decoder.decode ( encData,encSize,size );
+    uint8_t* raw_data = decoder.decode ( encoded_data,encSize,size );
 
     if ( !raw_data ) return 0;
 
@@ -297,13 +297,13 @@ const uint8_t* LzwDecoder::decode ( DataSource* source, size_t& size ) {
     if ( !source ) return 0;
 
     size_t encSize;
-    const uint8_t* encData = source->getData ( encSize );
+    const uint8_t* encoded_data = source->get_data ( encSize );
 
-    if ( !encData ) return 0;
+    if ( !encoded_data ) return 0;
 
     // Initialisation du flux
     lzwDecoder decoder ( 12 );
-    uint8_t* raw_data = decoder.decode ( encData,encSize,size );
+    uint8_t* raw_data = decoder.decode ( encoded_data,encSize,size );
 
     if ( !raw_data ) return 0;
 
@@ -320,9 +320,9 @@ const uint8_t* DeflateDecoder::decode ( DataSource* source, size_t &size ) {
     if ( !source ) return 0;
 
     size_t encSize;
-    const uint8_t* encData = source->getData ( encSize );
+    const uint8_t* encoded_data = source->get_data ( encSize );
 
-    if ( !encData ) return 0;
+    if ( !encoded_data ) return 0;
 
     // Initialisation du flux
     z_stream zstream;
@@ -346,7 +346,7 @@ const uint8_t* DeflateDecoder::decode ( DataSource* source, size_t &size ) {
     size_t rawSize = encSize * 2;
     uint8_t* raw_data = new uint8_t[rawSize];
 
-    zstream.next_in = ( uint8_t* ) ( encData );
+    zstream.next_in = ( uint8_t* ) ( encoded_data );
     zstream.avail_in = encSize;
     zstream.next_out = ( uint8_t* ) ( raw_data );
     zstream.avail_out = rawSize;
@@ -385,32 +385,32 @@ const uint8_t* DeflateDecoder::decode ( DataSource* source, size_t &size ) {
 }
 
 
-int ImageDecoder::getDataline ( uint8_t* buffer, int line ) {
-    convert ( buffer, rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
+int ImageDecoder::get_data_line ( uint8_t* buffer, int line ) {
+    convert ( buffer, raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
     return width * channels;
 }
 
-int ImageDecoder::getDataline ( uint16_t* buffer, int line ) {
+int ImageDecoder::get_data_line ( uint16_t* buffer, int line ) {
     if ( channel_size==1 )
         // Conversion uint8 -> uintt16
-        convert ( buffer, rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
+        convert ( buffer, raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
     else if ( channel_size==2 )
         // Donnée demandée dans le format d'origine
-        memcpy ( buffer,rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( uint16_t ),width * channels*sizeof ( uint16_t ) );
+        memcpy ( buffer,raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( uint16_t ),width * channels*sizeof ( uint16_t ) );
 
     return width * channels;
 }
 
-int ImageDecoder::getDataline ( float* buffer, int line ) {
+int ImageDecoder::get_data_line ( float* buffer, int line ) {
     if ( channel_size==1 )
         // Conversion uint8 -> float
-        convert ( buffer, rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
+        convert ( buffer, raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels, width * channels );
     else if ( channel_size==2 )
         // Conversion uint16 -> float
-        convert ( buffer, rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( uint16_t ), width * channels );
+        convert ( buffer, raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( uint16_t ), width * channels );
     else if ( channel_size==4 )
         // Donnée demandée dans le format d'origine
-        memcpy ( buffer,rawData + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( float ),width * channels*sizeof ( float ) );
+        memcpy ( buffer,raw_data + ( ( margin_top + line ) * source_width + margin_left ) * channels*sizeof ( float ),width * channels*sizeof ( float ) );
 
     return width * channels;
 }

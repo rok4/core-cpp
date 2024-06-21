@@ -524,7 +524,7 @@ bool S3Context::writeFull(uint8_t *data, int size, std::string name) {
     return true;
 }
 
-ContextType::eContextType S3Context::getType() {
+ContextType::eContextType S3Context::get_type() {
     return ContextType::S3CONTEXT;
 }
 

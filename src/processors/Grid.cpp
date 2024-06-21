@@ -278,7 +278,7 @@ bool Grid::reproject ( CRS* from_crs, CRS* to_crs ) {
     return true;
 }
 
-int Grid::getline ( int line, float* X, float* Y ) {
+int Grid::get_line ( int line, float* X, float* Y ) {
 
     int dy = line / stepInt;
     double w = 0;

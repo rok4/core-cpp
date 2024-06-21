@@ -95,7 +95,7 @@ const int mergeType_size = 6;
  * \param[in] strMergeMethod string to convert
  * \return the binding merge method, UNKNOWN (0) if string is not recognized
  */
-eMergeType fromString ( std::string strMergeMethod );
+eMergeType from_string ( std::string strMergeMethod );
 
 /**
  * \~french \brief Conversion d'une méthode de fusion vers une chaîne de caractères
@@ -105,7 +105,7 @@ eMergeType fromString ( std::string strMergeMethod );
  * \param[in] mergeMethod merge method to convert
  * \return string namming the merge method
  */
-std::string toString ( eMergeType mergeMethod );
+std::string to_string ( eMergeType mergeMethod );
 }
 
 /**
@@ -185,7 +185,7 @@ protected:
      */
     MergeImage ( std::vector< Image* >& images, int channels,
                  int* bg, int* transparent, Merge::eMergeType composition = Merge::NORMAL ) :
-        Image ( images.at ( 0 )->getWidth(),images.at ( 0 )->getHeight(), channels, images.at ( 0 )->getResX(),images.at ( 0 )->getResY(), images.at ( 0 )->getBbox() ),
+        Image ( images.at ( 0 )->get_width(),images.at ( 0 )->get_height(), channels, images.at ( 0 )->get_resx(),images.at ( 0 )->get_resy(), images.at ( 0 )->get_bbox() ),
         images ( images ), composition ( composition ), bgValue ( bg ), transparentValue ( transparent ) {
 
         if ( transparentValue != NULL ) {
@@ -200,9 +200,9 @@ protected:
 
 public:
 
-    virtual int getline ( uint8_t* buffer, int line );
-    virtual int getline ( uint16_t* buffer, int line );
-    virtual int getline ( float* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
+    virtual int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -226,8 +226,8 @@ public:
      * \param[in] i source image indice, whose mask is wanted
      * \return mask
      */
-    Image* getMask ( int i ) {
-        return images.at ( i )->getMask();
+    Image* get_mask ( int i ) {
+        return images.at ( i )->get_mask();
     }
 
     /**
@@ -238,7 +238,7 @@ public:
      * \brief Default destructor
      */
     virtual ~MergeImage() {
-        if ( ! isMask ) {
+        if ( ! is_mask ) {
             for ( int i = 0; i < images.size(); i++ ) {
                 delete images[i];
             }
@@ -257,7 +257,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "------ MergeImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " << images.size() ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Merge method : " << toString ( composition ) << "\n" ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Merge method : " << to_string ( composition ) << "\n" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Background value : " << bgValue << "\n" ;
     }
 };
@@ -319,12 +319,12 @@ public:
      * \param[in] MI Compounded image
      */
     MergeMask ( MergeImage*& MI ) :
-        Image ( MI->getWidth(), MI->getHeight(), 1,MI->getResX(), MI->getResY(),MI->getBbox() ),
+        Image ( MI->get_width(), MI->get_height(), 1,MI->get_resx(), MI->get_resy(),MI->get_bbox() ),
         MI ( MI ) {}
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french

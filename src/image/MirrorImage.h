@@ -95,7 +95,7 @@ private:
      * \~french \brief Image source, utilisée pour composer l'image miroir
      * \~english \brief Source images, to compose the mirror image
      */
-    Image* sourceImage;
+    Image* source_image;
     /**
      * \~french \brief Position du miroir par rapport à l'image source
      * \details
@@ -153,13 +153,13 @@ protected:
      * \param[in] position mirror position to image source
      * \param[in] mirrorSize mirror's size, in pixel
      */
-    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->getResX(),image->getResY(),bbox ), sourceImage ( image ), position ( position ), mirrorSize ( mirrorSize ) {}
+    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->get_resx(),image->get_resy(),bbox ), source_image ( image ), position ( position ), mirrorSize ( mirrorSize ) {}
 
 public:
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french

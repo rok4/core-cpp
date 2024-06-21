@@ -65,11 +65,11 @@ private:
     std::string algo;
 
     /** \~french
-    * \brief minSlope : indique la valeur de pente à partir de laquelle l'exposition est calculee
+    * \brief min_slope : indique la valeur de pente à partir de laquelle l'exposition est calculee
     ** \~english
-    * \brief minSlope : indicate the value of slope from which aspect is computed
+    * \brief min_slope : indicate the value of slope from which aspect is computed
     */
-    float minSlope;
+    float min_slope;
 
 public:
 
@@ -80,7 +80,7 @@ public:
      * \brief Constructor without arguments
      */
     Aspect(): Configuration(), algo ("H") {
-        minSlope = 1.0 * DEG_TO_RAD;
+        min_slope = 1.0 * DEG_TO_RAD;
     }
 
     /**
@@ -91,9 +91,9 @@ public:
      */
     Aspect(json11::Json doc) : Configuration() {
         if (doc["min_slope"].is_number()) {
-            minSlope = doc["min_slope"].number_value() * DEG_TO_RAD;
+            min_slope = doc["min_slope"].number_value() * DEG_TO_RAD;
         } else {
-            minSlope = 1.0 * DEG_TO_RAD;
+            min_slope = 1.0 * DEG_TO_RAD;
         }
 
         if (doc["algo"].is_string()) {
@@ -125,12 +125,12 @@ public:
 
     /**
      * \~french
-     * \brief Recupère minSlope
+     * \brief Recupère min_slope
      * \~english
-     * \brief Get minSlope
+     * \brief Get min_slope
      */
     float getMinSlope(){
-        return minSlope;
+        return min_slope;
     }
 
 };

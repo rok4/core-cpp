@@ -79,7 +79,7 @@ StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::s
  * Le fichier/objet ne doit etre lu qu une seule fois
  * Indique la taille de la tuile (inconnue a priori)
  */
-const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
+const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
     if ( alreadyTried) {
         tile_size = size;
         return data;
@@ -96,15 +96,15 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
     if (tile_indice == -1) {
         // On a directement la taille et l'offset
         data = new uint8_t[wanted_size];
-        int tileSize = context->read(data, offset, wanted_size, name);
-        if (tileSize < 0) {
+        int read_size = context->read(data, offset, wanted_size, name);
+        if (read_size < 0) {
             BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->getPath(name) << " from size and offset" ;
             delete[] data;
             data = NULL;
             return NULL;
         }
-        tile_size = tileSize;
-        size = tileSize;
+        tile_size = read_size;
+        size = tile_size;
     } else {
         // Nous n'avons pas les infos de taille et d'offset pour la tuile, nous allons devoir les récupérer lire
         // On va regarder si on n'a pas nos informations dans le cache
@@ -156,7 +156,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
 
                 BOOST_LOG_TRIVIAL(debug) << " -> " << full_name;
 
-                if (context->getType() != ContextType::FILECONTEXT) {
+                if (context->get_type() != ContextType::FILECONTEXT) {
                     // Dans le cas du stockage objet, on sépare le nom du contenant du nom de l'objet
                     std::stringstream ss(full_name);
                     std::string token;
@@ -168,7 +168,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
                     if (originalTrayName != tray_name) {
                         // Récupération ou ajout du nouveau contexte de stockage
                         // On reprécise le contexte d'origine, pour utiliser le même cluster en cas S3
-                        context = StoragePool::get_context(context->getType(), tray_name, context);
+                        context = StoragePool::get_context(context->get_type(), tray_name, context);
                         // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
                         if (context == NULL) {
                             data = NULL;

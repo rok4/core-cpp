@@ -139,7 +139,7 @@ public:
      * \~french \brief Retourne le format de canal en sortie
      * \~english \brief Get the output sample format
      */
-    SampleFormat::eSampleFormat getSampleFormat () {
+    SampleFormat::eSampleFormat get_sample_format () {
         return outSampleFormat;
     }
 
@@ -149,8 +149,8 @@ public:
      * \~english
      * \brief Return the output pixel's byte size
      */
-    int getPixelSize () {
-        return SampleFormat::getBitsPerSample(outSampleFormat) * outSamplesPerPixel / 8;
+    int get_pixel_size () {
+        return SampleFormat::get_bits_per_sample(outSampleFormat) * outSamplesPerPixel / 8;
     }
 
     /**
@@ -169,7 +169,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "---------- PixelConverter ------------" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Width : " << width ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- SampleFormat : " << SampleFormat::toString(inSampleFormat) << " -> " << SampleFormat::toString(outSampleFormat) ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- SampleFormat : " << SampleFormat::to_string(inSampleFormat) << " -> " << SampleFormat::to_string(outSampleFormat) ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Samples per pixel : " << inSamplesPerPixel << " -> " << outSamplesPerPixel ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

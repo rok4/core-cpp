@@ -68,26 +68,26 @@ void CppUnitFormat::testFormat() {
     Rok4Format::eFormat tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
 
     CPPUNIT_ASSERT_MESSAGE ( "Unknown is false", ! ( ukn ) );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::toString ( tri8 ).compare ( "TIFF_RAW_UINT8" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::toString ( tji8 ).compare ( "TIFF_JPG_UINT8" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::toString ( tpi8 ).compare ( "TIFF_PNG_UINT8" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::toString ( tli8 ).compare ( "TIFF_LZW_UINT8" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::toString ( trf32 ).compare ( "TIFF_RAW_FLOAT32" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::toString ( tlf32 ).compare ( "TIFF_LZW_FLOAT32" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::toString ( tzi8 ).compare ( "TIFF_ZIP_UINT8" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::toString ( tzf32 ).compare ( "TIFF_ZIP_FLOAT32" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::to_string ( tri8 ).compare ( "TIFF_RAW_UINT8" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::to_string ( tji8 ).compare ( "TIFF_JPG_UINT8" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::to_string ( tpi8 ).compare ( "TIFF_PNG_UINT8" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::to_string ( tli8 ).compare ( "TIFF_LZW_UINT8" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::to_string ( trf32 ).compare ( "TIFF_RAW_FLOAT32" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::to_string ( tlf32 ).compare ( "TIFF_LZW_FLOAT32" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::to_string ( tzi8 ).compare ( "TIFF_ZIP_UINT8" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::to_string ( tzf32 ).compare ( "TIFF_ZIP_FLOAT32" ) == 0 );
 }
 
 void CppUnitFormat::formatFromString() {
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::fromString ( "TIFF_RAW_UINT8" ) == Rok4Format::TIFF_RAW_UINT8 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::fromString ( "TIFF_JPG_UINT8" ) == Rok4Format::TIFF_JPG_UINT8 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::fromString ( "TIFF_PNG_UINT8" ) == Rok4Format::TIFF_PNG_UINT8 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::fromString ( "TIFF_LZW_UINT8" ) == Rok4Format::TIFF_LZW_UINT8 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::fromString ( "TIFF_RAW_FLOAT32" ) == Rok4Format::TIFF_RAW_FLOAT32 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::fromString ( "TIFF_LZW_FLOAT32" ) == Rok4Format::TIFF_LZW_FLOAT32 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::fromString ( "TIFF_ZIP_FLOAT32" ) == Rok4Format::TIFF_ZIP_FLOAT32 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::fromString ( "TIFF_ZIP_UINT8" ) == Rok4Format::TIFF_ZIP_UINT8 );
-    CPPUNIT_ASSERT_MESSAGE ( "Wrong Value", Rok4Format::fromString ( "Wrong" ) == Rok4Format::UNKNOWN );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::from_string ( "TIFF_RAW_UINT8" ) == Rok4Format::TIFF_RAW_UINT8 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::from_string ( "TIFF_JPG_UINT8" ) == Rok4Format::TIFF_JPG_UINT8 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::from_string ( "TIFF_PNG_UINT8" ) == Rok4Format::TIFF_PNG_UINT8 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::from_string ( "TIFF_LZW_UINT8" ) == Rok4Format::TIFF_LZW_UINT8 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::from_string ( "TIFF_RAW_FLOAT32" ) == Rok4Format::TIFF_RAW_FLOAT32 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::from_string ( "TIFF_LZW_FLOAT32" ) == Rok4Format::TIFF_LZW_FLOAT32 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::from_string ( "TIFF_ZIP_FLOAT32" ) == Rok4Format::TIFF_ZIP_FLOAT32 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::from_string ( "TIFF_ZIP_UINT8" ) == Rok4Format::TIFF_ZIP_UINT8 );
+    CPPUNIT_ASSERT_MESSAGE ( "Wrong Value", Rok4Format::from_string ( "Wrong" ) == Rok4Format::UNKNOWN );
 }
 
 void CppUnitFormat::formatToMime() {
@@ -101,12 +101,12 @@ void CppUnitFormat::formatToMime() {
     Rok4Format::eFormat tzi8 = Rok4Format::TIFF_ZIP_UINT8;
     Rok4Format::eFormat tzf32 = Rok4Format::TIFF_ZIP_FLOAT32;
 
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::toMimeType ( tri8 ).compare ( "image/tiff" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::toMimeType ( tji8 ).compare ( "image/jpeg" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::toMimeType ( tpi8 ).compare ( "image/png" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::toMimeType ( tli8 ).compare ( "image/tiff" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::toMimeType ( trf32 ).compare ( "image/x-bil;bits=32" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::toMimeType ( tlf32 ).compare ( "image/tiff" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::toMimeType ( tzi8 ).compare ( "image/tiff" ) == 0 );
-    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::toMimeType ( tzf32 ).compare ( "image/x-bil;bits=32" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_UINT8", Rok4Format::to_mime_type ( tri8 ).compare ( "image/tiff" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_JPG_UINT8", Rok4Format::to_mime_type ( tji8 ).compare ( "image/jpeg" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_PNG_UINT8", Rok4Format::to_mime_type ( tpi8 ).compare ( "image/png" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_UINT8", Rok4Format::to_mime_type ( tli8 ).compare ( "image/tiff" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_RAW_FLOAT32", Rok4Format::to_mime_type ( trf32 ).compare ( "image/x-bil;bits=32" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_LZW_FLOAT32", Rok4Format::to_mime_type ( tlf32 ).compare ( "image/tiff" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_UINT8", Rok4Format::to_mime_type ( tzi8 ).compare ( "image/tiff" ) == 0 );
+    CPPUNIT_ASSERT_MESSAGE ( "TIFF_ZIP_FLOAT32", Rok4Format::to_mime_type ( tzf32 ).compare ( "image/x-bil;bits=32" ) == 0 );
 }

@@ -52,8 +52,9 @@
 #ifndef FILEIMAGE_H
 #define FILEIMAGE_H
 
-#include "rok4/image/Image.h"
 #include <string.h>
+
+#include "rok4/image/Image.h"
 #include "rok4/enums/Format.h"
 #include "rok4/processors/PixelConverter.h"
 
@@ -97,7 +98,7 @@ protected:
      * En lecture, on accepte des images pour lesquelles l'alpha est associé. On doit donc mémoriser cette information et convertir à la volée lors de la lecture des données.
      * \~english \brief extra sample type (if exists)
      */
-    ExtraSample::eExtraSample esType;
+    ExtraSample::eExtraSample extra_sample;
     /**
      * \~french \brief Compression des données (jpeg, packbits...)
      * \~english \brief Data compression (jpeg, packbits...)
@@ -107,13 +108,13 @@ protected:
      * \~french \brief Format des canaux
      * \~english \brief Sample format
      */
-    SampleFormat::eSampleFormat sampleformat;
+    SampleFormat::eSampleFormat sample_format;
     
     /**
      * \~french \brief Taille d'un pixel en octet
      * \~english \brief Byte pixel's size
      */
-    int pixelSize;
+    int pixel_size;
 
     /**
      * \~french \brief Module de conversion des pixels à la volée
@@ -131,10 +132,10 @@ protected:
      * \param[in] channel nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
-     * \param[in] sampleformat format des canaux
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
-     * \param[in] esType type du canal supplémentaire, si présent.
+     * \param[in] extra_sample type du canal supplémentaire, si présent.
      ** \~english
      * \brief Create a FileImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -144,15 +145,15 @@ protected:
      * \param[in] channel number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
-     * \param[in] sampleformat samples' format
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
-     * \param[in] esType extra sample type
+     * \param[in] extra_sample extra sample type
      */
     FileImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
-        ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        ExtraSample::eExtraSample extra_sample = ExtraSample::NONE
     );
 
     /**
@@ -162,7 +163,7 @@ protected:
      * \param[in,out] buffer source des donnée, dont l'alpha doit être désassocié
      */
     template<typename T>
-    void unassociateAlpha ( T* buffer ) {
+    void unassociate_alpha ( T* buffer ) {
         
         T coeff;
         if (sizeof(T) == 1) {
@@ -176,9 +177,8 @@ protected:
         }
 
         T* pix = buffer;
-        int alphaInd = channels - 1;
         for (int i = 0; i < width; i++, pix += channels) {
-            T alpha = *(pix + alphaInd);
+            T alpha = *(pix + channels - 1);
             
             if (alpha == coeff) {
                 // Opacité pleine
@@ -190,7 +190,7 @@ protected:
                 continue;
             }
             
-            for (int c = 0; c < alphaInd; c++) {
+            for (int c = 0; c < channels - 1; c++) {
                 pix[c] = pix[c] * coeff / alpha;
             }
         }
@@ -199,18 +199,18 @@ protected:
 public:
 
 
-    virtual int getline ( uint8_t *buffer, int line ) = 0;
-    virtual int getline ( float *buffer, int line ) = 0;
-    virtual int getline ( uint16_t *buffer, int line ) = 0;
+    virtual int get_line ( uint8_t *buffer, int line ) = 0;
+    virtual int get_line ( float *buffer, int line ) = 0;
+    virtual int get_line ( uint16_t *buffer, int line ) = 0;
 
     /**
      * \~french
      * \brief Ecrit une image, à partir d'une image source
      * \details Toutes les informations nécessaires à l'écriture d'une image sont dans l'objet FileImage, sauf les données à écrire. On renseigne cela via une seconde image.
-     * \param[in] pIn source des donnée de l'image à écrire
+     * \param[in] input source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeImage ( Image* pIn ) = 0;
+    virtual int write_image ( Image* input ) = 0;
 
     /**
      * \~french
@@ -218,7 +218,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeImage ( uint8_t* buffer ) = 0;
+    virtual int write_image ( uint8_t* buffer ) = 0;
     
     /**
      * \~french
@@ -226,7 +226,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeImage ( uint16_t* buffer ) = 0;
+    virtual int write_image ( uint16_t* buffer ) = 0;
 
     /**
      * \~french
@@ -234,7 +234,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeImage ( float* buffer ) = 0;
+    virtual int write_image ( float* buffer ) = 0;
 
     /**
      * \~french
@@ -243,7 +243,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeLine ( uint8_t* buffer, int line ) = 0;
+    virtual int write_line ( uint8_t* buffer, int line ) = 0;
     
     /**
      * \~french
@@ -252,7 +252,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeLine ( uint16_t* buffer, int line ) = 0;
+    virtual int write_line ( uint16_t* buffer, int line ) = 0;
 
     /**
      * \~french
@@ -261,7 +261,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    virtual int writeLine ( float* buffer, int line ) = 0;
+    virtual int write_line ( float* buffer, int line ) = 0;
 
     /**
      * \~french
@@ -271,7 +271,7 @@ public:
      * \brief Return the path to image file
      * \return image's path
      */
-    inline std::string getFilename() {
+    inline std::string get_filename() {
         return filename;
     }
     /**
@@ -282,20 +282,20 @@ public:
      * \brief Return data photometric (rgb, gray...)
      * \return photometric
      */
-    inline Photometric::ePhotometric getPhotometric() {
+    inline Photometric::ePhotometric get_photometric() {
         return photometric;
     }
     
     /**
      * \~french
      * \brief Retourne le type du canal supplémentaire
-     * \return esType
+     * \return extra_sample
      * \~english
      * \brief Return extra sample type
-     * \return esType
+     * \return extra_sample
      */
-    inline ExtraSample::eExtraSample getExtraSample() {
-        return esType;
+    inline ExtraSample::eExtraSample get_extra_sample() {
+        return extra_sample;
     }
     
     /**
@@ -304,8 +304,8 @@ public:
      * \~english
      * \brief Modify extra sample type
      */
-    inline void setExtraSample(ExtraSample::eExtraSample es) {
-        esType = es;
+    inline void set_extra_sample(ExtraSample::eExtraSample es) {
+        extra_sample = es;
     }
     /**
      * \~french
@@ -315,7 +315,7 @@ public:
      * \brief Return data compression
      * \return compression
      */
-    inline Compression::eCompression getCompression() {
+    inline Compression::eCompression get_compression() {
         return compression;
     }
 
@@ -327,9 +327,9 @@ public:
      * \brief Return sample format (integer, float)
      * \return sample format
      */
-    SampleFormat::eSampleFormat getSampleFormat() {
-        if (converter) return converter->getSampleFormat();
-        return sampleformat;
+    SampleFormat::eSampleFormat get_sample_format() {
+        if (converter) return converter->get_sample_format();
+        return sample_format;
     }
 
     /**
@@ -340,7 +340,7 @@ public:
      * \brief Return the number of samples per pixel
      * \return channels
      */
-    int getChannels() {
+    int get_channels() {
         if (converter) return converter->getSamplesPerPixel();
         return channels;
     }
@@ -351,9 +351,9 @@ public:
      * \~english
      * \brief Return the pixel's byte size
      */
-    int getPixelSize () {
-        if (converter) return converter->getPixelSize();
-        return pixelSize;
+    int get_pixel_size () {
+        if (converter) return converter->get_pixel_size();
+        return pixel_size;
     }
 
     /**
@@ -366,12 +366,12 @@ public:
      * \param[in] ospp Nombre de canaux voulu en sortie
      * \return Vrai si pas de conversion ou conversion possible, faux sinon
      */
-    bool addConverter(SampleFormat::eSampleFormat osf, int ospp) {
+    bool add_converter(SampleFormat::eSampleFormat osf, int ospp) {
 
         // Si il n'y a pas besoin de conversion, on évite d'en mettre une
-        if (sampleformat == osf && channels == ospp) return true;
+        if (sample_format == osf && channels == ospp) return true;
 
-        converter = new PixelConverter(width, sampleformat, channels, osf, ospp);
+        converter = new PixelConverter(width, sample_format, channels, osf, ospp);
 
         return converter->youCan();
     }
@@ -394,15 +394,15 @@ public:
     void print() {
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- File name : " << filename ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Compression : " << Compression::toString ( compression ) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Photometric : " << Photometric::toString ( photometric ) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Sample format : " << SampleFormat::toString ( sampleformat ) ;
-        if (esType == ExtraSample::ALPHA_ASSOC) BOOST_LOG_TRIVIAL(info) <<  "\t- Alpha have to be unassociated";
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Compression : " << Compression::to_string ( compression ) ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Photometric : " << Photometric::to_string ( photometric ) ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Sample format : " << SampleFormat::to_string ( sample_format ) ;
+        if (extra_sample == ExtraSample::ALPHA_ASSOC) BOOST_LOG_TRIVIAL(info) <<  "\t- Alpha have to be unassociated";
         if (converter) {
             BOOST_LOG_TRIVIAL(info) <<  "\tWith pixel converter: " ;
-            BOOST_LOG_TRIVIAL(info) <<  "\t\tSample format: " << SampleFormat::toString(converter->getSampleFormat()) ;
+            BOOST_LOG_TRIVIAL(info) <<  "\t\tSample format: " << SampleFormat::to_string(converter->get_sample_format()) ;
             BOOST_LOG_TRIVIAL(info) <<  "\t\tSamples per pixel: " << converter->getSamplesPerPixel() ;
-            BOOST_LOG_TRIVIAL(info) <<  "\t\tPixel size: " << converter->getPixelSize();
+            BOOST_LOG_TRIVIAL(info) <<  "\t\tPixel size: " << converter->get_pixel_size();
         }
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
@@ -414,7 +414,9 @@ public:
  * \details Il est nécessaire de passer par cette classe pour créer des objets d'une classe fille de la classe FileImage. Cela permet de savoir de quelle classe fille instancier un objet, selon l'extension du chemin fourni.
  */
 class FileImageFactory {
+
 public:
+
     /** \~french
      * \brief Crée un objet FileImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le fichier, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier.
@@ -432,7 +434,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a FileImage's child class object pointer, NULL if error
      */
-    FileImage* createImageToRead ( std::string filename, BoundingBox<double> bbox = BoundingBox<double>(0,0,0,0), double resx = -1, double resy = -1 );
+    FileImage* create_image_to_read ( std::string filename, BoundingBox<double> bbox = BoundingBox<double>(0,0,0,0), double resx = -1, double resy = -1 );
 
     /** \~french
      * \brief Crée un objet FileImage, pour l'écriture
@@ -444,7 +446,7 @@ public:
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
-     * \param[in] sampleformat format des canaux
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométie des données
      * \param[in] compression compression des données
      * \return un pointeur d'objet d'une classe fille de FileImage, NULL en cas d'erreur
@@ -458,14 +460,14 @@ public:
      * \param[in] width image width, in pixel
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
-     * \param[in] sampleformat samples' format
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \return a FileImage's child class object pointer, NULL if error
      */
-    FileImage* createImageToWrite (
+    FileImage* create_image_to_write (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height,
-        int channels, SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression
+        int channels, SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression
     );
 
 };

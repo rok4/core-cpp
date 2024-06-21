@@ -140,7 +140,7 @@ public:
      ** \~english \brief Convert bounding box description to string
      * \return string describing the bounding box
      */
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << xmin << "," << ymin << "," << xmax << "," << ymax;
