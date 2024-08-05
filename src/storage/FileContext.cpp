@@ -165,7 +165,7 @@ std::string FileContext::getTray() {
 static const char* Base36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
-std::string FileContext::getPath(std::string racine,int x,int y,int pathDepth){
+std::string FileContext::get_path(std::string racine,int x,int y,int pathDepth){
 
     int pos;
     char path[32];
@@ -196,12 +196,12 @@ std::string FileContext::getPath(std::string racine,int x,int y,int pathDepth){
 }
 
 
-std::string FileContext::getPath(std::string name) {  
+std::string FileContext::get_path(std::string name) {  
     return root_dir + name;
 }
 
 bool FileContext::exists(std::string name) {
-    BOOST_LOG_TRIVIAL(debug) << "Exists (FILE) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (FILE) ? " << get_path(name);
     struct stat buffer;   
-    return (stat (getPath(name).c_str(), &buffer) == 0);
+    return (stat (get_path(name).c_str(), &buffer) == 0);
 }

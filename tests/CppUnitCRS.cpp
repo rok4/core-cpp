@@ -103,59 +103,59 @@ void CppUnitCRS::setUp() {
 void CppUnitCRS::constructors() {
     CRS crs3cpy ( crs3 );
     CPPUNIT_ASSERT_MESSAGE ( "CRS Copy Constructor",crs3cpy == *crs3 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS Copy Constructor",crs3cpy.cmpRequestCode ( crs3->getRequestCode() ) );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS Copy Constructor",crs3cpy.cmp_request_code ( crs3->get_request_code() ) );
 
     CRS crsempty;
-    CPPUNIT_ASSERT_MESSAGE ( "CRS default Constructor",crsempty.getProjCode().compare ( "NO_PROJ_CODE" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS default Constructor",crsempty.cmpRequestCode ( "" ) );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS default Constructor",crsempty.get_proj_code().compare ( "NO_PROJ_CODE" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS default Constructor",crsempty.cmp_request_code ( "" ) );
 }
 void CppUnitCRS::getters() {
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs1->isDefine() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs2->isDefine() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs3->isDefine() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs4->isDefine() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs5->isDefine() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",!crs6->isDefine() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs1->is_define() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs2->is_define() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs3->is_define() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs4->is_define() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs5->is_define() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",!crs6->is_define() );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs1->isLongLat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs2->isLongLat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs3->isLongLat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs4->isLongLat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs5->isLongLat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs6->isLongLat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs1->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs2->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs3->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs4->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs5->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs6->is_lon_lat() );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs1->cmpRequestCode(crs_code1));
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs2->cmpRequestCode(crs_code2));
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs3->cmpRequestCode(crs_code3));
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs4->cmpRequestCode(crs_code4));
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs5->cmpRequestCode(crs_code5));
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getRequestCode",crs6->cmpRequestCode(crs_code6));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs1->cmp_request_code(crs_code1));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs2->cmp_request_code(crs_code2));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs3->cmp_request_code(crs_code3));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs4->cmp_request_code(crs_code4));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs5->cmp_request_code(crs_code5));
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs6->cmp_request_code(crs_code6));
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs1->getProjCode().compare ( "EPSG:4326" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs2->getProjCode().compare ( "EPSG:4326" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs3->getProjCode().compare ( "EPSG:3857" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs4->getProjCode().compare ( "IGNF:WGS84G" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs5->getProjCode().compare ( "EPSG:3857" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getProjCode",crs6->getProjCode().compare ( "NO_PROJ_CODE" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs1->get_proj_code().compare ( "EPSG:4326" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs2->get_proj_code().compare ( "EPSG:4326" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs3->get_proj_code().compare ( "EPSG:3857" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs4->get_proj_code().compare ( "IGNF:WGS84G" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs5->get_proj_code().compare ( "EPSG:3857" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_proj_code",crs6->get_proj_code().compare ( "NO_PROJ_CODE" ) ==0 );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs1->getAuthority().compare ( "EPSG" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs2->getAuthority().compare ( "CRS" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs3->getAuthority().compare ( "EPSG" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs4->getAuthority().compare ( "IGNF" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs5->getAuthority().compare ( "EPSG" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getAuthority",crs6->getAuthority().compare ( "ESPG" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs1->get_authority().compare ( "EPSG" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs2->get_authority().compare ( "CRS" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs3->get_authority().compare ( "EPSG" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs4->get_authority().compare ( "IGNF" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs5->get_authority().compare ( "EPSG" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_authority",crs6->get_authority().compare ( "ESPG" ) ==0 );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs1->getIdentifier().compare ( "4326" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs2->getIdentifier().compare ( "84" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs3->getIdentifier().compare ( "3857" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs4->getIdentifier().compare ( "WGS84G" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs5->getIdentifier().compare ( "3857" ) ==0 );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getIdentifier",crs6->getIdentifier().compare ( "3857" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs1->get_identifier().compare ( "4326" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs2->get_identifier().compare ( "84" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs3->get_identifier().compare ( "3857" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs4->get_identifier().compare ( "WGS84G" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs5->get_identifier().compare ( "3857" ) ==0 );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS get_identifier",crs6->get_identifier().compare ( "3857" ) ==0 );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->getCrsDefinitionArea().xmin == bbox1xmin );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->getCrsDefinitionArea().xmax == bbox1xmax );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->getCrsDefinitionArea().ymin == bbox1ymin );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->getCrsDefinitionArea().ymax == bbox1ymax );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->get_crs_definition_area().xmin == bbox1xmin );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->get_crs_definition_area().xmax == bbox1xmax );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->get_crs_definition_area().ymin == bbox1ymin );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS getCRSDefinitionArea",crs1->get_crs_definition_area().ymax == bbox1ymax );
 }
 
 void CppUnitCRS::tearDown() {

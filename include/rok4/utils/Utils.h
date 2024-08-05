@@ -75,11 +75,10 @@ inline void convert ( T* to, const T* from, size_t length ) {
  * \brief Search forbidden chars to avoid code injection
  * \param[in] str the string
  */
-inline bool containForbiddenChars ( std::string str ) {
-    const char* forbidden = "<>";
+inline bool contain_chars ( std::string str, const char* chars ) {
     
-    for ( int i = 0; forbidden[i]; i++ )
-        if (str.find(forbidden[i]) != std::string::npos)
+    for ( int i = 0; chars[i]; i++ )
+        if (str.find(chars[i]) != std::string::npos)
             return true;
 
     return false;

@@ -209,12 +209,12 @@ double Grid::getRatioX()
 
 
 bool Grid::reproject ( CRS* from_crs, CRS* to_crs ) {
-    BOOST_LOG_TRIVIAL(debug) <<   "Grid reprojection: " << from_crs->getRequestCode() <<" -> " << to_crs->getRequestCode()  ;
+    BOOST_LOG_TRIVIAL(debug) <<   "Grid reprojection: " << from_crs->get_request_code() <<" -> " << to_crs->get_request_code()  ;
 
     PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
 
     PJ *pj_conv_raw, *pj_conv_normalize;
-    pj_conv_raw = proj_create_crs_to_crs_from_pj ( pj_ctx, from_crs->getProjObject(), to_crs->getProjObject(), NULL, NULL);
+    pj_conv_raw = proj_create_crs_to_crs_from_pj ( pj_ctx, from_crs->get_proj_instance(), to_crs->get_proj_instance(), NULL, NULL);
     if (0 == pj_conv_raw) {
         int err = proj_context_errno ( pj_ctx );
         BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ pour la reprojection de la grille (création) " << from_crs << " -> " << to_crs << " : " << proj_errno_string ( err )  ;

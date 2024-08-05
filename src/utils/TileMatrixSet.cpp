@@ -78,7 +78,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
     if (doc["keywords"].is_array()) {
         for (json11::Json kw : doc["keywords"].array_items()) {
             if (kw.is_string()) {
-                keyWords.push_back(Keyword ( kw.string_value()));
+                keywords.push_back(Keyword ( kw.string_value()));
             }
         }
     }
@@ -92,7 +92,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
                     delete tm;
                     return false;
                 }
-                tmList.insert ( std::pair<std::string, TileMatrix*> ( tm->id, tm ) );
+                tm_list.insert ( std::pair<std::string, TileMatrix*> ( tm->id, tm ) );
             } else {
                 errorMessage = "tileMatrices have to be provided and be an object array";
                 return false;
@@ -103,7 +103,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
         return false;
     }
 
-    if ( tmList.size() == 0 ) {
+    if ( tm_list.size() == 0 ) {
         errorMessage =  "No tile matrix in the Tile Matrix Set " + id ;
         return false;
     }
@@ -114,7 +114,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
 TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     crs = NULL;
-    isQTree = true;
+    qtree = true;
 
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
@@ -123,7 +123,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     /********************** Id */
     id = Configuration::getFileName(filePath, ".json");
 
-    if ( containForbiddenChars(id) ) {
+    if ( contain_chars(id, "<>") ) {
         errorMessage =  "TileMatrixSet identifier contains forbidden chars" ;
         return;
     }
@@ -171,29 +171,29 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
     
     // Détection des TMS Quad tree
-    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> ascTM = getOrderedTileMatrix(true);
+    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> ascTM = get_ordered_tm(true);
     bool first = true;
     double res = 0;
     double x0 = 0;
     double y0 = 0;
-    int tileW = 0;
-    int tileH = 0;
+    int tile_width = 0;
+    int tile_height = 0;
     for (std::pair<std::string, TileMatrix*> element : ascTM) {
         TileMatrix* tm = element.second;
         if (first) {
             // Niveau du bas, de référence
-            res = tm->getRes();
-            x0 = tm->getX0();
-            y0 = tm->getY0();
-            tileW = tm->getTileW();
-            tileH = tm->getTileH();
+            res = tm->get_res();
+            x0 = tm->get_x0();
+            y0 = tm->get_y0();
+            tile_width = tm->get_tile_width();
+            tile_height = tm->get_tile_height();
             first = false;
             continue;
         }
-        if (abs(res * 2 - tm->getRes()) < 0.0001 * res && tm->getX0() == x0 && tm->getY0() == y0 && tm->getTileW() == tileW && tm->getTileH() == tileH) {
-            res = tm->getRes();
+        if (abs(res * 2 - tm->get_res()) < 0.0001 * res && tm->get_x0() == x0 && tm->get_y0() == y0 && tm->get_tile_width() == tile_width && tm->get_tile_height() == tile_height) {
+            res = tm->get_res();
         } else {
-            isQTree = false;
+            qtree = false;
             break;
         }
     }
@@ -205,35 +205,35 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 ComparatorTileMatrix compTMDesc =
     [](std::pair<std::string, TileMatrix*> elem1 ,std::pair<std::string, TileMatrix*> elem2)
     {
-        return elem1.second->getRes() > elem2.second->getRes();
+        return elem1.second->get_res() > elem2.second->get_res();
     };
 
 ComparatorTileMatrix compTMAsc =
     [](std::pair<std::string, TileMatrix*> elem1 ,std::pair<std::string, TileMatrix*> elem2)
     {
-        return elem1.second->getRes() < elem2.second->getRes();
+        return elem1.second->get_res() < elem2.second->get_res();
     };
 
-std::string TileMatrixSet::getId() {
+std::string TileMatrixSet::get_id() {
     return id;
 }
 std::map<std::string, TileMatrix*>* TileMatrixSet::getTmList() {
-    return &tmList;
+    return &tm_list;
 }
 
-std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> TileMatrixSet::getOrderedTileMatrix(bool asc) {
+std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> TileMatrixSet::get_ordered_tm(bool asc) {
  
     if (asc) {
-        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tmList.begin(), tmList.end(), compTMAsc);
+        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tm_list.begin(), tm_list.end(), compTMAsc);
     } else {
-        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tmList.begin(), tmList.end(), compTMDesc);
+        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tm_list.begin(), tm_list.end(), compTMDesc);
     }
 
 }
 
 bool TileMatrixSet::operator== ( const TileMatrixSet& other ) const {
-    return ( this->keyWords.size() ==other.keyWords.size()
-             && this->tmList.size() ==other.tmList.size()
+    return ( this->keywords.size() ==other.keywords.size()
+             && this->tm_list.size() ==other.tm_list.size()
              && this->id.compare ( other.id ) == 0
              && this->title.compare ( other.title ) == 0
              && this->abstract.compare ( other.abstract ) == 0
@@ -246,7 +246,7 @@ bool TileMatrixSet::operator!= ( const TileMatrixSet& other ) const {
 
 TileMatrixSet::~TileMatrixSet() {
     std::map<std::string, TileMatrix*>::iterator itTM;
-    for ( itTM=tmList.begin(); itTM != tmList.end(); itTM++ )
+    for ( itTM=tm_list.begin(); itTM != tm_list.end(); itTM++ )
         delete itTM->second;
 
     if (crs != NULL) {
@@ -254,48 +254,48 @@ TileMatrixSet::~TileMatrixSet() {
     }
 }
 
-TileMatrix* TileMatrixSet::getTm(std::string id) {
+TileMatrix* TileMatrixSet::get_tm(std::string id) {
 
-    std::map<std::string, TileMatrix*>::iterator itTM = tmList.find ( id );
+    std::map<std::string, TileMatrix*>::iterator itTM = tm_list.find ( id );
 
-    if ( itTM == tmList.end() ) {
+    if ( itTM == tm_list.end() ) {
         return NULL;
     }
 
     return itTM->second;
 }
 
-CRS* TileMatrixSet::getCrs() {
+CRS* TileMatrixSet::get_crs() {
     return crs;
 }
 
-bool TileMatrixSet::getIsQTree() {
-    return isQTree;
+bool TileMatrixSet::is_qtree() {
+    return qtree;
 }
 
-std::vector<Keyword>* TileMatrixSet::getKeyWords() {
-    return &keyWords;
+std::vector<Keyword>* TileMatrixSet::get_keywords() {
+    return &keywords;
 }
 
-std::string TileMatrixSet::getAbstract() {
+std::string TileMatrixSet::get_abstract() {
     return abstract;
 }
-std::string TileMatrixSet::getTitle() {
+std::string TileMatrixSet::get_title() {
     return title;
 }
 
-TileMatrix* TileMatrixSet::getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatrixSet* tmsIn) {
+TileMatrix* TileMatrixSet::get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet* tmsIn) {
 
     TileMatrix* tm = NULL;
 
     // on calcule la bbox géographique d'intersection des aires de définition des CRS des deux TMS, que l'on reprojete dans chaque CRS
-    BoundingBox<double> bboxThis = getCrs()->getCrsDefinitionArea().getIntersection(tmsIn->getCrs()->getCrsDefinitionArea());
+    BoundingBox<double> bboxThis = get_crs()->get_crs_definition_area().getIntersection(tmsIn->get_crs()->get_crs_definition_area());
     BoundingBox<double> bboxIn = bboxThis;
 
-    if (bboxThis.reproject(CRS::getEpsg4326(), getCrs()) && bboxIn.reproject(CRS::getEpsg4326(), tmsIn->getCrs())) {
+    if (bboxThis.reproject(CRS::get_epsg4326(), get_crs()) && bboxIn.reproject(CRS::get_epsg4326(), tmsIn->get_crs())) {
 
         double ratio_x, ratio_y, resOutX, resOutY;
-        double resIn = tmIn->getRes();
+        double resIn = tmIn->get_res();
 
         ratio_x = (bboxThis.xmax - bboxThis.xmin) / (bboxIn.xmax - bboxIn.xmin);
         ratio_y = (bboxThis.ymax - bboxThis.ymin) / (bboxIn.ymax - bboxIn.ymin);
@@ -307,11 +307,11 @@ TileMatrix* TileMatrixSet::getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatr
 
         // On cherche le niveau du TMS le plus proche (ratio des résolutions le plus proche de 1)
         // On cherche un ration entre 0.8 et 1.5
-        std::map<std::string, TileMatrix*>::iterator it = tmList.begin();
+        std::map<std::string, TileMatrix*>::iterator it = tm_list.begin();
         double ratio = 0;
 
-        for ( ; it != tmList.end(); it++ ) {
-            double d = resolution / it->second->getRes();
+        for ( ; it != tm_list.end(); it++ ) {
+            double d = resolution / it->second->get_res();
             if (d < 0.8 || d > 1.5) {continue;}
             if (ratio == 0 || abs(d-1) < abs(ratio-1)) {
                 ratio = d;

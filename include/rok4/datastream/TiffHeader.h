@@ -622,7 +622,7 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
         return header;
     }
     
-    std::string projName = crs->getProjParam("proj");
+    std::string projName = crs->get_proj_param("proj");
     if ( projName == "" ) {
       BOOST_LOG_TRIVIAL(error) <<  "La projection de l'image est vide." ;
       return header;
@@ -657,8 +657,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
     add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1025,0,1,1);
     
     //GTCitationGeoKey : into GeoAsciiParamsTag(34737)
-    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1026,34737,crs->getProjCode().size()+1,GeoAsciiParams.size());
-    GeoAsciiParams.append(crs->getProjCode()+"|");
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1026,34737,crs->get_proj_code().size()+1,GeoAsciiParams.size());
+    GeoAsciiParams.append(crs->get_proj_code()+"|");
     //End of  GeoTIFF Configuration Keys
     
     //Geographic CS Parameter Keys
@@ -675,8 +675,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
     //GeogEllipsoidGeoKey : user-defined(32767)
     add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2056,0,1,32767);
     //GeogSemiMajorAxisGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("a") != "" ){
-      if ( !sscanf ( crs->getProjParam("a").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("a") != "" ){
+      if ( !sscanf ( crs->get_proj_param("a").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le demi grand axe de la definition proj" ;
       } else {
         add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2057,34736,1,GeoDoubleParamsSize);
@@ -684,8 +684,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
       }
     }
     //GeogSemiMinorAxisGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("b") != "" ){
-      if ( !sscanf ( crs->getProjParam("b").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("b") != "" ){
+      if ( !sscanf ( crs->get_proj_param("b").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le demi petit axe de la definition proj" ;
       } else {
         add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2058,34736,1,GeoDoubleParamsSize);
@@ -693,8 +693,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
       }
     }
     //GeogInvFlatteningGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("rf") != "" ){
-      if ( !sscanf ( crs->getProjParam("rf").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("rf") != "" ){
+      if ( !sscanf ( crs->get_proj_param("rf").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser l'inverse du coefficient d'applatissement de la definition proj" ;
       } else {
         add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2059,34736,1,GeoDoubleParamsSize);
@@ -702,8 +702,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
       }
     }
     //GeogPrimeMeridianLongGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("pm") != "" ){
-      if ( !sscanf ( crs->getProjParam("pm").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("pm") != "" ){
+      if ( !sscanf ( crs->get_proj_param("pm").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le meridien d'origine de la definition proj" ;
       } else {
         add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2061,34736,1,GeoDoubleParamsSize);
@@ -711,8 +711,8 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
       }
     }
     //GeogTOWGS84GeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("towgs84") != "" ){
-      std::string towgs84 = crs->getProjParam("towgs84");
+    if ( crs->get_proj_param("towgs84") != "" ){
+      std::string towgs84 = crs->get_proj_param("towgs84");
       
       //Split of the string
       std::vector< std::string > towgs84V;
@@ -745,7 +745,7 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
         //GeographicTypeGeoKey
         const ProjParams * myProjParams = NULL;
         if ( projName == "lcc" ) {
-            if ( crs->getProjParam("lat_2") != "" ) {
+            if ( crs->get_proj_param("lat_2") != "" ) {
                 myProjParams = &LCC_2SP;
             } else {
                 myProjParams = &LCC_1SP;
@@ -811,11 +811,11 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
             add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3081 ,34736,1,GeoDoubleParamsSize);
             add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
             //Phi0
-            if (crs->getProjParam("zone") != ""){
-                if ( sscanf ( crs->getProjParam("zone").c_str(),"%lf",&doubletmp ) !=1 ) {
+            if (crs->get_proj_param("zone") != ""){
+                if ( sscanf ( crs->get_proj_param("zone").c_str(),"%lf",&doubletmp ) !=1 ) {
                     BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le parametre zone de la definition proj" ;
                 } else {
-                    BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre zone avec la valeur "+crs->getProjParam("zone") ;
+                    BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre zone avec la valeur "+crs->get_proj_param("zone") ;
                     doubletmp = doubletmp * 6 - 183;
                     add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3080 ,34736,1,GeoDoubleParamsSize);
                     add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
@@ -825,11 +825,11 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
             add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3082 ,34736,1,GeoDoubleParamsSize);
             add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 500000.0);
             //Y0
-            if (crs->testProjParam("south")) {
+            if (crs->test_proj_param("south")) {
                 add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
                 add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 10000000.0);
             } else {
-                if (crs->testProjParam("north")) {
+                if (crs->test_proj_param("north")) {
                     add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
                     add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
                 } else {
@@ -842,11 +842,11 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
 
         } else {
             for (size_t i = 0; i < myProjParams->nbparam; i ++) {
-                if (crs->getProjParam(myProjParams->listparam[i].proj) != ""){
-                    if ( sscanf ( crs->getProjParam(myProjParams->listparam[i].proj).c_str(),"%lf",&doubletmp ) !=1 ) {
+                if (crs->get_proj_param(myProjParams->listparam[i].proj) != ""){
+                    if ( sscanf ( crs->get_proj_param(myProjParams->listparam[i].proj).c_str(),"%lf",&doubletmp ) !=1 ) {
                         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le parametre " + myProjParams->listparam[i].proj + " de la definition proj" ;
                     } else {
-                BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre "+myProjParams->listparam[i].proj+" avec la valeur "+crs->getProjParam(myProjParams->listparam[i].proj).c_str() ;
+                BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre "+myProjParams->listparam[i].proj+" avec la valeur "+crs->get_proj_param(myProjParams->listparam[i].proj).c_str() ;
                         add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,myProjParams->listparam[i].geotifftag ,34736,1,GeoDoubleParamsSize);
                         add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
                     }

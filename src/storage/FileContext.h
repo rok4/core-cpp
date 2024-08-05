@@ -131,8 +131,8 @@ public:
     }
 
 
-    std::string getPath(std::string racine,int x,int y,int pathDepth=2);
-    std::string getPath(std::string name);
+    std::string get_path(std::string racine,int x,int y,int pathDepth=2);
+    std::string get_path(std::string name);
 
 
     void print() {

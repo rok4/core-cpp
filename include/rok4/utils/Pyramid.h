@@ -97,13 +97,13 @@ private:
      * \~french \brief Référence au niveau le plus haut
      * \~english \brief Reference to the highest level
      */
-    Level* highestLevel;
+    Level* highest_level;
 
     /**
      * \~french \brief Référence au niveau le plus bas
      * \~english \brief Reference to the lowest level
      */
-    Level* lowestLevel;
+    Level* lowest_level;
 
     /******************* PYRAMIDE RASTER *********************/
 
@@ -159,7 +159,7 @@ public:
      * \~english
      * \brief Storage context
      */
-    Context* getContext ();
+    Context* get_context ();
 
     /**
      * \~french
@@ -173,7 +173,7 @@ public:
      * \param[in] bottomLevel bottom level
      * \param[in] topLevel top level
      */
-    bool addLevels (Pyramid* p, std::string bottomLevel, std::string topLevel);
+    bool add_levels (Pyramid* p, std::string bottomLevel, std::string topLevel);
 
     /**
      * \~french \brief Récupère le plus haut niveau
@@ -181,7 +181,7 @@ public:
      * \~english \brief Get the highest level
      * \return level highest level
      */
-    Level* getHighestLevel() ;
+    Level* get_highest_level() ;
 
     /**
      * \~french \brief Récupère le plus bas niveau
@@ -189,7 +189,7 @@ public:
      * \~english \brief Get the lowest level
      * \return level lowest level
      */
-    Level* getLowestLevel() ;
+    Level* get_lowest_level() ;
 
     /**
      * \~french \brief Récupère le TMS
@@ -197,7 +197,7 @@ public:
      * \~english \brief Get the TMS
      * \return TileMatrixSet
      */
-    TileMatrixSet* getTms();
+    TileMatrixSet* get_tms();
 
     /**
      * \~french \brief Récupère les niveaux
@@ -205,7 +205,7 @@ public:
      * \~english \brief Get the levels
      * \return List of level
      */
-    std::map<std::string, Level*>& getLevels() ;
+    std::map<std::string, Level*>& get_levels() ;
 
     /**
      * \~french \brief Récupère les niveaux ordonnés par résolution décroissante
@@ -213,9 +213,9 @@ public:
      * \~english \brief Get the levels ordered
      * \return List of level
      */
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> getOrderedLevels(bool asc) ;
+    std::set<std::pair<std::string, Level*>, ComparatorLevel> get_ordered_levels(bool asc) ;
 
-    Level* getLevel(std::string id) ;
+    Level* get_level(std::string id) ;
 
     /**
      * \~french \brief Récupère le format
@@ -223,7 +223,7 @@ public:
      * \~english \brief Get the format
      * \return format
      */
-    Rok4Format::eFormat getFormat() ;
+    Rok4Format::eFormat get_format() ;
 
     /**
      * \~french \brief Destructeur
@@ -255,7 +255,7 @@ public:
      * \~english \brief Get the compression
      * \return format
      */
-    Compression::eCompression getSampleCompression();
+    Compression::eCompression get_sample_compression();
 
     /**
      * \~french \brief Indique les valeurs de noData
@@ -263,13 +263,7 @@ public:
      * \~english \brief Indicate the noData values
      * \return nodata_value
      */
-    int* getNodataValue() ;
-
-    /**
-     * \~french \brief Retourne la premiere valeur de noData
-     * \~english \brief Return the first noData value
-     */
-    int getFirstnodataValue ();
+    int* get_nodata_value() ;
 
     /**
      * \~french \brief Récupère le nombre de canaux d'une tuile
@@ -300,7 +294,7 @@ public:
      * \~french \brief Créé une image reprojetée
      * \~english \brief Create a reprojected image
      */
-    Image *createReprojectedImage(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error);
+    Image *create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error);
 
 };
 

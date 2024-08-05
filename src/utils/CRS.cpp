@@ -70,66 +70,66 @@ std::string toUpperCase ( std::string str ) {
     return uc_str;
 }
 
-CRS::CRS() : definitionArea ( -90.0,-180.0,90.0,180.0 ), nativeDefinitionArea ( 0,0,0,0 ) {
-    definitionArea.crs = "EPSG:4326";
-    requestCode = "";
-    projCode = NO_PROJ_CODE;
+CRS::CRS() : definition_area ( -90.0,-180.0,90.0,180.0 ), native_definition_area ( 0,0,0,0 ) {
+    definition_area.crs = "EPSG:4326";
+    request_code = "";
+    proj_code = NO_PROJ_CODE;
     pj_proj = 0;
 }
 
-CRS::CRS ( std::string crs_code ) : definitionArea ( -90.0,-180.0,90.0,180.0 ), nativeDefinitionArea ( 0,0,0,0 ) {
-    definitionArea.crs = "EPSG:4326";
-    requestCode=toUpperCase(crs_code);
-    projCode=toUpperCase(crs_code);
+CRS::CRS ( std::string crs_code ) : definition_area ( -90.0,-180.0,90.0,180.0 ), native_definition_area ( 0,0,0,0 ) {
+    definition_area.crs = "EPSG:4326";
+    request_code=toUpperCase(crs_code);
+    proj_code=toUpperCase(crs_code);
     pj_proj = 0;
 
-    if ( requestCode == "CRS:84" ) projCode = "EPSG:4326";
+    if ( request_code == "CRS:84" ) proj_code = "EPSG:4326";
 
     PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
-    pj_proj = proj_create ( pj_ctx, projCode.c_str());
+    pj_proj = proj_create ( pj_ctx, proj_code.c_str());
 
     if ( 0 == pj_proj ) {
-        projCode = NO_PROJ_CODE;
+        proj_code = NO_PROJ_CODE;
         int err = proj_context_errno ( pj_ctx );
-        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ avec " << requestCode << " : " << proj_errno_string ( err )  ;
+        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ avec " << request_code << " : " << proj_errno_string ( err )  ;
         return;
     }
 
-    proj_get_area_of_use(pj_ctx, pj_proj, & ( definitionArea.xmin ), & ( definitionArea.ymin ), & ( definitionArea.xmax ), & ( definitionArea.ymax ), NULL);
+    proj_get_area_of_use(pj_ctx, pj_proj, & ( definition_area.xmin ), & ( definition_area.ymin ), & ( definition_area.xmax ), & ( definition_area.ymax ), NULL);
 
-    nativeDefinitionArea = definitionArea;
+    native_definition_area = definition_area;
 
-    if (projCode != "EPSG:4326") {
-        nativeDefinitionArea.reproject(CRS::getEpsg4326(), this);
+    if (proj_code != "EPSG:4326") {
+        native_definition_area.reproject(CRS::get_epsg4326(), this);
     }
 }
 
-CRS::CRS ( CRS* crs ) : definitionArea ( crs->definitionArea ), nativeDefinitionArea ( crs->nativeDefinitionArea ) {
-    requestCode=crs->requestCode;
-    projCode=crs->projCode;
+CRS::CRS ( CRS* crs ) : definition_area ( crs->definition_area ), native_definition_area ( crs->native_definition_area ) {
+    request_code=crs->request_code;
+    proj_code=crs->proj_code;
     PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
-    pj_proj = proj_create ( pj_ctx, projCode.c_str());
+    pj_proj = proj_create ( pj_ctx, proj_code.c_str());
 }
 
 
 CRS& CRS::operator= ( const CRS& other ) {
     if ( this != &other ) {
-        this->projCode = other.projCode;
-        this->requestCode = other.requestCode;
-        this->definitionArea = other.definitionArea;
-        this->nativeDefinitionArea = other.nativeDefinitionArea;
+        this->proj_code = other.proj_code;
+        this->request_code = other.request_code;
+        this->definition_area = other.definition_area;
+        this->native_definition_area = other.native_definition_area;
 
         if (this->pj_proj != 0) {
             proj_destroy (pj_proj);
         }
 
         PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
-        this->pj_proj = proj_create ( pj_ctx, this->projCode.c_str());
+        this->pj_proj = proj_create ( pj_ctx, this->proj_code.c_str());
     }
     return *this;
 }
 
-bool CRS::isLongLat() {
+bool CRS::is_lon_lat() {
 
     if (pj_proj == 0) return false;
 
@@ -139,46 +139,46 @@ bool CRS::isLongLat() {
 }
 
 
-long double CRS::getMetersPerUnit() {
+long double CRS::get_meters_per_unit() {
     // Hypothese : un CRS en long/lat est en degres
     // R=6378137m
-    if ( isLongLat() )
+    if ( is_lon_lat() )
         return 111319.49079327357264771338267056;
     else
         return 1.0;
 }
 
-bool CRS::cmpRequestCode ( std::string crs ) {
-    return requestCode == toUpperCase ( crs );
+bool CRS::cmp_request_code ( std::string crs ) {
+    return request_code == toUpperCase ( crs );
 }
 
-std::string CRS::getAuthority() {
-    size_t pos=requestCode.find ( ':' );
-    if ( pos<1 || pos >=requestCode.length() ) {
-        BOOST_LOG_TRIVIAL(error) <<   "Erreur sur le CRS " << requestCode << " : absence de separateur"  ;
-        pos = requestCode.length();
+std::string CRS::get_authority() {
+    size_t pos=request_code.find ( ':' );
+    if ( pos<1 || pos >=request_code.length() ) {
+        BOOST_LOG_TRIVIAL(error) <<   "Erreur sur le CRS " << request_code << " : absence de separateur"  ;
+        pos = request_code.length();
     }
-    return ( requestCode.substr ( 0,pos ) );
+    return ( request_code.substr ( 0,pos ) );
 }
 
-std::string CRS::getIdentifier() {
-    size_t pos=requestCode.find ( ':' );
-    if ( pos<1 || pos >=requestCode.length() ) {
-        BOOST_LOG_TRIVIAL(error) <<   "Erreur sur le CRS " << requestCode << " : absence de separateur"  ;
+std::string CRS::get_identifier() {
+    size_t pos=request_code.find ( ':' );
+    if ( pos<1 || pos >=request_code.length() ) {
+        BOOST_LOG_TRIVIAL(error) <<   "Erreur sur le CRS " << request_code << " : absence de separateur"  ;
         pos = -1;
     }
-    return ( requestCode.substr ( pos+1 ) );
+    return ( request_code.substr ( pos+1 ) );
 }
 
 bool CRS::operator== ( const CRS& crs ) const {
-    return ( projCode == crs.projCode );
+    return ( proj_code == crs.proj_code );
 }
 
 bool CRS::operator!= ( const CRS& crs ) const {
     return ! ( *this == crs );
 }
 
-std::string CRS::getProjParam ( std::string paramName ) {
+std::string CRS::get_proj_param ( std::string paramName ) {
     std::size_t pos = 0, find = 1, find_equal = 0;
     PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
     std::string def( proj_as_proj_string(pj_ctx, pj_proj, PJ_PROJ_4, NULL) );
@@ -193,7 +193,7 @@ std::string CRS::getProjParam ( std::string paramName ) {
     return toLowerCase( def ).substr(find_equal+1, find - find_equal -1);
 }
 
-bool CRS::testProjParam ( std::string paramName ) {
+bool CRS::test_proj_param ( std::string paramName ) {
     std::size_t pos = 0;
     PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
     std::string def( proj_as_proj_string(pj_ctx, pj_proj, PJ_PROJ_4, NULL) );
@@ -211,9 +211,9 @@ CRS::~CRS() {
     }
 }
 
-CRS* CRS::getEpsg4326() {
+CRS* CRS::get_epsg4326() {
     
-    if (epsg4326.projCode == NO_PROJ_CODE) {
+    if (epsg4326.proj_code == NO_PROJ_CODE) {
         // On instancie le CRS de classe 4326
         epsg4326 = CRS ( "EPSG:4326");
     }

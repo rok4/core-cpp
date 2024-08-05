@@ -75,11 +75,11 @@ class TileMatrixLimits
          */
 
         TileMatrixLimits(std::string id, uint32_t rmin, uint32_t rmax, uint32_t cmin, uint32_t cmax) {
-            tileMatrixId = id;
-            minTileRow = rmin;
-            maxTileRow = rmax;
-            minTileCol = cmin;
-            maxTileCol = cmax;
+            tm_id = id;
+            min_tile_row = rmin;
+            max_tile_row = rmax;
+            min_tile_col = cmin;
+            max_tile_col = cmax;
         };
         
         /**
@@ -92,11 +92,11 @@ class TileMatrixLimits
         TileMatrixLimits() {};
 
         TileMatrixLimits(TileMatrixLimits const& other) {
-            tileMatrixId = other.tileMatrixId;
-            minTileRow = other.minTileRow;
-            maxTileRow = other.maxTileRow;
-            minTileCol = other.minTileCol;
-            maxTileCol = other.maxTileCol;
+            tm_id = other.tm_id;
+            min_tile_row = other.min_tile_row;
+            max_tile_row = other.max_tile_row;
+            min_tile_col = other.min_tile_col;
+            max_tile_col = other.max_tile_col;
         };
 
         /**
@@ -107,24 +107,24 @@ class TileMatrixLimits
          */
         TileMatrixLimits& operator= ( TileMatrixLimits const& other ) {
             if ( this != &other ) {
-                this->tileMatrixId = other.tileMatrixId;
-                this->minTileRow = other.minTileRow;
-                this->maxTileRow = other.maxTileRow;
-                this->minTileCol = other.minTileCol;
-                this->maxTileCol = other.maxTileCol;
+                this->tm_id = other.tm_id;
+                this->min_tile_row = other.min_tile_row;
+                this->max_tile_row = other.max_tile_row;
+                this->min_tile_col = other.min_tile_col;
+                this->max_tile_col = other.max_tile_col;
             }
             return *this;
         }
 
         ~TileMatrixLimits(){};
 
-        uint32_t getMinTileRow() {return minTileRow;}
-        uint32_t getMaxTileRow() {return maxTileRow;}
-        uint32_t getMinTileCol() {return minTileCol;}
-        uint32_t getMaxTileCol() {return maxTileCol;}
+        uint32_t get_min_tile_row() {return min_tile_row;}
+        uint32_t get_max_tile_row() {return max_tile_row;}
+        uint32_t get_min_tile_col() {return min_tile_col;}
+        uint32_t get_max_tile_col() {return max_tile_col;}
 
-        bool containTile(int col, int row) {
-            return (row >= minTileRow && row <= maxTileRow && col >= minTileCol && col <= maxTileCol);
+        bool contain_tile(int col, int row) {
+            return (row >= min_tile_row && row <= max_tile_row && col >= min_tile_col && col <= max_tile_col);
         }
 
     public:
@@ -133,27 +133,27 @@ class TileMatrixLimits
          * \~french \brief Identifiant de niveau
          * \~english \brief Level identifier
          */
-        std::string tileMatrixId;
+        std::string tm_id;
         /**
          * \~french \brief Indice de ligne maximal
          * \~english \brief Max row indice
          */
-        uint32_t maxTileRow;
+        uint32_t max_tile_row;
         /**
          * \~french \brief Indice de ligne minimal
          * \~english \brief Min row indice
          */
-        uint32_t minTileRow;
+        uint32_t min_tile_row;
         /**
          * \~french \brief Indice de colonne maximal
          * \~english \brief Max column indice
          */
-        uint32_t maxTileCol;
+        uint32_t max_tile_col;
         /**
          * \~french \brief Indice de colonne maximal
          * \~english \brief Min column indice
          */
-        uint32_t minTileCol;
+        uint32_t min_tile_col;
 };
 
 #endif // TILEMATRIXLIMITS_H

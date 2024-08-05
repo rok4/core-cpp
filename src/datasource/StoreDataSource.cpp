@@ -98,7 +98,7 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
         data = new uint8_t[wanted_size];
         int read_size = context->read(data, offset, wanted_size, name);
         if (read_size < 0) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->getPath(name) << " from size and offset" ;
+            BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->get_path(name) << " from size and offset" ;
             delete[] data;
             data = NULL;
             return NULL;
@@ -109,7 +109,7 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
         // Nous n'avons pas les infos de taille et d'offset pour la tuile, nous allons devoir les récupérer lire
         // On va regarder si on n'a pas nos informations dans le cache
 
-        std::string full_name = context->getPath(name);
+        std::string full_name = context->get_path(name);
 
         BOOST_LOG_TRIVIAL(debug) << "input slab " << full_name;
         

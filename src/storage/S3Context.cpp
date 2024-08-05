@@ -540,11 +540,11 @@ std::string S3Context::getCluster() {
     return cluster_name;
 }
 
-std::string S3Context::getPath(std::string racine, int x, int y, int pathDepth) {
+std::string S3Context::get_path(std::string racine, int x, int y, int pathDepth) {
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
-std::string S3Context::getPath(std::string name) {
+std::string S3Context::get_path(std::string name) {
     return bucket_name + "/" + name;
 }
 
@@ -662,7 +662,7 @@ bool S3Context::closeToWrite(std::string name) {
 }
 
 bool S3Context::exists(std::string name) {
-    BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << get_path(name);
 
     CURLcode res;
     struct curl_slist *list = NULL;

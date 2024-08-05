@@ -325,17 +325,17 @@ bool CephPoolContext::closeToWrite(std::string name) {
     return ok;
 }
 
-std::string CephPoolContext::getPath(std::string racine,int x,int y,int pathDepth){
+std::string CephPoolContext::get_path(std::string racine,int x,int y,int pathDepth){
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
-std::string CephPoolContext::getPath(std::string name) {  
+std::string CephPoolContext::get_path(std::string name) {  
     return pool_name + "/" + name;
 }
 
 bool CephPoolContext::exists(std::string name) {
 
-    BOOST_LOG_TRIVIAL(debug) << "Exists (CEPH) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (CEPH) ? " << get_path(name);
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to test object existence using the unconnected ceph pool context " << pool_name;

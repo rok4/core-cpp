@@ -319,13 +319,13 @@ public:
      * \~french \brief Retourne le chemin pour une tuile X/Y relatif à ce contexte
      * \~english \brief Return the path for a tile (X/Y) in this context
      */
-    virtual std::string getPath(std::string racine,int x,int y,int pathDepth = 2) = 0;
+    virtual std::string get_path(std::string racine,int x,int y,int pathDepth = 2) = 0;
 
     /**
      * \~french \brief Retourne le chemin complet pour un fichier/objet relatif à ce contexte
      * \~english \brief Return the full path for a file / object in this context
      */
-    virtual std::string getPath(std::string name) = 0;
+    virtual std::string get_path(std::string name) = 0;
 
     /**
      * \~french \brief Sortie des informations sur le contexte

@@ -70,12 +70,12 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     nodata_value = NULL;
 
     // Copie d'informations depuis la pyramide
-    format = pyramid->getFormat();
+    format = pyramid->get_format();
 
     if (Rok4Format::is_raster(format)) {
         channels = pyramid->get_channels();        
         nodata_value = new int[channels];
-        memcpy ( nodata_value, pyramid->getNodataValue(), channels * sizeof(int) );
+        memcpy ( nodata_value, pyramid->get_nodata_value(), channels * sizeof(int) );
     } else {
         channels = 0;
     }
@@ -88,10 +88,10 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         return;
     }
     std::string id = doc["id"].string_value();
-    TileMatrixSet* tms = pyramid->getTms();
-    tm = tms->getTm(id);
+    TileMatrixSet* tms = pyramid->get_tms();
+    tm = tms->get_tm(id);
     if ( tm == NULL ) {
-        errorMessage = "Level " + id + " not in the pyramid TMS [" + tms->getId() + "]"  ;
+        errorMessage = "Level " + id + " not in the pyramid TMS [" + tms->get_id() + "]"  ;
         return;
     }
 
@@ -138,7 +138,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
             racine.insert ( 0, parent );
         }
 
-        pathDepth = doc["storage"]["path_depth"].number_value();
+        path_depth = doc["storage"]["path_depth"].number_value();
 
         context = StoragePool::get_context(ContextType::FILECONTEXT, "");
         if (context == NULL) {
@@ -181,7 +181,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         racine = doc["storage"]["image_prefix"].string_value();
 
         // On fournit le contexte de stockage de la pyramide. Cela permet de s'assurer que celui du niveau est sur le même cluster S3
-        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value(), pyramid->getContext());
+        context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value(), pyramid->get_context());
         if (context == NULL) {
             errorMessage = "Level " + id +": cannot add s3 storage context";
             return;
@@ -236,8 +236,8 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
                     for (json11::Json a : t["attributes"].array_items()) {
                         if (a.is_object()) {
                             Attribute att = Attribute(a);
-                            if (att.getMissingField() != "") {
-                                errorMessage = "Level " + id +": tables.attributes have to own a field " + att.getMissingField();
+                            if (att.get_missing_field() != "") {
+                                errorMessage = "Level " + id +": tables.attributes have to own a field " + att.get_missing_field();
                                 return;
                             }
                             atts.push_back(att);
@@ -267,7 +267,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         errorMessage = "Level " + id +": tiles_per_width have to be provided and be an integer";
         return;
     }
-    tilesPerWidth = doc["tiles_per_width"].number_value();
+    tiles_per_width = doc["tiles_per_width"].number_value();
 
     // TILEPERHEIGHT
 
@@ -275,9 +275,9 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         errorMessage = "Level " + id +": tiles_per_height have to be provided and be an integer";
         return;
     }
-    tilesPerHeight = doc["tiles_per_height"].number_value();
+    tiles_per_height = doc["tiles_per_height"].number_value();
 
-    if (tilesPerHeight == 0 || tilesPerWidth == 0) {
+    if (tiles_per_height == 0 || tiles_per_width == 0) {
         errorMessage = "Level " + id +": slab tiles size have to be non zero integers"  ;
         return;
     }
@@ -292,48 +292,48 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         errorMessage = "Level " + id +": tile_limits.min_row have to be provided and be an integer";
         return;
     }
-    int minTileRow = doc["tile_limits"]["min_row"].number_value();
+    int min_tile_row = doc["tile_limits"]["min_row"].number_value();
 
     if (! doc["tile_limits"]["min_col"].is_number()) {
         errorMessage = "Level " + id +": tile_limits.min_col have to be provided and be an integer";
         return;
     }
-    int minTileCol = doc["tile_limits"]["min_col"].number_value();
+    int min_tile_col = doc["tile_limits"]["min_col"].number_value();
 
     if (! doc["tile_limits"]["max_row"].is_number()) {
         errorMessage = "Level " + id +": tile_limits.max_row have to be provided and be an integer";
         return;
     }
-    int maxTileRow = doc["tile_limits"]["max_row"].number_value();
+    int max_tile_row = doc["tile_limits"]["max_row"].number_value();
 
     if (! doc["tile_limits"]["max_col"].is_number()) {
         errorMessage = "Level " + id +": tile_limits.max_col have to be provided and be an integer";
         return;
     }
-    int maxTileCol = doc["tile_limits"]["max_col"].number_value();
+    int max_tile_col = doc["tile_limits"]["max_col"].number_value();
 
-    if ( minTileCol > tm->getMatrixW() || minTileCol < 0 ) minTileCol = 0;
-    if ( minTileRow > tm->getMatrixH() || minTileRow < 0 ) minTileRow = 0;
-    if ( maxTileCol > tm->getMatrixW() || maxTileCol < 0 ) maxTileCol = tm->getMatrixW();
-    if ( maxTileRow > tm->getMatrixH() || maxTileRow < 0 ) maxTileRow = tm->getMatrixH();
+    if ( min_tile_col > tm->get_matrix_width() || min_tile_col < 0 ) min_tile_col = 0;
+    if ( min_tile_row > tm->get_matrix_height() || min_tile_row < 0 ) min_tile_row = 0;
+    if ( max_tile_col > tm->get_matrix_width() || max_tile_col < 0 ) max_tile_col = tm->get_matrix_width();
+    if ( max_tile_row > tm->get_matrix_height() || max_tile_row < 0 ) max_tile_row = tm->get_matrix_height();
 
-    tmLimits = TileMatrixLimits(id, minTileRow, maxTileRow, minTileCol, maxTileCol);
+    tm_limits = TileMatrixLimits(id, min_tile_row, max_tile_row, min_tile_col, max_tile_col);
 
     return;
 }
 
 
-Level::Level ( Level* obj ) : Configuration(obj->filePath), tmLimits(obj->tmLimits) {
+Level::Level ( Level* obj ) : Configuration(obj->filePath), tm_limits(obj->tm_limits) {
     nodata_value = NULL;
     tm = obj->tm;
 
     channels = obj->channels;
     racine = obj->racine;
 
-    tilesPerWidth = obj->tilesPerWidth;
-    tilesPerHeight = obj->tilesPerHeight;
+    tiles_per_width = obj->tiles_per_width;
+    tiles_per_height = obj->tiles_per_height;
 
-    pathDepth = obj->pathDepth;
+    path_depth = obj->path_depth;
     format = obj->format;
 
     context = obj->context;
@@ -383,18 +383,18 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
     if ( interpolation >= Interpolation::LANCZOS_2 ) interpolation= Interpolation::LANCZOS_2;
 
     const Kernel& kk = Kernel::getInstance ( interpolation ); // Lanczos_2
-    double ratio_x = ( grid->bbox.xmax - grid->bbox.xmin ) / ( tm->getRes() *double ( width ) );
-    double ratio_y = ( grid->bbox.ymax - grid->bbox.ymin ) / ( tm->getRes() *double ( height ) );
+    double ratio_x = ( grid->bbox.xmax - grid->bbox.xmin ) / ( tm->get_res() *double ( width ) );
+    double ratio_y = ( grid->bbox.ymax - grid->bbox.ymin ) / ( tm->get_res() *double ( height ) );
     double bufx=kk.size ( ratio_x ) + 2.;
     double bufy=kk.size ( ratio_y ) + 2.;
 
     // bufx<50?bufx=50:0;
     // bufy<50?bufy=50:0; // Pour etre sur de ne pas regresser
     
-    BoundingBox<int64_t> bbox_int ( floor ( ( grid->bbox.xmin - tm->getX0() ) /tm->getRes() - bufx ),
-                                    floor ( ( tm->getY0() - grid->bbox.ymax ) /tm->getRes() - bufy ),
-                                    ceil ( ( grid->bbox.xmax - tm->getX0() ) /tm->getRes() + bufx ),
-                                    ceil ( ( tm->getY0() - grid->bbox.ymin ) /tm->getRes() + bufy ) );
+    BoundingBox<int64_t> bbox_int ( floor ( ( grid->bbox.xmin - tm->get_x0() ) /tm->get_res() - bufx ),
+                                    floor ( ( tm->get_y0() - grid->bbox.ymax ) /tm->get_res() - bufy ),
+                                    ceil ( ( grid->bbox.xmax - tm->get_x0() ) /tm->get_res() + bufx ),
+                                    ceil ( ( tm->get_y0() - grid->bbox.ymin ) /tm->get_res() + bufy ) );
 
     Image* image = getwindow ( maxTileX, maxTileY, bbox_int, error );
     if ( !image ) {
@@ -402,7 +402,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
         return 0;
     }
 
-    image->set_bbox ( BoundingBox<double> ( tm->getX0() + tm->getRes() * bbox_int.xmin, tm->getY0() - tm->getRes() * bbox_int.ymax, tm->getX0() + tm->getRes() * bbox_int.xmax, tm->getY0() - tm->getRes() * bbox_int.ymin ) );
+    image->set_bbox ( BoundingBox<double> ( tm->get_x0() + tm->get_res() * bbox_int.xmin, tm->get_y0() - tm->get_res() * bbox_int.ymax, tm->get_x0() + tm->get_res() * bbox_int.xmax, tm->get_y0() - tm->get_res() * bbox_int.ymin ) );
 
     grid->affine_transform ( 1./image->get_resx(), -image->get_bbox().xmin/image->get_resx() - 0.5,
                              -1./image->get_resy(), image->get_bbox().ymax/image->get_resy() - 0.5 );
@@ -414,11 +414,11 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
 Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox< double > bbox, int width, int height, Interpolation::KernelType interpolation, int& error ) {
 
     // On convertit les coordonnées en nombre de pixels depuis l'origine X0,Y0
-    bbox.xmin = ( bbox.xmin - tm->getX0() ) /tm->getRes();
-    bbox.xmax = ( bbox.xmax - tm->getX0() ) /tm->getRes();
+    bbox.xmin = ( bbox.xmin - tm->get_x0() ) /tm->get_res();
+    bbox.xmax = ( bbox.xmax - tm->get_x0() ) /tm->get_res();
     double tmp = bbox.ymin;
-    bbox.ymin = ( tm->getY0() - bbox.ymax ) /tm->getRes();
-    bbox.ymax = ( tm->getY0() - tmp ) /tm->getRes();
+    bbox.ymin = ( tm->get_y0() - bbox.ymax ) /tm->get_res();
+    bbox.ymax = ( tm->get_y0() - tmp ) /tm->get_res();
 
     //A VERIFIER !!!!
     BoundingBox<int64_t> bbox_int ( floor ( bbox.xmin + EPS ),
@@ -477,8 +477,8 @@ int euclideanDivisionRemainder ( int64_t i, int n ) {
 }
 
 Image* Level::getwindow ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox< int64_t > bbox, int& error ) { 
-    int tile_xmin=euclideanDivisionQuotient ( bbox.xmin,tm->getTileW() );
-    int tile_xmax=euclideanDivisionQuotient ( bbox.xmax -1,tm->getTileW() );
+    int tile_xmin=euclideanDivisionQuotient ( bbox.xmin,tm->get_tile_width() );
+    int tile_xmax=euclideanDivisionQuotient ( bbox.xmax -1,tm->get_tile_width() );
     int nbx = tile_xmax - tile_xmin + 1;
     if ( nbx >= maxTileX ) {
         BOOST_LOG_TRIVIAL(info) <<  "Too Much Tile on X axis"  ;
@@ -491,8 +491,8 @@ Image* Level::getwindow ( unsigned int maxTileX, unsigned int maxTileY, Bounding
         return 0;
     }
 
-    int tile_ymin=euclideanDivisionQuotient ( bbox.ymin,tm->getTileH() );
-    int tile_ymax = euclideanDivisionQuotient ( bbox.ymax-1,tm->getTileH() );
+    int tile_ymin=euclideanDivisionQuotient ( bbox.ymin,tm->get_tile_height() );
+    int tile_ymax = euclideanDivisionQuotient ( bbox.ymax-1,tm->get_tile_height() );
     int nby = tile_ymax - tile_ymin + 1;
     if ( nby >= maxTileY ) {
         BOOST_LOG_TRIVIAL(info) <<  "Too Much Tile on Y axis"  ;
@@ -507,21 +507,21 @@ Image* Level::getwindow ( unsigned int maxTileX, unsigned int maxTileY, Bounding
 
     int left[nbx];
     memset ( left,   0, nbx*sizeof ( int ) );
-    left[0]=euclideanDivisionRemainder ( bbox.xmin,tm->getTileW() );
+    left[0]=euclideanDivisionRemainder ( bbox.xmin,tm->get_tile_width() );
     int top[nby];
     memset ( top,    0, nby*sizeof ( int ) );
-    top[0]=euclideanDivisionRemainder ( bbox.ymin,tm->getTileH() );
+    top[0]=euclideanDivisionRemainder ( bbox.ymin,tm->get_tile_height() );
     int right[nbx];
     memset ( right,  0, nbx*sizeof ( int ) );
-    right[nbx - 1] = tm->getTileW() - euclideanDivisionRemainder ( bbox.xmax -1,tm->getTileW() ) -1;
+    right[nbx - 1] = tm->get_tile_width() - euclideanDivisionRemainder ( bbox.xmax -1,tm->get_tile_width() ) -1;
     int bottom[nby];
     memset ( bottom, 0, nby*sizeof ( int ) );
-    bottom[nby- 1] = tm->getTileH() - euclideanDivisionRemainder ( bbox.ymax -1,tm->getTileH() ) - 1;
+    bottom[nby- 1] = tm->get_tile_height() - euclideanDivisionRemainder ( bbox.ymax -1,tm->get_tile_height() ) - 1;
 
     std::vector<std::vector<Image*> > T ( nby, std::vector<Image*> ( nbx ) );
     for ( int y = 0; y < nby; y++ ) {
         for ( int x = 0; x < nbx; x++ ) {
-            T[y][x] = getTile ( tile_xmin + x, tile_ymin + y, left[x], top[y], right[x], bottom[y] );
+            T[y][x] = get_tile ( tile_xmin + x, tile_ymin + y, left[x], top[y], right[x], bottom[y] );
         }
     }
 
@@ -533,7 +533,7 @@ Image* Level::getwindow ( unsigned int maxTileX, unsigned int maxTileY, Bounding
 /*
  * Recuperation du nom de la dalle du cache en fonction de son indice
  */
-std::string Level::getPath ( int tilex, int tiley) {
+std::string Level::get_path ( int tilex, int tiley) {
     // Cas normalement filtré en amont (exception WMS/WMTS)
     if ( tilex < 0 || tiley < 0 ) {
         BOOST_LOG_TRIVIAL(error) << "Negative tile indices: " << tilex << "," << tiley ;
@@ -542,10 +542,10 @@ std::string Level::getPath ( int tilex, int tiley) {
 
     int x,y;
 
-    x = tilex / tilesPerWidth;
-    y = tiley / tilesPerHeight;
+    x = tilex / tiles_per_width;
+    y = tiley / tiles_per_height;
 
-    return context->getPath(racine,x,y,pathDepth);
+    return context->get_path(racine,x,y,path_depth);
 
 }
 
@@ -553,22 +553,22 @@ std::string Level::getPath ( int tilex, int tiley) {
 /*
  * @return la tuile d'indice (x,y) du niveau
  */
-DataSource* Level::getEncodedTile ( int x, int y ) { // TODO: return 0 sur des cas d'erreur..
+DataSource* Level::get_encoded_tile ( int x, int y ) { // TODO: return 0 sur des cas d'erreur..
     
     //on stocke une dalle
     // Index de la tuile (cf. ordre de rangement des tuiles)
-    int n = ( y % tilesPerHeight ) * tilesPerWidth + ( x % tilesPerWidth );
-    std::string path = getPath ( x, y);
+    int n = ( y % tiles_per_height ) * tiles_per_width + ( x % tiles_per_width );
+    std::string path = get_path ( x, y);
     if (path == "") {
         return NULL;
     }
     BOOST_LOG_TRIVIAL(debug) << path;
-    return new StoreDataSource ( n, tilesPerWidth * tilesPerHeight, path, context, Rok4Format::to_mime_type ( format ), Rok4Format::to_encoding( format ) );
+    return new StoreDataSource ( n, tiles_per_width * tiles_per_height, path, context, Rok4Format::to_mime_type ( format ), Rok4Format::to_encoding( format ) );
 }
 
-DataSource* Level::getDecodedTile ( int x, int y ) {
+DataSource* Level::get_decoded_tile ( int x, int y ) {
 
-    DataSource* encoded_data = getEncodedTile ( x, y );
+    DataSource* encoded_data = get_encoded_tile ( x, y );
     if (encoded_data == NULL) return 0;
 
     size_t size;
@@ -594,9 +594,9 @@ DataSource* Level::getDecodedTile ( int x, int y ) {
 }
 
 
-DataSource* Level::getTile (int x, int y) {
+DataSource* Level::get_tile (int x, int y) {
 
-    DataSource* source = getEncodedTile ( x, y );
+    DataSource* source = get_encoded_tile ( x, y );
     if (source == NULL) return NULL;
 
     size_t size;
@@ -611,33 +611,33 @@ DataSource* Level::getTile (int x, int y) {
         )
     {
         BOOST_LOG_TRIVIAL(debug) <<  "GetTile Tiff"  ;
-        TiffHeaderDataSource* fullTiffDS = new TiffHeaderDataSource ( source,format,channels,tm->getTileW(), tm->getTileH() );
+        TiffHeaderDataSource* fullTiffDS = new TiffHeaderDataSource ( source,format,channels,tm->get_tile_width(), tm->get_tile_height() );
         return fullTiffDS;
     }
 
     return source;
 }
 
-Image* Level::getTile ( int x, int y, int left, int top, int right, int bottom ) {
+Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom ) {
     int pixel_size=1;
     BOOST_LOG_TRIVIAL(debug) <<  "GetTile Image"  ;
     if ( format==Rok4Format::TIFF_RAW_FLOAT32 || format == Rok4Format::TIFF_LZW_FLOAT32 || format == Rok4Format::TIFF_ZIP_FLOAT32 || format == Rok4Format::TIFF_PKB_FLOAT32 )
         pixel_size=4;
 
-    DataSource* ds = getDecodedTile ( x,y );
+    DataSource* ds = get_decoded_tile ( x,y );
 
     BoundingBox<double> bb ( 
-        tm->getX0() + x * tm->getTileW() * tm->getRes() + left * tm->getRes(),
-        tm->getY0() - ( y+1 ) * tm->getTileH() * tm->getRes() + bottom * tm->getRes(),
-        tm->getX0() + ( x+1 ) * tm->getTileW() * tm->getRes() - right * tm->getRes(),
-        tm->getY0() - y * tm->getTileH() * tm->getRes() - top * tm->getRes()
+        tm->get_x0() + x * tm->get_tile_width() * tm->get_res() + left * tm->get_res(),
+        tm->get_y0() - ( y+1 ) * tm->get_tile_height() * tm->get_res() + bottom * tm->get_res(),
+        tm->get_x0() + ( x+1 ) * tm->get_tile_width() * tm->get_res() - right * tm->get_res(),
+        tm->get_y0() - y * tm->get_tile_height() * tm->get_res() - top * tm->get_res()
     );
 
     if (ds == 0) {
         // On crée une image monochrome (valeur fournie dans la pyramide) de la taille qu'aurait du avoir la tuile demandée
         EmptyImage* ei = new EmptyImage(
-            tm->getTileW() - left - right, // width
-            tm->getTileH() - top - bottom, // height
+            tm->get_tile_width() - left - right, // width
+            tm->get_tile_height() - top - bottom, // height
             channels,
             nodata_value
         );
@@ -645,39 +645,39 @@ Image* Level::getTile ( int x, int y, int left, int top, int right, int bottom )
         return ei;
     } else {
         return new ImageDecoder (
-            ds, tm->getTileW(), tm->getTileH(), channels, bb,
+            ds, tm->get_tile_width(), tm->get_tile_height(), channels, bb,
             left, top, right, bottom, pixel_size
         );
     }
 }
 
-TileMatrix* Level::getTm () { return tm; }
-Rok4Format::eFormat Level::getFormat () { return format; }
+TileMatrix* Level::get_tm () { return tm; }
+Rok4Format::eFormat Level::get_format () { return format; }
 int Level::get_channels () { return channels; }
-TileMatrixLimits Level::getTileLimits () { return tmLimits; }
+TileMatrixLimits Level::get_tile_limits () { return tm_limits; }
 
-uint32_t Level::getMaxTileRow() {
-    return tmLimits.maxTileRow;
+uint32_t Level::get_max_tile_row() {
+    return tm_limits.max_tile_row;
 }
-uint32_t Level::getMinTileRow() {
-    return tmLimits.minTileRow;
+uint32_t Level::get_min_tile_row() {
+    return tm_limits.min_tile_row;
 }
-uint32_t Level::getMaxTileCol() {
-    return tmLimits.maxTileCol;
+uint32_t Level::get_max_tile_col() {
+    return tm_limits.max_tile_col;
 }
-uint32_t Level::getMinTileCol() {
-    return tmLimits.minTileCol;
+uint32_t Level::get_min_tile_col() {
+    return tm_limits.min_tile_col;
 }
-BoundingBox<double> Level::getBboxFromTileLimits() {
-    return tm->bboxFromTileLimits(tmLimits);
+BoundingBox<double> Level::get_bbox_from_tile_limits() {
+    return tm->bbox_from_tile_limits(tm_limits);
 }
-void Level::setTileLimitsFromBbox(BoundingBox<double> bb) {
-    tmLimits = tm->bboxToTileLimits(bb);
+void Level::set_tile_limits_from_bbox(BoundingBox<double> bb) {
+    tm_limits = tm->bbox_to_tile_limits(bb);
 }
 
-double Level::getRes () { return tm->getRes(); }
-std::string Level::getId () { return tm->getId(); }
-uint32_t Level::getTilesPerWidth () { return tilesPerWidth; }
-uint32_t Level::getTilesPerHeight () { return tilesPerHeight; }
-Context* Level::getContext () { return context; }
-std::vector<Table>* Level::getTables() { return &tables; }
+double Level::get_res () { return tm->get_res(); }
+std::string Level::get_id () { return tm->get_id(); }
+uint32_t Level::get_tiles_per_width () { return tiles_per_width; }
+uint32_t Level::get_tiles_per_height () { return tiles_per_height; }
+Context* Level::get_context () { return context; }
+std::vector<Table>* Level::get_tables() { return &tables; }

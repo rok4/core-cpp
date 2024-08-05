@@ -616,18 +616,18 @@ bool SwiftContext::closeToWrite(std::string name) {
     return false;
 }
 
-std::string SwiftContext::getPath(std::string racine,int x,int y,int pathDepth){
+std::string SwiftContext::get_path(std::string racine,int x,int y,int pathDepth){
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
-std::string SwiftContext::getPath(std::string name) {  
+std::string SwiftContext::get_path(std::string name) {  
     return container_name + "/" + name;
 }
 
 
 bool SwiftContext::exists(std::string name) {
 
-    BOOST_LOG_TRIVIAL(debug) << "Exists (SWIFT) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (SWIFT) ? " << get_path(name);
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to test object existence using the unconnected swift context " << container_name;

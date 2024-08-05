@@ -68,16 +68,16 @@ private:
     // Stockage
     std::string racine;
     Context* context;
-    int pathDepth;        //used only for file context
+    int path_depth; // used only for file context
 
     // Format de stockage
-    Rok4Format::eFormat format; //format d'image des tuiles
-    uint32_t tilesPerWidth;   //nombre de tuiles par dalle dans le sens de la largeur
-    uint32_t tilesPerHeight;  //nombre de tuiles par dalle dans le sens de la hauteur
+    Rok4Format::eFormat format; // format d'image des tuiles
+    uint32_t tiles_per_width; // nombre de tuiles par dalle dans le sens de la largeur
+    uint32_t tiles_per_height;  // nombre de tuiles par dalle dans le sens de la hauteur
 
     // Quadrillage natif
     TileMatrix* tm;
-    TileMatrixLimits tmLimits;
+    TileMatrixLimits tm_limits;
 
     /******************* PYRAMIDE VECTEUR *********************/
     std::vector<Table> tables;
@@ -86,8 +86,8 @@ private:
     int channels;
     int* nodata_value;
 
-    DataSource* getEncodedTile ( int x, int y );
-    DataSource* getDecodedTile ( int x, int y );
+    DataSource* get_encoded_tile ( int x, int y );
+    DataSource* get_decoded_tile ( int x, int y );
 
 protected:
     /**
@@ -104,26 +104,26 @@ protected:
 public:
 
 
-    TileMatrix* getTm() ;
-    Rok4Format::eFormat getFormat() ;
+    TileMatrix* get_tm() ;
+    Rok4Format::eFormat get_format() ;
     int get_channels() ;
 
-    TileMatrixLimits getTileLimits() ;
-    uint32_t getMaxTileRow() ;
-    uint32_t getMinTileRow() ;
-    uint32_t getMaxTileCol() ;
-    uint32_t getMinTileCol() ;
-    BoundingBox<double> getBboxFromTileLimits() ;
-    void setTileLimitsFromBbox(BoundingBox<double> bb) ;
+    TileMatrixLimits get_tile_limits() ;
+    uint32_t get_max_tile_row() ;
+    uint32_t get_min_tile_row() ;
+    uint32_t get_max_tile_col() ;
+    uint32_t get_min_tile_col() ;
+    BoundingBox<double> get_bbox_from_tile_limits() ;
+    void set_tile_limits_from_bbox(BoundingBox<double> bb) ;
 
-    double getRes() ;
-    std::string getId() ;
-    uint32_t getTilesPerWidth() ;
-    uint32_t getTilesPerHeight() ;
-    std::vector<Table>* getTables() ;
+    double get_res() ;
+    std::string get_id() ;
+    uint32_t get_tiles_per_width() ;
+    uint32_t get_tiles_per_height() ;
+    std::vector<Table>* get_tables() ;
 
-    std::string getPath (int tilex, int tiley);
-    Context* getContext() ;
+    std::string get_path (int tilex, int tiley);
+    Context* get_context() ;
 
     Image* getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, Interpolation::KernelType interpolation, int& error );
 
@@ -139,9 +139,9 @@ public:
      * y = floor((Y - Y0) / (tile_height * resolution_y))
      */
 
-    DataSource* getTile (int x, int y);
+    DataSource* get_tile (int x, int y);
 
-    Image* getTile ( int x, int y, int left, int top, int right, int bottom );
+    Image* get_tile ( int x, int y, int left, int top, int right, int bottom );
 
     /*
      * Destructeur

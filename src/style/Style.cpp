@@ -90,8 +90,8 @@ bool Style::parse(json11::Json& doc) {
 
     if (doc["legend"].is_object()) {
         LegendURL leg = LegendURL(doc["legend"].object_items());
-        if (leg.getMissingField() != "") {
-            errorMessage = "Invalid legend: have to own a field " + leg.getMissingField();
+        if (leg.get_missing_field() != "") {
+            errorMessage = "Invalid legend: have to own a field " + leg.get_missing_field();
             return false;
         }
         legends.push_back(leg);

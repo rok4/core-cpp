@@ -156,7 +156,7 @@ public:
      * \brief Return the keyword text
      * \return keyword value
      */
-    inline const std::string getContent() const {
+    inline const std::string get_content() const {
         return content;
     }
 
@@ -168,7 +168,7 @@ public:
      * \brief Return the attributes list
      * \return attributes list
      */
-    inline const std::map<std::string,std::string>* getAttributes() const {
+    inline const std::map<std::string,std::string>* get_attributes() const {
         return &attributes;
     }
 
@@ -180,7 +180,7 @@ public:
      * \brief Test whether the keyword has attributes
      * \return true if it has at least one
      */
-    inline bool hasAttributes() const {
+    inline bool has_attributes() const {
         return ! ( attributes.empty() );
     }
 

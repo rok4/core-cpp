@@ -62,26 +62,26 @@ class Attribute
     public:
         Attribute(json11::Json doc) {
 
-            missingField = "";
+            missing_field = "";
             values = std::vector<std::string>();
             min = "";
             max = "";
-            metadataJson = "";
+            metadata_json = "";
 
             if (! doc["name"].is_string()) {
-                missingField = "name";
+                missing_field = "name";
                 return;
             }
             name = doc["name"].string_value();
 
             if (! doc["type"].is_string()) {
-                missingField = "type";
+                missing_field = "type";
                 return;
             }
             type = doc["type"].string_value();
 
             if (! doc["count"].is_number()) {
-                missingField = "count";
+                missing_field = "count";
                 return;
             }
             count = std::to_string(doc["count"].number_value());
@@ -109,16 +109,16 @@ class Attribute
         };
         ~Attribute(){};
 
-        std::string getMissingField() {return missingField;}
-        std::string getName() {return name;}
+        std::string get_missing_field() {return missing_field;}
+        std::string get_name() {return name;}
         std::string get_type() {return type;}
         std::vector<std::string> getValues() {return values;}
         std::string getCount() {return count;}
         std::string getMin() {return min;}
         std::string getMax() {return max;}
 
-        std::string getMetadataJson() {
-            if (metadataJson != "") return metadataJson;
+        std::string get_metadata_json() {
+            if (metadata_json != "") return metadata_json;
             /*
             {
                 "attribute": "gid",
@@ -150,8 +150,8 @@ class Attribute
 
             res << "}";
 
-            metadataJson = res.str();
-            return metadataJson;
+            metadata_json = res.str();
+            return metadata_json;
         }
 
     private:
@@ -159,7 +159,7 @@ class Attribute
          * \~french \brief Éventuel attribut manquant lors de la construction
          * \~english \brief Constructor missing field
          */
-        std::string missingField;
+        std::string missing_field;
 
         /**
          * \~french \brief Nom de l'attribut
@@ -195,7 +195,7 @@ class Attribute
          * \~french \brief Formattage JSON des informations
          * \~english \brief Informations JSON string
          */
-        std::string metadataJson;
+        std::string metadata_json;
 };
 
 #endif // ATTRIBUTE_H

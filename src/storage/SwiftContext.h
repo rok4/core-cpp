@@ -191,8 +191,8 @@ public:
     bool openToWrite(std::string name);
     bool closeToWrite(std::string name);
 
-    std::string getPath(std::string racine,int x,int y,int pathDepth);
-    std::string getPath(std::string name);
+    std::string get_path(std::string racine,int x,int y,int pathDepth);
+    std::string get_path(std::string name);
 
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "------ Swift Context -------" ;

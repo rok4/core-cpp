@@ -230,7 +230,7 @@ public:
     inline void set_bbox ( BoundingBox<double> box ) {
         bbox = box;
         if (crs != NULL) {
-            bbox.crs = crs->getRequestCode();
+            bbox.crs = crs->get_request_code();
         }
         compute_resolutions();
     }
@@ -287,7 +287,7 @@ public:
 
         if (c != NULL) {
             crs = new CRS(c);
-            bbox.crs = crs->getRequestCode();
+            bbox.crs = crs->get_request_code();
         } else {
             bbox.crs = "";
         }
@@ -361,7 +361,7 @@ public:
      * \return X resolution
      */
     inline double get_resx(bool force_meter = false) const {
-        if (force_meter && crs->getMetersPerUnit() != 1.0) return resx * METER_PER_DEG;
+        if (force_meter && crs->get_meters_per_unit() != 1.0) return resx * METER_PER_DEG;
         return resx;
     }
     /**
@@ -375,7 +375,7 @@ public:
      * \return Y resolution
      */
     inline double get_resy(bool force_meter = false) const {
-        if (force_meter && crs->getMetersPerUnit() != 1.0) return resy * METER_PER_DEG;
+        if (force_meter && crs->get_meters_per_unit() != 1.0) return resy * METER_PER_DEG;
         return resy;
     }
 
@@ -525,7 +525,7 @@ public:
      */
     bool compatible ( Image* other ) {
 
-        if ( crs != NULL && crs->isDefine() && other->get_crs() != NULL && other->get_crs()->isDefine() && ! crs->cmpRequestCode(other->get_crs()->getRequestCode()) ) {
+        if ( crs != NULL && crs->is_define() && other->get_crs() != NULL && other->get_crs()->is_define() && ! crs->cmp_request_code(other->get_crs()->get_request_code()) ) {
             BOOST_LOG_TRIVIAL(debug) <<   "Different CRS"  ;
             return false;
         }
@@ -691,7 +691,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<   "\t- width = " << width << ", height = " << height  ;
         BOOST_LOG_TRIVIAL(info) <<   "\t- samples per pixel = " << channels  ;
         if (crs != NULL) {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- CRS = " << crs->getProjCode()  ;
+            BOOST_LOG_TRIVIAL(info) <<   "\t- CRS = " << crs->get_proj_code()  ;
         } else {
             BOOST_LOG_TRIVIAL(info) <<   "\t- No CRS"  ;
         }
@@ -726,7 +726,7 @@ public:
      * \brief Mean resolution
      */
     virtual float get_mean_resolution() {
-        if (crs->getMetersPerUnit() != 1.0) {
+        if (crs->get_meters_per_unit() != 1.0) {
             return ((resx+resy)/2.0)*METER_PER_DEG;
         } else {
             return (resx+resy)/2.0;

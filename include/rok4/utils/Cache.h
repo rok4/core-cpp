@@ -967,7 +967,7 @@ public:
             return NULL;
         }
 
-        if ( containForbiddenChars(style->get_identifier()) ) {
+        if ( contain_chars(style->get_identifier(), "<>") ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
             mtx.unlock();

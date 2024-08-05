@@ -52,17 +52,16 @@ class Table
             name = n;
             geometry = g;
             attributes = atts;
-            metadataJsonLong = "";
-            metadataJson = "";
+            metadata_json = "";
         }
         ~Table(){};
 
-        std::string getName() {return name;}
-        std::string getGeometry() {return geometry;}
-        std::vector<Attribute> getAttributes() {return attributes;}
+        std::string get_name() {return name;}
+        std::string get_geometry() {return geometry;}
+        std::vector<Attribute> get_attributes() {return attributes;}
 
-        std::string getMetadataJson(std::string max, std::string min) {
-            if (metadataJson != "") return metadataJson;
+        std::string get_metadata_json(std::string max, std::string min) {
+            if (metadata_json != "") return metadata_json;
             /*
             {
                 "fields": {
@@ -85,12 +84,12 @@ class Table
                 if (i != 0) {
                     res << ",";
                 }
-                res << "\"" << attributes.at(i).getName() << "\":" << attributes.at(i).getMetadataJson();
+                res << "\"" << attributes.at(i).get_name() << "\":" << attributes.at(i).get_metadata_json();
             }
             res << "}}";
 
-            metadataJson = res.str();
-            return metadataJson;
+            metadata_json = res.str();
+            return metadata_json;
         }
 
     private:
@@ -98,8 +97,7 @@ class Table
         std::string name;
         std::string geometry;
         std::vector<Attribute> attributes;
-        std::string metadataJsonLong;
-        std::string metadataJson;
+        std::string metadata_json;
 };
 
 #endif // ATTRIBUTE_H

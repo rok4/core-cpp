@@ -55,13 +55,13 @@
 ComparatorLevel compLevelDesc =
     [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
     {
-        return elem1.second->getRes() > elem2.second->getRes();
+        return elem1.second->get_res() > elem2.second->get_res();
     };
 
 ComparatorLevel compLevelAsc =
     [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
     {
-        return elem1.second->getRes() < elem2.second->getRes();
+        return elem1.second->get_res() < elem2.second->get_res();
     };
 
 
@@ -177,14 +177,14 @@ bool Pyramid::parse(json11::Json& doc) {
                 }
 
                 //on va vérifier que le level qu'on vient de charger n'a pas déjà été chargé
-                std::map<std::string, Level*>::iterator it = levels.find ( level->getId() );
+                std::map<std::string, Level*>::iterator it = levels.find ( level->get_id() );
                 if ( it != levels.end() ) {
-                    errorMessage =  "Level " + level->getId() + " defined twice" ;
+                    errorMessage =  "Level " + level->get_id() + " defined twice" ;
                     delete level;
                     return false;
                 }
 
-                levels.insert ( std::pair<std::string, Level*> ( level->getId(), level ) );
+                levels.insert ( std::pair<std::string, Level*> ( level->get_id(), level ) );
             } else {
                 errorMessage = "levels have to be provided and be an object array";
                 return false;
@@ -248,14 +248,14 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     for ( itLevel=levels.begin(); itLevel!=levels.end(); itLevel++ ) {
 
         //Determine Higher and Lower Levels
-        double d = itLevel->second->getRes();
+        double d = itLevel->second->get_res();
         if ( minRes > d ) {
             minRes = d;
-            lowestLevel = itLevel->second;
+            lowest_level = itLevel->second;
         }
         if ( maxRes < d ) {
             maxRes = d;
-            highestLevel = itLevel->second;
+            highest_level = itLevel->second;
         }
     }
 }
@@ -263,8 +263,8 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
 Pyramid::Pyramid (Pyramid* obj) {
     tms = obj->tms;
     format = obj->format;
-    lowestLevel = NULL;
-    highestLevel = NULL;
+    lowest_level = NULL;
+    highest_level = NULL;
     nodata_value = NULL;
 
     if (Rok4Format::is_raster(format)) {
@@ -276,12 +276,12 @@ Pyramid::Pyramid (Pyramid* obj) {
     }
 }
 
-Context* Pyramid::getContext() { return context; }
+Context* Pyramid::get_context() { return context; }
 
-bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topLevel) {
+bool Pyramid::add_levels (Pyramid* obj, std::string bottomLevel, std::string topLevel) {
 
     // Caractéristiques globales
-    if (tms->getId() != obj->tms->getId()) {
+    if (tms->get_id() != obj->tms->get_id()) {
         BOOST_LOG_TRIVIAL(error) << "TMS have to be the same for all used pyramids";
         return false;
     }
@@ -304,15 +304,15 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
     // Niveaux
     bool begin = false;
     bool end = false;
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> orderedLevels = obj->getOrderedLevels(true);
+    std::set<std::pair<std::string, Level*>, ComparatorLevel> orderedLevels = obj->get_ordered_levels(true);
     for (std::pair<std::string, Level*> element : orderedLevels) {
-        std::string levelId = element.second->getId();
+        std::string levelId = element.second->get_id();
         if (! begin && levelId != bottomLevel) {
             continue;
         }
         begin = true;
 
-        if (getLevel(levelId) != NULL) {
+        if (get_level(levelId) != NULL) {
             BOOST_LOG_TRIVIAL(error) << "Level " << levelId << " is already present"  ;
             return false;
         }
@@ -320,11 +320,11 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
         Level* l = new Level(element.second);
         levels.insert ( std::pair<std::string, Level*> ( levelId, l ) );
 
-        if (lowestLevel == NULL || l->getRes() < lowestLevel->getRes()) {
-            lowestLevel = l;
+        if (lowest_level == NULL || l->get_res() < lowest_level->get_res()) {
+            lowest_level = l;
         }
-        if (highestLevel == NULL || l->getRes() > highestLevel->getRes()) {
-            highestLevel = l;
+        if (highest_level == NULL || l->get_res() > highest_level->get_res()) {
+            highest_level = l;
         }
 
         if (levelId == topLevel) {
@@ -354,10 +354,10 @@ std::string Pyramid::best_level ( double resolution_x, double resolution_y ) {
 
     std::map<std::string, Level*>::iterator it ( levels.begin() ), itend ( levels.end() );
     std::string best_h = it->first;
-    double best = resolution_x / it->second->getRes();
+    double best = resolution_x / it->second->get_res();
     ++it;
     for ( ; it!=itend; ++it ) {
-        double d = resolution / it->second->getRes();
+        double d = resolution / it->second->get_res();
         if ( ( best < 0.8 && d > best ) ||
                 ( best >= 0.8 && d >= 0.8 && d < best ) ) {
             best = d;
@@ -373,7 +373,7 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
     // On calcule la résolution de la requete dans le crs source selon une diagonale de l'image
     double resolution_x, resolution_y;
 
-    BOOST_LOG_TRIVIAL(debug) << "Reprojection " << tms->getCrs()->getProjCode() << " -> " << dst_crs->getProjCode() ;
+    BOOST_LOG_TRIVIAL(debug) << "Reprojection " << tms->get_crs()->get_proj_code() << " -> " << dst_crs->get_proj_code() ;
 
     if ( crs_equals ) {
         resolution_x = ( bbox.xmax - bbox.xmin ) / width;
@@ -381,7 +381,7 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
     } else {
         BoundingBox<double> tmp = bbox;
 
-        if ( ! tmp.reproject ( dst_crs, tms->getCrs() ) ) {
+        if ( ! tmp.reproject ( dst_crs, tms->get_crs() ) ) {
             // BBOX invalide
 
             BOOST_LOG_TRIVIAL(warning) << "reproject en erreur" ;
@@ -410,18 +410,18 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
     if ( crs_equals ) {
         return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, interpolation, error );
     } else {
-        return createReprojectedImage(l, bbox, dst_crs, maxTileX, maxTileY, width, height, interpolation, error);
+        return create_reprojected_image(l, bbox, dst_crs, maxTileX, maxTileY, width, height, interpolation, error);
     }
 
 }
 
-Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error) {
+Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error) {
 
-    bbox.crs = dst_crs->getRequestCode();
+    bbox.crs = dst_crs->get_request_code();
 
     if (bbox.isInAreaOfCRS(dst_crs)) {
         // La bbox entière de l'image demandée est dans l'aire de définition du CRS cible
-        return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, tms->getCrs(), dst_crs, interpolation, error );
+        return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, tms->get_crs(), dst_crs, interpolation, error );
 
     } else if (bbox.intersectAreaOfCRS(dst_crs)) {
         // La bbox n'est pas entièrement dans l'aire du CRS, on doit faire la projection que sur la partie intérieure
@@ -443,7 +443,7 @@ Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, 
         int croped_height = int ( ( croped.ymax - croped.ymin ) / resy + 0.5 );
 
         std::vector<Image*> images;
-        Image* tmp = levels[l]->getbbox ( maxTileX, maxTileY, croped, croped_width, croped_height, tms->getCrs(), dst_crs, interpolation, error );
+        Image* tmp = levels[l]->getbbox ( maxTileX, maxTileY, croped, croped_width, croped_height, tms->get_crs(), dst_crs, interpolation, error );
         if ( tmp != 0 ) {
             BOOST_LOG_TRIVIAL(debug) <<   "Image decoupée valide"  ;
             images.push_back ( tmp );
@@ -459,7 +459,7 @@ Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, 
         
     } else {
 
-        BOOST_LOG_TRIVIAL(error) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->getProjCode() ;
+        BOOST_LOG_TRIVIAL(error) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->get_proj_code() ;
         BOOST_LOG_TRIVIAL(error) <<  bbox.to_string() ;
         return 0;
     }
@@ -475,7 +475,7 @@ Pyramid::~Pyramid() {
 
 }
 
-Compression::eCompression Pyramid::getSampleCompression() {
+Compression::eCompression Pyramid::get_sample_compression() {
     return Rok4Format::get_compression(format);
 }
 
@@ -483,13 +483,13 @@ SampleFormat::eSampleFormat Pyramid::get_sample_format() {
     return Rok4Format::get_sample_format(format);
 }
 
-Level* Pyramid::getHighestLevel() { return highestLevel; }
-Level* Pyramid::getLowestLevel() { return lowestLevel; }
+Level* Pyramid::get_highest_level() { return highest_level; }
+Level* Pyramid::get_lowest_level() { return lowest_level; }
 
-TileMatrixSet* Pyramid::getTms() { return tms; }
-std::map<std::string, Level*>& Pyramid::getLevels() { return levels; }
+TileMatrixSet* Pyramid::get_tms() { return tms; }
+std::map<std::string, Level*>& Pyramid::get_levels() { return levels; }
 
-std::set<std::pair<std::string, Level*>, ComparatorLevel> Pyramid::getOrderedLevels(bool asc) {
+std::set<std::pair<std::string, Level*>, ComparatorLevel> Pyramid::get_ordered_levels(bool asc) {
  
     if (asc) {
         return std::set<std::pair<std::string, Level*>, ComparatorLevel>(levels.begin(), levels.end(), compLevelAsc);
@@ -499,7 +499,7 @@ std::set<std::pair<std::string, Level*>, ComparatorLevel> Pyramid::getOrderedLev
 
 }
 
-Level* Pyramid::getLevel(std::string id) {
+Level* Pyramid::get_level(std::string id) {
     std::map<std::string, Level*>::iterator it= levels.find ( id );
     if ( it == levels.end() ) {
         return NULL;
@@ -507,8 +507,7 @@ Level* Pyramid::getLevel(std::string id) {
     return it->second;
 }
 
-Rok4Format::eFormat Pyramid::getFormat() { return format; }
+Rok4Format::eFormat Pyramid::get_format() { return format; }
 Photometric::ePhotometric Pyramid::get_photometric() { return photo; }
 int Pyramid::get_channels() { return channels; }
-int* Pyramid::getNodataValue() { return nodata_value; }
-int Pyramid::getFirstnodataValue () { return nodata_value[0]; }
+int* Pyramid::get_nodata_value() { return nodata_value; }

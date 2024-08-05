@@ -118,7 +118,7 @@ private:
      * \~french \brief Liste des mots-clés
      * \~english \brief List of keywords
      */
-    std::vector<Keyword> keyWords;
+    std::vector<Keyword> keywords;
     /**
      * \~french \brief Système de coordonnées associé
      * \~english \brief Linked coordinates system
@@ -128,12 +128,12 @@ private:
      * \~french \brief Est ce que le TMS est un QTree ?
      * \~english \brief Is TMS a QTree ?
      */
-    bool isQTree;
+    bool qtree;
     /**
      * \~french \brief Liste des TileMatrix
      * \~english \brief List of TileMatrix
      */
-    std::map<std::string, TileMatrix*> tmList;
+    std::map<std::string, TileMatrix*> tm_list;
 
     bool parse(json11::Json& doc);
 public:
@@ -189,7 +189,7 @@ public:
      * \brief Return the TileMatrix
      * \return TileMatrix
      */
-    TileMatrix* getTm(std::string id);
+    TileMatrix* get_tm(std::string id);
 
 
     /**
@@ -200,9 +200,9 @@ public:
      * \brief Get the levels ordered
      * \return List of level
      */
-    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> getOrderedTileMatrix(bool asc) ;
+    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> get_ordered_tm(bool asc) ;
 
-    TileMatrix* getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatrixSet* tmsIn);
+    TileMatrix* get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet* tmsIn);
 
     /**
      * \~french
@@ -212,7 +212,7 @@ public:
      * \brief Return the identifier
      * \return identifier
      */
-    std::string getId();
+    std::string get_id();
     /**
      * \~french
      * \brief Retourne le titre
@@ -221,16 +221,16 @@ public:
      * \brief Return the title
      * \return title
      */
-    std::string getTitle() ;
+    std::string get_title() ;
     /**
      * \~french
      * \brief Précise si le TileMatrixSet est un QTree
-     * \return isQTree
+     * \return qtree
      * \~english
      * \brief Precise if the TileMatrixSet is a QTree
-     * \return isQTree
+     * \return qtree
      */
-    bool getIsQTree();
+    bool is_qtree();
     /**
      * \~french
      * \brief Retourne le résumé
@@ -239,7 +239,7 @@ public:
      * \brief Return the abstract
      * \return abstract
      */
-    std::string getAbstract() ;
+    std::string get_abstract() ;
     /**
      * \~french
      * \brief Retourne la liste des mots-clés
@@ -248,7 +248,7 @@ public:
      * \brief Return the list of keywords
      * \return keywords
      */
-    std::vector<Keyword>* getKeyWords() ;
+    std::vector<Keyword>* get_keywords() ;
     /**
      * \~french
      * \brief Retourne le système de coordonnées utilisé
@@ -257,10 +257,7 @@ public:
      * \brief Return the linked coordinates system
      * \return crs
      */
-    CRS* getCrs();
-
-    ///\TODO
-    int best_scale ( double resolution_x, double resolution_y );
+    CRS* get_crs();
 
     /**
      * \~french
