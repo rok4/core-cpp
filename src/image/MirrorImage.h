@@ -38,15 +38,13 @@
 /**
  * \file MirrorImage.h
  ** \~french
- * \brief Définition des classes MirrorImage et MirrorImageFactory
+ * \brief Définition des classes MirrorImage
  * \details
  * \li MirrorImage : image par reflet
- * \li MirrorImageFactory : usine de création d'objet MirrorImage
  ** \~english
- * \brief Define classes MirrorImage and MirrorImageFactory
+ * \brief Define classes MirrorImage
  * \details
  * \li MirrorImage : reflection image
- * \li MirrorImageFactory : factory to create MirrorImage object
  */
 
 #ifndef MIRROR_IMAGE_H
@@ -87,8 +85,6 @@ class MirrorImage : public Image {
         |                                        |
         |             position 2                 |
         |________________________________________| */
-
-    friend class MirrorImageFactory;
 
 private:
     /**
@@ -132,10 +128,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet MirrorImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine mirrorImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
@@ -182,15 +177,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's size = " << mirrorSize ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image miroir
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe MirrorImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de MirrorImage et de sortir en erreur en cas de problème.
- */
-class MirrorImageFactory {
-public:
     /** \~french
      * \brief Teste et calcule les caractéristiques d'une image miroir et crée un objet MirrorImage
      * \details Largeur, hauteur, nombre de canaux et bbox sont déduits des composantes de l'image source et des paramètres.
@@ -206,7 +193,7 @@ public:
      * \param[in] mirrorSize mirror's size, in pixel
      * \return a MirrorImage object pointer, NULL if error
      */
-    MirrorImage* createMirrorImage ( Image* pImageSrc, int position,uint mirrorSize );
+    static MirrorImage* create ( Image* pImageSrc, int position,uint mirrorSize );
 };
 
 #endif

@@ -38,15 +38,13 @@
 /**
  * \file LibopenjpegImage.cpp
  ** \~french
- * \brief Implémentation des classes LibopenjpegImage et LibopenjpegImageFactory
+ * \brief Implémentation des classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : gestion d'une image au format JPEG2000, en lecture, utilisant la librairie openjpeg
- * \li LibopenjpegImageFactory : usine de création d'objet LibopenjpegImage
  ** \~english
- * \brief Implement classes LibopenjpegImage and LibopenjpegImageFactory
+ * \brief Implement classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : manage a JPEG2000 format image, reading, using the library openjpeg
- * \li LibopenjpegImageFactory : factory to create LibopenjpegImage object
  */
 
 #include <string.h>
@@ -107,7 +105,7 @@ static void info_callback ( const char *msg, void *client_data ) {
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibopenjpegImage* LibopenjpegImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     // Set decoding parameters to default values
     opj_dparameters_t parameters;

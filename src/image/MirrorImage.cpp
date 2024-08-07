@@ -38,15 +38,13 @@
 /**
  * \file MirrorImage.cpp
  ** \~french
- * \brief Implémentation des classe MirrorImage et MirrorImageFactory
+ * \brief Implémentation des classe MirrorImage
  * \details
  * \li MirrorImage : image par reflet
- * \li MirrorImageFactory : usine de création d'objet MirrorImage
  ** \~english
- * \brief Implement classes MirrorImage and MirrorImageFactory
+ * \brief Implement classes MirrorImage
  * \details
  * \li MirrorImage : reflection image
- * \li MirrorImageFactory : factory to create MirrorImage object
  */
 
 #include <boost/log/trivial.hpp>
@@ -54,7 +52,7 @@
 #include "image/MirrorImage.h"
 #include "utils/Utils.h"
 
-MirrorImage* MirrorImageFactory::createMirrorImage ( Image* pImageSrc, int position, uint mirrorSize ) {
+MirrorImage* MirrorImage::create ( Image* pImageSrc, int position, uint mirrorSize ) {
 
     int wTopBottom = pImageSrc->get_width() +2*mirrorSize;
     int wLeftRight = mirrorSize;

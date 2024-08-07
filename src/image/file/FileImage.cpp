@@ -38,15 +38,13 @@
 /**
  * \file FileImage.cpp
  ** \~french
- * \brief Implémentation des classes FileImage et FileImageFactory
+ * \brief Implémentation de la classe FileImage
  * \details
  * \li FileImage : image physique, attaché à un fichier
- * \li FileImageFactory : usine de création d'objet FileImage
  ** \~english
- * \brief Implement classes FileImage and FileImageFactory
+ * \brief Implement classe FileImage
  * \details
  * \li FileImage : physical image, linked to a file
- * \li FileImageFactory : factory to create FileImage object
  */
 
 #include "image/file/FileImage.h"
@@ -62,7 +60,7 @@
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBox< double > bbox, double resx, double resy ) {
+FileImage* FileImage::create_to_read ( std::string name, BoundingBox< double > bbox, double resx, double resy ) {
 
     // Récupération de l'extension du fichier
     const char * pch;
@@ -77,8 +75,7 @@ FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBo
     if ( strncmp ( pch+1, "tif", 3 ) == 0 || strncmp ( pch+1, "TIF", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "TIFF image to read : " << name ;
 
-        LibtiffImageFactory LTIF;
-        return LTIF.createLibtiffImageToRead ( name, bbox, resx, resy );
+        return LibtiffImage::create_to_read ( name, bbox, resx, resy );
     }
 
     // Les masques
@@ -86,32 +83,28 @@ FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBo
         /** \~french \warning Les masques sources (fichiers avec l'extension .msk) seront lus comme des images TIFF. */
         BOOST_LOG_TRIVIAL(debug) <<  "TIFF mask to read : " << name ;
 
-        LibtiffImageFactory LTIF;
-        return LTIF.createLibtiffImageToRead ( name, bbox, resx, resy );
+        return LibtiffImage::create_to_read ( name, bbox, resx, resy );
     }
     
     /******************** (Z)BIL ********************/
     else if ( strncmp ( pch+1, "bil", 3 ) == 0 || strncmp ( pch+1, "BIL", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "(Z)BIL image to read : " << name ;
 
-        BilzImageFactory BZIF;
-        return BZIF.createBilzImageToRead ( name, bbox, resx, resy );
+        return BilzImage::create_to_read ( name, bbox, resx, resy );
     }
 
     /********************* PNG **********************/
     else if ( strncmp ( pch+1, "png", 3 ) == 0 || strncmp ( pch+1, "PNG", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "PNG image to read : " << name ;
 
-        LibpngImageFactory LPIF;
-        return LPIF.createLibpngImageToRead ( name, bbox, resx, resy );
+        return LibpngImage::create_to_read ( name, bbox, resx, resy );
     }
 
     /********************** JPEG ********************/
     else if ( strncmp ( pch+1, "jpg", 3 ) == 0 || strncmp ( pch+1, "jpeg", 4 ) == 0 || strncmp ( pch+1, "JPEG", 4 ) == 0 || strncmp ( pch+1, "JPG", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "JPEG image to read : " << name ;
         
-        LibjpegImageFactory JPGIF;
-        return JPGIF.createLibjpegImageToRead ( name, bbox, resx, resy );
+        return LibjpegImage::create_to_read ( name, bbox, resx, resy );
     }
 
     /******************* JPEG 2000 ******************/
@@ -120,8 +113,7 @@ FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBo
 
         BOOST_LOG_TRIVIAL(debug) << "\tDriver : OPENJPEG";
 
-        LibopenjpegImageFactory DRVOJ;
-        return DRVOJ.createLibopenjpegImageToRead(name, bbox, resx, resy);
+        return LibopenjpegImage::create_to_read(name, bbox, resx, resy);
     }
 
     /* /!\ Format inconnu en lecture /!\ */
@@ -133,7 +125,7 @@ FileImage* FileImageFactory::create_image_to_read ( std::string name, BoundingBo
 }
 
 /* ----- Pour l'écriture ----- */
-FileImage* FileImageFactory::create_image_to_write (
+FileImage* FileImage::create_to_write (
     std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
     SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression ) {
 
@@ -145,8 +137,7 @@ FileImage* FileImageFactory::create_image_to_write (
     if ( strncmp ( pch+1, "tif", 3 ) == 0 || strncmp ( pch+1, "TIF", 3 ) == 0 ) {
         BOOST_LOG_TRIVIAL(debug) <<  "TIFF image to write : " << name ;
 
-        LibtiffImageFactory LTIF;
-        return LTIF.createLibtiffImageToWrite (
+        return LibtiffImage::create_to_write (
             name, bbox, resx, resy, width, height, channels,
             sample_format, photometric, compression, 16
         );
@@ -157,8 +148,7 @@ FileImage* FileImageFactory::create_image_to_write (
         /** \~french \warning Les masques sources (fichiers avec l'extension .msk) seront écris comme des images TIFF. */
         BOOST_LOG_TRIVIAL(debug) <<  "TIFF mask to write : " << name ;
 
-        LibtiffImageFactory LTIF;
-        return LTIF.createLibtiffImageToWrite (
+        return LibtiffImage::create_to_write (
             name, bbox, resx, resy, width, height, channels,
             sample_format, photometric, compression, 16
         );

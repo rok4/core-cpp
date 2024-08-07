@@ -53,9 +53,10 @@
 #include <string>
 #include <cmath>
 
+
 class Aspect : public Configuration {
 
-private:
+public:
 
      /** \~french
      * \brief algo : choix de l'algorithme de calcul d'exposition par l'utilisateur ("H" pour Horn)
@@ -71,7 +72,19 @@ private:
     */
     float min_slope;
 
-public:
+    /** \~french
+    * \brief noData : valeur de nodata pour l'aspect
+    ** \~english
+    * \brief noData : value of nodata for the aspect
+    */
+    double aspect_nodata_value;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    float input_nodata_value;
 
     /**
      * \~french
@@ -79,7 +92,7 @@ public:
      * \~english
      * \brief Constructor without arguments
      */
-    Aspect(): Configuration(), algo ("H") {
+    Aspect(): Configuration(), algo ("H"), aspect_nodata_value (-1), input_nodata_value (-99999) {
         min_slope = 1.0 * DEG_TO_RAD;
     }
 
@@ -90,6 +103,17 @@ public:
      * \brief Constructor with arguments
      */
     Aspect(json11::Json doc) : Configuration() {
+        if (doc["image_nodata"].is_number()) {
+            input_nodata_value = doc["image_nodata"].number_value();
+        } else {
+            input_nodata_value = -99999.;
+        }
+        if (doc["aspect_nodata"].is_number()) {
+            aspect_nodata_value = doc["aspect_nodata"].number_value();
+        } else {
+            aspect_nodata_value = -1;
+        }
+
         if (doc["min_slope"].is_number()) {
             min_slope = doc["min_slope"].number_value() * DEG_TO_RAD;
         } else {
@@ -111,26 +135,6 @@ public:
      */
     ~Aspect() {
 
-    }
-
-    /**
-     * \~french
-     * \brief Renvoie l'algo
-     * \~english
-     * \brief Get algo
-     */
-    std::string getAlgo(){
-        return algo;
-    }
-
-    /**
-     * \~french
-     * \brief Recupère min_slope
-     * \~english
-     * \brief Get min_slope
-     */
-    float getMinSlope(){
-        return min_slope;
     }
 
 };

@@ -60,7 +60,7 @@ int PenteImage::get_line ( uint8_t* buffer, int line ) {
 //definition des variables
 PenteImage::PenteImage (Image* image, Pente* p) :
     Image ( image->get_width() - 2, image->get_height() - 2, 1),
-    source_image ( image ), algo (p->getAlgo()),unit (p->getUnit()), slopeNoData (p->getSlopeNoData()), imgNoData (p->getImgNoData()), maxSlope (p->getMaxSlope())
+    source_image ( image ), pente (p)
     {
 
     // On réduit la bbox d'un pixel de chaque côté
@@ -139,10 +139,10 @@ int PenteImage::_getline ( T* buffer, int line ) {
     float a,b,c,d,e,f,g,h,i;
     float resx,resy;
 
-    if (algo == "H") {
+    if (pente->algo == "H") {
         resx = 8.0 * resxmeter;
         resy = 8.0 * resymeter;
-    } else if (algo == "Z") {
+    } else if (pente->algo == "Z") {
         resx = 2.0 * resxmeter;
         resy = 2.0 * resymeter;
     }
@@ -160,15 +160,15 @@ int PenteImage::_getline ( T* buffer, int line ) {
         h = ( * ( line3+columnOrig ) );
         i = ( * ( line3+columnOrig+1 ) );
 
-        if (a == imgNoData || b == imgNoData || c == imgNoData || d == imgNoData || e == imgNoData ||
-                f == imgNoData || g == imgNoData || h == imgNoData || i == imgNoData) {
-            slope = slopeNoData;
+        if (a == pente->input_nodata_value || b == pente->input_nodata_value || c == pente->input_nodata_value || d == pente->input_nodata_value || e == pente->input_nodata_value ||
+                f == pente->input_nodata_value || g == pente->input_nodata_value || h == pente->input_nodata_value || i == pente->input_nodata_value) {
+            slope = pente->slope_nodata_value;
         } else {
 
-            if (algo == "H") {
+            if (pente->algo == "H") {
                 dzdx = (( c + 2.0 * f + i) - (a + 2.0 *  d + g)) / resx;
                 dzdy = (( g + 2.0 * h + i) - (a + 2.0 *  b + c)) / resy;
-            } else if (algo == "Z" ) {
+            } else if (pente->algo == "Z" ) {
                 dzdx = (f - d) / resx;
                 dzdy = (h - b) / resy;
             } else {
@@ -176,9 +176,9 @@ int PenteImage::_getline ( T* buffer, int line ) {
             }
 
 
-            if (unit == "pourcent") {
+            if (pente->unit == "pourcent") {
                 slope = sqrt(pow(dzdx,2.0) + pow(dzdy,2.0)) * 100.0;
-            } else if (unit == "degree") {
+            } else if (pente->unit == "degree") {
                 rise = sqrt(pow(dzdx,2.0) + pow(dzdy,2.0));
 
                 slope = atan(rise) * 180.0 / M_PI;
@@ -187,7 +187,9 @@ int PenteImage::_getline ( T* buffer, int line ) {
                 slope = 0;
             }
 
-            if (slope>maxSlope){slope = maxSlope;}
+            if (slope > pente->max_slope) {
+                slope = pente->max_slope;
+            }
 
         }
 

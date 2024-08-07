@@ -38,17 +38,15 @@
 /**
  * \file ExtendedCompoundImage.cpp
  ** \~french
- * \brief Implémentation des classes ExtendedCompoundImage, ExtendedCompoundMask et ExtendedCompoundImageFactory
+ * \brief Implémentation des classes ExtendedCompoundImage, ExtendedCompoundMask
  * \details
  * \li ExtendedCompoundImage : image composée d'images compatibles, superposables
  * \li ExtendedCompoundMask : masque composé, associé à une image composée
- * \li ExtendedCompoundImageFactory : usine de création d'objet ExtendedCompoundImage
  ** \~english
- * \brief Implement classes ExtendedCompoundImage, ExtendedCompoundMask and ExtendedCompoundImageFactory
+ * \brief Implement classes ExtendedCompoundImage, ExtendedCompoundMask
  * \details
  * \li ExtendedCompoundImage : image compounded with superimpose images
  * \li ExtendedCompoundMask : compounded mask, associated with a compounded image
- * \li ExtendedCompoundImageFactory : factory to create ExtendedCompoundImage object
  */
 
 #include "image/ExtendedCompoundImage.h"
@@ -65,21 +63,21 @@ int ExtendedCompoundImage::_getline ( T* buffer, int line ) {
 
     // Initialisation de tous les pixels de la ligne avec la valeur de nodata
     for ( i = 0; i < width * channels; i++ ) {
-        buffer[i] = ( T ) nodata[i%channels];
+        buffer[i] = ( T ) nodata_value[i%channels];
     }
 
-    for ( i = 0; i < ( int ) sourceImages.size(); i++ ) {
+    for ( i = 0; i < ( int ) source_images.size(); i++ ) {
         
-        int lineInSource = line - rowsOffsets[i];
+        int lineInSource = line - rows_offsets[i];
         
         // On ecarte les images qui ne se trouvent pas sur la ligne
         // On evite de comparer des coordonnees terrain (comparaison de flottants)
         // Les coordonnees image sont obtenues en arrondissant au pixel le plus proche
 
-        if ( lineInSource < 0 || lineInSource >= sourceImages[i]->get_height() ) {
+        if ( lineInSource < 0 || lineInSource >= source_images[i]->get_height() ) {
             continue;
         }
-        if ( sourceImages[i]->get_xmin() >= get_xmax() || sourceImages[i]->get_xmax() <= get_xmin() ) {
+        if ( source_images[i]->get_xmin() >= get_xmax() || source_images[i]->get_xmax() <= get_xmin() ) {
             continue;
         }
 
@@ -91,9 +89,9 @@ int ExtendedCompoundImage::_getline ( T* buffer, int line ) {
         // c2 : indice de de la 1ere colonne de l'ExtendedCompoundImage dans l'image courante
         int c2 = c2s[i];
 
-        T* buffer_t = new T[sourceImages[i]->get_width() * sourceImages[i]->get_channels()];
+        T* buffer_t = new T[source_images[i]->get_width() * source_images[i]->get_channels()];
 
-        sourceImages[i]->get_line ( buffer_t,lineInSource );
+        source_images[i]->get_line ( buffer_t,lineInSource );
 
         if ( get_mask ( i ) == NULL ) {
             memcpy ( &buffer[c0*channels], &buffer_t[c2*channels], ( c1 + 1 - c0) *channels*sizeof ( T ) );
@@ -131,8 +129,7 @@ int ExtendedCompoundImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-bool ExtendedCompoundImage::addMirrors ( int mirrorSize ) {
-    MirrorImageFactory MIF;
+bool ExtendedCompoundImage::add_mirrors ( int mirrorSize ) {
     std::vector< Image*>  mirrorImages;
 
     if ( mirrorSize <= 0 ) {
@@ -140,21 +137,21 @@ bool ExtendedCompoundImage::addMirrors ( int mirrorSize ) {
         return false;
     }
 
-    if ( sourceImages.size() == 0 ) {
+    if ( source_images.size() == 0 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to add mirror : no source image" ;
         return false;
     }
 
-    for ( uint i = 0; i < sourceImages.size(); i++ ) {
+    for ( uint i = 0; i < source_images.size(); i++ ) {
         for ( int j = 0; j < 4; j++ ) {
-            MirrorImage* mirrorImage = MIF.createMirrorImage ( sourceImages.at ( i ), j, mirrorSize );
+            MirrorImage* mirrorImage = MirrorImage::create ( source_images.at ( i ), j, mirrorSize );
             if ( mirrorImage == NULL ) {
                 BOOST_LOG_TRIVIAL(error) <<  "Unable to calculate image's mirror" ;
                 return false;
             }
 
-            if ( sourceImages.at ( i )->get_mask() ) {
-                MirrorImage* mirrorMask = MIF.createMirrorImage ( sourceImages.at ( i )->get_mask(), j, mirrorSize );
+            if ( source_images.at ( i )->get_mask() ) {
+                MirrorImage* mirrorMask = MirrorImage::create ( source_images.at ( i )->get_mask(), j, mirrorSize );
                 if ( mirrorMask == NULL ) {
                     BOOST_LOG_TRIVIAL(error) <<  "Unable to calculate mask's mirror" ;
                     return false;
@@ -169,15 +166,15 @@ bool ExtendedCompoundImage::addMirrors ( int mirrorSize ) {
         }
     }
 
-    sourceImages.insert ( sourceImages.begin(),mirrorImages.begin(),mirrorImages.end() );
-    mirrorsNumber = mirrorImages.size();
+    source_images.insert ( source_images.begin(),mirrorImages.begin(),mirrorImages.end() );
+    mirrors_count = mirrorImages.size();
 
     // Mise à jour des dimensions en tenant compte des miroirs : BBOX et tailles pixel
-    for ( unsigned int j = 0; j < mirrorsNumber; j++ ) {
-        if ( sourceImages.at ( j )->get_xmin() < bbox.xmin )  bbox.xmin = sourceImages.at ( j )->get_xmin();
-        if ( sourceImages.at ( j )->get_ymin() < bbox.ymin )  bbox.ymin = sourceImages.at ( j )->get_ymin();
-        if ( sourceImages.at ( j )->get_xmax() > bbox.xmax )  bbox.xmax = sourceImages.at ( j )->get_xmax();
-        if ( sourceImages.at ( j )->get_ymax() > bbox.ymax )  bbox.ymax = sourceImages.at ( j )->get_ymax();
+    for ( unsigned int j = 0; j < mirrors_count; j++ ) {
+        if ( source_images.at ( j )->get_xmin() < bbox.xmin )  bbox.xmin = source_images.at ( j )->get_xmin();
+        if ( source_images.at ( j )->get_ymin() < bbox.ymin )  bbox.ymin = source_images.at ( j )->get_ymin();
+        if ( source_images.at ( j )->get_xmax() > bbox.xmax )  bbox.xmax = source_images.at ( j )->get_xmax();
+        if ( source_images.at ( j )->get_ymax() > bbox.ymax )  bbox.ymax = source_images.at ( j )->get_ymax();
     }
 
     width = int ( ( bbox.xmax-bbox.xmin ) / get_resx() + 0.5 );
@@ -193,12 +190,12 @@ bool ExtendedCompoundImage::addMirrors ( int mirrorSize ) {
         }
     }
     
-    calculateOffsets();
+    calculate_offsets();
 
     return true;
 }
 
-bool ExtendedCompoundImage::extendBbox ( BoundingBox< double > otherbbox, int morePix = 0 ) {
+bool ExtendedCompoundImage::extend_bbox ( BoundingBox< double > otherbbox, int morePix = 0 ) {
 
     BoundingBox<double> newBbox ( bbox );
     double nbPix;
@@ -271,14 +268,12 @@ bool ExtendedCompoundImage::extendBbox ( BoundingBox< double > otherbbox, int mo
         }
     }
     
-    calculateOffsets();
+    calculate_offsets();
 
     return true;
 }
 
-/****************************************** ExtendedCompoundImageFactory *********************************************/
-
-ExtendedCompoundImage* ExtendedCompoundImageFactory::createExtendedCompoundImage (
+ExtendedCompoundImage* ExtendedCompoundImage::create (
     std::vector<Image*>& images, int* nodata, uint mirrors ) {
 
     // On doit forcément avoir une image en entrée, car les dimensions de l'ExtendedCompoundImage sont calculée à partir des sources
@@ -319,7 +314,7 @@ ExtendedCompoundImage* ExtendedCompoundImageFactory::createExtendedCompoundImage
     return pECI;
 }
 
-ExtendedCompoundImage* ExtendedCompoundImageFactory::createExtendedCompoundImage (
+ExtendedCompoundImage* ExtendedCompoundImage::create (
     int width, int height, int channels, BoundingBox<double> bbox,
     std::vector<Image*>& images, int* nodata, uint mirrors ) {
     
@@ -361,11 +356,11 @@ int ExtendedCompoundMask::_getline ( uint8_t* buffer, int line ) {
 
     memset ( buffer,0,width );
 
-    for ( uint i = ECI->getMirrorsNumber(); i < ECI->getImages()->size(); i++ ) {
+    for ( uint i = ECI->get_mirrors_count(); i < ECI->get_images()->size(); i++ ) {
         
         int ol, c0, c1, c2;
         
-        ECI->getOffsets(i, &ol, &c0, &c1, &c2);
+        ECI->get_offsets(i, &ol, &c0, &c1, &c2);
         
         int lineInSource = line - ol;
         
@@ -373,10 +368,10 @@ int ExtendedCompoundMask::_getline ( uint8_t* buffer, int line ) {
          * On evite de comparer des coordonnees terrain (comparaison de flottants)
          * Les coordonnees image sont obtenues en arrondissant au pixel le plus proche
          */
-        if ( lineInSource < 0 || lineInSource >=  ECI->getImages()->at ( i )->get_height() ) {
+        if ( lineInSource < 0 || lineInSource >=  ECI->get_images()->at ( i )->get_height() ) {
             continue;
         }
-        if ( ECI->getImages()->at ( i )->get_xmin() >= get_xmax() || ECI->getImages()->at ( i )->get_xmax() <= get_xmin() ) {
+        if ( ECI->get_images()->at ( i )->get_xmin() >= get_xmax() || ECI->get_images()->at ( i )->get_xmax() <= get_xmin() ) {
             continue;
         }
  

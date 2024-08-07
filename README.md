@@ -92,10 +92,12 @@ int main( int argc, char *argv[] ) {
     Pyramid* p = new Pyramid("/path/to/SCAN1000.json");
     int error = 0;
     CRS* crs_dst = new CRS("EPSG:4326");
-    Image* img = p->getbbox(10, 10, BoundingBox<double>(5., 45., 6., 46.), 200, 200, crs_dst, false, Interpolation::KernelType::LANCZOS_3, 0, error);
+    Image* img = p->getbbox(
+        10, 10, BoundingBox<double>(5., 45., 6., 46.), 200, 200, crs_dst, 
+        false, Interpolation::KernelType::LANCZOS_3, 0, error
+    );
 
-    FileImageFactory FIF;
-    FileImage* output = FIF.createImageToWrite(
+    FileImage* output = FileImage::create_to_write(
         "hello.tif", img->getBbox(), img->getResX(), img->getResY(), img->getWidth(), img->getHeight(),
         p->getChannels(), p->getSampleFormat(), p->getPhotometric(), Compression::eCompression::DEFLATE
     );

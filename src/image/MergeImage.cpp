@@ -38,17 +38,15 @@
 /**
  * \file MergeImage.cpp
  ** \~french
- * \brief Implémentation des classes MergeImage, MergeImageFactory et MergeMask et du namespace Merge
+ * \brief Implémentation des classes MergeImage et MergeMask et du namespace Merge
  * \details
  * \li MergeImage : image résultant de la fusion d'images semblables, selon différents modes de composition
- * \li MergeImageFactory : usine de création d'objet MergeImage
  * \li MergeMask : masque fusionné, associé à une image fusionnée
  * \li Merge : énumère et manipule les différentes méthodes de fusion
  ** \~english
- * \brief Implement classes MergeImage, MergeImageFactory and MergeMask and the namespace Merge
+ * \brief Implement classes MergeImage and MergeMask and the namespace Merge
  * \details
  * \li MergeImage : image merged with similar images, with different merge methods
- * \li MergeImageFactory : factory to create MergeImage object
  * \li MergeMask : merged mask, associated with a merged image
  * \li Merge : enumerate and managed different merge methods
  */
@@ -147,7 +145,7 @@ int MergeImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-MergeImage* MergeImageFactory::createMergeImage ( std::vector< Image* >& images, int channels,
+MergeImage* MergeImage::create ( std::vector< Image* >& images, int channels,
         int* bgValue, int* transparentValue, Merge::eMergeType composition ) {
     if ( images.size() == 0 ) {
         BOOST_LOG_TRIVIAL(error) <<  "No source images to defined merged image" ;
@@ -180,7 +178,7 @@ int MergeMask::get_line ( uint8_t* buffer, int line ) {
 
     uint8_t* buffer_m = new uint8_t[width];
 
-    for ( uint i = 0; i < MI->getImages()->size(); i++ ) {
+    for ( uint i = 0; i < MI->get_images()->size(); i++ ) {
 
         if ( MI->get_mask ( i ) == NULL ) {
             /* L'image n'a pas de masque, on la considère comme pleine. Ca ne sert à rien d'aller voir plus loin,

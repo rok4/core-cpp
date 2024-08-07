@@ -38,15 +38,13 @@
 /**
  * \file LibopenjpegImage.h
  ** \~french
- * \brief Définition des classes LibopenjpegImage et LibopenjpegImageFactory
+ * \brief Définition des classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : gestion d'une image au format JPEG2000, en lecture, utilisant la librairie openjpeg
- * \li LibopenjpegImageFactory : usine de création d'objet LibopenjpegImage
  ** \~english
- * \brief Define classes LibopenjpegImage and LibopenjpegImageFactory
+ * \brief Define classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : manage a JPEG2000 format image, reading, using the library openjpeg
- * \li LibopenjpegImageFactory : factory to create LibopenjpegImage object
  */
 
 #ifndef LIBOPENJPEG_IMAGE_H
@@ -68,8 +66,6 @@
  * \details Une image JPEG2000 est une vraie image dans ce sens où elle est rattachée à un fichier, pour la lecture de données au format JPEG2000. La librairie utilisée est openjpeg (open source et intégrée statiquement dans le projet ROK4).
  */
 class LibopenjpegImage : public FileImage {
-    
-friend class LibopenjpegImageFactory;
     
 private:
      
@@ -114,12 +110,10 @@ private:
      */
     template<typename T>
     int _getline ( T* buffer, int line );
-
-protected:
    
     /** \~french
      * \brief Crée un objet LibopenjpegImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibopenjpegImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create_to_read, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -275,16 +269,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 
-};
-
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image JPEG2000, manipulée avec la librairie openjpeg
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibopenjpegImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibopenjpegImage et de sortir en erreur en cas de problème. Dans le cas d'une image JPEG2000 pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class LibopenjpegImageFactory {
-public:
     /** \~french
      * \brief Crée un objet LibopenjpegImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le JPEG2000, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes JPEG2000. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier JPEG2000.
@@ -307,8 +291,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibopenjpegImage object pointer, NULL if error
      */
-    LibopenjpegImage* createLibopenjpegImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
+    static LibopenjpegImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 

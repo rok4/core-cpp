@@ -72,8 +72,6 @@ private:
 
 public:
     Palette();
-    // Palette ( size_t pngPaletteSize, uint8_t* pngPalette );
-    // Palette ( const Palette& pal );
     Palette ( json11::Json doc );
 
     Palette & operator= ( const Palette& pal );

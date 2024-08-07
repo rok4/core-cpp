@@ -38,15 +38,13 @@
 /**
  * \file Rok4Image.h
  ** \~french
- * \brief Définition des classes Rok4Image et Rok4ImageFactory
+ * \brief Définition des classes Rok4Image
  * \details
  * \li Rok4Image : gestion d'une image aux spécifications ROK4 Server (TIFF tuilé), en écriture et lecture
- * \li Rok4ImageFactory : usine de création d'objet Rok4Image
  ** \~english
- * \brief Define classes Rok4Image and Rok4ImageFactory
+ * \brief Define classes Rok4Image
  * \details
  * \li Rok4Image : manage a ROK4 Server specifications image (tiled TIFF), reading and writting
- * \li Rok4ImageFactory : factory to create Rok4Image object
  */
 
 #ifndef LIBTIFF_IMAGE_H
@@ -79,8 +77,6 @@
  * Toutes les spécifications sont disponible à [cette adresse](https://github.com/rok4/rok4).
  */
 class Rok4Image : public Image {
-
-    friend class Rok4ImageFactory;
 
 private:
 
@@ -281,27 +277,14 @@ private:
      * \details Utilise la libjpeg.
      * \param[out] buffer buffer de stockage des données compressées. Doit être alloué.
      * \param[in] data données brutes (sans compression) à compresser
-     * \param[in] crop option pour le jpeg (voir #write_image)
      * \return taille utile du buffer, 0 si erreur
      * \~english \brief Compress raw data into JPEG compression
      * \details Use libjpeg
      * \param[out] buffer Storage buffer for compressed data. Have to be allocated.
      * \param[in] data raw data (no compression) to write
-     * \param[in] crop jpeg option (see #write_image)
      * \return data' size in buffer, 0 if failure
      */
-    size_t compute_jpeg_tile ( uint8_t *buffer, uint8_t *data, bool crop );
-
-    /**
-     * \~french \brief Remplit les blocs qui contiennent un pixel blanc de blanc
-     * \details Le JPEG  utilise des blocs de 16 sur 16 pour compresser. Si le blanc est réservé pour le nodata, et qu'on ne veut pas qu'il soit "sali" lors de la compression, on doit identifier les blocs contenant du blanc (nodata) et les remplir de cette couleur.
-     * \param[in,out] buffer données brutes à croper
-     * \param[in] l nombre de ligne de la tuile (buffer) à considérer (16 ou moins quand le bas de la tuile est atteint)
-     * \~english \brief Fill blocs, which contains a white pixel, with white
-     * \param[in,out] buffer raw data to crop
-     * \param[in] l number of tile's line (in buffer) to consider (16 or less when tile's bottom is reached)
-     */
-    void empty_white_block ( uint8_t *buffer, int l );
+    size_t compute_jpeg_tile ( uint8_t *buffer, uint8_t *data );
     
     /**
      * \~french \brief Compresse les données brutes en LZW
@@ -405,15 +388,13 @@ private:
      * \details L'écriture tiendra compte de la compression voulue #compression. Les tuiles doivent être écrites dans l'ordre (de gauche à droite, de haut en bas).
      * \param[in] tileInd indice de la tuile à écrire
      * \param[in] data données brutes (sans compression) à écrire
-     * \param[in] crop option pour le jpeg (voir #empty_white_block)
      * \return VRAI en cas de succès, FAUX sinon
      * \~english \brief Write a raster ROK4 image's tile
      * \param[in] tileInd tile indice
      * \param[in] data raw data (PBF) to write
-     * \param[in] crop JPEG option to empty white blocks
      * \return TRUE if success, FALSE otherwise
      */
-    bool write_tile ( int tileInd, uint8_t *data, bool crop = false );
+    bool write_tile ( int tileInd, uint8_t *data );
 
     /**
      * \~french \brief Écrit une tuile de la dalle ROK4 vecteur
@@ -428,10 +409,9 @@ private:
      */
     bool write_tile( int tileInd, char* pbfpath ) ;
 
-protected:
     /** \~french
      * \brief Crée un objet Rok4Image raster à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine Rok4ImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par les méthodes statiques de création, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -594,19 +574,7 @@ public:
      * \param[in] pIn source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int write_image ( Image* pIn ) {
-        return write_image(pIn, false);
-    }
-
-    /**
-     * \~french
-     * \brief Ecrit une image ROK4, à partir d'une image source
-     * \details Toutes les informations nécessaires à l'écriture d'une image sont dans l'objet Rok4Image, sauf les données à écrire. On renseigne cela via une seconde image. Cette méthode permet également de préciser s'il on veut "croper". Dans le cas d'une compression JPEG, on peut vouloir "vider" les blocs (16x16 pixels) contenant un pixel blanc.
-     * \param[in] pIn source des donnée de l'image à écrire
-     * \param[in] crop option de cropage, pour le jpeg
-     * \return 0 en cas de succes, -1 sinon
-     */
-    int write_image ( Image* pIn, bool crop );
+    int write_image ( Image* pIn );
 
     /**
      * \~french
@@ -693,16 +661,8 @@ public:
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write ROK4 image line by line" ;
         return -1;
     }
-    
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image ROK4
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe Rok4Image. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de Rok4Image et de sortir en erreur en cas de problème. Dans le cas d'une image pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image. Pour l'écriture, on doit tout préciser afin de constituer l'en-tête TIFF.
- */
-class Rok4ImageFactory {
-public:
+
     /** \~french
      * \brief Crée un objet Rok4Image, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le TIFF, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes TIFF. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier TIFF.
@@ -729,7 +689,7 @@ public:
      * \param[in] context storage context (file, ceph object or swift object)
      * \return a Rok4Image object pointer, NULL if error
      */
-    Rok4Image* create_image_to_read ( std::string name, BoundingBox<double> bbox, double resx, double resy, Context* context );
+    static Rok4Image* create_to_read ( std::string name, BoundingBox<double> bbox, double resx, double resy, Context* context );
 
     /** \~french
      * \brief Crée un objet Rok4Image, pour l'écriture
@@ -772,7 +732,7 @@ public:
      * \param[in] context storage context (file, ceph object or swift object)
      * \return a Rok4Image object pointer, NULL if error
      */
-    Rok4Image* create_image_to_write (
+    static Rok4Image* create_to_write (
         std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
         SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric,
         Compression::eCompression compression, int tile_width, int tile_height, Context* context
@@ -784,11 +744,10 @@ public:
      ** \~english
      * \brief Create a vecteor Rok4Image object, for writting
      */
-    Rok4Image* create_image_to_write (
+    static Rok4Image* create_to_write (
         std::string name, int tilePerWidth, int tilePerHeight, Context* context
     );
 };
-
 
 #endif
 

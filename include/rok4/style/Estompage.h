@@ -42,6 +42,8 @@
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 
+#define DEG_TO_RAD .0174532925199432958
+
 /**
  * \file Estompage.h
  * \~french
@@ -51,7 +53,9 @@
  */
 
 class Estompage : public Configuration {
-private :
+
+public:
+
     /**
      * \~french \brief Azimuth du soleil en degré
      * \~english \brief Sun's azimuth in degree
@@ -61,14 +65,27 @@ private :
      * \~french \brief Facteur d'éxagération de la pente
      * \~english \brief Slope exaggeration factor
      */
-    float zFactor;
+    float z_factor;
     /**
      * \~french \brief Zenith du soleil en degré
      * \~english \brief Sun's zenith in degree
      */
     float zenith;
 
-public:
+    /** \~french
+    * \brief noData : valeur de nodata pour l'estompage
+    ** \~english
+    * \brief noData : value of nodata for the estompage
+    */
+    double estompage_nodata_value;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    float input_nodata_value;
+
     /**
      * \~french \brief Construteur
      * \~english \brief Constructor
@@ -76,13 +93,23 @@ public:
     Estompage() {
         azimuth = 315;
         zenith = 45;
-        zFactor = 1;
+        z_factor = 1;
     };
     /**
      * \~french \brief Construteur
      * \~english \brief Constructor
      */
     Estompage(json11::Json doc) : Configuration() {
+        if (doc["image_nodata"].is_number()) {
+            input_nodata_value = doc["image_nodata"].number_value();
+        } else {
+            input_nodata_value = -99999.;
+        }
+        if (doc["estompage_nodata"].is_number()) {
+            estompage_nodata_value = doc["estompage_nodata"].number_value();
+        } else {
+            estompage_nodata_value = 0.0;
+        }
         if (doc["zenith"].is_number()) {
             zenith = doc["no_alpha"].number_value();
         } else {
@@ -94,10 +121,14 @@ public:
             azimuth = 315;
         }
         if (doc["z_factor"].is_number()) {
-            zFactor = doc["z_factor"].number_value();
+            z_factor = doc["z_factor"].number_value();
         } else {
-            zFactor = 1;
+            z_factor = 1;
         }
+
+        // azimuth et azimuth sont converti en leur complémentaire en radian
+        zenith = (90.0 - zenith) * DEG_TO_RAD;
+        azimuth = (360.0 - azimuth ) * DEG_TO_RAD;
     };
     /**
      * \~french \brief Construteur
@@ -106,50 +137,13 @@ public:
     Estompage(const Estompage &obj) : Configuration() {
         azimuth = obj.azimuth;
         zenith = obj.zenith;
-        zFactor = obj.zFactor;
+        z_factor = obj.z_factor;
     };
     /**
      * \~french \brief Destructeur
      * \~english \brief Destructor
      */
     ~Estompage() {};
-
-
-    /**
-     * \~french
-     * \brief Retourne le zenith du soleil
-     * \return zenith
-     * \~english
-     * \brief Return the sun zenith
-     * \return zenith
-     */
-    inline float getZenith() {
-        return zenith;
-    }
-
-    /**
-     * \~french
-     * \brief Retourne l'azimuth du soleil
-     * \return azimuth
-     * \~english
-     * \brief Return the sun azimuth
-     * \return azimuth
-     */
-    inline float getAzimuth() {
-        return azimuth;
-    }
-
-    /**
-     * \~french
-     * \brief Retourne le facteur d'exageration de la pente
-     * \return zFactor
-     * \~english
-     * \brief Return the exageration factor of the slope
-     * \return zFactor
-     */
-    inline float getZFactor() {
-        return zFactor;
-    }
 
 };
 

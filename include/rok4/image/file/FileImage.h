@@ -38,15 +38,13 @@
 /**
  * \file FileImage.h
  ** \~french
- * \brief Définition des classes FileImage et FileImageFactory
+ * \brief Définition de la classe FileImage
  * \details
  * \li FileImage : gestion d'un image attachée à un fichier
- * \li FileImageFactory : usine de création d'objet FileImage
  ** \~english
- * \brief Define classes FileImage and FileImageFactory
+ * \brief Define classe FileImage
  * \details
  * \li FileImage : manage an image linked to a file
- * \li FileImageFactory : factory to create FileImage object
  */
 
 #ifndef FILEIMAGE_H
@@ -406,16 +404,6 @@ public:
         }
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image associée à un fichier
- * \details Il est nécessaire de passer par cette classe pour créer des objets d'une classe fille de la classe FileImage. Cela permet de savoir de quelle classe fille instancier un objet, selon l'extension du chemin fourni.
- */
-class FileImageFactory {
-
-public:
 
     /** \~french
      * \brief Crée un objet FileImage, pour la lecture
@@ -434,7 +422,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a FileImage's child class object pointer, NULL if error
      */
-    FileImage* create_image_to_read ( std::string filename, BoundingBox<double> bbox = BoundingBox<double>(0,0,0,0), double resx = -1, double resy = -1 );
+    static FileImage* create_to_read ( std::string filename, BoundingBox<double> bbox = BoundingBox<double>(0,0,0,0), double resx = -1, double resy = -1 );
 
     /** \~french
      * \brief Crée un objet FileImage, pour l'écriture
@@ -465,11 +453,10 @@ public:
      * \param[in] compression data compression
      * \return a FileImage's child class object pointer, NULL if error
      */
-    FileImage* create_image_to_write (
+    static FileImage* create_to_write (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height,
         int channels, SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression
-    );
-
+    );    
 };
 
 

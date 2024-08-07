@@ -42,7 +42,6 @@
 #include "utils/Utils.h"
 #include <cstring>
 #include <cmath>
-#define DEG_TO_RAD      .0174532925199432958
 
 
 int EstompageImage::get_line ( float* buffer, int line ) {
@@ -59,7 +58,7 @@ int EstompageImage::get_line ( uint8_t* buffer, int line ) {
 
 EstompageImage::EstompageImage (Image *image, Estompage* est) :
     Image ( image->get_width() - 2, image->get_height() - 2, 1),
-    source_image ( image ), zFactor (est->getZFactor()) {
+    source_image ( image ), estompage (est) {
 
     // On réduit la bbox d'un pixel de chaque côté
     BoundingBox<double> bb = source_image->get_bbox();
@@ -83,9 +82,6 @@ EstompageImage::EstompageImage (Image *image, Estompage* est) :
         source_lines[i] = -1;
     }
     source_lines_buffer = new float[source_image->get_width() * memorized_source_lines];
-
-    zenith = 90.0 - est->getZenith() * DEG_TO_RAD;
-    azimuth = (360.0 - est->getAzimuth() ) * DEG_TO_RAD;
 }
 
 EstompageImage::~EstompageImage() {
@@ -130,7 +126,7 @@ int EstompageImage::_getline ( T* buffer, int line ) {
         source_lines[(line + 2) % memorized_source_lines] = line + 2;
     }
 
-    int columnOrig = 1;
+    int column_orig = 1;
     int column = 0;
     double value;
     float dzdx,dzdy,slope,aspect;
@@ -138,41 +134,45 @@ int EstompageImage::_getline ( T* buffer, int line ) {
 
     while ( column < width ) {
 
-        a = ( * ( line1+columnOrig-1 ) );
-        b = ( * ( line1+columnOrig ) );
-        c = ( * ( line1+columnOrig+1 ) );
-        d = ( * ( line2+columnOrig-1 ) );
-        e = ( * ( line2+columnOrig ) );
-        f = ( * ( line2+columnOrig+1 ) );
-        g = ( * ( line3+columnOrig-1 ) );
-        h = ( * ( line3+columnOrig ) );
-        i = ( * ( line3+columnOrig+1 ) );
+        a = ( * ( line1+column_orig-1 ) );
+        b = ( * ( line1+column_orig ) );
+        c = ( * ( line1+column_orig+1 ) );
+        d = ( * ( line2+column_orig-1 ) );
+        e = ( * ( line2+column_orig ) );
+        f = ( * ( line2+column_orig+1 ) );
+        g = ( * ( line3+column_orig-1 ) );
+        h = ( * ( line3+column_orig ) );
+        i = ( * ( line3+column_orig+1 ) );
 
-        dzdx = ((c + 2*f + i) - (a + 2*d + g)) / (8 * resxmeter);
-        dzdy = ((g + 2*h + i) - (a + 2*b + c)) / (8 * resymeter);
-        
-        slope = atan(zFactor * sqrt(dzdx*dzdx+dzdy*dzdy));
-
-        if (dzdx != 0) {
-            aspect = atan2(dzdy,-dzdx);
-            if (aspect < 0) {
-                aspect = 2 * M_PI + aspect;
-            } else {
-
-            }
+        if (a == estompage->input_nodata_value || b == estompage->input_nodata_value || c == estompage->input_nodata_value || d == estompage->input_nodata_value || e == estompage->input_nodata_value ||
+                f == estompage->input_nodata_value || g == estompage->input_nodata_value || h == estompage->input_nodata_value || i == estompage->input_nodata_value) {
+            value = estompage->estompage_nodata_value;
         } else {
-            if (dzdy > 0) {
-                aspect = M_PI_2;
+
+            dzdx = ((c + 2*f + i) - (a + 2*d + g)) / (8 * resxmeter);
+            dzdy = ((g + 2*h + i) - (a + 2*b + c)) / (8 * resymeter);
+            
+            slope = atan(estompage->z_factor * sqrt(dzdx*dzdx+dzdy*dzdy));
+
+            if (dzdx != 0) {
+                aspect = atan2(dzdy,-dzdx);
+                if (aspect < 0) {
+                    aspect = 2 * M_PI + aspect;
+                }
             } else {
-                aspect = 2 * M_PI - M_PI_2;
+                if (dzdy > 0) {
+                    aspect = M_PI_2;
+                } else {
+                    aspect = 2 * M_PI - M_PI_2;
+                }
             }
+
+            value = 255.0 * ((cos(estompage->zenith) * cos(slope)) + (sin(estompage->zenith) * sin(slope) * cos(estompage->azimuth - aspect)));
+            if (value < 0) {value = estompage->estompage_nodata_value;}
         }
 
-        value = 255.0 * ((cos(zenith) * cos(slope)) + (sin(zenith) * sin(slope) * cos(azimuth - aspect)));
-        if (value<0) {value = 0;}
-
         * ( buffer + ( column++ ) ) = ( T ) ( value );
-        columnOrig++;
+        column_orig++;
     }
 
     return width * sizeof(T);

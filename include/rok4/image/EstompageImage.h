@@ -71,10 +71,6 @@ private:
     */
     int* source_lines;
 
-    float zenith;
-    float azimuth;
-    float zFactor;
-
     /** \~french
     * \brief Résolution de l'image en X, en mètre
     ** \~english
@@ -88,6 +84,13 @@ private:
     * \brief Resolution of the image (Y), in meter
     */
     float resymeter;
+
+    /** \~french
+    * \brief Configuration de l'estompage
+    ** \~english
+    * \brief Estompage configuration
+    */
+    Estompage* estompage;
 
     /** \~french
     * \brief Calcule la ligne
@@ -113,9 +116,9 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ EstompageImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Zenith = " << zenith ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Azimuth = " << azimuth ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Z factor = " << zFactor ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Zenith = " << estompage->zenith ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Azimuth = " << estompage->azimuth ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Z factor = " << estompage->z_factor ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

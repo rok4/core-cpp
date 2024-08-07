@@ -90,40 +90,11 @@ private:
     float resymeter;
 
     /** \~french
-    * \brief algo : choix de l'algorithme de calcul de pentes par l'utilisateur ("H" pour Horn)
+    * \brief Configuration de la pente
     ** \~english
-    * \brief algo : slope calculation algorithm chosen by the user ("H" for Horn)
+    * \brief Slope configuration
     */
-    std::string algo;
-
-    /** \~french
-    * \brief unit : unité de la pente
-    ** \~english
-    * \brief unit : slope unit
-    */
-    std::string unit;
-
-    /** \~french
-    * \brief slopeNoData : noData de la pente
-    ** \~english
-    * \brief slopeNoData : slope noData
-    */
-    int slopeNoData;
-
-    /** \~french
-    * \brief imgNoData : noData de l'image
-    ** \~english
-    * \brief imgNoData : image noData
-    */
-    float imgNoData;
-
-    /** \~french
-    * \brief maxSlope : max de la pente
-    ** \~english
-    * \brief maxSlope : max slope
-    */
-    int maxSlope;
-
+    Pente* pente;
 
     /** \~french
     * \brief Calcule la ligne
@@ -179,11 +150,11 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ PenteImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << algo ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Unit = " << unit ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- max Slope = " << maxSlope ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Slope nodata = " << slopeNoData ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Image nodata = " << imgNoData ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << pente->algo ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Unit = " << pente->unit ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- max Slope = " << pente->max_slope ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Slope nodata = " << pente->slope_nodata_value ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Image nodata = " << pente->input_nodata_value ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

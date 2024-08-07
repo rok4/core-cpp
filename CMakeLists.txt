@@ -68,6 +68,7 @@ file(GLOB LIBROK4_SRCS
     "src/image/*.cpp"
     "src/image/file/*.cpp"
     "src/storage/*.cpp"
+    "src/thirdparty/*.cpp"
 )
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJ_INCLUDE_DIR} ${TURBOJPEG_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR} ${CURL_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${BOOSTLOG_INCLUDE_DIR})

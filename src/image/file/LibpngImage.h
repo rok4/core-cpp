@@ -38,15 +38,13 @@
 /**
  * \file LibpngImage.h
  ** \~french
- * \brief Définition des classes LibpngImage et LibpngImageFactory
+ * \brief Définition des classes LibpngImage
  * \details
  * \li LibpngImage : gestion d'une image au format PNG, en lecture, utilisant la librairie libpng
- * \li LibpngImageFactory : usine de création d'objet LibpngImage
  ** \~english
- * \brief Define classes LibpngImage and LibpngImageFactory
+ * \brief Define classes LibpngImage
  * \details
  * \li LibpngImage : manage a PNG format image, reading, using the library libpng
- * \li LibpngImageFactory : factory to create LibpngImage object
  */
 
 #ifndef LIBPNG_IMAGE_H
@@ -75,8 +73,6 @@
  */
 class LibpngImage : public FileImage {
 
-    friend class LibpngImageFactory;
-
 private:
 
     /**
@@ -94,10 +90,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );    
 
-protected:
     /** \~french
      * \brief Crée un objet LibpngImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibpngImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create_to_read, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -248,15 +243,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibpngImage ------------" ;
         FileImage::print();
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image PNG
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibpngImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibpngImage et de sortir en erreur en cas de problème. Dans le cas d'une image PNG pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class LibpngImageFactory {
-public:
     /** \~french
      * \brief Crée un objet LibpngImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le PNG, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes PNG. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier PNG.
@@ -279,9 +266,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibpngImage object pointer, NULL if error
      */
-    LibpngImage* createLibpngImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
-
+    static LibpngImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 

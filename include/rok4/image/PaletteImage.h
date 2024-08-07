@@ -45,7 +45,6 @@ class PaletteImage : public Image {
 private:
     Image* source_image;
     Palette* palette;
-    int channels;
 
     template<typename T>
     int _getline ( T* buffer, int line );

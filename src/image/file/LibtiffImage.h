@@ -38,15 +38,13 @@
 /**
  * \file LibtiffImage.h
  ** \~french
- * \brief Définition des classes LibtiffImage et LibtiffImageFactory
+ * \brief Définition des classes LibtiffImage
  * \details
  * \li LibtiffImage : gestion d'une image au format TIFF, en écriture et lecture, utilisant la librairie libtiff
- * \li LibtiffImageFactory : usine de création d'objet LibtiffImage
  ** \~english
- * \brief Define classes LibtiffImage and LibtiffImageFactory
+ * \brief Define classes LibtiffImage
  * \details
  * \li LibtiffImage : manage a TIFF format image, reading and writting, using the library libtiff
- * \li LibtiffImageFactory : factory to create LibtiffImage object
  */
 
 #ifndef LIBTIFF_IMAGE_H
@@ -71,8 +69,6 @@
  * \todo Utiliser le code de la classe TiffReader pour permettre à LibtiffImage de lire des images tuilées.
  */
 class LibtiffImage : public FileImage {
-
-    friend class LibtiffImageFactory;
 
 private:
     /**
@@ -138,10 +134,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet LibtiffImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibtiffImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par les méthodes statiques de création, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -179,7 +174,7 @@ protected:
     
     /** \~french
      * \brief Crée un objet LibtiffImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibtiffImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par les méthodes statiques de création, qui fera différents tests et calculs.
      * Les informations sur l'image sont passée au format TIFF (entiers), et sont convertis au format de la libimage (utilisant les enumérations SampleFormat, Compression et Photometric) par le constructeur. Cela permet de détecter le besoin de convertir à la volée les canaux sur 1 bit en 8 bits.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
@@ -316,15 +311,8 @@ public:
         if (oneTo8bits == 2) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is black)";
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image TIFF
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibtiffImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibtiffImage et de sortir en erreur en cas de problème. Dans le cas d'une image TIFF pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image. Pour l'écriture, on doit tout préciser afin de constituer l'en-tête TIFF.
- */
-class LibtiffImageFactory {
-public:
+
     /** \~french
      * \brief Crée un objet LibtiffImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le TIFF, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes TIFF. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier TIFF.
@@ -347,7 +335,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibtiffImage object pointer, NULL if error
      */
-    LibtiffImage* createLibtiffImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
+    static LibtiffImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 
     /** \~french
      * \brief Crée un objet LibtiffImage, pour l'écriture
@@ -385,12 +373,13 @@ public:
      * \param[in] rowsperstrip data buffering size, in line number
      * \return a LibtiffImage object pointer, NULL if error
      */
-    LibtiffImage* createLibtiffImageToWrite (
+    static LibtiffImage* create_to_write (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
         SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric,
         Compression::eCompression compression, uint16_t rowsperstrip = 16
     );
 };
+
 
 #endif
 

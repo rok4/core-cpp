@@ -6,3 +6,5 @@
 * Suppression de la gestion de la compilation avec la librairie Kakadu
 * Passage complet en snake case
 * Internalisation de la lib json
+* Suppression des factory pour les classes filles de Image
+* Suppression de la fonctionnalité de crop dans Rok4Image

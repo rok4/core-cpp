@@ -63,6 +63,9 @@ bool Style::parse(json11::Json& doc) {
     estompage = 0;
     palette = 0;
 
+    input_nodata_value = NULL;
+    output_nodata_value = NULL;
+
     // Chargement
 
     if (doc["identifier"].is_string()) {
@@ -145,6 +148,9 @@ Style::Style ( std::string path ) : Configuration(path) {
     palette = 0;
     aspect = 0;
 
+    input_nodata_value = NULL;
+    output_nodata_value = NULL;
+
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
     ContextType::split_path(path, storage_type, fo_name, tray_name);
@@ -193,6 +199,54 @@ Style::Style ( std::string path ) : Configuration(path) {
     if (! parse(doc)) {
         return;
     }
+
+
+    // Input nodata
+    if (estompage_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) estompage->input_nodata_value;
+    }
+    else if (aspect_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) aspect->input_nodata_value;
+    }
+    else if (pente_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) pente->input_nodata_value;
+    } 
+    else if (palette && ! palette->is_empty()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) palette->getColoursMap()->begin()->first;
+    }
+
+    // Output nodata
+    if (palette && ! palette->is_empty()) {
+        Colour c = palette->getColoursMap()->begin()->second;
+        if (palette->is_no_alpha()) {
+            output_nodata_value = new int[3];
+            output_nodata_value[0] = c.r;
+            output_nodata_value[1] = c.g;
+            output_nodata_value[2] = c.b;
+        } else {
+            output_nodata_value = new int[4];
+            output_nodata_value[0] = c.r;
+            output_nodata_value[1] = c.g;
+            output_nodata_value[2] = c.b;
+            output_nodata_value[3] = c.a;
+        }
+    }
+    else if (estompage_defined()) {
+            output_nodata_value = new int[1];
+            output_nodata_value[0] = (int) estompage->estompage_nodata_value;
+    }
+    else if (aspect_defined()) {
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) aspect->aspect_nodata_value;
+    }
+    else if (pente_defined()) {
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) pente->slope_nodata_value;
+    }
 }
 
 Style::~Style() {
@@ -207,5 +261,11 @@ Style::~Style() {
     }
     if (aspect != 0) {
         delete aspect;
+    }
+    if (input_nodata_value != NULL) {
+        delete[] input_nodata_value;
+    }
+    if (output_nodata_value != NULL) {
+        delete[] output_nodata_value;
     }
 }

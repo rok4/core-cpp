@@ -154,23 +154,13 @@ void Palette::buildPalettePNG() {
         Colour tmp;
         for ( int i =0; i < numberColor; i++ ) {
             tmp = colours.at ( i );
-            /*pngPalette[3*i+8]  = 256 - colours.at(i).r;
-            pngPalette[3*i+9]  = 256 - colours.at(i).g;
-            pngPalette[3*i+10] = 256 - colours.at(i).b;
-            pngPalette[paletteLenght+12+i+8] = 256 - colours.at(i).a;*/
 
             pngPalette[3*i+8]  = tmp.r;
             pngPalette[3*i+9]  = tmp.g;
             pngPalette[3*i+10] = tmp.b;
-            if (!noAlpha){
+            if (!noAlpha) {
                 pngPalette[paletteLenght+12+i+8] = tmp.a;
             }
-
-
-            /*pngPalette[3*i+8]  = i + ((255 - i)*currentColour.r + 127) / 255;
-            pngPalette[3*i+9]  = i + ((255 - i)*currentColour.g + 127) / 255;
-            pngPalette[3*i+10] = i + ((255 - i)*currentColour.b + 127) / 255;
-            pngPalette[paletteLenght+12+i+8] = i + ((255 - i)*currentColour.a + 127) / 255;*/
         }
         uint32_t crcPLTE = crc32 ( 0, Z_NULL, 0 );
         crcPLTE = crc32 ( crcPLTE, pngPalette + 4, paletteLenght+4 );

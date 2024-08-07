@@ -454,8 +454,7 @@ Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox
             return fond;
         }
 
-        ExtendedCompoundImageFactory facto;
-        return facto.createExtendedCompoundImage ( width, height, channels, bbox, images, nodata_value, 0 );
+        return ExtendedCompoundImage::create ( width, height, channels, bbox, images, nodata_value, 0 );
         
     } else {
 

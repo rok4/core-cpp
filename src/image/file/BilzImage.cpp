@@ -38,15 +38,13 @@
 /**
  * \file BilzImage.cpp
  ** \~french
- * \brief Implémentation des classes BilzImage et BilzImageFactory
+ * \brief Implémentation des classes BilzImage
  * \details
  * \li BilzImage : gestion d'une image au format PNG, en lecture
- * \li BilzImageFactory : usine de création d'objet BilzImage
  ** \~english
- * \brief Implement classes BilzImage and BilzImageFactory
+ * \brief Implement classes BilzImage
  * \details
  * \li BilzImage : manage a (Z)BIL format image, reading
- * \li BilzImageFactory : factory to create BilzImage object
  */
 
 #include "image/file/BilzImage.h"
@@ -58,7 +56,7 @@
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-BilzImage* BilzImageFactory::createBilzImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+BilzImage* BilzImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
         
     
     /************** RECUPERATION DES INFORMATIONS **************/

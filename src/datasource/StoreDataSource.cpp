@@ -38,15 +38,13 @@
  /**
  * \file StoreDataSource.cpp
  ** \~french
- * \brief Implémentation des classes StoreDataSource et StoreDataSourceFactory
+ * \brief Implémentation des classes StoreDataSource
  * \details
  * \li StoreDataSource : Permet de lire de la donnée quelque soit le type de stockage
- * \li StoreDataSourceFactory : usine de création d'objet StoreDataSource
  ** \~english
- * \brief Implements classes StoreDataSource and StoreDataSourceFactory
+ * \brief Implements classes StoreDataSource
  * \details
  * \li StoreDataSource : To read data, whatever the storage type
- * \li StoreDataSourceFactory : factory to create StoreDataSource object
  */
 
 #include "datasource/StoreDataSource.h"

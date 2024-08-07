@@ -38,15 +38,13 @@
 /**
  * \file LibpngImage.cpp
  ** \~french
- * \brief Implémentation des classes LibpngImage et LibpngImageFactory
+ * \brief Implémentation des classes LibpngImage
  * \details
  * \li LibpngImage : gestion d'une image au format PNG, en lecture, utilisant la librairie libpng
- * \li LibpngImageFactory : usine de création d'objet LibpngImage
  ** \~english
- * \brief Implement classes LibpngImage and LibpngImageFactory
+ * \brief Implement classes LibpngImage
  * \details
  * \li LibpngImage : manage a PNG format image, reading, using the library libpng
- * \li LibpngImageFactory : factory to create LibpngImage object
  */
 
 #include "image/file/LibpngImage.h"
@@ -79,7 +77,7 @@ static Photometric::ePhotometric toROK4Photometric ( png_byte ph ) {
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibpngImage* LibpngImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
 
     png_structp pngStruct;

@@ -38,17 +38,15 @@
 /**
  * \file MergeImage.h
  ** \~french
- * \brief Définition des classes MergeImage, MergeImageFactory et MergeMask et du namespace Merge
+ * \brief Définition des classes MergeImage et MergeMask et du namespace Merge
  * \details
  * \li MergeImage : image résultant de la fusion d'images semblables, selon différents modes de composition
- * \li MergeImageFactory : usine de création d'objet MergeImage
  * \li MergeMask : masque fusionné, associé à une image fusionnée
  * \li Merge : énumère et manipule les différentes méthodes de fusion
  ** \~english
- * \brief Define classes MergeImage, MergeImageFactory and MergeMask and the namespace Merge
+ * \brief Define classes MergeImage and MergeMask and the namespace Merge
  * \details
  * \li MergeImage : image merged with similar images, with different merge methods
- * \li MergeImageFactory : factory to create MergeImage object
  * \li MergeMask : merged mask, associated with a merged image
  * \li Merge : enumerate and managed different merge methods
  */
@@ -124,8 +122,6 @@ std::string to_string ( eMergeType mergeMethod );
  */
 class MergeImage : public Image {
 
-    friend class MergeImageFactory;
-
 private:
 
     /**
@@ -165,11 +161,9 @@ private:
     template <typename tBuf>
     int _getline ( tBuf* buffer, int line );
 
-protected:
-
     /** \~french
      * \brief Crée un objet MergeImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine MergeImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] images images sources
      * \param[in] channel nombre de canaux par pixel en sortie
      * \param[in] bgValue valeur de pixel à utiliser comme fond, un entier par canal en sortie
@@ -212,7 +206,7 @@ public:
      * \brief Return the array of source images
      * \return source images
      */
-    std::vector<Image*>* getImages() {
+    std::vector<Image*>* get_images() {
         return &images;
     }
 
@@ -260,18 +254,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- Merge method : " << to_string ( composition ) << "\n" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Background value : " << bgValue << "\n" ;
     }
-};
-
-
-
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image fusionnée
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe MergeImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de MergeImage et de sortir en erreur en cas de problème.
- */
-class MergeImageFactory {
-public:
 
     /** \~french
      * \brief Teste et calcule les caractéristiques d'une image fusionnée et crée un objet MergeImage
@@ -290,9 +272,11 @@ public:
      * \param[in] transparentValue pixel's value to consider as transparent, 3 integers
      * \param[in] composition merge method to use
      */
-    MergeImage* createMergeImage ( std::vector< Image* >& images, int channels,
+    static MergeImage* create ( std::vector< Image* >& images, int channels,
                                    int* bgValue, int* transparentValue, Merge::eMergeType composition = Merge::NORMAL );
 };
+
+
 
 /**
  * \author Institut national de l'information géographique et forestière

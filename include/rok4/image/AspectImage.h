@@ -56,13 +56,6 @@ private:
     Image* source_image;
 
     /** \~french
-    * \brief Buffer contenant l'exposition calculée
-    ** \~english
-    * \brief Buffer of the aspect
-    */
-    float* aspect;
-
-    /** \~french
     * \brief Nombre de ligne en mémoire
     ** \~english
     * \brief Memorize lines number
@@ -98,19 +91,11 @@ private:
     float resolution;
 
     /** \~french
-    * \brief algo : choix de l'algorithme de calcul d'expositions  par l'utilisateur ("H" pour Horn)
+    * \brief Configuration de l'aspect
     ** \~english
-    * \brief algo : aspect calculation algorithm chosen by the user ("H" for Horn)
+    * \brief Aspect configuration
     */
-    std::string algo;
-
-    /** \~french
-    * \brief min_slope : indique la valeur de pente à partir de laquelle l'exposition est calculee
-    ** \~english
-    * \brief min_slope : indicate the value of slope from which aspect is computed
-    */
-    float min_slope;
-
+    Aspect* aspect;
 
     /** \~french
     * \brief Récupère la ligne
@@ -166,8 +151,8 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ AspectImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << algo ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- min Slope = " << min_slope ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << aspect->algo ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- min Slope = " << aspect->min_slope ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

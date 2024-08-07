@@ -328,8 +328,7 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
         return true;
     }
 
-    FileImageFactory FIF;
-    FileImage* source_image = FIF.create_image_to_read(inputImage);
+    FileImage* source_image = FileImage::create_to_read(inputImage);
 
     if ( source_image == NULL )  {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot create the input image "<< inputImage ;
@@ -395,7 +394,7 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
      * même si un chemin d'image différent est fourni pour la sortie */
     if ( remove_target_value || new_nodata_value ) {
 
-        FileImage* destImage = FIF.create_image_to_write(
+        FileImage* destImage = FileImage::create_to_write(
             outputImage, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
             samplesperpixel, sample_format, photometric, compression
         );
@@ -418,7 +417,7 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
     /**************** Ecriture du masque ? ****************/
     if ( outputMask ) {
         if (containNodata) {
-            FileImage* destMask = FIF.create_image_to_write(
+            FileImage* destMask = FileImage::create_to_write(
                 outputMask, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
                 1, SampleFormat::UINT8, Photometric::MASK, Compression::DEFLATE
             );

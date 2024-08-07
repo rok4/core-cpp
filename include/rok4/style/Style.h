@@ -164,6 +164,18 @@ private :
      */
     Estompage* estompage;
 
+    /**
+     * \~french \brief Valeur de nodata attendue dans les données en entrée
+     * \~english \brief Nodata value expected in input data
+     */
+    int* input_nodata_value;
+
+    /**
+     * \~french \brief Valeur de nodata après style
+     * \~english \brief Style nodata value
+     */
+    int* output_nodata_value;
+
     bool parse(json11::Json& doc);
 
 public:
@@ -252,32 +264,16 @@ public:
      * \~french \brief Valeur de nodata après style
      * \~english \brief Style nodata value
      */
-    int get_nodata (int** nodata) {
-        if (palette && ! palette->is_empty()) {
-            Colour c = palette->getColoursMap()->begin()->second;
-            if (palette->is_no_alpha()) {
-                (*nodata) = new int[3];
-                (*nodata)[0] = c.r;
-                (*nodata)[1] = c.g;
-                (*nodata)[2] = c.b;
-                return 3;
-            } else {
-                (*nodata) = new int[4];
-                (*nodata)[0] = c.r;
-                (*nodata)[1] = c.g;
-                (*nodata)[2] = c.b;
-                (*nodata)[3] = c.a;
-                return 4;
-            }
-        } else {
-            if (estompage_defined() || pente_defined() || aspect_defined()) {
-                (*nodata) = new int[1];
-                (*nodata)[0] = 0;
-                return 1;
-            } else {
-                return 0;
-            }
-        }
+    int* get_output_nodata_value () {
+        return output_nodata_value;
+    }
+
+    /**
+     * \~french \brief Valeur de nodata attendue dans les données en entrée
+     * \~english \brief Nodata value expected in input data
+     */
+    int* get_input_nodata_value () {
+        return input_nodata_value;
     }
 
     /**

@@ -38,15 +38,13 @@
 /**
  * \file LibjpegImage.h
  ** \~french
- * \brief Définition des classes LibjpegImage et LibjpegImageFactory
+ * \brief Définition des classes LibjpegImage
  * \details
  * \li LibjpegImage : gestion d'une image au format JPEG, en lecture, utilisant la librairie libjpeg
- * \li LibjpegImageFactory : usine de création d'objet LibjpegImage
  ** \~english
- * \brief Define classes LibjpegImage and LibjpegImageFactory
+ * \brief Define classes LibjpegImage
  * \details
  * \li LibjpegImage : manage a JPEG format image, reading, using the library libjpeg
- * \li LibjpegImageFactory : factory to create LibjpegImage object
  */
 
 #ifndef LIBJPEG_IMAGE_H
@@ -74,8 +72,6 @@
  */
 class LibjpegImage : public FileImage {
 
-    friend class LibjpegImageFactory;
-
 private:
 
     /**
@@ -96,7 +92,7 @@ private:
 protected:
     /** \~french
      * \brief Crée un objet LibjpegImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibjpegImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create_to_read, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -107,7 +103,7 @@ protected:
      * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
-     * \param[in] pngData image complète, dans un tableau
+     * \param[in] data image complète, dans un tableau
      ** \~english
      * \brief Create a LibjpegImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -120,7 +116,7 @@ protected:
      * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
-     * \param[in] pngData whole image, in an array
+     * \param[in] data whole image, in an array
      */
     LibjpegImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
@@ -247,15 +243,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibjpegImage ------------" ;
         FileImage::print();
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image JPEG
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibjpegImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibjpegImage et de sortir en erreur en cas de problème. Dans le cas d'une image JPEG pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class LibjpegImageFactory {
-public:
     /** \~french
      * \brief Crée un objet LibjpegImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le JPEG, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes JPEG. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier JPEG.
@@ -278,8 +266,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibjpegImage object pointer, NULL if error
      */
-    LibjpegImage* createLibjpegImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
+    static LibjpegImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 

@@ -38,15 +38,13 @@
 /**
  * \file LibtiffImage.cpp
  ** \~french
- * \brief Implémentation des classes LibtiffImage et LibtiffImageFactory
+ * \brief Implémentation des classes LibtiffImage
  * \details
  * \li LibtiffImage : image physique, attaché à un fichier
- * \li LibtiffImageFactory : usine de création d'objet LibtiffImage
  ** \~english
- * \brief Implement classes LibtiffImage and LibtiffImageFactory
+ * \brief Implement classes LibtiffImage
  * \details
  * \li LibtiffImage : physical image, linked to a file
- * \li LibtiffImageFactory : factory to create LibtiffImage object
  */
 
 #include "image/file/LibtiffImage.h"
@@ -187,7 +185,7 @@ static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     int width=0, height=0, channels=0, planarconfig=0, bitspersample=0, sf=0, ph=0, comp=0, rowsperstrip=0;
     bool tiled = false, palette = false;
@@ -330,7 +328,7 @@ LibtiffImage* LibtiffImageFactory::createLibtiffImageToRead ( std::string filena
 
 /* ----- Pour l'écriture ----- */
 
-LibtiffImage* LibtiffImageFactory::createLibtiffImageToWrite (
+LibtiffImage* LibtiffImage::create_to_write (
     std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
     SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric,
     Compression::eCompression compression, uint16_t rowsperstrip ) {

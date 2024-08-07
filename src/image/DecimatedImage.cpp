@@ -38,17 +38,15 @@
 /**
  * \file DecimatedImage.cpp
  ** \~french
- * \brief Implémentation des classes DecimatedImage, DecimatedMask et DecimatedImageFactory
+ * \brief Implémentation des classes DecimatedImage, DecimatedMask
  * \details
  * \li DecimatedImage : image calculée à  d'images compatibles, superposables
  * \li DecimatedMask : masque composé, associé à une image composée
- * \li DecimatedImageFactory : usine de création d'objet DecimatedImage
  ** \~english
- * \brief Implement classes DecimatedImage, DecimatedMask and DecimatedImageFactory
+ * \brief Implement classes DecimatedImage, DecimatedMask
  * \details
  * \li DecimatedImage : image compounded with superimpose images
  * \li DecimatedMask : compounded mask, associated with a compounded image
- * \li DecimatedImageFactory : factory to create DecimatedImage object
  */
 
 #include "image/DecimatedImage.h"
@@ -190,10 +188,7 @@ DecimatedImage::DecimatedImage ( int width, int height, int channels, double res
     
 }
 
-
-/****************************************** DecimatedImageFactory *********************************************/
-
-DecimatedImage* DecimatedImageFactory::create_image_to_read ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata ) {
+DecimatedImage* DecimatedImage::create ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata ) {
 
     if ( image == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "No source image to define decimated image" ;

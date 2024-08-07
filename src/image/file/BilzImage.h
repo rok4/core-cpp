@@ -38,15 +38,13 @@
 /**
  * \file BilzImage.h
  ** \~french
- * \brief Définition des classes BilzImage et BilzImageFactory
+ * \brief Définition des classes BilzImage
  * \details
  * \li BilzImage : gestion d'une image au format (Z)bil, en lecture
- * \li BilzImageFactory : usine de création d'objet BilzImage
  ** \~english
- * \brief Define classes BilzImage and BilzImageFactory
+ * \brief Define classes BilzImage
  * \details
  * \li BilzImage : manage a (Z)bil format image, reading
- * \li BilzImageFactory : factory to create BilzImage object
  */
 
 #ifndef BILZ_IMAGE_H
@@ -74,8 +72,6 @@
  */
 class BilzImage : public FileImage {
 
-    friend class BilzImageFactory;
-
 private:
 
     /**
@@ -102,10 +98,9 @@ private:
      template<typename T>
      int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet BilzImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine BilzImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -255,15 +250,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- BilzImage ------------" ;
         FileImage::print();
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image (Z)BIL
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe BilzImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de BilzImage et de sortir en erreur en cas de problème. Dans le cas d'une image (Z)BIL pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class BilzImageFactory {
-public:
     /** \~french
      * \brief Crée un objet BilzImage, pour la lecture
      * \details L'emprise et les résolutions ne sont pas récupérées dans le fichier HRD associé à l'image (Z)BIL, on les précise donc à l'usine. Tout le reste sera lu dans le fichier HDR. On vérifiera aussi la cohérence entre les emprises et résolutions fournies et les dimensions récupérées dans le fichier HDR.
@@ -286,8 +273,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a BilzImage object pointer, NULL if error
      */
-    BilzImage* createBilzImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
+    static BilzImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 /* ------------------------------------------------------------------------------------------------ */

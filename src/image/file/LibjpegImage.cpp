@@ -38,15 +38,13 @@
 /**
  * \file LibjpegImage.cpp
  ** \~french
- * \brief Implémentation des classes LibjpegImage et LibjpegImageFactory
+ * \brief Implémentation des classes LibjpegImage
  * \details
  * \li LibjpegImage : gestion d'une image au format JPEG, en lecture, utilisant la librairie libpng
- * \li LibjpegImageFactory : usine de création d'objet LibjpegImage
  ** \~english
- * \brief Implement classes LibjpegImage and LibjpegImageFactory
+ * \brief Implement classes LibjpegImage
  * \details
  * \li LibjpegImage : manage a JPEG format image, reading, using the library libpng
- * \li LibjpegImageFactory : factory to create LibjpegImage object
  */
 
 #include "image/file/LibjpegImage.h"
@@ -59,7 +57,7 @@
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibjpegImage* LibjpegImageFactory::createLibjpegImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibjpegImage* LibjpegImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;

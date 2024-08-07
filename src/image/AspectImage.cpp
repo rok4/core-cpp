@@ -60,7 +60,7 @@ int AspectImage::get_line ( uint8_t* buffer, int line ) {
 //definition des variables
 AspectImage::AspectImage (Image* image, Aspect* asp) :
     Image ( image->get_width() - 2, image->get_height() - 2, 1 ),
-    source_image ( image ), resolution (image->get_mean_resolution()), algo (asp->getAlgo()), min_slope (asp->getMinSlope())
+    source_image ( image ), resolution (image->get_mean_resolution()), aspect(asp)
     {
 
     // On réduit la bbox d'un pixel de chaque côté
@@ -142,19 +142,36 @@ int AspectImage::_getline ( T* buffer, int line ) {
     int column = 0;
     //creation de la variable sur laquelle on travaille pour trouver le seuil
     double value,value1,value2,slope;
+    float a,b,c,d,e,f,g,h,i;
 
     //calcul de la variable sur toutes les autres colonnes
     while ( column < width ) {
 
-        value1 = (matrix[2] * ( * ( line1+columnOrig+1 ) ) + matrix[5] * ( * ( line2+columnOrig+1 ) ) + matrix[8] * ( * ( line3+columnOrig+1 ) ) - matrix[0] * ( * ( line1+columnOrig-1 ) ) - matrix[3] * ( * ( line2+columnOrig-1 ) ) - matrix[6] * ( * ( line3+columnOrig-1 ) ));
-        value2 = (matrix[0] * ( * ( line1+columnOrig-1 ) ) + matrix[1] * ( * ( line1+columnOrig ) ) + matrix[2] * ( * ( line1+columnOrig+1 ) ) - matrix[6] * ( * ( line3+columnOrig-1 ) ) - matrix[7] * ( * ( line3+columnOrig ) ) - matrix[8] * ( * ( line3+columnOrig+1 ) ));
+        a = ( * ( line1+columnOrig-1 ) );
+        b = ( * ( line1+columnOrig ) );
+        c = ( * ( line1+columnOrig+1 ) );
+        d = ( * ( line2+columnOrig-1 ) );
+        e = ( * ( line2+columnOrig ) );
+        f = ( * ( line2+columnOrig+1 ) );
+        g = ( * ( line3+columnOrig-1 ) );
+        h = ( * ( line3+columnOrig ) );
+        i = ( * ( line3+columnOrig+1 ) );
 
-        //calcul de la pente pour ne pas afficher l'exposition en dessous d'une certaine valeur de pente
-        slope = sqrt(pow(value1,2.0)+pow(value2,2.0));
-        if (slope < min_slope) {
-            value = -1.0;
+        if (a == aspect->input_nodata_value || b == aspect->input_nodata_value || c == aspect->input_nodata_value || d == aspect->input_nodata_value || e == aspect->input_nodata_value ||
+                f == aspect->input_nodata_value || g == aspect->input_nodata_value || h == aspect->input_nodata_value || i == aspect->input_nodata_value) {
+            value = aspect->aspect_nodata_value;
         } else {
-            value = (atan2(value1,value2) + M_PI) * 180 / M_PI;
+
+            value1 = (matrix[2] * c + matrix[5] * f + matrix[8] * i - matrix[0] * a - matrix[3] * d - matrix[6] * g);
+            value2 = (matrix[0] * a + matrix[1] * b + matrix[2] * c - matrix[6] * g - matrix[7] * h - matrix[8] * i);
+
+            //calcul de la pente pour ne pas afficher l'exposition en dessous d'une certaine valeur de pente
+            slope = sqrt(pow(value1,2.0)+pow(value2,2.0));
+            if (slope < aspect->min_slope) {
+                value = aspect->aspect_nodata_value;
+            } else {
+                value = (atan2(value1,value2) + M_PI) * 180 / M_PI;
+            }
         }
 
         * ( buffer + ( column++ ) ) = (T) ( value );

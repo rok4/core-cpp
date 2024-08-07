@@ -38,15 +38,13 @@
  /**
  * \file StoreDataSource.h
  ** \~french
- * \brief Définition des classes StoreDataSource et StoreDataSourceFactory
+ * \brief Définition des classes StoreDataSource
  * \details
  * \li StoreDataSource : Permet de lire de la donnée quelque soit le type de stockage
- * \li StoreDataSourceFactory : usine de création d'objet StoreDataSource
  ** \~english
- * \brief Define classes StoreDataSource and StoreDataSourceFactory
+ * \brief Define classes StoreDataSource
  * \details
  * \li StoreDataSource : To read data, whatever the storage type
- * \li StoreDataSourceFactory : factory to create StoreDataSource object
  */
 
 #ifndef STOREDATASOURCE_H

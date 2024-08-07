@@ -38,15 +38,13 @@
 /**
  * \file Rok4Image.h
  ** \~french
- * \brief Implémentation des classes Rok4Image et Rok4ImageFactory
+ * \brief Implémentation des classes Rok4Image
  * \details
  * \li Rok4Image : gestion d'une image aux spécifications ROK4 Server (TIFF tuilé), en écriture et lecture
- * \li Rok4ImageFactory : usine de création d'objet Rok4Image
  ** \~english
- * \brief Implement classes Rok4Image and Rok4ImageFactory
+ * \brief Implement classes Rok4Image
  * \details
  * \li Rok4Image : manage a ROK4 Server specifications image (tiled TIFF), reading and writting
- * \li Rok4ImageFactory : factory to create Rok4Image object
  */
 
 #include "image/file/Rok4Image.h"
@@ -240,7 +238,7 @@ static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
 /* ------------------------------------------------------------------------------------------------ */
 /* -------------------------------------------- USINES -------------------------------------------- */
 
-Rok4Image* Rok4ImageFactory::create_image_to_read ( std::string name, BoundingBox< double > bbox, double resx, double resy, Context* c ) {
+Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > bbox, double resx, double resy, Context* c ) {
 
     int width=0, height=0, channels=0, planarconfig=0, bitspersample=0, sf=0, ph=0, comp=0;
     int tile_width=0, tile_height=0;
@@ -400,7 +398,7 @@ Rok4Image* Rok4ImageFactory::create_image_to_read ( std::string name, BoundingBo
     return ri;
 }
 
-Rok4Image* Rok4ImageFactory::create_image_to_write (
+Rok4Image* Rok4Image::create_to_write (
     std::string name, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
     SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric,
     Compression::eCompression compression, int tile_width, int tile_height, Context* c  ) {
@@ -454,7 +452,7 @@ Rok4Image* Rok4ImageFactory::create_image_to_write (
 
 }
 
-Rok4Image* Rok4ImageFactory::create_image_to_write (
+Rok4Image* Rok4Image::create_to_write (
     std::string name, int tilePerWidth, int tilePerHeight, Context* c  ) {
 
     return new Rok4Image ( name, tilePerWidth, tilePerHeight, c );
@@ -724,16 +722,11 @@ bool Rok4Image::load_index()
 /* ------------------------------------------------------------------------------------------------ */
 
 /** \todo Écriture d'images ROK4 en JPEG gris */
-int Rok4Image::write_image ( Image* pIn, bool crop )
+int Rok4Image::write_image ( Image* pIn )
 {
     if (is_vector) {
         BOOST_LOG_TRIVIAL(error) << "Write image like that is not possible for vector slab";
         return -1;
-    }
-
-    if (compression != Compression::JPEG && compression != Compression::JPEG90 && crop) {
-        BOOST_LOG_TRIVIAL(warning) << "Crop option is reserved for JPEG compression";
-        crop = false;
     }
     
     if (! write_header()) {
@@ -769,7 +762,7 @@ int Rok4Image::write_image ( Image* pIn, bool crop )
                 }
                 int tileInd = y*tiles_widthwise + x;
 
-                if (! write_tile(tileInd, tile, crop)) {
+                if (! write_tile(tileInd, tile)) {
                     BOOST_LOG_TRIVIAL(error) << "Error writting tile " << tileInd << " for ROK4 image " << name;
                     return -1;
                 }
@@ -796,7 +789,7 @@ int Rok4Image::write_image ( Image* pIn, bool crop )
 
                 int tileInd = y*tiles_widthwise + x;
 
-                if (! write_tile(tileInd, tile, crop)) {
+                if (! write_tile(tileInd, tile)) {
                     BOOST_LOG_TRIVIAL(error) << "Error writting tile " << tileInd << " for ROK4 image " << name;
                     return -1;
                 }
@@ -822,7 +815,7 @@ int Rok4Image::write_image ( Image* pIn, bool crop )
 
                 int tileInd = y*tiles_widthwise + x;
 
-                if (! write_tile(tileInd, tile, crop)) {
+                if (! write_tile(tileInd, tile)) {
                     BOOST_LOG_TRIVIAL(error) << "Error writting tile " << tileInd << " for ROK4 image " << name;
                     return -1;
                 }
@@ -1106,7 +1099,7 @@ bool Rok4Image::clear_buffers() {
 }
 
 // Raster write tile in a slab
-bool Rok4Image::write_tile( int tileInd, uint8_t* data, bool crop )
+bool Rok4Image::write_tile( int tileInd, uint8_t* data)
 {
     
     if ( tileInd > tiles_count || tileInd < 0 ) {
@@ -1125,10 +1118,10 @@ bool Rok4Image::write_tile( int tileInd, uint8_t* data, bool crop )
         size = compute_lzw_tile ( buffer, data );
         break;
     case Compression::JPEG:
-        size = compute_jpeg_tile ( buffer, data, crop );
+        size = compute_jpeg_tile ( buffer, data );
         break;
     case Compression::JPEG90:
-        size = compute_jpeg_tile ( buffer, data, crop );
+        size = compute_jpeg_tile ( buffer, data );
         break;
     case Compression::PNG :
         size = compute_png_tile ( buffer, data );
@@ -1341,7 +1334,7 @@ size_t Rok4Image::compute_zip_tile ( uint8_t *buffer, uint8_t *data ) {
 }
 
 
-size_t Rok4Image::compute_jpeg_tile ( uint8_t *buffer, uint8_t *data, bool crop ) {
+size_t Rok4Image::compute_jpeg_tile ( uint8_t *buffer, uint8_t *data ) {
 
     cinfo.dest->next_output_byte = buffer;
     cinfo.dest->free_in_buffer = 2*raw_tile_size;
@@ -1350,10 +1343,6 @@ size_t Rok4Image::compute_jpeg_tile ( uint8_t *buffer, uint8_t *data, bool crop 
     int numLine = 0;
 
     while ( numLine < tile_height ) {
-        if ( numLine % JPEG_BLOC_SIZE == 0 && crop ) {
-            int l = std::min ( JPEG_BLOC_SIZE,tile_height-numLine );
-            empty_white_block ( data + numLine*raw_tile_line_size, l );
-        }
 
         uint8_t* line = data + numLine*raw_tile_line_size;
 
@@ -1364,41 +1353,6 @@ size_t Rok4Image::compute_jpeg_tile ( uint8_t *buffer, uint8_t *data, bool crop 
     jpeg_finish_compress ( &cinfo );
 
     return 2*raw_tile_size - cinfo.dest->free_in_buffer;
-}
-
-void Rok4Image::empty_white_block ( uint8_t *buffer, int l ) {
-
-    int I = 0;
-    int J = 0;
-    bool b = false; /* use to know if the current block has been fill with nodata*/
-
-    int blocklinesize = JPEG_BLOC_SIZE*channels;
-
-    while ( J<raw_tile_line_size ) {
-        while ( I<l ) {
-            if ( !memcmp ( buffer + I*raw_tile_line_size + J, white, channels ) ) {
-                int jdeb = ( J/blocklinesize ) *blocklinesize;
-                int jfin = std::min ( jdeb+blocklinesize,raw_tile_line_size );
-                for ( int i = 0; i<l; i++ ) {
-                    for ( int j = jdeb; j<jfin; j+=channels ) {
-                        memcpy ( buffer + i*raw_tile_line_size + j, white, channels );
-                    }
-                }
-                I = 0;
-                J = jfin;
-                b = true;
-                break;
-
-            } else {
-                I++;
-            }
-        }
-        if ( !b ) {
-            I = 0;
-            J += channels;
-        }
-        b = false;
-    }
 }
 
 
