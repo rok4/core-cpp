@@ -98,10 +98,10 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
 
         switch ( composition ) {
         case Merge::NORMAL:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         case Merge::TOP:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         case Merge::MULTIPLY:
             workLine.multiply ( &aboveLine );
@@ -112,7 +112,7 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
             //case Merge::LIGHTEN:
             //case Merge::DARKEN:
         default:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         }
 

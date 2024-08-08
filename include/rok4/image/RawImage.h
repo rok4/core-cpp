@@ -51,14 +51,14 @@ public:
     /** Constructeur */
     RawImage ( int width, int height, int channels, DataSource* data_source ) : Image ( width, height, channels ) {
         // Verifier en amont que data_source n'est pas nul
-        source=data_source;
+        source = data_source;
     }
 
     virtual int get_line ( uint8_t *buffer, int line ) {
         size_t size;
-        const uint8_t* data=source->get_data ( size );
-        if ( !data ) {
-            buffer=0;
+        const uint8_t* data = source->get_data ( size );
+        if ( ! data ) {
+            buffer = 0;
             return 0;
         }
         memcpy ( buffer, ( uint8_t* ) &data[line*channels*width],width*channels*sizeof ( uint8_t ) );

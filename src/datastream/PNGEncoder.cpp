@@ -126,10 +126,10 @@ size_t PNGEncoder::write_IHDR ( uint8_t *buffer, size_t size ) {
         s = sizeof ( PNG_HEADER_GRAY );
     } else if ( image->get_channels() == 0) {
         // On est sur du 1 canal palette
-        if ( sizeof ( PNG_HEADER_PALETTE ) + palette->getPalettePNGSize() > size ) return 0;
+        if ( sizeof ( PNG_HEADER_PALETTE ) + palette->get_png_palette_size() > size ) return 0;
         memcpy ( buffer, PNG_HEADER_PALETTE, sizeof ( PNG_HEADER_PALETTE ) );
-        memcpy ( buffer + sizeof ( PNG_HEADER_PALETTE ), palette->getPalettePNG(), palette->getPalettePNGSize() );
-        s = sizeof ( PNG_HEADER_PALETTE ) + palette->getPalettePNGSize();
+        memcpy ( buffer + sizeof ( PNG_HEADER_PALETTE ), palette->get_png_palette(), palette->get_png_palette_size() );
+        s = sizeof ( PNG_HEADER_PALETTE ) + palette->get_png_palette_size();
     } else if ( image->get_channels() == 3 ) {
         // On est sur du 3 canaux RGB
         if ( sizeof ( PNG_HEADER_RGB ) > size ) return 0;

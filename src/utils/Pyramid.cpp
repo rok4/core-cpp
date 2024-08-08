@@ -72,13 +72,13 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["tile_matrix_set"].is_string()) {
         tmsName = doc["tile_matrix_set"].string_value();
     } else {
-        errorMessage = "tile_matrix_set have to be provided and be a string";
+        error_message = "tile_matrix_set have to be provided and be a string";
         return false;
     }
 
     tms = TmsBook::get_tms(tmsName);
     if ( tms == NULL ) {
-        errorMessage =  "Pyramid use unknown or unloadable TMS [" + tmsName + "]" ;
+        error_message =  "Pyramid use unknown or unloadable TMS [" + tmsName + "]" ;
         return false;
     }
 
@@ -87,13 +87,13 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["format"].is_string()) {
         formatStr = doc["format"].string_value();
     } else {
-        errorMessage = "format have to be provided and be a string";
+        error_message = "format have to be provided and be a string";
         return false;
     }
 
     format = Rok4Format::from_string ( formatStr );
     if ( ! ( format ) ) {
-        errorMessage =  "Le format [" + formatStr + "] n'est pas gere." ;
+        error_message =  "Le format [" + formatStr + "] n'est pas gere." ;
         return false;
     }
 
@@ -101,7 +101,7 @@ bool Pyramid::parse(json11::Json& doc) {
     
     if (Rok4Format::is_raster(format)) {
         if (! doc["raster_specifications"].is_object()) {
-            errorMessage = "raster_specifications have to be provided and be an object for raster format";
+            error_message = "raster_specifications have to be provided and be an object for raster format";
             return false;
         }
 
@@ -110,13 +110,13 @@ bool Pyramid::parse(json11::Json& doc) {
         if (doc["raster_specifications"]["photometric"].is_string()) {
             photometricStr = doc["raster_specifications"]["photometric"].string_value();
         } else {
-            errorMessage = "raster_specifications.photometric have to be provided and be a string";
+            error_message = "raster_specifications.photometric have to be provided and be a string";
             return false;
         }
 
         photo = Photometric::from_string ( photometricStr );
         if ( ! ( photo ) ) {
-            errorMessage =  "La photométrie [" + photometricStr + "] n'est pas gere." ;
+            error_message =  "La photométrie [" + photometricStr + "] n'est pas gere." ;
             return false;
         }
 
@@ -124,7 +124,7 @@ bool Pyramid::parse(json11::Json& doc) {
         if (doc["raster_specifications"]["channels"].is_number()) {
             channels = doc["raster_specifications"]["channels"].number_value();
         } else {
-            errorMessage = "raster_specifications.channels have to be provided and be an integer";
+            error_message = "raster_specifications.channels have to be provided and be an integer";
             return false;
         }
 
@@ -154,11 +154,11 @@ bool Pyramid::parse(json11::Json& doc) {
                 i++;
             }
             if (i < channels) {
-                errorMessage =  "channels is greater than the count of value for nodata";
+                error_message =  "channels is greater than the count of value for nodata";
                 return false;
             }
         } else {
-            errorMessage = "raster_specifications.nodata have to be provided and be a string";
+            error_message = "raster_specifications.nodata have to be provided and be a string";
             return false;
         }
     }
@@ -169,9 +169,9 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["levels"].is_array()) {
         for (json11::Json l : doc["levels"].array_items()) {
             if (l.is_object()) {
-                Level* level = new Level(l, this, filePath);
-                if ( ! level->isOk() ) {
-                    errorMessage = "levels contains an invalid level : " + level->getErrorMessage();
+                Level* level = new Level(l, this, file_path);
+                if ( ! level->is_ok() ) {
+                    error_message = "levels contains an invalid level : " + level->get_error_message();
                     delete level;
                     return false;
                 }
@@ -179,24 +179,24 @@ bool Pyramid::parse(json11::Json& doc) {
                 //on va vérifier que le level qu'on vient de charger n'a pas déjà été chargé
                 std::map<std::string, Level*>::iterator it = levels.find ( level->get_id() );
                 if ( it != levels.end() ) {
-                    errorMessage =  "Level " + level->get_id() + " defined twice" ;
+                    error_message =  "Level " + level->get_id() + " defined twice" ;
                     delete level;
                     return false;
                 }
 
                 levels.insert ( std::pair<std::string, Level*> ( level->get_id(), level ) );
             } else {
-                errorMessage = "levels have to be provided and be an object array";
+                error_message = "levels have to be provided and be an object array";
                 return false;
             }
         }
     } else {
-        errorMessage = "levels have to be provided and be an object array";
+        error_message = "levels have to be provided and be an object array";
         return false;
     }
 
     if ( levels.size() == 0 ) {
-        errorMessage = "No level loaded";
+        error_message = "No level loaded";
         return false;
     }
 
@@ -215,15 +215,15 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     
     context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read pyramid's descriptor";
+        error_message = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read pyramid's descriptor";
         return;
     }
 
     int size = -1;
-    uint8_t* data = context->readFull(size, fo_name);
+    uint8_t* data = context->read_full(size, fo_name);
 
     if (size < 0) {
-        errorMessage = "Cannot read descriptor "  + path ;
+        error_message = "Cannot read descriptor "  + path ;
         if (data != NULL) delete[] data;
         return;
     }
@@ -231,7 +231,7 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        error_message = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
@@ -419,20 +419,20 @@ Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox
 
     bbox.crs = dst_crs->get_request_code();
 
-    if (bbox.isInAreaOfCRS(dst_crs)) {
+    if (bbox.is_in_crs_area(dst_crs)) {
         // La bbox entière de l'image demandée est dans l'aire de définition du CRS cible
         return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, tms->get_crs(), dst_crs, interpolation, error );
 
-    } else if (bbox.intersectAreaOfCRS(dst_crs)) {
+    } else if (bbox.intersect_crs_area(dst_crs)) {
         // La bbox n'est pas entièrement dans l'aire du CRS, on doit faire la projection que sur la partie intérieure
 
-        BoundingBox<double> croped = bbox.cropToAreaOfCRS(dst_crs);
+        BoundingBox<double> croped = bbox.crop_to_crs_area(dst_crs);
 
         double resx = (bbox.xmax - bbox.xmin) / width;
         double resy = (bbox.ymax - bbox.ymin) / height;
         croped.phase(bbox, resx, resy);
 
-        if (croped.hasNullArea()) {
+        if (croped.has_null_area()) {
             BOOST_LOG_TRIVIAL(debug) <<   "BBox decoupée d'aire nulle"  ;
             EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
             fond->set_bbox(bbox);

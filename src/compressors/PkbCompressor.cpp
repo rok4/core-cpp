@@ -35,17 +35,17 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#include "compressors/PKBEncoder.h"
+#include "compressors/PkbCompressor.h"
 
 #include <cstring>
 
 
-pkbEncoder::pkbEncoder() {
+PkbCompressor::PkbCompressor() {
 
 }
 
 
-uint8_t* pkbEncoder::encode ( const uint8_t* in, size_t inSize, size_t& outSize ) {
+uint8_t* PkbCompressor::encode ( const uint8_t* in, size_t inSize, size_t& outSize ) {
     size_t pkbBufferPos= 0;
     size_t pkbBufferSize = inSize + inSize;
     uint8_t * pkbBuffer = new uint8_t[pkbBufferSize]; // Worst Case Compression
@@ -152,7 +152,7 @@ uint8_t* pkbEncoder::encode ( const uint8_t* in, size_t inSize, size_t& outSize 
 }
 
 
-pkbEncoder::~pkbEncoder() {
+PkbCompressor::~PkbCompressor() {
 
 }
 

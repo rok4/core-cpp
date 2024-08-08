@@ -266,7 +266,7 @@ public:
      * \details Elle utilise les booléens #remove_target_value et #new_nodata_value pour déterminer le travail à faire. Si le travail consisite simplement à identifier le nodata et écrire un maque (pas de modification à apporter à l'image), l'image ne sera pas réecrite, même si un chemin différent pour la sortie est fourni.
      * \param[in] input chemin de l'image à modifier
      * \param[in] output chemin de l'image de sortie
-     * \param[in] outputMask chemin du masque de sortie
+     * \param[in] output_mask_path chemin du masque de sortie
      * \return Vrai en cas de réussite, faux sinon
      ** \~english
      * \brief Manager treatment function, doing image's modifications
@@ -276,7 +276,7 @@ public:
      * \param[in] output Output mask path
      * \return True if success, false otherwise
      */
-    bool process_nodata ( char* inputImage, char* outputImage, char* outputMask = 0 );
+    bool process_nodata ( char* input_image_path, char* output_image_path, char* output_mask_path = 0 );
 
 };
 
@@ -322,16 +322,16 @@ TiffNodataManager<T>::TiffNodataManager ( uint16 channels, int* tv, bool touch_e
 }
 
 template<typename T>
-bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage, char* outputMask ) {
-    if ( ! new_nodata_value && ! remove_target_value && ! outputMask ) {
+bool TiffNodataManager<T>::process_nodata ( char* input_image_path, char* output_image_path, char* output_mask_path ) {
+    if ( ! new_nodata_value && ! remove_target_value && ! output_mask_path ) {
         BOOST_LOG_TRIVIAL(info) <<  "Have nothing to do !" ;
         return true;
     }
 
-    FileImage* source_image = FileImage::create_to_read(inputImage);
+    FileImage* source_image = FileImage::create_to_read(input_image_path);
 
     if ( source_image == NULL )  {
-        BOOST_LOG_TRIVIAL(error) <<  "Cannot create the input image "<< inputImage ;
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot create the input image "<< input_image_path ;
         return false;
     }
     
@@ -346,21 +346,21 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
     
     if ( samplesperpixel > max_channels )  {
         BOOST_LOG_TRIVIAL(error) << "The nodata manager is not adapted (samplesperpixel have to be " << max_channels <<
-                       " or less) for the image " << inputImage << " (" << samplesperpixel << ")";
+                       " or less) for the image " << input_image_path << " (" << samplesperpixel << ")";
         return false;
     }
 
     /*************** Chargement de l'image ***************/
 
-    T *IM = (T*) malloc (width * height * samplesperpixel * sizeof(T));
-    if ( IM == NULL ) {
+    T *image_buffer = (T*) malloc (width * height * samplesperpixel * sizeof(T));
+    if ( image_buffer == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot allocate a buffer of size " << width * height * samplesperpixel * sizeof(T) << " bytes" ;
         return false;
     }
 
     BOOST_LOG_TRIVIAL(debug) << "We load input image into memory : " << width * height * samplesperpixel * sizeof(T) / 1024 << " kilobytes";
     for ( int h = 0; h < height; h++ ) {
-        if (source_image->get_line(IM + width*samplesperpixel*h, h) == 0) {
+        if (source_image->get_line(image_buffer + width*samplesperpixel*h, h) == 0) {
             BOOST_LOG_TRIVIAL(error) <<  "Cannot read line " << h ;
             return false;
         }
@@ -368,24 +368,24 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
 
     delete source_image;
 
-    BOOST_LOG_TRIVIAL(debug) << "Premier pixel : " << (int)IM[0] << "," << (int)IM[1] << "," << (int)IM[2];
+    BOOST_LOG_TRIVIAL(debug) << "Premier pixel : " << (int)image_buffer[0] << "," << (int)image_buffer[1] << "," << (int)image_buffer[2];
 
     /************* Calcul du masque de données ***********/
 
-    uint8_t *MSK = new uint8_t[width * height];
+    uint8_t *mask_buffer = new uint8_t[width * height];
 
-    bool containNodata = identify_nodata_pixels ( IM, MSK );
+    bool contain_nodata = identify_nodata_pixels ( image_buffer, mask_buffer );
 
     /*************** Modification des pixels *************/
 
     if ( remove_target_value ) {
         BOOST_LOG_TRIVIAL(debug) << "The 'target_value' data pixels are replaced by 'data_value' pixels";
-        change_data_value ( IM, MSK );
+        change_data_value ( image_buffer, mask_buffer );
     }
 
     if ( new_nodata_value ) {
         BOOST_LOG_TRIVIAL(debug) << "Nodata pixels which touch edges are replaced by 'nodata_value' pixels";
-        change_nodata_value ( IM, MSK );
+        change_nodata_value ( image_buffer, mask_buffer );
     }
 
     /**************** Ecriture de l'images ****************/
@@ -394,50 +394,50 @@ bool TiffNodataManager<T>::process_nodata ( char* inputImage, char* outputImage,
      * même si un chemin d'image différent est fourni pour la sortie */
     if ( remove_target_value || new_nodata_value ) {
 
-        FileImage* destImage = FileImage::create_to_write(
-            outputImage, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
+        FileImage* output_image = FileImage::create_to_write(
+            output_image_path, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
             samplesperpixel, sample_format, photometric, compression
         );
 
-        if ( destImage == NULL )  {
-            BOOST_LOG_TRIVIAL(error) <<  "Cannot create the output image "<< outputImage ;
+        if ( output_image == NULL )  {
+            BOOST_LOG_TRIVIAL(error) <<  "Cannot create the output image "<< output_image_path ;
             return false;
         }
         
-        BOOST_LOG_TRIVIAL(debug) << "We write the output image " << outputImage;
-        destImage->write_image(IM);
+        BOOST_LOG_TRIVIAL(debug) << "We write the output image " << output_image_path;
+        output_image->write_image(image_buffer);
 
-        delete destImage;
+        delete output_image;
 
     } else {
-        if ( memcmp ( inputImage, outputImage, sizeof ( outputImage ) ) )
-            BOOST_LOG_TRIVIAL(info) <<  "The image have not be modified, the file '" << outputImage <<"' is not written" ;
+        if ( memcmp ( input_image_path, output_image_path, sizeof ( output_image_path ) ) )
+            BOOST_LOG_TRIVIAL(info) <<  "The image have not be modified, the file '" << output_image_path <<"' is not written" ;
     }
 
     /**************** Ecriture du masque ? ****************/
-    if ( outputMask ) {
-        if (containNodata) {
-            FileImage* destMask = FileImage::create_to_write(
-                outputMask, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
+    if ( output_mask_path ) {
+        if (contain_nodata) {
+            FileImage* output_mask = FileImage::create_to_write(
+                output_mask_path, BoundingBox<double>(0,0,0,0), -1, -1, width, height,
                 1, SampleFormat::UINT8, Photometric::MASK, Compression::DEFLATE
             );
 
-            if ( destMask == NULL )  {
-                BOOST_LOG_TRIVIAL(error) <<  "Cannot create the output mask "<< outputMask ;
+            if ( output_mask == NULL )  {
+                BOOST_LOG_TRIVIAL(error) <<  "Cannot create the output mask "<< output_mask_path ;
                 return false;
             }
 
-            BOOST_LOG_TRIVIAL(debug) << "We write the output mask " << outputMask;
-            destMask->write_image(MSK);
+            BOOST_LOG_TRIVIAL(debug) << "We write the output mask " << output_mask_path;
+            output_mask->write_image(mask_buffer);
 
-            delete destMask;
+            delete output_mask;
         } else {
-            BOOST_LOG_TRIVIAL(info) <<  "The image contains only data, the mask '" << outputMask <<"' is not written" ;
+            BOOST_LOG_TRIVIAL(info) <<  "The image contains only data, the mask '" << output_mask_path <<"' is not written" ;
         }
     }
 
-    free(IM);
-    delete[] MSK;
+    free(image_buffer);
+    delete[] mask_buffer;
 
     return true;
 }

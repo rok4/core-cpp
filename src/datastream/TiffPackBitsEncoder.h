@@ -42,7 +42,7 @@
 #include "image/Image.h"
 #include "datastream/TiffHeader.h"
 #include "datastream/TiffEncoder.h"
-#include "compressors/PKBEncoder.h"
+#include "compressors/PkbCompressor.h"
 
 #include <cstring>
 #include <cstdlib>
@@ -62,45 +62,45 @@ protected:
     size_t raw_buffer_size;
     
     virtual void prepare_header(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation de l'en-tete";
-	header_size = TiffHeader::header_size ( image->get_channels() );
-	header = new uint8_t[header_size];
-	if ( image->get_channels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_PKB_FLOAT32_GRAY, header_size);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_GRAY, header_size);
-	    }
-	else if ( image->get_channels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGB, header_size);
-	else if ( image->get_channels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGBA, header_size);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
+        BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size ( image->get_channels() );
+        header = new uint8_t[header_size];
+        if ( image->get_channels()==1 )
+            if ( sizeof ( T ) == sizeof ( float ) ) {
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_FLOAT32_GRAY, header_size);
+            } else {
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_GRAY, header_size);
+            }
+        else if ( image->get_channels()==3 )
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGB, header_size);
+        else if ( image->get_channels()==4 )
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGBA, header_size);
+        * ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
+        * ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
+        * ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
+        * ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
     }
     
     virtual void prepare_buffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation du buffer d'image";
-	int linesize = image->get_width()*image->get_channels();
-	tmp_buffer = new uint8_t[linesize* image->get_height() * sizeof ( T ) *2];
-	tmp_buffer_size = 0;
-	raw_buffer = new T[linesize];
-	raw_buffer_size = linesize * sizeof ( T );
-	int lRead = 0;
-	pkbEncoder encoder;
-	uint8_t * pkbLine;
-	for ( ; lRead < image->get_height() ; lRead++ ) {
-	    image->get_line ( raw_buffer, lRead );
-	    size_t pkbLineSize = 0;
-	    pkbLine =  encoder.encode ( ( uint8_t* ) raw_buffer,raw_buffer_size, pkbLineSize );
-	    memcpy ( tmp_buffer+tmp_buffer_size,pkbLine,pkbLineSize );
-	    tmp_buffer_size += pkbLineSize;
-	    delete[] pkbLine;
-	}
-	delete[] raw_buffer;
-	raw_buffer = NULL;
+        BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation du buffer d'image";
+        int linesize = image->get_width()*image->get_channels();
+        tmp_buffer = new uint8_t[linesize* image->get_height() * sizeof ( T ) *2];
+        tmp_buffer_size = 0;
+        raw_buffer = new T[linesize];
+        raw_buffer_size = linesize * sizeof ( T );
+        int lRead = 0;
+        PkbCompressor encoder;
+        uint8_t * pkbLine;
+        for ( ; lRead < image->get_height() ; lRead++ ) {
+            image->get_line ( raw_buffer, lRead );
+            size_t pkbLineSize = 0;
+            pkbLine =  encoder.encode ( ( uint8_t* ) raw_buffer,raw_buffer_size, pkbLineSize );
+            memcpy ( tmp_buffer+tmp_buffer_size,pkbLine,pkbLineSize );
+            tmp_buffer_size += pkbLineSize;
+            delete[] pkbLine;
+        }
+        delete[] raw_buffer;
+        raw_buffer = NULL;
     }
 
 public:

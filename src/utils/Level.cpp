@@ -84,24 +84,24 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
     // TM
     if (! doc["id"].is_string()) {
-        errorMessage = "id have to be provided and be a string";
+        error_message = "id have to be provided and be a string";
         return;
     }
     std::string id = doc["id"].string_value();
     TileMatrixSet* tms = pyramid->get_tms();
     tm = tms->get_tm(id);
     if ( tm == NULL ) {
-        errorMessage = "Level " + id + " not in the pyramid TMS [" + tms->get_id() + "]"  ;
+        error_message = "Level " + id + " not in the pyramid TMS [" + tms->get_id() + "]"  ;
         return;
     }
 
     // STOCKAGE
     if (! doc["storage"].is_object()) {
-        errorMessage = "Level " + id +": storage have to be provided and be an object";
+        error_message = "Level " + id +": storage have to be provided and be an object";
         return;
     }
     if (! doc["storage"]["type"].is_string()) {
-        errorMessage = "Level " + id +": storage.type have to be provided and be a string";
+        error_message = "Level " + id +": storage.type have to be provided and be a string";
         return;
     }
 
@@ -110,11 +110,11 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     if (doc["storage"]["type"].string_value() == "FILE") {
 
         if (! doc["storage"]["image_directory"].is_string()) {
-            errorMessage = "Level " + id +": storage.image_directory have to be provided and be a string";
+            error_message = "Level " + id +": storage.image_directory have to be provided and be a string";
             return;
         }
         if (! doc["storage"]["path_depth"].is_number()) {
-            errorMessage = "Level " + id +": storage.path_depth have to be provided and be an integer";
+            error_message = "Level " + id +": storage.path_depth have to be provided and be an integer";
             return;
         }
 
@@ -142,7 +142,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         context = StoragePool::get_context(ContextType::FILECONTEXT, "");
         if (context == NULL) {
-            errorMessage = "Level " + id +": cannot add file storage context";
+            error_message = "Level " + id +": cannot add file storage context";
             return;
         }
     }
@@ -151,11 +151,11 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     else if (doc["storage"]["type"].string_value() == "SWIFT") {
 
         if (! doc["storage"]["container_name"].is_string()) {
-            errorMessage = "Level " + id +": storage.container_name have to be provided and be a string";
+            error_message = "Level " + id +": storage.container_name have to be provided and be a string";
             return;
         }
         if (! doc["storage"]["image_prefix"].is_string()) {
-            errorMessage = "Level " + id +": storage.image_prefix have to be provided and be a string";
+            error_message = "Level " + id +": storage.image_prefix have to be provided and be a string";
             return;
         }
 
@@ -163,18 +163,18 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         context = StoragePool::get_context(ContextType::SWIFTCONTEXT, doc["storage"]["container_name"].string_value());
         if (context == NULL) {
-            errorMessage = "Level " + id +": cannot add swift storage context";
+            error_message = "Level " + id +": cannot add swift storage context";
             return;
         }
     }
     else if (doc["storage"]["type"].string_value() == "S3") {
 
         if (! doc["storage"]["bucket_name"].is_string()) {
-            errorMessage = "Level " + id +": storage.bucket_name have to be provided and be a string";
+            error_message = "Level " + id +": storage.bucket_name have to be provided and be a string";
             return;
         }
         if (! doc["storage"]["image_prefix"].is_string()) {
-            errorMessage = "Level " + id +": storage.image_prefix have to be provided and be a string";
+            error_message = "Level " + id +": storage.image_prefix have to be provided and be a string";
             return;
         }
 
@@ -183,7 +183,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         // On fournit le contexte de stockage de la pyramide. Cela permet de s'assurer que celui du niveau est sur le même cluster S3
         context = StoragePool::get_context(ContextType::S3CONTEXT, doc["storage"]["bucket_name"].string_value(), pyramid->get_context());
         if (context == NULL) {
-            errorMessage = "Level " + id +": cannot add s3 storage context";
+            error_message = "Level " + id +": cannot add s3 storage context";
             return;
         }
     }
@@ -191,11 +191,11 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     else if (doc["storage"]["type"].string_value() == "CEPH") {
 
         if (! doc["storage"]["pool_name"].is_string()) {
-            errorMessage = "Level " + id +": storage.pool_name have to be provided and be a string";
+            error_message = "Level " + id +": storage.pool_name have to be provided and be a string";
             return;
         }
         if (! doc["storage"]["image_prefix"].is_string()) {
-            errorMessage = "Level " + id +": storage.image_prefix have to be provided and be a string";
+            error_message = "Level " + id +": storage.image_prefix have to be provided and be a string";
             return;
         }
 
@@ -203,14 +203,14 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 
         context = StoragePool::get_context(ContextType::CEPHCONTEXT, doc["storage"]["pool_name"].string_value());
         if (context == NULL) {
-            errorMessage = "Level " + id +": cannot add ceph storage context";
+            error_message = "Level " + id +": cannot add ceph storage context";
             return;
         }
     }
 #endif
 
     if (context == NULL) {
-        errorMessage = "Level " + id + " without valid storage informations" ;
+        error_message = "Level " + id + " without valid storage informations" ;
         return;
     }
 
@@ -219,13 +219,13 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
         for (json11::Json t : doc["tables"].array_items()) {
             if (t.is_object()) {
                 if (! t["name"].is_string()) {
-                    errorMessage = "Level " + id +": tables element have to own a name";
+                    error_message = "Level " + id +": tables element have to own a name";
                     return;
                 }
                 std::string tableName  = t["name"].string_value();
 
                 if (! t["geometry"].is_string()) {
-                    errorMessage = "Level " + id +": tables element have to own a geometry";
+                    error_message = "Level " + id +": tables element have to own a geometry";
                     return;
                 }
                 std::string geometry  = t["geometry"].string_value();
@@ -237,23 +237,23 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
                         if (a.is_object()) {
                             Attribute att = Attribute(a);
                             if (att.get_missing_field() != "") {
-                                errorMessage = "Level " + id +": tables.attributes have to own a field " + att.get_missing_field();
+                                error_message = "Level " + id +": tables.attributes have to own a field " + att.get_missing_field();
                                 return;
                             }
                             atts.push_back(att);
                         } else {
-                            errorMessage = "Level " + id +": tables.attributes have to be an object array";
+                            error_message = "Level " + id +": tables.attributes have to be an object array";
                             return;
                         }
                     }
                 } else {
-                    errorMessage = "Level " + id +": tables.attributes have to be an object array";
+                    error_message = "Level " + id +": tables.attributes have to be an object array";
                     return;
                 }
 
                 tables.push_back(Table(tableName, geometry, atts));
             } else {
-                errorMessage = "Level " + id +": tables have to be provided and be an object array";
+                error_message = "Level " + id +": tables have to be provided and be an object array";
                 return;
             }
         }
@@ -264,7 +264,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     // TILEPERWIDTH
 
     if (! doc["tiles_per_width"].is_number()) {
-        errorMessage = "Level " + id +": tiles_per_width have to be provided and be an integer";
+        error_message = "Level " + id +": tiles_per_width have to be provided and be an integer";
         return;
     }
     tiles_per_width = doc["tiles_per_width"].number_value();
@@ -272,42 +272,42 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
     // TILEPERHEIGHT
 
     if (! doc["tiles_per_height"].is_number()) {
-        errorMessage = "Level " + id +": tiles_per_height have to be provided and be an integer";
+        error_message = "Level " + id +": tiles_per_height have to be provided and be an integer";
         return;
     }
     tiles_per_height = doc["tiles_per_height"].number_value();
 
     if (tiles_per_height == 0 || tiles_per_width == 0) {
-        errorMessage = "Level " + id +": slab tiles size have to be non zero integers"  ;
+        error_message = "Level " + id +": slab tiles size have to be non zero integers"  ;
         return;
     }
 
     // TMSLIMITS
 
     if (! doc["tile_limits"].is_object()) {
-        errorMessage = "Level " + id +": tile_limits have to be provided and be an object";
+        error_message = "Level " + id +": tile_limits have to be provided and be an object";
         return;
     }
     if (! doc["tile_limits"]["min_row"].is_number()) {
-        errorMessage = "Level " + id +": tile_limits.min_row have to be provided and be an integer";
+        error_message = "Level " + id +": tile_limits.min_row have to be provided and be an integer";
         return;
     }
     int min_tile_row = doc["tile_limits"]["min_row"].number_value();
 
     if (! doc["tile_limits"]["min_col"].is_number()) {
-        errorMessage = "Level " + id +": tile_limits.min_col have to be provided and be an integer";
+        error_message = "Level " + id +": tile_limits.min_col have to be provided and be an integer";
         return;
     }
     int min_tile_col = doc["tile_limits"]["min_col"].number_value();
 
     if (! doc["tile_limits"]["max_row"].is_number()) {
-        errorMessage = "Level " + id +": tile_limits.max_row have to be provided and be an integer";
+        error_message = "Level " + id +": tile_limits.max_row have to be provided and be an integer";
         return;
     }
     int max_tile_row = doc["tile_limits"]["max_row"].number_value();
 
     if (! doc["tile_limits"]["max_col"].is_number()) {
-        errorMessage = "Level " + id +": tile_limits.max_col have to be provided and be an integer";
+        error_message = "Level " + id +": tile_limits.max_col have to be provided and be an integer";
         return;
     }
     int max_tile_col = doc["tile_limits"]["max_col"].number_value();
@@ -323,7 +323,7 @@ Level::Level ( json11::Json doc, Pyramid* pyramid, std::string path) : Configura
 }
 
 
-Level::Level ( Level* obj ) : Configuration(obj->filePath), tm_limits(obj->tm_limits) {
+Level::Level ( Level* obj ) : Configuration(obj->file_path), tm_limits(obj->tm_limits) {
     nodata_value = NULL;
     tm = obj->tm;
 
@@ -382,7 +382,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
     //Maintain previous Lanczos behaviour : Lanczos_2 for resampling and reprojecting
     if ( interpolation >= Interpolation::LANCZOS_2 ) interpolation= Interpolation::LANCZOS_2;
 
-    const Kernel& kk = Kernel::getInstance ( interpolation ); // Lanczos_2
+    const Kernel& kk = Kernel::get_instance ( interpolation ); // Lanczos_2
     double ratio_x = ( grid->bbox.xmax - grid->bbox.xmin ) / ( tm->get_res() *double ( width ) );
     double ratio_y = ( grid->bbox.ymax - grid->bbox.ymin ) / ( tm->get_res() *double ( height ) );
     double bufx=kk.size ( ratio_x ) + 2.;
@@ -440,7 +440,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
 
     //Maintain previous Lanczos behaviour : Lanczos_3 for resampling only
     if ( interpolation >= Interpolation::LANCZOS_2 ) interpolation= Interpolation::LANCZOS_3;
-    const Kernel& kk = Kernel::getInstance ( interpolation ); // Lanczos_3
+    const Kernel& kk = Kernel::get_instance ( interpolation ); // Lanczos_3
 
     // On en prend un peu plus pour ne pas avoir d'effet de bord lors du réechantillonnage
     bbox_int.xmin = floor ( bbox.xmin - kk.size ( ratio_x ) );

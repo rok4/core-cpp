@@ -339,7 +339,7 @@ public:
      * \return channels
      */
     int get_channels() {
-        if (converter) return converter->getSamplesPerPixel();
+        if (converter) return converter->get_channels();
         return channels;
     }
 
@@ -371,7 +371,7 @@ public:
 
         converter = new PixelConverter(width, sample_format, channels, osf, ospp);
 
-        return converter->youCan();
+        return converter->is_ok();
     }
 
     /**
@@ -399,7 +399,7 @@ public:
         if (converter) {
             BOOST_LOG_TRIVIAL(info) <<  "\tWith pixel converter: " ;
             BOOST_LOG_TRIVIAL(info) <<  "\t\tSample format: " << SampleFormat::to_string(converter->get_sample_format()) ;
-            BOOST_LOG_TRIVIAL(info) <<  "\t\tSamples per pixel: " << converter->getSamplesPerPixel() ;
+            BOOST_LOG_TRIVIAL(info) <<  "\t\tSamples per pixel: " << converter->get_channels() ;
             BOOST_LOG_TRIVIAL(info) <<  "\t\tPixel size: " << converter->get_pixel_size();
         }
         BOOST_LOG_TRIVIAL(info) <<  "" ;

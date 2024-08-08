@@ -46,11 +46,11 @@
 PaletteDataSource::PaletteDataSource ( DataSource *source_data, Palette* p ) : source_data ( source_data ) {
     palette = p;
 
-    if ( source_data->get_type().compare ( "image/png" ) == 0 && palette != 0 && ! palette->is_empty() && palette->getPalettePNGSize() != 0 ) {
+    if ( source_data->get_type().compare ( "image/png" ) == 0 && palette != 0 && ! palette->is_empty() && palette->get_png_palette_size() != 0 ) {
         // On récupère le contenu du fichier
         size_t tmp_size;
         const uint8_t* tmp = source_data->get_data ( tmp_size );
-        data_size = tmp_size + palette->getPalettePNGSize() +1;
+        data_size = tmp_size + palette->get_png_palette_size() +1;
         size_t pos = 33;
         // Taille en sortie = taille en entrée +  3*256+12 (PLTE) + 256+12 (tRNS)
         data = new uint8_t[data_size];
@@ -62,8 +62,8 @@ PaletteDataSource::PaletteDataSource ( DataSource *source_data, Palette* p ) : s
         crch = crc32 ( crch, data+8+4, 13+4 );
         * ( ( uint32_t* ) ( data+8+8+13 ) ) = bswap_32 ( crch );
         //Copie de la palette
-        memcpy ( data+pos,palette->getPalettePNG(),palette->getPalettePNGSize() );
-        pos += palette->getPalettePNGSize();
+        memcpy ( data+pos,palette->get_png_palette(),palette->get_png_palette_size() );
+        pos += palette->get_png_palette_size();
         //Copie des données
         memcpy ( data+pos, tmp +33, tmp_size - 33 );
     } else {

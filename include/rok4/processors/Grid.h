@@ -56,11 +56,11 @@
  * \~french \brief Gestion d'une grille de reprojection
  * \details Une grille est un objet utilisé afin de reprojeter des images (avec ReprojectedImage). On voudra connaître les coordonnées pixel dans l'image source d'un pixel de l'image reprojetée.
  *
- * On imagine donc un quadrillage aux mêmes dimensions que l'image reprojetée (largeur, hauteur et rectangle englobant). On ne va pas convertir tous les pixels de l'image (problème de performance). On va donc en convertir un tous les #stepInt pixels : c'est ce qu'on considère comme la grille.
+ * On imagine donc un quadrillage aux mêmes dimensions que l'image reprojetée (largeur, hauteur et rectangle englobant). On ne va pas convertir tous les pixels de l'image (problème de performance). On va donc en convertir un tous les #pixel_step pixels : c'est ce qu'on considère comme la grille.
  *
  * \~ \image html grid_general.png \~french
  *
- * La grille ne sera pas composée que de ces pixels régulièrement espacés (#nbxReg sur #nbyReg). On va également ajouter les pixels du bords : on aura donc en tout (#nbxReg + 1) x (#nbyReg + 1) points dans notre grille. Les derniers points d'une ligne ou d'une colonne seront donc moins espacés. Cette distance, strictement inférieure à #stepInt, sera connue est stockée dans #endX et #endY.
+ * La grille ne sera pas composée que de ces pixels régulièrement espacés (#x_regular_points sur #y_regular_points). On va également ajouter les pixels du bords : on aura donc en tout (#x_regular_points + 1) x (#y_regular_points + 1) points dans notre grille. Les derniers points d'une ligne ou d'une colonne seront donc moins espacés. Cette distance, strictement inférieure à #pixel_step, sera connue est stockée dans #x_pixels_remainder et #y_pixels_remainder.
  *
  * Dans le cas où l'espacement régulier permet d'avoir le dernier point, on ajoutera tout de même un point supplémentaire. Les deux derniers points de chaque ligne et colonne seront donc identiques. Cela permet d'avoir un comportement plus général.
  *
@@ -80,38 +80,38 @@ private:
      * \~french \brief Pas (en pixel) de la grille
      * \~english \brief Grid's step, in pixel
      */
-    static const int stepInt = 16;
+    static const int pixel_step = 16;
 
     /**
      * \~french \brief Ecart maximal entre les coordonnées Y de la première ligne de la grille
      * \details Au fur et à mesure des conversions des points de la grille, on va mettre à jour cette valeur. Celle ci est utilisée pour savoir combien de lignes sources mémoriser dans ReprojectedImage (ReprojectedImage#memorizedLines).
      * \~english \brief Maximal gap for Y-coordinates in the first grid's line
      */
-    double deltaY;
+    double y_maximal_gap;
 
     /**
      * \~french \brief Nombre de points reprojetés, dans les sens des X, respectant le pas régulier
      * \~english \brief Reprojected points number, X wise, respecting the step
      */
-    int nbxReg;
+    int x_regular_points;
 
     /**
      * \~french \brief Nombre de points reprojetés, dans les sens des Y, respectant le pas régulier
      * \~english \brief Reprojected points number, Y wise, respecting the step
      */
-    int nbyReg;
+    int y_regular_points;
 
     /**
      * \~french \brief Nombre de points reprojetés, dans les sens des X, en tout
      * \~english \brief Reprojected points number, X wise
      */
-    int nbx;
+    int x_points;
 
     /**
      * \~french \brief Nombre de points reprojetés, dans les sens des Y, en tout
      * \~english \brief Reprojected points number, Y wise
      */
-    int nby;
+    int y_points;
 
     /**
      * \~french \brief Nombre de pixels entre le dernier point régulier et le dernier de la grille, dans le sens des X
@@ -119,7 +119,7 @@ private:
      * \~english \brief Pixel distance between the last regular point and the last point of the grid, X wise
      * \details Can be null
      */
-    int endX;
+    int x_pixels_remainder;
 
     /**
      * \~french \brief Nombre de pixels entre le dernier point régulier et le dernier de la grille, dans le sens des Y
@@ -127,20 +127,20 @@ private:
      * \~english \brief Pixel distance between the last regular point and the last point of the grid, Y wise
      * \details Can be null
      */
-    int endY;
+    int y_pixels_remainder;
 
     /**
      * \~french \brief Coordonnées des points de la grille
      * \~english \brief Coordinates of the grid's points
      */
-    PJ_COORD *gridCoords;
+    PJ_COORD *grid_coords;
 
     /**
-     * \~french \brief Met à jour la valeur de deltaY
+     * \~french \brief Met à jour la valeur de y_maximal_gap
      * \details À appeler après une conversion apportées aux coordonnées
-     * \~english \brief Update the deltaY value
+     * \~english \brief Update the y_maximal_gap value
      */
-    inline void calculateDeltaY();
+    inline void compute_y_maximal_gap();
 
 public:
 
@@ -175,22 +175,22 @@ public:
 
     /**
      * \~french \brief Destructeur par défaut
-     * \details Suppression du tableau #gridCoords
+     * \details Suppression du tableau #grid_coords
      * \~english \brief Default destructor
-     * \details Delete array #gridCoords
+     * \details Delete array #grid_coords
      */
     ~Grid() {
-        delete[] gridCoords;
+        delete[] grid_coords;
     }
 
     /**
-     * \~french \brief Retourne la valeur de deltaY
-     * \return #deltaY
-     * \~english \brief Return the deltaY value
-     * \return #deltaY
+     * \~french \brief Retourne la valeur de y_maximal_gap
+     * \return #y_maximal_gap
+     * \~english \brief Return the y_maximal_gap value
+     * \return #y_maximal_gap
      */
-    double getDeltaY() {
-        return deltaY;
+    double get_y_maximal_gap() {
+        return y_maximal_gap;
     }
 
     /**
@@ -200,7 +200,7 @@ public:
      * \~english \brief Return the X wise ratio
      * \return X ratio
      */
-    double getRatioX();
+    double get_x_ratio();
 
     /**
      * \~french \brief Retourne le ratio dans le sens des Y
@@ -209,7 +209,7 @@ public:
      * \~english \brief Return the Y wise ratio
      * \return Y ratio
      */
-    double getRatioY();
+    double get_y_ratio();
 
     /**
      * \~french \brief Reprojette les points de la grille
@@ -227,7 +227,7 @@ public:
      * \li X = Ax x X + Bx
      * \li Y = Ay x Y + By
      *
-     * On met à jour #deltaY en le multipliant par la valeur absolue de Ay
+     * On met à jour #y_maximal_gap en le multipliant par la valeur absolue de Ay
      * \param[in] Ax homothétie en X
      * \param[in] Bx translation en X
      * \param[in] Ay homothétie en Y
@@ -256,12 +256,12 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- Size : " << width << ", " << height ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- BBOX : " << bbox.to_string() ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Reprojected points number :" ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- X wise : " << nbx ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- Y wise : " << nby ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- X wise : " << x_points ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- Y wise : " << y_points ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Last point distance :" ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- X : " << endX ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- Y : " << endY ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- First line Y-delta :" << deltaY ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- X : " << x_pixels_remainder ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- Y : " << y_pixels_remainder ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- First line Y-delta :" << y_maximal_gap ;
     }
 
 };

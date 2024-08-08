@@ -115,7 +115,7 @@ protected:
      * \~french \brief A-t-on déjà essayé de lire la donnée
      * \~english \brief Have we already tried to read data
      */
-    bool alreadyTried;
+    bool already_tried;
     /**
      * \~french \brief Taille utile dans #data
      * \~english \brief Real size in #data

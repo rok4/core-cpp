@@ -219,7 +219,7 @@ public:
      * \~french \brief L'application du style est-elle possible ?
      * \~english \brief Style is allowed ?
      */
-    bool youCan (int spp) {
+    bool handle (int spp) {
         if (estompage_defined() || pente_defined() || aspect_defined()) {
             return (spp == 1);
         } else {
@@ -231,7 +231,7 @@ public:
      * \~french \brief Combien de canaux en sortie du style
      * \~english \brief How many channels after style
      */
-    int get_channels (int origChannels) {
+    int get_channels (int orig_channels) {
         if (palette && ! palette->is_empty()) {
             if (palette->is_no_alpha()) {
                 return 3;
@@ -243,7 +243,7 @@ public:
                 return 1;
             } else {
                 // identité
-                return origChannels;
+                return orig_channels;
             }
         }
     }
@@ -281,7 +281,7 @@ public:
      * \~english \brief Is style identity
      */
     bool is_identity () {
-        if (palette && palette->getColoursMap() && ! palette->is_empty()) {
+        if (palette && palette->get_colours_map() && ! palette->is_empty()) {
             return false;
         }
 

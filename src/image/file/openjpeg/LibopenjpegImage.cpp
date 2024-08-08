@@ -58,7 +58,7 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
-static Photometric::ePhotometric toROK4Photometric ( OPJ_COLOR_SPACE ph, int channels ) {
+static Photometric::ePhotometric to_rok4_photometric ( OPJ_COLOR_SPACE ph, int channels ) {
     switch ( ph ) {
     case OPJ_CLRSPC_SRGB :
         return Photometric::RGB;
@@ -206,7 +206,7 @@ LibopenjpegImage* LibopenjpegImage::create_to_read ( std::string filename, Bound
             break;
     }
 
-    Photometric::ePhotometric ph = toROK4Photometric ( image->color_space , channels);
+    Photometric::ePhotometric ph = to_rok4_photometric ( image->color_space , channels);
     if ( ph == Photometric::UNKNOWN ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unhandled color space (" << image->color_space << ") in the JPEG2000 image " << filename ;
         return NULL;
@@ -422,7 +422,7 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
         memcpy(buffer, buffertmp, pixel_size * width);
     }

@@ -35,7 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#include "compressors/LZWEncoder.h"
+#include "compressors/LzwCompressor.h"
 
 #define M_CLR    uint16_t(256)          // clear table marker 
 #define M_EOD    uint16_t(257)          // end-of-data marker 
@@ -44,67 +44,67 @@
 #include <cstdlib>
 #include <cstring>
 
-lzwEncoder::lzwEncoder()
+LzwCompressor::LzwCompressor()
 {
     //init Vector
-    dict = std::vector<lzwEncoderWord>(258, lzwEncoderWord());
+    dict = std::vector<LzwWord>(258, LzwWord());
     dict.reserve(512);
-    maxBit=12;
-    maxCode = 512;
-    bitSize = 9;
-    nextCode = 258;
-    lastCode = 0;
-    firstPass = true;
+    max_bit=12;
+    max_code = 512;
+    bit_size = 9;
+    next_code = 258;
+    last_code = 0;
+    first_pass = true;
     buffer = 0;
-    nWriteBits = 0;
+    n_write_bits = 0;
 }
 
 
-void lzwEncoder::clearDict()
+void LzwCompressor::clear_dict()
 {
     dict.clear();
     //init Vector
-    dict = std::vector<lzwEncoderWord>(258, lzwEncoderWord());
+    dict = std::vector<LzwWord>(258, LzwWord());
     dict.reserve(512);
-    nextCode=258;
-    maxCode= 512;
-    bitSize=9;
+    next_code=258;
+    max_code= 512;
+    bit_size=9;
 }
 
-void lzwEncoder::writeBits(uint16_t lzwCode, uint8_t* out, size_t& outPos
+void LzwCompressor::write_bits(uint16_t lzwCode, uint8_t* out, size_t& outPos
 )
 {
-    buffer = ( buffer << bitSize ) | lzwCode; // put lzwCode in the write buffer
-    nWriteBits += bitSize;
-    while (nWriteBits >=8) { // Write 8bit of Data
-        nWriteBits -= 8;
-        out[outPos++] = buffer >> nWriteBits;
-        buffer = buffer & (1 << nWriteBits ) - 1;
+    buffer = ( buffer << bit_size ) | lzwCode; // put lzwCode in the write buffer
+    n_write_bits += bit_size;
+    while (n_write_bits >=8) { // Write 8bit of Data
+        n_write_bits -= 8;
+        out[outPos++] = buffer >> n_write_bits;
+        buffer = buffer & (1 << n_write_bits ) - 1;
     }
 }
 
 
-uint8_t* lzwEncoder::encode(const uint8_t* in, size_t inSize, size_t& outSize)
+uint8_t* LzwCompressor::encode(const uint8_t* in, size_t inSize, size_t& outSize)
 {
     size_t outBufferSize = inSize*2;
     size_t outPos = 0;
     uint8_t* out = new uint8_t[outBufferSize];
 
     uint8_t character=0;
-    uint16_t nextCode=0;
-    if (firstPass && inSize) {
+    uint16_t next_code=0;
+    if (first_pass && inSize) {
         //Initialize with first character
-        lastCode = *(in++);
+        last_code = *(in++);
         inSize--;
-        firstPass = false;
-        writeBits(M_CLR,out, outPos);
+        first_pass = false;
+        write_bits(M_CLR,out, outPos);
     }
 
     while (inSize) {
         character= *(in++);
         inSize--;
-        if ((nextCode = dict.at(lastCode).nextValue[character])) { // input already in dictionary waiting for new character
-            lastCode = nextCode;
+        if ((next_code = dict.at(last_code).next_value[character])) { // input already in dictionary waiting for new character
+            last_code = next_code;
         } else { // Write Code and append to dictionary
             if (outPos + 2 > outBufferSize) {
                 uint8_t* tmp_buffer = new uint8_t[(outBufferSize*2)];
@@ -119,70 +119,70 @@ uint8_t* lzwEncoder::encode(const uint8_t* in, size_t inSize, size_t& outSize)
                     return NULL;
                 }
             }
-            writeBits(lastCode,out, outPos); // put LastCode in the write buffer
-            dict[lastCode].nextValue[character]=dict.size();
-            dict.push_back(lzwEncoderWord());
-            if (dict.size() == maxCode) {
-                if (bitSize < maxBit) { //Extend
-                    bitSize++;
-                    maxCode*=2;
-                    dict.reserve(maxCode);
+            write_bits(last_code,out, outPos); // put LastCode in the write buffer
+            dict[last_code].next_value[character]=dict.size();
+            dict.push_back(LzwWord());
+            if (dict.size() == max_code) {
+                if (bit_size < max_bit) { //Extend
+                    bit_size++;
+                    max_code*=2;
+                    dict.reserve(max_code);
                 } else { // Clear Dict
-                    writeBits(M_CLR,out, outPos);
-                    clearDict();
+                    write_bits(M_CLR,out, outPos);
+                    clear_dict();
                 }
             }
-            lastCode = character;
+            last_code = character;
 
         }
 
     }
-    writeBits(lastCode,out, outPos);
+    write_bits(last_code,out, outPos);
     //Should be triggered at the end
-    writeBits(M_EOD,out, outPos);
+    write_bits(M_EOD,out, outPos);
 
 
     if (buffer) { // Flush the remaining data
-        writeBits(buffer,out, outPos);
+        write_bits(buffer,out, outPos);
     }
     outSize = outPos;
     return out;
 }
 
-uint8_t* lzwEncoder::streamEncode(const uint8_t* in, size_t inSize, uint8_t* out, size_t& outSize)
+uint8_t* LzwCompressor::stream_encode(const uint8_t* in, size_t inSize, uint8_t* out, size_t& outSize)
 {
     size_t outBufferSize = outSize;
     size_t outPos = 0;
     uint8_t character=0;
-    uint16_t nextCode=0;
-    if (firstPass && inSize) {
+    uint16_t next_code=0;
+    if (first_pass && inSize) {
         //Initialize with first character
-        lastCode = *(in++);
+        last_code = *(in++);
         inSize--;
-        firstPass = false;
-        writeBits(M_CLR,out, outPos);
+        first_pass = false;
+        write_bits(M_CLR,out, outPos);
     }
 
     while (inSize) {
         character= *(in++);
         inSize--;
-        if ((nextCode = dict.at(lastCode).nextValue[character])) { // input already in dictionary waiting for new character
-            lastCode = nextCode;
+        if ((next_code = dict.at(last_code).next_value[character])) { // input already in dictionary waiting for new character
+            last_code = next_code;
         } else { // Write Code and append to dictionary
-            writeBits(lastCode,out, outPos); // put LastCode in the write buffer
-            dict[lastCode].nextValue[character]=dict.size();
-            dict.push_back(lzwEncoderWord());
-            if (dict.size() == maxCode) {
-                if (bitSize < maxBit) { //Extend
-                    bitSize++;
-                    maxCode*=2;
-                    //dict.reserve(maxCode);
+            write_bits(last_code,out, outPos); // put LastCode in the write buffer
+            dict[last_code].next_value[character]=dict.size();
+            dict.push_back(LzwWord());
+            if (dict.size() == max_code) {
+                if (bit_size < max_bit) { //Extend
+                    bit_size++;
+                    max_code*=2;
+                    //dict.reserve(max_code);
                 } else { // Clear Dict
-                    writeBits(M_CLR,out, outPos);
-                    clearDict();
+                    write_bits(M_CLR,out, outPos);
+                    clear_dict();
                 }
             }
-            lastCode = character;
+            last_code = character;
             if (outPos+3 > outBufferSize) {//Buffer too small
                 outSize = outPos;
                 return (uint8_t*) in;
@@ -190,33 +190,33 @@ uint8_t* lzwEncoder::streamEncode(const uint8_t* in, size_t inSize, uint8_t* out
         }
 
     }
-    /*writeBits(lastCode,out, outPos);
+    /*write_bits(last_code,out, outPos);
     //Should be triggered at the end
-    writeBits(M_EOD,out, outPos);
+    write_bits(M_EOD,out, outPos);
 
 
     if (buffer) { // Flush the remaining data
-        writeBits(buffer,out, outPos);
+        write_bits(buffer,out, outPos);
     }*/
     outSize = outPos;
     return out;
 }
 
-void lzwEncoder::streamEnd(uint8_t* out, size_t& outPos)
+void LzwCompressor::streamEnd(uint8_t* out, size_t& outPos)
 {
-    writeBits(lastCode,out, outPos);
+    write_bits(last_code,out, outPos);
     //Should be triggered at the end
-    writeBits(M_EOD,out, outPos);
+    write_bits(M_EOD,out, outPos);
 
 
     if (buffer) { // Flush the remaining data
-        writeBits(buffer,out, outPos);
+        write_bits(buffer,out, outPos);
     }
 
 }
 
 
-uint8_t* lzwEncoder::encodeAlt(const uint8_t* in, size_t inSize, size_t& outSize)
+uint8_t* LzwCompressor::encode_alt(const uint8_t* in, size_t inSize, size_t& outSize)
 {
     outSize = 20;
     size_t outPos = outSize;
@@ -226,7 +226,7 @@ uint8_t* lzwEncoder::encodeAlt(const uint8_t* in, size_t inSize, size_t& outSize
     uint8_t* out = outBuffer;
     uint8_t* oldout = out;
     uint8_t* inBuffer=(uint8_t*) in;
-    out = streamEncode(in, inSize, out, outPos);
+    out = stream_encode(in, inSize, out, outPos);
     while (out != oldout ) {
 
         uint8_t* tmp_buffer = new uint8_t[(outSize*2)];
@@ -246,7 +246,7 @@ uint8_t* lzwEncoder::encodeAlt(const uint8_t* in, size_t inSize, size_t& outSize
         outBufferPos += outPos;
         oldout = outBuffer + outBufferPos;
         outPos = outSize - outPos;
-        out = streamEncode(inBuffer, inSize - inPos, oldout, outPos);
+        out = stream_encode(inBuffer, inSize - inPos, oldout, outPos);
     }
     outSize= outBufferPos + outPos;
     streamEnd(out,outSize);
@@ -254,7 +254,7 @@ uint8_t* lzwEncoder::encodeAlt(const uint8_t* in, size_t inSize, size_t& outSize
 }
 
 
-lzwEncoder::~lzwEncoder()
+LzwCompressor::~LzwCompressor()
 {
 
 }

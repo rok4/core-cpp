@@ -35,7 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#include "compressors/LZWDecoder.h"
+#include "compressors/LzwUncompressor.h"
 
 #include <cstddef>
 #include <cstring>
@@ -46,11 +46,11 @@
 #define M_EOD    257          // end-of-data marker 
 #define BUFFER_SIZE 256*256*4 // Default tile Size
 
-lzwDecoder::lzwDecoder(uint8_t maxBit) : maxBit(maxBit) {
-    bitSize=9;
-    maxCode=512;
+LzwUncompressor::LzwUncompressor(uint8_t max_bit) : max_bit(max_bit) {
+    bit_size=9;
+    max_code=512;
 
-    dict.reserve(maxCode);
+    dict.reserve(max_code);
     for ( int i = 0; i < 255; ++i) {
         lzwWord word;
         word.push_back(i);
@@ -60,16 +60,16 @@ lzwDecoder::lzwDecoder(uint8_t maxBit) : maxBit(maxBit) {
     dict.push_back(lzwWord());
 
 
-    firstPass=true;
+    first_pass=true;
     buffer =0;
-    nReadbits = 0;
-    lastChar=0;
+    n_read_bits = 0;
+    last_char=0;
 }
 
 
-void lzwDecoder::clearDict() {
+void LzwUncompressor::clear_dict() {
     dict.clear();
-    dict.reserve(maxCode);
+    dict.reserve(max_code);
     for ( int i = 0; i < 256; ++i) {
         lzwWord word;
         word.push_back(i);
@@ -78,17 +78,17 @@ void lzwDecoder::clearDict() {
     dict.push_back(lzwWord());
     dict.push_back(lzwWord());
 
-    bitSize=9;
-    maxCode=512;
-    lastCode=256;
-    lastChar=0;
-    firstPass = true;
+    bit_size=9;
+    max_code=512;
+    last_code=256;
+    last_char=0;
+    first_pass = true;
 }
 
 /** \warning Accès à un emplacement dans dict impossible. Des sortie ont été mises, pour pointer le problème. Le plantage n'est pas systématique pour une même image.
  ** \warning Performance de décodage assez mauvaises.
  */
-uint8_t* lzwDecoder::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
+uint8_t* LzwUncompressor::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
 {
     size_t outSize= (outPos?outPos:BUFFER_SIZE);
     uint8_t* out = new uint8_t[outSize];
@@ -97,67 +97,67 @@ uint8_t* lzwDecoder::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
     //Initialization
 
     while (inSize) {
-        while (firstPass) {
-            while ( nReadbits < bitSize) {
+        while (first_pass) {
+            while ( n_read_bits < bit_size) {
                 if ( inSize > 0) {
                     buffer = (buffer << 8) | *(in++);
-                    nReadbits += 8;
+                    n_read_bits += 8;
                 } else { // Not enough data in the current buffer. Return current state
                     return out;
                 }
             }
 
-            nReadbits -= bitSize;
+            n_read_bits -= bit_size;
             // Extract BitSize bits from buffer
-            code = buffer >> nReadbits;
+            code = buffer >> n_read_bits;
             // Remove extracted code from buffer
-            buffer = buffer & (1 << nReadbits) - 1;
+            buffer = buffer & (1 << n_read_bits) - 1;
             //Test Code
             if (code == M_EOD ) { //End of Data
                 return out;
             }
             if ( code == M_CLR ) { // Reset Dictionary
-                this->clearDict();
+                this->clear_dict();
             } else {
                 out[outPos++] = code;
-                lastCode = code;
-                lastChar = code;
-                firstPass = false;
+                last_code = code;
+                last_char = code;
+                first_pass = false;
             }
         }
         //Read enough data from input stream
-        while ( nReadbits < bitSize) {
+        while ( n_read_bits < bit_size) {
             if ( inSize > 0) {
                 buffer = (buffer << 8) | *(in++);
-                nReadbits += 8;
+                n_read_bits += 8;
                 inSize--;
             } else { // Not enough data in the current buffer. Return current state
                 return out;
             }
         }
 
-        nReadbits -= bitSize;
+        n_read_bits -= bit_size;
         // Extract BitSize bits from buffer
-        code = buffer >> nReadbits;
+        code = buffer >> n_read_bits;
         // Remove extracted code from buffer
-        buffer = buffer & (1 << nReadbits) - 1;
+        buffer = buffer & (1 << n_read_bits) - 1;
         //Test Code
         if (code == M_EOD ) { //End of Data
             return out;
         }
         if ( code == M_CLR ) { // Reset Dictionary
-            this->clearDict();
+            this->clear_dict();
         } else {
             if (code > dict.size() - 1) { // Code Not found
-                //itCode = dict.find(lastCode);
-                if (lastCode >= dict.size()) std::cout << "1 lastCode = " << lastCode << " et dict size = " << dict.size() << std::endl;
-                lzwWord oldstring = dict.at(lastCode);
+                //itCode = dict.find(last_code);
+                if (last_code >= dict.size()) std::cout << "1 last_code = " << last_code << " et dict size = " << dict.size() << std::endl;
+                lzwWord oldstring = dict.at(last_code);
                 outString.assign(oldstring.begin(),oldstring.end());
-                outString.push_back(lastChar);
+                outString.push_back(last_char);
             } else { // Code found get Value
                 outString.assign(dict.at(code).begin(),dict.at(code).end());
             }
-            lastChar = *(outString.begin());
+            last_char = *(outString.begin());
 
             for (lzwWord::iterator it = outString.begin(); it != outString.end(); it++) {
                 if (outPos >= outSize) {
@@ -176,20 +176,20 @@ uint8_t* lzwDecoder::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
                 out[outPos++]= *it;
             }
 
-            if (lastCode >= dict.size()) std::cout << "2 lastCode = " << lastCode << " et dict size = " << dict.size() << std::endl;
-            lzwWord newEntry = dict.at(lastCode);
-            newEntry.push_back(lastChar);
+            if (last_code >= dict.size()) std::cout << "2 last_code = " << last_code << " et dict size = " << dict.size() << std::endl;
+            lzwWord newEntry = dict.at(last_code);
+            newEntry.push_back(last_char);
             dict.push_back(newEntry);
-            lastCode = code;
+            last_code = code;
             //Dictionary need to be extended or reseted
-            if (dict.size() == maxCode -1) {
+            if (dict.size() == max_code -1) {
                 //Extend
-                if (bitSize < maxBit) {
-                    bitSize++;
-                    maxCode*=2;
-                    dict.reserve(maxCode);
+                if (bit_size < max_bit) {
+                    bit_size++;
+                    max_code*=2;
+                    dict.reserve(max_code);
                 }
-                // else : the next code must be M_CLR is written in maxBit bit
+                // else : the next code must be M_CLR is written in max_bit bit
             }
         }
 
@@ -198,7 +198,7 @@ uint8_t* lzwDecoder::decode ( const uint8_t* in, size_t inSize, size_t& outPos )
     return out;
 }
 
-lzwDecoder::~lzwDecoder()
+LzwUncompressor::~LzwUncompressor()
 {
     dict.clear();
 }

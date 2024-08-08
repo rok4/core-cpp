@@ -58,7 +58,7 @@
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
 
-static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf, int bps) {
+static SampleFormat::eSampleFormat to_rok4_sampleformat ( uint16_t sf, int bps) {
 
     if (sf == SAMPLEFORMAT_UINT && (bps == 8 || bps == 1)) {
         return SampleFormat::UINT8;
@@ -71,7 +71,7 @@ static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf, int bps) {
     }
 }
 
-static uint16_t fromROK4SampleFormat ( SampleFormat::eSampleFormat sf ) {
+static uint16_t from_rok4_sampleformat ( SampleFormat::eSampleFormat sf ) {
     switch ( sf ) {
     case SampleFormat::UINT8 :
         return SAMPLEFORMAT_UINT;
@@ -84,7 +84,7 @@ static uint16_t fromROK4SampleFormat ( SampleFormat::eSampleFormat sf ) {
     }
 }
 
-static Photometric::ePhotometric toROK4Photometric ( uint16_t ph ) {
+static Photometric::ePhotometric to_rok4_photometric ( uint16_t ph ) {
     switch ( ph ) {
     case PHOTOMETRIC_MINISBLACK :
         return Photometric::GRAY;
@@ -103,7 +103,7 @@ static Photometric::ePhotometric toROK4Photometric ( uint16_t ph ) {
     }
 }
 
-static uint16_t fromROK4Photometric ( Photometric::ePhotometric ph ) {
+static uint16_t from_rok4_photometric ( Photometric::ePhotometric ph ) {
     switch ( ph ) {
     case Photometric::GRAY :
         return PHOTOMETRIC_MINISBLACK;
@@ -120,7 +120,7 @@ static uint16_t fromROK4Photometric ( Photometric::ePhotometric ph ) {
     }
 }
 
-static Compression::eCompression toROK4Compression ( uint16_t comp ) {
+static Compression::eCompression to_rok4_compression ( uint16_t comp ) {
     switch ( comp ) {
     case COMPRESSION_NONE :
         return Compression::NONE;
@@ -139,7 +139,7 @@ static Compression::eCompression toROK4Compression ( uint16_t comp ) {
     }
 }
 
-static uint16_t fromROK4Compression ( Compression::eCompression comp ) {
+static uint16_t from_rok4_compression ( Compression::eCompression comp ) {
     switch ( comp ) {
     case Compression::NONE :
         return COMPRESSION_NONE;
@@ -158,7 +158,7 @@ static uint16_t fromROK4Compression ( Compression::eCompression comp ) {
     }
 }
 
-static ExtraSample::eExtraSample toROK4ExtraSample ( uint16_t es ) {
+static ExtraSample::eExtraSample to_rok4_extrasample ( uint16_t es ) {
     switch ( es ) {
     case EXTRASAMPLE_ASSOCALPHA :
         return ExtraSample::ALPHA_ASSOC;
@@ -169,7 +169,7 @@ static ExtraSample::eExtraSample toROK4ExtraSample ( uint16_t es ) {
     }
 }
 
-static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
+static uint16_t from_rok4_extrasample ( ExtraSample::eExtraSample es ) {
     switch ( es ) {
     case ExtraSample::ALPHA_ASSOC :
         return EXTRASAMPLE_ASSOCALPHA;
@@ -257,7 +257,7 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
         return NULL;
     }
     
-    if (toROK4Photometric ( ph ) == Photometric::PALETTE) {        
+    if (to_rok4_photometric ( ph ) == Photometric::PALETTE) {        
         palette = true;
     }
 
@@ -283,7 +283,7 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
     if ( TIFFGetField ( tif, TIFFTAG_EXTRASAMPLES, &extrasamplesCount, &extrasamples ) > 0 ) {
         // On a des canaux en plus, si c'est de l'alpha (le premier extra), et qu'il est associé,
         // on le précise pour convertir à la volée lors de la lecture des lignes
-        es = toROK4ExtraSample(extrasamples[0]);
+        es = to_rok4_extrasample(extrasamples[0]);
         if ( es == ExtraSample::ALPHA_ASSOC ) {
             BOOST_LOG_TRIVIAL(info) <<  "Alpha sample is associated for the file " << filename << ". We will convert for reading";
         }
@@ -297,7 +297,7 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
     
     /********************** CONTROLES **************************/
 
-    if ( toROK4SampleFormat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
+    if ( to_rok4_sampleformat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
         BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << sf << " and " << bitspersample << " bits per sample" ;
         BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << filename ;
         TIFFClose ( tif );
@@ -408,19 +408,19 @@ LibtiffImage* LibtiffImage::create_to_write (
         return NULL;
     }
 
-    if ( TIFFSetField ( tif, TIFFTAG_SAMPLEFORMAT, fromROK4SampleFormat ( sampleformat ) ) < 1 ) {
+    if ( TIFFSetField ( tif, TIFFTAG_SAMPLEFORMAT, from_rok4_sampleformat ( sampleformat ) ) < 1 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to write sample format for file " << filename ;
         TIFFClose ( tif );
         return NULL;
     }
 
-    if ( TIFFSetField ( tif, TIFFTAG_PHOTOMETRIC, fromROK4Photometric ( photometric ) ) < 1 ) {
+    if ( TIFFSetField ( tif, TIFFTAG_PHOTOMETRIC, from_rok4_photometric ( photometric ) ) < 1 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to write photometric for file " << filename ;
         TIFFClose ( tif );
         return NULL;
     }
 
-    if ( TIFFSetField ( tif, TIFFTAG_COMPRESSION, fromROK4Compression ( compression ) ) < 1 ) {
+    if ( TIFFSetField ( tif, TIFFTAG_COMPRESSION, from_rok4_compression ( compression ) ) < 1 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to write compression for file " << filename ;
         TIFFClose ( tif );
         return NULL;
@@ -465,8 +465,8 @@ LibtiffImage::LibtiffImage (
     int sf, int bps, int ph,
     int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample extra_sample_type, bool tiled, bool palette) :
 
-    FileImage ( width, height, resx, resy, ch, bbox, name, toROK4SampleFormat( sf, bps ),
-                toROK4Photometric( ph ), toROK4Compression( comp ), extra_sample_type
+    FileImage ( width, height, resx, resy, ch, bbox, name, to_rok4_sampleformat( sf, bps ),
+                to_rok4_photometric( ph ), to_rok4_compression( comp ), extra_sample_type
               ),
 
     tif ( tif ), rowsperstrip ( rowsperstrip ), tiled (tiled), palette (palette) {
@@ -479,14 +479,14 @@ LibtiffImage::LibtiffImage (
         // On change donc les informations, en précisant que la conversion doit être faite à la lecture.
         BOOST_LOG_TRIVIAL(debug) <<  "We have 1-bit samples for the file " << filename << ". We will convert for reading into 8-bit samples";
         pixel_size = channels;
-        if (ph == PHOTOMETRIC_MINISWHITE) oneTo8bits = 1;
-        else if (ph == PHOTOMETRIC_MINISBLACK) oneTo8bits = 2;
+        if (ph == PHOTOMETRIC_MINISWHITE) bit_to_byte = 1;
+        else if (ph == PHOTOMETRIC_MINISBLACK) bit_to_byte = 2;
         else {
             BOOST_LOG_TRIVIAL(warning) << "Image '" << filename << "' has 1-bit sample and is not PHOTOMETRIC_MINISWHITE or PHOTOMETRIC_MINISWHITE ?";
-            oneTo8bits = 0;
+            bit_to_byte = 0;
         }
     } else {
-        oneTo8bits = 0;
+        bit_to_byte = 0;
     }
 
     if (palette) {
@@ -502,9 +502,9 @@ LibtiffImage::LibtiffImage (
     int stripSize = width*rowsperstrip*pixel_size;
     strip_buffer = new uint8_t[stripSize];
     
-    if (oneTo8bits) {
+    if (bit_to_byte) {
         // On a besoin d'un buffer supplémentaire pour faire la conversion à la volée à la lecture
-        oneTo8bits_buffer = new uint8_t[stripSize];
+        bit_to_byte_buffer = new uint8_t[stripSize];
     }
 }
 
@@ -517,7 +517,7 @@ LibtiffImage::LibtiffImage (
 
     tif ( tif ), rowsperstrip ( rowsperstrip ) {
         
-    oneTo8bits = 0;
+    bit_to_byte = 0;
 
     current_strip = -1;
     int stripSize = width*rowsperstrip*pixel_size;
@@ -642,10 +642,10 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
             }
         }
         
-        if (oneTo8bits == 1) {
-            OneBitConverter::minwhiteToGray(oneTo8bits_buffer, strip_buffer, size);
-        } else if (oneTo8bits == 2) {
-            OneBitConverter::minblackToGray(oneTo8bits_buffer, strip_buffer, size);
+        if (bit_to_byte == 1) {
+            OneBitConverter::minwhiteToGray(bit_to_byte_buffer, strip_buffer, size);
+        } else if (bit_to_byte == 2) {
+            OneBitConverter::minblackToGray(bit_to_byte_buffer, strip_buffer, size);
         }
     }
     
@@ -654,8 +654,8 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
 
     /************* SI CONVERSION 1 bit -> 8 bits **************/
     
-    if (oneTo8bits) {
-        memcpy ( buffertmp, oneTo8bits_buffer + ( line%rowsperstrip ) * width * pixel_size, width * pixel_size );
+    if (bit_to_byte) {
+        memcpy ( buffertmp, bit_to_byte_buffer + ( line%rowsperstrip ) * width * pixel_size, width * pixel_size );
     } else {
         memcpy ( buffertmp, strip_buffer + ( line%rowsperstrip ) * width * pixel_size, width * pixel_size );
     }
@@ -667,7 +667,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
         memcpy(buffer, buffertmp, pixel_size * width);
     }

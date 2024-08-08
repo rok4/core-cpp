@@ -204,53 +204,6 @@ inline void convert ( uint8_t* to, const float* from, int length ) {
         else to[i] = t;
     }
 }
-/*
-inline void convert ( uint8_t* to, const float* from, int length ) {
-    // _MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
-    //
-    // On avance sur les premiers éléments jusqu'à alignement de to sur 128bits
-    while ( ( intptr_t ) from & 0x0f && length ) {
-        if ( *from > 255 ) *to = 255;
-        else if ( *from < 0 ) *to = 0;
-        else *to = ( uint8_t ) *from;
-        ++from;
-        ++to;
-        --length;
-    }
-    while ( length & 0x0f )  { // On s'arrange pour avoir un multiple de 16 d'éléments à traiter.
-        --length;
-        if ( from[length] > 255 ) to[length] = 255;
-        else if ( from[length] < 0 ) to[length] = 0;
-        else to[length] = ( uint8_t ) from[length];
-    }
-
-    // On traite les éléments 16 par 16 en utlisant les fonctions intrinsics SSE
-    __m128i* T = ( __m128i* ) to;
-    length /= 16;
-
-    if ( ( intptr_t ) to & 0x0f )
-        for ( int i = 0; i < length; i++ ) { // Cas to non aligné
-            __m128i m1 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i ) );
-            __m128i m2 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+4 ) );
-            __m128i m3 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+8 ) );
-            __m128i m4 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+12 ) );
-            m1 = _mm_packs_epi32 ( m1, m2 );
-            m3 = _mm_packs_epi32 ( m3, m4 );
-            m1 = _mm_packus_epi16 ( m1, m3 );
-            _mm_storeu_si128 ( T + i, m1 );
-        }
-    else
-        for ( int i = 0; i < length; i++ ) { // cas to aligné
-            __m128i m1 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i ) );
-            __m128i m2 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+4 ) );
-            __m128i m3 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+8 ) );
-            __m128i m4 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+12 ) );
-            m1 = _mm_packs_epi32 ( m1, m2 );
-            m3 = _mm_packs_epi32 ( m3, m4 );
-            m1 = _mm_packus_epi16 ( m1, m3 );
-            _mm_store_si128 ( T + i, m1 );
-        }
-}*/
 #else // Version non SSE
 
 inline void convert ( uint8_t* to, const float* from, int length ) {

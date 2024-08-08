@@ -62,7 +62,7 @@ protected:
         float W[100];
         for ( int i = 0; i < 1000; i++ ) {
             Interpolation::KernelType kT= Interpolation::KernelType ( ( i%6 ) +1 );
-            const Kernel &K = Kernel::getInstance ( kT ); // Il y a 6 Noyaux défini dans KernelType
+            const Kernel &K = Kernel::get_instance ( kT ); // Il y a 6 Noyaux défini dans KernelType
 
             double ratio = 10 * double ( rand() ) / double ( RAND_MAX );
             int l = ceil ( 2 * K.size ( ratio )-1E-7 );

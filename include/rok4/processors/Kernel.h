@@ -134,7 +134,7 @@ public:
      * \param[in] T type de noyau d'interpolation
      * \return noyau d'interpolation
      */
-    static const Kernel& getInstance ( Interpolation::KernelType T = Interpolation::LANCZOS_3 );
+    static const Kernel& get_instance ( Interpolation::KernelType T = Interpolation::LANCZOS_3 );
 
     /**
      * \~french \brief Calcule la taille effective du noyau en nombre de pixels sources

@@ -43,7 +43,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "compressors/LZWEncoder.h"
+#include "compressors/LzwCompressor.h"
 #include "datastream/DataStream.h"
 #include "datastream/TiffEncoder.h"
 #include "datastream/TiffHeader.h"
@@ -86,7 +86,7 @@ class TiffLZWEncoder : public TiffEncoder {
             raw_buffer_size += linesize;
         }
         raw_buffer_size *= sizeof(T);
-        lzwEncoder encoder;
+        LzwCompressor encoder;
         tmp_buffer = encoder.encode((uint8_t*)raw_buffer, raw_buffer_size, tmp_buffer_size);
         delete[] raw_buffer;
         raw_buffer = NULL;

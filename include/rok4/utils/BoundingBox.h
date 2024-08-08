@@ -109,11 +109,11 @@ public:
     ~BoundingBox() {}
 
     
-    bool isInAreaOfCRS(CRS* c);
+    bool is_in_crs_area(CRS* c);
 
-    bool intersectAreaOfCRS(CRS* c) ;
+    bool intersect_crs_area(CRS* c) ;
 
-    BoundingBox<T> cropToAreaOfCRS ( CRS* c ) ;
+    BoundingBox<T> crop_to_crs_area ( CRS* c ) ;
 
     /** \~french
      * \brief Reprojette le rectangle englobant (SRS sous forme de chaîne de caractères)
@@ -174,7 +174,7 @@ public:
      ** WARNING: the two bbox must have the same CRS
      * \param[in] bbox
      */
-    BoundingBox<T> getIntersection ( BoundingBox<T> other ) {
+    BoundingBox<T> get_intersection ( BoundingBox<T> other ) {
 
         if (! this->intersects(other)) {
             return BoundingBox<T> (0,0,0,0);
@@ -196,7 +196,7 @@ public:
      ** WARNING: the two bbox must have the same CRS
      * \param[in] bbox
      */
-    BoundingBox<T> getUnion ( BoundingBox<T> other ) {
+    BoundingBox<T> get_union ( BoundingBox<T> other ) {
 
         return BoundingBox<T> (
             std::min(this->xmin, other.xmin),
@@ -210,7 +210,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de X min
-     * \details La phase de Xmin est le décalage entre le bord gauche de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Xmin est le décalage entre le bord gauche de la bbox et le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase X min
      * \~english
@@ -218,7 +218,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return X min phasis
      */
-    double getPhaseXmin(T res) {
+    double get_xmin_phase(T res) {
         double intpart;
         double phi = modf ( xmin/res, &intpart );
         if ( phi < 0. ) {
@@ -230,7 +230,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de X max
-     * \details La phase de Xmax est le décalage entre le bord droit de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Xmax est le décalage entre le bord droit de la bbox et le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase X max
      * \~english
@@ -238,7 +238,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return X max phasis
      */
-    double getPhaseXmax(T res) {
+    double get_xmax_phase(T res) {
         double intpart;
         double phi = modf ( xmax/res, &intpart );
         if ( phi < 0. ) {
@@ -250,7 +250,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de Y min
-     * \details La phase de Ymin est le décalage entre le bord bas de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Ymin est le décalage entre le bord bas de la bbox et le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase Y min
      * \~english
@@ -258,7 +258,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return Y min phasis
      */
-    double getPhaseYmin(T res) {
+    double get_ymin_phase(T res) {
         double intpart;
         double phi = modf ( ymin/res, &intpart );
         if ( phi < 0. ) {
@@ -270,7 +270,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de Y max
-     * \details La phase de Ymax est le décalage entre le bord haut de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Ymax est le décalage entre le bord haut de la bbox et le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase Y max
      * \~english
@@ -278,7 +278,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return Y max phasis
      */
-    double getPhaseYmax(T res) {
+    double get_ymax_phase(T res) {
         double intpart;
         double phi = modf ( ymax/res, &intpart );
         if ( phi < 0. ) {
@@ -301,11 +301,11 @@ public:
         // la bbox en entrée est en accord avec les résolutions fournies,
         // c'est à dire que la phase est la même pour le min et le max
         // ce n'est pas forcément le cas pour la bbox à mettre en phase
-        double phaseX = other.getPhaseXmin(resx);
-        double phaseY = other.getPhaseYmin(resy);
+        double phaseX = other.get_xmin_phase(resx);
+        double phaseY = other.get_ymin_phase(resy);
 
         // Mise en phase de xmin (sans que celui ci puisse être plus petit)
-        phi = getPhaseXmin(resx);
+        phi = get_xmin_phase(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -316,7 +316,7 @@ public:
         }
 
         // Mise en phase de xmax (sans que celui ci puisse être plus grand)
-        phi = getPhaseXmax(resx);
+        phi = get_xmax_phase(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -327,7 +327,7 @@ public:
         }
 
         // Mise en phase de ymin (sans que celui ci puisse être plus petit)
-        phi = getPhaseYmin(resy);
+        phi = get_ymin_phase(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;
@@ -338,7 +338,7 @@ public:
         }
 
         // Mise en phase de ymax (sans que celui ci puisse être plus grand)
-        phi = getPhaseYmax(resy);
+        phi = get_ymax_phase(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;
@@ -367,7 +367,7 @@ public:
      ** \~english \brief Determine if a bounding box is equal to an other
      * \param[in] bbox
      */
-    bool isEqual ( BoundingBox<T> bbox ) {
+    bool is_equal ( BoundingBox<T> bbox ) {
         if (crs != "" && bbox.crs != "" && crs != bbox.crs) {
             return false;
         } else {
@@ -378,14 +378,14 @@ public:
     /** \~french \brief Détermine si une boundingBox est nulle
      ** \~english \brief Determine if a bounding box is null
      */
-    bool isNull ( ) {
+    bool is_null ( ) {
         return ( xmin == 0 && xmax == 0 && ymin == 0 && ymax == 0 );
     }
 
     /** \~french \brief Détermine si une boundingBox a une aire nulle
      ** \~english \brief Determine if a bounding box has null area
      */
-    bool hasNullArea ( ) {
+    bool has_null_area ( ) {
         return ( xmin >= xmax || ymin >= ymax );
     }
 

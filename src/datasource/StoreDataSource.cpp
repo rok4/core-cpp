@@ -61,7 +61,7 @@ StoreDataSource::StoreDataSource (std::string n, Context* c, const uint32_t o, c
 {
     data = NULL;
     size = 0;
-    alreadyTried = false;
+    already_tried = false;
 }
 
 StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::string n, Context* c, std::string type, std::string encoding ) :
@@ -69,7 +69,7 @@ StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::s
 {
     data = NULL;
     size = 0;
-    alreadyTried = false;
+    already_tried = false;
 }
 
 /*
@@ -78,15 +78,15 @@ StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::s
  * Indique la taille de la tuile (inconnue a priori)
  */
 const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
-    if ( alreadyTried) {
+    if ( already_tried) {
         tile_size = size;
         return data;
     }
 
-    alreadyTried = true;
+    already_tried = true;
 
     // il se peut que le contexte d'origine n'existe pas ou ne soit pas connecté, auquel cas on sort directement sans donnée
-    if (! context->isConnected()) {
+    if (! context->is_connected()) {
         data = NULL;
         return NULL;
     }
@@ -116,7 +116,7 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
             BOOST_LOG_TRIVIAL(debug) << "pas de cache";
 
             std::string originalFullName (full_name);
-            std::string originalTrayName (context->getTray());
+            std::string originalTrayName (context->get_tray());
 
             int headerIndexSize = ROK4_IMAGE_HEADER_SIZE + 2 * 4 * tiles_number;
             uint8_t* indexheader = new uint8_t[headerIndexSize];

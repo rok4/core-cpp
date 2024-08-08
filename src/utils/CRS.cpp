@@ -85,7 +85,7 @@ CRS::CRS ( std::string crs_code ) : definition_area ( -90.0,-180.0,90.0,180.0 ),
 
     if ( request_code == "CRS:84" ) proj_code = "EPSG:4326";
 
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
     pj_proj = proj_create ( pj_ctx, proj_code.c_str());
 
     if ( 0 == pj_proj ) {
@@ -107,7 +107,7 @@ CRS::CRS ( std::string crs_code ) : definition_area ( -90.0,-180.0,90.0,180.0 ),
 CRS::CRS ( CRS* crs ) : definition_area ( crs->definition_area ), native_definition_area ( crs->native_definition_area ) {
     request_code=crs->request_code;
     proj_code=crs->proj_code;
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
     pj_proj = proj_create ( pj_ctx, proj_code.c_str());
 }
 
@@ -123,7 +123,7 @@ CRS& CRS::operator= ( const CRS& other ) {
             proj_destroy (pj_proj);
         }
 
-        PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+        PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
         this->pj_proj = proj_create ( pj_ctx, this->proj_code.c_str());
     }
     return *this;
@@ -180,7 +180,7 @@ bool CRS::operator!= ( const CRS& crs ) const {
 
 std::string CRS::get_proj_param ( std::string paramName ) {
     std::size_t pos = 0, find = 1, find_equal = 0;
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
     std::string def( proj_as_proj_string(pj_ctx, pj_proj, PJ_PROJ_4, NULL) );
 
     pos = toLowerCase( def ).find( "+" + toLowerCase( paramName ) + "=" );
@@ -195,7 +195,7 @@ std::string CRS::get_proj_param ( std::string paramName ) {
 
 bool CRS::test_proj_param ( std::string paramName ) {
     std::size_t pos = 0;
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
     std::string def( proj_as_proj_string(pj_ctx, pj_proj, PJ_PROJ_4, NULL) );
     pos = toLowerCase( def ).find( "+" + toLowerCase( paramName ));
     if ( pos <0 || pos >def.size() ) {

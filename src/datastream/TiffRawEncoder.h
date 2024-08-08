@@ -49,36 +49,36 @@ template <typename T>
 class TiffRawEncoder : public TiffEncoder {
 protected:
     virtual void prepare_header(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation de l'en-tete";
-	header_size = TiffHeader::header_size ( image->get_channels() );
-	header = new uint8_t[header_size];
-	if ( image->get_channels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_RAW_FLOAT32_GRAY, header_size);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, header_size);
-	    }
-	else if ( image->get_channels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGB, header_size);
-	else if ( image->get_channels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, header_size);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
+        BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size ( image->get_channels() );
+        header = new uint8_t[header_size];
+        if ( image->get_channels()==1 )
+            if ( sizeof ( T ) == sizeof ( float ) ) {
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_FLOAT32_GRAY, header_size);
+            } else {
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, header_size);
+            }
+        else if ( image->get_channels()==3 )
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGB, header_size);
+        else if ( image->get_channels()==4 )
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, header_size);
+        * ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
+        * ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
+        * ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
+        * ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
     }
   
     virtual void prepare_buffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation du buffer d'image";
-	tmp_buffer = new uint8_t[image->get_height()*image->get_width()*image->get_channels()*sizeof ( T )];
-	int lRead = 0;
-	tmp_buffer_size = 0;
-	int linesize = image->get_width()*image->get_channels();
-	int linesizetmp = linesize * sizeof ( T );
-	for ( ; lRead < image->get_height() ; lRead++ ) {
-	    image->get_line ( ( T* ) (tmp_buffer+tmp_buffer_size), lRead );
-	    tmp_buffer_size+=linesizetmp;
-	}
+        BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation du buffer d'image";
+        tmp_buffer = new uint8_t[image->get_height()*image->get_width()*image->get_channels()*sizeof ( T )];
+        int lRead = 0;
+        tmp_buffer_size = 0;
+        int linesize = image->get_width()*image->get_channels();
+        int linesizetmp = linesize * sizeof ( T );
+        for ( ; lRead < image->get_height() ; lRead++ ) {
+            image->get_line ( ( T* ) (tmp_buffer+tmp_buffer_size), lRead );
+            tmp_buffer_size+=linesizetmp;
+        }
     }
 
 public:

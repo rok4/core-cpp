@@ -35,8 +35,8 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef LZWDECODER_H
-#define LZWDECODER_H
+#ifndef LZWUNCOMPRESSOR_H
+#define LZWUNCOMPRESSOR_H
 
 #include <cstddef>
 #include <climits>
@@ -47,30 +47,30 @@
 // 
 typedef std::list<uint8_t> lzwWord;
 
-class lzwDecoder {
+class LzwUncompressor {
 private:
-    uint8_t maxBit;
+    uint8_t max_bit;
     std::vector<lzwWord> dict;
-    uint16_t nextCode;
-    uint16_t maxCode;
-    uint8_t bitSize;
+    uint16_t next_code;
+    uint16_t max_code;
+    uint8_t bit_size;
     
     uint32_t buffer;
-    uint8_t nReadbits;
+    uint8_t n_read_bits;
     
     uint16_t code;
     
-    char lastChar;
-    uint16_t lastCode;
+    char last_char;
+    uint16_t last_code;
     
-    bool firstPass;
+    bool first_pass;
     
-    void clearDict();
+    void clear_dict();
 public:
     
-    lzwDecoder(uint8_t maxBit=12);
+    LzwUncompressor(uint8_t max_bit=12);
     uint8_t* decode(const uint8_t * in, size_t inSize, size_t &outSize);
-    ~lzwDecoder();
+    ~LzwUncompressor();
 };
 
-#endif // LZWDECODER_H
+#endif // LZWUNCOMPRESSOR_H

@@ -49,8 +49,8 @@
 
 #include "image/file/Rok4Image.h"
 #include "byteswap.h"
-#include "compressors/LZWEncoder.h"
-#include "compressors/PKBEncoder.h"
+#include "compressors/LzwCompressor.h"
+#include "compressors/PkbCompressor.h"
 #include "datasource/StoreDataSource.h"
 #include "datasource/Decoder.h"
 #include <boost/log/trivial.hpp>
@@ -116,7 +116,7 @@ static const uint8_t white[4] = {255,255,255,255};
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
 
-static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf, int bps ) {
+static SampleFormat::eSampleFormat to_rok4_sampleformat ( uint16_t sf, int bps ) {
     if (sf == SAMPLEFORMAT_UINT && bps == 8) {
         return SampleFormat::UINT8;
     } else if (sf == SAMPLEFORMAT_UINT && bps == 16) {
@@ -128,7 +128,7 @@ static SampleFormat::eSampleFormat toROK4SampleFormat ( uint16_t sf, int bps ) {
     }
 }
 
-static uint16_t fromROK4SampleFormat ( SampleFormat::eSampleFormat sf ) {
+static uint16_t from_rok4_sampleformat ( SampleFormat::eSampleFormat sf ) {
     switch ( sf ) {
     case SampleFormat::UINT8 :
         return SAMPLEFORMAT_UINT;
@@ -141,7 +141,7 @@ static uint16_t fromROK4SampleFormat ( SampleFormat::eSampleFormat sf ) {
     }
 }
 
-static Photometric::ePhotometric toROK4Photometric ( uint16_t ph ) {
+static Photometric::ePhotometric to_rok4_photometric ( uint16_t ph ) {
     switch ( ph ) {
     case PHOTOMETRIC_MINISBLACK :
         return Photometric::GRAY;
@@ -156,7 +156,7 @@ static Photometric::ePhotometric toROK4Photometric ( uint16_t ph ) {
     }
 }
 
-static uint16_t fromROK4Photometric ( Photometric::ePhotometric ph ) {
+static uint16_t from_rok4_photometric ( Photometric::ePhotometric ph ) {
     switch ( ph ) {
     case Photometric::GRAY :
         return PHOTOMETRIC_MINISBLACK;
@@ -171,7 +171,7 @@ static uint16_t fromROK4Photometric ( Photometric::ePhotometric ph ) {
     }
 }
 
-static Compression::eCompression toROK4Compression ( uint16_t comp ) {
+static Compression::eCompression to_rok4_compression ( uint16_t comp ) {
     switch ( comp ) {
     case COMPRESSION_NONE :
         return Compression::NONE;
@@ -190,7 +190,7 @@ static Compression::eCompression toROK4Compression ( uint16_t comp ) {
     }
 }
 
-static uint16_t fromROK4Compression ( Compression::eCompression comp ) {
+static uint16_t from_rok4_compression ( Compression::eCompression comp ) {
     switch ( comp ) {
     case Compression::NONE :
         return COMPRESSION_NONE;
@@ -211,7 +211,7 @@ static uint16_t fromROK4Compression ( Compression::eCompression comp ) {
     }
 }
 
-static ExtraSample::eExtraSample toROK4ExtraSample ( uint16_t es ) {
+static ExtraSample::eExtraSample to_rok4_extrasample ( uint16_t es ) {
     switch ( es ) {
     case EXTRASAMPLE_ASSOCALPHA :
         return ExtraSample::ALPHA_ASSOC;
@@ -222,7 +222,7 @@ static ExtraSample::eExtraSample toROK4ExtraSample ( uint16_t es ) {
     }
 }
 
-static uint16_t fromROK4ExtraSample ( ExtraSample::eExtraSample es ) {
+static uint16_t from_rok4_extrasample ( ExtraSample::eExtraSample es ) {
     switch ( es ) {
     case ExtraSample::ALPHA_ASSOC :
         return EXTRASAMPLE_ASSOCALPHA;
@@ -265,7 +265,7 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
         }
 
         std::string originalName (name);
-        std::string originalTrayName (c->getTray());
+        std::string originalTrayName (c->get_tray());
 
         char tmpName[tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE+1];
         memcpy((uint8_t*) tmpName, hdr+ROK4_SYMLINK_SIGNATURE_SIZE,tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE);
@@ -350,7 +350,7 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
     ExtraSample::eExtraSample es = ExtraSample::NONE;
     if (tagEs == TIFFTAG_EXTRASAMPLES) {
         p = ((uint8_t*) hdr)+146;
-        es = toROK4ExtraSample(*((uint32_t*) p));
+        es = to_rok4_extrasample(*((uint32_t*) p));
         
         p = ((uint8_t*) hdr)+158;
         sf = *((uint32_t*) p);
@@ -368,7 +368,7 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
     
     /********************** CONTROLES **************************/
 
-    if ( toROK4SampleFormat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
+    if ( to_rok4_sampleformat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
         BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : format (" << sf << ") and " << bitspersample << " bits per sample" <<  " for the image to read : " << name ;
         return NULL;
     }
@@ -386,7 +386,7 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
 
     Rok4Image* ri = new Rok4Image (
         width, height, resx, resy, channels, bbox, name,
-        toROK4SampleFormat( sf, bitspersample ), toROK4Photometric ( ph ), toROK4Compression ( comp ), es,
+        to_rok4_sampleformat( sf, bitspersample ), to_rok4_photometric ( ph ), to_rok4_compression ( comp ), es,
         tile_width, tile_height, c
     );
 
@@ -888,7 +888,7 @@ int Rok4Image::writePbfTiles ( int ulTileCol, int ulTileRow, char* rootDirectory
 
 bool Rok4Image::write_header()
 {
-    if (! context->openToWrite(name)) {
+    if (! context->open_to_write(name)) {
         BOOST_LOG_TRIVIAL(error) << "Unable to open output " << name;
         return false;
     }
@@ -964,8 +964,8 @@ bool Rok4Image::write_header()
             writeTIFFTAG(&p, TIFFTAG_BITSPERSAMPLE, TIFF_SHORT, channels, 8);
         }
 
-        writeTIFFTAG(&p, TIFFTAG_COMPRESSION, TIFF_SHORT, 1, fromROK4Compression(compression));
-        writeTIFFTAG(&p, TIFFTAG_PHOTOMETRIC, TIFF_SHORT, 1, fromROK4Photometric(photometric));
+        writeTIFFTAG(&p, TIFFTAG_COMPRESSION, TIFF_SHORT, 1, from_rok4_compression(compression));
+        writeTIFFTAG(&p, TIFFTAG_PHOTOMETRIC, TIFF_SHORT, 1, from_rok4_photometric(photometric));
         writeTIFFTAG(&p, TIFFTAG_SAMPLESPERPIXEL, TIFF_SHORT, 1, channels);
         writeTIFFTAG(&p, TIFFTAG_TILEWIDTH, TIFF_LONG, 1, tile_width);
         writeTIFFTAG(&p, TIFFTAG_TILELENGTH, TIFF_LONG, 1, tile_height);
@@ -984,10 +984,10 @@ bool Rok4Image::write_header()
         writeTIFFTAG(&p, TIFFTAG_TILEBYTECOUNTS, TIFF_LONG, tiles_count, ROK4_IMAGE_HEADER_SIZE + 4 * tiles_count);
 
         if ( channels == 4 || channels == 2 ) {
-            writeTIFFTAG(&p, TIFFTAG_EXTRASAMPLES, TIFF_SHORT, 1, fromROK4ExtraSample(extra_sample));
+            writeTIFFTAG(&p, TIFFTAG_EXTRASAMPLES, TIFF_SHORT, 1, from_rok4_extrasample(extra_sample));
         }
 
-        writeTIFFTAG(&p, TIFFTAG_SAMPLEFORMAT, TIFF_SHORT, 1, fromROK4SampleFormat(sample_format));
+        writeTIFFTAG(&p, TIFFTAG_SAMPLEFORMAT, TIFF_SHORT, 1, from_rok4_sampleformat(sample_format));
 
         if ( photometric == Photometric::YCBCR ) {
             * ( ( uint16_t* ) ( p ) ) = TIFFTAG_YCBCRSUBSAMPLING;
@@ -1073,7 +1073,7 @@ bool Rok4Image::write_final() {
     context->write((uint8_t*) tiles_offsets, ROK4_IMAGE_HEADER_SIZE, 4 * tiles_count, std::string(name));
     context->write((uint8_t*) tiles_sizes, ROK4_IMAGE_HEADER_SIZE + 4 * tiles_count, 4 * tiles_count, std::string(name));
 
-    if (! context->closeToWrite(name)) {
+    if (! context->close_to_write(name)) {
         BOOST_LOG_TRIVIAL(error) << "Unable to close output " << name;
         return false;
     }
@@ -1231,7 +1231,7 @@ size_t Rok4Image::compute_lzw_tile ( uint8_t *buffer, uint8_t *data ) {
 
     size_t outSize;
 
-    lzwEncoder LZWE;
+    LzwCompressor LZWE;
     uint8_t* temp = LZWE.encode ( data, raw_tile_size, outSize );
 
     if ( outSize > buffer_size ) {
@@ -1251,7 +1251,7 @@ size_t Rok4Image::compute_pkb_tile ( uint8_t *buffer, uint8_t *data ) {
     size_t pkbBufferSize = 0;
     uint8_t* rawLine = new uint8_t[raw_tile_line_size];
     int lRead = 0;
-    pkbEncoder encoder;
+    PkbCompressor encoder;
     uint8_t * pkbLine;
     for ( ; lRead < tile_height ; lRead++ ) {
         memcpy ( rawLine,data+lRead*raw_tile_line_size,raw_tile_line_size );

@@ -180,16 +180,16 @@ public:
     SwiftContext (std::string cont);
 
     ContextType::eContextType get_type();
-    std::string getTypeStr();
-    std::string getTray();
+    std::string get_type_string();
+    std::string get_tray();
           
     int read(uint8_t* data, int offset, int size, std::string name);
-    uint8_t* readFull(int& size, std::string name);
+    uint8_t* read_full(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
-    bool writeFull(uint8_t* data, int size, std::string name);
+    bool write_full(uint8_t* data, int size, std::string name);
 
-    bool openToWrite(std::string name);
-    bool closeToWrite(std::string name);
+    bool open_to_write(std::string name);
+    bool close_to_write(std::string name);
 
     std::string get_path(std::string racine,int x,int y,int pathDepth);
     std::string get_path(std::string name);
@@ -240,7 +240,7 @@ public:
      */
     std::string getAuthToken();
 
-    void closeConnection() {
+    void close_connection() {
         connected = false;        
         // On met à jour le fichier de jeton d'authentification Swift s'il a été fourni et que le token utilisé n'est pas celui dedans
         if(token_file != "" && ! use_token_from_file) {
@@ -260,7 +260,7 @@ public:
     }
     
     ~SwiftContext() {
-        closeConnection();
+        close_connection();
     }
 };
 

@@ -148,7 +148,7 @@ bool SwiftContext::connection() {
 
                 CURLcode res;
                 struct curl_slist *list = NULL;
-                CURL* curl = CurlPool::getCurlEnv();
+                CURL* curl = CurlPool::get_curl_env();
 
                 curl_easy_setopt(curl, CURLOPT_URL, auth_url.c_str());
                 if(ssl_no_verify){
@@ -216,7 +216,7 @@ bool SwiftContext::connection() {
             CURLcode res;
             struct curl_slist *list = NULL;
 
-            CURL* curl = CurlPool::getCurlEnv();
+            CURL* curl = CurlPool::get_curl_env();
 
             curl_easy_setopt(curl, CURLOPT_URL, auth_url.c_str());
             if(ssl_no_verify){
@@ -308,7 +308,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 
         int lastBytes = offset + size - 1;
 
-        CURL* curl = CurlPool::getCurlEnv();
+        CURL* curl = CurlPool::get_curl_env();
 
         // On constitue le header et le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -377,7 +377,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 }
 
 
-uint8_t* SwiftContext::readFull(int& size, std::string name) {
+uint8_t* SwiftContext::read_full(int& size, std::string name) {
 
     size = -1;
     
@@ -399,7 +399,7 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
         chunk.data = (char*) malloc(1);
         chunk.size = 0;
 
-        CURL* curl = CurlPool::getCurlEnv();
+        CURL* curl = CurlPool::get_curl_env();
 
         // On constitue le header et le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
@@ -467,8 +467,8 @@ uint8_t* SwiftContext::readFull(int& size, std::string name) {
 bool SwiftContext::write(uint8_t* data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "Swift write : " << size << " bytes (from the " << offset << " one) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No writing buffer for the name " << name;
         return false;
@@ -486,11 +486,11 @@ bool SwiftContext::write(uint8_t* data, int offset, int size, std::string name) 
     return true;
 }
 
-bool SwiftContext::writeFull(uint8_t* data, int size, std::string name) {
+bool SwiftContext::write_full(uint8_t* data, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "Swift write : " << size << " bytes (one shot) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No Swift writing buffer for the name " << name;
         return false;
@@ -508,34 +508,34 @@ ContextType::eContextType SwiftContext::get_type() {
     return ContextType::SWIFTCONTEXT;
 }
 
-std::string SwiftContext::getTypeStr() {
+std::string SwiftContext::get_type_string() {
     return "SWIFTCONTEXT";
 }
 
-std::string SwiftContext::getTray() {
+std::string SwiftContext::get_tray() {
     return container_name;
 }
 
-bool SwiftContext::openToWrite(std::string name) {
+bool SwiftContext::open_to_write(std::string name) {
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 != writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 != write_buffers.end() ) {
         BOOST_LOG_TRIVIAL(error) << "A Swift writing buffer already exists for the name " << name;
         return false;
 
     } else {
-        writingBuffers.insert ( std::pair<std::string,std::vector<char>*>(name, new std::vector<char>()) );
+        write_buffers.insert ( std::pair<std::string,std::vector<char>*>(name, new std::vector<char>()) );
     }
 
     return true;
 }
 
 
-bool SwiftContext::closeToWrite(std::string name) {
+bool SwiftContext::close_to_write(std::string name) {
 
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         BOOST_LOG_TRIVIAL(error) << "The Swift writing buffer with name " << name << "does not exist, cannot flush it";
         return false;
     }
@@ -548,7 +548,7 @@ bool SwiftContext::closeToWrite(std::string name) {
     while (attempt <= write_attempts) {
         CURLcode res;
         struct curl_slist *list = NULL;
-        CURL* curl = CurlPool::getCurlEnv();
+        CURL* curl = CurlPool::get_curl_env();
 
         // On constitue le header
 
@@ -607,7 +607,7 @@ bool SwiftContext::closeToWrite(std::string name) {
 
         BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
         delete it1->second;
-        writingBuffers.erase(it1);
+        write_buffers.erase(it1);
         return true;
     }
 
@@ -636,7 +636,7 @@ bool SwiftContext::exists(std::string name) {
         
     CURLcode res;
     struct curl_slist *list = NULL;
-    CURL* curl = CurlPool::getCurlEnv();
+    CURL* curl = CurlPool::get_curl_env();
 
     std::string fullUrl;
     fullUrl = public_url + "/" + container_name + "/" + name;

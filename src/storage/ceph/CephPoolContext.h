@@ -130,8 +130,8 @@ public:
     CephPoolContext (std::string pool);
 
     ContextType::eContextType get_type();
-    std::string getTypeStr();
-    std::string getTray();
+    std::string get_type_string();
+    std::string get_tray();
     
     /**
      * \~french \brief Instancie les objets librados #cluster and #io_ctx
@@ -145,7 +145,7 @@ public:
      * \~french \brief Nettoie les objets librados
      * \~english \brief Clean librados objects
      */
-    void closeConnection() {
+    void close_connection() {
         if (connected) {
             rados_aio_flush(io_ctx);
             rados_ioctx_destroy(io_ctx);
@@ -179,12 +179,12 @@ public:
     }
 
     int read(uint8_t* data, int offset, int size, std::string name);
-    uint8_t* readFull(int& size, std::string name);
+    uint8_t* read_full(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
-    bool writeFull(uint8_t* data, int size, std::string name);
+    bool write_full(uint8_t* data, int size, std::string name);
 
-    bool openToWrite(std::string name);
-    bool closeToWrite(std::string name);
+    bool open_to_write(std::string name);
+    bool close_to_write(std::string name);
     
     std::string get_path(std::string racine,int x,int y,int pathDepth);
     std::string get_path(std::string name);
@@ -214,7 +214,7 @@ public:
     }
     
     ~CephPoolContext() {
-        closeConnection();
+        close_connection();
     }
 };
 
