@@ -66,12 +66,12 @@ bool Colour::operator!= ( const Colour& other ) const {
     return ! ( *this == other );
 }
 
-Palette::Palette() : pngPaletteInitialised ( false ), rgbContinuous ( false ), alphaContinuous ( false ), noAlpha( false ) {
-    pngPaletteSize = 0;
-    pngPalette = NULL;
+Palette::Palette() : png_palette_initialized ( false ), rgb_continuous ( false ), alpha_continuous ( false ), no_alpha( false ) {
+    png_palette_size = 0;
+    png_palette = NULL;
 }
 
-Palette::Palette ( json11::Json doc ) : Configuration(), pngPaletteSize ( 0 ) ,pngPalette ( NULL ) ,pngPaletteInitialised ( false ) {
+Palette::Palette ( json11::Json doc ) : Configuration(), png_palette_size ( 0 ) ,png_palette ( NULL ) ,png_palette_initialized ( false ) {
 
     if (! doc.is_object()) {
         BOOST_LOG_TRIVIAL(warning) << "Wrong format for palette, palette ignored";
@@ -79,28 +79,28 @@ Palette::Palette ( json11::Json doc ) : Configuration(), pngPaletteSize ( 0 ) ,p
     }
 
     if (doc["rgb_continuous"].is_bool()) {
-        rgbContinuous = doc["rgb_continuous"].bool_value();
+        rgb_continuous = doc["rgb_continuous"].bool_value();
     } else {
-        rgbContinuous = false;
+        rgb_continuous = false;
     }
 
     if (doc["alpha_continuous"].is_bool()) {
-        alphaContinuous = doc["alpha_continuous"].bool_value();
+        alpha_continuous = doc["alpha_continuous"].bool_value();
     } else {
-        alphaContinuous = false;
+        alpha_continuous = false;
     }
 
     if (doc["no_alpha"].is_bool()) {
-        noAlpha = doc["no_alpha"].bool_value();
+        no_alpha = doc["no_alpha"].bool_value();
     } else {
-        noAlpha = false;
+        no_alpha = false;
     }
 
     if (doc["colours"].is_array()) {
         for (json11::Json c : doc["colours"].array_items()) {
             if (c.is_object()) {
                 if (c["value"].is_number() && c["red"].is_number() && c["green"].is_number() && c["blue"].is_number() && c["alpha"].is_number()) {
-                    coloursMap.insert ( std::pair<double,Colour> (
+                    colours_map.insert ( std::pair<double,Colour> (
                         c["value"].number_value(),
                         Colour ( c["red"].number_value(),c["green"].number_value(),c["blue"].number_value(),c["alpha"].number_value() ) 
                     ) );
@@ -110,123 +110,123 @@ Palette::Palette ( json11::Json doc ) : Configuration(), pngPaletteSize ( 0 ) ,p
     }
 }
 
-void Palette::buildPalettePNG() {
-    BOOST_LOG_TRIVIAL(debug) <<  "ColourMapSize " << coloursMap.size() ;
-    if ( !coloursMap.empty() ) {
+void Palette::build_png_palette() {
+    BOOST_LOG_TRIVIAL(debug) <<  "ColourMapSize " << colours_map.size() ;
+    if ( !colours_map.empty() ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Palette PNG OK" ;
         std::vector<Colour> colours;
         for ( int k = 0; k < 256 ; ++k ) {
-            Colour tmp = getColour ( k );
+            Colour tmp = get_colour ( k );
             colours.push_back ( Colour ( tmp.r,tmp.g,tmp.b, ( tmp.a==-1? ( 255-k ) :tmp.a ) ) );
         }
         int numberColor = colours.size();
 
 
-        pngPaletteSize = numberColor* 3 + 12; // Palette(Nombre de couleur* nombre de canaux + header) 
-        if (!noAlpha){
-            pngPaletteSize += numberColor +12; //Palette =+ Transparence(Nombre de couleur + header)
+        png_palette_size = numberColor* 3 + 12; // Palette(Nombre de couleur* nombre de canaux + header) 
+        if (!no_alpha){
+            png_palette_size += numberColor +12; //Palette =+ Transparence(Nombre de couleur + header)
         }
-        pngPalette = new uint8_t[pngPaletteSize];
-        memset ( pngPalette,0,pngPaletteSize );
+        png_palette = new uint8_t[png_palette_size];
+        memset ( png_palette,0,png_palette_size );
         // Définition de la taille de la palette
         uint32_t paletteLenght = 3 * numberColor;
-        * ( ( uint32_t* ) ( pngPalette ) ) = bswap_32 ( paletteLenght );
-        pngPalette[0] = 0;
-        pngPalette[1] = 0;
-        pngPalette[2] = 3;
-        pngPalette[3] = 0;
-        pngPalette[4] = 'P';
-        pngPalette[5] = 'L';
-        pngPalette[6] = 'T';
-        pngPalette[7] = 'E';
+        * ( ( uint32_t* ) ( png_palette ) ) = bswap_32 ( paletteLenght );
+        png_palette[0] = 0;
+        png_palette[1] = 0;
+        png_palette[2] = 3;
+        png_palette[3] = 0;
+        png_palette[4] = 'P';
+        png_palette[5] = 'L';
+        png_palette[6] = 'T';
+        png_palette[7] = 'E';
 
-        if (!noAlpha){
-            pngPalette[paletteLenght+12] = 0;
-            pngPalette[paletteLenght+12+1] = 0;
-            pngPalette[paletteLenght+12+2] = 3;
-            pngPalette[paletteLenght+12+3] = 0;
-            pngPalette[paletteLenght+12+4] = 't';
-            pngPalette[paletteLenght+12+5] = 'R';
-            pngPalette[paletteLenght+12+6] = 'N';
-            pngPalette[paletteLenght+12+7] = 'S';
+        if (!no_alpha){
+            png_palette[paletteLenght+12] = 0;
+            png_palette[paletteLenght+12+1] = 0;
+            png_palette[paletteLenght+12+2] = 3;
+            png_palette[paletteLenght+12+3] = 0;
+            png_palette[paletteLenght+12+4] = 't';
+            png_palette[paletteLenght+12+5] = 'R';
+            png_palette[paletteLenght+12+6] = 'N';
+            png_palette[paletteLenght+12+7] = 'S';
         }
 
         Colour tmp;
         for ( int i =0; i < numberColor; i++ ) {
             tmp = colours.at ( i );
 
-            pngPalette[3*i+8]  = tmp.r;
-            pngPalette[3*i+9]  = tmp.g;
-            pngPalette[3*i+10] = tmp.b;
-            if (!noAlpha) {
-                pngPalette[paletteLenght+12+i+8] = tmp.a;
+            png_palette[3*i+8]  = tmp.r;
+            png_palette[3*i+9]  = tmp.g;
+            png_palette[3*i+10] = tmp.b;
+            if (!no_alpha) {
+                png_palette[paletteLenght+12+i+8] = tmp.a;
             }
         }
         uint32_t crcPLTE = crc32 ( 0, Z_NULL, 0 );
-        crcPLTE = crc32 ( crcPLTE, pngPalette + 4, paletteLenght+4 );
-        * ( ( uint32_t* ) ( pngPalette + paletteLenght + 8 ) ) = bswap_32 ( crcPLTE );
+        crcPLTE = crc32 ( crcPLTE, png_palette + 4, paletteLenght+4 );
+        * ( ( uint32_t* ) ( png_palette + paletteLenght + 8 ) ) = bswap_32 ( crcPLTE );
 
-        if (!noAlpha){
+        if (!no_alpha){
             uint32_t crctRNS = crc32 ( 0, Z_NULL, 0 );
-            crctRNS = crc32 ( crctRNS, pngPalette+ paletteLenght+12 + 4, 4 + numberColor );
-            * ( ( uint32_t* ) ( pngPalette + paletteLenght+ 12 + 8 + numberColor ) ) = bswap_32 ( crctRNS );
+            crctRNS = crc32 ( crctRNS, png_palette+ paletteLenght+12 + 4, 4 + numberColor );
+            * ( ( uint32_t* ) ( png_palette + paletteLenght+ 12 + 8 + numberColor ) ) = bswap_32 ( crctRNS );
             uint32_t trnsLenght = numberColor;
-            * ( ( uint32_t* ) ( pngPalette+paletteLenght+12 ) ) = bswap_32 ( trnsLenght );
+            * ( ( uint32_t* ) ( png_palette+paletteLenght+12 ) ) = bswap_32 ( trnsLenght );
         }
     } else {
-        pngPaletteSize=0;
-        pngPalette=NULL;
+        png_palette_size=0;
+        png_palette=NULL;
         BOOST_LOG_TRIVIAL(debug) <<  "Palette incompatible avec le PNG" ;
     }
-    pngPaletteInitialised = true;
+    png_palette_initialized = true;
 }
 
-size_t Palette::getPalettePNGSize() {
-    if ( !pngPaletteInitialised )
-        buildPalettePNG();
-    return pngPaletteSize;
+size_t Palette::get_png_palette_size() {
+    if ( !png_palette_initialized )
+        build_png_palette();
+    return png_palette_size;
 }
 
-uint8_t* Palette::getPalettePNG() {
-    if ( !pngPaletteInitialised )
-        buildPalettePNG();
-    return pngPalette;
+uint8_t* Palette::get_png_palette() {
+    if ( !png_palette_initialized )
+        build_png_palette();
+    return png_palette;
 }
 
 Palette& Palette::operator= ( const Palette& pal ) {
     if ( this != &pal ) {
-        this->pngPaletteInitialised = pal.pngPaletteInitialised;
-        this->pngPaletteSize = pal.pngPaletteSize;
-        this->rgbContinuous = pal.rgbContinuous;
-        this->alphaContinuous = pal.alphaContinuous;
-        this->coloursMap = pal.coloursMap;
-        this->noAlpha = pal.noAlpha;
+        this->png_palette_initialized = pal.png_palette_initialized;
+        this->png_palette_size = pal.png_palette_size;
+        this->rgb_continuous = pal.rgb_continuous;
+        this->alpha_continuous = pal.alpha_continuous;
+        this->colours_map = pal.colours_map;
+        this->no_alpha = pal.no_alpha;
 
-        if ( this->pngPaletteSize !=0 ) {
-            this->pngPalette = new uint8_t[pngPaletteSize];
-            memcpy ( pngPalette,pal.pngPalette,this->pngPaletteSize );
+        if ( this->png_palette_size !=0 ) {
+            this->png_palette = new uint8_t[png_palette_size];
+            memcpy ( png_palette,pal.png_palette,this->png_palette_size );
         } else {
-            this->pngPalette = NULL;
+            this->png_palette = NULL;
         }
     }
     return *this;
 }
 
 bool Palette::operator== ( const Palette& other ) const {
-    if ( this->pngPalette && other.pngPalette ) {
-        if ( this->pngPaletteSize != other.pngPaletteSize )
+    if ( this->png_palette && other.png_palette ) {
+        if ( this->png_palette_size != other.png_palette_size )
             return false;
-        for ( size_t pos = this->pngPaletteSize -1; pos; --pos ) {
-            if ( ! ( * ( this->pngPalette+pos ) == * ( other.pngPalette+pos ) ) )
+        for ( size_t pos = this->png_palette_size -1; pos; --pos ) {
+            if ( ! ( * ( this->png_palette+pos ) == * ( other.png_palette+pos ) ) )
                 return false;
 
 
         }
     }
-    if ( this->coloursMap.size() != other.coloursMap.size() )
+    if ( this->colours_map.size() != other.colours_map.size() )
         return false;
     std::map<double,Colour>::const_iterator i,j;
-    for ( i = this->coloursMap.begin(), j = other.coloursMap.begin(); i != this->coloursMap.end(); ++i, ++j ) {
+    for ( i = this->colours_map.begin(), j = other.colours_map.begin(); i != this->colours_map.end(); ++i, ++j ) {
         if ( i->first == j->first ) {
             if ( i->second != j->second ) {
                 return false;
@@ -245,23 +245,23 @@ bool Palette::operator!= ( const Palette& other ) const {
 
 
 Palette::~Palette() {
-    if ( pngPalette )
-        delete[] pngPalette;
+    if ( png_palette )
+        delete[] png_palette;
 }
 
-Colour Palette::getColour ( double index ) {
-    std::map<double,Colour>::const_iterator nearestValue = coloursMap.upper_bound ( index );
-    if ( nearestValue != coloursMap.begin() ) {
+Colour Palette::get_colour ( double index ) {
+    std::map<double,Colour>::const_iterator nearestValue = colours_map.upper_bound ( index );
+    if ( nearestValue != colours_map.begin() ) {
         nearestValue--;
     }
 
     Colour tmp = nearestValue->second;
     std::map<double,Colour>::const_iterator nextValue = nearestValue;
     nextValue++;
-    if ( nextValue != coloursMap.end() ) { // Cas utile
+    if ( nextValue != colours_map.end() ) { // Cas utile
         std::map<double,Colour>::const_iterator nextValue = nearestValue;
         nextValue++;
-        if ( rgbContinuous ) {
+        if ( rgb_continuous ) {
             tmp.r = ( ( nextValue )->second.r - nearestValue->second.r ) / ( ( nextValue )->first - nearestValue->first ) * index +
                     ( ( nextValue )->first * nearestValue->second.r - nearestValue->first * ( nextValue )->second.r ) / ( ( nextValue )->first - nearestValue->first );
             tmp.g = ( ( nextValue )->second.g - nearestValue->second.g ) / ( ( nextValue )->first - nearestValue->first ) * index +
@@ -269,11 +269,12 @@ Colour Palette::getColour ( double index ) {
             tmp.b = ( ( nextValue )->second.b - nearestValue->second.b ) / ( ( nextValue )->first - nearestValue->first ) * index +
                     ( ( nextValue )->first * nearestValue->second.b - nearestValue->first * ( nextValue )->second.b ) / ( ( nextValue )->first - nearestValue->first );
         }
-        if ( alphaContinuous ) {
+        if ( alpha_continuous ) {
             tmp.a = ( ( nextValue )->second.a - nearestValue->second.a ) / ( ( nextValue )->first - nearestValue->first ) * index +
                     ( ( nextValue )->first * nearestValue->second.a - nearestValue->first * ( nextValue )->second.a ) / ( ( nextValue )->first - nearestValue->first );
         }
     }
+
     return tmp;
 }
 

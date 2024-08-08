@@ -55,7 +55,7 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
-static Photometric::ePhotometric toROK4Photometric ( png_byte ph ) {
+static Photometric::ePhotometric to_rok4_photometric ( png_byte ph ) {
     switch ( ph ) {
     case PNG_COLOR_TYPE_GRAY :
         return Photometric::GRAY;
@@ -233,7 +233,7 @@ LibpngImage* LibpngImage::create_to_read ( std::string filename, BoundingBox< do
     
     return new LibpngImage (
         width, height, resx, resy, channels, bbox, filename,
-        sf, toROK4Photometric ( color_type ), Compression::PNG,
+        sf, to_rok4_photometric ( color_type ), Compression::PNG,
         pngData
     );
     
@@ -285,7 +285,7 @@ int LibpngImage::_getline ( T* buffer, int line ) {
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
         memcpy(buffer, buffertmp, pixel_size * width);
     }

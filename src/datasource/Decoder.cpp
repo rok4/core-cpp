@@ -43,8 +43,8 @@
 #include "jpeglib.h"
 #include "zlib.h"
 #include "byteswap.h"
-#include "compressors/LZWDecoder.h"
-#include "compressors/PKBDecoder.h"
+#include "compressors/LzwUncompressor.h"
+#include "compressors/PkbUncompressor.h"
 
 /*
  * Fonctions déclarées pour la libjpeg
@@ -281,7 +281,7 @@ const uint8_t* PackBitsDecoder::decode ( DataSource* source, size_t& size ) {
     if ( !encoded_data ) return 0;
 
     // Initialisation du flux
-    pkbDecoder decoder;
+    PkbUncompressor decoder;
     uint8_t* raw_data = decoder.decode ( encoded_data,encSize,size );
 
     if ( !raw_data ) return 0;
@@ -302,7 +302,7 @@ const uint8_t* LzwDecoder::decode ( DataSource* source, size_t& size ) {
     if ( !encoded_data ) return 0;
 
     // Initialisation du flux
-    lzwDecoder decoder ( 12 );
+    LzwUncompressor decoder ( 12 );
     uint8_t* raw_data = decoder.decode ( encoded_data,encSize,size );
 
     if ( !raw_data ) return 0;

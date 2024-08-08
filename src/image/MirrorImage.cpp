@@ -121,16 +121,16 @@ int MirrorImage::_getline ( T* buffer, int line ) {
 
         source_image->get_line ( buf0,lineSrc );
 
-        memcpy ( &buffer[mirrorSize*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
-        for ( int j = 0; j < mirrorSize; j++ ) {
-            memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // left
-            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
+        memcpy ( &buffer[size*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
+        for ( int j = 0; j < size; j++ ) {
+            memcpy ( &buffer[j*channels],&buf0[ ( size-j-1 ) *channels],channels*sizeof ( T ) ); // left
+            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - size + j ) *channels],channels*sizeof ( T ) ); // right
         }
 
     } else if ( position == 1 ) {
         // RIGHT
         source_image->get_line ( buf0,line );
-        for ( int j = 0; j < mirrorSize; j++ ) {
+        for ( int j = 0; j < size; j++ ) {
             memcpy ( &buffer[j*channels],&buf0[ ( source_image->get_width()-j-1 ) *channels],channels*sizeof ( T ) ); // right
         }
 
@@ -140,17 +140,17 @@ int MirrorImage::_getline ( T* buffer, int line ) {
 
         source_image->get_line ( buf0,lineSrc );
 
-        memcpy ( &buffer[mirrorSize*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
-        for ( int j = 0; j < mirrorSize; j++ ) {
-            memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // left
-            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - mirrorSize + j ) *channels],channels*sizeof ( T ) ); // right
+        memcpy ( &buffer[size*channels],buf0,source_image->get_width() *channels*sizeof ( T ) );
+        for ( int j = 0; j < size; j++ ) {
+            memcpy ( &buffer[j*channels],&buf0[ ( size-j-1 ) *channels],channels*sizeof ( T ) ); // left
+            memcpy ( &buffer[ ( width-j-1 ) *channels],&buf0[ ( source_image->get_width() - size + j ) *channels],channels*sizeof ( T ) ); // right
         }
 
     } else if ( position == 3 ) {
         // LEFT
         source_image->get_line ( buf0,line );
-        for ( int j = 0; j < mirrorSize; j++ ) {
-            memcpy ( &buffer[j*channels],&buf0[ ( mirrorSize-j-1 ) *channels],channels*sizeof ( T ) ); // right
+        for ( int j = 0; j < size; j++ ) {
+            memcpy ( &buffer[j*channels],&buf0[ ( size-j-1 ) *channels],channels*sizeof ( T ) ); // right
         }
 
     }

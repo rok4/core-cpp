@@ -75,9 +75,9 @@ private:
 
     /**
      * \~french \brief Flux d'écriture de l'image ROK4
-     * \details Est ouvert avec #openToWrite et doit être fermé par #closeToWrite
+     * \details Est ouvert avec #open_to_write et doit être fermé par #close_to_write
      * \~english \brief Stream used to write the ROK4 image
-     * \details Is opened with #openToWrite and have to be closed with #closeToWrite
+     * \details Is opened with #open_to_write and have to be closed with #close_to_write
      */
     std::ofstream output;
 
@@ -95,19 +95,19 @@ public:
     
 
     int read(uint8_t* data, int offset, int size, std::string name);
-    uint8_t* readFull(int& size, std::string name);
+    uint8_t* read_full(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
-    bool writeFull(uint8_t* data, int size, std::string name);
+    bool write_full(uint8_t* data, int size, std::string name);
 
     ContextType::eContextType get_type();
-    std::string getTypeStr();
-    std::string getTray();
+    std::string get_type_string();
+    std::string get_tray();
  
     /**
      * \~french \brief Ouvre le flux #output
      * \~english \brief Open stream #output
      */
-    bool openToWrite(std::string name) {
+    bool open_to_write(std::string name) {
         std::string fullName = root_dir + name;
         output.open ( fullName.c_str(), std::ios_base::trunc | std::ios::binary );
         if (output.fail()) {
@@ -121,7 +121,7 @@ public:
      * \~french \brief Ferme le flux #output
      * \~english \brief Close stream #output
      */
-    bool closeToWrite(std::string name) {
+    bool close_to_write(std::string name) {
         output.close();
         if (output.fail()) {
             return false;
@@ -152,12 +152,12 @@ public:
 
     bool exists(std::string name);
 
-    void closeConnection() {
+    void close_connection() {
         connected = false;
     }
     
     ~FileContext() {
-        closeConnection();
+        close_connection();
     }
 };
 

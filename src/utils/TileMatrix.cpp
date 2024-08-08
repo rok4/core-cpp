@@ -55,49 +55,49 @@ TileMatrix::TileMatrix(json11::Json doc) : Configuration() {
     if (doc["id"].is_string()) {
         id = doc["id"].string_value();
     } else {
-        errorMessage = "id have to be provided and be a string";
+        error_message = "id have to be provided and be a string";
         return;
     }
     if (doc["cellSize"].is_number()) {
         res = doc["cellSize"].number_value();
     } else {
-        errorMessage = "cellSize have to be provided and be a number";
+        error_message = "cellSize have to be provided and be a number";
         return;
     }
     if (doc["tileWidth"].is_number()) {
         tile_width = doc["tileWidth"].number_value();
     } else {
-        errorMessage = "tileWidth have to be provided and be a number";
+        error_message = "tileWidth have to be provided and be a number";
         return;
     }
     if (doc["tileHeight"].is_number()) {
         tile_height = doc["tileHeight"].number_value();
     } else {
-        errorMessage = "tileHeight have to be provided and be a number";
+        error_message = "tileHeight have to be provided and be a number";
         return;
     }
     if (doc["matrixWidth"].is_number()) {
         matrix_width = doc["matrixWidth"].number_value();
     } else {
-        errorMessage = "matrixWidth have to be provided and be a number";
+        error_message = "matrixWidth have to be provided and be a number";
         return;
     }
     if (doc["matrixHeight"].is_number()) {
         matrix_height = doc["matrixHeight"].number_value();
     } else {
-        errorMessage = "matrixHeight have to be provided and be a number";
+        error_message = "matrixHeight have to be provided and be a number";
         return;
     }
     if (doc["pointOfOrigin"].is_array() && doc["pointOfOrigin"][0].is_number()) {
         x0 = doc["pointOfOrigin"][0].number_value();
     } else {
-        errorMessage = "pointOfOrigin have to be provided and be a number array (2 items)";
+        error_message = "pointOfOrigin have to be provided and be a number array (2 items)";
         return;
     }
     if (doc["pointOfOrigin"].is_array() && doc["pointOfOrigin"][1].is_number()) {
         y0 = doc["pointOfOrigin"][1].number_value();
     } else {
-        errorMessage = "pointOfOrigin have to be provided and be a number array (2 items)";
+        error_message = "pointOfOrigin have to be provided and be a number array (2 items)";
         return;
     }
 }

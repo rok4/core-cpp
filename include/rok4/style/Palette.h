@@ -62,13 +62,13 @@ public:
 
 class Palette : public Configuration {
 private:
-    size_t pngPaletteSize;
-    uint8_t* pngPalette;
-    bool pngPaletteInitialised;
-    std::map<double,Colour> coloursMap;
-    bool rgbContinuous;
-    bool alphaContinuous;
-    bool noAlpha;
+    size_t png_palette_size;
+    uint8_t* png_palette;
+    bool png_palette_initialized;
+    std::map<double,Colour> colours_map;
+    bool rgb_continuous;
+    bool alpha_continuous;
+    bool no_alpha;
 
 public:
     Palette();
@@ -78,21 +78,21 @@ public:
     bool operator== ( const Palette& other ) const;
     bool operator!= ( const Palette& other ) const;
     virtual ~Palette();
-    size_t getPalettePNGSize();
+    size_t get_png_palette_size();
 
-    void buildPalettePNG();
+    void build_png_palette();
 
-    uint8_t* getPalettePNG();
-    std::map<double,Colour>* getColoursMap() {
-        return &coloursMap;
+    uint8_t* get_png_palette();
+    std::map<double,Colour>* get_colours_map() {
+        return &colours_map;
     }
     bool is_no_alpha() {
-        return noAlpha;
+        return no_alpha;
     }
     bool is_empty() {
-        return coloursMap.empty();
+        return colours_map.empty();
     }
-    Colour getColour ( double index );
+    Colour get_colour ( double index );
 
 };
 

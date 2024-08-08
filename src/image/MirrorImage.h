@@ -114,7 +114,7 @@ private:
      * En pratique, cette taille correspondra au nombre de pixels nécessaires pour l'interpolation.
      * \~english \brief Mirror's size, in pixel
      */
-    uint mirrorSize;
+    uint size;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -148,7 +148,7 @@ private:
      * \param[in] position mirror position to image source
      * \param[in] mirrorSize mirror's size, in pixel
      */
-    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->get_resx(),image->get_resy(),bbox ), source_image ( image ), position ( position ), mirrorSize ( mirrorSize ) {}
+    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->get_resx(),image->get_resy(),bbox ), source_image ( image ), position ( position ), size ( mirrorSize ) {}
 
 public:
 
@@ -174,7 +174,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "------ MirrorImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's position = " << position ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's size = " << mirrorSize ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's size = " << size ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 

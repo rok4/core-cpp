@@ -97,13 +97,13 @@ eMergeType from_string ( std::string strMergeMethod );
 
 /**
  * \~french \brief Conversion d'une méthode de fusion vers une chaîne de caractères
- * \param[in] mergeMethod méthode de fusion à convertir
+ * \param[in] merge_method méthode de fusion à convertir
  * \return la chaîne de caractère nommant la méthode de fusion
  * \~english \brief Convert a merge method to a string
- * \param[in] mergeMethod merge method to convert
+ * \param[in] merge_method merge method to convert
  * \return string namming the merge method
  */
-std::string to_string ( eMergeType mergeMethod );
+std::string to_string ( eMergeType merge_method );
 }
 
 /**

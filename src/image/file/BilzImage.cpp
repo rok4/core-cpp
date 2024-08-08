@@ -204,7 +204,7 @@ int BilzImage::_getline ( T* buffer, int line ) {
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
         memcpy(buffer, buffertmp, pixel_size * width);
     }

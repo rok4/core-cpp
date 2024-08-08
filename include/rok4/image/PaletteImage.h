@@ -65,7 +65,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ PaletteImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->getColoursMap()->size() ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->get_colours_map()->size() ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }

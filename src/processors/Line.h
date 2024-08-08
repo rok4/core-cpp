@@ -69,7 +69,7 @@
  * Les modes de fusion gérés sont :
  * \li par multiplication : les canaux sont multipliés un à un (valable uniquement pour les canaux entier sur 8 bits) -> #multiply
  * \li par transparence : on applique une formule d'alpha-blending -> #alphaBlending
- * \li par masque : seul le masques sont considérés, la donnée du dessus écrase celle du dessous -> #useMask
+ * \li par masque : seul le masques sont considérés, la donnée du dessus écrase celle du dessous -> #use_masks
  *
  * \todo Travailler sur un nombre de canaux variable (pour l'instant, systématiquement 4, que ce soit en entier ou en flottant).
  * \todo Les modes de fusion DARKEN et LIGHTEN ne sont pas implémentés.
@@ -275,7 +275,7 @@ public:
      * \image html merge_mask.png
      * \param[in] above above line, to merge
      */
-    void useMask ( Line* above );
+    void use_masks ( Line* above );
 
     /**
      * \~french

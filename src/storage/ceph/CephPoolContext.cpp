@@ -165,7 +165,7 @@ int CephPoolContext::read(uint8_t* data, int offset, int size, std::string name)
 }
 
 
-uint8_t* CephPoolContext::readFull(int& size, std::string name) {
+uint8_t* CephPoolContext::read_full(int& size, std::string name) {
 
     size = -1;
     
@@ -224,8 +224,8 @@ uint8_t* CephPoolContext::readFull(int& size, std::string name) {
 bool CephPoolContext::write(uint8_t* data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "Ceph write : " << size << " bytes (from the " << offset << " one) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No writing buffer for the name " << name;
         return false;
@@ -241,11 +241,11 @@ bool CephPoolContext::write(uint8_t* data, int offset, int size, std::string nam
     return true;
 }
 
-bool CephPoolContext::writeFull(uint8_t* data, int size, std::string name) {
+bool CephPoolContext::write_full(uint8_t* data, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "Ceph write : " << size << " bytes (one shot) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No Ceph writing buffer for the name " << name;
         return false;
@@ -263,34 +263,34 @@ ContextType::eContextType CephPoolContext::get_type() {
     return ContextType::CEPHCONTEXT;
 }
 
-std::string CephPoolContext::getTypeStr() {
+std::string CephPoolContext::get_type_string() {
     return "CEPHCONTEXT";
 }
 
-std::string CephPoolContext::getTray() {
+std::string CephPoolContext::get_tray() {
     return pool_name;
 }
 
-bool CephPoolContext::openToWrite(std::string name) {
+bool CephPoolContext::open_to_write(std::string name) {
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 != writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 != write_buffers.end() ) {
         BOOST_LOG_TRIVIAL(error) << "A Ceph writing buffer already exists for the name " << name;
         return false;
 
     } else {
-        writingBuffers.insert ( std::pair<std::string,std::vector<char>*>(name, new std::vector<char>()) );
+        write_buffers.insert ( std::pair<std::string,std::vector<char>*>(name, new std::vector<char>()) );
     }
 
     return true;
 }
 
 
-bool CephPoolContext::closeToWrite(std::string name) {
+bool CephPoolContext::close_to_write(std::string name) {
 
 
-    std::map<std::string, std::vector<char>*>::iterator it1 = writingBuffers.find ( name );
-    if ( it1 == writingBuffers.end() ) {
+    std::map<std::string, std::vector<char>*>::iterator it1 = write_buffers.find ( name );
+    if ( it1 == write_buffers.end() ) {
         BOOST_LOG_TRIVIAL(error) << "The Ceph writing buffer with name " << name << "does not exist, cannot flush it";
         return false;
     }
@@ -318,7 +318,7 @@ bool CephPoolContext::closeToWrite(std::string name) {
     if (ok) {
         BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
         delete it1->second;
-        writingBuffers.erase(it1);
+        write_buffers.erase(it1);
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the object " << name << " after " << write_attempts << " tries" ;
     }

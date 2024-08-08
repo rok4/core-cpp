@@ -98,10 +98,10 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
 
         switch ( composition ) {
         case Merge::NORMAL:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         case Merge::TOP:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         case Merge::MULTIPLY:
             workLine.multiply ( &aboveLine );
@@ -112,7 +112,7 @@ int MergeImage::_getline ( tBuf* buffer, int line ) {
             //case Merge::LIGHTEN:
             //case Merge::DARKEN:
         default:
-            workLine.useMask ( &aboveLine );
+            workLine.use_masks ( &aboveLine );
             break;
         }
 
@@ -241,7 +241,7 @@ eMergeType from_string ( std::string strMergeMethod ) {
     return static_cast<eMergeType> ( i );
 }
 
-std::string to_string ( eMergeType mergeMethod ) {
-    return std::string ( mergeType_name[mergeMethod] );
+std::string to_string ( eMergeType merge_method ) {
+    return std::string ( mergeType_name[merge_method] );
 }
 }

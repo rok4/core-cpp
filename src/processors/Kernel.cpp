@@ -113,7 +113,7 @@ int Kernel::weight ( float* W, int& length, double x, int max ) const {
  */
 template<int s>
 class Lanczos : public Kernel {
-    friend const Kernel& Kernel::getInstance ( Interpolation::KernelType T );
+    friend const Kernel& Kernel::get_instance ( Interpolation::KernelType T );
 
 private:
     double kernel_function ( double d ) {
@@ -142,7 +142,7 @@ private:
  * \image html ppv.png
  */
 class NearestNeighbour : public Kernel {
-    friend const Kernel& Kernel::getInstance ( Interpolation::KernelType T );
+    friend const Kernel& Kernel::get_instance ( Interpolation::KernelType T );
 
 private:
     double kernel_function ( double d ) {
@@ -166,7 +166,7 @@ private:
  * \image html linear.png
  */
 class Linear : public Kernel {
-    friend const Kernel& Kernel::getInstance ( Interpolation::KernelType T );
+    friend const Kernel& Kernel::get_instance ( Interpolation::KernelType T );
 
 private:
     double kernel_function ( double d ) {
@@ -215,7 +215,7 @@ class CatRom : public Kernel {
        Which ensures function is continuous in value and derivative (slope).
      */
 
-    friend const Kernel& Kernel::getInstance ( Interpolation::KernelType T );
+    friend const Kernel& Kernel::get_instance ( Interpolation::KernelType T );
 private:
     double kernel_function ( double d ) {
         if ( d > 2 ) return 0.;
@@ -229,7 +229,7 @@ private:
 
 
 
-const Kernel& Kernel::getInstance ( Interpolation::KernelType T ) {
+const Kernel& Kernel::get_instance ( Interpolation::KernelType T ) {
     static NearestNeighbour nearest_neighbour;
     static Linear linear;
     static CatRom catrom;

@@ -89,7 +89,6 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );    
 
-protected:
     /** \~french
      * \brief Crée un objet LibjpegImage à partir de tous ses éléments constitutifs
      * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create_to_read, qui fera différents tests et calculs.

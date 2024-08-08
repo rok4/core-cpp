@@ -112,10 +112,10 @@ class Attribute
         std::string get_missing_field() {return missing_field;}
         std::string get_name() {return name;}
         std::string get_type() {return type;}
-        std::vector<std::string> getValues() {return values;}
-        std::string getCount() {return count;}
-        std::string getMin() {return min;}
-        std::string getMax() {return max;}
+        std::vector<std::string> get_values() {return values;}
+        std::string get_count() {return count;}
+        std::string get_min() {return min;}
+        std::string get_max() {return max;}
 
         std::string get_metadata_json() {
             if (metadata_json != "") return metadata_json;

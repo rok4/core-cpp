@@ -89,20 +89,25 @@ int PaletteImage::_getline ( T* buffer, int line ) {
     switch ( channels ) {
     case 4:
         for (int i = 0; i < source_image->get_width() ; i++ ) {
-            Colour iColour = palette->getColour ( * ( source+i ) );
+            Colour iColour = palette->get_colour ( * ( source+i ) );
             * ( buffer+i*4 ) = (T) iColour.r;
             * ( buffer+i*4+1 ) = (T) iColour.g;
             * ( buffer+i*4+2 ) = (T) iColour.b;
             * ( buffer+i*4+3 ) = (T) iColour.a;
         }
+        break;
+        
     case 3:
         for (int i = 0; i < source_image->get_width() ; i++ ) {
-            Colour iColour = palette->getColour ( * ( source+i ) );
+            Colour iColour = palette->get_colour ( * ( source+i ) );
             * ( buffer+i*3 ) = (T) iColour.r;
             * ( buffer+i*3+1 ) = (T) iColour.g;
             * ( buffer+i*3+2 ) = (T) iColour.b;
         }
+        break;
     }
+
+    
 
     delete[] source;
     return width * sizeof ( T ) * channels;

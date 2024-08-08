@@ -35,7 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#include "compressors/PKBDecoder.h"
+#include "compressors/PkbUncompressor.h"
 
 #include <cstddef>
 #include <cstring>
@@ -44,12 +44,12 @@
 
 #define BUFFER_SIZE 256*256*4 // Default tile Size
 
-pkbDecoder::pkbDecoder() {
+PkbUncompressor::PkbUncompressor() {
 
 }
 
 
-uint8_t * pkbDecoder::decode(const uint8_t * in, size_t inSize, size_t &outSize) {
+uint8_t * PkbUncompressor::decode(const uint8_t * in, size_t inSize, size_t &outSize) {
     outSize = inSize * 2;
     uint8_t * out = new uint8_t[outSize];
     int8_t header;
@@ -103,6 +103,6 @@ uint8_t * pkbDecoder::decode(const uint8_t * in, size_t inSize, size_t &outSize)
 }
 
 
-pkbDecoder::~pkbDecoder() {
+PkbUncompressor::~PkbUncompressor() {
 
 }

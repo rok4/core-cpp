@@ -59,7 +59,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
     if (doc["crs"].is_string()) {
         crs = new CRS( doc["crs"].string_value() );
     } else {
-        errorMessage = "crs have to be provided and be a string";
+        error_message = "crs have to be provided and be a string";
         return false;
     }
     
@@ -87,24 +87,24 @@ bool TileMatrixSet::parse(json11::Json& doc) {
         for (json11::Json tMat : doc["tileMatrices"].array_items()) {
             if (tMat.is_object()) {
                 TileMatrix* tm = new TileMatrix(tMat.object_items());
-                if (! tm->isOk()) {
-                    errorMessage = "tileMatrices contains an invalid level : " + tm->getErrorMessage();
+                if (! tm->is_ok()) {
+                    error_message = "tileMatrices contains an invalid level : " + tm->get_error_message();
                     delete tm;
                     return false;
                 }
                 tm_list.insert ( std::pair<std::string, TileMatrix*> ( tm->id, tm ) );
             } else {
-                errorMessage = "tileMatrices have to be provided and be an object array";
+                error_message = "tileMatrices have to be provided and be an object array";
                 return false;
             }
         }
     } else {
-        errorMessage = "tileMatrices have to be provided and be an object array";
+        error_message = "tileMatrices have to be provided and be an object array";
         return false;
     }
 
     if ( tm_list.size() == 0 ) {
-        errorMessage =  "No tile matrix in the Tile Matrix Set " + id ;
+        error_message =  "No tile matrix in the Tile Matrix Set " + id ;
         return false;
     }
 
@@ -121,10 +121,10 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     ContextType::split_path(path, storage_type, fo_name, tray_name);
 
     /********************** Id */
-    id = Configuration::getFileName(filePath, ".json");
+    id = Configuration::get_filename(file_path, ".json");
 
     if ( contain_chars(id, "<>") ) {
-        errorMessage =  "TileMatrixSet identifier contains forbidden chars" ;
+        error_message =  "TileMatrixSet identifier contains forbidden chars" ;
         return;
     }
 
@@ -134,7 +134,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read TMS";
+        error_message = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read TMS";
         return;
     }
 
@@ -148,18 +148,18 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
 
     if (context->exists(fo_name)) {
-        data = context->readFull(size, fo_name);
+        data = context->read_full(size, fo_name);
     } else if (context->exists(fo_name + ".json")) {
-        data = context->readFull(size, fo_name + ".json");
+        data = context->read_full(size, fo_name + ".json");
     } else {
-        errorMessage = "Cannot read TMS "  + path + ", with or without extension .json";
+        error_message = "Cannot read TMS "  + path + ", with or without extension .json";
         return;
     }
 
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        error_message = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
@@ -289,7 +289,7 @@ TileMatrix* TileMatrixSet::get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet*
     TileMatrix* tm = NULL;
 
     // on calcule la bbox géographique d'intersection des aires de définition des CRS des deux TMS, que l'on reprojete dans chaque CRS
-    BoundingBox<double> bboxThis = get_crs()->get_crs_definition_area().getIntersection(tmsIn->get_crs()->get_crs_definition_area());
+    BoundingBox<double> bboxThis = get_crs()->get_crs_definition_area().get_intersection(tmsIn->get_crs()->get_crs_definition_area());
     BoundingBox<double> bboxIn = bboxThis;
 
     if (bboxThis.reproject(CRS::get_epsg4326(), get_crs()) && bboxIn.reproject(CRS::get_epsg4326(), tmsIn->get_crs())) {

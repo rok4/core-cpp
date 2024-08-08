@@ -116,13 +116,13 @@ private:
      * \li 1 = conversion, and 0 is white (min-is-white)
      * \li 2 = conversion, and 0 is black (min-is-black)
      */
-    int oneTo8bits;
+    int bit_to_byte;
     
     /**
      * \~french \brief Buffer de conversion de 1 à 8 bits
      * \~english \brief Converting buffer, from 1 to 8 bits
      */
-    uint8_t* oneTo8bits_buffer;
+    uint8_t* bit_to_byte_buffer;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -293,7 +293,7 @@ public:
      */
     ~LibtiffImage() {
         delete [] strip_buffer;
-        if (oneTo8bits) delete [] oneTo8bits_buffer;
+        if (bit_to_byte) delete [] bit_to_byte_buffer;
         TIFFClose ( tif );
     }
 
@@ -307,8 +307,8 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibtiffImage ------------" ;
         FileImage::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Rows per strip : " << rowsperstrip ;
-        if (oneTo8bits == 1) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is white)";
-        if (oneTo8bits == 2) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is black)";
+        if (bit_to_byte == 1) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is white)";
+        if (bit_to_byte == 2) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is black)";
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 

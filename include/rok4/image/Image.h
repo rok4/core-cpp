@@ -485,7 +485,7 @@ public:
      * \return X phasis
      */
     double inline get_phasex() {
-        return bbox.getPhaseXmin(resx);
+        return bbox.get_xmin_phase(resx);
     }
 
     /**
@@ -498,7 +498,7 @@ public:
      * \return Y phasis
      */
     double inline get_phasey() {
-        return bbox.getPhaseYmin(resy);
+        return bbox.get_ymin_phase(resy);
     }
 
     /**
@@ -638,7 +638,7 @@ public:
     Image ( int width, int height, int channels, double resx, double resy ) :
         width ( width ), height ( height ), channels ( channels ), resx ( resx ), resy ( resy ),
         bbox ( BoundingBox<double> ( 0., 0., resx * ( double ) width, resy * ( double ) height ) ),
-        mask ( NULL ), is_mask ( false ) {}
+        mask ( NULL ), is_mask ( false ), crs ( NULL ) {}
 
     /**
      * \~french

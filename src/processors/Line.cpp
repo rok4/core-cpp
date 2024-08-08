@@ -70,7 +70,7 @@ void Line::alphaBlending ( Line* above ) {
     }
 }
 
-void Line::useMask ( Line* above ) {
+void Line::use_masks ( Line* above ) {
     float* pix = samples;
     float* pixAb = above->samples;
     for ( int i = 0; i < width; i++, pix += 3, pixAb += 3 ) {

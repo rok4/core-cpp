@@ -112,7 +112,7 @@ public:
      * \~english \brief Get the curl object specific to the calling thread
      * \details If curl object doesn't exist for this thread, it is created and initialized
      */
-    static CURL* getCurlEnv() {
+    static CURL* get_curl_env() {
         pthread_t i = pthread_self();
 
         std::map<pthread_t, CURL*>::iterator it = pool.find ( i );
@@ -130,7 +130,7 @@ public:
      * \~french \brief Affiche le nombre d'objet curl dans l'annuaire
      * \~english \brief Print the number of curl objects in the book
      */
-    static void printNumCurls () {
+    static void print_curls_count () {
         BOOST_LOG_TRIVIAL(info) << "Nombre de contextes curl : " << pool.size();
     }
 
@@ -138,7 +138,7 @@ public:
      * \~french \brief Nettoie tous les objets curl dans l'annuaire et le vide
      * \~english \brief Clean all curl objects in the book and empty it
      */
-    static void cleanCurlPool () {
+    static void clean_curls () {
         std::map<pthread_t, CURL*>::iterator it;
         for (it = pool.begin(); it != pool.end(); ++it) {
             curl_easy_cleanup(it->second);
@@ -191,7 +191,7 @@ public:
      * \~english \brief Get the Proj context specific to the calling thread
      * \details If Proj context doesn't exist for this thread, it is created and initialized
      */
-    static PJ_CONTEXT* getProjEnv() {
+    static PJ_CONTEXT* get_proj_env() {
         pthread_t i = pthread_self();
 
         std::map<pthread_t, PJ_CONTEXT*>::iterator it = pool.find ( i );
@@ -209,7 +209,7 @@ public:
      * \~french \brief Affiche le nombre de contextes proj dans l'annuaire
      * \~english \brief Print the number of proj contexts in the book
      */
-    static void printNumProjs () {
+    static void print_projs_count () {
         BOOST_LOG_TRIVIAL(info) <<  "Nombre de contextes proj : " << pool.size() ;
     }
 
@@ -217,7 +217,7 @@ public:
      * \~french \brief Nettoie tous les contextes proj dans l'annuaire et le vide
      * \~english \brief Clean all proj objects in the book and empty it
      */
-    static void cleanProjPool () {
+    static void clean_projs () {
         std::map<pthread_t, PJ_CONTEXT*>::iterator it;
         for (it = pool.begin(); it != pool.end(); ++it) {
             proj_context_destroy(it->second);
@@ -309,7 +309,7 @@ public:
      * \param[out] ceph_count Ceph storage context count
      * \param[out] swift_count Swift storage context count
      */
-    static void getStorageCounts (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
+    static void get_storages_count (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
         file_count = 0;
         s3_count = 0;
         ceph_count = 0;
@@ -343,7 +343,7 @@ public:
      * \~english \brief Get book of contexts
      * \details Key is a pair composed of type of storage and the context's bucket
      */
-    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> getPool() {
+    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> get_pool() {
         return pool;
     }
 
@@ -359,7 +359,7 @@ public:
      * \~french \brief Nettoie tous les contextes de stockage dans l'annuaire et le vide
      * \~english \brief Clean all storage context objects in the book and empty it
      */
-    static void cleanStoragePool () {
+    static void clean_storages () {
         std::map<std::pair<ContextType::eContextType,std::string>,Context*>::iterator it;
         for (it=pool.begin(); it!=pool.end(); ++it) {
             delete it->second;
@@ -630,7 +630,7 @@ public:
      * \~french \brief Nettoie tous les objets dans le cache
      * \~english \brief Clean all element from the cache
      */
-    static void cleanCache () {
+    static void clean_indexes () {
         mtx.lock();
         std::list<IndexElement*>::iterator it;
         for (it = cache.begin(); it != cache.end(); ++it) {
@@ -781,8 +781,8 @@ public:
         }
 
         TileMatrixSet* tms = new TileMatrixSet(tms_path);
-        if ( ! tms->isOk() ) {
-            BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
+        if ( ! tms->is_ok() ) {
+            BOOST_LOG_TRIVIAL(error) << tms->get_error_message();
             delete tms;
             mtx.unlock();
             return NULL;
@@ -960,8 +960,8 @@ public:
         }
 
         Style* style = new Style(style_path);
-        if ( ! style->isOk() ) {
-            BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
+        if ( ! style->is_ok() ) {
+            BOOST_LOG_TRIVIAL(error) << style->get_error_message();
             delete style;
             mtx.unlock();
             return NULL;

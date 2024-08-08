@@ -35,8 +35,8 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PKBENCODER_H
-#define PKBENCODER_H
+#ifndef PKBCOMPRESSOR_H
+#define PKBCOMPRESSOR_H
 
 #include <cstddef>
 #include <climits>
@@ -44,7 +44,7 @@
 #include <cstdlib>
 #include <ctype.h>
 
-class pkbEncoder
+class PkbCompressor
 {
 
 private:
@@ -56,9 +56,9 @@ private:
 
   
 public:
-    pkbEncoder();
+    PkbCompressor();
     uint8_t* encode(const uint8_t * in, size_t inSize, size_t &outSize);
-    virtual ~pkbEncoder();
+    virtual ~PkbCompressor();
 };
 
-#endif // PKBENCODER_H
+#endif // PKBCOMPRESSOR_H

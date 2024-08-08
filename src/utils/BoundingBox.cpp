@@ -48,7 +48,7 @@
 #include "utils/Cache.h"
 
 template<typename T>
-bool BoundingBox<T>::isInAreaOfCRS(CRS* c) {
+bool BoundingBox<T>::is_in_crs_area(CRS* c) {
 
     if (crs == "EPSG:4326") {
         return c->get_crs_definition_area().contains(*this);
@@ -56,12 +56,12 @@ bool BoundingBox<T>::isInAreaOfCRS(CRS* c) {
         return c->get_native_crs_definition_area().contains(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : isInAreaOfCRS pour une bbox ni géographique ni dans le CRS fourni : " << crs ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : is_in_crs_area pour une bbox ni géographique ni dans le CRS fourni : " << crs ;
     return false;
 }
 
 template<typename T>
-bool BoundingBox<T>::intersectAreaOfCRS(CRS* c) {
+bool BoundingBox<T>::intersect_crs_area(CRS* c) {
 
     if (crs == "EPSG:4326") {
         return c->get_crs_definition_area().intersects(*this);
@@ -69,27 +69,27 @@ bool BoundingBox<T>::intersectAreaOfCRS(CRS* c) {
         return c->get_native_crs_definition_area().intersects(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : intersectAreaOfCRS pour une bbox non géographique ni dans le CRS fourni : " << crs ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : intersect_crs_area pour une bbox non géographique ni dans le CRS fourni : " << crs ;
     return false;
 }
 
 template<typename T>
-BoundingBox<T> BoundingBox<T>::cropToAreaOfCRS ( CRS* c ) {
+BoundingBox<T> BoundingBox<T>::crop_to_crs_area ( CRS* c ) {
 
     if (crs == "EPSG:4326") {
-        return c->get_crs_definition_area().getIntersection(*this);
+        return c->get_crs_definition_area().get_intersection(*this);
     } else if (c->cmp_request_code(crs)) {
-        return c->get_native_crs_definition_area().getIntersection(*this);
+        return c->get_native_crs_definition_area().get_intersection(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : cropToAreaOfCRS pour une bbox non géographique ni dans le CRS fourni" ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : crop_to_crs_area pour une bbox non géographique ni dans le CRS fourni" ;
     return BoundingBox<T> (0,0,0,0);
 }
 
 template<typename T>
 bool BoundingBox<T>::reproject ( CRS* from_crs, CRS* to_crs , int nbSegment ) {
 
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
 
     PJ *pj_conv_raw, *pj_conv_normalize;
     pj_conv_raw = proj_create_crs_to_crs_from_pj ( pj_ctx, from_crs->get_proj_instance(), to_crs->get_proj_instance(), NULL, NULL);
