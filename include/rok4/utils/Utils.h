@@ -85,6 +85,26 @@ inline bool contain_chars ( std::string str, const char* chars ) {
 }
 
 /**
+ * \~french \brief Transforme la chaîne fournie en minuscule
+ * \~english \brief Transform the string to lowercase
+ */
+inline std::string to_lower_case ( std::string str ) {
+    std::string lc_str=str;
+    for ( int i = 0; str[i]; i++ ) lc_str[i] = tolower ( str[i] );
+    return lc_str;
+}
+
+/**
+ * \~french \brief Transforme la chaîne fournie en majuscule
+ * \~english \brief Transform the string to uppercase
+ */
+inline std::string to_upper_case ( std::string str ) {
+    std::string uc_str=str;
+    for ( int i = 0; str[i]; i++ ) uc_str[i] = toupper ( str[i] );
+    return uc_str;
+}
+
+/**
  * \brief Conversion uint8 -> float
  * \warning Maximum value : 254
  * @param to Tableau de flottants de destination

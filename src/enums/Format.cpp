@@ -136,7 +136,7 @@ eExtraSample from_string ( std::string strPh ) {
     return static_cast<eExtraSample> ( i );
 }
 
-std::string toString ( eExtraSample es ) {
+std::string to_string ( eExtraSample es ) {
     return std::string ( extraSample_name[es] );
 }
 
@@ -364,7 +364,7 @@ eFormat from_string ( std::string strFormat ) {
     return static_cast<eFormat> ( i );
 }
 
-std::string toString ( eFormat format ) {
+std::string to_string ( eFormat format ) {
     return std::string ( eformat_name[format] );
 }
 

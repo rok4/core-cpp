@@ -43,32 +43,14 @@
  * \brief implement the reference systems handler
  */
 
-#include "utils/CRS.h"
 #include <boost/log/trivial.hpp>
 #include <proj.h>
+
+#include "utils/CRS.h"
 #include "utils/Cache.h"
+#include "utils/Utils.h"
 
 CRS CRS::epsg4326;
-
-/**
- * \~french \brief Transforme la chaîne fournie en minuscule
- * \~english \brief Transform the string to lowercase
- */
-std::string to_lower_case ( std::string str ) {
-    std::string lc_str=str;
-    for ( int i = 0; str[i]; i++ ) lc_str[i] = tolower ( str[i] );
-    return lc_str;
-}
-
-/**
- * \~french \brief Transforme la chaîne fournie en majuscule
- * \~english \brief Transform the string to uppercase
- */
-std::string to_upper_case ( std::string str ) {
-    std::string uc_str=str;
-    for ( int i = 0; str[i]; i++ ) uc_str[i] = toupper ( str[i] );
-    return uc_str;
-}
 
 CRS::CRS() : definition_area ( -90.0,-180.0,90.0,180.0 ), native_definition_area ( 0,0,0,0 ) {
     definition_area.crs = "EPSG:4326";

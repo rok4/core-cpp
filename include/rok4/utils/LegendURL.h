@@ -46,8 +46,11 @@
 #ifndef LEGENDURL_H
 #define LEGENDURL_H
 
-#include "rok4/utils/ResourceLocator.h"
 #include <string>
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
+
+#include "rok4/utils/ResourceLocator.h"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -237,6 +240,32 @@ public:
     inline double get_max_scale_denominator() {
         return max_scale_denominator;
     }
+
+    /**
+     * \~french \brief Ajoute un noeud correpondant à la légende
+     * \param[in] parent Noeud auquel ajouter celui de la légende
+     * \~english \brief Add a node corresponding to legend
+     * \param[in] parent Node to whom add the legend node
+     */
+    void add_node(ptree& parent) {
+        ptree& node = parent.add("LegendURL", "");
+        node.add("<xmlattr>.format", format);
+        node.add("<xmlattr>.xlink:href", href);
+
+        if ( width !=0 ) {
+            node.add("<xmlattr>.width", width);
+        }
+        if ( height !=0 ) {
+            node.add("<xmlattr>.height", height);
+        }
+        if ( min_scale_denominator !=0 ) {
+            node.add("<xmlattr>.minScaleDenominator", min_scale_denominator);
+        }
+        if ( max_scale_denominator !=0 ) {
+            node.add("<xmlattr>.maxScaleDenominator", max_scale_denominator);
+        }
+    }
+
     /**
      * \~french
      * \brief Destructeur par défaut

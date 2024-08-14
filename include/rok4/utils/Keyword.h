@@ -48,6 +48,9 @@
 #include <string>
 #include <map>
 
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
+
 typedef std::pair<std::string,std::string> attribute;
 
 /**
@@ -182,6 +185,20 @@ public:
      */
     inline bool has_attributes() const {
         return ! ( attributes.empty() );
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud correpondant au mot clé
+     * \param[in] parent Noeud auquel ajouter celui du mot clé
+     * \~english \brief Add a node corresponding to keyword
+     * \param[in] parent Node to whom add the keyword node
+     */
+    void add_node(ptree& parent) {
+        ptree& node = parent.add("ows:Keyword", content);
+
+        for (std::map<std::string, std::string>::const_iterator it = attributes.begin(); it != attributes.end(); it++) {
+            node.add("<xmlattr>." + it->first, it->second);
+        }
     }
 
     /**

@@ -52,6 +52,8 @@ class CRS;
 #include <proj.h>
 #include <sstream>
 #include <cmath>
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -387,6 +389,30 @@ public:
      */
     bool has_null_area ( ) {
         return ( xmin >= xmax || ymin >= ymax );
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud correpondant à la bbox
+     * \param[in] parent Noeud auquel ajouter celui de la bbox
+     * \~english \brief Add a node corresponding to bbox
+     * \param[in] parent Node to whom add the bbox node
+     */
+    void add_node(ptree& parent) {
+
+        if (crs == "") {
+            ptree& node = parent.add("EX_GeographicBoundingBox", "");
+            node.add("westBoundLongitude", xmin);
+            node.add("eastBoundLongitude", xmax);
+            node.add("southBoundLatitude", ymin);
+            node.add("northBoundLatitude", ymax);
+        } else {
+            ptree& node = parent.add("BoundingBox", "");
+            node.add("<xmlattr>.CRS", crs);
+            node.add("minx", xmin);
+            node.add("maxx", xmax);
+            node.add("miny", ymin);
+            node.add("maxy", ymax);
+        }
     }
 
 };
