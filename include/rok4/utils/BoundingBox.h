@@ -131,10 +131,7 @@ public:
      ** \~english \brief Bounding box description output
      */
     void print() {
-        std::ostringstream oss;
-        oss.setf ( std::ios::fixed,std::ios::floatfield );
-        oss << xmin << "," << ymin << "," << xmax << "," << ymax;
-        BOOST_LOG_TRIVIAL(debug) <<  "BBOX (" << crs << ") = " << oss.str() ;
+        BOOST_LOG_TRIVIAL(debug) <<  "BBOX (" << crs << ") = " << to_string() ;
     }
 
     /** \~french \brief Conversion des informations sur le rectangle englobant en string

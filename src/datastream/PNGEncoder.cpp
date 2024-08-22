@@ -63,6 +63,20 @@ static const uint8_t PNG_HEADER_GRAY[33] = {
 };                       // 29 | crc32
 // 33
 
+static const uint8_t PNG_HEADER_GRAYA[33] = {
+    137, 80, 78, 71, 13, 10, 26, 10,               // 0  | 8 octets d'entête
+    0, 0, 0, 13, 'I', 'H', 'D', 'R',               // 8  | taille et type du chunck IHDR
+    0, 0, 1, 0,                                    // 16 | width
+    0, 0, 1, 0,                                    // 20 | height
+    8,                                             // 24 | bit depth
+    4,                                             // 25 | Colour type
+    0,                                             // 26 | Compression method
+    0,                                             // 27 | Filter method
+    0,                                             // 28 | Interlace method
+    0xd3, 0x10, 0x3f, 0x31
+};                       // 29 | crc32
+// 33
+
 static const uint8_t PNG_HEADER_RGB[33] = {
     137, 80, 78, 71, 13, 10, 26, 10,               // 0  | 8 octets d'entête
     0, 0, 0, 13, 'I', 'H', 'D', 'R',               // 8  | taille et type du chunck IHDR
@@ -119,17 +133,22 @@ size_t PNGEncoder::write_IHDR ( uint8_t *buffer, size_t size ) {
     size_t s = 0;
 
     // cf: http://www.w3.org/TR/PNG/#11IHDR
-    if ( image->get_channels() == 0 && (palette == NULL || palette->is_empty())) {
+    if ( image->get_channels() == 1 && (palette == NULL || palette->is_empty())) {
         // On est sur du 1 canal gris
         if ( sizeof ( PNG_HEADER_GRAY ) > size ) return 0;
         memcpy ( buffer, PNG_HEADER_GRAY, sizeof ( PNG_HEADER_GRAY ) ); 
         s = sizeof ( PNG_HEADER_GRAY );
-    } else if ( image->get_channels() == 0) {
+    } else if ( image->get_channels() == 1) {
         // On est sur du 1 canal palette
         if ( sizeof ( PNG_HEADER_PALETTE ) + palette->get_png_palette_size() > size ) return 0;
         memcpy ( buffer, PNG_HEADER_PALETTE, sizeof ( PNG_HEADER_PALETTE ) );
         memcpy ( buffer + sizeof ( PNG_HEADER_PALETTE ), palette->get_png_palette(), palette->get_png_palette_size() );
         s = sizeof ( PNG_HEADER_PALETTE ) + palette->get_png_palette_size();
+    } else if ( image->get_channels() == 2) {
+        // On est sur du 2 canal gris alpha
+        if ( sizeof ( PNG_HEADER_GRAYA ) > size ) return 0;
+        memcpy ( buffer, PNG_HEADER_GRAYA, sizeof ( PNG_HEADER_GRAYA ) );
+        s = sizeof ( PNG_HEADER_RGB );
     } else if ( image->get_channels() == 3 ) {
         // On est sur du 3 canaux RGB
         if ( sizeof ( PNG_HEADER_RGB ) > size ) return 0;

@@ -54,7 +54,6 @@
 #include "utils/Cache.h"
 #include <time.h>
 
-
 SwiftContext::SwiftContext (std::string cont) : Context(), ssl_no_verify(false), keystone_auth(false), container_name(cont), use_token_from_file(true) {
 
     char* auth = getenv (ROK4_SWIFT_AUTHURL);
@@ -89,10 +88,7 @@ SwiftContext::SwiftContext (std::string cont) : Context(), ssl_no_verify(false),
         keystone_auth=true;
     }
 
-    if(getenv (ROK4_SSL_NO_VERIFY) != NULL){
-        ssl_no_verify=true;
-    }
-
+    ssl_no_verify = get_ssl_no_verify();
 }
 
 bool SwiftContext::connection() {

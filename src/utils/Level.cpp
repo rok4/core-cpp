@@ -354,7 +354,7 @@ Level::~Level() {
 /*
  * A REFAIRE
  */
-Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox< double > bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation, int& error ) {
+Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation, int& error ) {
 
     Grid* grid = new Grid ( width, height, bbox );
 
@@ -396,7 +396,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
                                     ceil ( ( grid->bbox.xmax - tm->get_x0() ) /tm->get_res() + bufx ),
                                     ceil ( ( tm->get_y0() - grid->bbox.ymin ) /tm->get_res() + bufy ) );
 
-    Image* image = getwindow ( maxTileX, maxTileY, bbox_int, error );
+    Image* image = getwindow ( max_tile_x, max_tile_y, bbox_int, error );
     if ( !image ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Image invalid !"  ;
         return 0;
@@ -411,7 +411,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
 }
 
 
-Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox< double > bbox, int width, int height, Interpolation::KernelType interpolation, int& error ) {
+Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, Interpolation::KernelType interpolation, int& error ) {
 
     // On convertit les coordonnées en nombre de pixels depuis l'origine X0,Y0
     bbox.xmin = ( bbox.xmin - tm->get_x0() ) /tm->get_res();
@@ -431,7 +431,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
             bbox.ymin - bbox_int.ymin < EPS && bbox_int.ymax - bbox.ymax < EPS ) {
         /* L'image demandée est en phase et a les mêmes résolutions que les images du niveau
          *   => pas besoin de réechantillonnage */
-        return getwindow ( maxTileX, maxTileY, bbox_int, error );
+        return getwindow ( max_tile_x, max_tile_y, bbox_int, error );
     }
 
     // Rappel : les coordonnees de la bbox sont ici en pixels
@@ -448,7 +448,7 @@ Image* Level::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBo
     bbox_int.ymin = floor ( bbox.ymin - kk.size ( ratio_y ) );
     bbox_int.ymax = ceil ( bbox.ymax + kk.size ( ratio_y ) );
 
-    Image* imageout = getwindow ( maxTileX, maxTileY, bbox_int, error );
+    Image* imageout = getwindow ( max_tile_x, max_tile_y, bbox_int, error );
     if ( !imageout ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Image invalid !"  ;
         return 0;
@@ -476,32 +476,32 @@ int euclideanDivisionRemainder ( int64_t i, int n ) {
     return r;
 }
 
-Image* Level::getwindow ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox< int64_t > bbox, int& error ) { 
+Image* Level::getwindow ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< int64_t > bbox, int& error ) { 
     int tile_xmin=euclideanDivisionQuotient ( bbox.xmin,tm->get_tile_width() );
     int tile_xmax=euclideanDivisionQuotient ( bbox.xmax -1,tm->get_tile_width() );
     int nbx = tile_xmax - tile_xmin + 1;
-    if ( nbx >= maxTileX ) {
-        BOOST_LOG_TRIVIAL(info) <<  "Too Much Tile on X axis"  ;
-        error=2;
+    if ( nbx > max_tile_x ) {
+        BOOST_LOG_TRIVIAL(info) << "Too Much Tile on X axis : " << nbx << " > " << max_tile_x ;
+        error = 2;
         return 0;
     }
     if (nbx == 0) {
         BOOST_LOG_TRIVIAL(info) <<  "nbx = 0" ;
-        error=1;
+        error = 1;
         return 0;
     }
 
     int tile_ymin=euclideanDivisionQuotient ( bbox.ymin,tm->get_tile_height() );
     int tile_ymax = euclideanDivisionQuotient ( bbox.ymax-1,tm->get_tile_height() );
     int nby = tile_ymax - tile_ymin + 1;
-    if ( nby >= maxTileY ) {
-        BOOST_LOG_TRIVIAL(info) <<  "Too Much Tile on Y axis"  ;
-        error=2;
+    if ( nby > max_tile_y ) {
+        BOOST_LOG_TRIVIAL(info) << "Too Much Tile on Y axis : " << nbx << " > " << max_tile_y ;
+        error = 2;
         return 0;
     }
     if (nby == 0) {
         BOOST_LOG_TRIVIAL(info) <<  "nby = 0" ;
-        error=1;
+        error = 1;
         return 0;
     }
 
@@ -618,7 +618,7 @@ DataSource* Level::get_tile (int x, int y) {
     return source;
 }
 
-Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom ) {
+Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom, bool null_for_nodata ) {
     int pixel_size=1;
     BOOST_LOG_TRIVIAL(debug) <<  "GetTile Image"  ;
     if ( format==Rok4Format::TIFF_RAW_FLOAT32 || format == Rok4Format::TIFF_LZW_FLOAT32 || format == Rok4Format::TIFF_ZIP_FLOAT32 || format == Rok4Format::TIFF_PKB_FLOAT32 )
@@ -633,7 +633,9 @@ Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom 
         tm->get_y0() - y * tm->get_tile_height() * tm->get_res() - top * tm->get_res()
     );
 
-    if (ds == 0) {
+    if (ds == 0 && null_for_nodata) {
+        return NULL;
+    } else if (ds == 0) {
         // On crée une image monochrome (valeur fournie dans la pyramide) de la taille qu'aurait du avoir la tuile demandée
         EmptyImage* ei = new EmptyImage(
             tm->get_tile_width() - left - right, // width

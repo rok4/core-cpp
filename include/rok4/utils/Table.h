@@ -42,6 +42,9 @@ class Attribute;
 
 #include <vector>
 #include <string>
+#include <map>
+
+#include "rok4/thirdparty/json11.hpp"
 #include "rok4/utils/Attribute.h"
 
 class Table
@@ -52,7 +55,6 @@ class Table
             name = n;
             geometry = g;
             attributes = atts;
-            metadata_json = "";
         }
         ~Table(){};
 
@@ -60,36 +62,23 @@ class Table
         std::string get_geometry() {return geometry;}
         std::vector<Attribute> get_attributes() {return attributes;}
 
-        std::string get_metadata_json(std::string max, std::string min) {
-            if (metadata_json != "") return metadata_json;
-            /*
-            {
-                "fields": {
-                    "genre": "String"
-                },
-                "id": "limite_administrative_simp",
-                "maxzoom": 18,
-                "minzoom": 13
-            }
-            */
+        json11::Json to_json(int max, int min) {
 
-            std::ostringstream res;
-            res << "{\"id\":\"" << name << "\"";
-            res << ",\"geometry\":\"" << geometry << "\"";
-            res << ",\"maxzoom\":\"" << max << "\"";
-            res << ",\"minzoom\":\"" << min << "\"";
-            res << ",\"fieldsCount\":\"" << attributes.size() << "\"";
-            res << ",\"fields\":{";
+            std::map<std::string, Attribute> atts;
             for (int i = 0; i < attributes.size(); i++) {
-                if (i != 0) {
-                    res << ",";
-                }
-                res << "\"" << attributes.at(i).get_name() << "\":" << attributes.at(i).get_metadata_json();
+                atts.emplace(attributes.at(i).get_name(), attributes.at(i) ); 
             }
-            res << "}}";
 
-            metadata_json = res.str();
-            return metadata_json;
+            json11::Json::object res = json11::Json::object {
+                { "id", name },
+                { "geometry", geometry },
+                { "maxzoom", max },
+                { "minzoom", min },
+                { "fieldsCount", (int) attributes.size() },
+                { "fields", atts }
+            };
+            
+            return res;
         }
 
     private:
@@ -97,7 +86,6 @@ class Table
         std::string name;
         std::string geometry;
         std::vector<Attribute> attributes;
-        std::string metadata_json;
 };
 
 #endif // ATTRIBUTE_H

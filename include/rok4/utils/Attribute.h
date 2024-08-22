@@ -48,10 +48,11 @@ class Attribute;
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
 
-#include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <vector>
 #include <string>
+
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -64,9 +65,8 @@ class Attribute
 
             missing_field = "";
             values = std::vector<std::string>();
-            min = "";
-            max = "";
-            metadata_json = "";
+            min_provided = false;
+            max_provided = false;
 
             if (! doc["name"].is_string()) {
                 missing_field = "name";
@@ -84,13 +84,15 @@ class Attribute
                 missing_field = "count";
                 return;
             }
-            count = std::to_string(doc["count"].number_value());
+            count = doc["count"].number_value();
 
             if (doc["min"].is_number()) {
-                min = std::to_string(doc["min"].number_value());
+                min = doc["min"].number_value();
+                min_provided = true;
             }
             if (doc["max"].is_number()) {
-                max = std::to_string(doc["max"].number_value());
+                max = doc["max"].number_value();
+                max_provided = true;
             }
             if (doc["values"].is_array()) {
                 std::string tmp;
@@ -113,46 +115,31 @@ class Attribute
         std::string get_name() {return name;}
         std::string get_type() {return type;}
         std::vector<std::string> get_values() {return values;}
-        std::string get_count() {return count;}
-        std::string get_min() {return min;}
-        std::string get_max() {return max;}
+        int get_count() {return count;}
+        int get_min() {return min;}
+        int get_max() {return max;}
 
-        std::string get_metadata_json() {
-            if (metadata_json != "") return metadata_json;
-            /*
-            {
-                "attribute": "gid",
-                "count": 1,
-                "max": 49,
-                "min": 49,
-                "type": "number",
-                "values": [
-                    49
-                ]
+        json11::Json to_json() const {
+            json11::Json::object res = json11::Json::object {
+                { "attribute", name },
+                { "count", count },
+                { "type", type }
+            };
+
+            if (min_provided) {
+                res["min"] = min;
             }
-            */
-
-            std::ostringstream res;
-            res << "{\"attribute\":\"" << name << "\"";
-            res << ",\"count\":" << count << "";
-            res << ",\"type\":\"" << type << "\"";
-
-            if (min != "") {
-                res << ",\"min\":" << min;
-            }
-            if (max != "") {
-                res << ",\"max\":" << max;
+            if (max_provided) {
+                res["max"] = max;
             }
 
             if (values.size() != 0) {
-                res << ",\"values\":[\"" << boost::algorithm::join(values, "\",\"") << "\"]";
+                res["values"] = values;
             }
-
-            res << "}";
-
-            metadata_json = res.str();
-            return metadata_json;
+            
+            return res;
         }
+
 
     private:
         /**
@@ -180,22 +167,19 @@ class Attribute
          * \~french \brief Nombre de valeurs distinctes de l'attribut
          * \~english \brief Attribute's distinct values count
          */
-        std::string count;
+        int count;
         /**
          * \~french \brief Valeur minimale prise par l'attribut si numérique
          * \~english \brief Min value of attribute if number
          */
-        std::string min;
+        double min;
+        bool min_provided;
         /**
          * \~french \brief Valeur maximale prise par l'attribut si numérique
          * \~english \brief Max value of attribute if number
          */
-        std::string max;
-        /**
-         * \~french \brief Formattage JSON des informations
-         * \~english \brief Informations JSON string
-         */
-        std::string metadata_json;
+        double max;
+        bool max_provided;
 };
 
 #endif // ATTRIBUTE_H

@@ -66,9 +66,6 @@
 #define ROK4_SWIFT_ACCOUNT "ROK4_SWIFT_ACCOUNT"
 #define ROK4_SWIFT_TOKEN_FILE "ROK4_SWIFT_TOKEN_FILE"
 
-#ifndef ROK4_SSL_NO_VERIFY
-#define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
-#endif
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french

@@ -132,9 +132,7 @@ bool S3Context::load_env() {
         env_secret_keys.push_back(token);
     }
 
-    if (getenv(ROK4_SSL_NO_VERIFY) != NULL) {
-        ssl_no_verify = true;
-    }
+    ssl_no_verify = get_ssl_no_verify();
 
     // Analyse des valeurs
 

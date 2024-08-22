@@ -59,10 +59,6 @@
 #define ROK4_S3_KEY "ROK4_S3_KEY"
 #define ROK4_S3_SECRETKEY "ROK4_S3_SECRETKEY"
 
-#ifndef ROK4_SSL_NO_VERIFY
-#define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
-#endif
-
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french

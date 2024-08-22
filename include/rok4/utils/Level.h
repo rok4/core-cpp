@@ -141,7 +141,7 @@ public:
 
     DataSource* get_tile (int x, int y);
 
-    Image* get_tile ( int x, int y, int left, int top, int right, int bottom );
+    Image* get_tile ( int x, int y, int left, int top, int right, int bottom, bool null_for_nodata = false );
 
     /*
      * Destructeur
