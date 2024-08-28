@@ -57,7 +57,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
 
     // Récupération du CRS
     if (doc["crs"].is_string()) {
-        crs = new CRS( doc["crs"].string_value() );
+        crs = CrsBook::get_crs( doc["crs"].string_value() );
     } else {
         error_message = "crs have to be provided and be a string";
         return false;
@@ -248,10 +248,6 @@ TileMatrixSet::~TileMatrixSet() {
     std::map<std::string, TileMatrix*>::iterator itTM;
     for ( itTM=tm_list.begin(); itTM != tm_list.end(); itTM++ )
         delete itTM->second;
-
-    if (crs != NULL) {
-        delete crs;
-    }
 }
 
 TileMatrix* TileMatrixSet::get_tm(std::string id) {

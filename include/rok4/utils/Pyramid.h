@@ -275,11 +275,11 @@ public:
 
     /**
      * \~french \brief Récupère le meilleur niveau pour une résolution donnée
-     * \param[in] résolution en x
-     * \param[in] résolution en y
+     * \param[in] resolution_x résolution en x
+     * \param[in] resolution_y résolution en y
      * \~english \brief Get the best level for the given resolution
-     * \param[in] resolution in x
-     * \param[in] resolution in y
+     * \param[in] resolution_x resolution in x
+     * \param[in] resolution_y resolution in y
      */
     std::string best_level ( double resolution_x, double resolution_y );
 
@@ -288,13 +288,13 @@ public:
      * \~french \brief Récupère une image
      * \~english \brief Get an image
      */
-    Image* getbbox (unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi, int& error );
+    Image* getbbox (unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi );
 
     /**
      * \~french \brief Créé une image reprojetée
      * \~english \brief Create a reprojected image
      */
-    Image *create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error);
+    Image* create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation);
 
 };
 

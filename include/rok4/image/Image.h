@@ -53,6 +53,7 @@
 
 #include "rok4/utils/BoundingBox.h"
 #include "rok4/utils/CRS.h"
+#include "rok4/utils/Cache.h"
 
 #define METER_PER_DEG 111319.492
 
@@ -280,13 +281,10 @@ public:
      * \param[in] box Image's bounding box
      */
     void set_crs ( CRS* c ) {
-        if (crs != NULL) {
-            delete crs;
-            crs = NULL;
-        }
+        crs = NULL;
 
         if (c != NULL) {
-            crs = new CRS(c);
+            crs = CrsBook::get_crs(c->get_request_code());
             bbox.crs = crs->get_request_code();
         } else {
             bbox.crs = "";
@@ -678,7 +676,6 @@ public:
      */
     virtual ~Image() {
         if ( mask != NULL ) delete mask;
-        if ( crs != NULL ) delete crs;
     }
 
     /**

@@ -12,3 +12,4 @@
 * Renommage lzwDecoder -> LzwUncompressor
 * Renommage pkbEncoder -> PkbCompressor
 * Renommage pkbDecoder -> PkbUncompressor
+* Création d'un annuaire pour les CRS pour éviter les créations en double

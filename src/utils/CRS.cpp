@@ -111,7 +111,7 @@ CRS& CRS::operator= ( const CRS& other ) {
     return *this;
 }
 
-bool CRS::is_lon_lat() {
+bool CRS::is_geographic() {
 
     if (pj_proj == 0) return false;
 
@@ -121,10 +121,14 @@ bool CRS::is_lon_lat() {
 }
 
 
+bool CRS::is_lat_lon() {
+    return get_authority() == "EPSG" && is_geographic();
+}
+
 long double CRS::get_meters_per_unit() {
     // Hypothese : un CRS en long/lat est en degres
     // R=6378137m
-    if ( is_lon_lat() )
+    if ( is_geographic() )
         return 111319.49079327357264771338267056;
     else
         return 1.0;

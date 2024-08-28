@@ -117,12 +117,12 @@ void CppUnitCRS::getters() {
     CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",crs5->is_define() );
     CPPUNIT_ASSERT_MESSAGE ( "CRS proj compatible",!crs6->is_define() );
 
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs1->is_lon_lat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs2->is_lon_lat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs3->is_lon_lat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs4->is_lon_lat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs5->is_lon_lat() );
-    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs6->is_lon_lat() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs1->is_geographic() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs2->is_geographic() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs3->is_geographic() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",crs4->is_geographic() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs5->is_geographic() );
+    CPPUNIT_ASSERT_MESSAGE ( "CRS is LongLat",!crs6->is_geographic() );
 
     CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs1->cmp_request_code(crs_code1));
     CPPUNIT_ASSERT_MESSAGE ( "CRS get_request_code",crs2->cmp_request_code(crs_code2));

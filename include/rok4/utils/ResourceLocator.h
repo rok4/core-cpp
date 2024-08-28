@@ -48,7 +48,7 @@
 
 #include <string>
 
-#include "thirdparty/json11.hpp"
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière

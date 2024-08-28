@@ -84,6 +84,7 @@ Le programme qui suit charge une pyramide SCAN1000 à partir de son descripteur,
 #include <boost/log/trivial.hpp>
 #include <rok4/utils/Pyramid.h>
 #include <rok4/image/file/FileImage.h>
+#include "rok4/utils/Cache.h"
 
 int main( int argc, char *argv[] ) {
 
@@ -91,7 +92,7 @@ int main( int argc, char *argv[] ) {
 
     Pyramid* p = new Pyramid("/path/to/SCAN1000.json");
     int error = 0;
-    CRS* crs_dst = new CRS("EPSG:4326");
+    CRS* crs_dst = CrsBook->get_crs("EPSG:4326");
     Image* img = p->getbbox(
         10, 10, BoundingBox<double>(5., 45., 6., 46.), 200, 200, crs_dst, 
         false, Interpolation::KernelType::LANCZOS_3, 0, error
@@ -115,16 +116,16 @@ int main( int argc, char *argv[] ) {
     delete p;
     delete img;
     delete output;
-    delete crs_dst;
 
     TmsBook::send_to_trash();
     TmsBook::empty_trash();
 
-    ProjPool::cleanProjPool();
+    CrsBook::clean_crss();
+    ProjPool::clean_projs();
     proj_cleanup();
 
-    IndexCache::cleanCache();
-    StoragePool::cleanStoragePool();
+    IndexCache::clean_indexes();
+    StoragePool::clean_storages();
 
     return 0;
 }

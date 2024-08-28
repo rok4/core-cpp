@@ -190,11 +190,13 @@ public:
     /**
      * \~french \brief Ajoute un noeud correpondant au mot clé
      * \param[in] parent Noeud auquel ajouter celui du mot clé
+     * \param[in] node_name Nom du noeud à ajouter
      * \~english \brief Add a node corresponding to keyword
      * \param[in] parent Node to whom add the keyword node
+     * \param[in] node_name Node's name
      */
-    void add_node(ptree& parent) {
-        ptree& node = parent.add("ows:Keyword", content);
+    void add_node(ptree& parent, std::string node_name) {
+        ptree& node = parent.add(node_name, content);
 
         for (std::map<std::string, std::string>::const_iterator it = attributes.begin(); it != attributes.end(); it++) {
             node.add("<xmlattr>." + it->first, it->second);

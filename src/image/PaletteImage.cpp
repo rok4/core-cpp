@@ -65,9 +65,9 @@ int PaletteImage::get_line ( uint8_t* buffer, int line ) {
 
 PaletteImage::PaletteImage ( Image* image, Palette* palette ) : Image ( image->get_width(), image->get_height(), 1, image->get_bbox() ), source_image ( image ), palette ( palette ) {
     // Il n'y aura application de la palette et modification des canaux que si
-    // - la palette n'est pas vide
+    // - la palette n'est pas nulle et pas vide
     // - l'image source est sur un canal
-    if ( source_image->get_channels() == 1 && ! this->palette->is_empty() ) {
+    if ( source_image->get_channels() == 1 && this->palette != NULL && ! this->palette->is_empty() ) {
         if (this->palette->is_no_alpha()) {
             channels = 3;
         } else {

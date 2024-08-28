@@ -242,28 +242,43 @@ public:
     }
 
     /**
-     * \~french \brief Ajoute un noeud correpondant à la légende
+     * \~french \brief Ajoute un noeud WMTS correpondant à la légende
      * \param[in] parent Noeud auquel ajouter celui de la légende
-     * \~english \brief Add a node corresponding to legend
+     * \~english \brief Add a WMTS node corresponding to legend
      * \param[in] parent Node to whom add the legend node
      */
-    void add_node(ptree& parent) {
+    void add_node_wmts(ptree& parent) {
         ptree& node = parent.add("LegendURL", "");
         node.add("<xmlattr>.format", format);
         node.add("<xmlattr>.xlink:href", href);
 
-        if ( width !=0 ) {
+        if ( width != 0 ) {
             node.add("<xmlattr>.width", width);
         }
-        if ( height !=0 ) {
+        if ( height != 0 ) {
             node.add("<xmlattr>.height", height);
         }
-        if ( min_scale_denominator !=0 ) {
+        if ( min_scale_denominator != 0 ) {
             node.add("<xmlattr>.minScaleDenominator", min_scale_denominator);
         }
-        if ( max_scale_denominator !=0 ) {
+        if ( max_scale_denominator != 0 ) {
             node.add("<xmlattr>.maxScaleDenominator", max_scale_denominator);
         }
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud WMS correpondant à la légende
+     * \param[in] parent Noeud auquel ajouter celui de la légende
+     * \~english \brief Add a WMS node corresponding to legend
+     * \param[in] parent Node to whom add the legend node
+     */
+    void add_node_wms(ptree& parent) {
+        ptree& node = parent.add("LegendURL", "");
+        node.add("<xmlattr>.width", width);
+        node.add("<xmlattr>.height", height);
+        node.add("Format", format);
+        node.add("OnlineResource.<xmlattr>.xlink:href", href);
+        node.add("OnlineResource.<xmlattr>.xlink:type", "simple");
     }
 
     /**

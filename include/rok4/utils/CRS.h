@@ -159,7 +159,14 @@ public:
      * \brief Test whether the CRS is geographic
      * \return true if geographic
      */
-    bool is_lon_lat();
+    bool is_geographic();
+    /**
+     * \~french
+     * \brief Test si les coordonnées sont dans l'ordre latitude longitude
+     * \~english
+     * \brief Test if coordinates are latitude/longitude order
+     */
+    bool is_lat_lon();
     /**
      * \~french
      * \brief Renvoit le zone de définition du CRS

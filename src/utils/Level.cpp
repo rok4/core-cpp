@@ -354,7 +354,7 @@ Level::~Level() {
 /*
  * A REFAIRE
  */
-Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation, int& error ) {
+Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation ) {
 
     Grid* grid = new Grid ( width, height, bbox );
 
@@ -362,7 +362,6 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
 
     if ( ! ( grid->reproject ( dst_crs, src_crs ) ) ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Impossible de reprojeter la grid" ;
-        error = 1; // BBox invalid
         delete grid;
         return 0;
     }
@@ -371,7 +370,6 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
     //cela arrive notamment lors que la bbox envoyée par l'utilisateur n'est pas dans le crs specifié par ce dernier
     if (grid->bbox.xmin != grid->bbox.xmin || grid->bbox.xmax != grid->bbox.xmax || grid->bbox.ymin != grid->bbox.ymin || grid->bbox.ymax != grid->bbox.ymax ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Bbox de la grid contenant des NaN" ;
-        error = 1;
         delete grid;
         return 0;
     }
@@ -396,7 +394,7 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
                                     ceil ( ( grid->bbox.xmax - tm->get_x0() ) /tm->get_res() + bufx ),
                                     ceil ( ( tm->get_y0() - grid->bbox.ymin ) /tm->get_res() + bufy ) );
 
-    Image* image = getwindow ( max_tile_x, max_tile_y, bbox_int, error );
+    Image* image = getwindow ( max_tile_x, max_tile_y, bbox_int );
     if ( !image ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Image invalid !"  ;
         return 0;
@@ -411,7 +409,7 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
 }
 
 
-Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, Interpolation::KernelType interpolation, int& error ) {
+Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< double > bbox, int width, int height, Interpolation::KernelType interpolation ) {
 
     // On convertit les coordonnées en nombre de pixels depuis l'origine X0,Y0
     bbox.xmin = ( bbox.xmin - tm->get_x0() ) /tm->get_res();
@@ -431,7 +429,7 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
             bbox.ymin - bbox_int.ymin < EPS && bbox_int.ymax - bbox.ymax < EPS ) {
         /* L'image demandée est en phase et a les mêmes résolutions que les images du niveau
          *   => pas besoin de réechantillonnage */
-        return getwindow ( max_tile_x, max_tile_y, bbox_int, error );
+        return getwindow ( max_tile_x, max_tile_y, bbox_int );
     }
 
     // Rappel : les coordonnees de la bbox sont ici en pixels
@@ -448,7 +446,7 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
     bbox_int.ymin = floor ( bbox.ymin - kk.size ( ratio_y ) );
     bbox_int.ymax = ceil ( bbox.ymax + kk.size ( ratio_y ) );
 
-    Image* imageout = getwindow ( max_tile_x, max_tile_y, bbox_int, error );
+    Image* imageout = getwindow ( max_tile_x, max_tile_y, bbox_int );
     if ( !imageout ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Image invalid !"  ;
         return 0;
@@ -476,18 +474,16 @@ int euclideanDivisionRemainder ( int64_t i, int n ) {
     return r;
 }
 
-Image* Level::getwindow ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< int64_t > bbox, int& error ) { 
+Image* Level::getwindow ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox< int64_t > bbox ) { 
     int tile_xmin=euclideanDivisionQuotient ( bbox.xmin,tm->get_tile_width() );
     int tile_xmax=euclideanDivisionQuotient ( bbox.xmax -1,tm->get_tile_width() );
     int nbx = tile_xmax - tile_xmin + 1;
     if ( nbx > max_tile_x ) {
         BOOST_LOG_TRIVIAL(info) << "Too Much Tile on X axis : " << nbx << " > " << max_tile_x ;
-        error = 2;
         return 0;
     }
     if (nbx == 0) {
         BOOST_LOG_TRIVIAL(info) <<  "nbx = 0" ;
-        error = 1;
         return 0;
     }
 
@@ -496,12 +492,10 @@ Image* Level::getwindow ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
     int nby = tile_ymax - tile_ymin + 1;
     if ( nby > max_tile_y ) {
         BOOST_LOG_TRIVIAL(info) << "Too Much Tile on Y axis : " << nbx << " > " << max_tile_y ;
-        error = 2;
         return 0;
     }
     if (nby == 0) {
         BOOST_LOG_TRIVIAL(info) <<  "nby = 0" ;
-        error = 1;
         return 0;
     }
 

@@ -122,14 +122,14 @@ static const uint8_t PNG_HEADER_PALETTE[33] = {
 //For PNG compression method 0, the zlib compression method/flags code shall specify method code 8 (deflate compression) and an LZ77 window size of not more than 32768 bytes. The zlib compression method number is not the same as the PNG compression method number in the IHDR chunk (see 11.2.2 IHDR Image header). The additional flags shall not specify a preset dictionary.
 //
 
-void PNGEncoder::addCRC ( uint8_t *buffer, uint32_t length ) {
+void PNGEncoder::add_crc ( uint8_t *buffer, uint32_t length ) {
     * ( ( uint32_t* ) buffer ) = bswap_32 ( length );
     uint32_t crc = crc32 ( 0, Z_NULL, 0 );
     crc = crc32 ( crc, buffer + 4, length + 4 );
     * ( ( uint32_t* ) ( buffer+8+length ) ) = bswap_32 ( crc );
 }
 
-size_t PNGEncoder::write_IHDR ( uint8_t *buffer, size_t size ) {
+size_t PNGEncoder::write_ihdr ( uint8_t *buffer, size_t size ) {
     size_t s = 0;
 
     // cf: http://www.w3.org/TR/PNG/#11IHDR
@@ -168,20 +168,20 @@ size_t PNGEncoder::write_IHDR ( uint8_t *buffer, size_t size ) {
     * ( ( uint32_t* ) ( buffer+16 ) ) = bswap_32 ( image->get_width() );
     * ( ( uint32_t* ) ( buffer+20 ) ) = bswap_32 ( image->get_height() );
 
-    addCRC ( buffer+8, 13 ); // on signe le chunck avca un CRC32
+    add_crc ( buffer+8, 13 ); // on signe le chunck avca un CRC32
     line++;
 
     return s;
 }
 
-size_t PNGEncoder::write_IEND ( uint8_t *buffer, size_t size ) {
+size_t PNGEncoder::write_iend ( uint8_t *buffer, size_t size ) {
     if ( sizeof ( IEND ) > size ) return 0;
     memcpy ( buffer, IEND, sizeof ( IEND ) );
     line++;
     return sizeof ( IEND );
 }
 
-size_t PNGEncoder::write_IDAT ( uint8_t *buffer, size_t size ) {
+size_t PNGEncoder::write_idat ( uint8_t *buffer, size_t size ) {
     if ( size <= 12 ) return 0;
     buffer[4] = 'I';
     buffer[5] = 'D';
@@ -206,7 +206,7 @@ size_t PNGEncoder::write_IDAT ( uint8_t *buffer, size_t size ) {
         else if ( r != Z_OK ) return 0;                    // une erreur
     }
     uint32_t length = size - zstream.avail_out;   // taille des données écritres
-    addCRC ( buffer, length - 12 );               // signature du chunck
+    add_crc ( buffer, length - 12 );               // signature du chunck
     return length;
 }
 
@@ -217,9 +217,9 @@ size_t PNGEncoder::read ( uint8_t *buffer, size_t size ) {
     // On traite 2 cas : 'Greyscale' et 'Truecolor'
     // cf: http://www.w3.org/TR/PNG/#11IHDR
 
-    if ( line == -1 ) pos += write_IHDR ( buffer, size );
-    if ( line >= 0 && line <= image->get_height() ) pos += write_IDAT ( buffer + pos, size - pos );
-    if ( line == image->get_height() +1 ) pos += write_IEND ( buffer + pos, size - pos );
+    if ( line == -1 ) pos += write_ihdr ( buffer, size );
+    if ( line >= 0 && line <= image->get_height() ) pos += write_idat ( buffer + pos, size - pos );
+    if ( line == image->get_height() +1 ) pos += write_iend ( buffer + pos, size - pos );
     return pos;
 }
 

@@ -57,10 +57,10 @@ protected:
 
     Image *image;
     int line;
-    virtual size_t write_IHDR ( uint8_t *buffer, size_t size );
-    virtual size_t write_IDAT ( uint8_t *buffer, size_t size );
-    virtual size_t write_IEND ( uint8_t *buffer, size_t size );
-    void addCRC ( uint8_t *buffer, uint32_t length );
+    virtual size_t write_ihdr ( uint8_t *buffer, size_t size );
+    virtual size_t write_idat ( uint8_t *buffer, size_t size );
+    virtual size_t write_iend ( uint8_t *buffer, size_t size );
+    void add_crc ( uint8_t *buffer, uint32_t length );
     Palette* palette;
     Palette* stubpalette;
 

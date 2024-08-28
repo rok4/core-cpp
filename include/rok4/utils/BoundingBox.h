@@ -135,14 +135,20 @@ public:
     }
 
     /** \~french \brief Conversion des informations sur le rectangle englobant en string
+     * \param[in] invert_coords Inversion des X et des Y
      * \return chaîne de carcactère décrivant le rectangle englobant
      ** \~english \brief Convert bounding box description to string
+     * \param[in] invert_coords Invert X and Y
      * \return string describing the bounding box
      */
-    std::string to_string() {
+    std::string to_string(bool invert_coords = false) {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
-        oss << xmin << "," << ymin << "," << xmax << "," << ymax;
+        if (invert_coords) {
+            oss << ymin << "," << xmin << "," << ymax << "," << xmax;
+        } else {
+            oss << xmin << "," << ymin << "," << xmax << "," << ymax;
+        }
         return oss.str() ;
     }
 
@@ -391,12 +397,14 @@ public:
     /**
      * \~french \brief Ajoute un noeud correpondant à la bbox
      * \param[in] parent Noeud auquel ajouter celui de la bbox
+     * \param[in] invert_coords Inversion des X et des Y
      * \~english \brief Add a node corresponding to bbox
      * \param[in] parent Node to whom add the bbox node
+     * \param[in] invert_coords Invert X and Y
      */
-    void add_node(ptree& parent) {
+    void add_node(ptree& parent, bool geographical, bool invert_coords = false) {
 
-        if (crs == "") {
+        if (geographical) {
             ptree& node = parent.add("EX_GeographicBoundingBox", "");
             node.add("westBoundLongitude", xmin);
             node.add("eastBoundLongitude", xmax);
@@ -405,10 +413,18 @@ public:
         } else {
             ptree& node = parent.add("BoundingBox", "");
             node.add("<xmlattr>.CRS", crs);
-            node.add("minx", xmin);
-            node.add("maxx", xmax);
-            node.add("miny", ymin);
-            node.add("maxy", ymax);
+
+            if (invert_coords) {
+                node.add("<xmlattr>.minx", ymin);
+                node.add("<xmlattr>.maxx", ymax);
+                node.add("<xmlattr>.miny", xmin);
+                node.add("<xmlattr>.maxy", xmax);
+            } else {
+                node.add("<xmlattr>.minx", xmin);
+                node.add("<xmlattr>.maxx", xmax);
+                node.add("<xmlattr>.miny", ymin);
+                node.add("<xmlattr>.maxy", ymax);
+            }
         }
     }
 

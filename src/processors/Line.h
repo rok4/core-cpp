@@ -68,7 +68,7 @@
  *
  * Les modes de fusion gérés sont :
  * \li par multiplication : les canaux sont multipliés un à un (valable uniquement pour les canaux entier sur 8 bits) -> #multiply
- * \li par transparence : on applique une formule d'alpha-blending -> #alphaBlending
+ * \li par transparence : on applique une formule d'alpha-blending -> #alpha_blending
  * \li par masque : seul le masques sont considérés, la donnée du dessus écrase celle du dessous -> #use_masks
  *
  * \todo Travailler sur un nombre de canaux variable (pour l'instant, systématiquement 4, que ce soit en entier ou en flottant).
@@ -103,9 +103,11 @@ public:
     /**
      * \~french \brief Coefficient à appliquer, pour passer à un alpha flottant entre 0 et 1
      * \details \li Pour des données sur 8 bits -> 255.
+     * \li Pour des données sur 16 bits -> 65535.
      * \li Pour des données sur 32 bits (flottant) -> 1.
      * \~english \brief Coefficient to apply, to obtain an alpha between 0 and 1
      * \details \li 8-bit data -> 255.
+     * \li 16-bit data -> 65535.
      * \li 32-bit data (float) -> 1.
      */
     float coeff;
@@ -138,104 +140,98 @@ public:
     /** \~french
      * \brief Crée un objet Line à partir de données, et précision d'une valeur de transparence
      * \details Les données sont sockées et les pixels dont la valeur est celle transparente sont stocké avec un alpha nul
-     * \param[in] imageIn données en entrée
-     * \param[in] maskIn masque associé aux données en entrée
-     * \param[in] srcSpp nombre de canaux dans les données sources
+     * \param[in] input_image données en entrée
+     * \param[in] input_mask masque associé aux données en entrée
+     * \param[in] input_channels nombre de canaux dans les données sources
      * \param[in] width largeur de la ligne en pixel
      * \param[in] transparent valeur des pixels à considéré comme transparent
      ** \~english
      * \brief Create a Line, from the data and transparent value
      * \details Data are stored and pixel containing the transparent value are stored with a null alpha.
-     * \param[in] imageIn data to store
-     * \param[in] maskIn associated mask
-     * \param[in] srcSpp number of samples per pixel in input data
+     * \param[in] input_image data to store
+     * \param[in] input_mask associated mask
+     * \param[in] input_channels number of samples per pixel in input data
      * \param[in] width line's width, in pixel
      * \param[in] transparent pixel's value to consider as transparent
      */
     template<typename T>
-    Line ( T* imageIn, uint8_t* maskIn, int srcSpp, int width, T* transparent ) : width ( width ) {
+    Line ( T* input_image, uint8_t* input_mask, int input_channels, int width, T* transparent ) : width ( width ) {
         if (sizeof(T) == 1) coeff = 255.; //cas uint8_t
         else coeff = 1.;
         samples = new float[3*width];
         alpha = new float[width];
         mask = new uint8_t[width];
-        store ( imageIn, maskIn, srcSpp, transparent );
+        store ( input_image, input_mask, input_channels, transparent );
     }
 
     /** \~french
      * \brief Crée un objet Line à partir de données
-     * \param[in] imageIn données en entrée
-     * \param[in] maskIn masque associé aux données en entrée
-     * \param[in] srcSpp nombre de canux dans les données sources
+     * \param[in] input_image données en entrée
+     * \param[in] input_mask masque associé aux données en entrée
+     * \param[in] input_channels nombre de canux dans les données sources
      * \param[in] width largeur de la ligne en pixel
      ** \~english
      * \brief Create a Line from data
-     * \param[in] imageIn data to store
-     * \param[in] maskIn associated mask
-     * \param[in] srcSpp number of samples per pixel in input data
+     * \param[in] input_image data to store
+     * \param[in] input_mask associated mask
+     * \param[in] input_channels number of samples per pixel in input data
      * \param[in] width line's width, in pixel
      */
     template<typename T>
-    Line ( T* imageIn, uint8_t* maskIn, int srcSpp, int width ) : width ( width ) {
+    Line ( T* input_image, uint8_t* input_mask, int input_channels, int width ) : width ( width ) {
         if (sizeof(T) == 1) coeff = 255.; //cas uint8_t
         else coeff = 1.;
         samples = new float[3*width];
         alpha = new float[width];
         mask = new uint8_t[width];
-        store ( imageIn, maskIn, srcSpp );
+        store ( input_image, input_mask, input_channels );
     }
 
     /** \~french
      * \brief Stockage des données, avec précision d'une valeur de transparence
      * \details Les données sont sockées en convertissant le nombre de canaux si besoin est. L'alpha lui est potentiellement converti en flottant entre 0 et 1. Les pixels dont la couleur est celle précisée comme transparent sont "annulés" (alpha = 0). Cette fonction est un template mais n'est implémentée (spécifiée) que pour les entiers sur 8 bits et les flottant.
-     * \param[in] imageIn données en entrée
-     * \param[in] maskIn masque associé aux données en entrée
-     * \param[in] srcSpp nombre de canaux dans les données sources
-     * \param[in] width largeur de la ligne en pixel
+     * \param[in] input_image données en entrée
+     * \param[in] input_mask masque associé aux données en entrée
+     * \param[in] input_channels nombre de canaux dans les données sources
      * \param[in] transparent valeur des pixels à considéré comme transparent
-     ** \~english
-     * \brief Data storage, with transparent value
-     * \details Data are stored, converting number of samples per pixel if needed. Alpha is stored as a float between 0 and 1. Pixels whose value is the transparent one are "cancelled" (alpha = 0). This function is a template but is implemented (specified) only for 8-bit integers and floats.
-     * \param[in] imageIn data to store
-     * \param[in] maskIn associated mask
-     * \param[in] srcSpp number of samples per pixel in input data
-     * \param[in] width line's width, in pixel
+     ** \~englishnt x;er of samples per pixel if needed. Alpha is stored as a float between 0 and 1. Pixels whose value is the transparent one are "cancelled" (alpha = 0). This function is a template but is implemented (specified) only for 8-bit integers and floats.
+     * \param[in] input_image data to store
+     * \param[in] input_mask associated mask
+     * \param[in] input_channels number of samples per pixel in input data
      * \param[in] transparent pixel's value to consider as transparent
      */
     template<typename T>
-    void store ( T* imageIn, uint8_t* maskIn, int srcSpp, T* transparent );
+    void store ( T* input_image, uint8_t* input_mask, int input_channels, T* transparent );
 
     /** \~french
      * \brief Stockage des données
      * \details Les données sont sockées en convertissant le nombre de canaux si besoin est. L'alpha lui est potentiellement converti en flottant entre 0 et 1. Cette fonction est un template mais n'est implémentée (spécifiée) que pour les entiers sur 8 bits et les flottant.
-     * \param[in] imageIn données en entrée
-     * \param[in] maskIn masque associé aux données en entrée
-     * \param[in] srcSpp nombre de canux dans les données sources
-     * \param[in] width largeur de la ligne en pixel
+     * \param[in] input_image données en entrée
+     * \param[in] input_mask masque associé aux données en entrée
+     * \param[in] input_channels nombre de canux dans les données sources
      ** \~english
      * \brief Data storage
      * \details Data are stored, converting number of samples per pixel if needed. Alpha is stored as a float between 0 and 1. This function is a template but is implemented (specified) only for 8-bit integers and floats.
-     * \param[in] imageIn data to store
-     * \param[in] maskIn associated mask
-     * \param[in] srcSpp number of samples per pixel in input data
-     * \param[in] width line's width, in pixel
+     * \param[in] input_image data to store
+     * \param[in] input_mask associated mask
+     * \param[in] input_channels number of samples per pixel in input data
      */
     template<typename T>
-    void store ( T* imageIn, uint8_t* maskIn, int srcSpp );
+    void store ( T* input_image, uint8_t* input_mask, int input_channels );
 
     /** \~french
      * \brief Convertit et écrit la ligne de donnée
      * \details Cette fonction est un template mais n'est implémentée (spécifiée) que pour les entiers sur 8 bits et les flottant.
      * \param[in] buffer mémoire où écrire la ligne
-     * \param[in] outChannels nombre de canaux des données écrites dans le buffer
+     * \param[in] output_channels nombre de canaux des données écrites dans le buffer
      ** \~english
      * \brief Convert and write the data line
      * \details This function is a template but is implemented (specified) only for 8-bit integers and floats.
      * \param[in] buffer memory to write data
-     * \param[in] outChannels number of samples per pixel in the buffer
+     * \param[in] output_channels number of samples per pixel in the buffer
      */
     template<typename T>
-    void write ( T* buffer, int outChannels );
+    void write ( T* buffer, int output_channels );
 
     /** \~french
      * \brief Fusionne deux lignes par transparence (alpha blending)
@@ -249,7 +245,7 @@ public:
      * \image html merge_transparency.png
      * \param[in] above above line, to merge
      */
-    void alphaBlending ( Line* above );
+    void alpha_blending ( Line* above );
 
     /** \~french
      * \brief Fusionne deux lignes par multiplication
@@ -295,8 +291,8 @@ public:
 /* -------------------------------------FONCTIONS TEMPLATE ---------------------------------------- */
 
 template<typename T>
-void Line::write ( T* buffer, int outChannels ) {
-    switch ( outChannels ) {
+void Line::write ( T* buffer, int output_channels) {
+    switch ( output_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
             buffer[i] = ( T ) ( 0.2125*samples[3*i] + 0.7154*samples[3*i+1] + 0.0721*samples[3*i+2] ) * alpha[i];

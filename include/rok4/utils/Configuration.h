@@ -45,7 +45,7 @@
 #include <sys/stat.h>
 #include <boost/log/trivial.hpp>
 
-#include "thirdparty/json11.hpp"
+#include "rok4/thirdparty/json11.hpp"
 
 class Configuration
 {

@@ -58,76 +58,74 @@
 #include <cstring>
 #include "processors/Line.h"
 
-template <typename tBuf>
-int MergeImage::_getline ( tBuf* buffer, int line ) {
-    Line aboveLine ( width, sizeof(tBuf) );
-    tBuf* imageLine = new tBuf[width*4];
-    uint8_t* maskLine = new uint8_t[width];
-    memset ( maskLine, 0, width );
+template <typename T>
+int MergeImage::_getline ( T* buffer, int line ) {
+    Line source_line ( width, sizeof(T) );
+    T* source_buffer = new T[width*4];
+    uint8_t* mask_buffer = new uint8_t[width];
+    memset ( mask_buffer, 0, width );
 
-    tBuf bg[channels*width];
+    T bg[channels*width];
     for ( int i = 0; i < channels*width; i++ ) {
-        bg[i] = ( tBuf ) bgValue[i%channels];
+        bg[i] = ( T ) background_value[i%channels];
     }
-    Line workLine ( bg, maskLine, channels, width );
+    Line work_line ( bg, mask_buffer, channels, width );
+    T* transparent;
 
-    tBuf* transparent;
-    if ( transparentValue != NULL ) {
-        transparent = new tBuf[3];
+    if ( transparent_value != NULL ) {
+        transparent = new T[3];
         for ( int i = 0; i < 3; i++ ) {
-            transparent[i] = ( tBuf ) transparentValue[i];
+            transparent[i] = ( T ) transparent_value[i];
         }
     }
 
-    for ( int i = 0; i < images.size(); i++ ) {
+    for ( int i = 0; i < source_images.size(); i++ ) {
 
-        int srcSpp = images[i]->get_channels();
-        images[i]->get_line ( imageLine,line );
+        int source_channels = source_images[i]->get_channels();
+        source_images[i]->get_line ( source_buffer,line );
 
-        if ( images[i]->get_mask() == NULL ) {
-            memset ( maskLine, 255, width );
+        if ( source_images[i]->get_mask() == NULL ) {
+            memset ( mask_buffer, 255, width );
         } else {
-            images[i]->get_mask()->get_line ( maskLine,line );
+            source_images[i]->get_mask()->get_line ( mask_buffer,line );
         }
 
-        if ( transparentValue == NULL ) {
-            aboveLine.store ( imageLine, maskLine, srcSpp );
+        if ( transparent_value == NULL ) {
+            source_line.store ( source_buffer, mask_buffer, source_channels );
         } else {
-            aboveLine.store ( imageLine, maskLine, srcSpp, transparent );
+            source_line.store ( source_buffer, mask_buffer, source_channels, transparent );
         }
 
         switch ( composition ) {
         case Merge::NORMAL:
-            workLine.use_masks ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         case Merge::TOP:
-            workLine.use_masks ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         case Merge::MULTIPLY:
-            workLine.multiply ( &aboveLine );
+            work_line.multiply ( &source_line );
             break;
         case Merge::ALPHATOP:
-            workLine.alphaBlending ( &aboveLine );
+            work_line.alpha_blending ( &source_line );
             break;
-            //case Merge::LIGHTEN:
-            //case Merge::DARKEN:
         default:
-            workLine.use_masks ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         }
 
     }
 
     // On repasse la ligne sur le nombre de canaux voulu
-    workLine.write ( buffer, channels );
+    work_line.write ( buffer, channels );
 
-    if ( transparentValue != NULL ) {
+    if ( transparent_value != NULL ) {
         delete [] transparent;
     }
-    delete [] imageLine;
-    delete [] maskLine;
+    delete [] source_buffer;
+    delete [] mask_buffer;
 
-    return width*channels*sizeof( tBuf );
+    return width*channels*sizeof( T );
 }
 
 /* Implementation de get_line pour les uint8_t */
@@ -146,7 +144,7 @@ int MergeImage::get_line ( float* buffer, int line ) {
 }
 
 MergeImage* MergeImage::create ( std::vector< Image* >& images, int channels,
-        int* bgValue, int* transparentValue, Merge::eMergeType composition ) {
+        int* background_value, int* transparent_value, Merge::eMergeType composition ) {
     if ( images.size() == 0 ) {
         BOOST_LOG_TRIVIAL(error) <<  "No source images to defined merged image" ;
         return NULL;
@@ -164,12 +162,12 @@ MergeImage* MergeImage::create ( std::vector< Image* >& images, int channels,
         }
     }
 
-    if ( bgValue == NULL ) {
+    if ( background_value == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "We have to precise a value used as background in the MergeImage" ;
         return NULL;
     }
 
-    return new MergeImage ( images, channels, bgValue, transparentValue, composition );
+    return new MergeImage ( images, channels, background_value, transparent_value, composition );
 }
 
 /* Implementation de get_line pour les uint8_t */
@@ -225,8 +223,6 @@ namespace Merge {
 const char *mergeType_name[] = {
     "UNKNOWN",
     "NORMAL",
-    "LIGHTEN",
-    "DARKEN",
     "MULTIPLY",
     "ALPHATOP",
     "TOP"
@@ -234,7 +230,7 @@ const char *mergeType_name[] = {
 
 eMergeType from_string ( std::string strMergeMethod ) {
     int i;
-    for ( i = mergeType_size; i ; --i ) {
+    for ( i = mergetype_size; i ; --i ) {
         if ( strMergeMethod.compare ( mergeType_name[i] ) == 0 )
             break;
     }

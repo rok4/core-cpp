@@ -96,7 +96,7 @@ protected:
      * le coin haut gauche de cette image est le pixel offsetx, offsety de la tuile tilex, tilex.
      * Toutes les coordonnées sont entière depuis le coin haut gauche.
      */
-    Image* getwindow ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<int64_t> src_bbox, int& error );
+    Image* getwindow ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<int64_t> src_bbox );
 
     Level ( json11::Json doc, Pyramid* pyramid, std::string path);
     Level ( Level* obj );
@@ -125,9 +125,9 @@ public:
     std::string get_path (int tilex, int tiley);
     Context* get_context() ;
 
-    Image* getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, Interpolation::KernelType interpolation, int& error );
+    Image* getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, Interpolation::KernelType interpolation );
 
-    Image* getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation, int& error );
+    Image* getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* src_crs, CRS* dst_crs, Interpolation::KernelType interpolation );
     /**
      * Renvoie la tuile x, y numéroté depuis l'origine.
      * Le coin haut gauche de la tuile (0,0) est (Xorigin, Yorigin)

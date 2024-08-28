@@ -73,6 +73,9 @@ std::vector<Style*> StyleBook::trash;
 std::string StyleBook::directory = "";
 std::mutex StyleBook::mtx;
 
+std::map<std::string, CRS*> CrsBook::book;
+std::mutex CrsBook::mtx;
+
 Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
 
     if (reference_context != 0 && reference_context->get_type() != type) {

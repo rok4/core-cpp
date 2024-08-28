@@ -72,18 +72,16 @@ namespace Merge {
 enum eMergeType {
     UNKNOWN = 0,
     NORMAL = 1,
-    LIGHTEN = 2,
-    DARKEN = 3,
-    MULTIPLY = 4,
-    ALPHATOP = 5,
-    TOP = 6
+    MULTIPLY = 2,
+    ALPHATOP = 3,
+    TOP = 4
 };
 
 /**
  * \~french \brief Nombre de méthodes disponibles
  * \~english \brief Number of available merge methods
  */
-const int mergeType_size = 6;
+const int mergetype_size = 6;
 
 /**
  * \~french \brief Conversion d'une chaîne de caractères vers une méthode de fusion de l'énumération
@@ -130,7 +128,7 @@ private:
      * \~english \brief Source images, similar, to make the merged image
      * \details First image is the bottom one
      */
-    std::vector<Image*> images;
+    std::vector<Image*> source_images;
 
     /**
      * \~french \brief Méthode d'assemblage des images
@@ -143,14 +141,14 @@ private:
      * \details On a une valeur entière par canal. Tous les pixels de l'image fusionnée seront initialisés avec cette valeur.
      * \~english \brief Background value
      */
-    int* bgValue;
+    int* background_value;
 
     /**
      * \~french \brief Valeur de transparence
      * \details On a 3 valeurs entières. Tous les pixels de cette valeur seront considérés comme transparent (en mode TRANSPARENCY)
      * \~english \brief Transparent value
      */
-    int* transparentValue;
+    int* transparent_value;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -158,37 +156,37 @@ private:
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    template <typename tBuf>
-    int _getline ( tBuf* buffer, int line );
+    template <typename T>
+    int _getline ( T* buffer, int line );
 
     /** \~french
      * \brief Crée un objet MergeImage à partir de tous ses éléments constitutifs
      * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] images images sources
      * \param[in] channel nombre de canaux par pixel en sortie
-     * \param[in] bgValue valeur de pixel à utiliser comme fond, un entier par canal en sortie
-     * \param[in] transparentValue valeur de pixel à considérer comme transparent (peut être NULL), 3 valeurs entières
+     * \param[in] bg valeur de pixel à utiliser comme fond, un entier par canal en sortie
+     * \param[in] transparent valeur de pixel à considérer comme transparent (peut être NULL), 3 valeurs entières
      * \param[in] composition méthode de fusion à utiliser
      ** \~english
      * \brief Create an MergeImage object, from all attributes
      * \param[in] images source images
      * \param[in] channel number of samples per output pixel
-     * \param[in] bgValue pixel's value to use as background, one integer per output sample
-     * \param[in] transparentValue pixel's value to consider as transparent, 3 integers
+     * \param[in] bg pixel's value to use as background, one integer per output sample
+     * \param[in] transparent pixel's value to consider as transparent, 3 integers
      * \param[in] composition merge method to use
      */
     MergeImage ( std::vector< Image* >& images, int channels,
                  int* bg, int* transparent, Merge::eMergeType composition = Merge::NORMAL ) :
         Image ( images.at ( 0 )->get_width(),images.at ( 0 )->get_height(), channels, images.at ( 0 )->get_resx(),images.at ( 0 )->get_resy(), images.at ( 0 )->get_bbox() ),
-        images ( images ), composition ( composition ), bgValue ( bg ), transparentValue ( transparent ) {
+        source_images ( images ), composition ( composition ), background_value ( bg ), transparent_value ( transparent ) {
 
-        if ( transparentValue != NULL ) {
-            transparentValue = new int[3];
-            memcpy ( transparentValue, transparent, 3*sizeof ( int ) );
+        if ( transparent_value != NULL ) {
+            transparent_value = new int[3];
+            memcpy ( transparent_value, transparent, 3*sizeof ( int ) );
         }
 
-        bgValue = new int[channels];
-        memcpy ( bgValue, bg, channels*sizeof ( int ) );
+        background_value = new int[channels];
+        memcpy ( background_value, bg, channels*sizeof ( int ) );
     }
 
 
@@ -207,7 +205,7 @@ public:
      * \return source images
      */
     std::vector<Image*>* get_images() {
-        return &images;
+        return &source_images;
     }
 
     /**
@@ -221,7 +219,7 @@ public:
      * \return mask
      */
     Image* get_mask ( int i ) {
-        return images.at ( i )->get_mask();
+        return source_images.at ( i )->get_mask();
     }
 
     /**
@@ -233,12 +231,12 @@ public:
      */
     virtual ~MergeImage() {
         if ( ! is_mask ) {
-            for ( int i = 0; i < images.size(); i++ ) {
-                delete images[i];
+            for ( int i = 0; i < source_images.size(); i++ ) {
+                delete source_images[i];
             }
         }
-        delete [] bgValue;
-        if ( transparentValue != NULL ) delete [] transparentValue;
+        delete [] background_value;
+        if ( transparent_value != NULL ) delete [] transparent_value;
     }
 
     /** \~french
@@ -250,9 +248,9 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ MergeImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " << images.size() ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " << source_images.size() ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Merge method : " << to_string ( composition ) << "\n" ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Background value : " << bgValue << "\n" ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Background value : " << background_value << "\n" ;
     }
 
     /** \~french
@@ -260,20 +258,20 @@ public:
      * \details Toutes les images sources doivent avoir les même dimensions pixel.
      * \param[in] images images sources
      * \param[in] channel nombre de canaux par pixel en sortie
-     * \param[in] bgValue valeur de pixel à utiliser comme fond, un entier par canal en sortie
-     * \param[in] transparentValue valeur de pixel à considérer comme transparent (peut être NULL), 3 valeurs entières
+     * \param[in] background_value valeur de pixel à utiliser comme fond, un entier par canal en sortie
+     * \param[in] transparent_value valeur de pixel à considérer comme transparent (peut être NULL), 3 valeurs entières
      * \param[in] composition méthode de fusion à utiliser
      ** \~english
      * \brief Check and calculate compounded image components and create an MergeImage object
      * \details All source images have to own same dimesions.
      * \param[in] images source images
      * \param[in] channel number of samples per output pixel
-     * \param[in] bgValue pixel's value to use as background, one integer per output sample
-     * \param[in] transparentValue pixel's value to consider as transparent, 3 integers
+     * \param[in] background_value pixel's value to use as background, one integer per output sample
+     * \param[in] transparent_value pixel's value to consider as transparent, 3 integers
      * \param[in] composition merge method to use
      */
     static MergeImage* create ( std::vector< Image* >& images, int channels,
-                                   int* bgValue, int* transparentValue, Merge::eMergeType composition = Merge::NORMAL );
+                                   int* background_value, int* transparent_value, Merge::eMergeType composition = Merge::NORMAL );
 };
 
 

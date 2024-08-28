@@ -63,6 +63,7 @@
 #include "rok4/utils/TileMatrixSet.h"
 #include "rok4/style/Style.h"
 #include "rok4/utils/Utils.h"
+#include "rok4/utils/CRS.h"
 #include "rok4/storage/Context.h"
 
 #define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
@@ -518,7 +519,7 @@ public:
      * \brief Define cache validity
      * \param[in] s cache validity, in seconds
      */
-    static void setValidity(int v) {
+    static void set_validity(int v) {
         validity = v;
     };
 
@@ -747,7 +748,7 @@ public:
      * \details Si le TMS demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du TMS voulu
 
-     * \brief Retourne the TMS according to its identifier
+     * \brief Return the TMS according to its identifier
      * \details If TMS is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted TMS identifier
      */
@@ -862,9 +863,9 @@ private:
 
     /**
      * \~french \brief Exclusion mutuelle
-     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \details Pour éviter les modifications concurrentes du cache de styles
      * \~english \brief Mutual exclusion
-     * \details To avoid concurrent TMS cache updates
+     * \details To avoid concurrent styles cache updates
      */
     static std::mutex mtx;
 
@@ -925,7 +926,7 @@ public:
      * \details Si le style demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du style voulu
 
-     * \brief Retourne the style according to its identifier
+     * \brief Return the style according to its identifier
      * \details If style is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted style identifier
      */
@@ -1001,6 +1002,95 @@ public:
      * \brief Destructor
      */
     ~StyleBook() {};
+
+};
+
+
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
+ * \brief Création d'un annuaire de CRS
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class CrsBook {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    CrsBook(){};
+
+    /**
+     * \~french \brief Annuaire de styles
+     * \details La clé est l'identifiant du style
+     * \~english \brief Book of styles
+     * \details Key is a the style identifier
+     */
+    static std::map<std::string,CRS*> book;
+
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de CRS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent CRS cache updates
+     */
+    static std::mutex mtx;
+
+public:
+
+
+    /**
+     * \~french
+     * \brief Retourne le CRS d'après son identifiant (code de requête)
+     * \param[in] id Identifiant du CRS voulu
+
+     * \brief Return the style according to its identifier
+     * \param[in] id Wanted style identifier
+     */
+    static CRS* get_crs(std::string id) {
+
+        id = to_upper_case(id);
+
+        std::map<std::string, CRS*>::iterator it = book.find ( id );
+        if ( it != book.end() ) {
+            return it->second;
+        }
+
+        mtx.lock();
+
+        CRS* crs = new CRS(id);
+        // Le CRS est potentiellement non défini (si il n'est pas valide), on le mémorise pour ne pas réessayer la prochaine fois
+        book.emplace(id, crs);
+
+        mtx.unlock();
+        return crs;
+    }
+
+    /**
+     * \~french \brief Nettoie tous les CRS dans l'annuaire et le vide
+     * \~english \brief Clean all CRS objects in the book and empty it
+     */
+    static void clean_crss () {
+        mtx.lock();
+        std::map<std::string, CRS*>::iterator it;
+        for (it = book.begin(); it != book.end(); ++it) {
+            delete it->second;
+        }
+        book.empty();
+        mtx.unlock();
+    }
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~CrsBook() {};
 
 };
 

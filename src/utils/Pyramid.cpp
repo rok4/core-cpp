@@ -368,7 +368,7 @@ std::string Pyramid::best_level ( double resolution_x, double resolution_y ) {
 }
 
 
-Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi, int& error ) {
+Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi ) {
 
     // On calcule la résolution de la requete dans le crs source selon une diagonale de l'image
     double resolution_x, resolution_y;
@@ -385,8 +385,7 @@ Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
             // BBOX invalide
 
             BOOST_LOG_TRIVIAL(warning) << "reproject en erreur" ;
-            error = 1;
-            return 0;
+            return NULL;
         }
 
         resolution_x = ( tmp.xmax - tmp.xmin ) / width;
@@ -399,8 +398,7 @@ Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
         resolution_y = resolution_y * dpi / 90.7;
         //on teste si on vient d'avoir des NaN
         if (resolution_x != resolution_x || resolution_y != resolution_y) {
-            error = 3;
-            return 0;
+            return NULL;
         }
     }
 
@@ -408,20 +406,20 @@ Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
     BOOST_LOG_TRIVIAL(debug) <<  "best_level=" << l <<" resolution requete=" << resolution_x << " " << resolution_y  ;
 
     if ( crs_equals ) {
-        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, interpolation, error );
+        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, interpolation );
     } else {
-        return create_reprojected_image(l, bbox, dst_crs, max_tile_x, max_tile_y, width, height, interpolation, error);
+        return create_reprojected_image(l, bbox, dst_crs, max_tile_x, max_tile_y, width, height, interpolation);
     }
 
 }
 
-Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int max_tile_x, unsigned int max_tile_y, int width, int height, Interpolation::KernelType interpolation, int error) {
+Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int max_tile_x, unsigned int max_tile_y, int width, int height, Interpolation::KernelType interpolation) {
 
     bbox.crs = dst_crs->get_request_code();
 
     if (bbox.is_in_crs_area(dst_crs)) {
         // La bbox entière de l'image demandée est dans l'aire de définition du CRS cible
-        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, tms->get_crs(), dst_crs, interpolation, error );
+        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, tms->get_crs(), dst_crs, interpolation );
 
     } else if (bbox.intersect_crs_area(dst_crs)) {
         // La bbox n'est pas entièrement dans l'aire du CRS, on doit faire la projection que sur la partie intérieure
@@ -443,7 +441,7 @@ Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox
         int croped_height = int ( ( croped.ymax - croped.ymin ) / resy + 0.5 );
 
         std::vector<Image*> images;
-        Image* tmp = levels[l]->getbbox ( max_tile_x, max_tile_y, croped, croped_width, croped_height, tms->get_crs(), dst_crs, interpolation, error );
+        Image* tmp = levels[l]->getbbox ( max_tile_x, max_tile_y, croped, croped_width, croped_height, tms->get_crs(), dst_crs, interpolation );
         if ( tmp != 0 ) {
             BOOST_LOG_TRIVIAL(debug) <<   "Image decoupée valide"  ;
             images.push_back ( tmp );

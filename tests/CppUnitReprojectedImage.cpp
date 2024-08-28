@@ -108,8 +108,6 @@ protected:
             ReprojectedImage* R = new ReprojectedImage ( image,  bbox_dst, grid, Interpolation::KernelType ( kernel_type ) );
             for ( int l = 0; l < 600; l++ ) R->get_line ( buffer, l );
             delete R;
-            delete crs_src;
-            delete crs_dst;
         }
         gettimeofday ( &NOW, NULL );
         double time = NOW.tv_sec - BEGIN.tv_sec + ( NOW.tv_usec - BEGIN.tv_usec ) /1000000.;

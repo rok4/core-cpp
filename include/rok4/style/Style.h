@@ -336,8 +336,8 @@ public:
      * \brief Return the list of legends
      * \return legends
      */
-    inline std::vector<LegendURL> get_legends() {
-        return legends;
+    inline std::vector<LegendURL>* get_legends() {
+        return &legends;
     }
 
     /**
