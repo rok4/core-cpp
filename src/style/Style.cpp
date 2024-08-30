@@ -70,10 +70,16 @@ bool Style::parse(json11::Json& doc) {
 
     if (doc["identifier"].is_string()) {
         identifier = doc["identifier"].string_value();
+    } else {
+        error_message = "identifier have to be a string ";
+        return false;
     }
 
     if (doc["title"].is_string()) {
         titles.push_back ( doc["title"].string_value() );
+    } else {
+        error_message = "title have to be a string ";
+        return false;
     }
 
     if (doc["abstract"].is_string()) {
@@ -267,5 +273,48 @@ Style::~Style() {
     }
     if (output_nodata_value != NULL) {
         delete[] output_nodata_value;
+    }
+}
+
+void Style::add_node_wmts(ptree& parent, bool default_style) {
+    ptree& node = parent.add("Style", "");
+    if ( default_style ) {
+        node.add("<xmlattr>.isDefault", "true");
+    }
+    
+    for (std::string t : titles) {
+        node.add("Title", t);
+    }
+    for (std::string a : abstracts) {
+        node.add("Abstract", a);
+    }
+
+    if ( keywords.size() != 0 ) {
+        ptree& keywords_node = node.add("ows:Keywords", "");
+        for (Keyword k  : keywords) {
+            k.add_node(keywords_node, "ows:Keyword");
+        }
+    }
+
+    node.add("ows:Identifier", identifier);
+    
+    for (LegendURL l : legends) {
+        l.add_node_wmts(node);
+    }
+}
+
+void Style::add_node_wms(ptree& parent) {
+    ptree& node = parent.add("Style", "");
+
+    node.add("Name", identifier);
+
+    for (std::string t : titles) {
+        node.add("Title", t);
+    }
+    for (std::string a : abstracts) {
+        node.add("Abstract", a);
+    }
+    for (LegendURL l : legends) {
+        l.add_node_wms(node);
     }
 }

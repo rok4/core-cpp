@@ -385,7 +385,10 @@ Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
             // BBOX invalide
 
             BOOST_LOG_TRIVIAL(warning) << "reproject en erreur" ;
-            return NULL;
+            
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
+            return fond;
         }
 
         resolution_x = ( tmp.xmax - tmp.xmin ) / width;
@@ -446,7 +449,7 @@ Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox
             BOOST_LOG_TRIVIAL(debug) <<   "Image decoupée valide"  ;
             images.push_back ( tmp );
         } else {
-            BOOST_LOG_TRIVIAL(error) <<   "Image decoupée non valide"  ;
+            BOOST_LOG_TRIVIAL(warning) <<   "Image decoupée non valide"  ;
             EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
             fond->set_bbox(bbox);
             return fond;
@@ -456,9 +459,12 @@ Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox
         
     } else {
 
-        BOOST_LOG_TRIVIAL(error) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->get_proj_code() ;
-        BOOST_LOG_TRIVIAL(error) <<  bbox.to_string() ;
-        return 0;
+        BOOST_LOG_TRIVIAL(warning) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->get_proj_code() ;
+        BOOST_LOG_TRIVIAL(warning) <<  bbox.to_string() ;
+
+        EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+        fond->set_bbox(bbox);
+        return fond;
     }
 }
 

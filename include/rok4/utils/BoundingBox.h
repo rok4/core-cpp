@@ -397,9 +397,11 @@ public:
     /**
      * \~french \brief Ajoute un noeud correpondant à la bbox
      * \param[in] parent Noeud auquel ajouter celui de la bbox
+     * \param[in] geographical Export au format géographique
      * \param[in] invert_coords Inversion des X et des Y
      * \~english \brief Add a node corresponding to bbox
      * \param[in] parent Node to whom add the bbox node
+     * \param[in] geographical Geographic format export
      * \param[in] invert_coords Invert X and Y
      */
     void add_node(ptree& parent, bool geographical, bool invert_coords = false) {

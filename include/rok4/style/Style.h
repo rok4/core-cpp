@@ -415,6 +415,24 @@ public:
         return aspect;
     }
 	
+
+    /**
+     * \~french \brief Ajoute un noeud WMS correpondant à l'attribution
+     * \param[in] parent Noeud auquel ajouter celui de l'attribution
+     * \~english \brief Add a WMS node corresponding to attribution
+     * \param[in] parent Node to whom add the attribution node
+     */
+    void add_node_wms(ptree& parent);
+
+    /**
+     * \~french \brief Ajoute un noeud WMTS correpondant à l'attribution
+     * \param[in] parent Noeud auquel ajouter celui de l'attribution
+     * \param[in] default_style Style par défaut
+     * \~english \brief Add a WMTS node corresponding to attribution
+     * \param[in] parent Node to whom add the attribution node
+     * \param[in] default_style Default style
+     */
+    void add_node_wmts(ptree& parent, bool default_style = false);
 	
     /**
      * \~french
