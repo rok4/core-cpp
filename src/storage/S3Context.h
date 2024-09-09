@@ -47,8 +47,7 @@
  * \li S3Context : S3 container connection
  */
 
-#ifndef S3_CONTEXT_H
-#define S3_CONTEXT_H
+#pragma once
 
 #include <curl/curl.h>
 #include <boost/log/trivial.hpp>
@@ -244,4 +243,4 @@ public:
     }
 };
 
-#endif
+

@@ -43,8 +43,7 @@
  * \brief Define the TileMatrixSet Class handling a pyramid of matrix (See TileMatrix)
  */
 
-#ifndef TILEMATRIXSET_H_
-#define TILEMATRIXSET_H_
+#pragma once
 
 #include <string>
 #include <vector>
@@ -133,7 +132,12 @@ private:
      * \~french \brief Liste des TileMatrix
      * \~english \brief List of TileMatrix
      */
-    std::map<std::string, TileMatrix*> tm_list;
+    std::map<std::string, TileMatrix*> tm_map;
+    /**
+     * \~french \brief Liste des TileMatrix dans l'ordre des résolutions décroissante
+     * \~english \brief List of TileMatrix, resolution desc
+     */
+    std::vector<TileMatrix*> tm_ordered;
 
     bool parse(json11::Json& doc);
 public:
@@ -161,6 +165,7 @@ public:
      * \return true if attributes are equal and lists have the same size
      */
     bool operator== ( const TileMatrixSet& other ) const;
+
     /**
      * \~french
      * La comparaison ignore les mots-clés et les TileMatrix
@@ -172,15 +177,7 @@ public:
      * \return true if one of their attribute is different or lists have different size
      */
     bool operator!= ( const TileMatrixSet& other ) const;
-    /**
-     * \~french
-     * \brief Retourne la liste des TileMatrix
-     * \return liste de TileMatrix
-     * \~english
-     * \brief Return the list of TileMatrix
-     * \return liste of TileMatrix
-     */
-    std::map<std::string, TileMatrix*>* getTmList();
+
     /**
      * \~french
      * \brief Retourne la TileMatrix
@@ -195,12 +192,12 @@ public:
     /**
      * \~french
      * \brief Récupère les niveaux ordonnés par résolution décroissante
-     * \return Liste de level
+     * \return Liste de Tile Matrix
      * \~english
      * \brief Get the levels ordered
-     * \return List of level
+     * \return List of Tile Matrix
      */
-    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> get_ordered_tm(bool asc) ;
+    std::vector<TileMatrix*> get_ordered_tm(bool bottom_to_top) ;
 
     TileMatrix* get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet* tmsIn);
 
@@ -268,4 +265,4 @@ public:
     ~TileMatrixSet();
 };
 
-#endif /* TILEMATRIXSET_H_ */
+

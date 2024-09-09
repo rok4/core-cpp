@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef LZWUNCOMPRESSOR_H
-#define LZWUNCOMPRESSOR_H
+#pragma once
 
 #include <cstddef>
 #include <climits>
@@ -73,4 +72,4 @@ public:
     ~LzwUncompressor();
 };
 
-#endif // LZWUNCOMPRESSOR_H
+

@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef ESTOMPAGEIMAGE_H
-#define ESTOMPAGEIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/style/Estompage.h"
@@ -124,4 +123,3 @@ public:
     }
 };
 
-#endif // ESTOMPAGEIMAGE_H

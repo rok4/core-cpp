@@ -47,8 +47,7 @@
  * \li SwiftContext : Swift container connection
  */
 
-#ifndef SWIFT_CONTEXT_H
-#define SWIFT_CONTEXT_H
+#pragma once
 
 #include <curl/curl.h>
 #include <boost/log/trivial.hpp>
@@ -261,4 +260,4 @@ public:
     }
 };
 
-#endif
+

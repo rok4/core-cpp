@@ -47,8 +47,7 @@
  * \li EmptyImage : one-color image
  */
 
-#ifndef EMPTY_IMAGE_H
-#define EMPTY_IMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 
@@ -119,4 +118,4 @@ public:
     }
 };
 
-#endif
+

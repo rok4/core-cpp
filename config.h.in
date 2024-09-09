@@ -35,10 +35,8 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _CONFIG_
-#define _CONFIG_
+#pragma once
 
 #cmakedefine CEPH_ENABLED @CEPH_ENABLED@
 #cmakedefine KDU_ENABLED @KDU_ENABLED@
 
-#endif

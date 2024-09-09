@@ -43,8 +43,7 @@
  * \brief Define class Grid
  */
 
-#ifndef GRID_H
-#define GRID_H
+#pragma once
 
 #include "rok4/utils/BoundingBox.h"
 #include "rok4/utils/CRS.h"
@@ -266,4 +265,4 @@ public:
 
 };
 
-#endif
+

@@ -43,8 +43,7 @@
  * \brief Define the Keyword Class handling capabilities keywords
  */
 
-#ifndef KEYWORD_H
-#define KEYWORD_H
+#pragma once
 #include <string>
 #include <map>
 
@@ -213,4 +212,4 @@ public:
 
 };
 
-#endif // KEYWORD_H
+

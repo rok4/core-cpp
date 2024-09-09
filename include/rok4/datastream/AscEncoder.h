@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _ASCENCODER_
-#define _ASCENCODER_
+#pragma once
 
 #include "rok4/datastream/DataStream.h"
 #include "rok4/image/Image.h"
@@ -69,6 +68,6 @@ public:
     }
 
 };
-#endif
+
 
 

@@ -47,8 +47,7 @@
  * \li FileImage : manage an image linked to a file
  */
 
-#ifndef FILEIMAGE_H
-#define FILEIMAGE_H
+#pragma once
 
 #include <string.h>
 
@@ -460,6 +459,6 @@ public:
 };
 
 
-#endif
+
 
 

@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFDEFLATEENCODER_
-#define _TIFFDEFLATEENCODER_
+#pragma once
 
 #include <string.h>  // Pour memcpy
 #include <zlib.h>
@@ -165,4 +164,4 @@ public:
     }
 };
 
-#endif
+

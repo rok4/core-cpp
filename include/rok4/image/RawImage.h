@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef RAW_IMAGE_H
-#define RAW_IMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/datasource/DataSource.h"
@@ -80,4 +79,4 @@ public:
     }
 };
 
-#endif
+

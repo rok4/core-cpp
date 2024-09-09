@@ -43,8 +43,7 @@
  * \brief Define the TileMatrix Class handling a matrix of tiles reprensenting a level in a pyramid (See TileMatrixSet)
  */
 
-#ifndef TILEMATRIX_H
-#define TILEMATRIX_H
+#pragma once
 
 #include <string>
 
@@ -163,6 +162,7 @@ public:
      * \return true if one of their attributes is different
      */
     bool operator!= ( const TileMatrix& other ) const;
+
     /**
      * \~french
      * \brief Retourne l'indentifiant
@@ -268,4 +268,4 @@ public:
     
 };
 
-#endif /* TILEMATRIX_H_ */
+

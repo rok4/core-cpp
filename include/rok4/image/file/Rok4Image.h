@@ -47,8 +47,7 @@
  * \li Rok4Image : manage a ROK4 Server specifications image (tiled TIFF), reading and writting
  */
 
-#ifndef LIBTIFF_IMAGE_H
-#define LIBTIFF_IMAGE_H
+#pragma once
 
 #include <tiffio.h>
 #include <string.h>
@@ -749,5 +748,5 @@ public:
     );
 };
 
-#endif
+
 

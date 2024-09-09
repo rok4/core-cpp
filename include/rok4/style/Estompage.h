@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef ESTOMPAGE_H
-#define ESTOMPAGE_H
+#pragma once
 
 #include <string>
 #include "rok4/enums/Interpolation.h"
@@ -147,4 +146,4 @@ public:
 
 };
 
-#endif // ESTOMPAGE_H
+

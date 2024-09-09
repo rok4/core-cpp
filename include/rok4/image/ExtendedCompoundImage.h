@@ -49,8 +49,7 @@
  * \li ExtendedCompoundMask : compounded mask, associated with a compounded image
  */
 
-#ifndef EXTENTED_COMPOUND_IMAGE_H
-#define EXTENTED_COMPOUND_IMAGE_H
+#pragma once
 
 #include <vector>
 #include <cstring>
@@ -479,4 +478,4 @@ public:
 
 };
 
-#endif
+

@@ -37,8 +37,7 @@
 
 class Level;
 
-#ifndef LEVEL_H
-#define LEVEL_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/image/EmptyImage.h"
@@ -150,7 +149,7 @@ public:
 
 };
 
-#endif
+
 
 
 

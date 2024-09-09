@@ -44,8 +44,7 @@
  * \image html conversions.png
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 #include <cstring>
 #include <iostream>
@@ -54,7 +53,6 @@
 #ifdef __SSE2__
 #include <emmintrin.h>
 #endif
-
 
 /**
  * \brief Conversion qui n'est qu'une copie.
@@ -684,7 +682,5 @@ inline void dot_prod ( int C, int K, float* to, const float* from, const float* 
         break;
     }
 }
-
-#endif
 
 

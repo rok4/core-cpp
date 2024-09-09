@@ -47,8 +47,7 @@
  * \li LibopenjpegImage : manage a JPEG2000 format image, reading, using the library openjpeg
  */
 
-#ifndef LIBOPENJPEG_IMAGE_H
-#define LIBOPENJPEG_IMAGE_H
+#pragma once
 
 #include "utils/BoundingBox.h"
 #include "image/file/FileImage.h"
@@ -295,5 +294,5 @@ public:
 };
 
 
-#endif
+
 

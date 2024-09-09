@@ -43,8 +43,7 @@
  * \brief Define the Line class , to manipulate and convert image's lines.
  */
 
-#ifndef LINE_H
-#define LINE_H
+#pragma once
 
 #include <string.h>
 #include <stdio.h>
@@ -322,4 +321,4 @@ void Line::write ( T* buffer, int output_channels) {
     }
 }
 
-#endif
+

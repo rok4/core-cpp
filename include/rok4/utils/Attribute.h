@@ -45,8 +45,7 @@
 
 class Attribute;
 
-#ifndef ATTRIBUTE_H
-#define ATTRIBUTE_H
+#pragma once
 
 #include <boost/algorithm/string/replace.hpp>
 #include <vector>
@@ -182,5 +181,5 @@ class Attribute
         bool max_provided;
 };
 
-#endif // ATTRIBUTE_H
+
 

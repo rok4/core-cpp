@@ -43,8 +43,7 @@
  * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
  */
 
-#ifndef CACHE_H
-#define CACHE_H
+#pragma once
 
 #include <stdint.h>// pour uint8_t
 #include <boost/log/trivial.hpp>
@@ -704,7 +703,7 @@ public:
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
-        book.empty();
+        book.clear();
         mtx.unlock();
     }
 
@@ -717,7 +716,7 @@ public:
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
-        trash.empty();
+        trash.clear();
         mtx.unlock();
     }
 
@@ -882,7 +881,7 @@ public:
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
-        book.empty();
+        book.clear();
         mtx.unlock();
     }
 
@@ -895,7 +894,7 @@ public:
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
-        trash.empty();
+        trash.clear();
         mtx.unlock();
     }
 
@@ -1080,7 +1079,7 @@ public:
         for (it = book.begin(); it != book.end(); ++it) {
             delete it->second;
         }
-        book.empty();
+        book.clear();
         mtx.unlock();
     }
 
@@ -1094,4 +1093,4 @@ public:
 
 };
 
-#endif
+

@@ -47,8 +47,7 @@
  * \li DecimatedImage : image built by source image's decimation
  */
 
-#ifndef DECIMATED_IMAGE_H
-#define DECIMATED_IMAGE_H
+#pragma once
 
 #include <vector>
 #include <cstring>
@@ -232,4 +231,4 @@ public:
     static DecimatedImage* create ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata );
 };
 
-#endif
+

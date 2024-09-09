@@ -43,8 +43,7 @@
  * \brief Define the RessourceLocator Class handling capabilities external link elements
  */
 
-#ifndef RESOURCELOCATOR_H
-#define RESOURCELOCATOR_H
+#pragma once
 
 #include <string>
 
@@ -181,4 +180,4 @@ public:
 
 };
 
-#endif // RESOURCELOCATOR_H
+

@@ -43,8 +43,7 @@
  * \brief Define class ReprojectedImage, allowing image reprojecting
  */
 
-#ifndef REPROJECT_H
-#define REPROJECT_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/processors/Grid.h"
@@ -412,5 +411,5 @@ public:
 
 };
 
-#endif
+
 

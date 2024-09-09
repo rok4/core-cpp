@@ -206,3 +206,21 @@ CRS* CRS::get_epsg4326() {
 
     return &(epsg4326);
 }
+
+std::string CRS::get_url() {
+    std::string auth = get_authority();
+    std::string code = get_identifier();
+
+    if (auth == "EPSG") {
+        return "https://www.opengis.net/def/crs/EPSG/0/" + code;
+    }
+    else if (auth == "IGNF") {
+        return "http://registre.ign.fr/ign/IGNF/crs/IGNF/" + code;
+    }
+    else if (auth == "OGC") {
+        return "https://www.opengis.net/def/crs/OGC/0/" + code;
+    }
+    else {
+        return request_code;
+    }
+}

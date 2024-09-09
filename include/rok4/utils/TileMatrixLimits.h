@@ -45,8 +45,7 @@
 
 class TileMatrixLimits;
 
-#ifndef TILEMATRIXLIMITS_H
-#define TILEMATRIXLIMITS_H
+#pragma once
 
 #include <string>
 #include <boost/property_tree/ptree.hpp>
@@ -174,5 +173,5 @@ public:
 
 };
 
-#endif // TILEMATRIXLIMITS_H
+
 

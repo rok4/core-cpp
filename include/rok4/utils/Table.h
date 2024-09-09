@@ -37,8 +37,7 @@
 
 class Attribute;
 
-#ifndef TABLE_H
-#define TABLE_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -88,5 +87,5 @@ class Table
         std::vector<Attribute> attributes;
 };
 
-#endif // ATTRIBUTE_H
+
 

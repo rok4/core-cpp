@@ -47,8 +47,7 @@
  * \li LibpngImage : manage a PNG format image, reading, using the library libpng
  */
 
-#ifndef LIBPNG_IMAGE_H
-#define LIBPNG_IMAGE_H
+#pragma once
 
 #include <png.h>
 #include <unistd.h>
@@ -270,5 +269,5 @@ public:
 };
 
 
-#endif
+
 

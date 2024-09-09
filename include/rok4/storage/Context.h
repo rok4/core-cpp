@@ -45,8 +45,7 @@
  * \details Storage context abstraction
  */
 
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#pragma once
 
 #include <map>
 #include <stdint.h>// pour uint8_t
@@ -357,4 +356,4 @@ public:
     }
 };
 
-#endif
+

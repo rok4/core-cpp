@@ -43,8 +43,7 @@
  * \brief Define the PixelConverter class
  */
 
-#ifndef PIXELCONVERTER_H
-#define PIXELCONVERTER_H
+#pragma once
 
 #include <string.h>
 #include <stdio.h>
@@ -300,4 +299,4 @@ public:
 };
 
 
-#endif
+

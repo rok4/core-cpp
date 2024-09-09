@@ -43,8 +43,7 @@
  * \brief Define class ResampledImage, allowing image resampling
  */
 
-#ifndef RESAMPLED_IMAGE_H
-#define RESAMPLED_IMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/processors/Kernel.h"
@@ -366,7 +365,7 @@ public:
     }
 };
 
-#endif
+
 
 
 

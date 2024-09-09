@@ -1,5 +1,4 @@
-#ifndef TIFFHEADERDATASOURCE_H
-#define TIFFHEADERDATASOURCE_H
+#pragma once
 
 #include "rok4/datasource/DataSource.h"
 #include "rok4/enums/Format.h"
@@ -50,4 +49,4 @@ public:
     virtual ~TiffHeaderDataSource();
 };
 
-#endif // TIFFHEADERDATASOURCE_H
+

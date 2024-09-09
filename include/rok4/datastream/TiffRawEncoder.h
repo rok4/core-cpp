@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFRAWENCODER_
-#define _TIFFRAWENCODER_
+#pragma once
 
 #include "datastream/DataStream.h"
 #include "image/Image.h"
@@ -88,6 +87,6 @@ public:
    
 };
 
-#endif
+
 
 

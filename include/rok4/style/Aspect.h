@@ -43,8 +43,7 @@
  * \brief Define class Aspect
  */
 
-#ifndef ASPECT_H
-#define ASPECT_H
+#pragma once
 
 #include "rok4/utils/Configuration.h"
 
@@ -139,5 +138,5 @@ public:
 
 };
 
-#endif // ASPECT_H
+
 

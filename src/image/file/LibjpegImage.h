@@ -47,8 +47,7 @@
  * \li LibjpegImage : manage a JPEG format image, reading, using the library libjpeg
  */
 
-#ifndef LIBJPEG_IMAGE_H
-#define LIBJPEG_IMAGE_H
+#pragma once
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -269,5 +268,5 @@ public:
 };
 
 
-#endif
+
 

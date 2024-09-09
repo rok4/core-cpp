@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PALETTEDATASOURCE_H
-#define PALETTEDATASOURCE_H
+#pragma once
 
 #include "rok4/datasource/DataSource.h"
 #include "rok4/style/Palette.h"
@@ -76,4 +75,4 @@ public:
     virtual ~PaletteDataSource();
 };
 
-#endif // PALETTEDATASOURCE_H
+

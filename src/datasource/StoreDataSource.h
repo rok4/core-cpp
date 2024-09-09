@@ -47,8 +47,7 @@
  * \li StoreDataSource : To read data, whatever the storage type
  */
 
-#ifndef STOREDATASOURCE_H
-#define STOREDATASOURCE_H
+#pragma once
 
 #include <stdlib.h>
 #include <string>
@@ -252,4 +251,3 @@ public:
 
 };
 
-#endif // STOREDATASOURCE_H

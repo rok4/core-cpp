@@ -68,10 +68,10 @@ bool Style::parse(json11::Json& doc) {
 
     // Chargement
 
-    if (doc["identifier"].is_string()) {
+    if (doc["identifier"].is_string() && doc["identifier"].string_value() != "") {
         identifier = doc["identifier"].string_value();
     } else {
-        error_message = "identifier have to be a string ";
+        error_message = "identifier have to be a non empty string ";
         return false;
     }
 

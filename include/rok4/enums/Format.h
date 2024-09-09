@@ -38,25 +38,24 @@
 /**
  * \file Format.h
  ** \~french
- * \brief Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format
+ * \brief Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format
  * \details
  * \li SampleFormat : gère les types de canaux acceptés par les classes d'Image
  * \li Compression : énumère et manipule les différentes compressions
- * \li Format : énumère et manipule les différents format d'image
+ * \li Rok4Format : énumère et manipule les différents format de données ROK4
  * \li Photometric : énumère et manipule les différentes photométries
  * \li ExtraSample : énumère et manipule les différents type de canal supplémentaire
  ** \~english
- * \brief Define and the namespaces Compression, SampleFormat, Photometric, ExtraSample et Format
+ * \brief Define and the namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format
  * \details
  * \li SampleFormat : managed sample type accepted by Image classes
  * \li Compression : enumerate and managed different compressions
- * \li Format : enumerate and managed different formats
+ * \li Rok4Format : enumerate and managed different ROK4 data formats
  * \li Photometric : enumerate and managed different photometrics
  * \li ExtraSample : enumerate and managed different extra sample types
  */
 
-#ifndef FORMAT_H
-#define FORMAT_H
+#pragma once
 
 #include <string>
 #include <stdint.h>
@@ -375,6 +374,16 @@ std::string to_string ( eFormat format );
 std::string to_mime_type ( eFormat format );
 
 /**
+ * \~french \brief Conversion d'un format vers une chaîne de caractère (format OGC API Tiles)
+ * \param[in] format format à convertir
+ * \return format OGC API Tiles du format
+ * \~english \brief Convert a format to a string (format OGC API Tiles)
+ * \param[in] format format to convert
+ * \return format OGC API Tiles of the format
+ */
+std::string to_tiles_format ( eFormat format );
+
+/**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (extension)
  * \param[in] format format à convertir
  * \return extension du format
@@ -388,5 +397,5 @@ std::string to_encoding ( eFormat format );
 
 }
 
-#endif //FORMAT_H
+
 

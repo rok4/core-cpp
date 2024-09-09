@@ -43,8 +43,7 @@
  * \brief Define the Kernel class, super class for different interpolation kernels
  */
 
-#ifndef KERNEL_H
-#define KERNEL_H
+#pragma once
 
 #include "rok4/enums/Interpolation.h"
 #include <iostream>
@@ -162,4 +161,4 @@ public:
 
 };
 
-#endif
+

@@ -47,8 +47,7 @@
  * \li MirrorImage : reflection image
  */
 
-#ifndef MIRROR_IMAGE_H
-#define MIRROR_IMAGE_H
+#pragma once
 
 #include "image/Image.h"
 #include "enums/Format.h"
@@ -196,4 +195,4 @@ public:
     static MirrorImage* create ( Image* pImageSrc, int position,uint mirrorSize );
 };
 
-#endif
+

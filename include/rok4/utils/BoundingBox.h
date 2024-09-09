@@ -45,8 +45,7 @@
 
 class CRS;
 
-#ifndef BOUNDINGBOX_H
-#define BOUNDINGBOX_H
+#pragma once
 
 #include <boost/log/trivial.hpp>
 #include <proj.h>
@@ -54,6 +53,8 @@ class CRS;
 #include <cmath>
 #include <boost/property_tree/ptree.hpp>
 using boost::property_tree::ptree;
+
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -430,7 +431,26 @@ public:
         }
     }
 
+    /**
+     * \~french \brief Exporte la bbox en JSON conformément à OGC API Tiles
+     * \details La bbox est considérée comme étant en CRS84
+     * \~english \brief Get the bbox as JSON, OGC API Tiles compliant
+     * \details Bbox is considered as CRS84 one
+     */
+    json11::Json to_json_tiles() const {
+        return json11::Json::object {
+            { "spatial", json11::Json::object {
+                { "crs", "http://www.opengis.net/def/crs/OGC/1.3/CRS84" },
+                { "bbox", json11::Json::array {
+                    json11::Json::array {
+                        xmin, ymin, xmax, ymax
+                    }
+                } },
+            } }
+        };
+    }
+
 };
 
-#endif
+
 

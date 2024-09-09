@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef DECODER_H
-#define DECODER_H
+#pragma once
 
 //#include <stdint.h>// pour uint8_t
 //#include <cstddef> // pour size_t
@@ -215,6 +214,6 @@ public:
 
 
 
-#endif
+
 
 

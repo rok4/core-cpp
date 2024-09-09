@@ -47,8 +47,7 @@
  * \li BilzImage : manage a (Z)bil format image, reading
  */
 
-#ifndef BILZ_IMAGE_H
-#define BILZ_IMAGE_H
+#pragma once
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -400,5 +399,5 @@ static bool uncompressedData(uint8_t* compresseddata, int compresseddatasize, ui
 }
 
 
-#endif
+
 

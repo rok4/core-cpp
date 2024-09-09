@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef LZWCOMPRESSOR_H
-#define LZWCOMPRESSOR_H
+#pragma once
 
 
 #include <cstddef>
@@ -80,4 +79,4 @@ public:
     virtual ~LzwCompressor();
 };
 
-#endif // LZWCOMPRESSOR_H
+ // LZWCOMPRESSOR_H

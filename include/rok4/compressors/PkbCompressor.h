@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PKBCOMPRESSOR_H
-#define PKBCOMPRESSOR_H
+#pragma once
 
 #include <cstddef>
 #include <climits>
@@ -61,4 +60,4 @@ public:
     virtual ~PkbCompressor();
 };
 
-#endif // PKBCOMPRESSOR_H
+

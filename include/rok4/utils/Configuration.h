@@ -36,8 +36,7 @@
  */
 
 
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#pragma once
 
 #include <dirent.h>
 #include <string>
@@ -127,4 +126,4 @@ class Configuration
 
 };
 
-#endif // CONFIGURATION_H
+

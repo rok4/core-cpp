@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFHEADER_
-#define _TIFFHEADER_
+#pragma once
 
 #include <vector>
 
@@ -965,4 +964,4 @@ static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_
 
 
 }
-#endif
+

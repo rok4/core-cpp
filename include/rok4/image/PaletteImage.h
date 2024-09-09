@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef STYLEDIMAGE_H
-#define STYLEDIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/style/Palette.h"
@@ -71,4 +70,3 @@ public:
     }
 };
 
-#endif // STYLEDIMAGE_H

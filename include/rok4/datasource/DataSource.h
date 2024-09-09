@@ -37,8 +37,7 @@
 
 class DataStream;
 
-#ifndef DATA_SOURCE_H
-#define DATA_SOURCE_H
+#pragma once
 
 #include <stdint.h>// pour uint8_t
 #include <cstddef> // pour size_t
@@ -257,4 +256,4 @@ public:
     }
 };
 
-#endif
+

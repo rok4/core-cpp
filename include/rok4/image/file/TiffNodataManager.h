@@ -45,8 +45,7 @@
 
 using namespace std;
 
-#ifndef _TIFFNODATAMANAGER_
-#define _TIFFNODATAMANAGER_
+#pragma once
 
 #include <boost/log/trivial.hpp>
 #include <stdint.h>
@@ -574,4 +573,4 @@ void TiffNodataManager<T>::change_data_value ( T* IM, uint8_t* MSK ) {
     }
 }
 
-#endif // _TIFFNODATAMANAGER_
+

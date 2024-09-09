@@ -258,6 +258,25 @@ const char *eformat_mime[] = {
     "application/x-protobuf"
 };
 
+const char *eformat_tiles[] = {
+    "UNKNOWN",
+
+    "tiff",
+    "jpg",
+    "jpg",
+    "png",
+    "tiff",
+    "tiff",
+    "tiff",
+
+    "tiff",
+    "tiff",
+    "tiff",
+    "tiff",
+
+    "mvt"
+};
+
 const char *eformat_extension[] = {
     "UNKNOWN",
 
@@ -386,6 +405,10 @@ int get_bits_per_sample ( eFormat format ) {
 
 std::string to_mime_type ( eFormat format ) {
     return std::string ( eformat_mime[format] );
+}
+
+std::string to_tiles_format ( eFormat format ) {
+    return std::string ( eformat_tiles[format] );
 }
 
 std::string to_extension ( eFormat format ) {

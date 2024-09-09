@@ -43,8 +43,7 @@
  * \brief Define available interpolations' enumeration and conversions
  */
 
-#ifndef INTERPOLATION_H
-#define INTERPOLATION_H
+#pragma once
 
 #include <string>
 
@@ -87,4 +86,4 @@ std::string to_string ( KernelType interpolation );
 
 }
 
-#endif //INTERPOLATION_H
+

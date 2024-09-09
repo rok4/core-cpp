@@ -37,8 +37,7 @@
 
 class Pyramid;
 
-#ifndef PYRAMID_H
-#define PYRAMID_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -299,4 +298,4 @@ public:
 };
 
 
-#endif
+

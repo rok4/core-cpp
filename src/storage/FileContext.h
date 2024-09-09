@@ -47,8 +47,7 @@
  * \li FileContext : file system use
  */
 
-#ifndef FILE_CONTEXT_H
-#define FILE_CONTEXT_H
+#pragma once
 
 #include <boost/log/trivial.hpp>
 #include "storage/Context.h"
@@ -161,4 +160,4 @@ public:
     }
 };
 
-#endif
+

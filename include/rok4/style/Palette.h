@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PALETTE_H
-#define PALETTE_H
+#pragma once
 
 #include "rok4/utils/Configuration.h"
 
@@ -97,4 +96,4 @@ public:
 };
 
 
-#endif // PALETTE_H
+

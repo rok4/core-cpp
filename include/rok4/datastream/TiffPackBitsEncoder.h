@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFPACKBITSENCODER_
-#define _TIFFPACKBITSENCODER_
+#pragma once
 
 #include "datastream/DataStream.h"
 #include "image/Image.h"
@@ -113,7 +112,7 @@ public:
     }
 };
 
-#endif
+
 
 
 

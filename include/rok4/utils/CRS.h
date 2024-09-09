@@ -44,8 +44,7 @@
  * \brief Define the reference systems handler
  */
 
-#ifndef CRS_H
-#define CRS_H
+#pragma once
 
 #include <string>
 #include "rok4/utils/BoundingBox.h"
@@ -217,21 +216,33 @@ public:
     /**
      * \~french
      * \brief Retourne l'authorité du CRS
+     * \details Renvoie l'autorite du code passe dans la requete WMS (Ex: EPSG,epsg,IGNF,etc.)
      * \return l'identifiant de l'authorité
      * \~english
      * \brief Return the CRS authority
      * \return the authority identifier
      */
-    std::string get_authority(); // Renvoie l'autorite du code passe dans la requete WMS (Ex: EPSG,epsg,IGNF,etc.)
+    std::string get_authority();
     /**
      * \~french
      * \brief Retourne l'identifiant du CRS sans l'authorité
+     * \details Renvoie l'identifiant du code passe dans la requete WMS (Ex: 4326,LAMB93,etc.)
      * \return l'identifiant du système
      * \~english
      * \brief Return the CRS identifier without the authority
      * \return the system identifier
      */
-    std::string get_identifier();// Renvoie l'identifiant du code passe dans la requete WMS (Ex: 4326,LAMB93,etc.)
+    std::string get_identifier();
+
+    /**
+     * \~french
+     * \brief Retourne une URL de description
+     * \details Selon l'autorité
+     * \~english
+     * \brief Return the description URL
+     * \details Depends to authority
+     */
+    std::string get_url();
 
     /**
      * \~french
@@ -324,5 +335,5 @@ public:
 
 };
 
-#endif
+
 

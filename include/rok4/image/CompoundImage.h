@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef COMPOUND_IMAGE_H
-#define COMPOUND_IMAGE_H
+#pragma once
 
 #include <vector>
 
@@ -101,4 +100,4 @@ public:
 
 };
 
-#endif
+

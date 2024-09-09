@@ -51,8 +51,7 @@
  * \li Merge : enumerate and managed different merge methods
  */
 
-#ifndef MERGEIMAGE_H
-#define MERGEIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include <string.h>
@@ -329,5 +328,5 @@ public:
 
 };
 
-#endif // MERGEIMAGE_H
+
 

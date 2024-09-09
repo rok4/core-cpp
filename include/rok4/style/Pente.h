@@ -43,8 +43,7 @@
  * \brief Define class Pente
  */
 
-#ifndef PENTE_H
-#define PENTE_H
+#pragma once
 
 #include <boost/log/trivial.hpp>
 
@@ -149,5 +148,5 @@ public:
     }
 
 };
-#endif
+
 

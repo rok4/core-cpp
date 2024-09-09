@@ -47,8 +47,7 @@
  * \li CephPoolContext : Ceph data pool connection
  */
 
-#ifndef CEPH_POOL_CONTEXT_H
-#define CEPH_POOL_CONTEXT_H
+#pragma once
 
 #include <rados/librados.h>
 #include <boost/log/trivial.hpp>
@@ -218,4 +217,4 @@ public:
     }
 };
 
-#endif
+

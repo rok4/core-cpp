@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PKBUNCOMPRESSOR_H
-#define PKBUNCOMPRESSOR_H
+#pragma once
 #include <cstddef>
 #include <climits>
 #include <stdint.h>
@@ -54,4 +53,4 @@ public:
     ~PkbUncompressor();
 };
 
-#endif // PKBUNCOMPRESSOR_H
+

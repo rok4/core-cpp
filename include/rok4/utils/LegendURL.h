@@ -43,8 +43,7 @@
  * \brief Define the LegendURL Class handling capabilities legends elements
  */
 
-#ifndef LEGENDURL_H
-#define LEGENDURL_H
+#pragma once
 
 #include <string>
 #include <boost/property_tree/ptree.hpp>
@@ -290,4 +289,4 @@ public:
     virtual ~LegendURL() {};
 };
 
-#endif // LEGENDURL_H
+

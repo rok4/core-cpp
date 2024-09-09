@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PENTEIMAGE_H
-#define PENTEIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/style/Pente.h"
@@ -161,4 +160,3 @@ public:
 
 };
 
-#endif // PENTEIMAGE_H

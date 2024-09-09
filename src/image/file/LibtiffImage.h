@@ -47,8 +47,7 @@
  * \li LibtiffImage : manage a TIFF format image, reading and writting, using the library libtiff
  */
 
-#ifndef LIBTIFF_IMAGE_H
-#define LIBTIFF_IMAGE_H
+#pragma once
 
 #include "image/Image.h"
 #include "tiffio.h"
@@ -381,5 +380,5 @@ public:
 };
 
 
-#endif
+
 

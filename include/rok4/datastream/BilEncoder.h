@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _BILENCODER_
-#define _BILENCODER_
+#pragma once
 
 #include "rok4/datastream/DataStream.h"
 #include "rok4/image/Image.h"
@@ -68,6 +67,6 @@ public:
     }
 
 };
-#endif
+
 
 

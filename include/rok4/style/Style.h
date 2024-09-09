@@ -45,8 +45,7 @@
 
 class Style;
 
-#ifndef STYLE_H
-#define STYLE_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -445,4 +444,4 @@ public:
 };
 
 
-#endif // STYLE_H
+

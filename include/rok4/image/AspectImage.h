@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef ASPECTIMAGE_H
-#define ASPECTIMAGE_H
+#pragma once
 
 #include <string>
 
@@ -159,4 +158,3 @@ public:
 
 };
 
-#endif // ASPECTIMAGE_H

@@ -43,8 +43,7 @@
  * \brief Define the Image abstract class , to abstract all kind of images.
  */
 
-#ifndef IMAGE_H
-#define IMAGE_H
+#pragma once
 
 #include <stdint.h>
 #include <string.h>
@@ -732,4 +731,4 @@ public:
     }
 };
 
-#endif
+

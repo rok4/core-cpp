@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFLZWENCODER_
-#define _TIFFLZWENCODER_
+#pragma once
 
 #include <string.h>  // Pour memcpy
 
@@ -99,4 +98,4 @@ class TiffLZWEncoder : public TiffEncoder {
     }
 };
 
-#endif
+
