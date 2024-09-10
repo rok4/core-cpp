@@ -1,0 +1,7 @@
+<map id="ExtendedCompoundMask" name="ExtendedCompoundMask">
+<area shape="rect" id="node1" title="Manipulation d&#39;un masque composé, s&#39;appuyant sur une image composée." alt="" coords="5,260,193,287"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="68,184,131,211"/>
+<area shape="rect" id="node3" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="49,95,97,121"/>
+<area shape="rect" id="node4" href="$classBoundingBox.html" title=" " alt="" coords="121,95,304,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="183,5,242,32"/>
+</map>

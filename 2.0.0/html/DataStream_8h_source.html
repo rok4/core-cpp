@@ -1,0 +1,299 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('DataStream_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">DataStream.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span><span class="comment">// pour uint8_t</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span> <span class="comment">// pour size_t</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span>  <span class="comment">// pour std::string</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span> <span class="comment">// pour memcpy</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;boost/log/trivial.hpp&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &quot;rok4/datasource/DataSource.h&quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classDataStream.html">   52</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDataStream.html">DataStream</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classDataStream.html#a42bec151e7f0e766dfa8f504d0f7e31e">   57</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classDataStream.html#a42bec151e7f0e766dfa8f504d0f7e31e">~DataStream</a>() {}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classDataStream.html#a4520f42e4d3c5134724833c3ccd420a3">read</a> ( uint8_t *buffer, <span class="keywordtype">size_t</span> size ) = 0;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classDataStream.html#a0108e672df2ac793f74758d696fd735a">eof</a>() = 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classDataStream.html#a025b8b1a2410d206605665cbf1e152f3">get_type</a>() = 0;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classDataStream.html#ada6730770f2d915de485dadb2107f563">get_http_status</a>() = 0;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classDataStream.html#a0ad80c52c8d3b1f68a26b25f5679c42e">get_encoding</a>() = 0;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classDataStream.html#a0c2a5ac77f3dd2692136085118b00b2e">get_length</a>() = 0;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classRawDataStream.html">  108</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRawDataStream.html">RawDataStream</a> : <span class="keyword">public</span> <a class="code" href="classDataStream.html">DataStream</a> {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">size_t</span> data_size;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    uint8_t* data;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::string type;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    std::string encoding;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> length;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classRawDataStream.html#afdd63c85d5a5e869c4c7d6243aa4a220">  124</a></span>&#160;    <a class="code" href="classRawDataStream.html#afdd63c85d5a5e869c4c7d6243aa4a220">RawDataStream</a> ( uint8_t *dat, <span class="keywordtype">size_t</span> dataS, std::string t, std::string e){</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        data_size = dataS;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        data = <span class="keyword">new</span> uint8_t[data_size];</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        memcpy ( data, dat, data_size );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        pos = 0;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        type = t;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        encoding = e;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        length = 0;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a51ae9eff7d011a1a7a1dd44cd14d7537">  137</a></span>&#160;    <a class="code" href="classRawDataStream.html#a51ae9eff7d011a1a7a1dd44cd14d7537">RawDataStream</a> ( uint8_t *dat, <span class="keywordtype">size_t</span> dataS){</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        data_size = dataS;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        data = <span class="keyword">new</span> uint8_t[data_size];</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        memcpy ( data, dat, data_size );</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        pos = 0;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        type = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        encoding = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        length = 0;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a6c7e3ef9533c564caafc46218397881e">  148</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRawDataStream.html#a6c7e3ef9533c564caafc46218397881e">~RawDataStream</a>() {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">delete</span>[] data;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="classRawDataStream.html#af33ff5d78bd9c93baa5644a85d34e1ce">  153</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classRawDataStream.html#af33ff5d78bd9c93baa5644a85d34e1ce">read</a> ( uint8_t *buffer, <span class="keywordtype">size_t</span> size ) {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">if</span> ( size &gt; data_size - pos ) size = data_size - pos;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        memcpy ( buffer, ( uint8_t* ) ( data +pos ),size );</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        pos+=size;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classRawDataStream.html#ad91b36d4cf311d2720e43e6d0e9b63bf">  160</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRawDataStream.html#ad91b36d4cf311d2720e43e6d0e9b63bf">eof</a>() {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">return</span> ( pos==data_size );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a0ef3ea9df1f8556a77a0f1096d52ebf5">  165</a></span>&#160;    std::string <a class="code" href="classRawDataStream.html#a0ef3ea9df1f8556a77a0f1096d52ebf5">get_type</a>() {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">return</span> type;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a8e0b515abdd07ad998528f0e05c29531">  170</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRawDataStream.html#a8e0b515abdd07ad998528f0e05c29531">get_http_status</a>() {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">return</span> 200;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="classRawDataStream.html#ac0667877e11150ccff902c424ede6aca">  175</a></span>&#160;    std::string <a class="code" href="classRawDataStream.html#ac0667877e11150ccff902c424ede6aca">get_encoding</a>() {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordflow">return</span> encoding;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a34b6c81390a37faa00d89d4a3fb4de10">  180</a></span>&#160;   <span class="keywordtype">size_t</span> <a class="code" href="classRawDataStream.html#a34b6c81390a37faa00d89d4a3fb4de10">get_size</a>() {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;       <span class="keywordflow">return</span> data_size;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;   }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;   </div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="classRawDataStream.html#a71d1f1ed7ff2261787ae9e6afeb13dcf">  185</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRawDataStream.html#a71d1f1ed7ff2261787ae9e6afeb13dcf">get_length</a>(){</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">return</span> length;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;};</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html">  194</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDataStreamFromDataSource.html">DataStreamFromDataSource</a> : <span class="keyword">public</span> <a class="code" href="classDataStream.html">DataStream</a> {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="classDataSource.html">DataSource</a>* datasource;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">const</span> uint8_t* data;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordtype">size_t</span> data_size;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <a class="code" href="classDataStreamFromDataSource.html">DataStreamFromDataSource</a> ( <a class="code" href="classDataSource.html">DataSource</a>* datasource ): datasource(datasource){</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;       data = datasource-&gt;<a class="code" href="classDataSource.html#a7a5f066b3638afde2cc010a2c2938ad0">get_data</a>(data_size);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;       pos = 0;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    };</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    ~<a class="code" href="classDataStreamFromDataSource.html">DataStreamFromDataSource</a>() {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keyword">delete</span> datasource;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    }</div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">  212</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">read</a> ( uint8_t *buffer, <span class="keywordtype">size_t</span> size ){</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">read</a> = std::min&lt;size_t&gt;(data_size-pos, size);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        memcpy((<span class="keywordtype">void</span>*) buffer, (<span class="keywordtype">void</span>*)(data + pos) , <a class="code" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">read</a>);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        pos += <a class="code" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">read</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">read</a>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    };</div>
+<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#a832520df88dfd494bc333026a749d770">  218</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classDataStreamFromDataSource.html#a832520df88dfd494bc333026a749d770">eof</a>(){</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">return</span> data_size == pos;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    };</div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#ac24bc9791b9fb3a9c2b6773516ae0c0e">  221</a></span>&#160;    std::string <a class="code" href="classDataStreamFromDataSource.html#ac24bc9791b9fb3a9c2b6773516ae0c0e">get_type</a>(){</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">return</span> datasource-&gt;<a class="code" href="classDataSource.html#afb634a823dd8d706c4efbfde76af646c">get_type</a>();</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
+<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#ab086990fb0f06658fc2a3ccd72fac5c5">  224</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classDataStreamFromDataSource.html#ab086990fb0f06658fc2a3ccd72fac5c5">get_http_status</a>(){</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">return</span> datasource-&gt;<a class="code" href="classDataSource.html#af94cef72ecb6055b491692cfb1bff33c">get_http_status</a>();</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    }</div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#a3d19b0f0e13aa856e728a233ebdb42c0">  227</a></span>&#160;    std::string <a class="code" href="classDataStreamFromDataSource.html#a3d19b0f0e13aa856e728a233ebdb42c0">get_encoding</a>(){</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">return</span> datasource-&gt;<a class="code" href="classDataSource.html#a17cbdcfcce5965c4297b1baac778554b">get_encoding</a>();</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    }</div>
+<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="classDataStreamFromDataSource.html#a106b915c45d4c5b6eb4da33dfa37f7d4">  230</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classDataStreamFromDataSource.html#a106b915c45d4c5b6eb4da33dfa37f7d4">get_length</a>(){</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">return</span> datasource-&gt;<a class="code" href="classDataSource.html#a6e7ddfb727d395265c8ae84e0c030a26">get_length</a>();</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;};</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassRawDataStream_html_ad91b36d4cf311d2720e43e6d0e9b63bf"><div class="ttname"><a href="classRawDataStream.html#ad91b36d4cf311d2720e43e6d0e9b63bf">RawDataStream::eof</a></div><div class="ttdeci">bool eof()</div><div class="ttdef"><b>Definition:</b> DataStream.h:160</div></div>
+<div class="ttc" id="aclassDataStream_html_a4520f42e4d3c5134724833c3ccd420a3"><div class="ttname"><a href="classDataStream.html#a4520f42e4d3c5134724833c3ccd420a3">DataStream::read</a></div><div class="ttdeci">virtual size_t read(uint8_t *buffer, size_t size)=0</div></div>
+<div class="ttc" id="aclassRawDataStream_html"><div class="ttname"><a href="classRawDataStream.html">RawDataStream</a></div><div class="ttdef"><b>Definition:</b> DataStream.h:108</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_ac24bc9791b9fb3a9c2b6773516ae0c0e"><div class="ttname"><a href="classDataStreamFromDataSource.html#ac24bc9791b9fb3a9c2b6773516ae0c0e">DataStreamFromDataSource::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition:</b> DataStream.h:221</div></div>
+<div class="ttc" id="aclassDataStream_html_a42bec151e7f0e766dfa8f504d0f7e31e"><div class="ttname"><a href="classDataStream.html#a42bec151e7f0e766dfa8f504d0f7e31e">DataStream::~DataStream</a></div><div class="ttdeci">virtual ~DataStream()</div><div class="ttdef"><b>Definition:</b> DataStream.h:57</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_a832520df88dfd494bc333026a749d770"><div class="ttname"><a href="classDataStreamFromDataSource.html#a832520df88dfd494bc333026a749d770">DataStreamFromDataSource::eof</a></div><div class="ttdeci">bool eof()</div><div class="ttdef"><b>Definition:</b> DataStream.h:218</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a6c7e3ef9533c564caafc46218397881e"><div class="ttname"><a href="classRawDataStream.html#a6c7e3ef9533c564caafc46218397881e">RawDataStream::~RawDataStream</a></div><div class="ttdeci">virtual ~RawDataStream()</div><div class="ttdef"><b>Definition:</b> DataStream.h:148</div></div>
+<div class="ttc" id="aclassRawDataStream_html_ac0667877e11150ccff902c424ede6aca"><div class="ttname"><a href="classRawDataStream.html#ac0667877e11150ccff902c424ede6aca">RawDataStream::get_encoding</a></div><div class="ttdeci">std::string get_encoding()</div><div class="ttdef"><b>Definition:</b> DataStream.h:175</div></div>
+<div class="ttc" id="aclassRawDataStream_html_afdd63c85d5a5e869c4c7d6243aa4a220"><div class="ttname"><a href="classRawDataStream.html#afdd63c85d5a5e869c4c7d6243aa4a220">RawDataStream::RawDataStream</a></div><div class="ttdeci">RawDataStream(uint8_t *dat, size_t dataS, std::string t, std::string e)</div><div class="ttdef"><b>Definition:</b> DataStream.h:124</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_a106b915c45d4c5b6eb4da33dfa37f7d4"><div class="ttname"><a href="classDataStreamFromDataSource.html#a106b915c45d4c5b6eb4da33dfa37f7d4">DataStreamFromDataSource::get_length</a></div><div class="ttdeci">unsigned int get_length()</div><div class="ttdef"><b>Definition:</b> DataStream.h:230</div></div>
+<div class="ttc" id="aclassDataStream_html_a0c2a5ac77f3dd2692136085118b00b2e"><div class="ttname"><a href="classDataStream.html#a0c2a5ac77f3dd2692136085118b00b2e">DataStream::get_length</a></div><div class="ttdeci">virtual unsigned int get_length()=0</div></div>
+<div class="ttc" id="aclassDataStream_html"><div class="ttname"><a href="classDataStream.html">DataStream</a></div><div class="ttdef"><b>Definition:</b> DataStream.h:52</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_ab086990fb0f06658fc2a3ccd72fac5c5"><div class="ttname"><a href="classDataStreamFromDataSource.html#ab086990fb0f06658fc2a3ccd72fac5c5">DataStreamFromDataSource::get_http_status</a></div><div class="ttdeci">int get_http_status()</div><div class="ttdef"><b>Definition:</b> DataStream.h:224</div></div>
+<div class="ttc" id="aclassDataStream_html_ada6730770f2d915de485dadb2107f563"><div class="ttname"><a href="classDataStream.html#ada6730770f2d915de485dadb2107f563">DataStream::get_http_status</a></div><div class="ttdeci">virtual int get_http_status()=0</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a34b6c81390a37faa00d89d4a3fb4de10"><div class="ttname"><a href="classRawDataStream.html#a34b6c81390a37faa00d89d4a3fb4de10">RawDataStream::get_size</a></div><div class="ttdeci">size_t get_size()</div><div class="ttdef"><b>Definition:</b> DataStream.h:180</div></div>
+<div class="ttc" id="aclassDataSource_html_a17cbdcfcce5965c4297b1baac778554b"><div class="ttname"><a href="classDataSource.html#a17cbdcfcce5965c4297b1baac778554b">DataSource::get_encoding</a></div><div class="ttdeci">virtual std::string get_encoding()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_af94cef72ecb6055b491692cfb1bff33c"><div class="ttname"><a href="classDataSource.html#af94cef72ecb6055b491692cfb1bff33c">DataSource::get_http_status</a></div><div class="ttdeci">virtual int get_http_status()=0</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_a3d19b0f0e13aa856e728a233ebdb42c0"><div class="ttname"><a href="classDataStreamFromDataSource.html#a3d19b0f0e13aa856e728a233ebdb42c0">DataStreamFromDataSource::get_encoding</a></div><div class="ttdeci">std::string get_encoding()</div><div class="ttdef"><b>Definition:</b> DataStream.h:227</div></div>
+<div class="ttc" id="aclassDataStream_html_a0108e672df2ac793f74758d696fd735a"><div class="ttname"><a href="classDataStream.html#a0108e672df2ac793f74758d696fd735a">DataStream::eof</a></div><div class="ttdeci">virtual bool eof()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_a6e7ddfb727d395265c8ae84e0c030a26"><div class="ttname"><a href="classDataSource.html#a6e7ddfb727d395265c8ae84e0c030a26">DataSource::get_length</a></div><div class="ttdeci">virtual unsigned int get_length()=0</div></div>
+<div class="ttc" id="aclassDataSource_html"><div class="ttname"><a href="classDataSource.html">DataSource</a></div><div class="ttdef"><b>Definition:</b> DataSource.h:54</div></div>
+<div class="ttc" id="aclassDataStream_html_a025b8b1a2410d206605665cbf1e152f3"><div class="ttname"><a href="classDataStream.html#a025b8b1a2410d206605665cbf1e152f3">DataStream::get_type</a></div><div class="ttdeci">virtual std::string get_type()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_a7a5f066b3638afde2cc010a2c2938ad0"><div class="ttname"><a href="classDataSource.html#a7a5f066b3638afde2cc010a2c2938ad0">DataSource::get_data</a></div><div class="ttdeci">virtual const uint8_t * get_data(size_t &amp;size)=0</div></div>
+<div class="ttc" id="aclassDataSource_html_afb634a823dd8d706c4efbfde76af646c"><div class="ttname"><a href="classDataSource.html#afb634a823dd8d706c4efbfde76af646c">DataSource::get_type</a></div><div class="ttdeci">virtual std::string get_type()=0</div></div>
+<div class="ttc" id="aclassDataStream_html_a0ad80c52c8d3b1f68a26b25f5679c42e"><div class="ttname"><a href="classDataStream.html#a0ad80c52c8d3b1f68a26b25f5679c42e">DataStream::get_encoding</a></div><div class="ttdeci">virtual std::string get_encoding()=0</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a0ef3ea9df1f8556a77a0f1096d52ebf5"><div class="ttname"><a href="classRawDataStream.html#a0ef3ea9df1f8556a77a0f1096d52ebf5">RawDataStream::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition:</b> DataStream.h:165</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a8e0b515abdd07ad998528f0e05c29531"><div class="ttname"><a href="classRawDataStream.html#a8e0b515abdd07ad998528f0e05c29531">RawDataStream::get_http_status</a></div><div class="ttdeci">int get_http_status()</div><div class="ttdef"><b>Definition:</b> DataStream.h:170</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a51ae9eff7d011a1a7a1dd44cd14d7537"><div class="ttname"><a href="classRawDataStream.html#a51ae9eff7d011a1a7a1dd44cd14d7537">RawDataStream::RawDataStream</a></div><div class="ttdeci">RawDataStream(uint8_t *dat, size_t dataS)</div><div class="ttdef"><b>Definition:</b> DataStream.h:137</div></div>
+<div class="ttc" id="aclassRawDataStream_html_af33ff5d78bd9c93baa5644a85d34e1ce"><div class="ttname"><a href="classRawDataStream.html#af33ff5d78bd9c93baa5644a85d34e1ce">RawDataStream::read</a></div><div class="ttdeci">size_t read(uint8_t *buffer, size_t size)</div><div class="ttdef"><b>Definition:</b> DataStream.h:153</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html"><div class="ttname"><a href="classDataStreamFromDataSource.html">DataStreamFromDataSource</a></div><div class="ttdef"><b>Definition:</b> DataStream.h:194</div></div>
+<div class="ttc" id="aclassDataStreamFromDataSource_html_a1e6591277477dc2f40c494559714d865"><div class="ttname"><a href="classDataStreamFromDataSource.html#a1e6591277477dc2f40c494559714d865">DataStreamFromDataSource::read</a></div><div class="ttdeci">size_t read(uint8_t *buffer, size_t size)</div><div class="ttdef"><b>Definition:</b> DataStream.h:212</div></div>
+<div class="ttc" id="aclassRawDataStream_html_a71d1f1ed7ff2261787ae9e6afeb13dcf"><div class="ttname"><a href="classRawDataStream.html#a71d1f1ed7ff2261787ae9e6afeb13dcf">RawDataStream::get_length</a></div><div class="ttdeci">unsigned int get_length()</div><div class="ttdef"><b>Definition:</b> DataStream.h:185</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_01384d62d1c97e7693ba2a937a680d64.html">datastream</a></li><li class="navelem"><b>DataStream.h</b></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

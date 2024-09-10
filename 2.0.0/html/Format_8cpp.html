@@ -1,0 +1,235 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Format_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Espaces de nommage</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier Format.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implémentation des namespaces <a class="el" href="namespaceCompression.html" title="Gestion des informations liées à la compression.">Compression</a>, <a class="el" href="namespaceSampleFormat.html" title="Gestion des informations liées au format de canal.">SampleFormat</a>, <a class="el" href="namespacePhotometric.html" title="Gestion des informations liées à la photométrie.">Photometric</a>, <a class="el" href="namespaceExtraSample.html" title="Gestion des informations liées aux canaux supplémentaires.">ExtraSample</a> et Format.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="Format_8h_source.html">enums/Format.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de Format.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="Format_8cpp__incl.png" border="0" usemap="#src_2enums_2Format_8cpp" alt=""/></div>
+<map name="src_2enums_2Format_8cpp" id="src_2enums_2Format_8cpp">
+<area shape="rect" title="Implémentation des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format." alt="" coords="166,5,333,32"/>
+<area shape="rect" href="Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format." alt="" coords="15,80,143,107"/>
+<area shape="rect" title=" " alt="" coords="167,80,238,107"/>
+<area shape="rect" title=" " alt="" coords="262,80,333,107"/>
+<area shape="rect" title=" " alt="" coords="357,80,443,107"/>
+<area shape="rect" title=" " alt="" coords="5,155,64,181"/>
+<area shape="rect" title=" " alt="" coords="89,155,159,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Espaces de nommage</h2></td></tr>
+<tr class="memitem:namespaceCompression"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCompression.html">Compression</a></td></tr>
+<tr class="memdesc:namespaceCompression"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées à la compression. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacePhotometric"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePhotometric.html">Photometric</a></td></tr>
+<tr class="memdesc:namespacePhotometric"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées à la photométrie. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceExtraSample"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceExtraSample.html">ExtraSample</a></td></tr>
+<tr class="memdesc:namespaceExtraSample"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées aux canaux supplémentaires. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceSampleFormat"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSampleFormat.html">SampleFormat</a></td></tr>
+<tr class="memdesc:namespaceSampleFormat"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées au format de canal. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRok4Format"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html">Rok4Format</a></td></tr>
+<tr class="memdesc:namespaceRok4Format"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées au format des données. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a27ec813941e5f9e5cfbc14d6777b7595"><td class="memItemLeft" align="right" valign="top">eCompression&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCompression.html#a27ec813941e5f9e5cfbc14d6777b7595">Compression::from_string</a> (std::string strComp)</td></tr>
+<tr class="memdesc:a27ec813941e5f9e5cfbc14d6777b7595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractères vers une compression de l'énumération.  <a href="namespaceCompression.html#a27ec813941e5f9e5cfbc14d6777b7595">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a27ec813941e5f9e5cfbc14d6777b7595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae54011f247d7d047c7e60aa775fa6d0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Compression::to_string</a> (eCompression comp)</td></tr>
+<tr class="memdesc:aae54011f247d7d047c7e60aa775fa6d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une compression vers une chaîne de caractères.  <a href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aae54011f247d7d047c7e60aa775fa6d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3af88b65317a2283a1c38d60a8cf530"><td class="memItemLeft" align="right" valign="top">ePhotometric&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePhotometric.html#aa3af88b65317a2283a1c38d60a8cf530">Photometric::from_string</a> (std::string strPh)</td></tr>
+<tr class="memdesc:aa3af88b65317a2283a1c38d60a8cf530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractères vers une photométrie de l'énumération.  <a href="namespacePhotometric.html#aa3af88b65317a2283a1c38d60a8cf530">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa3af88b65317a2283a1c38d60a8cf530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67391ad90ddc951ac578af0d394825d7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePhotometric.html#a67391ad90ddc951ac578af0d394825d7">Photometric::to_string</a> (ePhotometric ph)</td></tr>
+<tr class="memdesc:a67391ad90ddc951ac578af0d394825d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une photométrie vers une chaîne de caractères.  <a href="namespacePhotometric.html#a67391ad90ddc951ac578af0d394825d7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a67391ad90ddc951ac578af0d394825d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab908ad617668504820d327ecf0d98c99"><td class="memItemLeft" align="right" valign="top">eExtraSample&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceExtraSample.html#ab908ad617668504820d327ecf0d98c99">ExtraSample::from_string</a> (std::string strES)</td></tr>
+<tr class="memdesc:ab908ad617668504820d327ecf0d98c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractères vers un type de canal supplémentaire de l'énumération.  <a href="namespaceExtraSample.html#ab908ad617668504820d327ecf0d98c99">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab908ad617668504820d327ecf0d98c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab7e4b360dc8d1f79d75847bffbce5bb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceExtraSample.html#aab7e4b360dc8d1f79d75847bffbce5bb">ExtraSample::to_string</a> (eExtraSample es)</td></tr>
+<tr class="memdesc:aab7e4b360dc8d1f79d75847bffbce5bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un type de canal supplémentaire vers une chaîne de caractères.  <a href="namespaceExtraSample.html#aab7e4b360dc8d1f79d75847bffbce5bb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aab7e4b360dc8d1f79d75847bffbce5bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428fbccb65575676fcd2dc5166ba3fa6"><td class="memItemLeft" align="right" valign="top">eSampleFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSampleFormat.html#a428fbccb65575676fcd2dc5166ba3fa6">SampleFormat::from_string</a> (std::string sf)</td></tr>
+<tr class="memdesc:a428fbccb65575676fcd2dc5166ba3fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractères vers une format du canal de l'énumération.  <a href="namespaceSampleFormat.html#a428fbccb65575676fcd2dc5166ba3fa6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a428fbccb65575676fcd2dc5166ba3fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e6d01a832f12672ee97073d37888ad"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSampleFormat.html#a11e6d01a832f12672ee97073d37888ad">SampleFormat::to_string</a> (eSampleFormat sf)</td></tr>
+<tr class="memdesc:a11e6d01a832f12672ee97073d37888ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une format du canal vers une chaîne de caractères.  <a href="namespaceSampleFormat.html#a11e6d01a832f12672ee97073d37888ad">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a11e6d01a832f12672ee97073d37888ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705bb46941dd5fbacaa2848c9a0bd4f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSampleFormat.html#a705bb46941dd5fbacaa2848c9a0bd4f0">SampleFormat::get_bits_per_sample</a> (eSampleFormat format)</td></tr>
+<tr class="memdesc:a705bb46941dd5fbacaa2848c9a0bd4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne le nombre de bits par canal du format.  <a href="namespaceSampleFormat.html#a705bb46941dd5fbacaa2848c9a0bd4f0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a705bb46941dd5fbacaa2848c9a0bd4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a045d0d75d76c9104ac1a53b71cfdc9c7"><td class="memItemLeft" align="right" valign="top">eFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a045d0d75d76c9104ac1a53b71cfdc9c7">Rok4Format::from_string</a> (std::string strFormat)</td></tr>
+<tr class="memdesc:a045d0d75d76c9104ac1a53b71cfdc9c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractère vers un format.  <a href="namespaceRok4Format.html#a045d0d75d76c9104ac1a53b71cfdc9c7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a045d0d75d76c9104ac1a53b71cfdc9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70028b505d36f5f79b0031f00f2963e4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a70028b505d36f5f79b0031f00f2963e4">Rok4Format::to_string</a> (eFormat format)</td></tr>
+<tr class="memdesc:a70028b505d36f5f79b0031f00f2963e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un format vers une chaîne de caractère.  <a href="namespaceRok4Format.html#a70028b505d36f5f79b0031f00f2963e4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a70028b505d36f5f79b0031f00f2963e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5339e65596ed61306edaf808adef7faa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a5339e65596ed61306edaf808adef7faa">Rok4Format::is_raster</a> (eFormat format)</td></tr>
+<tr class="memdesc:a5339e65596ed61306edaf808adef7faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dit si un format est raster ou non.  <a href="namespaceRok4Format.html#a5339e65596ed61306edaf808adef7faa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5339e65596ed61306edaf808adef7faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6c7db036607f16d2a239be968951901"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#aa6c7db036607f16d2a239be968951901">Rok4Format::get_compression</a> (eFormat format)</td></tr>
+<tr class="memdesc:aa6c7db036607f16d2a239be968951901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la compression du format.  <a href="namespaceRok4Format.html#aa6c7db036607f16d2a239be968951901">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa6c7db036607f16d2a239be968951901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8950e34687918d8815a47a5845814c29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a8950e34687918d8815a47a5845814c29">Rok4Format::get_sample_format</a> (eFormat format)</td></tr>
+<tr class="memdesc:a8950e34687918d8815a47a5845814c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne le format des canaux du format.  <a href="namespaceRok4Format.html#a8950e34687918d8815a47a5845814c29">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8950e34687918d8815a47a5845814c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516235ca4c2427a13d3594ad95e796e2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a516235ca4c2427a13d3594ad95e796e2">Rok4Format::get_bits_per_sample</a> (eFormat format)</td></tr>
+<tr class="memdesc:a516235ca4c2427a13d3594ad95e796e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne le nombre de bits par canal du format.  <a href="namespaceRok4Format.html#a516235ca4c2427a13d3594ad95e796e2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a516235ca4c2427a13d3594ad95e796e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621473264ff2ee5bc8fc4aee3112c2e7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a621473264ff2ee5bc8fc4aee3112c2e7">Rok4Format::to_mime_type</a> (eFormat format)</td></tr>
+<tr class="memdesc:a621473264ff2ee5bc8fc4aee3112c2e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un format vers une chaîne de caractère (type MIME)  <a href="namespaceRok4Format.html#a621473264ff2ee5bc8fc4aee3112c2e7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a621473264ff2ee5bc8fc4aee3112c2e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e1571570771bbaca0c1bb1078161fb6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a6e1571570771bbaca0c1bb1078161fb6">Rok4Format::to_tiles_format</a> (eFormat format)</td></tr>
+<tr class="memdesc:a6e1571570771bbaca0c1bb1078161fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un format vers une chaîne de caractère (format OGC API Tiles)  <a href="namespaceRok4Format.html#a6e1571570771bbaca0c1bb1078161fb6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6e1571570771bbaca0c1bb1078161fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6611ea18e5a6b17fefe7e772a02faa63"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRok4Format.html#a6611ea18e5a6b17fefe7e772a02faa63">Rok4Format::to_extension</a> (eFormat format)</td></tr>
+<tr class="memdesc:a6611ea18e5a6b17fefe7e772a02faa63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un format vers une chaîne de caractère (extension)  <a href="namespaceRok4Format.html#a6611ea18e5a6b17fefe7e772a02faa63">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6611ea18e5a6b17fefe7e772a02faa63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d32ef089ac222f882906fa9dea56179"><td class="memItemLeft" align="right" valign="top"><a id="a3d32ef089ac222f882906fa9dea56179"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::to_encoding</b> (eFormat format)</td></tr>
+<tr class="separator:a3d32ef089ac222f882906fa9dea56179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ab279d8f2ae92db5688a3466c5e2a9434"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Compression::compression_name</b> []</td></tr>
+<tr class="separator:ab279d8f2ae92db5688a3466c5e2a9434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25683d6ca7d49597081ee727bc562b47"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Photometric::photometric_name</b> []</td></tr>
+<tr class="separator:a25683d6ca7d49597081ee727bc562b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a955a7b14fdebf9da875f64be775a84b4"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraSample::extraSample_name</b> []</td></tr>
+<tr class="separator:a955a7b14fdebf9da875f64be775a84b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a751641e32a715ac6a135f65036910126"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>SampleFormat::sampleformat_name</b> []</td></tr>
+<tr class="separator:a751641e32a715ac6a135f65036910126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8448ce0a870ba5bbcc7eae24cbe84e47"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><b>SampleFormat::esampleformat_bitspersample</b> []</td></tr>
+<tr class="separator:a8448ce0a870ba5bbcc7eae24cbe84e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f644e23441d5ef63ba882a37d41bca7"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_name</b> []</td></tr>
+<tr class="separator:a5f644e23441d5ef63ba882a37d41bca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66618c8cece8ebecdbd3118974bd462e"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_israster</b> []</td></tr>
+<tr class="separator:a66618c8cece8ebecdbd3118974bd462e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b69e0d28c72ccb4a42773e87b8a7f8a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_channelsize</b> []</td></tr>
+<tr class="separator:a2b69e0d28c72ccb4a42773e87b8a7f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14e88cad4f3f40e059cdbab4faf7626f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_mime</b> []</td></tr>
+<tr class="separator:a14e88cad4f3f40e059cdbab4faf7626f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d566513a600acf92a06d8b8361a0e5b"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_tiles</b> []</td></tr>
+<tr class="separator:a0d566513a600acf92a06d8b8361a0e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a376ad14a6f0e4195cf769b9f1f4740"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_extension</b> []</td></tr>
+<tr class="separator:a7a376ad14a6f0e4195cf769b9f1f4740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0db261d54d3f639586947c2ed4a68ea4"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_encoding</b> []</td></tr>
+<tr class="separator:a0db261d54d3f639586947c2ed4a68ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5b62ab822c23272d5429e08ea1ba2ad"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_compression</b> []</td></tr>
+<tr class="separator:aa5b62ab822c23272d5429e08ea1ba2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ec79e6d3bd51229261ac50fb9322d0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_sampleformat</b> []</td></tr>
+<tr class="separator:a15ec79e6d3bd51229261ac50fb9322d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed92f02e36b5cc493c67d4b69dcb3446"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><b>Rok4Format::eformat_bitspersample</b> []</td></tr>
+<tr class="separator:aed92f02e36b5cc493c67d4b69dcb3446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Implémentation des namespaces <a class="el" href="namespaceCompression.html" title="Gestion des informations liées à la compression.">Compression</a>, <a class="el" href="namespaceSampleFormat.html" title="Gestion des informations liées au format de canal.">SampleFormat</a>, <a class="el" href="namespacePhotometric.html" title="Gestion des informations liées à la photométrie.">Photometric</a>, <a class="el" href="namespaceExtraSample.html" title="Gestion des informations liées aux canaux supplémentaires.">ExtraSample</a> et Format. </p>
+<p>Implémentation du namespace <a class="el" href="namespaceContextType.html" title="Gestion des informations liées au format de canal.">ContextType</a>.</p>
+<ul>
+<li><a class="el" href="namespaceSampleFormat.html" title="Gestion des informations liées au format de canal.">SampleFormat</a> : gère les types de canaux acceptés par les classes d'<a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> </li>
+<li><a class="el" href="namespaceCompression.html" title="Gestion des informations liées à la compression.">Compression</a> : énumère et manipule les différentes compressions </li>
+<li>Format : énumère et manipule les différentes format d'image </li>
+<li><a class="el" href="namespacePhotometric.html" title="Gestion des informations liées à la photométrie.">Photometric</a> : énumère et manipule les différentes photométries </li>
+<li><a class="el" href="namespaceExtraSample.html" title="Gestion des informations liées aux canaux supplémentaires.">ExtraSample</a> : énumère et manipule les différents type de canal supplémentaire</li>
+</ul>
+<ul>
+<li><a class="el" href="namespaceContextType.html" title="Gestion des informations liées au format de canal.">ContextType</a> : gère les types de contextes pour le stockage </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1ea0da2d358d93829179f0e6c61d0930.html">enums</a></li><li class="navelem"><a class="el" href="Format_8cpp.html">Format.cpp</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

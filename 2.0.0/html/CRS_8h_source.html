@@ -1,0 +1,221 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('CRS_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">CRS.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="CRS_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="BoundingBox_8h.html">rok4/utils/BoundingBox.h</a>&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="CRS_8h.html#a3c06b23201677bed40772d04266e416b">   56</a></span>&#160;<span class="preprocessor">#define NO_PROJ_CODE &quot;NO_PROJ_CODE&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classCRS.html">   70</a></span>&#160;<span class="keyword">class </span><a class="code" href="classCRS.html">CRS</a> {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::string request_code;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    std::string proj_code;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> definition_area;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> native_definition_area;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    PJ* pj_proj;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">static</span> <a class="code" href="classCRS.html">CRS</a> epsg4326;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="classCRS.html#a194c6ce49bcdba24dd68eea1f6fa80d4">CRS</a>();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="classCRS.html#a194c6ce49bcdba24dd68eea1f6fa80d4">CRS</a> ( std::string crs_code );</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="classCRS.html#a194c6ce49bcdba24dd68eea1f6fa80d4">CRS</a> ( <a class="code" href="classCRS.html">CRS</a>* crs );</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="classCRS.html">CRS</a>&amp; <a class="code" href="classCRS.html#a3f6ff9432b734f680fd4e14e7593e703">operator= </a>( <a class="code" href="classCRS.html">CRS</a> <span class="keyword">const</span>&amp; other );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#a6b22d031c82da5b56285b2c86cd2335b">operator== </a>( <span class="keyword">const</span> <a class="code" href="classCRS.html">CRS</a>&amp; crs ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#af16fb01aee5ef2791be146e2efb130c5">operator!= </a>( <span class="keyword">const</span> <a class="code" href="classCRS.html">CRS</a>&amp; crs ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#a22fbf56e95f2cf6f14ed3a711882c6db">is_geographic</a>();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#a0ef41a30f7df823f59737875b255b3ca">is_lat_lon</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="classCRS.html#a3cf79c69f88204fb8ef4b0a472c6684d">  177</a></span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classCRS.html#a3cf79c69f88204fb8ef4b0a472c6684d">get_crs_definition_area</a>() {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordflow">return</span> definition_area;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    };</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classCRS.html#ab59abb88e914deb2937f03a30aebeee2">  189</a></span>&#160;    <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code" href="classCRS.html#ab59abb88e914deb2937f03a30aebeee2">get_native_crs_definition_area</a>() {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">return</span> native_definition_area;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    };</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code" href="classCRS.html#ac5fa9a9a9405db63825df4e4e211a72c">get_meters_per_unit</a>();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#ad4e151ddc9bf72fd7a8d94e1ffce6730">cmp_request_code</a> ( std::string crs );</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    std::string <a class="code" href="classCRS.html#a8bad5e8e65a89a4df5a71895eee70831">get_authority</a>();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    std::string <a class="code" href="classCRS.html#a2e6ff86741e259ffb086213363ede2e0">get_identifier</a>();</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    std::string <a class="code" href="classCRS.html#aa82099f7a492bec2ad4d503b72920d79">get_url</a>();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="classCRS.html#abf564acd8bcdf69c2afeb0d17586aac0">  255</a></span>&#160;    <span class="keywordtype">bool</span> <span class="keyword">inline</span> <a class="code" href="classCRS.html#abf564acd8bcdf69c2afeb0d17586aac0">is_define</a>() {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keywordflow">return</span> proj_code != <a class="code" href="CRS_8h.html#a3c06b23201677bed40772d04266e416b">NO_PROJ_CODE</a>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    }</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="classCRS.html#a2a6ced0b1fdad2ffe25a4acc3a71ee5d">  267</a></span>&#160;    std::string <span class="keyword">inline</span> <a class="code" href="classCRS.html#a2a6ced0b1fdad2ffe25a4acc3a71ee5d">get_request_code</a>() {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">return</span> request_code;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="classCRS.html#a03fd2d70286c905f454ab24c95bc96f5">  279</a></span>&#160;    std::string <span class="keyword">inline</span> <a class="code" href="classCRS.html#a03fd2d70286c905f454ab24c95bc96f5">get_proj_code</a>() {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">return</span> proj_code;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    }</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="classCRS.html#a4bf5deb51be574df20727ffea8f7f624">  289</a></span>&#160;    PJ* <a class="code" href="classCRS.html#a4bf5deb51be574df20727ffea8f7f624">get_proj_instance</a>() {</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">return</span> pj_proj;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    std::string <a class="code" href="classCRS.html#a221da8ac1fd6267ec2b60a119e87d907">get_proj_param</a>( std::string paramName );</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classCRS.html#a470aaa3a470f76d8a7aff0ffd66c085b">test_proj_param</a>( std::string paramName );</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keyword">static</span> <a class="code" href="classCRS.html">CRS</a>* <a class="code" href="classCRS.html#a96f877c9ea3bada42c003a2070148229">get_epsg4326</a>();</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <a class="code" href="classCRS.html#a9ca3d4d3384bd53ab582320aa95e99d1">~CRS</a>();</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;};</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassCRS_html_a22fbf56e95f2cf6f14ed3a711882c6db"><div class="ttname"><a href="classCRS.html#a22fbf56e95f2cf6f14ed3a711882c6db">CRS::is_geographic</a></div><div class="ttdeci">bool is_geographic()</div><div class="ttdoc">Test si le CRS est géographique.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:114</div></div>
+<div class="ttc" id="aclassCRS_html_a0ef41a30f7df823f59737875b255b3ca"><div class="ttname"><a href="classCRS.html#a0ef41a30f7df823f59737875b255b3ca">CRS::is_lat_lon</a></div><div class="ttdeci">bool is_lat_lon()</div><div class="ttdoc">Test si les coordonnées sont dans l'ordre latitude longitude.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:124</div></div>
+<div class="ttc" id="aclassCRS_html_aa82099f7a492bec2ad4d503b72920d79"><div class="ttname"><a href="classCRS.html#aa82099f7a492bec2ad4d503b72920d79">CRS::get_url</a></div><div class="ttdeci">std::string get_url()</div><div class="ttdoc">Retourne une URL de description.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:210</div></div>
+<div class="ttc" id="aclassCRS_html_a8bad5e8e65a89a4df5a71895eee70831"><div class="ttname"><a href="classCRS.html#a8bad5e8e65a89a4df5a71895eee70831">CRS::get_authority</a></div><div class="ttdeci">std::string get_authority()</div><div class="ttdoc">Retourne l'authorité du CRS.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:141</div></div>
+<div class="ttc" id="aclassCRS_html"><div class="ttname"><a href="classCRS.html">CRS</a></div><div class="ttdoc">Gestion des systèmes de référence.</div><div class="ttdef"><b>Definition:</b> CRS.h:70</div></div>
+<div class="ttc" id="aclassCRS_html_a03fd2d70286c905f454ab24c95bc96f5"><div class="ttname"><a href="classCRS.html#a03fd2d70286c905f454ab24c95bc96f5">CRS::get_proj_code</a></div><div class="ttdeci">std::string get_proj_code()</div><div class="ttdoc">Retourne le code du CRS dans la base proj.</div><div class="ttdef"><b>Definition:</b> CRS.h:279</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassCRS_html_abf564acd8bcdf69c2afeb0d17586aac0"><div class="ttname"><a href="classCRS.html#abf564acd8bcdf69c2afeb0d17586aac0">CRS::is_define</a></div><div class="ttdeci">bool is_define()</div><div class="ttdoc">Test si le CRS possède un équivalent dans Proj.</div><div class="ttdef"><b>Definition:</b> CRS.h:255</div></div>
+<div class="ttc" id="aclassCRS_html_a6b22d031c82da5b56285b2c86cd2335b"><div class="ttname"><a href="classCRS.html#a6b22d031c82da5b56285b2c86cd2335b">CRS::operator==</a></div><div class="ttdeci">bool operator==(const CRS &amp;crs) const</div><div class="ttdoc">Test d'egalite de 2 CRS.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:159</div></div>
+<div class="ttc" id="aclassCRS_html_a96f877c9ea3bada42c003a2070148229"><div class="ttname"><a href="classCRS.html#a96f877c9ea3bada42c003a2070148229">CRS::get_epsg4326</a></div><div class="ttdeci">static CRS * get_epsg4326()</div><div class="ttdoc">Retourne le CRS EPSG:4326.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:200</div></div>
+<div class="ttc" id="aclassCRS_html_ab59abb88e914deb2937f03a30aebeee2"><div class="ttname"><a href="classCRS.html#ab59abb88e914deb2937f03a30aebeee2">CRS::get_native_crs_definition_area</a></div><div class="ttdeci">BoundingBox&lt; double &gt; get_native_crs_definition_area()</div><div class="ttdoc">Renvoit le zone de définition native du CRS.</div><div class="ttdef"><b>Definition:</b> CRS.h:189</div></div>
+<div class="ttc" id="aclassCRS_html_af16fb01aee5ef2791be146e2efb130c5"><div class="ttname"><a href="classCRS.html#af16fb01aee5ef2791be146e2efb130c5">CRS::operator!=</a></div><div class="ttdeci">bool operator!=(const CRS &amp;crs) const</div><div class="ttdoc">Test d'inégalite de 2 CRS.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:163</div></div>
+<div class="ttc" id="aclassCRS_html_a221da8ac1fd6267ec2b60a119e87d907"><div class="ttname"><a href="classCRS.html#a221da8ac1fd6267ec2b60a119e87d907">CRS::get_proj_param</a></div><div class="ttdeci">std::string get_proj_param(std::string paramName)</div><div class="ttdoc">Retourne la valeur d'un paramètre de la définition complète du CRS dans la base projCode.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:167</div></div>
+<div class="ttc" id="aCRS_8h_html_a3c06b23201677bed40772d04266e416b"><div class="ttname"><a href="CRS_8h.html#a3c06b23201677bed40772d04266e416b">NO_PROJ_CODE</a></div><div class="ttdeci">#define NO_PROJ_CODE</div><div class="ttdoc">Code utilisé en cas de non correspondance avec les référentiel de Proj.</div><div class="ttdef"><b>Definition:</b> CRS.h:56</div></div>
+<div class="ttc" id="aclassCRS_html_a3f6ff9432b734f680fd4e14e7593e703"><div class="ttname"><a href="classCRS.html#a3f6ff9432b734f680fd4e14e7593e703">CRS::operator=</a></div><div class="ttdeci">CRS &amp; operator=(CRS const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:97</div></div>
+<div class="ttc" id="aclassCRS_html_a9ca3d4d3384bd53ab582320aa95e99d1"><div class="ttname"><a href="classCRS.html#a9ca3d4d3384bd53ab582320aa95e99d1">CRS::~CRS</a></div><div class="ttdeci">~CRS()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:193</div></div>
+<div class="ttc" id="aclassCRS_html_a470aaa3a470f76d8a7aff0ffd66c085b"><div class="ttname"><a href="classCRS.html#a470aaa3a470f76d8a7aff0ffd66c085b">CRS::test_proj_param</a></div><div class="ttdeci">bool test_proj_param(std::string paramName)</div><div class="ttdoc">Dis si un paramètre existe.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:182</div></div>
+<div class="ttc" id="aclassCRS_html_a194c6ce49bcdba24dd68eea1f6fa80d4"><div class="ttname"><a href="classCRS.html#a194c6ce49bcdba24dd68eea1f6fa80d4">CRS::CRS</a></div><div class="ttdeci">CRS()</div><div class="ttdoc">Crée un CRS sans correspondance avec une entrée du registre PROJ.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:55</div></div>
+<div class="ttc" id="aclassCRS_html_a2e6ff86741e259ffb086213363ede2e0"><div class="ttname"><a href="classCRS.html#a2e6ff86741e259ffb086213363ede2e0">CRS::get_identifier</a></div><div class="ttdeci">std::string get_identifier()</div><div class="ttdoc">Retourne l'identifiant du CRS sans l'authorité</div><div class="ttdef"><b>Definition:</b> CRS.cpp:150</div></div>
+<div class="ttc" id="aclassCRS_html_ac5fa9a9a9405db63825df4e4e211a72c"><div class="ttname"><a href="classCRS.html#ac5fa9a9a9405db63825df4e4e211a72c">CRS::get_meters_per_unit</a></div><div class="ttdeci">long double get_meters_per_unit()</div><div class="ttdoc">Le nombre de mètre par unité du CRS.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:128</div></div>
+<div class="ttc" id="aclassCRS_html_a4bf5deb51be574df20727ffea8f7f624"><div class="ttname"><a href="classCRS.html#a4bf5deb51be574df20727ffea8f7f624">CRS::get_proj_instance</a></div><div class="ttdeci">PJ * get_proj_instance()</div><div class="ttdoc">Retourne l'instance PROJ.</div><div class="ttdef"><b>Definition:</b> CRS.h:289</div></div>
+<div class="ttc" id="aclassCRS_html_ad4e151ddc9bf72fd7a8d94e1ffce6730"><div class="ttname"><a href="classCRS.html#ad4e151ddc9bf72fd7a8d94e1ffce6730">CRS::cmp_request_code</a></div><div class="ttdeci">bool cmp_request_code(std::string crs)</div><div class="ttdoc">Compare le code fournit lors de la création du CRS avec la chaîne.</div><div class="ttdef"><b>Definition:</b> CRS.cpp:137</div></div>
+<div class="ttc" id="aclassCRS_html_a2a6ced0b1fdad2ffe25a4acc3a71ee5d"><div class="ttname"><a href="classCRS.html#a2a6ced0b1fdad2ffe25a4acc3a71ee5d">CRS::get_request_code</a></div><div class="ttdeci">std::string get_request_code()</div><div class="ttdoc">Retourne le code du CRS tel qu'il est ecrit dans la requete WMS.</div><div class="ttdef"><b>Definition:</b> CRS.h:267</div></div>
+<div class="ttc" id="aBoundingBox_8h_html"><div class="ttname"><a href="BoundingBox_8h.html">BoundingBox.h</a></div><div class="ttdoc">Implémentation de la classe template BoundingBox.</div></div>
+<div class="ttc" id="aclassCRS_html_a3cf79c69f88204fb8ef4b0a472c6684d"><div class="ttname"><a href="classCRS.html#a3cf79c69f88204fb8ef4b0a472c6684d">CRS::get_crs_definition_area</a></div><div class="ttdeci">BoundingBox&lt; double &gt; get_crs_definition_area()</div><div class="ttdoc">Renvoit le zone de définition du CRS.</div><div class="ttdef"><b>Definition:</b> CRS.h:177</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="CRS_8h.html">CRS.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

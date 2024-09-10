@@ -1,0 +1,256 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Pyramid_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Pyramid.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">class </span><a class="code" href="classPyramid.html">Pyramid</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/Level.h&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/TileMatrixSet.h&quot;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="CRS_8h.html">rok4/utils/CRS.h</a>&quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Style_8h.html">rok4/style/Style.h</a>&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Interpolation_8h.html">rok4/enums/Interpolation.h</a>&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/Configuration.h&quot;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Cache_8h.html">rok4/utils/Cache.h</a>&quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Context_8h.html">rok4/storage/Context.h</a>&quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define DEFAULT_NODATAVALUE 255</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classPyramid.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPyramid.html">Pyramid</a> : <span class="keyword">public</span> <a class="code" href="classConfiguration.html">Configuration</a> {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classContext.html">Context</a>* context;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::map&lt;std::string, Level*&gt; levels;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::vector&lt;Level*&gt; levels_ordered;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>* tms;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a> format;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="classLevel.html">Level</a>* highest_level;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classLevel.html">Level</a>* lowest_level;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">    /******************* PYRAMIDE RASTER *********************/</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> photo;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">int</span>* nodata_value;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">int</span> channels;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">bool</span> parse(<a class="code" href="classjson11_1_1Json.html">json11::Json</a>&amp; doc);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="classPyramid.html#a30c5540c23038d6be913ace725a8ae1b">Pyramid</a>(std::string path);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <a class="code" href="classPyramid.html#a30c5540c23038d6be913ace725a8ae1b">Pyramid</a> (<a class="code" href="classPyramid.html">Pyramid</a>* p);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="classContext.html">Context</a>* <a class="code" href="classPyramid.html#a86f58e423c1ef1ffcc8d942f19fac133">get_context</a> ();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPyramid.html#a3a60e276c669ac8d9df41bbc9d29829d">add_levels</a> (<a class="code" href="classPyramid.html">Pyramid</a>* p, std::string bottomLevel, std::string topLevel);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <a class="code" href="classLevel.html">Level</a>* <a class="code" href="classPyramid.html#afaae7c285a62415d49e06bbe757ea8fa">get_highest_level</a>() ;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <a class="code" href="classLevel.html">Level</a>* <a class="code" href="classPyramid.html#aecb46233bd0563b1396a25eb03cab771">get_lowest_level</a>() ;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <a class="code" href="classTileMatrixSet.html">TileMatrixSet</a>* <a class="code" href="classPyramid.html#a4918330ccf8b59bb5b3e5ff3a3f1a792">get_tms</a>();</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    std::map&lt;std::string, Level*&gt;&amp; <a class="code" href="classPyramid.html#ad77070ee44f32e18dd89dffeae50a1bf">get_levels</a>() ;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    std::vector&lt;Level*&gt; <a class="code" href="classPyramid.html#a748104a83179c149ef76279a71e1485c">get_ordered_levels</a>(<span class="keywordtype">bool</span> bottom_to_top) ;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="classLevel.html">Level</a>* get_level(std::string <span class="keywordtype">id</span>) ;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <a class="code" href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a> <a class="code" href="classPyramid.html#a0c4cf4dda83ec18a50da520550edb3f6">get_format</a>() ;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classPyramid.html#a815ce650e2be7f04a44a0424af0e208a">~Pyramid</a>();</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment">    /******************* PYRAMIDE RASTER *********************/</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code" href="classPyramid.html#a784d7a819aba9ab3a1316296967c965e">get_photometric</a>();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <a class="code" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code" href="classPyramid.html#af3ed856427c048a70698164c4ac8cbf7">get_sample_format</a>();</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code" href="classPyramid.html#aaaa1ba323f14f70bfcae3bac2e3cc6c0">get_sample_compression</a>();</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordtype">int</span>* <a class="code" href="classPyramid.html#a946c09f82b5941d1aaa92f1f81ae603d">get_nodata_value</a>() ;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classPyramid.html#a002b0d2f088a789742612a0a490882a5">get_channels</a>() ;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    std::string <a class="code" href="classPyramid.html#a6d0da4adfad5cd3bb924502b054ffee5">best_level</a> ( <span class="keywordtype">double</span> resolution_x, <span class="keywordtype">double</span> resolution_y );</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <a class="code" href="classImage.html">Image</a>* <a class="code" href="classPyramid.html#a87b6c84f1762a20f1a6fff10a4e0852b">getbbox</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxTileX, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxTileY, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <a class="code" href="classCRS.html">CRS</a>* dst_crs, <span class="keywordtype">bool</span> crs_equals, <a class="code" href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a> interpolation, <span class="keywordtype">int</span> dpi );</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="classImage.html">Image</a>* <a class="code" href="classPyramid.html#a1b5f6672486f1db4a836ee379a3da688">create_reprojected_image</a>(std::string l, <a class="code" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> bbox, <a class="code" href="classCRS.html">CRS</a>* dst_crs, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxTileX, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxTileY, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <a class="code" href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a> interpolation);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;};</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassPyramid_html_af3ed856427c048a70698164c4ac8cbf7"><div class="ttname"><a href="classPyramid.html#af3ed856427c048a70698164c4ac8cbf7">Pyramid::get_sample_format</a></div><div class="ttdeci">SampleFormat::eSampleFormat get_sample_format()</div><div class="ttdoc">Récupère le sample.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:466</div></div>
+<div class="ttc" id="aStyle_8h_html"><div class="ttname"><a href="Style_8h.html">Style.h</a></div><div class="ttdoc">Définition de la classe Style modélisant les styles.</div></div>
+<div class="ttc" id="aclassjson11_1_1Json_html"><div class="ttname"><a href="classjson11_1_1Json.html">json11::Json</a></div><div class="ttdef"><b>Definition:</b> json11.hpp:79</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a2400cfa91cf2e98ca0cca9024b029203"><div class="ttname"><a href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a></div><div class="ttdeci">ePhotometric</div><div class="ttdoc">Énumération des photométries disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:191</div></div>
+<div class="ttc" id="aclassPyramid_html_a86f58e423c1ef1ffcc8d942f19fac133"><div class="ttname"><a href="classPyramid.html#a86f58e423c1ef1ffcc8d942f19fac133">Pyramid::get_context</a></div><div class="ttdeci">Context * get_context()</div><div class="ttdoc">Contexte de stockage.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:262</div></div>
+<div class="ttc" id="aclassPyramid_html_a784d7a819aba9ab3a1316296967c965e"><div class="ttname"><a href="classPyramid.html#a784d7a819aba9ab3a1316296967c965e">Pyramid::get_photometric</a></div><div class="ttdeci">Photometric::ePhotometric get_photometric()</div><div class="ttdoc">Indique la photometrie de la pyramide.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:497</div></div>
+<div class="ttc" id="aclassPyramid_html_a748104a83179c149ef76279a71e1485c"><div class="ttname"><a href="classPyramid.html#a748104a83179c149ef76279a71e1485c">Pyramid::get_ordered_levels</a></div><div class="ttdeci">std::vector&lt; Level * &gt; get_ordered_levels(bool bottom_to_top)</div><div class="ttdoc">Récupère les niveaux ordonnés par résolution décroissante.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:476</div></div>
+<div class="ttc" id="aclassPyramid_html_a1b5f6672486f1db4a836ee379a3da688"><div class="ttname"><a href="classPyramid.html#a1b5f6672486f1db4a836ee379a3da688">Pyramid::create_reprojected_image</a></div><div class="ttdeci">Image * create_reprojected_image(std::string l, BoundingBox&lt; double &gt; bbox, CRS *dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation)</div><div class="ttdoc">Créé une image reprojetée.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:400</div></div>
+<div class="ttc" id="aclassContext_html"><div class="ttname"><a href="classContext.html">Context</a></div><div class="ttdoc">Création d'un contexte de stockage abstrait.</div><div class="ttdef"><b>Definition:</b> Context.h:127</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format.</div></div>
+<div class="ttc" id="aclassPyramid_html_a815ce650e2be7f04a44a0424af0e208a"><div class="ttname"><a href="classPyramid.html#a815ce650e2be7f04a44a0424af0e208a">Pyramid::~Pyramid</a></div><div class="ttdeci">virtual ~Pyramid()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:452</div></div>
+<div class="ttc" id="aclassCRS_html"><div class="ttname"><a href="classCRS.html">CRS</a></div><div class="ttdoc">Gestion des systèmes de référence.</div><div class="ttdef"><b>Definition:</b> CRS.h:70</div></div>
+<div class="ttc" id="aclassPyramid_html_ad77070ee44f32e18dd89dffeae50a1bf"><div class="ttname"><a href="classPyramid.html#ad77070ee44f32e18dd89dffeae50a1bf">Pyramid::get_levels</a></div><div class="ttdeci">std::map&lt; std::string, Level * &gt; &amp; get_levels()</div><div class="ttdoc">Récupère les niveaux.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:474</div></div>
+<div class="ttc" id="aclassPyramid_html_a30c5540c23038d6be913ace725a8ae1b"><div class="ttname"><a href="classPyramid.html#a30c5540c23038d6be913ace725a8ae1b">Pyramid::Pyramid</a></div><div class="ttdeci">Pyramid(std::string path)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:203</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:73</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="anamespaceRok4Format_html_a92a5b0c2bebf2bea2b2699d8c7424cf5"><div class="ttname"><a href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a></div><div class="ttdeci">eFormat</div><div class="ttdoc">Énumération des formats d'images disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:288</div></div>
+<div class="ttc" id="aclassPyramid_html_a0c4cf4dda83ec18a50da520550edb3f6"><div class="ttname"><a href="classPyramid.html#a0c4cf4dda83ec18a50da520550edb3f6">Pyramid::get_format</a></div><div class="ttdeci">Rok4Format::eFormat get_format()</div><div class="ttdoc">Récupère le format.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:496</div></div>
+<div class="ttc" id="aclassPyramid_html_aaaa1ba323f14f70bfcae3bac2e3cc6c0"><div class="ttname"><a href="classPyramid.html#aaaa1ba323f14f70bfcae3bac2e3cc6c0">Pyramid::get_sample_compression</a></div><div class="ttdeci">Compression::eCompression get_sample_compression()</div><div class="ttdoc">Récupère la compression.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:462</div></div>
+<div class="ttc" id="aclassPyramid_html_a6d0da4adfad5cd3bb924502b054ffee5"><div class="ttname"><a href="classPyramid.html#a6d0da4adfad5cd3bb924502b054ffee5">Pyramid::best_level</a></div><div class="ttdeci">std::string best_level(double resolution_x, double resolution_y)</div><div class="ttdoc">Récupère le meilleur niveau pour une résolution donnée.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:330</div></div>
+<div class="ttc" id="aInterpolation_8h_html_af0a27c124419a642b9c294f7ae4a46f9"><div class="ttname"><a href="Interpolation_8h.html#af0a27c124419a642b9c294f7ae4a46f9">Interpolation::KernelType</a></div><div class="ttdeci">KernelType</div><div class="ttdoc">Énumération des interpolations.</div><div class="ttdef"><b>Definition:</b> Interpolation.h:61</div></div>
+<div class="ttc" id="aclassPyramid_html_a946c09f82b5941d1aaa92f1f81ae603d"><div class="ttname"><a href="classPyramid.html#a946c09f82b5941d1aaa92f1f81ae603d">Pyramid::get_nodata_value</a></div><div class="ttdeci">int * get_nodata_value()</div><div class="ttdoc">Indique les valeurs de noData.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:499</div></div>
+<div class="ttc" id="aclassPyramid_html_a87b6c84f1762a20f1a6fff10a4e0852b"><div class="ttname"><a href="classPyramid.html#a87b6c84f1762a20f1a6fff10a4e0852b">Pyramid::getbbox</a></div><div class="ttdeci">Image * getbbox(unsigned int maxTileX, unsigned int maxTileY, BoundingBox&lt; double &gt; bbox, int width, int height, CRS *dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi)</div><div class="ttdoc">Récupère une image.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:352</div></div>
+<div class="ttc" id="aInterpolation_8h_html"><div class="ttname"><a href="Interpolation_8h.html">Interpolation.h</a></div><div class="ttdoc">Définition de l'énumération des interpolations disponibles et des conversions.</div></div>
+<div class="ttc" id="aCache_8h_html"><div class="ttname"><a href="Cache_8h.html">Cache.h</a></div><div class="ttdoc">Définition des classes IndexCache, CurlPool, StoragePool et ProjPool.</div></div>
+<div class="ttc" id="aclassConfiguration_html"><div class="ttname"><a href="classConfiguration.html">Configuration</a></div><div class="ttdef"><b>Definition:</b> Configuration.h:49</div></div>
+<div class="ttc" id="aclassPyramid_html_a4918330ccf8b59bb5b3e5ff3a3f1a792"><div class="ttname"><a href="classPyramid.html#a4918330ccf8b59bb5b3e5ff3a3f1a792">Pyramid::get_tms</a></div><div class="ttdeci">TileMatrixSet * get_tms()</div><div class="ttdoc">Récupère le TMS.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:473</div></div>
+<div class="ttc" id="aclassPyramid_html"><div class="ttname"><a href="classPyramid.html">Pyramid</a></div><div class="ttdoc">Implementation des pyramides Une pyramide est associee a un layer et comporte plusieurs niveaux.</div><div class="ttdef"><b>Definition:</b> Pyramid.h:63</div></div>
+<div class="ttc" id="aclassPyramid_html_a3a60e276c669ac8d9df41bbc9d29829d"><div class="ttname"><a href="classPyramid.html#a3a60e276c669ac8d9df41bbc9d29829d">Pyramid::add_levels</a></div><div class="ttdeci">bool add_levels(Pyramid *p, std::string bottomLevel, std::string topLevel)</div><div class="ttdoc">Ajoute les niveaux (clone) d'une autre pyramide.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:264</div></div>
+<div class="ttc" id="aclassPyramid_html_afaae7c285a62415d49e06bbe757ea8fa"><div class="ttname"><a href="classPyramid.html#afaae7c285a62415d49e06bbe757ea8fa">Pyramid::get_highest_level</a></div><div class="ttdeci">Level * get_highest_level()</div><div class="ttdoc">Récupère le plus haut niveau.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:470</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:78</div></div>
+<div class="ttc" id="aclassPyramid_html_aecb46233bd0563b1396a25eb03cab771"><div class="ttname"><a href="classPyramid.html#aecb46233bd0563b1396a25eb03cab771">Pyramid::get_lowest_level</a></div><div class="ttdeci">Level * get_lowest_level()</div><div class="ttdoc">Récupère le plus bas niveau.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:471</div></div>
+<div class="ttc" id="aclassTileMatrixSet_html"><div class="ttname"><a href="classTileMatrixSet.html">TileMatrixSet</a></div><div class="ttdoc">Gestion d'une pyramid de matrices de tuiles.</div><div class="ttdef"><b>Definition:</b> TileMatrixSet.h:99</div></div>
+<div class="ttc" id="aclassPyramid_html_a002b0d2f088a789742612a0a490882a5"><div class="ttname"><a href="classPyramid.html#a002b0d2f088a789742612a0a490882a5">Pyramid::get_channels</a></div><div class="ttdeci">int get_channels()</div><div class="ttdoc">Récupère le nombre de canaux d'une tuile.</div><div class="ttdef"><b>Definition:</b> Pyramid.cpp:498</div></div>
+<div class="ttc" id="anamespaceCompression_html_ab59ae0c9640db55b2cbed59310434030"><div class="ttname"><a href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a></div><div class="ttdeci">eCompression</div><div class="ttdoc">Énumération des compressions disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:136</div></div>
+<div class="ttc" id="aclassLevel_html"><div class="ttname"><a href="classLevel.html">Level</a></div><div class="ttdef"><b>Definition:</b> Level.h:61</div></div>
+<div class="ttc" id="aCRS_8h_html"><div class="ttname"><a href="CRS_8h.html">CRS.h</a></div><div class="ttdoc">Définition de la gestion des systèmes de référence.</div></div>
+<div class="ttc" id="aContext_8h_html"><div class="ttname"><a href="Context_8h.html">Context.h</a></div><div class="ttdoc">Définition de la classe Context.</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><b>Pyramid.h</b></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>
