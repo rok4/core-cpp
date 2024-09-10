@@ -38,19 +38,16 @@
 /**
  * \file LibtiffImage.h
  ** \~french
- * \brief Définition des classes LibtiffImage et LibtiffImageFactory
+ * \brief Définition des classes LibtiffImage
  * \details
  * \li LibtiffImage : gestion d'une image au format TIFF, en écriture et lecture, utilisant la librairie libtiff
- * \li LibtiffImageFactory : usine de création d'objet LibtiffImage
  ** \~english
- * \brief Define classes LibtiffImage and LibtiffImageFactory
+ * \brief Define classes LibtiffImage
  * \details
  * \li LibtiffImage : manage a TIFF format image, reading and writting, using the library libtiff
- * \li LibtiffImageFactory : factory to create LibtiffImage object
  */
 
-#ifndef LIBTIFF_IMAGE_H
-#define LIBTIFF_IMAGE_H
+#pragma once
 
 #include "image/Image.h"
 #include "tiffio.h"
@@ -71,8 +68,6 @@
  * \todo Utiliser le code de la classe TiffReader pour permettre à LibtiffImage de lire des images tuilées.
  */
 class LibtiffImage : public FileImage {
-
-    friend class LibtiffImageFactory;
 
 private:
     /**
@@ -120,13 +115,13 @@ private:
      * \li 1 = conversion, and 0 is white (min-is-white)
      * \li 2 = conversion, and 0 is black (min-is-black)
      */
-    int oneTo8bits;
+    int bit_to_byte;
     
     /**
      * \~french \brief Buffer de conversion de 1 à 8 bits
      * \~english \brief Converting buffer, from 1 to 8 bits
      */
-    uint8_t* oneTo8bits_buffer;
+    uint8_t* bit_to_byte_buffer;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -138,10 +133,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet LibtiffImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibtiffImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par les méthodes statiques de création, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -149,13 +143,12 @@ protected:
      * \param[in] ch nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
-     * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] tiff interface de la librairie TIFF entre le fichier et l'objet
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
-     * \param[in] esType type du canal supplémentaire, si présent.
+     * \param[in] extra_sample type du canal supplémentaire, si présent.
      ** \~english
      * \brief Create a LibtiffImage object, from all attributes
      * \param[in] width image width, in pixel
@@ -165,23 +158,22 @@ protected:
      * \param[in] ch number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
-     * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] tiff interface between file and object
      * \param[in] rowsperstrip data buffering size, in line number
-     * \param[in] esType extra sample type
+     * \param[in] extra_sample extra sample type
      */
     LibtiffImage (
         int width, int height, double resx, double resy, int ch, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
-        Compression::eCompression compression, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric,
+        Compression::eCompression compression, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample extra_sample = ExtraSample::NONE
     );
     
     /** \~french
      * \brief Crée un objet LibtiffImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibtiffImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par les méthodes statiques de création, qui fera différents tests et calculs.
      * Les informations sur l'image sont passée au format TIFF (entiers), et sont convertis au format de la libimage (utilisant les enumérations SampleFormat, Compression et Photometric) par le constructeur. Cela permet de détecter le besoin de convertir à la volée les canaux sur 1 bit en 8 bits.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
@@ -196,7 +188,7 @@ protected:
      * \param[in] comp compression des données
      * \param[in] tiff interface de la librairie TIFF entre le fichier et l'objet
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
-     * \param[in] esType type du canal supplémentaire, si présent.
+     * \param[in] extra_sample type du canal supplémentaire, si présent.
      * \param[in] tiled est ce que la donnée est tuilée
      * \param[in] palette est ce que la donnée est palettisée
      ** \~english
@@ -214,38 +206,21 @@ protected:
      * \param[in] comp data compression
      * \param[in] tiff interface between file and object
      * \param[in] rowsperstrip data buffering size, in line number
-     * \param[in] esType extra sample type
+     * \param[in] extra_sample extra sample type
      * \param[in] tiled Is the data tiled ?
      * \param[in] palette does the data use palette ? ?
      */
     LibtiffImage (
         int width,int height, double resx, double resy, int ch, BoundingBox<double> bbox, std::string name,
         int sf, int bps, int ph,
-        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample esType = ExtraSample::ALPHA_UNASSOC, bool tiled = false, bool palette = false
+        int comp, TIFF* tif, int rowsperstrip, ExtraSample::eExtraSample extra_sample = ExtraSample::NONE, bool tiled = false, bool palette = false
     );
 
 public:
     
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT ) ||
-            ( bps == 8 && sf == SampleFormat::UINT ) ||
-            ( bps == 1 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return ( 
-            ( bps == 32 && sf == SampleFormat::FLOAT ) || 
-            ( bps == 8 && sf == SampleFormat::UINT ) || 
-            ( bps == 16 && sf == SampleFormat::UINT )
-        );
-    }
-
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t *buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t *buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -254,7 +229,7 @@ public:
      * \param[in] pIn source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( Image* pIn );
+    int write_image ( Image* pIn );
 
     /**
      * \~french
@@ -262,7 +237,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint8_t* buffer );
+    int write_image ( uint8_t* buffer );
 
     /**
      * \~french
@@ -270,7 +245,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint16_t* buffer );
+    int write_image ( uint16_t* buffer );
 
     /**
      * \~french
@@ -278,7 +253,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( float* buffer );
+    int write_image ( float* buffer );
 
     /**
      * \~french
@@ -287,7 +262,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint8_t* buffer, int line );
+    int write_line ( uint8_t* buffer, int line );
 
     /**
      * \~french
@@ -296,7 +271,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint16_t* buffer, int line );
+    int write_line ( uint16_t* buffer, int line );
 
     /**
      * \~french
@@ -305,7 +280,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( float* buffer, int line);
+    int write_line ( float* buffer, int line);
 
     /**
      * \~french
@@ -317,7 +292,7 @@ public:
      */
     ~LibtiffImage() {
         delete [] strip_buffer;
-        if (oneTo8bits) delete [] oneTo8bits_buffer;
+        if (bit_to_byte) delete [] bit_to_byte_buffer;
         TIFFClose ( tif );
     }
 
@@ -331,19 +306,12 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- LibtiffImage ------------" ;
         FileImage::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Rows per strip : " << rowsperstrip ;
-        if (oneTo8bits == 1) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is white)";
-        if (oneTo8bits == 2) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is black)";
+        if (bit_to_byte == 1) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is white)";
+        if (bit_to_byte == 2) BOOST_LOG_TRIVIAL(info) <<  "\t- We have to convert samples to 8 bits (min is black)";
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image TIFF
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibtiffImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibtiffImage et de sortir en erreur en cas de problème. Dans le cas d'une image TIFF pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image. Pour l'écriture, on doit tout préciser afin de constituer l'en-tête TIFF.
- */
-class LibtiffImageFactory {
-public:
+
     /** \~french
      * \brief Crée un objet LibtiffImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le TIFF, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes TIFF. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier TIFF.
@@ -366,7 +334,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibtiffImage object pointer, NULL if error
      */
-    LibtiffImage* createLibtiffImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
+    static LibtiffImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 
     /** \~french
      * \brief Crée un objet LibtiffImage, pour l'écriture
@@ -381,8 +349,7 @@ public:
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
-     * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométie des données
      * \param[in] compression compression des données
      * \param[in] rowsperstrip taille de la bufferisation des données, en nombre de lignes
@@ -399,19 +366,19 @@ public:
      * \param[in] width image width, in pixel
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
-     * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] rowsperstrip data buffering size, in line number
      * \return a LibtiffImage object pointer, NULL if error
      */
-    LibtiffImage* createLibtiffImageToWrite (
+    static LibtiffImage* create_to_write (
         std::string filename, BoundingBox<double> bbox, double resx, double resy, int width, int height, int channels,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric,
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric,
         Compression::eCompression compression, uint16_t rowsperstrip = 16
     );
 };
 
-#endif
+
+
 

@@ -38,24 +38,22 @@
  /**
  * \file StoreDataSource.h
  ** \~french
- * \brief Définition des classes StoreDataSource et StoreDataSourceFactory
+ * \brief Définition des classes StoreDataSource
  * \details
  * \li StoreDataSource : Permet de lire de la donnée quelque soit le type de stockage
- * \li StoreDataSourceFactory : usine de création d'objet StoreDataSource
  ** \~english
- * \brief Define classes StoreDataSource and StoreDataSourceFactory
+ * \brief Define classes StoreDataSource
  * \details
  * \li StoreDataSource : To read data, whatever the storage type
- * \li StoreDataSourceFactory : factory to create StoreDataSource object
  */
 
-#ifndef STOREDATASOURCE_H
-#define STOREDATASOURCE_H
+#pragma once
+
+#include <stdlib.h>
+#include <string>
 
 #include "datasource/DataSource.h"
 #include "storage/Context.h"
-#include <stdlib.h>
-#include <string>
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -116,7 +114,7 @@ protected:
      * \~french \brief A-t-on déjà essayé de lire la donnée
      * \~english \brief Have we already tried to read data
      */
-    bool alreadyTried;
+    bool already_tried;
     /**
      * \~french \brief Taille utile dans #data
      * \~english \brief Real size in #data
@@ -194,14 +192,14 @@ public:
      * \param[out] tile_size Real size of data in the returned pointed buffer
      * \return Data pointer
      */
-    virtual const uint8_t* getData ( size_t &tile_size );
+    virtual const uint8_t* get_data ( size_t &tile_size );
 
 
     /**
      * \~french \brief Supprime la donnée mémorisée (#data)
      * \~english \brief Delete memorized data (#data)
      */
-    bool releaseData() {
+    bool release_data() {
         if (data) {
             delete[] data;
         }
@@ -211,19 +209,19 @@ public:
 
     /**
      * \~french \brief Destructeur
-     * \details Appelle #releaseData
+     * \details Appelle #release_data
      * \~english \brief Destructor
-     * \details Call #releaseData
+     * \details Call #release_data
      */
     ~StoreDataSource(){
-        releaseData();
+        release_data();
     }
 
     /**
      * \~french \brief Retourne 200
      * \~english \brief Return 200
      */
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
 
@@ -231,7 +229,7 @@ public:
      * \~french \brief Retourne la taille des données
      * \~english \brief Return data size
      */
-    unsigned int getLength() {
+    unsigned int get_length() {
         return size;
     }
 
@@ -239,7 +237,7 @@ public:
      * \~french \brief Retourne l'encodage #encoding
      * \~english \brief Return #encoding
      */
-    std::string getEncoding() {
+    std::string get_encoding() {
         return encoding;
     }
 
@@ -247,10 +245,9 @@ public:
      * \~french \brief Retourne le mime-type #type
      * \~english \brief Return the mime-type #type
      */
-    std::string getType() {
+    std::string get_type() {
         return type;
     }
 
 };
 
-#endif // STOREDATASOURCE_H

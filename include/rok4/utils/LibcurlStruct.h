@@ -43,8 +43,11 @@
  * \brief Define strcutures and functions used to get data via cURL library
  */
 
-#ifndef LIBCURL_STRUCT_H
-#define LIBCURL_STRUCT_H
+#pragma once
+
+#ifndef ROK4_SSL_NO_VERIFY
+#define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
+#endif
 
 #include <stdlib.h>
 
@@ -124,4 +127,8 @@ static size_t data_callback(void *contents, size_t size, size_t nmemb, void *use
     return realsize;
 }
 
-#endif
+static bool get_ssl_no_verify() {
+    return getenv(ROK4_SSL_NO_VERIFY) != NULL;
+}
+
+

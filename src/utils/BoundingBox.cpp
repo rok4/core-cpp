@@ -48,54 +48,54 @@
 #include "utils/Cache.h"
 
 template<typename T>
-bool BoundingBox<T>::isInAreaOfCRS(CRS* c) {
+bool BoundingBox<T>::is_in_crs_area(CRS* c) {
 
     if (crs == "EPSG:4326") {
-        return c->getCrsDefinitionArea().contains(*this);
-    } else if (c->cmpRequestCode(crs)) {
-        return c->getNativeCrsDefinitionArea().contains(*this);
+        return c->get_crs_definition_area().contains(*this);
+    } else if (c->cmp_request_code(crs)) {
+        return c->get_native_crs_definition_area().contains(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : isInAreaOfCRS pour une bbox ni géographique ni dans le CRS fourni : " << crs ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : is_in_crs_area pour une bbox ni géographique ni dans le CRS fourni : " << crs ;
     return false;
 }
 
 template<typename T>
-bool BoundingBox<T>::intersectAreaOfCRS(CRS* c) {
+bool BoundingBox<T>::intersect_crs_area(CRS* c) {
 
     if (crs == "EPSG:4326") {
-        return c->getCrsDefinitionArea().intersects(*this);
-    } else if (c->cmpRequestCode(crs)) {
-        return c->getNativeCrsDefinitionArea().intersects(*this);
+        return c->get_crs_definition_area().intersects(*this);
+    } else if (c->cmp_request_code(crs)) {
+        return c->get_native_crs_definition_area().intersects(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : intersectAreaOfCRS pour une bbox non géographique ni dans le CRS fourni : " << crs ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : intersect_crs_area pour une bbox non géographique ni dans le CRS fourni : " << crs ;
     return false;
 }
 
 template<typename T>
-BoundingBox<T> BoundingBox<T>::cropToAreaOfCRS ( CRS* c ) {
+BoundingBox<T> BoundingBox<T>::crop_to_crs_area ( CRS* c ) {
 
     if (crs == "EPSG:4326") {
-        return c->getCrsDefinitionArea().getIntersection(*this);
-    } else if (c->cmpRequestCode(crs)) {
-        return c->getNativeCrsDefinitionArea().getIntersection(*this);
+        return c->get_crs_definition_area().get_intersection(*this);
+    } else if (c->cmp_request_code(crs)) {
+        return c->get_native_crs_definition_area().get_intersection(*this);
     }
 
-    BOOST_LOG_TRIVIAL(warning) <<  "TODO : cropToAreaOfCRS pour une bbox non géographique ni dans le CRS fourni" ;
+    BOOST_LOG_TRIVIAL(warning) <<  "TODO : crop_to_crs_area pour une bbox non géographique ni dans le CRS fourni" ;
     return BoundingBox<T> (0,0,0,0);
 }
 
 template<typename T>
 bool BoundingBox<T>::reproject ( CRS* from_crs, CRS* to_crs , int nbSegment ) {
 
-    PJ_CONTEXT* pj_ctx = ProjPool::getProjEnv();
+    PJ_CONTEXT* pj_ctx = ProjPool::get_proj_env();
 
     PJ *pj_conv_raw, *pj_conv_normalize;
-    pj_conv_raw = proj_create_crs_to_crs_from_pj ( pj_ctx, from_crs->getProjObject(), to_crs->getProjObject(), NULL, NULL);
+    pj_conv_raw = proj_create_crs_to_crs_from_pj ( pj_ctx, from_crs->get_proj_instance(), to_crs->get_proj_instance(), NULL, NULL);
     if (0 == pj_conv_raw) {
         int err = proj_context_errno ( pj_ctx );
-        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ pour la reprojection de la bbox (création) " << from_crs->getRequestCode() << " -> " << to_crs->getRequestCode() << " : " << proj_errno_string ( err )  ;
+        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ pour la reprojection de la bbox (création) " << from_crs->get_request_code() << " -> " << to_crs->get_request_code() << " : " << proj_errno_string ( err )  ;
         return false;
     }
 
@@ -103,7 +103,7 @@ bool BoundingBox<T>::reproject ( CRS* from_crs, CRS* to_crs , int nbSegment ) {
     proj_destroy (pj_conv_raw);
     if (0 == pj_conv_normalize) {
         int err = proj_context_errno ( pj_ctx );
-        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ pour la reprojection de la bbox (normalisation) " << from_crs->getRequestCode() << " -> " << to_crs->getRequestCode() << " : " << proj_errno_string ( err )  ;
+        BOOST_LOG_TRIVIAL(error) <<   "Erreur PROJ pour la reprojection de la bbox (normalisation) " << from_crs->get_request_code() << " -> " << to_crs->get_request_code() << " : " << proj_errno_string ( err )  ;
         return false;
     }
 
@@ -140,7 +140,7 @@ bool BoundingBox<T>::reproject ( CRS* from_crs, CRS* to_crs , int nbSegment ) {
 
     proj_destroy (pj_conv_normalize);
 
-    crs = to_crs->getRequestCode();
+    crs = to_crs->get_request_code();
 
     return true;
 }

@@ -43,10 +43,12 @@
  * \brief Define the Keyword Class handling capabilities keywords
  */
 
-#ifndef KEYWORD_H
-#define KEYWORD_H
+#pragma once
 #include <string>
 #include <map>
+
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
 
 typedef std::pair<std::string,std::string> attribute;
 
@@ -156,7 +158,7 @@ public:
      * \brief Return the keyword text
      * \return keyword value
      */
-    inline const std::string getContent() const {
+    inline const std::string get_content() const {
         return content;
     }
 
@@ -168,7 +170,7 @@ public:
      * \brief Return the attributes list
      * \return attributes list
      */
-    inline const std::map<std::string,std::string>* getAttributes() const {
+    inline const std::map<std::string,std::string>* get_attributes() const {
         return &attributes;
     }
 
@@ -180,8 +182,24 @@ public:
      * \brief Test whether the keyword has attributes
      * \return true if it has at least one
      */
-    inline bool hasAttributes() const {
+    inline bool has_attributes() const {
         return ! ( attributes.empty() );
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud correpondant au mot clé
+     * \param[in] parent Noeud auquel ajouter celui du mot clé
+     * \param[in] node_name Nom du noeud à ajouter
+     * \~english \brief Add a node corresponding to keyword
+     * \param[in] parent Node to whom add the keyword node
+     * \param[in] node_name Node's name
+     */
+    void add_node(ptree& parent, std::string node_name) {
+        ptree& node = parent.add(node_name, content);
+
+        for (std::map<std::string, std::string>::const_iterator it = attributes.begin(); it != attributes.end(); it++) {
+            node.add("<xmlattr>." + it->first, it->second);
+        }
     }
 
     /**
@@ -194,4 +212,4 @@ public:
 
 };
 
-#endif // KEYWORD_H
+

@@ -38,15 +38,13 @@
 /**
  * \file LibopenjpegImage.cpp
  ** \~french
- * \brief Implémentation des classes LibopenjpegImage et LibopenjpegImageFactory
+ * \brief Implémentation des classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : gestion d'une image au format JPEG2000, en lecture, utilisant la librairie openjpeg
- * \li LibopenjpegImageFactory : usine de création d'objet LibopenjpegImage
  ** \~english
- * \brief Implement classes LibopenjpegImage and LibopenjpegImageFactory
+ * \brief Implement classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : manage a JPEG2000 format image, reading, using the library openjpeg
- * \li LibopenjpegImageFactory : factory to create LibopenjpegImage object
  */
 
 #include <string.h>
@@ -60,7 +58,7 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
-static Photometric::ePhotometric toROK4Photometric ( OPJ_COLOR_SPACE ph, int channels ) {
+static Photometric::ePhotometric to_rok4_photometric ( OPJ_COLOR_SPACE ph, int channels ) {
     switch ( ph ) {
     case OPJ_CLRSPC_SRGB :
         return Photometric::RGB;
@@ -107,7 +105,7 @@ static void info_callback ( const char *msg, void *client_data ) {
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibopenjpegImage* LibopenjpegImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
     // Set decoding parameters to default values
     opj_dparameters_t parameters;
@@ -190,7 +188,6 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     
     /************** RECUPERATION DES INFORMATIONS **************/
 
-    // BitsPerSample
     int bitspersample = image->comps[0].prec;
     int width = image->comps[0].w;
     int height = image->comps[0].h;
@@ -198,8 +195,18 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
     int tile_width = 0;
     int rowsperstrip = 0;
 
-    SampleFormat::eSampleFormat sf = SampleFormat::UINT;
-    Photometric::ePhotometric ph = toROK4Photometric ( image->color_space , channels);
+    SampleFormat::eSampleFormat sf = SampleFormat::UNKNOWN;
+
+    switch (bitspersample){
+        case 8:
+            sf = SampleFormat::UINT8;
+            break;
+        
+        default:
+            break;
+    }
+
+    Photometric::ePhotometric ph = to_rok4_photometric ( image->color_space , channels);
     if ( ph == Photometric::UNKNOWN ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unhandled color space (" << image->color_space << ") in the JPEG2000 image " << filename ;
         return NULL;
@@ -229,14 +236,13 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
     /********************** CONTROLES **************************/
 
-    if ( ! LibopenjpegImage::canRead ( bitspersample, sf ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( sf ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << filename ;
+    if ( sf == SampleFormat::UNKNOWN ) {
+        BOOST_LOG_TRIVIAL(error) <<  "Not supported JPEG2000 with " << bitspersample << " bits per sample bands for the image to read : " << filename ;
         return NULL;
     }
     
     if ( resx > 0 && resy > 0 ) {
-        if (! Image::dimensionsAreConsistent(resx, resy, width, height, bbox)) {
+        if (! Image::are_dimensions_consistent(resx, resy, width, height, bbox)) {
             BOOST_LOG_TRIVIAL(error) <<  "Resolutions, bounding box and real dimensions for image '" << filename << "' are not consistent" ;
             return NULL;
         }
@@ -250,7 +256,7 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
     return new LibopenjpegImage (
         width, height, resx, resy, channels, bbox, filename,
-        sf, bitspersample, ph, Compression::JPEG2000,
+        sf, ph, Compression::JPEG2000,
         parameters, codec_format, rowsperstrip, tile_width
     );
 
@@ -261,15 +267,15 @@ LibopenjpegImage* LibopenjpegImageFactory::createLibopenjpegImageToRead ( std::s
 
 LibopenjpegImage::LibopenjpegImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+    SampleFormat::eSampleFormat sampleformat, Photometric::ePhotometric photometric, Compression::eCompression compression,
     opj_dparameters_t parameters, OPJ_CODEC_FORMAT codec_format, int rowsperstrip, int tw ) :
 
-    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression ),
+    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, photometric, compression ),
 
     jp2_parameters ( parameters ), jp2_codec(codec_format), rowsperstrip(rowsperstrip), tile_width(tw) {
 
     current_strip = -1;
-    int strip_size = width*rowsperstrip*pixelSize;
+    int strip_size = width*rowsperstrip*pixel_size;
     strip_buffer = new uint8_t[strip_size];
 }
 
@@ -287,14 +293,14 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
 
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
-        int row_size = width * pixelSize;
+        int row_size = width * pixel_size;
 
         if (tile_width != 0) {
 
             int tilenumber_widthwise = ceil((double) width / tile_width);
             int tilenumber_heightwise = ceil((double) height / rowsperstrip);
-            int tile_row_size = tile_width * pixelSize;
-            int tile_size = tile_width * rowsperstrip * pixelSize;
+            int tile_row_size = tile_width * pixel_size;
+            int tile_size = tile_width * rowsperstrip * pixel_size;
 
             for (int t = 0; t < tilenumber_widthwise; t++) {
                 OPJ_UINT32 tile_index = tilenumber_widthwise * current_strip + t;
@@ -344,7 +350,7 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
                     for (int i = 0; i < current_width; i++) {
                         int index = current_width * l + i;
                         for (int j = 0; j < channels; j++) {
-                            *( (T*) (strip_buffer + l * row_size + t * tile_row_size + i * pixelSize + j * sizeof(T)) ) = image->comps[j].data[index];
+                            *( (T*) (strip_buffer + l * row_size + t * tile_row_size + i * pixel_size + j * sizeof(T)) ) = image->comps[j].data[index];
                         }
                     }
                 }
@@ -399,7 +405,7 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
                 for (int i = 0; i < width; i++) {
                     int index = width * (l % current_rowsperstrip) + i;
                     for (int j = 0; j < channels; j++) {
-                        *( (T*) (strip_buffer + l * row_size + i * pixelSize + j * sizeof(T)) ) = image->comps[j].data[index];
+                        *( (T*) (strip_buffer + l * row_size + i * pixel_size + j * sizeof(T)) ) = image->comps[j].data[index];
                     }
                 }
             }
@@ -411,79 +417,79 @@ int LibopenjpegImage::_getline ( T* buffer, int line ) {
     }
 
     T buffertmp[width * channels];
-    memcpy ( buffertmp, strip_buffer + ( line%rowsperstrip ) * width * pixelSize, width * pixelSize );
+    memcpy ( buffertmp, strip_buffer + ( line%rowsperstrip ) * width * pixel_size, width * pixel_size );
 
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
-        memcpy(buffer, buffertmp, pixelSize * width);
+        memcpy(buffer, buffertmp, pixel_size * width);
     }
     
-    return width * getChannels();
+    return width * get_channels();
 }
 
 
-int LibopenjpegImage::getline ( uint8_t* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+int LibopenjpegImage::get_line ( uint8_t* buffer, int line ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         return _getline ( buffer,line );
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         /* On ne convertit pas les entiers 16 bits en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer entier 16 bits sur le buffer entier, de même taille en octet (2 fois plus grand en "nombre de cases")*/
-        uint16_t int16line[width * getChannels()];
+        uint16_t int16line[width * get_channels()];
         _getline ( int16line, line );
-        memcpy ( buffer, int16line, width * getPixelSize() );
-        return width * getPixelSize();
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+        memcpy ( buffer, int16line, width * get_pixel_size() );
+        return width * get_pixel_size();
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer flottant sur le buffer entier, de même taille en octet (4 fois plus grand en "nombre de cases")*/
-        float floatline[width * getChannels()];
+        float floatline[width * get_channels()];
         _getline ( floatline, line );
-        memcpy ( buffer, floatline, width * getPixelSize() );
-        return width * getPixelSize();
+        memcpy ( buffer, floatline, width * get_pixel_size() );
+        return width * get_pixel_size();
     }
     return 0;
 }
 
-int LibopenjpegImage::getline ( uint16_t* buffer, int line ) {
+int LibopenjpegImage::get_line ( uint16_t* buffer, int line ) {
     
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         // On veut la ligne en entier 16 bits mais l'image lue est sur 8 bits : on convertit
-        uint8_t* buffer_t = new uint8_t[width * getChannels()];
+        uint8_t* buffer_t = new uint8_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+        return width * get_channels();
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         return _getline ( buffer,line );        
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 16 bits (aucun intérêt)
         * On va copier le buffer flottant sur le buffer entier 16 bits, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         float floatline[width * channels];
         _getline ( floatline, line );
-        memcpy ( buffer, floatline, width*pixelSize );
-        return width*pixelSize;
+        memcpy ( buffer, floatline, width*pixel_size );
+        return width*pixel_size;
     }
     return 0;
 }
 
-int LibopenjpegImage::getline ( float* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+int LibopenjpegImage::get_line ( float* buffer, int line ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
-        uint8_t* buffer_t = new uint8_t[width * getChannels()];
+        uint8_t* buffer_t = new uint8_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+        return width * get_channels();
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
-        uint16_t* buffer_t = new uint16_t[width * getChannels()];
+        uint16_t* buffer_t = new uint16_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();   
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+        return width * get_channels();   
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         return _getline ( buffer, line );
     }
     return 0;

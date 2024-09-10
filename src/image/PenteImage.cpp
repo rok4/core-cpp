@@ -45,54 +45,54 @@
 #define DEG_TO_RAD      .0174532925199432958
 #include <string>
 
-int PenteImage::getline ( float* buffer, int line ) {
+int PenteImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int PenteImage::getline ( uint16_t* buffer, int line ) {
+int PenteImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int PenteImage::getline ( uint8_t* buffer, int line ) {
+int PenteImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 //definition des variables
 PenteImage::PenteImage (Image* image, Pente* p) :
-    Image ( image->getWidth() - 2, image->getHeight() - 2, 1),
-    origImage ( image ), algo (p->getAlgo()),unit (p->getUnit()), slopeNoData (p->getSlopeNoData()), imgNoData (p->getImgNoData()), maxSlope (p->getMaxSlope())
+    Image ( image->get_width() - 2, image->get_height() - 2, 1),
+    source_image ( image ), pente (p)
     {
 
     // On réduit la bbox d'un pixel de chaque côté
-    BoundingBox<double> bb = origImage->getBbox();
-    bb.xmin += origImage->getResX();
-    bb.ymin += origImage->getResY();
-    bb.xmax -= origImage->getResX();
-    bb.ymax -= origImage->getResY();
-    setBbox(bb);
+    BoundingBox<double> bb = source_image->get_bbox();
+    bb.xmin += source_image->get_resx();
+    bb.ymin += source_image->get_resy();
+    bb.xmax -= source_image->get_resx();
+    bb.ymax -= source_image->get_resy();
+    set_bbox(bb);
 
-    setCRS(origImage->getCRS());
+    set_crs(source_image->get_crs());
 
     // On calcule une seule fois la résolution en mètre
-    resxmeter = getResXmeter();
-    resymeter = getResYmeter();
+    resxmeter = get_resx(true);
+    resymeter = get_resy(true);
 
     // Buffer de lignes sources
-    memorizedOrigLines = 3;
+    memorized_source_lines = 3;
 
-    origLines = new int[memorizedOrigLines];
-    for (int i = 0; i < memorizedOrigLines; i++) {
-        origLines[i] = -1;
+    source_lines = new int[memorized_source_lines];
+    for (int i = 0; i < memorized_source_lines; i++) {
+        source_lines[i] = -1;
     }
-    origLinesBuffer = new float[origImage->getWidth() * memorizedOrigLines];
+    source_lines_buffer = new float[source_image->get_width() * memorized_source_lines];
 
 }
 
 
 PenteImage::~PenteImage() {
-    delete origImage;
-    delete[] origLines;
-    delete[] origLinesBuffer;
+    delete source_image;
+    delete[] source_lines;
+    delete[] source_lines_buffer;
 }
 
 
@@ -104,31 +104,31 @@ int PenteImage::_getline ( T* buffer, int line ) {
     // Plus généralement, pour avoir la ligne n de l'image estompée, on a besoin des lignes
     // n, n+1 et n+2 de l'image source
 
-    // On range les lignes sources dans un buffer qui peut en stocker "memorizedOrigLines"
-    // La ligne source n est stockée en (n % memorizedOrigLines) ème position
+    // On range les lignes sources dans un buffer qui peut en stocker "memorized_source_lines"
+    // La ligne source n est stockée en (n % memorized_source_lines) ème position
 
     // calcul des emplacements dans le buffer des 3 lignes sources nécessaires
-    float* line1 = origLinesBuffer + (line % memorizedOrigLines) * origImage->getWidth();
-    float* line2 = origLinesBuffer + ((line + 1) % memorizedOrigLines) * origImage->getWidth();
-    float* line3 = origLinesBuffer + ((line + 2) % memorizedOrigLines) * origImage->getWidth();
+    float* line1 = source_lines_buffer + (line % memorized_source_lines) * source_image->get_width();
+    float* line2 = source_lines_buffer + ((line + 1) % memorized_source_lines) * source_image->get_width();
+    float* line3 = source_lines_buffer + ((line + 2) % memorized_source_lines) * source_image->get_width();
 
     // ligne du dessus
-    if (origLines[line % memorizedOrigLines] != line) {
+    if (source_lines[line % memorized_source_lines] != line) {
         // la ligne source 'line' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line1 , line);
-        origLines[line % memorizedOrigLines] = line;
+        source_image->get_line (line1 , line);
+        source_lines[line % memorized_source_lines] = line;
     }
     // ligne du milieu
-    if (origLines[(line + 1) % memorizedOrigLines] != line + 1) {
+    if (source_lines[(line + 1) % memorized_source_lines] != line + 1) {
         // la ligne source 'line + 1' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line2 , line + 1);
-        origLines[(line + 1) % memorizedOrigLines] = line + 1;
+        source_image->get_line (line2 , line + 1);
+        source_lines[(line + 1) % memorized_source_lines] = line + 1;
     }
     // ligne du dessous
-    if (origLines[(line + 2) % memorizedOrigLines] != line + 2) {
+    if (source_lines[(line + 2) % memorized_source_lines] != line + 2) {
         // la ligne source 'line + 2' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line3 , line + 2);
-        origLines[(line + 2) % memorizedOrigLines] = line + 2;
+        source_image->get_line (line3 , line + 2);
+        source_lines[(line + 2) % memorized_source_lines] = line + 2;
     }
     
 	//on commence a la premiere colonne
@@ -139,10 +139,10 @@ int PenteImage::_getline ( T* buffer, int line ) {
     float a,b,c,d,e,f,g,h,i;
     float resx,resy;
 
-    if (algo == "H") {
+    if (pente->algo == "H") {
         resx = 8.0 * resxmeter;
         resy = 8.0 * resymeter;
-    } else if (algo == "Z") {
+    } else if (pente->algo == "Z") {
         resx = 2.0 * resxmeter;
         resy = 2.0 * resymeter;
     }
@@ -160,15 +160,15 @@ int PenteImage::_getline ( T* buffer, int line ) {
         h = ( * ( line3+columnOrig ) );
         i = ( * ( line3+columnOrig+1 ) );
 
-        if (a == imgNoData || b == imgNoData || c == imgNoData || d == imgNoData || e == imgNoData ||
-                f == imgNoData || g == imgNoData || h == imgNoData || i == imgNoData) {
-            slope = slopeNoData;
+        if (a == pente->input_nodata_value || b == pente->input_nodata_value || c == pente->input_nodata_value || d == pente->input_nodata_value || e == pente->input_nodata_value ||
+                f == pente->input_nodata_value || g == pente->input_nodata_value || h == pente->input_nodata_value || i == pente->input_nodata_value) {
+            slope = pente->slope_nodata_value;
         } else {
 
-            if (algo == "H") {
+            if (pente->algo == "H") {
                 dzdx = (( c + 2.0 * f + i) - (a + 2.0 *  d + g)) / resx;
                 dzdy = (( g + 2.0 * h + i) - (a + 2.0 *  b + c)) / resy;
-            } else if (algo == "Z" ) {
+            } else if (pente->algo == "Z" ) {
                 dzdx = (f - d) / resx;
                 dzdy = (h - b) / resy;
             } else {
@@ -176,9 +176,9 @@ int PenteImage::_getline ( T* buffer, int line ) {
             }
 
 
-            if (unit == "pourcent") {
+            if (pente->unit == "pourcent") {
                 slope = sqrt(pow(dzdx,2.0) + pow(dzdy,2.0)) * 100.0;
-            } else if (unit == "degree") {
+            } else if (pente->unit == "degree") {
                 rise = sqrt(pow(dzdx,2.0) + pow(dzdy,2.0));
 
                 slope = atan(rise) * 180.0 / M_PI;
@@ -187,7 +187,9 @@ int PenteImage::_getline ( T* buffer, int line ) {
                 slope = 0;
             }
 
-            if (slope>maxSlope){slope = maxSlope;}
+            if (slope > pente->max_slope) {
+                slope = pente->max_slope;
+            }
 
         }
 

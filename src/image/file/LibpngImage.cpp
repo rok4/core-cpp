@@ -38,15 +38,13 @@
 /**
  * \file LibpngImage.cpp
  ** \~french
- * \brief Implémentation des classes LibpngImage et LibpngImageFactory
+ * \brief Implémentation des classes LibpngImage
  * \details
  * \li LibpngImage : gestion d'une image au format PNG, en lecture, utilisant la librairie libpng
- * \li LibpngImageFactory : usine de création d'objet LibpngImage
  ** \~english
- * \brief Implement classes LibpngImage and LibpngImageFactory
+ * \brief Implement classes LibpngImage
  * \details
  * \li LibpngImage : manage a PNG format image, reading, using the library libpng
- * \li LibpngImageFactory : factory to create LibpngImage object
  */
 
 #include "image/file/LibpngImage.h"
@@ -57,7 +55,7 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------ CONVERSIONS ----------------------------------------- */
 
-static Photometric::ePhotometric toROK4Photometric ( png_byte ph ) {
+static Photometric::ePhotometric to_rok4_photometric ( png_byte ph ) {
     switch ( ph ) {
     case PNG_COLOR_TYPE_GRAY :
         return Photometric::GRAY;
@@ -79,7 +77,7 @@ static Photometric::ePhotometric toROK4Photometric ( png_byte ph ) {
 /* -------------------------------------------- USINES -------------------------------------------- */
 
 /* ----- Pour la lecture ----- */
-LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
+LibpngImage* LibpngImage::create_to_read ( std::string filename, BoundingBox< double > bbox, double resx, double resy ) {
 
 
     png_structp pngStruct;
@@ -128,26 +126,33 @@ LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename,
 
     /************** RECUPERATION DES INFORMATIONS **************/
 
-    int width = 0, height = 0, channels = 0, bitspersample = 0;
-    SampleFormat::eSampleFormat sf = SampleFormat::UINT;
+    int width = 0, height = 0, channels = 0;
+    SampleFormat::eSampleFormat sf;
     png_byte color_type, bit_depth;
 
     width = png_get_image_width(pngStruct, pngInfo);
     height = png_get_image_height(pngStruct, pngInfo);
     color_type = png_get_color_type(pngStruct, pngInfo);
     bit_depth = png_get_bit_depth(pngStruct, pngInfo);
-    bitspersample = int(bit_depth);
+    if (bit_depth < 8) {
+        png_set_expand_gray_1_2_4_to_8 (pngStruct);
+        bit_depth = 8;
+    }
+
+
+    if (int(bit_depth) == 8) {
+        sf = SampleFormat::UINT8;
+    } else if (int(bit_depth) == 16) {
+        sf = SampleFormat::UINT16;
+    } else {
+        BOOST_LOG_TRIVIAL(error) <<  "Not supported PNG image bit depth (" << int(bit_depth) << ") for the image to read : " << filename;
+        return NULL;
+    }
     
     /********************** CONTROLES **************************/
     
-    if ( ! LibpngImage::canRead ( bitspersample, sf ) ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Not supported sample type : " << SampleFormat::toString ( sf ) << " and " << bitspersample << " bits per sample" ;
-        BOOST_LOG_TRIVIAL(error) <<  "\t for the image to read : " << filename ;
-        return NULL;
-    }
-
     if ( resx > 0 && resy > 0 ) {
-        if (! Image::dimensionsAreConsistent(resx, resy, width, height, bbox)) {
+        if (! Image::are_dimensions_consistent(resx, resy, width, height, bbox)) {
             BOOST_LOG_TRIVIAL(error) <<  "Resolutions, bounding box and real dimensions for image '" << filename << "' are not consistent" ;
             return NULL;
         }
@@ -164,11 +169,6 @@ LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename,
         {
             BOOST_LOG_TRIVIAL(debug) << "Initial PNG color type PNG_COLOR_TYPE_GRAY";
             channels = 1;
-            
-            if (bit_depth < 8) {
-                png_set_expand_gray_1_2_4_to_8 (pngStruct);
-                bitspersample = 8;
-            }
             break;
         }
         case PNG_COLOR_TYPE_GRAY_ALPHA :
@@ -206,7 +206,7 @@ LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename,
     if (png_get_valid(pngStruct, pngInfo, PNG_INFO_tRNS)) {
         BOOST_LOG_TRIVIAL(debug) << "Convert tRNS to alpha sample for PNG image";        
         png_set_tRNS_to_alpha(pngStruct);
-        channels+=1;
+        channels += 1;
     }
     
     png_read_update_info (pngStruct, pngInfo);
@@ -233,7 +233,7 @@ LibpngImage* LibpngImageFactory::createLibpngImageToRead ( std::string filename,
     
     return new LibpngImage (
         width, height, resx, resy, channels, bbox, filename,
-        sf, bitspersample, toROK4Photometric ( color_type ), Compression::PNG,
+        sf, to_rok4_photometric ( color_type ), Compression::PNG,
         pngData
     );
     
@@ -261,10 +261,10 @@ void ReadDataFromInputStream(png_structp png_ptr, png_bytep outBytes, png_size_t
 
 LibpngImage::LibpngImage (
     int width,int height, double resx, double resy, int channels, BoundingBox<double> bbox, std::string name,
-    SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+    SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression,
     png_bytep* pngData ) :
 
-    FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, bitspersample, photometric, compression, ExtraSample::ALPHA_UNASSOC ),
+    FileImage ( width, height, resx, resy, channels, bbox, name, sample_format, photometric, compression, ExtraSample::ALPHA_UNASSOC ),
 
     data(pngData) {
         
@@ -285,74 +285,74 @@ int LibpngImage::_getline ( T* buffer, int line ) {
     /******************** SI PIXEL CONVERTER ******************/
 
     if (converter) {
-        converter->convertLine(buffer, buffertmp);
+        converter->convert_line(buffer, buffertmp);
     } else {
-        memcpy(buffer, buffertmp, pixelSize * width);
+        memcpy(buffer, buffertmp, pixel_size * width);
     }
     
-    return width * getChannels();
+    return width * get_channels();
 }
 
 
-int LibpngImage::getline ( uint8_t* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+int LibpngImage::get_line ( uint8_t* buffer, int line ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         return _getline ( buffer,line );
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         /* On ne convertit pas les entiers 16 bits en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer entier 16 bits sur le buffer entier, de même taille en octet (2 fois plus grand en "nombre de cases")*/
-        uint16_t int16line[width * getChannels()];
+        uint16_t int16line[width * get_channels()];
         _getline ( int16line, line );
-        memcpy ( buffer, int16line, width * getPixelSize() );
-        return width * getPixelSize();
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+        memcpy ( buffer, int16line, width * get_pixel_size() );
+        return width * get_pixel_size();
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 8 bits (aucun intérêt)
          * On va copier le buffer flottant sur le buffer entier, de même taille en octet (4 fois plus grand en "nombre de cases")*/
-        float floatline[width * getChannels()];
+        float floatline[width * get_channels()];
         _getline ( floatline, line );
-        memcpy ( buffer, floatline, width * getPixelSize() );
-        return width * getPixelSize();
+        memcpy ( buffer, floatline, width * get_pixel_size() );
+        return width * get_pixel_size();
     }
     return 0;
 }
 
-int LibpngImage::getline ( uint16_t* buffer, int line ) {
+int LibpngImage::get_line ( uint16_t* buffer, int line ) {
     
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         // On veut la ligne en entier 16 bits mais l'image lue est sur 8 bits : on convertit
-        uint8_t* buffer_t = new uint8_t[width * getChannels()];
+        uint8_t* buffer_t = new uint8_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+        return width * get_channels();
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         return _getline ( buffer,line );        
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 16 bits (aucun intérêt)
         * On va copier le buffer flottant sur le buffer entier 16 bits, de même taille en octet (2 fois plus grand en "nombre de cases")*/
         float floatline[width * channels];
         _getline ( floatline, line );
-        memcpy ( buffer, floatline, width*pixelSize );
-        return width*pixelSize;
+        memcpy ( buffer, floatline, width*pixel_size );
+        return width*pixel_size;
     }
     return 0;
 }
 
-int LibpngImage::getline ( float* buffer, int line ) {
-    if ( bitspersample == 8 && sampleformat == SampleFormat::UINT ) {
+int LibpngImage::get_line ( float* buffer, int line ) {
+    if ( sample_format == SampleFormat::UINT8 ) {
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
-        uint8_t* buffer_t = new uint8_t[width * getChannels()];
+        uint8_t* buffer_t = new uint8_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();
-    } else if ( bitspersample == 16 && sampleformat == SampleFormat::UINT ) { // uint16
+        return width * get_channels();
+    } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
         // On veut la ligne en flottant pour un réechantillonnage par exemple mais l'image lue est sur des entiers
-        uint16_t* buffer_t = new uint16_t[width * getChannels()];
+        uint16_t* buffer_t = new uint16_t[width * get_channels()];
         _getline ( buffer_t,line );
-        convert ( buffer, buffer_t, width * getChannels() );
+        convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * getChannels();   
-    } else if ( bitspersample == 32 && sampleformat == SampleFormat::FLOAT ) { // float
+        return width * get_channels();   
+    } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         return _getline ( buffer, line );
     }
     return 0;

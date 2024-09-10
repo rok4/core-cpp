@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PALETTE_H
-#define PALETTE_H
+#pragma once
 
 #include "rok4/utils/Configuration.h"
 
@@ -62,49 +61,39 @@ public:
 
 class Palette : public Configuration {
 private:
-    size_t pngPaletteSize;
-    uint8_t* pngPalette;
-    bool pngPaletteInitialised;
-    std::map<double,Colour> coloursMap;
-    bool rgbContinuous;
-    bool alphaContinuous;
-    bool noAlpha;
+    size_t png_palette_size;
+    uint8_t* png_palette;
+    bool png_palette_initialized;
+    std::map<double,Colour> colours_map;
+    bool rgb_continuous;
+    bool alpha_continuous;
+    bool no_alpha;
 
 public:
-    /**
-     *
-     * @param colours : doit contenir une valeur par niveau compris entre 0 et la dernière valeure possible
-     * @param alpha : doit contenir une valeur par niveau compris entre 0 et la dernière valeure possible ou être vide (désactivation de la transparence)
-     */
     Palette();
-    Palette ( size_t pngPaletteSize, uint8_t* pngPalette );
-    Palette ( const Palette& pal );
     Palette ( json11::Json doc );
 
     Palette & operator= ( const Palette& pal );
     bool operator== ( const Palette& other ) const;
     bool operator!= ( const Palette& other ) const;
     virtual ~Palette();
-    size_t getPalettePNGSize();
+    size_t get_png_palette_size();
 
-    void buildPalettePNG();
+    void build_png_palette();
 
-    uint8_t* getPalettePNG();
-    std::map<double,Colour>* getColoursMap() {
-        return &coloursMap;
+    uint8_t* get_png_palette();
+    std::map<double,Colour>* get_colours_map() {
+        return &colours_map;
     }
-    bool isRGBContinuous() {
-        return rgbContinuous;
+    bool is_no_alpha() {
+        return no_alpha;
     }
-    bool isAlphaContinuous() {
-        return alphaContinuous;
+    bool is_empty() {
+        return colours_map.empty();
     }
-    bool isNoAlpha() {
-        return noAlpha;
-    }
-    Colour getColour ( double index );
+    Colour get_colour ( double index );
 
 };
 
 
-#endif // PALETTE_H
+

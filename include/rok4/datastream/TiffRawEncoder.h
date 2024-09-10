@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFRAWENCODER_
-#define _TIFFRAWENCODER_
+#pragma once
 
 #include "datastream/DataStream.h"
 #include "image/Image.h"
@@ -48,46 +47,46 @@
 template <typename T>
 class TiffRawEncoder : public TiffEncoder {
 protected:
-    virtual void prepareHeader(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation de l'en-tete";
-	sizeHeader = TiffHeader::headerSize ( image->getChannels() );
-	header = new uint8_t[sizeHeader];
-	if ( image->getChannels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_RAW_FLOAT32_GRAY, sizeHeader);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, sizeHeader);
-	    }
-	else if ( image->getChannels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGB, sizeHeader);
-	else if ( image->getChannels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, sizeHeader);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->getWidth();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->getHeight();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->getHeight();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmpBufferSize ;
+    virtual void prepare_header(){
+        BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size ( image->get_channels() );
+        header = new uint8_t[header_size];
+        if ( image->get_channels()==1 )
+            if ( sizeof ( T ) == sizeof ( float ) ) {
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_FLOAT32_GRAY, header_size);
+            } else {
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, header_size);
+            }
+        else if ( image->get_channels()==3 )
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGB, header_size);
+        else if ( image->get_channels()==4 )
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, header_size);
+        * ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
+        * ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
+        * ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
+        * ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
     }
   
-    virtual void prepareBuffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation du buffer d'image";
-	tmpBuffer = new uint8_t[image->getHeight()*image->getWidth()*image->getChannels()*sizeof ( T )];
-	int lRead = 0;
-	tmpBufferSize = 0;
-	int linesize = image->getWidth()*image->getChannels();
-	int linesizetmp = linesize * sizeof ( T );
-	for ( ; lRead < image->getHeight() ; lRead++ ) {
-	    image->getline ( ( T* ) (tmpBuffer+tmpBufferSize), lRead );
-	    tmpBufferSize+=linesizetmp;
-	}
+    virtual void prepare_buffer(){
+        BOOST_LOG_TRIVIAL(debug) << "TiffRawEncoder : preparation du buffer d'image";
+        tmp_buffer = new uint8_t[image->get_height()*image->get_width()*image->get_channels()*sizeof ( T )];
+        int lRead = 0;
+        tmp_buffer_size = 0;
+        int linesize = image->get_width()*image->get_channels();
+        int linesizetmp = linesize * sizeof ( T );
+        for ( ; lRead < image->get_height() ; lRead++ ) {
+            image->get_line ( ( T* ) (tmp_buffer+tmp_buffer_size), lRead );
+            tmp_buffer_size+=linesizetmp;
+        }
     }
 
 public:
-    TiffRawEncoder ( Image *image, bool isGeoTiff = false ) : TiffEncoder( image, -1, isGeoTiff ) {}
+    TiffRawEncoder ( Image *image, bool is_geotiff = false ) : TiffEncoder( image, -1, is_geotiff ) {}
     ~TiffRawEncoder() {
     }
    
 };
 
-#endif
+
 
 

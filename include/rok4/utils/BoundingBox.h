@@ -45,13 +45,16 @@
 
 class CRS;
 
-#ifndef BOUNDINGBOX_H
-#define BOUNDINGBOX_H
+#pragma once
 
 #include <boost/log/trivial.hpp>
 #include <proj.h>
 #include <sstream>
 #include <cmath>
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
+
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -109,11 +112,11 @@ public:
     ~BoundingBox() {}
 
     
-    bool isInAreaOfCRS(CRS* c);
+    bool is_in_crs_area(CRS* c);
 
-    bool intersectAreaOfCRS(CRS* c) ;
+    bool intersect_crs_area(CRS* c) ;
 
-    BoundingBox<T> cropToAreaOfCRS ( CRS* c ) ;
+    BoundingBox<T> crop_to_crs_area ( CRS* c ) ;
 
     /** \~french
      * \brief Reprojette le rectangle englobant (SRS sous forme de chaîne de caractères)
@@ -129,21 +132,24 @@ public:
      ** \~english \brief Bounding box description output
      */
     void print() {
-        std::ostringstream oss;
-        oss.setf ( std::ios::fixed,std::ios::floatfield );
-        oss << xmin << "," << ymin << "," << xmax << "," << ymax;
-        BOOST_LOG_TRIVIAL(debug) <<  "BBOX (" << crs << ") = " << oss.str() ;
+        BOOST_LOG_TRIVIAL(debug) <<  "BBOX (" << crs << ") = " << to_string() ;
     }
 
     /** \~french \brief Conversion des informations sur le rectangle englobant en string
+     * \param[in] invert_coords Inversion des X et des Y
      * \return chaîne de carcactère décrivant le rectangle englobant
      ** \~english \brief Convert bounding box description to string
+     * \param[in] invert_coords Invert X and Y
      * \return string describing the bounding box
      */
-    std::string toString() {
+    std::string to_string(bool invert_coords = false) {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
-        oss << xmin << "," << ymin << "," << xmax << "," << ymax;
+        if (invert_coords) {
+            oss << ymin << "," << xmin << "," << ymax << "," << xmax;
+        } else {
+            oss << xmin << "," << ymin << "," << xmax << "," << ymax;
+        }
         return oss.str() ;
     }
 
@@ -174,7 +180,7 @@ public:
      ** WARNING: the two bbox must have the same CRS
      * \param[in] bbox
      */
-    BoundingBox<T> getIntersection ( BoundingBox<T> other ) {
+    BoundingBox<T> get_intersection ( BoundingBox<T> other ) {
 
         if (! this->intersects(other)) {
             return BoundingBox<T> (0,0,0,0);
@@ -196,7 +202,7 @@ public:
      ** WARNING: the two bbox must have the same CRS
      * \param[in] bbox
      */
-    BoundingBox<T> getUnion ( BoundingBox<T> other ) {
+    BoundingBox<T> get_union ( BoundingBox<T> other ) {
 
         return BoundingBox<T> (
             std::min(this->xmin, other.xmin),
@@ -210,7 +216,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de X min
-     * \details La phase de Xmin est le décalage entre le bord gauche de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Xmin est le décalage entre le bord gauche de la bbox et le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase X min
      * \~english
@@ -218,7 +224,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return X min phasis
      */
-    double getPhaseXmin(T res) {
+    double get_xmin_phase(T res) {
         double intpart;
         double phi = modf ( xmin/res, &intpart );
         if ( phi < 0. ) {
@@ -230,7 +236,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de X max
-     * \details La phase de Xmax est le décalage entre le bord droit de la bbox le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Xmax est le décalage entre le bord droit de la bbox et le 0 des abscisses, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase X max
      * \~english
@@ -238,7 +244,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return X max phasis
      */
-    double getPhaseXmax(T res) {
+    double get_xmax_phase(T res) {
         double intpart;
         double phi = modf ( xmax/res, &intpart );
         if ( phi < 0. ) {
@@ -250,7 +256,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de Y min
-     * \details La phase de Ymin est le décalage entre le bord bas de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Ymin est le décalage entre le bord bas de la bbox et le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase Y min
      * \~english
@@ -258,7 +264,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return Y min phasis
      */
-    double getPhaseYmin(T res) {
+    double get_ymin_phase(T res) {
         double intpart;
         double phi = modf ( ymin/res, &intpart );
         if ( phi < 0. ) {
@@ -270,7 +276,7 @@ public:
     /**
      * \~french
      * \brief Calcul de la phase de Y max
-     * \details La phase de Ymax est le décalage entre le bord haut de la bbox le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
+     * \details La phase de Ymax est le décalage entre le bord haut de la bbox et le 0 des ordonnées, évalué dans la résolution donnée. On a donc un nombre décimal appartenant à [0,1[.
      * \param[in] res Résolution, unité de quantification de la phase
      * \return phase Y max
      * \~english
@@ -278,7 +284,7 @@ public:
      * \param[in] res Resolution, unity to quantify phase
      * \return Y max phasis
      */
-    double getPhaseYmax(T res) {
+    double get_ymax_phase(T res) {
         double intpart;
         double phi = modf ( ymax/res, &intpart );
         if ( phi < 0. ) {
@@ -301,11 +307,11 @@ public:
         // la bbox en entrée est en accord avec les résolutions fournies,
         // c'est à dire que la phase est la même pour le min et le max
         // ce n'est pas forcément le cas pour la bbox à mettre en phase
-        double phaseX = other.getPhaseXmin(resx);
-        double phaseY = other.getPhaseYmin(resy);
+        double phaseX = other.get_xmin_phase(resx);
+        double phaseY = other.get_ymin_phase(resy);
 
         // Mise en phase de xmin (sans que celui ci puisse être plus petit)
-        phi = getPhaseXmin(resx);
+        phi = get_xmin_phase(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -316,7 +322,7 @@ public:
         }
 
         // Mise en phase de xmax (sans que celui ci puisse être plus grand)
-        phi = getPhaseXmax(resx);
+        phi = get_xmax_phase(resx);
 
         if ( fabs ( phi-phaseX ) > 0.0001 && fabs ( phi-phaseX ) < 0.9999 ) {
             phaseDiff = phaseX - phi;
@@ -327,7 +333,7 @@ public:
         }
 
         // Mise en phase de ymin (sans que celui ci puisse être plus petit)
-        phi = getPhaseYmin(resy);
+        phi = get_ymin_phase(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;
@@ -338,7 +344,7 @@ public:
         }
 
         // Mise en phase de ymax (sans que celui ci puisse être plus grand)
-        phi = getPhaseYmax(resy);
+        phi = get_ymax_phase(resy);
 
         if ( fabs ( phi-phaseY ) > 0.0001 && fabs ( phi-phaseY ) < 0.9999 ) {
             phaseDiff = phaseY - phi;
@@ -367,7 +373,7 @@ public:
      ** \~english \brief Determine if a bounding box is equal to an other
      * \param[in] bbox
      */
-    bool isEqual ( BoundingBox<T> bbox ) {
+    bool is_equal ( BoundingBox<T> bbox ) {
         if (crs != "" && bbox.crs != "" && crs != bbox.crs) {
             return false;
         } else {
@@ -378,18 +384,73 @@ public:
     /** \~french \brief Détermine si une boundingBox est nulle
      ** \~english \brief Determine if a bounding box is null
      */
-    bool isNull ( ) {
+    bool is_null ( ) {
         return ( xmin == 0 && xmax == 0 && ymin == 0 && ymax == 0 );
     }
 
     /** \~french \brief Détermine si une boundingBox a une aire nulle
      ** \~english \brief Determine if a bounding box has null area
      */
-    bool hasNullArea ( ) {
+    bool has_null_area ( ) {
         return ( xmin >= xmax || ymin >= ymax );
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud correpondant à la bbox
+     * \param[in] parent Noeud auquel ajouter celui de la bbox
+     * \param[in] geographical Export au format géographique
+     * \param[in] invert_coords Inversion des X et des Y
+     * \~english \brief Add a node corresponding to bbox
+     * \param[in] parent Node to whom add the bbox node
+     * \param[in] geographical Geographic format export
+     * \param[in] invert_coords Invert X and Y
+     */
+    void add_node(ptree& parent, bool geographical, bool invert_coords = false) {
+
+        if (geographical) {
+            ptree& node = parent.add("EX_GeographicBoundingBox", "");
+            node.add("westBoundLongitude", xmin);
+            node.add("eastBoundLongitude", xmax);
+            node.add("southBoundLatitude", ymin);
+            node.add("northBoundLatitude", ymax);
+        } else {
+            ptree& node = parent.add("BoundingBox", "");
+            node.add("<xmlattr>.CRS", crs);
+
+            if (invert_coords) {
+                node.add("<xmlattr>.minx", ymin);
+                node.add("<xmlattr>.maxx", ymax);
+                node.add("<xmlattr>.miny", xmin);
+                node.add("<xmlattr>.maxy", xmax);
+            } else {
+                node.add("<xmlattr>.minx", xmin);
+                node.add("<xmlattr>.maxx", xmax);
+                node.add("<xmlattr>.miny", ymin);
+                node.add("<xmlattr>.maxy", ymax);
+            }
+        }
+    }
+
+    /**
+     * \~french \brief Exporte la bbox en JSON conformément à OGC API Tiles
+     * \details La bbox est considérée comme étant en CRS84
+     * \~english \brief Get the bbox as JSON, OGC API Tiles compliant
+     * \details Bbox is considered as CRS84 one
+     */
+    json11::Json to_json_tiles() const {
+        return json11::Json::object {
+            { "spatial", json11::Json::object {
+                { "crs", "http://www.opengis.net/def/crs/OGC/1.3/CRS84" },
+                { "bbox", json11::Json::array {
+                    json11::Json::array {
+                        xmin, ymin, xmax, ymax
+                    }
+                } },
+            } }
+        };
     }
 
 };
 
-#endif
+
 

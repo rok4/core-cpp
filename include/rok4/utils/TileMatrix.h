@@ -43,8 +43,7 @@
  * \brief Define the TileMatrix Class handling a matrix of tiles reprensenting a level in a pyramid (See TileMatrixSet)
  */
 
-#ifndef TILEMATRIX_H
-#define TILEMATRIX_H
+#pragma once
 
 #include <string>
 
@@ -65,17 +64,20 @@
  *
  * XML definition of a TileMatrix :
  * \brief Handles a matrix of tiles
- * \details \~ \code{.xml}
- * <tileMatrix>
- *    <id>Lvl 8</id>
- *    <resolution>611.4962262814100</resolution>
- *    <topLeftCornerX>-20037508.3427892480</topLeftCornerX>
- *    <topLeftCornerY>20037508.3427892480</topLeftCornerY>
- *    <tileWidth>256</tileWidth>
- *    <tileHeight>256</tileHeight>
- *    <matrixWidth>256</matrixWidth>
- *    <matrixHeight>256</matrixHeight>
- * </tileMatrix>
+ * \details \~ \code{.json}
+ *      {
+ *         "id" : "0",
+ *         "scaleDenominator" : 585142857.142857,
+ *         "matrixWidth" : 1,
+ *         "tileWidth" : 256,
+ *         "matrixHeight" : 1,
+ *         "tileHeight" : 256,
+ *         "pointOfOrigin" : [
+ *            0,
+ *            12000000
+ *         ],
+ *         "cellSize" : 163840
+ *      }
  * \endcode
  */
 class TileMatrix : public Configuration {
@@ -107,22 +109,22 @@ protected:
      * \~french \brief Largeur d'une tuile
      * \~english \brief Tile width
      */
-    int tileW;
+    int tile_width;
     /**
      * \~french \brief Longueur d'une tuile
      * \~english \brief Tile height
      */
-    int tileH;
+    int tile_height;
     /**
      * \~french \brief Nombre de tuiles dans la matrice en largeur
      * \~english \brief Tiles number in the matrix width
      */
-    long int matrixW;
+    long int matrix_width;
     /**
      * \~french \brief Nombre de tuiles dans la matrice en longueur
      * \~english \brief Tiles number in the matrix height
      */
-    long int matrixH;
+    long int matrix_height;
 public:
 
     /**
@@ -160,6 +162,7 @@ public:
      * \return true if one of their attributes is different
      */
     bool operator!= ( const TileMatrix& other ) const;
+
     /**
      * \~french
      * \brief Retourne l'indentifiant
@@ -168,7 +171,7 @@ public:
      * \brief Return the identifier
      * \return identifier
      */
-    std::string getId();
+    std::string get_id();
     /**
      * \~french
      * \brief Retourne la résolution d'une tuile
@@ -177,7 +180,7 @@ public:
      * \brief Return the tile's resolution
      * \return resolution
      */
-    double getRes();
+    double get_res();
     /**
      * \~french
      * \brief Retourne l'abscisse du point en haut à gauche dans le système de coordonnées associé.
@@ -186,7 +189,7 @@ public:
      * \brief Return the x-coordinate of the top right corner in the linked coordinate system.
      * \return x-coordinate
      */
-    double getX0();
+    double get_x0();
     /**
      * \~french
      * \brief Retourne l'ordonnée du point en haut à gauche dans le système de coordonnées associé.
@@ -195,7 +198,7 @@ public:
      * \brief Return the y-coordinate of the top right corner in the linked coordinate system.
      * \return y-coordinate
      */
-    double getY0();
+    double get_y0();
     /**
      * \~french
      * \brief Retourne la largeur d'une tuile
@@ -204,7 +207,7 @@ public:
      * \brief Return the tile width
      * \return width
      */
-    int getTileW();
+    int get_tile_width();
     /**
      * \~french
      * \brief Retourne la longueur d'une tuile
@@ -213,7 +216,7 @@ public:
      * \brief Return the tile height
      * \return height
      */
-    int getTileH();
+    int get_tile_height();
     /**
      * \~french
      * \brief Retourne le nombre de tuiles dans la largeur de la matrice
@@ -222,7 +225,7 @@ public:
      * \brief Return the number of tiles in the matrix width
      * \return number of tiles in width
      */
-    long int getMatrixW();
+    long int get_matrix_width();
     /**
      * \~french
      * \brief Retourne le nombre de tuiles dans la longueur de la matrice
@@ -231,7 +234,7 @@ public:
      * \brief Return the number of tiles in the matrix height
      * \return number of tiles in height
      */
-    long int getMatrixH();
+    long int get_matrix_height();
 
     /**
      * \~french
@@ -241,7 +244,7 @@ public:
      * \brief Get level's extrem tiles for the provided bbox
     * \param[in] bbox Bounding box whom
      */
-    TileMatrixLimits bboxToTileLimits(BoundingBox<double> bbox);
+    TileMatrixLimits bbox_to_tile_limits(BoundingBox<double> bbox);
 
     /**
      * \~french
@@ -251,9 +254,9 @@ public:
      * \brief Get level's bbox from tile limits
     * \param[in] limits Tile limits
      */
-    BoundingBox<double> bboxFromTileLimits(TileMatrixLimits limits);
+    BoundingBox<double> bbox_from_tile_limits(TileMatrixLimits limits);
 
-    BoundingBox<double> tileIndicesToBbox (int col, int row);
+    BoundingBox<double> tile_indices_to_bbox (int col, int row);
 
     /**
      * \~french
@@ -265,4 +268,4 @@ public:
     
 };
 
-#endif /* TILEMATRIX_H_ */
+

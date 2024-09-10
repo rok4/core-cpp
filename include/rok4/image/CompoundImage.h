@@ -35,20 +35,21 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef COMPOUND_IMAGE_H
-#define COMPOUND_IMAGE_H
+#pragma once
 
-#include "rok4/image/Image.h"
 #include <vector>
 
+#include "rok4/image/Image.h"
+
 class CompoundImage : public Image {
+
 private:
 
-    static int computeWidth ( std::vector<std::vector<Image*> > &images );
-    static int computeHeight ( std::vector<std::vector<Image*> > &images );
-    static BoundingBox<double> computeBbox ( std::vector<std::vector<Image*> > &images );
+    static int compute_width ( std::vector<std::vector<Image*> > &source_images );
+    static int compute_height ( std::vector<std::vector<Image*> > &source_images );
+    static BoundingBox<double> compute_bbox ( std::vector<std::vector<Image*> > &source_images );
 
-    std::vector<std::vector<Image*> > images;
+    std::vector<std::vector<Image*> > source_images;
 
     /** Indice y des tuiles courantes */
     int y;
@@ -62,24 +63,24 @@ private:
 public:
 
     /** D */
-    int getline ( uint8_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
 
     /** D */
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
     
     /** D */
-    int getline ( float* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /** D */
-    CompoundImage ( std::vector< std::vector<Image*> >& images );
+    CompoundImage ( std::vector< std::vector<Image*> >& source_images );
 
     /** D */
     ~CompoundImage() {
         
-        if ( ! isMask ) {
-            for ( int y = 0; y < images.size(); y++ )
-                for ( int x = 0; x < images[y].size(); x++ )
-                    delete images[y][x];
+        if ( ! is_mask ) {
+            for ( int y = 0; y < source_images.size(); y++ )
+                for ( int x = 0; x < source_images[y].size(); x++ )
+                    delete source_images[y][x];
         }
     }
 
@@ -93,10 +94,10 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "------ CompoundImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- heightwise = " << images.size();
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- widthwise = " << images.at(0).size();
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- heightwise = " << source_images.size();
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- widthwise = " << source_images.at(0).size();
     }
 
 };
 
-#endif
+

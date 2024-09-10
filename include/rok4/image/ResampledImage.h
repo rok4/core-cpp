@@ -43,8 +43,7 @@
  * \brief Define class ResampledImage, allowing image resampling
  */
 
-#ifndef RESAMPLED_IMAGE_H
-#define RESAMPLED_IMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/processors/Kernel.h"
@@ -79,30 +78,30 @@ private:
      * \~french \brief Image source, à réechantillonner
      * \~english \brief Source image, to resample
      */
-    Image* sourceImage;
+    Image* source_image;
 
     /**
      * \~french \brief Précise si les masques doivent intervenir dans l'interpolation (lourd)
      * \~english \brief Precise if mask have to be used by interpolation (heavy)
      */
-    bool useMask;
+    bool use_masks;
 
     /**
      * \~french \brief Noyau d'interpolation à utiliser
      * \~english \brief Interpolation kernel to use
      */
-    const Kernel& K;
+    const Kernel& kernel;
 
     /**
      * \~french \brief Nombre de pixels source intervenant dans l'interpolation, dans le sens des X
      * \~english \brief Number of source pixels used by interpolation, widthwise
      */
-    int Kx;
+    int x_kernel_size;
     /**
      * \~french \brief Nombre de pixels source intervenant dans l'interpolation, dans le sens des Y
      * \~english \brief Number of source pixels used by interpolation, heightwise
      */
-    int Ky;
+    int y_kernel_size;
 
     /**
      * \~french \brief Rapport des résolutions source et finale, dans le sens des X
@@ -110,14 +109,14 @@ private:
      * \~english \brief Ratio between destination resolution and source resolution, widthwise
      * \details X ratio = X destination resolution / X source resolution
      */
-    double ratioX;
+    double x_ratio;
     /**
      * \~french \brief Rapport des résolutions source et finale, dans le sens des Y
      * \details Ratio de rééchantillonage en Y = résolution Y cible / résolution Y source
      * \~english \brief Ratio between destination resolution and source resolution, heighthwise
      * \details Y ratio = Y destination resolution / Y source resolution
      */
-    double ratioY;
+    double y_ratio;
 
     /**
      * \~french \brief Décalage entre le haut de l'image source et le haut de l'image réechantillonnée
@@ -185,11 +184,11 @@ private:
      * \details On veut mémoriser un certain nombre de lignes (réechantillonnées dans le sens des X uniquement) pour ne pas refaire un travail déjà fait.
      * On va travailler les lignes 4 par 4 (pour l'utilisation des instructions SSE). On va donc mémoriser
      * un multiple de 4 lignes.
-     * Une ligne va intervenir au maximum dans l'interpolation de #Ky lignes (diamètre du noyau d'interpolation)
-     * Conclusion : on mémorise "Ky arrondi au multiple de 4 supérieur" lignes
+     * Une ligne va intervenir au maximum dans l'interpolation de #y_kernel_size lignes (diamètre du noyau d'interpolation)
+     * Conclusion : on mémorise "y_kernel_size arrondi au multiple de 4 supérieur" lignes
      * \~english \brief Number of memorized resampled lines, for image and mask
      */
-    int memorizedLines;
+    int memorized_lines;
     /**
      * \~french \brief Indexation des lignes mémorisées
      * \details Elle permet de convertir un indice de la ligne de l'image source réechantillonnée en X en indice dans le tableau des lignes mémorisées (dans #resampled_image et #resampled_mask).
@@ -243,57 +242,57 @@ private:
      * \~english \brief Widthwise resampling weights
      * \details Weights are quadrupled, to calulate 4 lines in the same time.
      */
-    float* Wx;
+    float* x_weights;
     /** \~french
      * \brief Tableau des coordonnées pixel inférieures
      * \details Pour chaque pixel de destination, on précise le premier pixel source (numéro de colonne) qui va intervenir dans le calcul d'interpolation (valeur de retour de la fonction Kernel#weight)
      ** \~english \brief Min pixels coordinates array
      * \details For each destination pixel, we precise the first source pixel (column indice) which be used by interpolation (return value of function Kernel#weight)
      */
-    int* xMin;
+    int* x_minima;
 
     /** \~french
      * \brief Retourne une ligne source réechantillonnée en X, entière
      * \details Lorsqu'une demande une ligne de l'image réechantillonnée, le calcul va être divisé en deux parties :
      * \li on réechantillonne les lignes de l'image source dans le sens des X, avec la fonction
-     * \li on moyenne (avec pondération) les #Ky lignes sources réechantillonnées en X, autrement dit on réechantillonne dans le sens des Y
+     * \li on moyenne (avec pondération) les #y_kernel_size lignes sources réechantillonnées en X, autrement dit on réechantillonne dans le sens des Y
      *
      * Avant de lancer les calculs, on vérifie que la ligne source demandée n'est pas déjà disponible dans le buffer mémoire #resampled_image en utilisant l'index #resampled_line_index. Si ce n'est pas le cas, on calcule le paquet de 4 lignes contenant celle voulue, on les stocke et on met à jour la table d'index.
      * \param[in] line Indice de la ligne source à réechantillonner (0 <= line < source_image.height)
      * \return position dans le buffer de mémorisation #resampled_image (et #resampled_mask) de la ligne voulue
      */
-    int resampleSourceLine ( int line );
+    int resample_source_line ( int line );
 
 public:
     /** \~french
      * \brief Retourne une ligne entièrement réechantillonnée, flottante
      * \details Lorsqu'une demande une ligne de l'image réechantillonnée, le calcul va être divisé en deux parties :
-     * \li on réechantillonne les lignes de l'image source dans le sens des X, avec la fonction #resampleSourceLine
-     * \li on moyenne (avec pondération) les #Ky lignes sources réechantillonnées en X, autrement dit on réechantillonne dans le sens des Y
+     * \li on réechantillonne les lignes de l'image source dans le sens des X, avec la fonction #resample_source_line
+     * \li on moyenne (avec pondération) les #y_kernel_size lignes sources réechantillonnées en X, autrement dit on réechantillonne dans le sens des Y
      *
      * \param[in,out] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( float* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /** \~french
      * \brief Retourne une ligne entièrement réechantillonnée, entière sur 8 bits
-     * \details Elle ne fait que convertir le résultat du #getline flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
+     * \details Elle ne fait que convertir le résultat du #get_line flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
      * \param[in,out] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( uint8_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
     
     /** \~french
      * \brief Retourne une ligne entièrement réechantillonnée, entière sur 16 bits
-     * \details Elle ne fait que convertir le résultat du #getline flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
+     * \details Elle ne fait que convertir le résultat du #get_line flottant en entier. On ne travaille en effet que sur des flottants, même si les canaux des images sont des entiers, et cela car les poids de l'interpolation sont toujours flottants.
      * \param[in,out] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /** \~french
      * \brief Crée un objet ResampledImage à partir de tous ses éléments constitutifs
@@ -326,7 +325,7 @@ public:
      * \li du buffer d'index #resampled_line_index
      * \li des buffers #resampled_image et #resampled_mask
      *
-     * Et suppression de #sourceImage.
+     * Et suppression de #source_image.
      *
      * \~english \brief Default destructor
      * \details Desallocate :
@@ -340,9 +339,9 @@ public:
         _mm_free ( __buffer );
         delete[] resampled_line_index;
         delete[] resampled_image;
-        if ( useMask ) delete[] resampled_mask;
-        if ( ! isMask ) {
-            delete sourceImage;
+        if ( use_masks ) delete[] resampled_mask;
+        if ( ! is_mask ) {
+            delete source_image;
         }
     }
 
@@ -355,9 +354,9 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "--------- ResampledImage -----------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Kernel size, x wise = " << Kx << ", y wise = " << Ky ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Kernel size, x wise = " << x_kernel_size << ", y wise = " << y_kernel_size ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Offsets, dx = " << left << ", dy = " << top ;
-        if ( useMask ) {
+        if ( use_masks ) {
             BOOST_LOG_TRIVIAL(info) <<  "\t- Use mask in interpolation" ;
         } else {
             BOOST_LOG_TRIVIAL(info) <<  "\t- Doesn't use mask in interpolation" ;
@@ -366,7 +365,7 @@ public:
     }
 };
 
-#endif
+
 
 
 

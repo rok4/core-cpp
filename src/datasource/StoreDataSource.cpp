@@ -38,15 +38,13 @@
  /**
  * \file StoreDataSource.cpp
  ** \~french
- * \brief Implémentation des classes StoreDataSource et StoreDataSourceFactory
+ * \brief Implémentation des classes StoreDataSource
  * \details
  * \li StoreDataSource : Permet de lire de la donnée quelque soit le type de stockage
- * \li StoreDataSourceFactory : usine de création d'objet StoreDataSource
  ** \~english
- * \brief Implements classes StoreDataSource and StoreDataSourceFactory
+ * \brief Implements classes StoreDataSource
  * \details
  * \li StoreDataSource : To read data, whatever the storage type
- * \li StoreDataSourceFactory : factory to create StoreDataSource object
  */
 
 #include "datasource/StoreDataSource.h"
@@ -63,7 +61,7 @@ StoreDataSource::StoreDataSource (std::string n, Context* c, const uint32_t o, c
 {
     data = NULL;
     size = 0;
-    alreadyTried = false;
+    already_tried = false;
 }
 
 StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::string n, Context* c, std::string type, std::string encoding ) :
@@ -71,7 +69,7 @@ StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::s
 {
     data = NULL;
     size = 0;
-    alreadyTried = false;
+    already_tried = false;
 }
 
 /*
@@ -79,16 +77,16 @@ StoreDataSource::StoreDataSource (const int tile_ind, const int tiles_nb, std::s
  * Le fichier/objet ne doit etre lu qu une seule fois
  * Indique la taille de la tuile (inconnue a priori)
  */
-const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
-    if ( alreadyTried) {
+const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
+    if ( already_tried) {
         tile_size = size;
         return data;
     }
 
-    alreadyTried = true;
+    already_tried = true;
 
     // il se peut que le contexte d'origine n'existe pas ou ne soit pas connecté, auquel cas on sort directement sans donnée
-    if (! context->isConnected()) {
+    if (! context->is_connected()) {
         data = NULL;
         return NULL;
     }
@@ -96,20 +94,20 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
     if (tile_indice == -1) {
         // On a directement la taille et l'offset
         data = new uint8_t[wanted_size];
-        int tileSize = context->read(data, offset, wanted_size, name);
-        if (tileSize < 0) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->getPath(name) << " from size and offset" ;
+        int read_size = context->read(data, offset, wanted_size, name);
+        if (read_size < 0) {
+            BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->get_path(name) << " from size and offset" ;
             delete[] data;
             data = NULL;
             return NULL;
         }
-        tile_size = tileSize;
-        size = tileSize;
+        tile_size = read_size;
+        size = tile_size;
     } else {
         // Nous n'avons pas les infos de taille et d'offset pour la tuile, nous allons devoir les récupérer lire
         // On va regarder si on n'a pas nos informations dans le cache
 
-        std::string full_name = context->getPath(name);
+        std::string full_name = context->get_path(name);
 
         BOOST_LOG_TRIVIAL(debug) << "input slab " << full_name;
         
@@ -118,7 +116,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
             BOOST_LOG_TRIVIAL(debug) << "pas de cache";
 
             std::string originalFullName (full_name);
-            std::string originalTrayName (context->getTray());
+            std::string originalTrayName (context->get_tray());
 
             int headerIndexSize = ROK4_IMAGE_HEADER_SIZE + 2 * 4 * tiles_number;
             uint8_t* indexheader = new uint8_t[headerIndexSize];
@@ -156,7 +154,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
 
                 BOOST_LOG_TRIVIAL(debug) << " -> " << full_name;
 
-                if (context->getType() != ContextType::FILECONTEXT) {
+                if (context->get_type() != ContextType::FILECONTEXT) {
                     // Dans le cas du stockage objet, on sépare le nom du contenant du nom de l'objet
                     std::stringstream ss(full_name);
                     std::string token;
@@ -168,7 +166,7 @@ const uint8_t* StoreDataSource::getData ( size_t &tile_size ) {
                     if (originalTrayName != tray_name) {
                         // Récupération ou ajout du nouveau contexte de stockage
                         // On reprécise le contexte d'origine, pour utiliser le même cluster en cas S3
-                        context = StoragePool::get_context(context->getType(), tray_name, context);
+                        context = StoragePool::get_context(context->get_type(), tray_name, context);
                         // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
                         if (context == NULL) {
                             data = NULL;

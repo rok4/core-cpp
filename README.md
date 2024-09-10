@@ -16,7 +16,6 @@ Installations système requises (listées dans le paquet debian, installées ave
 * `libturbojpeg0-dev`
 * `libjpeg-dev`
 * `libc6-dev`
-* `libjson11-1-dev`
 * `libboost-log-dev`
 * `libboost-filesystem-dev`
 * `libboost-system-dev`
@@ -85,6 +84,7 @@ Le programme qui suit charge une pyramide SCAN1000 à partir de son descripteur,
 #include <boost/log/trivial.hpp>
 #include <rok4/utils/Pyramid.h>
 #include <rok4/image/file/FileImage.h>
+#include "rok4/utils/Cache.h"
 
 int main( int argc, char *argv[] ) {
 
@@ -92,13 +92,15 @@ int main( int argc, char *argv[] ) {
 
     Pyramid* p = new Pyramid("/path/to/SCAN1000.json");
     int error = 0;
-    CRS* crs_dst = new CRS("EPSG:4326");
-    Image* img = p->getbbox(10, 10, BoundingBox<double>(5., 45., 6., 46.), 200, 200, crs_dst, false, Interpolation::KernelType::LANCZOS_3, 0, error);
+    CRS* crs_dst = CrsBook->get_crs("EPSG:4326");
+    Image* img = p->getbbox(
+        10, 10, BoundingBox<double>(5., 45., 6., 46.), 200, 200, crs_dst, 
+        false, Interpolation::KernelType::LANCZOS_3, 0, error
+    );
 
-    FileImageFactory FIF;
-    FileImage* output = FIF.createImageToWrite(
+    FileImage* output = FileImage::create_to_write(
         "hello.tif", img->getBbox(), img->getResX(), img->getResY(), img->getWidth(), img->getHeight(),
-        p->getChannels(), p->getSampleFormat(), p->getBitsPerSample(), p->getPhotometric(), Compression::eCompression::DEFLATE
+        p->getChannels(), p->getSampleFormat(), p->getPhotometric(), Compression::eCompression::DEFLATE
     );
 
     if (output == NULL) {
@@ -114,16 +116,16 @@ int main( int argc, char *argv[] ) {
     delete p;
     delete img;
     delete output;
-    delete crs_dst;
 
     TmsBook::send_to_trash();
     TmsBook::empty_trash();
 
-    ProjPool::cleanProjPool();
+    CrsBook::clean_crss();
+    ProjPool::clean_projs();
     proj_cleanup();
 
-    IndexCache::cleanCache();
-    StoragePool::cleanStoragePool();
+    IndexCache::clean_indexes();
+    StoragePool::clean_storages();
 
     return 0;
 }
@@ -205,8 +207,6 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS( "Rok4" DEFAULT_MSG ROK4_INCLUDE_DIR ROK4_LIBR
 
 ### Variables CMake
 
-* `KDU_ENABLED` : active la compilation avec le driver Kakadu pour la lecture des fichiers JPEG2000. Valeur par défaut : `0`
-* `KDU_THREADING` : renseigne le niveau de parallélisation dans le cas de l'utilisation de Kakadu. Valeur par défaut : `0`
 * `CEPH_ENABLED` : active la compilation la classe de gestion du stockage Ceph. Valeur par défaut : `0`, `1` pour activer.
 * `UNITTEST_ENABLED` : active la compilation des tests unitaires. Valeur par défaut : `1`, `0` pour désactiver.
 * `DOC_ENABLED` : active la compilation de la documentation. Valeur par défaut : `1`, `0` pour désactiver.

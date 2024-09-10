@@ -43,8 +43,7 @@
  * \brief Define class Aspect
  */
 
-#ifndef ASPECT_H
-#define ASPECT_H
+#pragma once
 
 #include "rok4/utils/Configuration.h"
 
@@ -53,9 +52,10 @@
 #include <string>
 #include <cmath>
 
+
 class Aspect : public Configuration {
 
-private:
+public:
 
      /** \~french
      * \brief algo : choix de l'algorithme de calcul d'exposition par l'utilisateur ("H" pour Horn)
@@ -65,13 +65,25 @@ private:
     std::string algo;
 
     /** \~french
-    * \brief minSlope : indique la valeur de pente à partir de laquelle l'exposition est calculee
+    * \brief min_slope : indique la valeur de pente à partir de laquelle l'exposition est calculee
     ** \~english
-    * \brief minSlope : indicate the value of slope from which aspect is computed
+    * \brief min_slope : indicate the value of slope from which aspect is computed
     */
-    float minSlope;
+    float min_slope;
 
-public:
+    /** \~french
+    * \brief noData : valeur de nodata pour l'aspect
+    ** \~english
+    * \brief noData : value of nodata for the aspect
+    */
+    double aspect_nodata_value;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    float input_nodata_value;
 
     /**
      * \~french
@@ -79,8 +91,8 @@ public:
      * \~english
      * \brief Constructor without arguments
      */
-    Aspect(): Configuration(), algo ("H") {
-        minSlope = 1.0 * DEG_TO_RAD;
+    Aspect(): Configuration(), algo ("H"), aspect_nodata_value (-1), input_nodata_value (-99999) {
+        min_slope = 1.0 * DEG_TO_RAD;
     }
 
     /**
@@ -90,10 +102,21 @@ public:
      * \brief Constructor with arguments
      */
     Aspect(json11::Json doc) : Configuration() {
-        if (doc["min_slope"].is_number()) {
-            minSlope = doc["min_slope"].number_value() * DEG_TO_RAD;
+        if (doc["image_nodata"].is_number()) {
+            input_nodata_value = doc["image_nodata"].number_value();
         } else {
-            minSlope = 1.0 * DEG_TO_RAD;
+            input_nodata_value = -99999.;
+        }
+        if (doc["aspect_nodata"].is_number()) {
+            aspect_nodata_value = doc["aspect_nodata"].number_value();
+        } else {
+            aspect_nodata_value = -1;
+        }
+
+        if (doc["min_slope"].is_number()) {
+            min_slope = doc["min_slope"].number_value() * DEG_TO_RAD;
+        } else {
+            min_slope = 1.0 * DEG_TO_RAD;
         }
 
         if (doc["algo"].is_string()) {
@@ -113,27 +136,7 @@ public:
 
     }
 
-    /**
-     * \~french
-     * \brief Renvoie l'algo
-     * \~english
-     * \brief Get algo
-     */
-    std::string getAlgo(){
-        return algo;
-    }
-
-    /**
-     * \~french
-     * \brief Recupère minSlope
-     * \~english
-     * \brief Get minSlope
-     */
-    float getMinSlope(){
-        return minSlope;
-    }
-
 };
 
-#endif // ASPECT_H
+
 

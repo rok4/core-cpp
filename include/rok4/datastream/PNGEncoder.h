@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _PNGENCODER_
-#define _PNGENCODER_
+#pragma once
 
 #include "rok4/datastream/DataStream.h"
 #include "rok4/image/Image.h"
@@ -45,24 +44,27 @@
 
 /** D */
 class PNGEncoder : public DataStream {
+
 private:
 
-    uint8_t* linebuffer;
+    uint8_t* buffer_line;
 
     z_stream zstream;
 
 
 protected:
+
     Image *image;
     int line;
-    virtual size_t write_IHDR ( uint8_t *buffer, size_t size, uint8_t colortype/* = pixel_t::png_colortype*/ );
-    virtual size_t write_IDAT ( uint8_t *buffer, size_t size );
-    virtual size_t write_IEND ( uint8_t *buffer, size_t size );
-    void addCRC ( uint8_t *buffer, uint32_t length );
+    virtual size_t write_ihdr ( uint8_t *buffer, size_t size );
+    virtual size_t write_idat ( uint8_t *buffer, size_t size );
+    virtual size_t write_iend ( uint8_t *buffer, size_t size );
+    void add_crc ( uint8_t *buffer, uint32_t length );
     Palette* palette;
     Palette* stubpalette;
 
 public:
+
     /** D */
     PNGEncoder ( Image* image, Palette* palette=NULL );
     /** D */
@@ -72,21 +74,21 @@ public:
     size_t read ( uint8_t* buffer, size_t size );
     bool eof();
 
-    std::string getType() {
+    std::string get_type() {
         return "image/png";
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
 
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
     
-    unsigned int getLength() {
+    unsigned int get_length() {
         return 0;
     }
 };
 
-#endif
+
 

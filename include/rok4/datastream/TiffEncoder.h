@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFENCODER_
-#define _TIFFENCODER_
+#pragma once
 
 #include "rok4/datastream/DataStream.h"
 #include "rok4/image/Image.h"
@@ -45,46 +44,47 @@
 class TiffEncoder : public DataStream {
   
 protected:
+
     Image *image;
     int line;   // Ligne courante
-    bool isGeoTiff;
+    bool is_geotiff;
     
-    virtual void prepareHeader() = 0;
+    virtual void prepare_header() = 0;
     uint8_t* header;
-    size_t sizeHeader;
+    size_t header_size;
     
-    virtual void prepareBuffer() = 0;
-    size_t tmpBufferSize;
-    size_t tmpBufferPos;
-    uint8_t* tmpBuffer;
+    virtual void prepare_buffer() = 0;
+    size_t tmp_buffer_size;
+    size_t tmp_buffer_pos;
+    uint8_t* tmp_buffer;
 
 public:
-    TiffEncoder(Image *image, int line, bool isGeoTiff);
+
+    TiffEncoder(Image *image, int line, bool is_geotiff);
     TiffEncoder(Image *image, int line);
     ~TiffEncoder();
   
-    static DataStream* getTiffEncoder ( Image* image, Rok4Format::eformat_data format, bool isGeoTiff );
-    static DataStream* getTiffEncoder ( Image* image, Rok4Format::eformat_data format );
+    static DataStream* get_tiff_encoder ( Image* image, Rok4Format::eFormat format, bool is_geotiff = false );
 
     virtual size_t read ( uint8_t *buffer, size_t size );
     virtual bool eof();
-    std::string getType() {
-        if ( isGeoTiff ) {
+    std::string get_type() {
+        if ( is_geotiff ) {
             return "image/geotiff";
         } else {
             return "image/tiff";
         }
     }
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
     
-    unsigned int getLength();
+    unsigned int get_length();
 };
 
-#endif
+
 
 

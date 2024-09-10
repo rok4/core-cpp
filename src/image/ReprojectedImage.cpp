@@ -55,24 +55,24 @@
 
 void ReprojectedImage::initialize () {
 
-    ratioX = grid->getRatioX();
-    ratioY = grid->getRatioY();
+    x_ratio = grid->get_x_ratio();
+    y_ratio = grid->get_y_ratio();
 
     // On calcule le nombre de pixels sources à considérer dans l'interpolation, dans le sens des x et des y
-    Kx = ceil ( 2 * K.size ( ratioX ) );
-    Ky = ceil ( 2 * K.size ( ratioY ) );
+    x_kernel_size = ceil ( 2 * kernel.size ( x_ratio ) );
+    y_kernel_size = ceil ( 2 * kernel.size ( y_ratio ) );
 
-    if ( ! sourceImage->getMask() ) {
-        useMask = false;
+    if ( ! source_image->get_mask() ) {
+        use_masks = false;
     }
 
-    memorizedLines = 2*Ky + ceil ( grid->getDeltaY() );
+    memorized_lines = 2*y_kernel_size + ceil ( grid->get_y_maximal_gap() );
 
     /* -------------------- PLACE MEMOIRE ------------------- */
 
     // nombre d'éléments d'une ligne de l'image source, arrondi au multiple de 4 supérieur.
-    int srcImgSize = 4* ( ( sourceImage->getWidth() *channels + 3 ) /4 );
-    int srcMskSize = 4* ( ( sourceImage->getWidth() + 3 ) /4 );
+    int srcImgSize = 4* ( ( source_image->get_width() *channels + 3 ) /4 );
+    int srcMskSize = 4* ( ( source_image->get_width() + 3 ) /4 );
 
     // nombre d'éléments d'une ligne de l'image calculée, arrondi au multiple de 4 supérieur.
     int outImgSize = 4* ( ( width*channels + 3 ) /4 );
@@ -82,10 +82,10 @@ void ReprojectedImage::initialize () {
     int gridSize = 4* ( ( width*channels + 3 ) /4 );
 
     // nombre d'élément dans les tableaux de poids, arrondi au multiple de 4 supérieur.
-    int kxSize = 4* ( ( Kx+3 ) /4 );
-    int kySize = 4* ( ( Ky+3 ) /4 );
+    int kxSize = 4* ( ( x_kernel_size+3 ) /4 );
+    int kySize = 4* ( ( y_kernel_size+3 ) /4 );
 
-    int globalSize = srcImgSize * double(memorizedLines) * sizeof ( float ) // place pour "memorizedLines" lignes d'image source
+    int globalSize = srcImgSize * double(memorized_lines) * sizeof ( float ) // place pour "memorizedLines" lignes d'image source
                      + outImgSize * 8 * sizeof ( float ) // 4 lignes reprojetées, en multiplexées et en séparées => 8
                      + gridSize * 8 * sizeof ( float ) // 4 lignes de la grille, X et Y => 8
 
@@ -96,8 +96,8 @@ void ReprojectedImage::initialize () {
                      + kxSize * ( 1028 + 4*channels ) * sizeof ( float )
                      + kySize * ( 1028 + 4*channels ) * sizeof ( float );
 
-    if ( useMask ) {
-        globalSize += srcMskSize * memorizedLines * sizeof ( float ) // place pour charger "memorizedLines" lignes du masque source
+    if ( use_masks ) {
+        globalSize += srcMskSize * memorized_lines * sizeof ( float ) // place pour charger "memorizedLines" lignes du masque source
                       + outMskSize * 8 * sizeof ( float ) // 4 lignes reprojetées, en multiplexées et en séparées => 8
                       + kxSize * 4 * sizeof ( float )
                       + kySize * 4 * sizeof ( float );
@@ -114,10 +114,10 @@ void ReprojectedImage::initialize () {
 
     /* -------------------- PARTIE IMAGE -------------------- */
 
-    src_image_buffer = new float*[memorizedLines];
-    src_line_index = new int[memorizedLines];
+    src_image_buffer = new float*[memorized_lines];
+    src_line_index = new int[memorized_lines];
 
-    for ( int i = 0; i < memorizedLines; i++ ) {
+    for ( int i = 0; i < memorized_lines; i++ ) {
         src_image_buffer[i] = B;
         src_line_index[i] = -1;
         B += srcImgSize;
@@ -133,16 +133,16 @@ void ReprojectedImage::initialize () {
     mux_dst_image_buffer = B;
     B += 4*outImgSize;
 
-    tmp1Img = B;
+    current_source_pixels = B;
     B += 4*channels*kxSize;
-    tmp2Img = B;
+    current_x_interpolated_pixels = B;
     B += 4*channels*kySize;
 
     /* -------------------- PARTIE MASQUE ------------------- */
 
-    if ( useMask ) {
-        src_mask_buffer = new float*[memorizedLines];
-        for ( int i = 0; i < memorizedLines; i++ ) {
+    if ( use_masks ) {
+        src_mask_buffer = new float*[memorized_lines];
+        for ( int i = 0; i < memorized_lines; i++ ) {
             src_mask_buffer[i] = B;
             B += srcMskSize;
         }
@@ -155,61 +155,61 @@ void ReprojectedImage::initialize () {
         mux_dst_mask_buffer = B;
         B += 4*outMskSize;
 
-        tmp1Msk = B;
+        current_source_masks = B;
         B += 4*kxSize;
-        tmp2Msk = B;
+        current_x_interpolated_masks = B;
         B += 4*kySize;
     }
 
     /* -------------------- PARTIE POIDS -------------------- */
 
     for ( int i = 0; i < 4; i++ ) {
-        X[i] = B;
+        x_coords[i] = B;
         B += gridSize;
-        Y[i] = B;
+        y_coords[i] = B;
         B += gridSize;
     }
 
     for ( int i = 0; i < 1024; i++ ) {
-        Wx[i] = B;
+        x_weights[i] = B;
         B += kxSize;
-        Wy[i] = B;
+        y_weights[i] = B;
         B += kySize;
     }
-    WWx = B;
+    x_current_weights = B;
     B += 4*kxSize;
-    WWy = B;
+    y_current_weights = B;
     B += 4*kySize;
 
     for ( int i = 0; i < 1024; i++ ) {
-        int lgX = Kx;
-        int lgY = Ky;
-        xmin[i] = K.weight ( Wx[i], lgX, double ( i ) /1024. + Kx, sourceImage->getWidth() ) - Kx;
-        ymin[i] = K.weight ( Wy[i], lgY, double ( i ) /1024. + Ky, sourceImage->getHeight() ) - Ky;
+        int lgX = x_kernel_size;
+        int lgY = y_kernel_size;
+        xmin[i] = kernel.weight ( x_weights[i], lgX, double ( i ) /1024. + x_kernel_size, source_image->get_width() ) - x_kernel_size;
+        ymin[i] = kernel.weight ( y_weights[i], lgY, double ( i ) /1024. + y_kernel_size, source_image->get_height() ) - y_kernel_size;
     }
 }
 
-int ReprojectedImage::getSourceLineIndex ( int line ) {
+int ReprojectedImage::get_source_line_index ( int line ) {
 
-    if ( src_line_index[line % memorizedLines] == line ) {
+    if ( src_line_index[line % memorized_lines] == line ) {
         // On a déjà la ligne source en mémoire, on renvoie donc son index (place dans src_image_buffer)
-        return ( line % memorizedLines );
+        return ( line % memorized_lines );
     }
 
     // Récupération de la ligne voulue
-    sourceImage->getline ( src_image_buffer[line % memorizedLines], line );
+    source_image->get_line ( src_image_buffer[line % memorized_lines], line );
 
-    if ( useMask ) {
-        sourceImage->getMask()->getline ( src_mask_buffer[line % memorizedLines], line );
+    if ( use_masks ) {
+        source_image->get_mask()->get_line ( src_mask_buffer[line % memorized_lines], line );
     }
 
     // Mis à jour de l'index
-    src_line_index[line % memorizedLines] = line;
+    src_line_index[line % memorized_lines] = line;
 
-    return line % memorizedLines;
+    return line % memorized_lines;
 }
 
-float* ReprojectedImage::computeDestLine ( int line ) {
+float* ReprojectedImage::compute_line ( int line ) {
 
     if ( line/4 == dst_line_index ) {
         return dst_image_buffer[line%4];
@@ -218,10 +218,10 @@ float* ReprojectedImage::computeDestLine ( int line ) {
 
     for ( int i = 0; i < 4; i++ ) {
         if ( 4*dst_line_index+i < height ) {
-            grid->getline ( 4*dst_line_index+i, X[i], Y[i] );
+            grid->get_line ( 4*dst_line_index+i, x_coords[i], y_coords[i] );
         } else {
-            memcpy ( X[i], X[0], width*sizeof ( float ) );
-            memcpy ( Y[i], Y[0], width*sizeof ( float ) );
+            memcpy ( x_coords[i], x_coords[0], width*sizeof ( float ) );
+            memcpy ( y_coords[i], y_coords[0], width*sizeof ( float ) );
         }
     }
 
@@ -230,72 +230,72 @@ float* ReprojectedImage::computeDestLine ( int line ) {
     for ( int x = 0; x < width; x++ ) {
 
         for ( int i = 0; i < 4; i++ ) {
-            Ix[i] = ( X[i][x] - floor ( X[i][x] ) ) * 1024;
-            Iy[i] = ( Y[i][x] - floor ( Y[i][x] ) ) * 1024;
+            Ix[i] = ( x_coords[i][x] - floor ( x_coords[i][x] ) ) * 1024;
+            Iy[i] = ( y_coords[i][x] - floor ( y_coords[i][x] ) ) * 1024;
         }
 
-        multiplex ( WWx, Wx[Ix[0]], Wx[Ix[1]], Wx[Ix[2]], Wx[Ix[3]], Kx );
-        multiplex ( WWy, Wy[Iy[0]], Wy[Iy[1]], Wy[Iy[2]], Wy[Iy[3]], Ky );
+        multiplex ( x_current_weights, x_weights[Ix[0]], x_weights[Ix[1]], x_weights[Ix[2]], x_weights[Ix[3]], x_kernel_size );
+        multiplex ( y_current_weights, y_weights[Iy[0]], y_weights[Iy[1]], y_weights[Iy[2]], y_weights[Iy[3]], y_kernel_size );
 
-        int y0 = ( int ) ( Y[0][x] ) + ymin[Iy[0]];
-        int y1 = ( int ) ( Y[1][x] ) + ymin[Iy[1]];
-        int y2 = ( int ) ( Y[2][x] ) + ymin[Iy[2]];
-        int y3 = ( int ) ( Y[3][x] ) + ymin[Iy[3]];
-        int dx0 = ( ( int ) ( X[0][x] ) + xmin[Ix[0]] );
-        int dx1 = ( ( int ) ( X[1][x] ) + xmin[Ix[1]] );
-        int dx2 = ( ( int ) ( X[2][x] ) + xmin[Ix[2]] );
-        int dx3 = ( ( int ) ( X[3][x] ) + xmin[Ix[3]] );
+        int y0 = ( int ) ( y_coords[0][x] ) + ymin[Iy[0]];
+        int y1 = ( int ) ( y_coords[1][x] ) + ymin[Iy[1]];
+        int y2 = ( int ) ( y_coords[2][x] ) + ymin[Iy[2]];
+        int y3 = ( int ) ( y_coords[3][x] ) + ymin[Iy[3]];
+        int dx0 = ( ( int ) ( x_coords[0][x] ) + xmin[Ix[0]] );
+        int dx1 = ( ( int ) ( x_coords[1][x] ) + xmin[Ix[1]] );
+        int dx2 = ( ( int ) ( x_coords[2][x] ) + xmin[Ix[2]] );
+        int dx3 = ( ( int ) ( x_coords[3][x] ) + xmin[Ix[3]] );
 
-        for ( int j = 0; j < Ky; j++ ) {
+        for ( int j = 0; j < y_kernel_size; j++ ) {
 
-            multiplex_unaligned ( tmp1Img,
-                                  src_image_buffer[getSourceLineIndex ( y0 + j )] + dx0*channels,
-                                  src_image_buffer[getSourceLineIndex ( y1 + j )] + dx1*channels,
-                                  src_image_buffer[getSourceLineIndex ( y2 + j )] + dx2*channels,
-                                  src_image_buffer[getSourceLineIndex ( y3 + j )] + dx3*channels,
-                                  Kx * channels );
+            multiplex_unaligned ( current_source_pixels,
+                                  src_image_buffer[get_source_line_index ( y0 + j )] + dx0*channels,
+                                  src_image_buffer[get_source_line_index ( y1 + j )] + dx1*channels,
+                                  src_image_buffer[get_source_line_index ( y2 + j )] + dx2*channels,
+                                  src_image_buffer[get_source_line_index ( y3 + j )] + dx3*channels,
+                                  x_kernel_size * channels );
 
-            if ( useMask ) {
-                multiplex_unaligned ( tmp1Msk,
-                                      src_mask_buffer[getSourceLineIndex ( y0 + j )] + dx0,
-                                      src_mask_buffer[getSourceLineIndex ( y1 + j )] + dx1,
-                                      src_mask_buffer[getSourceLineIndex ( y2 + j )] + dx2,
-                                      src_mask_buffer[getSourceLineIndex ( y3 + j )] + dx3,
-                                      Kx );
+            if ( use_masks ) {
+                multiplex_unaligned ( current_source_masks,
+                                      src_mask_buffer[get_source_line_index ( y0 + j )] + dx0,
+                                      src_mask_buffer[get_source_line_index ( y1 + j )] + dx1,
+                                      src_mask_buffer[get_source_line_index ( y2 + j )] + dx2,
+                                      src_mask_buffer[get_source_line_index ( y3 + j )] + dx3,
+                                      x_kernel_size );
 
-                dot_prod ( channels, Kx,
-                           tmp2Img + 4*j*channels,
-                           tmp2Msk + 4*j,
-                           tmp1Img,
-                           tmp1Msk,
-                           WWx );
+                dot_prod ( channels, x_kernel_size,
+                           current_x_interpolated_pixels + 4*j*channels,
+                           current_x_interpolated_masks + 4*j,
+                           current_source_pixels,
+                           current_source_masks,
+                           x_current_weights );
             } else {
-                dot_prod ( channels, Kx,
-                           tmp2Img + 4*j*channels,
-                           tmp1Img,
-                           WWx );
+                dot_prod ( channels, x_kernel_size,
+                           current_x_interpolated_pixels + 4*j*channels,
+                           current_source_pixels,
+                           x_current_weights );
             }
         }
 
-        if ( useMask ) {
-            dot_prod ( channels, Ky,
+        if ( use_masks ) {
+            dot_prod ( channels, y_kernel_size,
                        mux_dst_image_buffer + 4*x*channels,
                        mux_dst_mask_buffer + 4*x,
-                       tmp2Img,
-                       tmp2Msk,
-                       WWy );
+                       current_x_interpolated_pixels,
+                       current_x_interpolated_masks,
+                       y_current_weights );
         } else {
-            dot_prod ( channels, Ky,
+            dot_prod ( channels, y_kernel_size,
                        mux_dst_image_buffer + 4*x*channels,
-                       tmp2Img,
-                       WWy );
+                       current_x_interpolated_pixels,
+                       y_current_weights );
         }
     }
 
     demultiplex ( dst_image_buffer[0], dst_image_buffer[1], dst_image_buffer[2], dst_image_buffer[3],
                   mux_dst_image_buffer, width*channels );
 
-    if ( useMask ) {
+    if ( use_masks ) {
         demultiplex ( dst_mask_buffer[0], dst_mask_buffer[1], dst_mask_buffer[2], dst_mask_buffer[3],
                       mux_dst_mask_buffer, width );
     }
@@ -303,20 +303,20 @@ float* ReprojectedImage::computeDestLine ( int line ) {
     return dst_image_buffer[line%4];
 }
 
-int ReprojectedImage::getline ( uint8_t* buffer, int line ) {
-    const float* dst_line = computeDestLine ( line );
+int ReprojectedImage::get_line ( uint8_t* buffer, int line ) {
+    const float* dst_line = compute_line ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;
 }
 
-int ReprojectedImage::getline ( uint16_t* buffer, int line ) {
-    const float* dst_line = computeDestLine ( line );
+int ReprojectedImage::get_line ( uint16_t* buffer, int line ) {
+    const float* dst_line = compute_line ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;
 }
 
-int ReprojectedImage::getline ( float* buffer, int line ) {
-    const float* dst_line = computeDestLine ( line );
+int ReprojectedImage::get_line ( float* buffer, int line ) {
+    const float* dst_line = compute_line ( line );
     convert ( buffer, dst_line, width*channels );
     return width*channels;
 }

@@ -35,14 +35,13 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFPACKBITSENCODER_
-#define _TIFFPACKBITSENCODER_
+#pragma once
 
 #include "datastream/DataStream.h"
 #include "image/Image.h"
 #include "datastream/TiffHeader.h"
 #include "datastream/TiffEncoder.h"
-#include "compressors/PKBEncoder.h"
+#include "compressors/PkbCompressor.h"
 
 #include <cstring>
 #include <cstdlib>
@@ -58,62 +57,62 @@ class TiffPackBitsEncoder : public TiffEncoder {
 
 protected:
 
-    T* rawBuffer;
-    size_t rawBufferSize;
+    T* raw_buffer;
+    size_t raw_buffer_size;
     
-    virtual void prepareHeader(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation de l'en-tete";
-	sizeHeader = TiffHeader::headerSize ( image->getChannels() );
-	header = new uint8_t[sizeHeader];
-	if ( image->getChannels()==1 )
-	    if ( sizeof ( T ) == sizeof ( float ) ) {
-		memcpy( header, TiffHeader::TIFF_HEADER_PKB_FLOAT32_GRAY, sizeHeader);
-	    } else {
-		memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_GRAY, sizeHeader);
-	    }
-	else if ( image->getChannels()==3 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGB, sizeHeader);
-	else if ( image->getChannels()==4 )
-	    memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGBA, sizeHeader);
-	* ( ( uint32_t* ) ( header+18 ) )  = image->getWidth();
-	* ( ( uint32_t* ) ( header+30 ) )  = image->getHeight();
-	* ( ( uint32_t* ) ( header+102 ) ) = image->getHeight();
-	* ( ( uint32_t* ) ( header+114 ) ) = tmpBufferSize ;
+    virtual void prepare_header(){
+        BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation de l'en-tete";
+        header_size = TiffHeader::header_size ( image->get_channels() );
+        header = new uint8_t[header_size];
+        if ( image->get_channels()==1 )
+            if ( sizeof ( T ) == sizeof ( float ) ) {
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_FLOAT32_GRAY, header_size);
+            } else {
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_GRAY, header_size);
+            }
+        else if ( image->get_channels()==3 )
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGB, header_size);
+        else if ( image->get_channels()==4 )
+            memcpy( header, TiffHeader::TIFF_HEADER_PKB_INT8_RGBA, header_size);
+        * ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
+        * ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
+        * ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
+        * ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
     }
     
-    virtual void prepareBuffer(){
-	BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation du buffer d'image";
-	int linesize = image->getWidth()*image->getChannels();
-	tmpBuffer = new uint8_t[linesize* image->getHeight() * sizeof ( T ) *2];
-	tmpBufferSize = 0;
-	rawBuffer = new T[linesize];
-	rawBufferSize = linesize * sizeof ( T );
-	int lRead = 0;
-	pkbEncoder encoder;
-	uint8_t * pkbLine;
-	for ( ; lRead < image->getHeight() ; lRead++ ) {
-	    image->getline ( rawBuffer, lRead );
-	    size_t pkbLineSize = 0;
-	    pkbLine =  encoder.encode ( ( uint8_t* ) rawBuffer,rawBufferSize, pkbLineSize );
-	    memcpy ( tmpBuffer+tmpBufferSize,pkbLine,pkbLineSize );
-	    tmpBufferSize += pkbLineSize;
-	    delete[] pkbLine;
-	}
-	delete[] rawBuffer;
-	rawBuffer = NULL;
+    virtual void prepare_buffer(){
+        BOOST_LOG_TRIVIAL(debug) << "TiffPackBitsEncoder : preparation du buffer d'image";
+        int linesize = image->get_width()*image->get_channels();
+        tmp_buffer = new uint8_t[linesize* image->get_height() * sizeof ( T ) *2];
+        tmp_buffer_size = 0;
+        raw_buffer = new T[linesize];
+        raw_buffer_size = linesize * sizeof ( T );
+        int lRead = 0;
+        PkbCompressor encoder;
+        uint8_t * pkbLine;
+        for ( ; lRead < image->get_height() ; lRead++ ) {
+            image->get_line ( raw_buffer, lRead );
+            size_t pkbLineSize = 0;
+            pkbLine =  encoder.encode ( ( uint8_t* ) raw_buffer,raw_buffer_size, pkbLineSize );
+            memcpy ( tmp_buffer+tmp_buffer_size,pkbLine,pkbLineSize );
+            tmp_buffer_size += pkbLineSize;
+            delete[] pkbLine;
+        }
+        delete[] raw_buffer;
+        raw_buffer = NULL;
     }
 
 public:
-    TiffPackBitsEncoder ( Image *image, bool isGeoTiff = false ) : TiffEncoder( image, -1, isGeoTiff ) , rawBufferSize ( 0 ), rawBuffer ( NULL ) {
+    TiffPackBitsEncoder ( Image *image, bool is_geotiff = false ) : TiffEncoder( image, -1, is_geotiff ) , raw_buffer_size ( 0 ), raw_buffer ( NULL ) {
 
     }
     ~TiffPackBitsEncoder() {
-        if ( rawBuffer )
-            delete[] rawBuffer;
+        if ( raw_buffer )
+            delete[] raw_buffer;
     }
 };
 
-#endif
+
 
 
 

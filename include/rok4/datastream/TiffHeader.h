@@ -35,17 +35,16 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _TIFFHEADER_
-#define _TIFFHEADER_
-#include "rok4/enums/Format.h"
-#include "rok4/image/Image.h"
+#pragma once
+
 #include <vector>
 
-
+#include "rok4/enums/Format.h"
+#include "rok4/image/Image.h"
 
 namespace TiffHeader {
 
-static const size_t headerSize ( int channel ) {
+static const size_t header_size ( int channel ) {
     switch ( channel ) {
     case 1:
         return 134;
@@ -364,7 +363,7 @@ static const uint8_t GEOTIFF_HEADER_PART[60]  = {
 
 static const size_t GEOTIFF_HEADER_PART_SIZE = 60 ;
 
-static const void appendToGeoKeyDirectory( uint16_t* geoKeyDirectory, size_t* geoKeyDirectorySize, uint16_t arg1, uint16_t arg2, uint16_t arg3, uint16_t arg4){
+static const void add_to_geo_key_directory( uint16_t* geoKeyDirectory, size_t* geoKeyDirectorySize, uint16_t arg1, uint16_t arg2, uint16_t arg3, uint16_t arg4){
     *(geoKeyDirectory + (*geoKeyDirectorySize)*4 ) = arg1;
     *(geoKeyDirectory + (*geoKeyDirectorySize)*4 +1 ) = arg2;
     *(geoKeyDirectory + (*geoKeyDirectorySize)*4 +2 ) = arg3;
@@ -372,28 +371,28 @@ static const void appendToGeoKeyDirectory( uint16_t* geoKeyDirectory, size_t* ge
     (*geoKeyDirectorySize)+=1;
 };
 
-static const void appendToGeoKeyDirectory( uint16_t* geoKeyDirectory, size_t* geoKeyDirectorySize, int arg1, int arg2, int arg3, int arg4){
-    appendToGeoKeyDirectory(geoKeyDirectory,geoKeyDirectorySize,(uint16_t) arg1,(uint16_t) arg2,(uint16_t) arg3,(uint16_t) arg4);
+static const void add_to_geo_key_directory( uint16_t* geoKeyDirectory, size_t* geoKeyDirectorySize, int arg1, int arg2, int arg3, int arg4){
+    add_to_geo_key_directory(geoKeyDirectory,geoKeyDirectorySize,(uint16_t) arg1,(uint16_t) arg2,(uint16_t) arg3,(uint16_t) arg4);
 };
 
-static const void appendToGeoDoubleParams( double* geoDoubleParams, size_t* geoDoubleParamsSize, double arg1){
+static const void add_to_geo_double_params( double* geoDoubleParams, size_t* geoDoubleParamsSize, double arg1){
     *(geoDoubleParams + (*geoDoubleParamsSize) ) = arg1;
     (*geoDoubleParamsSize)+=1;
 };
 
 
-struct param {
+struct Param {
     std::string proj;
     int geotifftag;
 };
 
-struct projParams {
+struct ProjParams {
     int projcoordtransgeokey;
     size_t nbparam;
-    param listparam[15];
+    Param listparam[15];
 };
 
-static const projParams LCC_1SP = {     9,
+static const ProjParams LCC_1SP = {     9,
                                         6,
                                         {
                                             {"lon_0", 3080},
@@ -405,7 +404,7 @@ static const projParams LCC_1SP = {     9,
                                         }
                                     };
                                     
-static const projParams LCC_2SP = {     8,
+static const ProjParams LCC_2SP = {     8,
                                         6,
                                         {
                                             {"lat_1", 3078},
@@ -417,7 +416,7 @@ static const projParams LCC_2SP = {     8,
                                         }
                                     };
                                     
-static const projParams MERC_1SP = {    7,
+static const ProjParams MERC_1SP = {    7,
                                         5,
                                         {
                                             {"lon_0", 3080},
@@ -427,7 +426,7 @@ static const projParams MERC_1SP = {    7,
                                             {"k", 3092}
                                         }
                                     };
-static const projParams AEA = {         11,
+static const ProjParams AEA = {         11,
                                         6,
                                         {
                                             {"lat_1", 3078},
@@ -439,7 +438,7 @@ static const projParams AEA = {         11,
                                         }
                                     };
 
-static const projParams AEQD = {        12,
+static const ProjParams AEQD = {        12,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -449,7 +448,7 @@ static const projParams AEQD = {        12,
                                         }
                                     };
 
-static const projParams CASS = {        18,
+static const ProjParams CASS = {        18,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -459,7 +458,7 @@ static const projParams CASS = {        18,
                                         }
                                     };
 
-static const projParams CEA = {         28,
+static const ProjParams CEA = {         28,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -469,7 +468,7 @@ static const projParams CEA = {         28,
                                         }
                                     };
 
-static const projParams EQDC = {        13,
+static const ProjParams EQDC = {        13,
                                         6,
                                         {
                                             {"x_0", 3082},
@@ -481,7 +480,7 @@ static const projParams EQDC = {        13,
                                         }
                                     };
 
-static const projParams EQC = {         17,
+static const ProjParams EQC = {         17,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -490,7 +489,7 @@ static const projParams EQC = {         17,
                                             {"lat_ts", 3089}
                                         }
                                     };
-static const projParams TMERC = {       1,
+static const ProjParams TMERC = {       1,
                                         6,
                                         {
                                             {"x_0", 3082},
@@ -501,7 +500,7 @@ static const projParams TMERC = {       1,
                                             {"k_0", 3092}
                                         }
                                     };
-static const projParams GNOM = {        19,
+static const ProjParams GNOM = {        19,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -511,7 +510,7 @@ static const projParams GNOM = {        19,
                                         }
                                     };
                                     
-static const projParams OMERC = {       3,
+static const ProjParams OMERC = {       3,
                                         7,
                                         {
                                             {"x_0", 3082},
@@ -524,7 +523,7 @@ static const projParams OMERC = {       3,
                                         }
                                     };
                                     
-static const projParams LAEA = {        10,
+static const ProjParams LAEA = {        10,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -535,7 +534,7 @@ static const projParams LAEA = {        10,
                                     };
 
                                     
-static const projParams MILL = {        20,
+static const ProjParams MILL = {        20,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -545,7 +544,7 @@ static const projParams MILL = {        20,
                                         }
                                     };
                                     
-static const projParams STEREA = {      16,
+static const ProjParams STEREA = {      16,
                                         6,
                                         {
                                             {"x_0", 3082},
@@ -557,7 +556,7 @@ static const projParams STEREA = {      16,
                                         }
                                     };
 
-static const projParams ORTHO = {       21,
+static const ProjParams ORTHO = {       21,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -567,7 +566,7 @@ static const projParams ORTHO = {       21,
                                         }
                                     };
 
-static const projParams POLY = {        22,
+static const ProjParams POLY = {        22,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -577,7 +576,7 @@ static const projParams POLY = {        22,
                                         }
                                     };
 
-static const projParams ROBIN = {       23,
+static const ProjParams ROBIN = {       23,
                                         3,
                                         {
                                             {"x_0", 3082},
@@ -586,7 +585,7 @@ static const projParams ROBIN = {       23,
                                         }
                                     };
 
-static const projParams SINU = {        24,
+static const ProjParams SINU = {        24,
                                         3,
                                         {
                                             {"x_0", 3082},
@@ -595,7 +594,7 @@ static const projParams SINU = {        24,
                                         }
                                     };
 
-static const projParams STERE = {       14,
+static const ProjParams STERE = {       14,
                                         4,
                                         {
                                             {"x_0", 3082},
@@ -605,7 +604,7 @@ static const projParams STERE = {       14,
                                         }
                                     };
 
-static const projParams VANDG = {       25,
+static const ProjParams VANDG = {       25,
                                         3,
                                         {
                                             {"x_0", 3082},
@@ -614,15 +613,15 @@ static const projParams VANDG = {       25,
                                         }
                                     };
 
-static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeader ) {
-    CRS* crs = image->getCRS();
+static uint8_t* insert_geo_tags ( Image* image, uint8_t* header, size_t* header_size ) {
+    CRS* crs = image->get_crs();
     
     if ( crs == NULL ){
         BOOST_LOG_TRIVIAL(error) <<  "L'objet image n'a pas de géoréférencement." ;
         return header;
     }
     
-    std::string projName = crs->getProjParam("proj");
+    std::string projName = crs->get_proj_param("proj");
     if ( projName == "" ) {
       BOOST_LOG_TRIVIAL(error) <<  "La projection de l'image est vide." ;
       return header;
@@ -642,77 +641,77 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
    
     
     //initialisation
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,1,1,0,0);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1,1,0,0);
     
     
     //GeoTIFF Configuration Keys
     //GTModelTypeGeoKey
     if ( projName == "longlat" )  {
-      appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,1024,0,1,2);
+      add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1024,0,1,2);
     } else {
-      appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,1024,0,1,1);
+      add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1024,0,1,1);
     }
     
     //GTRasterTypeGeoKey : RasterPixelIsArea
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,1025,0,1,1);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1025,0,1,1);
     
     //GTCitationGeoKey : into GeoAsciiParamsTag(34737)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,1026,34737,crs->getProjCode().size()+1,GeoAsciiParams.size());
-    GeoAsciiParams.append(crs->getProjCode()+"|");
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,1026,34737,crs->get_proj_code().size()+1,GeoAsciiParams.size());
+    GeoAsciiParams.append(crs->get_proj_code()+"|");
     //End of  GeoTIFF Configuration Keys
     
     //Geographic CS Parameter Keys
     //GeographicTypeGeoKey : user-defined(32767)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2048,0,1,32767);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2048,0,1,32767);
     //GeogGeodeticDatumGeoKey : user-defined(32767)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2050,0,1,32767);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2050,0,1,32767);
     //GeogPrimeMeridianGeoKey : user-defined(32767)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2051,0,1,32767);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2051,0,1,32767);
     //GeogLinearUnitsGeoKey : meter(9001)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2052,0,1,9001);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2052,0,1,9001);
     //GeogAngularUnitsGeoKey : degree(9102)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2054,0,1,9102);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2054,0,1,9102);
     //GeogEllipsoidGeoKey : user-defined(32767)
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2056,0,1,32767);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2056,0,1,32767);
     //GeogSemiMajorAxisGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("a") != "" ){
-      if ( !sscanf ( crs->getProjParam("a").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("a") != "" ){
+      if ( !sscanf ( crs->get_proj_param("a").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le demi grand axe de la definition proj" ;
       } else {
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2057,34736,1,GeoDoubleParamsSize);
-        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2057,34736,1,GeoDoubleParamsSize);
+        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
       }
     }
     //GeogSemiMinorAxisGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("b") != "" ){
-      if ( !sscanf ( crs->getProjParam("b").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("b") != "" ){
+      if ( !sscanf ( crs->get_proj_param("b").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le demi petit axe de la definition proj" ;
       } else {
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2058,34736,1,GeoDoubleParamsSize);
-        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2058,34736,1,GeoDoubleParamsSize);
+        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
       }
     }
     //GeogInvFlatteningGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("rf") != "" ){
-      if ( !sscanf ( crs->getProjParam("rf").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("rf") != "" ){
+      if ( !sscanf ( crs->get_proj_param("rf").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser l'inverse du coefficient d'applatissement de la definition proj" ;
       } else {
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2059,34736,1,GeoDoubleParamsSize);
-        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2059,34736,1,GeoDoubleParamsSize);
+        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
       }
     }
     //GeogPrimeMeridianLongGeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("pm") != "" ){
-      if ( !sscanf ( crs->getProjParam("pm").c_str(),"%lf",&doubletmp ) ) {
+    if ( crs->get_proj_param("pm") != "" ){
+      if ( !sscanf ( crs->get_proj_param("pm").c_str(),"%lf",&doubletmp ) ) {
         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le meridien d'origine de la definition proj" ;
       } else {
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2061,34736,1,GeoDoubleParamsSize);
-        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2061,34736,1,GeoDoubleParamsSize);
+        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
       }
     }
     //GeogTOWGS84GeoKey : into GeoDoubleParams(34736)
-    if ( crs->getProjParam("towgs84") != "" ){
-      std::string towgs84 = crs->getProjParam("towgs84");
+    if ( crs->get_proj_param("towgs84") != "" ){
+      std::string towgs84 = crs->get_proj_param("towgs84");
       
       //Split of the string
       std::vector< std::string > towgs84V;
@@ -733,9 +732,9 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
         }
       }
       
-      appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,2062,34736,towgs84V.size(),GeoDoubleParamsSize);
+      add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,2062,34736,towgs84V.size(),GeoDoubleParamsSize);
       for (size_t i = 0; i < towgs84V.size();i++) {
-        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, towgs84Dbl[i]);
+        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, towgs84Dbl[i]);
       }
       
     }
@@ -743,9 +742,9 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
     BOOST_LOG_TRIVIAL(debug) <<  "Ajout de la projection "+projName ;
     if ( projName != "longlat" ) {
         //GeographicTypeGeoKey
-        const projParams * myProjParams = NULL;
+        const ProjParams * myProjParams = NULL;
         if ( projName == "lcc" ) {
-            if ( crs->getProjParam("lat_2") != "" ) {
+            if ( crs->get_proj_param("lat_2") != "" ) {
                 myProjParams = &LCC_2SP;
             } else {
                 myProjParams = &LCC_1SP;
@@ -797,58 +796,58 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
         }
         
         //ProjectedCSTypeGeoKey : user-defined(32767)
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3072,0,1,32767);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3072,0,1,32767);
         //ProjectionGeoKey : user-defined(32767)
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3074,0,1,32767);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3074,0,1,32767);
         //ProjCoordTransGeoKey
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3075,0,1,myProjParams->projcoordtransgeokey);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3075,0,1,myProjParams->projcoordtransgeokey);
         //ProjLinearUnitsGeoKey meter(9001)
-        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3076,0,1,9001);
+        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3076,0,1,9001);
         
         if (projName == "utm") {
             //cas particulier: il faut calculer certains paramètres non présents le fichier proj
             //Lambda0
-            appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3081 ,34736,1,GeoDoubleParamsSize);
-            appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
+            add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3081 ,34736,1,GeoDoubleParamsSize);
+            add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
             //Phi0
-            if (crs->getProjParam("zone") != ""){
-                if ( sscanf ( crs->getProjParam("zone").c_str(),"%lf",&doubletmp ) !=1 ) {
+            if (crs->get_proj_param("zone") != ""){
+                if ( sscanf ( crs->get_proj_param("zone").c_str(),"%lf",&doubletmp ) !=1 ) {
                     BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le parametre zone de la definition proj" ;
                 } else {
-                    BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre zone avec la valeur "+crs->getProjParam("zone") ;
+                    BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre zone avec la valeur "+crs->get_proj_param("zone") ;
                     doubletmp = doubletmp * 6 - 183;
-                    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3080 ,34736,1,GeoDoubleParamsSize);
-                    appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+                    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3080 ,34736,1,GeoDoubleParamsSize);
+                    add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
                 }
             }
             //X0
-            appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3082 ,34736,1,GeoDoubleParamsSize);
-            appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, 500000.0);
+            add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3082 ,34736,1,GeoDoubleParamsSize);
+            add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 500000.0);
             //Y0
-            if (crs->testProjParam("south")) {
-                appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
-                appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, 10000000.0);
+            if (crs->test_proj_param("south")) {
+                add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
+                add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 10000000.0);
             } else {
-                if (crs->testProjParam("north")) {
-                    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
-                    appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
+                if (crs->test_proj_param("north")) {
+                    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3083 ,34736,1,GeoDoubleParamsSize);
+                    add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 0.0);
                 } else {
                     BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le parametre south/north donc Y0 de la definition proj" ;
                 }
             }
             //k
-            appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,3092 ,34736,1,GeoDoubleParamsSize);
-            appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, 0.9996);
+            add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,3092 ,34736,1,GeoDoubleParamsSize);
+            add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, 0.9996);
 
         } else {
             for (size_t i = 0; i < myProjParams->nbparam; i ++) {
-                if (crs->getProjParam(myProjParams->listparam[i].proj) != ""){
-                    if ( sscanf ( crs->getProjParam(myProjParams->listparam[i].proj).c_str(),"%lf",&doubletmp ) !=1 ) {
+                if (crs->get_proj_param(myProjParams->listparam[i].proj) != ""){
+                    if ( sscanf ( crs->get_proj_param(myProjParams->listparam[i].proj).c_str(),"%lf",&doubletmp ) !=1 ) {
                         BOOST_LOG_TRIVIAL(error) <<  "Impossible de parser le parametre " + myProjParams->listparam[i].proj + " de la definition proj" ;
                     } else {
-                BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre "+myProjParams->listparam[i].proj+" avec la valeur "+crs->getProjParam(myProjParams->listparam[i].proj).c_str() ;
-                        appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,myProjParams->listparam[i].geotifftag ,34736,1,GeoDoubleParamsSize);
-                        appendToGeoDoubleParams(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
+                BOOST_LOG_TRIVIAL(debug) <<  "Ajout du parametre "+myProjParams->listparam[i].proj+" avec la valeur "+crs->get_proj_param(myProjParams->listparam[i].proj).c_str() ;
+                        add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,myProjParams->listparam[i].geotifftag ,34736,1,GeoDoubleParamsSize);
+                        add_to_geo_double_params(GeoDoubleParams,&GeoDoubleParamsSize, doubletmp);
                     }
                 }
             }
@@ -862,10 +861,10 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
     
     //Close the GeoKeyDirectory and set size
     BOOST_LOG_TRIVIAL(debug) <<  "Fermeture de GeoKeyDirectory" ;
-    appendToGeoKeyDirectory(GeoKeyDirectory,&GeoKeyDirectorySize,0,0,0,0);
+    add_to_geo_key_directory(GeoKeyDirectory,&GeoKeyDirectorySize,0,0,0,0);
     *(GeoKeyDirectory+3)=(uint16_t) ((GeoKeyDirectorySize-2));
     
-    size_t new_sizeHeader = *sizeHeader + 60 //IFD
+    size_t new_sizeHeader = *header_size + 60 //IFD
                                         + 3*sizeof(double) //Scale
                                         + 6*sizeof(double) //TiePoints
                                         + GeoKeyDirectorySize*4*sizeof(uint16_t)
@@ -891,16 +890,16 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
     new_offset+=GEOTIFF_HEADER_PART_SIZE;
     
     BOOST_LOG_TRIVIAL(debug) <<  "Copie IFD et Fin de l'en-tête" ;
-    memcpy(new_header+new_offset, header+10+12*old_nbTag, *sizeHeader-10-12*old_nbTag);
-    new_offset+= *sizeHeader-10-12*old_nbTag;
+    memcpy(new_header+new_offset, header+10+12*old_nbTag, *header_size-10-12*old_nbTag);
+    new_offset+= *header_size-10-12*old_nbTag;
     
     //append ModelPixelScaleTag
     BOOST_LOG_TRIVIAL(debug) <<  "Ajout de ModelPixelScaleTag" ;
     *((uint32_t*)(new_header+10+12*old_nbTag+8)) = (uint32_t) new_offset;
     double* ModelPixelScaleTag;
     ModelPixelScaleTag = new double[3];
-    *ModelPixelScaleTag= image->getResX();
-    *(ModelPixelScaleTag+1)= image->getResY();
+    *ModelPixelScaleTag= image->get_resx();
+    *(ModelPixelScaleTag+1)= image->get_resy();
     *(ModelPixelScaleTag+2)= (double) 0.0;
     memcpy(new_header+new_offset, ModelPixelScaleTag, 3*sizeof(double));
     new_offset+= 3*sizeof(double);
@@ -914,8 +913,8 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
     *ModelTiepointTag= (double) 0.0;
     *(ModelTiepointTag+1)= (double) 0.0;
     *(ModelTiepointTag+2)= (double) 0.0;
-    *(ModelTiepointTag+3)= (double) image->getBbox().xmin;
-    *(ModelTiepointTag+4)= (double) image->getBbox().ymax;
+    *(ModelTiepointTag+3)= (double) image->get_bbox().xmin;
+    *(ModelTiepointTag+4)= (double) image->get_bbox().ymax;
     *(ModelTiepointTag+5)= (double) 0.0;
     memcpy(new_header+new_offset, ModelTiepointTag, 6*sizeof(double));
     new_offset+= 6*sizeof(double);
@@ -956,7 +955,7 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
     delete[] header;
     header = new uint8_t[new_offset];
     memcpy(header,new_header, new_offset);
-    *sizeHeader = new_offset;
+    *header_size = new_offset;
     delete[] new_header;
     
     return header;
@@ -964,7 +963,5 @@ static uint8_t* insertGeoTags ( Image* image, uint8_t* header, size_t* sizeHeade
 };
 
 
-
-
 }
-#endif
+

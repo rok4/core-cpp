@@ -43,8 +43,7 @@
  * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
  */
 
-#ifndef CACHE_H
-#define CACHE_H
+#pragma once
 
 #include <stdint.h>// pour uint8_t
 #include <boost/log/trivial.hpp>
@@ -63,6 +62,7 @@
 #include "rok4/utils/TileMatrixSet.h"
 #include "rok4/style/Style.h"
 #include "rok4/utils/Utils.h"
+#include "rok4/utils/CRS.h"
 #include "rok4/storage/Context.h"
 
 #define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
@@ -112,7 +112,7 @@ public:
      * \~english \brief Get the curl object specific to the calling thread
      * \details If curl object doesn't exist for this thread, it is created and initialized
      */
-    static CURL* getCurlEnv() {
+    static CURL* get_curl_env() {
         pthread_t i = pthread_self();
 
         std::map<pthread_t, CURL*>::iterator it = pool.find ( i );
@@ -130,7 +130,7 @@ public:
      * \~french \brief Affiche le nombre d'objet curl dans l'annuaire
      * \~english \brief Print the number of curl objects in the book
      */
-    static void printNumCurls () {
+    static void print_curls_count () {
         BOOST_LOG_TRIVIAL(info) << "Nombre de contextes curl : " << pool.size();
     }
 
@@ -138,7 +138,7 @@ public:
      * \~french \brief Nettoie tous les objets curl dans l'annuaire et le vide
      * \~english \brief Clean all curl objects in the book and empty it
      */
-    static void cleanCurlPool () {
+    static void clean_curls () {
         std::map<pthread_t, CURL*>::iterator it;
         for (it = pool.begin(); it != pool.end(); ++it) {
             curl_easy_cleanup(it->second);
@@ -191,7 +191,7 @@ public:
      * \~english \brief Get the Proj context specific to the calling thread
      * \details If Proj context doesn't exist for this thread, it is created and initialized
      */
-    static PJ_CONTEXT* getProjEnv() {
+    static PJ_CONTEXT* get_proj_env() {
         pthread_t i = pthread_self();
 
         std::map<pthread_t, PJ_CONTEXT*>::iterator it = pool.find ( i );
@@ -209,7 +209,7 @@ public:
      * \~french \brief Affiche le nombre de contextes proj dans l'annuaire
      * \~english \brief Print the number of proj contexts in the book
      */
-    static void printNumProjs () {
+    static void print_projs_count () {
         BOOST_LOG_TRIVIAL(info) <<  "Nombre de contextes proj : " << pool.size() ;
     }
 
@@ -217,7 +217,7 @@ public:
      * \~french \brief Nettoie tous les contextes proj dans l'annuaire et le vide
      * \~english \brief Clean all proj objects in the book and empty it
      */
-    static void cleanProjPool () {
+    static void clean_projs () {
         std::map<pthread_t, PJ_CONTEXT*>::iterator it;
         for (it = pool.begin(); it != pool.end(); ++it) {
             proj_context_destroy(it->second);
@@ -262,7 +262,7 @@ public:
      * \~french \brief Retourne une chaîne de caracère décrivant l'annuaire
      * \~english \brief Return a string describing the pool
      */
-    static std::string toString() {
+    static std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ Context pool -------" << std::endl;
@@ -272,7 +272,7 @@ public:
         while (it != pool.end()) {
             std::pair<ContextType::eContextType,std::string> key = it->first;
             oss << "\t\t- pot = " << key.first << "/" << key.second << std::endl;
-            oss << it->second->toString() << std::endl;
+            oss << it->second->to_string() << std::endl;
             it++;
         }
 
@@ -309,7 +309,7 @@ public:
      * \param[out] ceph_count Ceph storage context count
      * \param[out] swift_count Swift storage context count
      */
-    static void getStorageCounts (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
+    static void get_storages_count (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
         file_count = 0;
         s3_count = 0;
         ceph_count = 0;
@@ -343,7 +343,7 @@ public:
      * \~english \brief Get book of contexts
      * \details Key is a pair composed of type of storage and the context's bucket
      */
-    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> getPool() {
+    static std::map<std::pair<ContextType::eContextType,std::string>,Context*> get_pool() {
         return pool;
     }
 
@@ -359,7 +359,7 @@ public:
      * \~french \brief Nettoie tous les contextes de stockage dans l'annuaire et le vide
      * \~english \brief Clean all storage context objects in the book and empty it
      */
-    static void cleanStoragePool () {
+    static void clean_storages () {
         std::map<std::pair<ContextType::eContextType,std::string>,Context*>::iterator it;
         for (it=pool.begin(); it!=pool.end(); ++it) {
             delete it->second;
@@ -518,7 +518,7 @@ public:
      * \brief Define cache validity
      * \param[in] s cache validity, in seconds
      */
-    static void setValidity(int v) {
+    static void set_validity(int v) {
         validity = v;
     };
 
@@ -630,7 +630,7 @@ public:
      * \~french \brief Nettoie tous les objets dans le cache
      * \~english \brief Clean all element from the cache
      */
-    static void cleanCache () {
+    static void clean_indexes () {
         mtx.lock();
         std::list<IndexElement*>::iterator it;
         for (it = cache.begin(); it != cache.end(); ++it) {
@@ -703,7 +703,7 @@ public:
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
-        book.empty();
+        book.clear();
         mtx.unlock();
     }
 
@@ -716,7 +716,7 @@ public:
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
-        trash.empty();
+        trash.clear();
         mtx.unlock();
     }
 
@@ -747,7 +747,7 @@ public:
      * \details Si le TMS demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du TMS voulu
 
-     * \brief Retourne the TMS according to its identifier
+     * \brief Return the TMS according to its identifier
      * \details If TMS is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted TMS identifier
      */
@@ -781,8 +781,8 @@ public:
         }
 
         TileMatrixSet* tms = new TileMatrixSet(tms_path);
-        if ( ! tms->isOk() ) {
-            BOOST_LOG_TRIVIAL(error) << tms->getErrorMessage();
+        if ( ! tms->is_ok() ) {
+            BOOST_LOG_TRIVIAL(error) << tms->get_error_message();
             delete tms;
             mtx.unlock();
             return NULL;
@@ -847,14 +847,6 @@ private:
     static std::string directory;
 
     /**
-     * \~french
-     * \brief Veut-on des styles inspire
-     * \~english
-     * \brief Only inspire styles ?
-     */
-    static bool inspire;
-
-    /**
      * \~french \brief Annuaire de styles
      * \details La clé est l'identifiant du style
      * \~english \brief Book of styles
@@ -870,9 +862,9 @@ private:
 
     /**
      * \~french \brief Exclusion mutuelle
-     * \details Pour éviter les modifications concurrentes du cache de TMS
+     * \details Pour éviter les modifications concurrentes du cache de styles
      * \~english \brief Mutual exclusion
-     * \details To avoid concurrent TMS cache updates
+     * \details To avoid concurrent styles cache updates
      */
     static std::mutex mtx;
 
@@ -889,7 +881,7 @@ public:
         for (it = book.begin(); it != book.end(); ++it) {
             trash.push_back(it->second);
         }
-        book.empty();
+        book.clear();
         mtx.unlock();
     }
 
@@ -902,7 +894,7 @@ public:
         for (int i = 0; i < trash.size(); i++) {
             delete trash.at(i);
         }
-        trash.empty();
+        trash.clear();
         mtx.unlock();
     }
 
@@ -919,16 +911,6 @@ public:
         directory = d;
     }
 
-
-    /**
-     * \~french \brief Renseigne la restiction inspire des style
-     * \~english \brief Set inspire restriction for styles
-     */
-    static void set_inspire (bool i) {
-        inspire = i;
-    }
-
-
     /**
      * \~french \brief Retourne l'ensemble de l'annuaire
      * \~english \brief Return the book
@@ -943,7 +925,7 @@ public:
      * \details Si le style demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
      * \param[in] id Identifiant du style voulu
 
-     * \brief Retourne the style according to its identifier
+     * \brief Return the style according to its identifier
      * \details If style is still not in the book, or cache is disabled, it is searched in the known directory and loaded
      * \param[in] id Wanted style identifier
      */
@@ -977,15 +959,15 @@ public:
             }
         }
 
-        Style* style = new Style(style_path, inspire);
-        if ( ! style->isOk() ) {
-            BOOST_LOG_TRIVIAL(error) << style->getErrorMessage();
+        Style* style = new Style(style_path);
+        if ( ! style->is_ok() ) {
+            BOOST_LOG_TRIVIAL(error) << style->get_error_message();
             delete style;
             mtx.unlock();
             return NULL;
         }
 
-        if ( containForbiddenChars(style->getIdentifier()) ) {
+        if ( contain_chars(style->get_identifier(), "<>") ) {
             BOOST_LOG_TRIVIAL(error) << "Style identifier contains forbidden chars" ;
             delete style;
             mtx.unlock();
@@ -1022,4 +1004,93 @@ public:
 
 };
 
-#endif
+
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
+ * \brief Création d'un annuaire de CRS
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class CrsBook {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    CrsBook(){};
+
+    /**
+     * \~french \brief Annuaire de styles
+     * \details La clé est l'identifiant du style
+     * \~english \brief Book of styles
+     * \details Key is a the style identifier
+     */
+    static std::map<std::string,CRS*> book;
+
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de CRS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent CRS cache updates
+     */
+    static std::mutex mtx;
+
+public:
+
+
+    /**
+     * \~french
+     * \brief Retourne le CRS d'après son identifiant (code de requête)
+     * \param[in] id Identifiant du CRS voulu
+
+     * \brief Return the style according to its identifier
+     * \param[in] id Wanted style identifier
+     */
+    static CRS* get_crs(std::string id) {
+
+        id = to_upper_case(id);
+
+        std::map<std::string, CRS*>::iterator it = book.find ( id );
+        if ( it != book.end() ) {
+            return it->second;
+        }
+
+        mtx.lock();
+
+        CRS* crs = new CRS(id);
+        // Le CRS est potentiellement non défini (si il n'est pas valide), on le mémorise pour ne pas réessayer la prochaine fois
+        book.emplace(id, crs);
+
+        mtx.unlock();
+        return crs;
+    }
+
+    /**
+     * \~french \brief Nettoie tous les CRS dans l'annuaire et le vide
+     * \~english \brief Clean all CRS objects in the book and empty it
+     */
+    static void clean_crss () {
+        mtx.lock();
+        std::map<std::string, CRS*>::iterator it;
+        for (it = book.begin(); it != book.end(); ++it) {
+            delete it->second;
+        }
+        book.clear();
+        mtx.unlock();
+    }
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~CrsBook() {};
+
+};
+
+

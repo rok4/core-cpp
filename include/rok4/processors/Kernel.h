@@ -43,8 +43,7 @@
  * \brief Define the Kernel class, super class for different interpolation kernels
  */
 
-#ifndef KERNEL_H
-#define KERNEL_H
+#pragma once
 
 #include "rok4/enums/Interpolation.h"
 #include <iostream>
@@ -134,7 +133,7 @@ public:
      * \param[in] T type de noyau d'interpolation
      * \return noyau d'interpolation
      */
-    static const Kernel& getInstance ( Interpolation::KernelType T = Interpolation::LANCZOS_3 );
+    static const Kernel& get_instance ( Interpolation::KernelType T = Interpolation::LANCZOS_3 );
 
     /**
      * \~french \brief Calcule la taille effective du noyau en nombre de pixels sources
@@ -162,4 +161,4 @@ public:
 
 };
 
-#endif
+

@@ -1,3 +1,38 @@
+## 2.0.0
+
+### [Added]
+
+* Internalisation de la lib json
+* Ajout d'exporteur XML (via la lib boost) pour les entités Style, BoundingBox, Keyword, LegendURL, TileMatrixLimit et Style
+* Création d'un annuaire pour les CRS pour éviter les créations en double
+
+### [Changed]
+
+* Passage complet en snake case
+* Le format de canal contient le nombre de bits d'encodage
+* Renommage StyledImage -> PaletteImage
+* Renommage lzwEncoder -> LzwCompressor
+* Renommage lzwDecoder -> LzwUncompressor
+* Renommage pkbEncoder -> PkbCompressor
+* Renommage pkbDecoder -> PkbUncompressor
+
+### [Deprecated]
+
+Liste de fonctionnalités dépréciées.
+
+### [Removed]
+
+* Suppression de la notion 'inspire' dans la gestion des styles
+* Suppression de la classe ConvertedChannelsImage
+* Suppression de la gestion de la compilation avec la librairie Kakadu
+* Suppression des factory pour les classes filles de Image
+* Suppression de la fonctionnalité de crop dans Rok4Image
+
+### [Fixed]
+
+* Correction du nettoyage des annuaires de TMS et styles
+
+
 ## 1.4.0
 
 ### [Added]

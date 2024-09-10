@@ -38,25 +38,24 @@
 /**
  * \file Format.h
  ** \~french
- * \brief Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Format
+ * \brief Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format
  * \details
  * \li SampleFormat : gère les types de canaux acceptés par les classes d'Image
  * \li Compression : énumère et manipule les différentes compressions
- * \li Format : énumère et manipule les différents format d'image
+ * \li Rok4Format : énumère et manipule les différents format de données ROK4
  * \li Photometric : énumère et manipule les différentes photométries
  * \li ExtraSample : énumère et manipule les différents type de canal supplémentaire
  ** \~english
- * \brief Define and the namespaces Compression, SampleFormat, Photometric, ExtraSample et Format
+ * \brief Define and the namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format
  * \details
  * \li SampleFormat : managed sample type accepted by Image classes
  * \li Compression : enumerate and managed different compressions
- * \li Format : enumerate and managed different formats
+ * \li Rok4Format : enumerate and managed different ROK4 data formats
  * \li Photometric : enumerate and managed different photometrics
  * \li ExtraSample : enumerate and managed different extra sample types
  */
 
-#ifndef FORMAT_H
-#define FORMAT_H
+#pragma once
 
 #include <string>
 #include <stdint.h>
@@ -78,15 +77,16 @@ namespace SampleFormat {
  */
 enum eSampleFormat {
     UNKNOWN = 0,
-    UINT = 1,
-    FLOAT = 2
+    UINT8 = 1,
+    UINT16 = 2,
+    FLOAT32 = 3
 };
 
 /**
  * \~french \brief Nombre de formats de canal disponibles
  * \~english \brief Number of sample formats compressions
  */
-const int sampleformat_size = 2;
+const int sampleformat_size = 3;
 
 /**
  * \~french \brief Conversion d'une chaîne de caractères vers une format du canal de l'énumération
@@ -96,7 +96,7 @@ const int sampleformat_size = 2;
  * \param[in] strComp string to convert
  * \return the binding sample format, UNKNOWN (0) if string is not recognized
  */
-eSampleFormat fromString ( std::string strSf );
+eSampleFormat from_string ( std::string sf );
 
 /**
  * \~french \brief Conversion d'une format du canal vers une chaîne de caractères
@@ -106,7 +106,15 @@ eSampleFormat fromString ( std::string strSf );
  * \param[in] sf sample format to convert
  * \return string namming the sample format
  */
-std::string toString ( eSampleFormat sf );
+std::string to_string ( eSampleFormat sf );
+
+/**
+ * \~french \brief Donne le nombre de bits par canal du format
+ * \param[in] format format à connaître
+ * \~english \brief Precise format's bits per sample
+ * \param[in] format format to know
+ */
+int get_bits_per_sample ( eSampleFormat format );
 
 }
 
@@ -151,7 +159,7 @@ const int compression_size = 8;
  * \param[in] strComp string to convert
  * \return the binding compression, UNKNOWN (0) if string is not recognized
  */
-eCompression fromString ( std::string strComp );
+eCompression from_string ( std::string strComp );
 
 /**
  * \~french \brief Conversion d'une compression vers une chaîne de caractères
@@ -161,7 +169,7 @@ eCompression fromString ( std::string strComp );
  * \param[in] comp compression to convert
  * \return string namming the compression
  */
-std::string toString ( eCompression comp );
+std::string to_string ( eCompression comp );
 
 }
 
@@ -203,7 +211,7 @@ const int photometric_size = 5;
  * \param[in] strComp string to convert
  * \return the binding photometric, UNKNOWN (0) if string is not recognized
  */
-ePhotometric fromString ( std::string strPh );
+ePhotometric from_string ( std::string strPh );
 
 /**
  * \~french \brief Conversion d'une photométrie vers une chaîne de caractères
@@ -213,7 +221,7 @@ ePhotometric fromString ( std::string strPh );
  * \param[in] comp photometric to convert
  * \return string namming the photometric
  */
-std::string toString ( ePhotometric ph );
+std::string to_string ( ePhotometric ph );
 
 }
 
@@ -231,15 +239,16 @@ namespace ExtraSample {
  */
 enum eExtraSample {
     UNKNOWN = 0,
-    ALPHA_ASSOC = 1,
-    ALPHA_UNASSOC = 2
+    NONE = 1,
+    ALPHA_ASSOC = 2,
+    ALPHA_UNASSOC = 3
 };
 
 /**
  * \~french \brief Nombre de type de canal supplémentaire disponibles
  * \~english \brief Number of extra sample type compressions
  */
-const int extraSample_size = 2;
+const int extraSample_size = 3;
 
 /**
  * \~french \brief Conversion d'une chaîne de caractères vers un type de canal supplémentaire de l'énumération
@@ -249,7 +258,7 @@ const int extraSample_size = 2;
  * \param[in] strComp string to convert
  * \return the binding extra sample type, UNKNOWN (0) if string is not recognized
  */
-eExtraSample fromString ( std::string strES );
+eExtraSample from_string ( std::string strES );
 
 /**
  * \~french \brief Conversion d'un type de canal supplémentaire vers une chaîne de caractères
@@ -259,7 +268,7 @@ eExtraSample fromString ( std::string strES );
  * \param[in] comp extra sample type to convert
  * \return string namming the extra sample type
  */
-std::string toString ( eExtraSample es );
+std::string to_string ( eExtraSample es );
 
 }
 
@@ -276,7 +285,7 @@ namespace Rok4Format {
  * \~french \brief Énumération des formats d'images disponibles
  * \~english \brief Available images formats enumeration
  */
-enum eformat_data {
+enum eFormat {
     UNKNOWN = 0,
 
     TIFF_RAW_UINT8 = 1,
@@ -309,7 +318,7 @@ const int eformat_size = 12;
  * \param[in] strFormat string to convert
  * \return the binding format, UNKNOWN (0) if string is not recognized
  */
-eformat_data fromString ( std::string strFormat );
+eFormat from_string ( std::string strFormat );
 
 
 /**
@@ -318,7 +327,7 @@ eformat_data fromString ( std::string strFormat );
  * \~english \brief Say if a format is raster format
  * \param[in] format format to know
  */
-bool isRaster ( eformat_data format );
+bool is_raster ( eFormat format );
 
 /**
  * \~french \brief Donne la compression du format
@@ -326,7 +335,7 @@ bool isRaster ( eformat_data format );
  * \~english \brief Precise format's compression
  * \param[in] format format to know
  */
-Compression::eCompression getCompression ( eformat_data format );
+Compression::eCompression get_compression ( eFormat format );
 
 /**
  * \~french \brief Donne le format des canaux du format
@@ -334,15 +343,15 @@ Compression::eCompression getCompression ( eformat_data format );
  * \~english \brief Precise format's sample format
  * \param[in] format format to know
  */
-SampleFormat::eSampleFormat getSampleFormat ( eformat_data format );
+SampleFormat::eSampleFormat get_sample_format ( eFormat format );
 
 /**
- * \~french \brief Donne la le nombre de bits par canal du format
+ * \~french \brief Donne le nombre de bits par canal du format
  * \param[in] format format à connaître
  * \~english \brief Precise format's bits per sample
  * \param[in] format format to know
  */
-int getBitsPerSample ( eformat_data format );
+int get_bits_per_sample ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère
@@ -352,7 +361,7 @@ int getBitsPerSample ( eformat_data format );
  * \param[in] format format to convert
  * \return string namming the format
  */
-std::string toString ( eformat_data format );
+std::string to_string ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (type MIME)
@@ -362,7 +371,17 @@ std::string toString ( eformat_data format );
  * \param[in] format format to convert
  * \return MIME type of the format
  */
-std::string toMimeType ( eformat_data format );
+std::string to_mime_type ( eFormat format );
+
+/**
+ * \~french \brief Conversion d'un format vers une chaîne de caractère (format OGC API Tiles)
+ * \param[in] format format à convertir
+ * \return format OGC API Tiles du format
+ * \~english \brief Convert a format to a string (format OGC API Tiles)
+ * \param[in] format format to convert
+ * \return format OGC API Tiles of the format
+ */
+std::string to_tiles_format ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (extension)
@@ -372,23 +391,11 @@ std::string toMimeType ( eformat_data format );
  * \param[in] format format to convert
  * \return extension of the format
  */
-std::string toExtension ( eformat_data format );
+std::string to_extension ( eFormat format );
 
-/**
- * \~french \brief Conversion d'une chaîne de caractère (type MIME) vers un format
- * \param[in] type MIME du format
- * \return format format
- * \~english \brief Convert a format to a string (type MIME)
- * \param[in] MIME type of the format
- * \return format format
- */
-eformat_data fromMimeType ( std::string mime );
-
-std::string toEncoding ( eformat_data format );
-
-int getChannelSize ( eformat_data format );
+std::string to_encoding ( eFormat format );
 
 }
 
-#endif //FORMAT_H
+
 

@@ -45,13 +45,13 @@
 
 class Attribute;
 
-#ifndef ATTRIBUTE_H
-#define ATTRIBUTE_H
+#pragma once
 
-#include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <vector>
 #include <string>
+
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -62,35 +62,36 @@ class Attribute
     public:
         Attribute(json11::Json doc) {
 
-            missingField = "";
+            missing_field = "";
             values = std::vector<std::string>();
-            min = "";
-            max = "";
-            metadataJson = "";
+            min_provided = false;
+            max_provided = false;
 
             if (! doc["name"].is_string()) {
-                missingField = "name";
+                missing_field = "name";
                 return;
             }
             name = doc["name"].string_value();
 
             if (! doc["type"].is_string()) {
-                missingField = "type";
+                missing_field = "type";
                 return;
             }
             type = doc["type"].string_value();
 
             if (! doc["count"].is_number()) {
-                missingField = "count";
+                missing_field = "count";
                 return;
             }
-            count = std::to_string(doc["count"].number_value());
+            count = doc["count"].number_value();
 
             if (doc["min"].is_number()) {
-                min = std::to_string(doc["min"].number_value());
+                min = doc["min"].number_value();
+                min_provided = true;
             }
             if (doc["max"].is_number()) {
-                max = std::to_string(doc["max"].number_value());
+                max = doc["max"].number_value();
+                max_provided = true;
             }
             if (doc["values"].is_array()) {
                 std::string tmp;
@@ -109,57 +110,42 @@ class Attribute
         };
         ~Attribute(){};
 
-        std::string getMissingField() {return missingField;}
-        std::string getName() {return name;}
-        std::string getType() {return type;}
-        std::vector<std::string> getValues() {return values;}
-        std::string getCount() {return count;}
-        std::string getMin() {return min;}
-        std::string getMax() {return max;}
+        std::string get_missing_field() {return missing_field;}
+        std::string get_name() {return name;}
+        std::string get_type() {return type;}
+        std::vector<std::string> get_values() {return values;}
+        int get_count() {return count;}
+        int get_min() {return min;}
+        int get_max() {return max;}
 
-        std::string getMetadataJson() {
-            if (metadataJson != "") return metadataJson;
-            /*
-            {
-                "attribute": "gid",
-                "count": 1,
-                "max": 49,
-                "min": 49,
-                "type": "number",
-                "values": [
-                    49
-                ]
+        json11::Json to_json() const {
+            json11::Json::object res = json11::Json::object {
+                { "attribute", name },
+                { "count", count },
+                { "type", type }
+            };
+
+            if (min_provided) {
+                res["min"] = min;
             }
-            */
-
-            std::ostringstream res;
-            res << "{\"attribute\":\"" << name << "\"";
-            res << ",\"count\":" << count << "";
-            res << ",\"type\":\"" << type << "\"";
-
-            if (min != "") {
-                res << ",\"min\":" << min;
-            }
-            if (max != "") {
-                res << ",\"max\":" << max;
+            if (max_provided) {
+                res["max"] = max;
             }
 
             if (values.size() != 0) {
-                res << ",\"values\":[\"" << boost::algorithm::join(values, "\",\"") << "\"]";
+                res["values"] = values;
             }
-
-            res << "}";
-
-            metadataJson = res.str();
-            return metadataJson;
+            
+            return res;
         }
+
 
     private:
         /**
          * \~french \brief Éventuel attribut manquant lors de la construction
          * \~english \brief Constructor missing field
          */
-        std::string missingField;
+        std::string missing_field;
 
         /**
          * \~french \brief Nom de l'attribut
@@ -180,23 +166,20 @@ class Attribute
          * \~french \brief Nombre de valeurs distinctes de l'attribut
          * \~english \brief Attribute's distinct values count
          */
-        std::string count;
+        int count;
         /**
          * \~french \brief Valeur minimale prise par l'attribut si numérique
          * \~english \brief Min value of attribute if number
          */
-        std::string min;
+        double min;
+        bool min_provided;
         /**
          * \~french \brief Valeur maximale prise par l'attribut si numérique
          * \~english \brief Max value of attribute if number
          */
-        std::string max;
-        /**
-         * \~french \brief Formattage JSON des informations
-         * \~english \brief Informations JSON string
-         */
-        std::string metadataJson;
+        double max;
+        bool max_provided;
 };
 
-#endif // ATTRIBUTE_H
+
 

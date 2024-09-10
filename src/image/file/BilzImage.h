@@ -38,19 +38,16 @@
 /**
  * \file BilzImage.h
  ** \~french
- * \brief Définition des classes BilzImage et BilzImageFactory
+ * \brief Définition des classes BilzImage
  * \details
  * \li BilzImage : gestion d'une image au format (Z)bil, en lecture
- * \li BilzImageFactory : usine de création d'objet BilzImage
  ** \~english
- * \brief Define classes BilzImage and BilzImageFactory
+ * \brief Define classes BilzImage
  * \details
  * \li BilzImage : manage a (Z)bil format image, reading
- * \li BilzImageFactory : factory to create BilzImage object
  */
 
-#ifndef BILZ_IMAGE_H
-#define BILZ_IMAGE_H
+#pragma once
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -73,8 +70,6 @@
  * \todo Lire au fur et à mesure l'image BIL et ne pas la charger intégralement en mémoire lors de la création de l'objet BilzImage.
  */
 class BilzImage : public FileImage {
-
-    friend class BilzImageFactory;
 
 private:
 
@@ -102,10 +97,9 @@ private:
      template<typename T>
      int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet BilzImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine BilzImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -113,8 +107,7 @@ protected:
      * \param[in] channel nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
-     * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] bilData image complète, dans un tableau
@@ -127,35 +120,23 @@ protected:
      * \param[in] channel number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
-     * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] bilData whole image, in an array
      */
     BilzImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression,
         uint8_t* bilData
     );
 
 public:
     
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return (
-            ( bps == 32 && sf == SampleFormat::FLOAT ) ||
-            ( bps == 16 && sf == SampleFormat::UINT ) ||
-            ( bps == 8 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return false;
-    }
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -164,7 +145,7 @@ public:
      * \param[in] pIn source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( Image* pIn ) {
+    int write_image ( Image* pIn ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -176,7 +157,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint8_t* buffer ) {
+    int write_image ( uint8_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -188,7 +169,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint16_t* buffer ) {
+    int write_image ( uint16_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -200,7 +181,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( float* buffer)  {
+    int write_image ( float* buffer)  {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -213,7 +194,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint8_t* buffer, int line ) {
+    int write_line ( uint8_t* buffer, int line ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -226,7 +207,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint16_t* buffer, int line) {
+    int write_line ( uint16_t* buffer, int line) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -239,7 +220,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( float* buffer, int line) {
+    int write_line ( float* buffer, int line) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write (Z)BIL image" ;
         return -1;
     }
@@ -268,15 +249,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "---------- BilzImage ------------" ;
         FileImage::print();
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image (Z)BIL
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe BilzImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de BilzImage et de sortir en erreur en cas de problème. Dans le cas d'une image (Z)BIL pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class BilzImageFactory {
-public:
     /** \~french
      * \brief Crée un objet BilzImage, pour la lecture
      * \details L'emprise et les résolutions ne sont pas récupérées dans le fichier HRD associé à l'image (Z)BIL, on les précise donc à l'usine. Tout le reste sera lu dans le fichier HDR. On vérifiera aussi la cohérence entre les emprises et résolutions fournies et les dimensions récupérées dans le fichier HDR.
@@ -299,8 +272,7 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a BilzImage object pointer, NULL if error
      */
-    BilzImage* createBilzImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
+    static BilzImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 /* ------------------------------------------------------------------------------------------------ */
@@ -427,5 +399,5 @@ static bool uncompressedData(uint8_t* compresseddata, int compresseddatasize, ui
 }
 
 
-#endif
+
 

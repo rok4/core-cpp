@@ -45,8 +45,7 @@
 
 class Style;
 
-#ifndef STYLE_H
-#define STYLE_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -63,14 +62,14 @@ class Style;
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french
- * Une instance Style représente la façon d'afficher une couche et la métadonnée associée.
+ * Une instance Style représente la façon de modifier des images.
  * Il est possible de définir une table de correspondance valeur/couleur ou un estompage.
  * Un style peut contenir uniquement des métadonnées ou définir plusieurs traitements.
  *
  * Exemple de fichier de style complet :
  * \brief Gestion des styles (affichages et métadonnées)
  * \~english
- * A Style represent the way to display a layer and its associated metadata.
+ * A Style represent the way to modify raster data.
  * Two types of data treatment are available, Lookup table to define a value/colour equivalence and relief shading
  *
  * Style file sample :
@@ -124,11 +123,6 @@ private :
      */
     std::string identifier;
     /**
-     * \~french \brief Précise si le style est utilisable à la diffusion
-     * \~english \brief Precise if style can be used for broadcast
-     */
-    bool usableForBroadcast;
-    /**
      * \~french \brief Liste des titres
      * \~english \brief List of titles
      */
@@ -147,7 +141,7 @@ private :
      * \~french \brief Liste des légendes
      * \~english \brief List of legends
      */
-    std::vector<LegendURL> legendURLs;
+    std::vector<LegendURL> legends;
     /**
      * \~french \brief Table de correspondance (valeur -> couleur)
      * \~english \brief Lookup table (value -> colour)
@@ -169,7 +163,19 @@ private :
      */
     Estompage* estompage;
 
-    bool parse(json11::Json& doc, bool inspire);
+    /**
+     * \~french \brief Valeur de nodata attendue dans les données en entrée
+     * \~english \brief Nodata value expected in input data
+     */
+    int* input_nodata_value;
+
+    /**
+     * \~french \brief Valeur de nodata après style
+     * \~english \brief Style nodata value
+     */
+    int* output_nodata_value;
+
+    bool parse(json11::Json& doc);
 
 public:
 
@@ -178,14 +184,12 @@ public:
     * Crée un Style à partir d'un fichier JSON
     * \brief Constructeur
     * \param[in] path Chemin vers le descripteur de style
-    * \param[in] inspire Est-on en mode inspire ?
     * \~english
     * Create a Style from a JSON file
     * \brief Constructor
     * \param[in] path Path to JSON file
-    * \param[in] inspire Inspire enabled ?
     */
-    Style ( std::string path, bool inspire );
+    Style ( std::string path );
 
     /**
      * \~french
@@ -195,7 +199,7 @@ public:
      * \brief Return the style's identifier
      * \return id
      */
-    inline std::string getId() {
+    inline std::string get_id() {
         return id;
     }
 
@@ -207,28 +211,15 @@ public:
      * \brief Return the public style's identifier
      * \return identifier
      */
-    inline std::string getIdentifier() {
+    inline std::string get_identifier() {
         return identifier;
     }
-
-    /**
-     * \~french
-     * \brief Précise si le style est utilisable à la diffusion
-     * \return usableForBroadcast
-     * \~english
-     * \brief Precise if style can be used for broadcast
-     * \return usableForBroadcast
-     */
-    inline bool isUsableForBroadcast() {
-        return usableForBroadcast;
-    }
-
     /**
      * \~french \brief L'application du style est-elle possible ?
      * \~english \brief Style is allowed ?
      */
-    bool youCan (int spp) {
-        if (isEstompage() || isPente() || isAspect()) {
+    bool handle (int spp) {
+        if (estompage_defined() || pente_defined() || aspect_defined()) {
             return (spp == 1);
         } else {
             return true;
@@ -239,31 +230,20 @@ public:
      * \~french \brief Combien de canaux en sortie du style
      * \~english \brief How many channels after style
      */
-    int getChannels (int origChannels) {
-        if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
-            if (palette->isNoAlpha()) {
+    int get_channels (int orig_channels) {
+        if (palette && ! palette->is_empty()) {
+            if (palette->is_no_alpha()) {
                 return 3;
             } else {
                 return 4;
             }
         } else {
-            if (isEstompage() || isPente() || isAspect()) {
+            if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
             } else {
-                return origChannels;
+                // identité
+                return orig_channels;
             }
-        }
-    }
-
-    /**
-     * \~french \brief Combien de bits par canal en sortie du style
-     * \~english \brief How many bits per sample after style
-     */
-    int getBitsPerSample (int origBitsPerSample) {
-        if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
-            return 8;
-        } else {
-            return origBitsPerSample;
         }
     }
 
@@ -271,9 +251,9 @@ public:
      * \~french \brief Quel format de canal en sortie en sortie du style
      * \~english \brief Which sample format after style
      */
-    SampleFormat::eSampleFormat getSampleFormat (SampleFormat::eSampleFormat sf) {
-        if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
-            return SampleFormat::UINT;
+    SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
+        if (palette && ! palette->is_empty()) {
+            return SampleFormat::UINT8;
         } else {
             return sf;
         }
@@ -283,44 +263,28 @@ public:
      * \~french \brief Valeur de nodata après style
      * \~english \brief Style nodata value
      */
-    int getNodata (int** nodata) {
-        if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
-            Colour c = palette->getColoursMap()->begin()->second;
-            if (palette->isNoAlpha()) {
-                (*nodata) = new int[3];
-                (*nodata)[0] = c.r;
-                (*nodata)[1] = c.g;
-                (*nodata)[2] = c.b;
-                return 3;
-            } else {
-                (*nodata) = new int[4];
-                (*nodata)[0] = c.r;
-                (*nodata)[1] = c.g;
-                (*nodata)[2] = c.b;
-                (*nodata)[3] = c.a;
-                return 4;
-            }
-        } else {
-            if (isEstompage() || isPente() || isAspect()) {
-                (*nodata) = new int[1];
-                (*nodata)[0] = 0;
-                return 1;
-            } else {
-                return 0;
-            }
-        }
+    int* get_output_nodata_value () {
+        return output_nodata_value;
+    }
+
+    /**
+     * \~french \brief Valeur de nodata attendue dans les données en entrée
+     * \~english \brief Nodata value expected in input data
+     */
+    int* get_input_nodata_value () {
+        return input_nodata_value;
     }
 
     /**
      * \~french \brief Est ce que le style est une identité
      * \~english \brief Is style identity
      */
-    bool isIdentity () {
-        if (palette && palette->getColoursMap() && ! palette->getColoursMap()->empty()) {
+    bool is_identity () {
+        if (palette && palette->get_colours_map() && ! palette->is_empty()) {
             return false;
         }
 
-        if (isEstompage() || isPente() || isAspect()) {
+        if (estompage_defined() || pente_defined() || aspect_defined()) {
             return false;
         } else {
             return true;
@@ -335,7 +299,7 @@ public:
      * \brief Return the list of titles
      * \return titles
      */
-    inline std::vector<std::string> getTitles() {
+    inline std::vector<std::string> get_titles() {
         return titles;
     }
 
@@ -347,7 +311,7 @@ public:
      * \brief Return the list of abstracts
      * \return abstracts
      */
-    inline std::vector<std::string> getAbstracts() {
+    inline std::vector<std::string> get_abstracts() {
         return abstracts;
     }
 
@@ -359,7 +323,7 @@ public:
      * \brief Return the list of keywords
      * \return keywords
      */
-    inline std::vector<Keyword>* getKeywords() {
+    inline std::vector<Keyword>* get_keywords() {
         return &keywords;
     }
 
@@ -371,8 +335,8 @@ public:
      * \brief Return the list of legends
      * \return legends
      */
-    inline std::vector<LegendURL> getLegendURLs() {
-        return legendURLs;
+    inline std::vector<LegendURL>* get_legends() {
+        return &legends;
     }
 
     /**
@@ -383,7 +347,7 @@ public:
      * \brief Return the lookup table
      * \return lookup table
      */
-    inline Palette* getPalette() {
+    inline Palette* get_palette() {
         return palette;
     }
 
@@ -395,7 +359,7 @@ public:
      * \brief Determine if the style describe a relief shadows
      * \return true if it does
      */
-    inline bool isEstompage() {
+    inline bool estompage_defined() {
         return (estompage != 0);
     }
     /**
@@ -404,7 +368,7 @@ public:
      * \~english
      * \brief Return relief shadows
      */
-    inline Estompage* getEstompage() {
+    inline Estompage* get_estompage() {
         return estompage;
     }
 	
@@ -416,7 +380,7 @@ public:
      * \brief Return true if the style is a slope
      * \return bool
      */
-    inline bool isPente() {
+    inline bool pente_defined() {
         return (pente != 0);
     }
     /**
@@ -425,7 +389,7 @@ public:
      * \~english
      * \brief Return slope
      */
-    inline Pente* getPente() {
+    inline Pente* get_pente() {
         return pente;
     }
 
@@ -437,7 +401,7 @@ public:
     * \brief Return true if the style is an aspect
     * \return bool
     */
-    inline bool isAspect() {
+    inline bool aspect_defined() {
         return (aspect != 0);
     }
     /**
@@ -446,10 +410,28 @@ public:
      * \~english
      * \brief Return aspect
      */
-    inline Aspect* getAspect() {
+    inline Aspect* get_aspect() {
         return aspect;
     }
 	
+
+    /**
+     * \~french \brief Ajoute un noeud WMS correpondant à l'attribution
+     * \param[in] parent Noeud auquel ajouter celui de l'attribution
+     * \~english \brief Add a WMS node corresponding to attribution
+     * \param[in] parent Node to whom add the attribution node
+     */
+    void add_node_wms(ptree& parent);
+
+    /**
+     * \~french \brief Ajoute un noeud WMTS correpondant à l'attribution
+     * \param[in] parent Noeud auquel ajouter celui de l'attribution
+     * \param[in] default_style Style par défaut
+     * \~english \brief Add a WMTS node corresponding to attribution
+     * \param[in] parent Node to whom add the attribution node
+     * \param[in] default_style Default style
+     */
+    void add_node_wmts(ptree& parent, bool default_style = false);
 	
     /**
      * \~french
@@ -462,4 +444,4 @@ public:
 };
 
 
-#endif // STYLE_H
+

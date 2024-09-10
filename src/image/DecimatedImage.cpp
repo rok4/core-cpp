@@ -38,17 +38,15 @@
 /**
  * \file DecimatedImage.cpp
  ** \~french
- * \brief Implémentation des classes DecimatedImage, DecimatedMask et DecimatedImageFactory
+ * \brief Implémentation des classes DecimatedImage, DecimatedMask
  * \details
  * \li DecimatedImage : image calculée à  d'images compatibles, superposables
  * \li DecimatedMask : masque composé, associé à une image composée
- * \li DecimatedImageFactory : usine de création d'objet DecimatedImage
  ** \~english
- * \brief Implement classes DecimatedImage, DecimatedMask and DecimatedImageFactory
+ * \brief Implement classes DecimatedImage, DecimatedMask
  * \details
  * \li DecimatedImage : image compounded with superimpose images
  * \li DecimatedMask : compounded mask, associated with a compounded image
- * \li DecimatedImageFactory : factory to create DecimatedImage object
  */
 
 #include "image/DecimatedImage.h"
@@ -66,7 +64,7 @@ int DecimatedImage::_getline ( T* buffer, int line ) {
         buffer[i]= ( T ) nodata[i%channels];
     }
     
-    if ( numberX == 0 ) {
+    if ( count_x == 0 ) {
         // On est à gauche ou à droite de l'image source
         return width*channels;
     }
@@ -74,37 +72,37 @@ int DecimatedImage::_getline ( T* buffer, int line ) {
     // Ordonnée du centre de la ligne demandée
     double y_centre = bbox.ymax - (0.5 + line) * resy;
     
-    int src_ligne = sourceImage->y2l ( y_centre );
+    int src_ligne = source_image->y_to_line ( y_centre );
 
-    if ( src_ligne < 0 || src_ligne >= sourceImage->getHeight() ) {
+    if ( src_ligne < 0 || src_ligne >= source_image->get_height() ) {
         // On est au dessus ou en dessous de l'image source
         return width*channels;
     }
     
-    T* buffer_t = new T[sourceImage->getWidth() * sourceImage->getChannels()];
-    sourceImage->getline ( buffer_t, src_ligne );
+    T* buffer_t = new T[source_image->get_width() * source_image->get_channels()];
+    source_image->get_line ( buffer_t, src_ligne );
     
-    T* pix_src = buffer_t + sourceOffsetX * sourceImage->getChannels();
-    T* pix_dst = buffer + imageOffsetX * channels;
+    T* pix_src = buffer_t + source_offset_x * source_image->get_channels();
+    T* pix_dst = buffer + image_offset_x * channels;
     
-    if ( sourceImage->getMask() == NULL ) {
-        for (int i = 0; i < numberX; i++) {
+    if ( source_image->get_mask() == NULL ) {
+        for (int i = 0; i < count_x; i++) {
             memcpy(pix_dst, pix_src, channels*sizeof ( T ));
-            pix_src += ratioX * sourceImage->getChannels();
+            pix_src += ratio_x * source_image->get_channels();
             pix_dst += channels;
         }
     } else {
 
-        uint8_t* buffer_m = new uint8_t[sourceImage->getMask()->getWidth()];
-        sourceImage->getMask()->getline ( buffer_m, src_ligne );
+        uint8_t* buffer_m = new uint8_t[source_image->get_mask()->get_width()];
+        source_image->get_mask()->get_line ( buffer_m, src_ligne );
         
-        uint8_t* pix_src_mask = buffer_m + sourceOffsetX;
-        for (int i = 0; i < numberX; i++) {
+        uint8_t* pix_src_mask = buffer_m + source_offset_x;
+        for (int i = 0; i < count_x; i++) {
             if (*pix_src_mask) {
                 memcpy(pix_dst, pix_src, channels*sizeof ( T ));
             }
-            pix_src += ratioX * sourceImage->getChannels();
-            pix_src_mask += ratioX;
+            pix_src += ratio_x * source_image->get_channels();
+            pix_src_mask += ratio_x;
             pix_dst += channels;
         }
 
@@ -117,31 +115,31 @@ int DecimatedImage::_getline ( T* buffer, int line ) {
 }
 
 
-/* Implementation de getline pour les uint8_t */
-int DecimatedImage::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int DecimatedImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les float */
-int DecimatedImage::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int DecimatedImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les float */
-int DecimatedImage::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int DecimatedImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 DecimatedImage::DecimatedImage ( int width, int height, int channels, double resx, double resy, BoundingBox<double> bbox,
                         Image* image, int* nd ) :
     Image ( width, height, channels, resx, resy, bbox ),
-    sourceImage ( image ) {
+    source_image ( image ) {
 
     nodata = new int[channels];
     memcpy ( nodata, nd, channels*sizeof ( int ) );
     
-    ratioX = (int) resx/image->getResX() + 0.5;
-    ratioY = (int) resy/image->getResY() + 0.5;
+    ratio_x = (int) resx/image->get_resx() + 0.5;
+    ratio_y = (int) resy/image->get_resy() + 0.5;
     
     // Centre X de la première colonne de pixels de l'image décimée
     double x1_centre = bbox.xmin + 0.5 * resx;
@@ -152,48 +150,45 @@ DecimatedImage::DecimatedImage ( int width, int height, int channels, double res
     
     // Colonne des premiers et dernier pixel
     
-    int x1_src = image->x2c ( x1_centre );
-    int xd_src = image->x2c ( xd_centre );
+    int x1_src = image->x_to_column ( x1_centre );
+    int xd_src = image->x_to_column ( xd_centre );
     
-    if ( x1_src >= image->getWidth() || xd_src < 0 ) {
+    if ( x1_src >= image->get_width() || xd_src < 0 ) {
         // On est à gauche ou à droite de l'image source
         // Tous les pixels de l'image décimée sont à côté de l'image source. Pourquoi pas, on aura une image de nodata
-        numberX = 0;
+        count_x = 0;
     } else {
     
         // On va chercher le premier pixel de l'image source qui est utilisé
         double x_cur = x1_centre;
-        imageOffsetX = 0;
-        while (x_cur < image->getBbox().xmin) {
+        image_offset_x = 0;
+        while (x_cur < image->get_bbox().xmin) {
         BOOST_LOG_TRIVIAL(debug) << "x1centre = " << x_cur;
-            imageOffsetX++;
+            image_offset_x++;
             x_cur += resx;
         }
         BOOST_LOG_TRIVIAL(debug) << "x1centre = " << x_cur;
-        sourceOffsetX = image->x2c ( x_cur );
+        source_offset_x = image->x_to_column ( x_cur );
         
         // On va chercher le nombre de pixels à piocher dans l'image source pour constituer une ligne
         x_cur = xd_centre;
-        while (x_cur > image->getBbox().xmax) {
+        while (x_cur > image->get_bbox().xmax) {
             x_cur -= resx;
         }
         
-        xd_src = image->x2c ( x_cur );
+        xd_src = image->x_to_column ( x_cur );
         
-        numberX = (xd_src - sourceOffsetX) / ratioX + 1;
+        count_x = (xd_src - source_offset_x) / ratio_x + 1;
         
         // TEST
-        if ((xd_src - sourceOffsetX) % ratioX != 0) {
-            BOOST_LOG_TRIVIAL(warning) << "(xd_src - sourceOffsetX) % ratioX != 0";
+        if ((xd_src - source_offset_x) % ratio_x != 0) {
+            BOOST_LOG_TRIVIAL(warning) << "(xd_src - source_offset_x) % ratio_x != 0";
         }
     }    
     
 }
 
-
-/****************************************** DecimatedImageFactory *********************************************/
-
-DecimatedImage* DecimatedImageFactory::createDecimatedImage ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata ) {
+DecimatedImage* DecimatedImage::create ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata ) {
 
     if ( image == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "No source image to define decimated image" ;
@@ -202,13 +197,13 @@ DecimatedImage* DecimatedImageFactory::createDecimatedImage ( Image* image, Boun
     
     // On vérifie que la résolution est bien un mutiple de la résolution source
     double intpart;
-    double phi = modf ( res_x/image->getResX(), &intpart );
+    double phi = modf ( res_x/image->get_resx(), &intpart );
     if (phi > 0.0001 && phi < 0.9999) {
         BOOST_LOG_TRIVIAL(error) <<  "Decimated image resolution must be a multiple of source image's resolution (x wise)" ;
         return NULL;        
     }
     
-    phi = modf ( res_y/image->getResY(), &intpart );
+    phi = modf ( res_y/image->get_resy(), &intpart );
     if (phi > 0.0001 && phi < 0.9999) {
         BOOST_LOG_TRIVIAL(error) <<  "Decimated image resolution must be a multiple of source image's resolution (y wise)" ;
         return NULL;        
@@ -220,21 +215,21 @@ DecimatedImage* DecimatedImageFactory::createDecimatedImage ( Image* image, Boun
     double x_centre = bb.xmin + 0.5 * res_x;
     double y_centre = bb.ymax - 0.5 * res_y;
     
-    BoundingBox<double> bb_source = image->getBbox();
+    BoundingBox<double> bb_source = image->get_bbox();
     
     // Centre du pixel en haut à gauche de l'image source
-    double x_centre_src = bb_source.xmin + 0.5 * image->getResX();
-    double y_centre_src = bb_source.ymax - 0.5 * image->getResY();
+    double x_centre_src = bb_source.xmin + 0.5 * image->get_resx();
+    double y_centre_src = bb_source.ymax - 0.5 * image->get_resy();
     
     // On regarde si la différence entre les deux coordonnées est bien un nombre entier * la résolution source
     
-    phi = modf ( (x_centre - x_centre_src) / image->getResX(), &intpart );
+    phi = modf ( (x_centre - x_centre_src) / image->get_resx(), &intpart );
     if (phi > 0.0001 && phi < 0.9999) {
         BOOST_LOG_TRIVIAL(error) <<  "Decimated image pixel center must be aligned with a source image's pixel's center (x wise)" ;
         return NULL;        
     }
     
-    phi = modf ( (y_centre - y_centre_src) / image->getResY(), &intpart );
+    phi = modf ( (y_centre - y_centre_src) / image->get_resy(), &intpart );
     if (phi > 0.0001 && phi < 0.9999) {
         BOOST_LOG_TRIVIAL(error) <<  "Decimated image pixel center must be aligned with a source image's pixel's center (y wise)" ;
         return NULL;        
@@ -245,7 +240,7 @@ DecimatedImage* DecimatedImageFactory::createDecimatedImage ( Image* image, Boun
     int w = ( int ) ( bb.xmax - bb.xmin ) / res_x + 0.5 ;
     int h = ( int ) ( bb.ymax - bb.ymin ) / res_y + 0.5 ;
     
-    DecimatedImage* pDI = new DecimatedImage ( w, h, image->getChannels(), res_x, res_y, bb, image, nodata);
+    DecimatedImage* pDI = new DecimatedImage ( w, h, image->get_channels(), res_x, res_y, bb, image, nodata);
 
     return pDI;
 }

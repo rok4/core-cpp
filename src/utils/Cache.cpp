@@ -71,12 +71,14 @@ std::mutex TmsBook::mtx;
 std::map<std::string, Style*> StyleBook::book;
 std::vector<Style*> StyleBook::trash;
 std::string StyleBook::directory = "";
-bool StyleBook::inspire = false;
 std::mutex StyleBook::mtx;
+
+std::map<std::string, CRS*> CrsBook::book;
+std::mutex CrsBook::mtx;
 
 Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
 
-    if (reference_context != 0 && reference_context->getType() != type) {
+    if (reference_context != 0 && reference_context->get_type() != type) {
         BOOST_LOG_TRIVIAL(error) << "Asked storage context and reference one have to own the same type";
         return NULL;
     }
@@ -113,7 +115,6 @@ Context * StoragePool::get_context(ContextType::eContextType type, std::string t
 
     std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.find (key);
     if ( it != pool.end() ) {
-        BOOST_LOG_TRIVIAL(debug) << "Storage context already added " << ContextType::toString(it->first.first) << " / '" << it->first.second << "'" ;
         // le contenant est déjà existant et donc connecté
         return it->second;
 
@@ -142,12 +143,12 @@ Context * StoragePool::get_context(ContextType::eContextType type, std::string t
 
         // on connecte pour vérifier que ce contexte est valide
         if (! ctx->connection()) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot connect " << ContextType::toString(type) << " storage context, tray '" << tray << "'";
+            BOOST_LOG_TRIVIAL(error) << "Cannot connect " << ContextType::to_string(type) << " storage context, tray '" << tray << "'";
             delete ctx;
             return NULL;
         }
 
-        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::toString(type) << ", tray '" << tray << "'";
+        BOOST_LOG_TRIVIAL(debug) << "Add storage context " << ContextType::to_string(type) << ", tray '" << tray << "'";
         pool.insert(make_pair(key,ctx));
 
         return ctx;

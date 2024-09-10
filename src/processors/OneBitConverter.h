@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _ONEBITCONVERTER_
-#define _ONEBITCONVERTER_
+#pragma once
 
 #include "utils/Utils.h"
 
@@ -189,4 +188,4 @@ static inline void minwhiteToGray ( uint8_t* to, uint8_t* from, size_t size ) {
 
 
 }
-#endif
+

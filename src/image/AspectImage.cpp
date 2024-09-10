@@ -45,42 +45,42 @@
 #define DEG_TO_RAD      .0174532925199432958
 #include <string>
 
-int AspectImage::getline ( float* buffer, int line ) {
+int AspectImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int AspectImage::getline ( uint16_t* buffer, int line ) {
+int AspectImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-int AspectImage::getline ( uint8_t* buffer, int line ) {
+int AspectImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
 //definition des variables
 AspectImage::AspectImage (Image* image, Aspect* asp) :
-    Image ( image->getWidth() - 2, image->getHeight() - 2, 1 ),
-    origImage ( image ), resolution (image->computeMeanResolution()), algo (asp->getAlgo()), minSlope (asp->getMinSlope())
+    Image ( image->get_width() - 2, image->get_height() - 2, 1 ),
+    source_image ( image ), resolution (image->get_mean_resolution()), aspect(asp)
     {
 
     // On réduit la bbox d'un pixel de chaque côté
-    BoundingBox<double> bb = origImage->getBbox();
-    bb.xmin += origImage->getResX();
-    bb.ymin += origImage->getResY();
-    bb.xmax -= origImage->getResX();
-    bb.ymax -= origImage->getResY();
-    setBbox(bb);
+    BoundingBox<double> bb = source_image->get_bbox();
+    bb.xmin += source_image->get_resx();
+    bb.ymin += source_image->get_resy();
+    bb.xmax -= source_image->get_resx();
+    bb.ymax -= source_image->get_resy();
+    set_bbox(bb);
 
-    setCRS(origImage->getCRS());
+    set_crs(source_image->get_crs());
 
     // Buffer de lignes sources
-    memorizedOrigLines = 3;
+    memorized_source_lines = 3;
 
-    origLines = new int[memorizedOrigLines];
-    for (int i = 0; i < memorizedOrigLines; i++) {
-        origLines[i] = -1;
+    source_lines = new int[memorized_source_lines];
+    for (int i = 0; i < memorized_source_lines; i++) {
+        source_lines[i] = -1;
     }
-    origLinesBuffer = new float[origImage->getWidth() * memorizedOrigLines];
+    source_lines_buffer = new float[source_image->get_width() * memorized_source_lines];
 
     matrix[0] = 1 / (8.0*resolution) ;
     matrix[1] = 2 / (8.0*resolution) ;
@@ -96,9 +96,9 @@ AspectImage::AspectImage (Image* image, Aspect* asp) :
 }
 
 AspectImage::~AspectImage() {
-    delete origImage;
-    delete[] origLines;
-    delete[] origLinesBuffer;
+    delete source_image;
+    delete[] source_lines;
+    delete[] source_lines_buffer;
 }
 
 
@@ -111,30 +111,30 @@ int AspectImage::_getline ( T* buffer, int line ) {
     // n, n+1 et n+2 de l'image source
 
     // On range les lignes sources dans un buffer qui peut en stocker 3
-    // La ligne source n est stockée en (n % memorizedOrigLines) ème position
+    // La ligne source n est stockée en (n % memorized_source_lines) ème position
 
     // calcul des emplacements dans le buffer des 3 lignes sources nécessaires
-    float* line1 = origLinesBuffer + (line % memorizedOrigLines) * origImage->getWidth();
-    float* line2 = origLinesBuffer + ((line + 1) % memorizedOrigLines) * origImage->getWidth();
-    float* line3 = origLinesBuffer + ((line + 2) % memorizedOrigLines) * origImage->getWidth();
+    float* line1 = source_lines_buffer + (line % memorized_source_lines) * source_image->get_width();
+    float* line2 = source_lines_buffer + ((line + 1) % memorized_source_lines) * source_image->get_width();
+    float* line3 = source_lines_buffer + ((line + 2) % memorized_source_lines) * source_image->get_width();
 
     // ligne du dessus
-    if (origLines[line % memorizedOrigLines] != line) {
+    if (source_lines[line % memorized_source_lines] != line) {
         // la ligne source 'line' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line1 , line);
-        origLines[line % memorizedOrigLines] = line;
+        source_image->get_line (line1 , line);
+        source_lines[line % memorized_source_lines] = line;
     }
     // ligne du milieu
-    if (origLines[(line + 1) % memorizedOrigLines] != line + 1) {
+    if (source_lines[(line + 1) % memorized_source_lines] != line + 1) {
         // la ligne source 'line + 1' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line2 , line + 1);
-        origLines[(line + 1) % memorizedOrigLines] = line + 1;
+        source_image->get_line (line2 , line + 1);
+        source_lines[(line + 1) % memorized_source_lines] = line + 1;
     }
     // ligne du dessous
-    if (origLines[(line + 2) % memorizedOrigLines] != line + 2) {
+    if (source_lines[(line + 2) % memorized_source_lines] != line + 2) {
         // la ligne source 'line + 2' n'est pas celle stockée dans le buffer, on doit la lire
-        origImage->getline (line3 , line + 2);
-        origLines[(line + 2) % memorizedOrigLines] = line + 2;
+        source_image->get_line (line3 , line + 2);
+        source_lines[(line + 2) % memorized_source_lines] = line + 2;
     }
 
     //on commence a la premiere colonne
@@ -142,19 +142,36 @@ int AspectImage::_getline ( T* buffer, int line ) {
     int column = 0;
     //creation de la variable sur laquelle on travaille pour trouver le seuil
     double value,value1,value2,slope;
+    float a,b,c,d,e,f,g,h,i;
 
     //calcul de la variable sur toutes les autres colonnes
     while ( column < width ) {
 
-        value1 = (matrix[2] * ( * ( line1+columnOrig+1 ) ) + matrix[5] * ( * ( line2+columnOrig+1 ) ) + matrix[8] * ( * ( line3+columnOrig+1 ) ) - matrix[0] * ( * ( line1+columnOrig-1 ) ) - matrix[3] * ( * ( line2+columnOrig-1 ) ) - matrix[6] * ( * ( line3+columnOrig-1 ) ));
-        value2 = (matrix[0] * ( * ( line1+columnOrig-1 ) ) + matrix[1] * ( * ( line1+columnOrig ) ) + matrix[2] * ( * ( line1+columnOrig+1 ) ) - matrix[6] * ( * ( line3+columnOrig-1 ) ) - matrix[7] * ( * ( line3+columnOrig ) ) - matrix[8] * ( * ( line3+columnOrig+1 ) ));
+        a = ( * ( line1+columnOrig-1 ) );
+        b = ( * ( line1+columnOrig ) );
+        c = ( * ( line1+columnOrig+1 ) );
+        d = ( * ( line2+columnOrig-1 ) );
+        e = ( * ( line2+columnOrig ) );
+        f = ( * ( line2+columnOrig+1 ) );
+        g = ( * ( line3+columnOrig-1 ) );
+        h = ( * ( line3+columnOrig ) );
+        i = ( * ( line3+columnOrig+1 ) );
 
-        //calcul de la pente pour ne pas afficher l'exposition en dessous d'une certaine valeur de pente
-        slope = sqrt(pow(value1,2.0)+pow(value2,2.0));
-        if (slope < minSlope) {
-            value = -1.0;
+        if (a == aspect->input_nodata_value || b == aspect->input_nodata_value || c == aspect->input_nodata_value || d == aspect->input_nodata_value || e == aspect->input_nodata_value ||
+                f == aspect->input_nodata_value || g == aspect->input_nodata_value || h == aspect->input_nodata_value || i == aspect->input_nodata_value) {
+            value = aspect->aspect_nodata_value;
         } else {
-            value = (atan2(value1,value2) + M_PI) * 180 / M_PI;
+
+            value1 = (matrix[2] * c + matrix[5] * f + matrix[8] * i - matrix[0] * a - matrix[3] * d - matrix[6] * g);
+            value2 = (matrix[0] * a + matrix[1] * b + matrix[2] * c - matrix[6] * g - matrix[7] * h - matrix[8] * i);
+
+            //calcul de la pente pour ne pas afficher l'exposition en dessous d'une certaine valeur de pente
+            slope = sqrt(pow(value1,2.0)+pow(value2,2.0));
+            if (slope < aspect->min_slope) {
+                value = aspect->aspect_nodata_value;
+            } else {
+                value = (atan2(value1,value2) + M_PI) * 180 / M_PI;
+            }
         }
 
         * ( buffer + ( column++ ) ) = (T) ( value );

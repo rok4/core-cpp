@@ -51,21 +51,21 @@ JPEGEncoder::JPEGEncoder ( Image* image, int quality ) : image ( image ), status
     cinfo.dest->next_output_byte = 0;
     cinfo.dest->free_in_buffer = 0;
 
-    cinfo.image_width = image->getWidth();
-    cinfo.image_height = image->getHeight();
-    cinfo.input_components = image->getChannels();
-    if ( image->getChannels() == 3 ) cinfo.in_color_space = JCS_RGB;
-    else if ( image->getChannels() == 1 ) cinfo.in_color_space = JCS_GRAYSCALE;
-    else if ( image->getChannels() == 4 ) cinfo.in_color_space = JCS_EXT_RGBX;
+    cinfo.image_width = image->get_width();
+    cinfo.image_height = image->get_height();
+    cinfo.input_components = image->get_channels();
+    if ( image->get_channels() == 3 ) cinfo.in_color_space = JCS_RGB;
+    else if ( image->get_channels() == 1 ) cinfo.in_color_space = JCS_GRAYSCALE;
+    else if ( image->get_channels() == 4 ) cinfo.in_color_space = JCS_EXT_RGBX;
     else cinfo.in_color_space = JCS_UNKNOWN;
 
 
     jpeg_set_defaults ( &cinfo );
     jpeg_set_quality ( &cinfo, quality, true );
 
-    bufferLimit = std::max ( 1024, ( ( image->getWidth() * image->getChannels() ) / 2 ) );
+    buffer_limit = std::max ( 1024, ( ( image->get_width() * image->get_channels() ) / 2 ) );
 
-    linebuffer = new uint8_t[image->getWidth() *image->getChannels()];
+    buffer_line = new uint8_t[image->get_width() *image->get_channels()];
 }
 
 /**
@@ -81,15 +81,15 @@ size_t JPEGEncoder::read ( uint8_t *buffer, size_t size ) {
     cinfo.dest->next_output_byte = buffer;
     cinfo.dest->free_in_buffer = size;
     // Première passe : on initialise la compression (écrit déjà quelques données)
-    if ( status < 0 && cinfo.dest->free_in_buffer >= bufferLimit ) {
+    if ( status < 0 && cinfo.dest->free_in_buffer >= buffer_limit ) {
         jpeg_start_compress ( &cinfo, true );
         status = 0;
     }
-    while ( cinfo.next_scanline < cinfo.image_height && cinfo.dest->free_in_buffer >= bufferLimit ) {
-        image->getline ( linebuffer, cinfo.next_scanline );
-        if ( jpeg_write_scanlines ( &cinfo, &linebuffer, 1 ) < 1 ) break;
+    while ( cinfo.next_scanline < cinfo.image_height && cinfo.dest->free_in_buffer >= buffer_limit ) {
+        image->get_line ( buffer_line, cinfo.next_scanline );
+        if ( jpeg_write_scanlines ( &cinfo, &buffer_line, 1 ) < 1 ) break;
     }
-    if ( status == 0 && cinfo.next_scanline >= cinfo.image_height && cinfo.dest->free_in_buffer >= bufferLimit/10 ) {
+    if ( status == 0 && cinfo.next_scanline >= cinfo.image_height && cinfo.dest->free_in_buffer >= buffer_limit/10 ) {
         jpeg_finish_compress ( &cinfo );
         status = 1;
     }
@@ -100,6 +100,6 @@ size_t JPEGEncoder::read ( uint8_t *buffer, size_t size ) {
 JPEGEncoder::~JPEGEncoder() {
     delete cinfo.dest;
     jpeg_destroy_compress ( &cinfo );
-    delete[] linebuffer;
+    delete[] buffer_line;
     delete image;
 }

@@ -61,15 +61,7 @@ if(NOT TARGET png)
 endif(NOT TARGET png)
 
 IF(KDU_ENABLED)
-    if(NOT TARGET jpeg2000)
-        find_package(KAKADU)
-        if(KAKADU_FOUND)
-            add_library(jpeg2000 SHARED IMPORTED)
-            set_property(TARGET jpeg2000 PROPERTY IMPORTED_LOCATION ${KAKADU_LIBRARY})
-        else(KAKADU_FOUND)
-            message(FATAL_ERROR "Cannot find extern library Kakadu")
-        endif(KAKADU_FOUND)
-    endif(NOT TARGET jpeg2000)
+    message( FATAL_ERROR "Use Kakadu driver to read JPEG2000 is no more available" )
 ELSE(KDU_ENABLED)
     if(NOT TARGET jpeg2000)
         find_package(Openjpeg)
@@ -148,16 +140,6 @@ IF(CEPH_ENABLED)
 ENDIF(CEPH_ENABLED)
 
 # Statique
-
-if(NOT TARGET json)
-    find_package(Json)
-    if(JSON_FOUND)
-        add_library(json STATIC IMPORTED)
-        set_property(TARGET json PROPERTY IMPORTED_LOCATION ${JSON_LIBRARY})
-    else(JSON_FOUND)
-        message(FATAL_ERROR "Cannot find extern library libjson")
-    endif(JSON_FOUND)
-endif(NOT TARGET json)
 
 if(UNITTEST_ENABLED)
   

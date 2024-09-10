@@ -14,7 +14,6 @@ set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation location")
 set(BUILD_VERSION "0.0.0" CACHE STRING "Build version")
 set(CEPH_ENABLED 0 CACHE BOOL "Build with ceph storage")
 set(KDU_ENABLED 0 CACHE BOOL "Build with kakadu")
-set(KDU_THREADING 0 CACHE STRING "Threading level for kakadu")
 set(UNITTEST_ENABLED 1 CACHE BOOL "Unit tests compilation")
 set(DOC_ENABLED 1 CACHE BOOL "Documentation compilation")
 set(CPACK_SYSTEM_NAME "ubuntu-20.04" CACHE STRING "Building OS, to deduce package format to generate")
@@ -69,13 +68,13 @@ file(GLOB LIBROK4_SRCS
     "src/image/*.cpp"
     "src/image/file/*.cpp"
     "src/storage/*.cpp"
+    "src/thirdparty/*.cpp"
 )
 
-include_directories(${PROJECT_BINARY_DIR} ${PROJ_INCLUDE_DIR} ${TURBOJPEG_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR} ${CURL_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${BOOSTLOG_INCLUDE_DIR})
+include_directories(${PROJECT_BINARY_DIR} ${PROJ_INCLUDE_DIR} ${TURBOJPEG_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR} ${CURL_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${BOOSTLOG_INCLUDE_DIR})
 
 if(KDU_ENABLED)
-    set(LIBROK4_SRCS ${LIBROK4_SRCS} "src/image/file/kakadu/LibkakaduImage.cpp")
-    include_directories(${KAKADU_INCLUDE_DIR})
+    message( FATAL_ERROR "Use Kakadu driver to read JPEG2000 is no more available" )
 else(KDU_ENABLED)
     set(LIBROK4_SRCS ${LIBROK4_SRCS} "src/image/file/openjpeg/LibopenjpegImage.cpp")
     include_directories(${OPENJPEG_INCLUDE_DIR})
@@ -103,7 +102,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${CMAKE_PROJECT_VERSI
 
 ################### LIEN DES DÉPENDANCES
 
-target_link_libraries(${PROJECT_NAME} PUBLIC proj turbojpeg jpeg json zlib curl openssl crypto boostlog jpeg2000 tiff png)
+target_link_libraries(${PROJECT_NAME} PUBLIC proj turbojpeg jpeg zlib curl openssl crypto boostlog jpeg2000 tiff png)
 
 if(CEPH_ENABLED)
     target_link_libraries(${PROJECT_NAME} PUBLIC rados)
@@ -191,7 +190,7 @@ if(CPACK_SYSTEM_NAME AND CPACK_SYSTEM_NAME STREQUAL "ubuntu-20.04" OR CPACK_SYST
     # Debian
     set(CPACK_DEBIAN_PACKAGE_SECTION "science")
     set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "zlib1g-dev, libcurl4-openssl-dev, libproj-dev, libssl-dev, libturbojpeg0-dev, libjpeg-dev, libc6-dev, libjson11-1-dev, libboost-log-dev, libboost-filesystem-dev, libboost-system-dev, libsqlite3-dev, libpng-dev, libtiff5-dev")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "zlib1g-dev, libcurl4-openssl-dev, libproj-dev, libssl-dev, libturbojpeg0-dev, libjpeg-dev, libc6-dev, libboost-log-dev, libboost-filesystem-dev, libboost-system-dev, libsqlite3-dev, libpng-dev, libtiff5-dev")
     if(NOT KDU_ENABLED)
         set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libopenjp2-7-dev")
     endif(NOT KDU_ENABLED)

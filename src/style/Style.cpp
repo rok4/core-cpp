@@ -54,7 +54,7 @@
 
 #include "storage/Context.h"
 
-bool Style::parse(json11::Json& doc, bool inspire) {
+bool Style::parse(json11::Json& doc) {
 
     /********************** Default values */
 
@@ -62,29 +62,28 @@ bool Style::parse(json11::Json& doc, bool inspire) {
     aspect = 0;
     estompage = 0;
     palette = 0;
-    usableForBroadcast = true;
+
+    input_nodata_value = NULL;
+    output_nodata_value = NULL;
 
     // Chargement
 
-    if (doc["identifier"].is_string()) {
+    if (doc["identifier"].is_string() && doc["identifier"].string_value() != "") {
         identifier = doc["identifier"].string_value();
     } else {
-        usableForBroadcast = false;
+        error_message = "identifier have to be a non empty string ";
+        return false;
     }
 
     if (doc["title"].is_string()) {
         titles.push_back ( doc["title"].string_value() );
-    }
-    if (titles.size() == 0) {
-        usableForBroadcast = false;
+    } else {
+        error_message = "title have to be a string ";
+        return false;
     }
 
     if (doc["abstract"].is_string()) {
         abstracts.push_back ( doc["abstract"].string_value() );
-    }
-    if ( abstracts.size() == 0 && inspire ) {
-        errorMessage = "No abstract in style " + id + " : not INSPIRE compliant" ;
-        return false;
     }
 
     if (doc["keywords"].is_array()) {
@@ -92,7 +91,7 @@ bool Style::parse(json11::Json& doc, bool inspire) {
             if (kw.is_string()) {
                 keywords.push_back(Keyword ( kw.string_value()));
             } else {
-                errorMessage = "keywords have to be a string array";
+                error_message = "keywords have to be a string array";
                 return false;
             }
         }
@@ -100,47 +99,47 @@ bool Style::parse(json11::Json& doc, bool inspire) {
 
     if (doc["legend"].is_object()) {
         LegendURL leg = LegendURL(doc["legend"].object_items());
-        if (leg.getMissingField() != "") {
-            errorMessage = "Invalid legend: have to own a field " + leg.getMissingField();
+        if (leg.get_missing_field() != "") {
+            error_message = "Invalid legend: have to own a field " + leg.get_missing_field();
             return false;
         }
-        legendURLs.push_back(leg);
-    }
-
-    if ( legendURLs.size() == 0 && inspire ) {
-        errorMessage = "No legend in style " + id + " : not INSPIRE compliant" ;
-        return false;
+        legends.push_back(leg);
     }
 
     palette = new Palette(doc["palette"].object_items());
-    if (! palette->isOk()) {
-        errorMessage = "Palette issue for style " + id + ": " + palette->getErrorMessage();
+    if (! palette->is_ok()) {
+        error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
         return false;
     }
 
     if (doc["estompage"].is_object()) {
-        usableForBroadcast = false;
         estompage = new Estompage(doc["estompage"].object_items());
-        if (! estompage->isOk()) {
-            errorMessage = "Estompage issue for style " + id + ": " + estompage->getErrorMessage();
+        if (! estompage->is_ok()) {
+            error_message = "Estompage issue for style " + id + ": " + estompage->get_error_message();
             return false;
         }
     }
     
-    if ( estompage == 0 && doc["pente"].is_object()) {
-        usableForBroadcast = false;
+    if ( doc["pente"].is_object() ) {
+        if (estompage != 0) {
+            error_message = "Style " + id + " define estompage and pente rules";
+            return false;
+        }
         pente = new Pente(doc["pente"].object_items());
-        if (! pente->isOk()) {
-            errorMessage = "Pente issue for style " + id + ": " + pente->getErrorMessage();
+        if (! pente->is_ok()) {
+            error_message = "Pente issue for style " + id + ": " + pente->get_error_message();
             return false;
         }
     }
     
-    if ( estompage == 0 && pente == 0 && doc["exposition"].is_object()) {
-        usableForBroadcast = false;
+    if ( doc["exposition"].is_object()) {
+        if (estompage != 0 || pente != 0) {
+            error_message = "Style " + id + " define exposition and estompage or pente rules";
+            return false;
+        }
         aspect = new Aspect(doc["exposition"].object_items());
-        if (! aspect->isOk()) {
-            errorMessage = "Aspect issue for style " + id + ": " + aspect->getErrorMessage();
+        if (! aspect->is_ok()) {
+            error_message = "Aspect issue for style " + id + ": " + aspect->get_error_message();
             return false;
         }
     }
@@ -148,12 +147,15 @@ bool Style::parse(json11::Json& doc, bool inspire) {
     return true;
 }
 
-Style::Style ( std::string path, bool inspire ) : Configuration(path) {
+Style::Style ( std::string path ) : Configuration(path) {
 
     pente = 0;
     estompage = 0;
     palette = 0;
     aspect = 0;
+
+    input_nodata_value = NULL;
+    output_nodata_value = NULL;
 
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
@@ -161,14 +163,14 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
 
     /********************** Id */
 
-    id = Configuration::getFileName(fo_name, ".json");
+    id = Configuration::get_filename(fo_name, ".json");
     BOOST_LOG_TRIVIAL(debug) << "Add style " << id << " from file or object";
 
     /********************** Read */
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read style";
+        error_message = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read style";
         return;
     }
 
@@ -182,26 +184,74 @@ Style::Style ( std::string path, bool inspire ) : Configuration(path) {
     }
 
     if (context->exists(fo_name)) {
-        data = context->readFull(size, fo_name);
+        data = context->read_full(size, fo_name);
     } else if (context->exists(fo_name + ".json")) {
-        data = context->readFull(size, fo_name + ".json");
+        data = context->read_full(size, fo_name + ".json");
     } else {
-        errorMessage = "Cannot read style " + path + ", with or without extension .json";
+        error_message = "Cannot read style " + path + ", with or without extension .json";
         return;
     }
 
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        error_message = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
 
     /********************** Parse */
 
-    if (! parse(doc, inspire)) {
+    if (! parse(doc)) {
         return;
+    }
+
+
+    // Input nodata
+    if (estompage_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) estompage->input_nodata_value;
+    }
+    else if (aspect_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) aspect->input_nodata_value;
+    }
+    else if (pente_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) pente->input_nodata_value;
+    } 
+    else if (palette && ! palette->is_empty()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) palette->get_colours_map()->begin()->first;
+    }
+
+    // Output nodata
+    if (palette && ! palette->is_empty()) {
+        Colour c = palette->get_colours_map()->begin()->second;
+        if (palette->is_no_alpha()) {
+            output_nodata_value = new int[3];
+            output_nodata_value[0] = c.r;
+            output_nodata_value[1] = c.g;
+            output_nodata_value[2] = c.b;
+        } else {
+            output_nodata_value = new int[4];
+            output_nodata_value[0] = c.r;
+            output_nodata_value[1] = c.g;
+            output_nodata_value[2] = c.b;
+            output_nodata_value[3] = c.a;
+        }
+    }
+    else if (estompage_defined()) {
+            output_nodata_value = new int[1];
+            output_nodata_value[0] = (int) estompage->estompage_nodata_value;
+    }
+    else if (aspect_defined()) {
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) aspect->aspect_nodata_value;
+    }
+    else if (pente_defined()) {
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) pente->slope_nodata_value;
     }
 }
 
@@ -217,5 +267,54 @@ Style::~Style() {
     }
     if (aspect != 0) {
         delete aspect;
+    }
+    if (input_nodata_value != NULL) {
+        delete[] input_nodata_value;
+    }
+    if (output_nodata_value != NULL) {
+        delete[] output_nodata_value;
+    }
+}
+
+void Style::add_node_wmts(ptree& parent, bool default_style) {
+    ptree& node = parent.add("Style", "");
+    if ( default_style ) {
+        node.add("<xmlattr>.isDefault", "true");
+    }
+    
+    for (std::string t : titles) {
+        node.add("Title", t);
+    }
+    for (std::string a : abstracts) {
+        node.add("Abstract", a);
+    }
+
+    if ( keywords.size() != 0 ) {
+        ptree& keywords_node = node.add("ows:Keywords", "");
+        for (Keyword k  : keywords) {
+            k.add_node(keywords_node, "ows:Keyword");
+        }
+    }
+
+    node.add("ows:Identifier", identifier);
+    
+    for (LegendURL l : legends) {
+        l.add_node_wmts(node);
+    }
+}
+
+void Style::add_node_wms(ptree& parent) {
+    ptree& node = parent.add("Style", "");
+
+    node.add("Name", identifier);
+
+    for (std::string t : titles) {
+        node.add("Title", t);
+    }
+    for (std::string a : abstracts) {
+        node.add("Abstract", a);
+    }
+    for (LegendURL l : legends) {
+        l.add_node_wms(node);
     }
 }

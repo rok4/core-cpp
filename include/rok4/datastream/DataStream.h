@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef DATA_STREAM_H
-#define DATA_STREAM_H
+#pragma once
 
 #include <stdint.h>// pour uint8_t
 #include <cstddef> // pour size_t
@@ -51,6 +50,7 @@
  * Interface abstraite permetant d'encapsuler un flux de données.
  */
 class DataStream {
+
 public:
 
     /** Destructeur virtuel */
@@ -83,22 +83,22 @@ public:
     /**
      * Indique le type MIME associé au flux.
      */
-    virtual std::string getType() = 0;
+    virtual std::string get_type() = 0;
 
     /**
      * Indique le statut Http associé au flux.
      */
-    virtual int getHttpStatus() = 0;
+    virtual int get_http_status() = 0;
     
     /**
      * Indique l'encodage associé au flux.
      */
-    virtual std::string getEncoding() = 0;
+    virtual std::string get_encoding() = 0;
     
     /**
      * Indique la taille de la réponse en octets.
      */
-    virtual unsigned int getLength() = 0;
+    virtual unsigned int get_length() = 0;
 };
 
 
@@ -106,34 +106,25 @@ public:
  * Classe d'un flux de données brutes.
  */
 class RawDataStream : public DataStream {
+
 private:
-    size_t dataSize;
+
+    size_t data_size;
     uint8_t* data;
     size_t pos;
     std::string type;
     std::string encoding;
     unsigned int length;
+
 public:
-    /**
-     * Constructeur.
-     */
-    RawDataStream ( uint8_t *dat, size_t dataS, std::string t, std::string e, unsigned int l){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
-        pos = 0;
-        type = t;
-        encoding = e;
-        length = l;
-    }
     
     /**
      * Constructeur.
      */
     RawDataStream ( uint8_t *dat, size_t dataS, std::string t, std::string e){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
+        data_size = dataS;
+        data = new uint8_t[data_size];
+        memcpy ( data, dat, data_size );
         pos = 0;
         type = t;
         encoding = e;
@@ -144,9 +135,9 @@ public:
      * Constructeur.
      */
     RawDataStream ( uint8_t *dat, size_t dataS){
-        dataSize = dataS;
-        data = new uint8_t[dataSize];
-        memcpy ( data, dat, dataSize );
+        data_size = dataS;
+        data = new uint8_t[data_size];
+        memcpy ( data, dat, data_size );
         pos = 0;
         type = "";
         encoding = "";
@@ -160,38 +151,38 @@ public:
 
     /** Implémentation de l'interface DataSource **/
     size_t read ( uint8_t *buffer, size_t size ) {
-        if ( size > dataSize - pos ) size = dataSize - pos;
+        if ( size > data_size - pos ) size = data_size - pos;
         memcpy ( buffer, ( uint8_t* ) ( data +pos ),size );
         pos+=size;
         return size;
     }
 
     bool eof() {
-        return ( pos==dataSize );
+        return ( pos==data_size );
     }
 
     /** @return le type du dataStream */
-    std::string getType() {
+    std::string get_type() {
         return type;
     }
 
     /** @return le status du dataStream */
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
 
      /** @return l'encodage du dataStream */
-    std::string getEncoding() {
+    std::string get_encoding() {
         return encoding;
     }
 
     /** @return la taille du buffer */
-   size_t getSize() {
-       return dataSize;
+   size_t get_size() {
+       return data_size;
    }
    
     /** @return la taille du dataStream */
-    unsigned int getLength(){
+    unsigned int get_length(){
         return length;
     }
 
@@ -201,14 +192,18 @@ public:
  * Classe Transformant un DataSource en DataStream
  */
 class DataStreamFromDataSource : public DataStream {
+
 private:
+
     DataSource* datasource;
     size_t pos;
     const uint8_t* data;
     size_t data_size;
+
 public:
+
     DataStreamFromDataSource ( DataSource* datasource ): datasource(datasource){
-       data = datasource->getData(data_size);
+       data = datasource->get_data(data_size);
        pos = 0;
     };
     ~DataStreamFromDataSource() {
@@ -223,20 +218,20 @@ public:
     bool eof(){
         return data_size == pos;
     };
-    std::string getType(){
-        return datasource->getType();
+    std::string get_type(){
+        return datasource->get_type();
     }
-    int getHttpStatus(){
-        return datasource->getHttpStatus();
+    int get_http_status(){
+        return datasource->get_http_status();
     }
-    std::string getEncoding(){
-        return datasource->getEncoding();
+    std::string get_encoding(){
+        return datasource->get_encoding();
     }
-    unsigned int getLength(){
-        return datasource->getLength();
+    unsigned int get_length(){
+        return datasource->get_length();
     }
 };
 
 
 
-#endif
+

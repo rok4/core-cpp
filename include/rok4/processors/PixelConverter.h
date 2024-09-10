@@ -43,8 +43,7 @@
  * \brief Define the PixelConverter class
  */
 
-#ifndef PIXELCONVERTER_H
-#define PIXELCONVERTER_H
+#pragma once
 
 #include <string.h>
 #include <stdio.h>
@@ -68,34 +67,23 @@ private:
      * \~french \brief Format du canal en entrée
      * \~english \brief Input sample format
      */
-    SampleFormat::eSampleFormat inSampleFormat;
+    SampleFormat::eSampleFormat input_sampleformat;
     /**
      * \~french \brief Format du canal en sortie
      * \~english \brief Output sample format
      */
-    SampleFormat::eSampleFormat outSampleFormat;
-
-    /**
-     * \~french \brief Nombre de bits d'un canal en entrée
-     * \~english \brief Input number of bits per sample
-     */
-    int inBitsPerSample;
-    /**
-     * \~french \brief Nombre de bits d'un canal en sortie
-     * \~english \brief Output number of bits per sample
-     */
-    int outBitsPerSample;
+    SampleFormat::eSampleFormat output_sampleformat;
 
     /**
      * \~french \brief Nombre de canal en entrée
      * \~english \brief Input number of channel
      */
-    int inSamplesPerPixel;
+    int input_samplesperpixel;
     /**
      * \~french \brief Nombre de canal en sortie
      * \~english \brief Output number of channel
      */
-    int outSamplesPerPixel;
+    int output_samplesperpixel;
 
     /**
      * \~french \brief Largeur d'une ligne à convertir
@@ -107,7 +95,7 @@ private:
      * \~french \brief La conversion est-elle possible ?
      * \~english \brief Conversion is allowed ?
      */
-    bool yesWeCan;
+    bool ok;
 
 public:
     /** \~french
@@ -115,68 +103,61 @@ public:
      ** \~english
      * \brief Create a PixelConverter
      */
-    PixelConverter ( int w, SampleFormat::eSampleFormat isf, int ibps, int ispp, SampleFormat::eSampleFormat osf, int obps, int ospp ) : 
-        width(w), inSampleFormat (isf), inBitsPerSample(ibps), inSamplesPerPixel(ispp),
-        outSampleFormat (osf), outBitsPerSample(obps), outSamplesPerPixel(ospp) 
+    PixelConverter ( int w, SampleFormat::eSampleFormat isf, int ispp, SampleFormat::eSampleFormat osf, int ospp ) : 
+        width(w), input_sampleformat (isf), input_samplesperpixel(ispp),
+        output_sampleformat (osf), output_samplesperpixel(ospp) 
     {
-        yesWeCan = false;
-        
-        if (inSampleFormat == SampleFormat::FLOAT || outSampleFormat == SampleFormat::FLOAT) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle float samples";
+        ok = false;
+
+        if (input_sampleformat != SampleFormat::UINT8) {
+            BOOST_LOG_TRIVIAL(warning) << "PixelConverter only handle 8 bits sample";
             return;
         }
-        if (inSampleFormat != outSampleFormat) {
+        if (input_sampleformat != output_sampleformat) {
             BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle different samples format";
             return;
         }
-        if (inBitsPerSample != outBitsPerSample) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter doesn't handle different number of bits per sample";
-            return;
-        }
 
-        if (inSamplesPerPixel == outSamplesPerPixel) {
+        if (input_samplesperpixel == output_samplesperpixel) {
             BOOST_LOG_TRIVIAL(warning) << "PixelConverter have not to be used if number of samples per pixel is the same";
             return;
         }
 
-        if (inBitsPerSample != 8) {
-            BOOST_LOG_TRIVIAL(warning) << "PixelConverter only handle 8 bits sample";
-            return;
-        }
-
-        yesWeCan = true;
+        ok = true;
     }
 
     /**
      * \~french \brief La conversion est-elle possible ?
      * \~english \brief Conversion is allowed ?
      */
-    bool youCan () {
-        return yesWeCan;
+    bool is_ok () {
+        return ok;
     }
 
     /**
      * \~french \brief Retourne le format de canal en sortie
      * \~english \brief Get the output sample format
      */
-    SampleFormat::eSampleFormat getSampleFormat () {
-        return outSampleFormat;
+    SampleFormat::eSampleFormat get_sample_format () {
+        return output_sampleformat;
     }
 
     /**
-     * \~french \brief Retourne le nombre de bits par canal en sortie
-     * \~english \brief Get the output number of bits per channel
+     * \~french
+     * \brief Retourne la taille en octet d'un pixel en sortie
+     * \~english
+     * \brief Return the output pixel's byte size
      */
-    int getBitsPerSample () {
-        return outBitsPerSample;
+    int get_pixel_size () {
+        return SampleFormat::get_bits_per_sample(output_sampleformat) * output_samplesperpixel / 8;
     }
 
     /**
      * \~french \brief Retourne le nombre de canaux en sortie
      * \~english \brief Get the output number of channels
      */
-    int getSamplesPerPixel () {
-        return outSamplesPerPixel;
+    int get_channels () {
+        return output_samplesperpixel;
     }
 
     /**
@@ -187,9 +168,8 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "---------- PixelConverter ------------" ;
         BOOST_LOG_TRIVIAL(info) <<  "\t- Width : " << width ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- SampleFormat : " << SampleFormat::toString(inSampleFormat) << " -> " << SampleFormat::toString(outSampleFormat) ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Bits per sample : " << inBitsPerSample << " -> " << outBitsPerSample ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Samples per pixel : " << inSamplesPerPixel << " -> " << outSamplesPerPixel ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- SampleFormat : " << SampleFormat::to_string(input_sampleformat) << " -> " << SampleFormat::to_string(output_sampleformat) ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Samples per pixel : " << input_samplesperpixel << " -> " << output_samplesperpixel ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 
@@ -211,7 +191,7 @@ public:
      * \param[in] bufferfrom Buffer de stockage de la ligne à convertir
      */
     template<typename T>
-    void convertLine ( T* bufferto, T* bufferfrom ) {
+    void convert_line ( T* bufferto, T* bufferfrom ) {
         
         T defaultAlpha;
         if (sizeof(T) == 1) {
@@ -223,21 +203,21 @@ public:
         }
 
         /********************** Depuis 1 canal ********************/
-        if ( inSamplesPerPixel == 1) {
-            if (outSamplesPerPixel == 2) {
+        if ( input_samplesperpixel == 1) {
+            if (output_samplesperpixel == 2) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[2*i] = bufferfrom[i];
                     bufferto[2*i+1] = defaultAlpha;
                 }
                 return;
             }
-            if (outSamplesPerPixel == 3) {
+            if (output_samplesperpixel == 3) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[3*i] = bufferto[3*i+1] = bufferto[3*i+2] = bufferfrom[i];
                 }
                 return;
             }
-            if (outSamplesPerPixel == 4) {
+            if (output_samplesperpixel == 4) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[4*i] = bufferto[4*i+1] = bufferto[4*i+2] = bufferfrom[i];
                     bufferto[4*i+3] = defaultAlpha;
@@ -247,20 +227,20 @@ public:
         }
         
         /********************** Depuis 2 canaux *******************/
-        if ( inSamplesPerPixel == 2) {
-            if (outSamplesPerPixel == 1) {
+        if ( input_samplesperpixel == 2) {
+            if (output_samplesperpixel == 1) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[i] = bufferfrom[2*i];
                 }
                 return;
             }
-            if (outSamplesPerPixel == 3) {
+            if (output_samplesperpixel == 3) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[3*i] = bufferto[3*i+1] = bufferto[3*i+2] = bufferfrom[2*i];
                 }
                 return;
             }
-            if (outSamplesPerPixel == 4) {
+            if (output_samplesperpixel == 4) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[4*i] = bufferto[4*i+1] = bufferto[4*i+2] = bufferfrom[2*i];
                     bufferto[4*i+3] = bufferfrom[2*i + 1];
@@ -270,21 +250,21 @@ public:
         }
         
         /********************** Depuis 3 canaux *******************/
-        if ( inSamplesPerPixel == 3) {
-            if (outSamplesPerPixel == 1) {
+        if ( input_samplesperpixel == 3) {
+            if (output_samplesperpixel == 1) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[i] = ( T ) (0.2125*bufferfrom[3*i] + 0.7154*bufferfrom[3*i+1] + 0.0721*bufferfrom[3*i+2]);
                 }
                 return;
             }
-            if (outSamplesPerPixel == 2) {
+            if (output_samplesperpixel == 2) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[2*i] = ( T ) (0.2125*bufferfrom[3*i] + 0.7154*bufferfrom[3*i+1] + 0.0721*bufferfrom[3*i+2]);
                     bufferto[2*i+1] = defaultAlpha;
                 }
                 return;
             }
-            if (outSamplesPerPixel == 4) {
+            if (output_samplesperpixel == 4) {
                 for ( int i = 0; i < width; i++ ) {
                     memcpy(bufferto + 4*i, bufferfrom + 3*i, 3 * sizeof(T));
                     bufferto[4*i+3] = defaultAlpha;
@@ -294,21 +274,21 @@ public:
         }
         
         /********************** Depuis 4 canaux *******************/
-        if ( inSamplesPerPixel == 4) {
-            if (outSamplesPerPixel == 1) {
+        if ( input_samplesperpixel == 4) {
+            if (output_samplesperpixel == 1) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[i] = ( T ) (0.2125*bufferfrom[4*i] + 0.7154*bufferfrom[4*i+1] + 0.0721*bufferfrom[4*i+2]);
                 }
                 return;
             }
-            if (outSamplesPerPixel == 2) {
+            if (output_samplesperpixel == 2) {
                 for ( int i = 0; i < width; i++ ) {
                     bufferto[2*i] = ( T ) (0.2125*bufferfrom[4*i] + 0.7154*bufferfrom[4*i+1] + 0.0721*bufferfrom[4*i+2]);
                     bufferto[2*i+1] = bufferfrom[4*i + 3];
                 }
                 return;
             }
-            if (outSamplesPerPixel == 3) {
+            if (output_samplesperpixel == 3) {
                 for ( int i = 0; i < width; i++ ) {
                     memcpy(bufferto + 3*i, bufferfrom + 4*i, 3 * sizeof(T));
                 }
@@ -319,4 +299,4 @@ public:
 };
 
 
-#endif
+

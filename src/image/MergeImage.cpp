@@ -38,17 +38,15 @@
 /**
  * \file MergeImage.cpp
  ** \~french
- * \brief Implémentation des classes MergeImage, MergeImageFactory et MergeMask et du namespace Merge
+ * \brief Implémentation des classes MergeImage et MergeMask et du namespace Merge
  * \details
  * \li MergeImage : image résultant de la fusion d'images semblables, selon différents modes de composition
- * \li MergeImageFactory : usine de création d'objet MergeImage
  * \li MergeMask : masque fusionné, associé à une image fusionnée
  * \li Merge : énumère et manipule les différentes méthodes de fusion
  ** \~english
- * \brief Implement classes MergeImage, MergeImageFactory and MergeMask and the namespace Merge
+ * \brief Implement classes MergeImage and MergeMask and the namespace Merge
  * \details
  * \li MergeImage : image merged with similar images, with different merge methods
- * \li MergeImageFactory : factory to create MergeImage object
  * \li MergeMask : merged mask, associated with a merged image
  * \li Merge : enumerate and managed different merge methods
  */
@@ -60,105 +58,103 @@
 #include <cstring>
 #include "processors/Line.h"
 
-template <typename tBuf>
-int MergeImage::_getline ( tBuf* buffer, int line ) {
-    Line aboveLine ( width, sizeof(tBuf) );
-    tBuf* imageLine = new tBuf[width*4];
-    uint8_t* maskLine = new uint8_t[width];
-    memset ( maskLine, 0, width );
+template <typename T>
+int MergeImage::_getline ( T* buffer, int line ) {
+    Line source_line ( width, sizeof(T) );
+    T* source_buffer = new T[width*4];
+    uint8_t* mask_buffer = new uint8_t[width];
+    memset ( mask_buffer, 0, width );
 
-    tBuf bg[channels*width];
+    T bg[channels*width];
     for ( int i = 0; i < channels*width; i++ ) {
-        bg[i] = ( tBuf ) bgValue[i%channels];
+        bg[i] = ( T ) background_value[i%channels];
     }
-    Line workLine ( bg, maskLine, channels, width );
+    Line work_line ( bg, mask_buffer, channels, width );
+    T* transparent;
 
-    tBuf* transparent;
-    if ( transparentValue != NULL ) {
-        transparent = new tBuf[3];
+    if ( transparent_value != NULL ) {
+        transparent = new T[3];
         for ( int i = 0; i < 3; i++ ) {
-            transparent[i] = ( tBuf ) transparentValue[i];
+            transparent[i] = ( T ) transparent_value[i];
         }
     }
 
-    for ( int i = 0; i < images.size(); i++ ) {
+    for ( int i = 0; i < source_images.size(); i++ ) {
 
-        int srcSpp = images[i]->getChannels();
-        images[i]->getline ( imageLine,line );
+        int source_channels = source_images[i]->get_channels();
+        source_images[i]->get_line ( source_buffer,line );
 
-        if ( images[i]->getMask() == NULL ) {
-            memset ( maskLine, 255, width );
+        if ( source_images[i]->get_mask() == NULL ) {
+            memset ( mask_buffer, 255, width );
         } else {
-            images[i]->getMask()->getline ( maskLine,line );
+            source_images[i]->get_mask()->get_line ( mask_buffer,line );
         }
 
-        if ( transparentValue == NULL ) {
-            aboveLine.store ( imageLine, maskLine, srcSpp );
+        if ( transparent_value == NULL ) {
+            source_line.store ( source_buffer, mask_buffer, source_channels );
         } else {
-            aboveLine.store ( imageLine, maskLine, srcSpp, transparent );
+            source_line.store ( source_buffer, mask_buffer, source_channels, transparent );
         }
 
         switch ( composition ) {
         case Merge::NORMAL:
-            workLine.useMask ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         case Merge::TOP:
-            workLine.useMask ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         case Merge::MULTIPLY:
-            workLine.multiply ( &aboveLine );
+            work_line.multiply ( &source_line );
             break;
         case Merge::ALPHATOP:
-            workLine.alphaBlending ( &aboveLine );
+            work_line.alpha_blending ( &source_line );
             break;
-            //case Merge::LIGHTEN:
-            //case Merge::DARKEN:
         default:
-            workLine.useMask ( &aboveLine );
+            work_line.use_masks ( &source_line );
             break;
         }
 
     }
 
     // On repasse la ligne sur le nombre de canaux voulu
-    workLine.write ( buffer, channels );
+    work_line.write ( buffer, channels );
 
-    if ( transparentValue != NULL ) {
+    if ( transparent_value != NULL ) {
         delete [] transparent;
     }
-    delete [] imageLine;
-    delete [] maskLine;
+    delete [] source_buffer;
+    delete [] mask_buffer;
 
-    return width*channels*sizeof( tBuf );
+    return width*channels*sizeof( T );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeImage::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeImage::get_line ( uint8_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeImage::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeImage::get_line ( uint16_t* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-/* Implementation de getline pour les float */
-int MergeImage::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int MergeImage::get_line ( float* buffer, int line ) {
     return _getline ( buffer, line );
 }
 
-MergeImage* MergeImageFactory::createMergeImage ( std::vector< Image* >& images, int channels,
-        int* bgValue, int* transparentValue, Merge::eMergeType composition ) {
+MergeImage* MergeImage::create ( std::vector< Image* >& images, int channels,
+        int* background_value, int* transparent_value, Merge::eMergeType composition ) {
     if ( images.size() == 0 ) {
         BOOST_LOG_TRIVIAL(error) <<  "No source images to defined merged image" ;
         return NULL;
     }
 
-    int width = images.at ( 0 )->getWidth();
-    int height = images.at ( 0 )->getHeight();
+    int width = images.at ( 0 )->get_width();
+    int height = images.at ( 0 )->get_height();
 
     for ( int i = 1; i < images.size(); i++ ) {
-        if ( images.at ( i )->getWidth() != width || images.at ( i )->getHeight() != height ) {
+        if ( images.at ( i )->get_width() != width || images.at ( i )->get_height() != height ) {
             BOOST_LOG_TRIVIAL(error) <<  "All images must have same dimensions" ;
             images.at ( 0 )->print();
             images.at ( i )->print();
@@ -166,23 +162,23 @@ MergeImage* MergeImageFactory::createMergeImage ( std::vector< Image* >& images,
         }
     }
 
-    if ( bgValue == NULL ) {
+    if ( background_value == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "We have to precise a value used as background in the MergeImage" ;
         return NULL;
     }
 
-    return new MergeImage ( images, channels, bgValue, transparentValue, composition );
+    return new MergeImage ( images, channels, background_value, transparent_value, composition );
 }
 
-/* Implementation de getline pour les uint8_t */
-int MergeMask::getline ( uint8_t* buffer, int line ) {
+/* Implementation de get_line pour les uint8_t */
+int MergeMask::get_line ( uint8_t* buffer, int line ) {
     memset ( buffer,0,width );
 
     uint8_t* buffer_m = new uint8_t[width];
 
-    for ( uint i = 0; i < MI->getImages()->size(); i++ ) {
+    for ( uint i = 0; i < MI->get_images()->size(); i++ ) {
 
-        if ( MI->getMask ( i ) == NULL ) {
+        if ( MI->get_mask ( i ) == NULL ) {
             /* L'image n'a pas de masque, on la considère comme pleine. Ca ne sert à rien d'aller voir plus loin,
              * cette ligne du masque est déjà pleine */
             memset ( buffer, 255, width );
@@ -190,7 +186,7 @@ int MergeMask::getline ( uint8_t* buffer, int line ) {
             return width;
         } else {
             // Récupération du masque de l'image courante de l'MI.
-            MI->getMask ( i )->getline ( buffer_m,line );
+            MI->get_mask ( i )->get_line ( buffer_m,line );
             // On ajoute au masque actuel (on écrase si la valeur est différente de 0)
             for ( int j = 0; j < width; j++ ) {
                 if ( buffer_m[j] ) {
@@ -204,19 +200,19 @@ int MergeMask::getline ( uint8_t* buffer, int line ) {
     return width;
 }
 
-/* Implementation de getline pour les uint16 */
-int MergeMask::getline ( uint16_t* buffer, int line ) {
+/* Implementation de get_line pour les uint16 */
+int MergeMask::get_line ( uint16_t* buffer, int line ) {
     uint8_t* buffer_t = new uint8_t[width*channels];
-    int retour = getline ( buffer_t,line );
+    int retour = get_line ( buffer_t,line );
     convert ( buffer,buffer_t,width*channels );
     delete [] buffer_t;
     return retour;
 }
 
-/* Implementation de getline pour les float */
-int MergeMask::getline ( float* buffer, int line ) {
+/* Implementation de get_line pour les float */
+int MergeMask::get_line ( float* buffer, int line ) {
     uint8_t* buffer_t = new uint8_t[width*channels];
-    int retour = getline ( buffer_t,line );
+    int retour = get_line ( buffer_t,line );
     convert ( buffer,buffer_t,width*channels );
     delete [] buffer_t;
     return retour;
@@ -227,23 +223,21 @@ namespace Merge {
 const char *mergeType_name[] = {
     "UNKNOWN",
     "NORMAL",
-    "LIGHTEN",
-    "DARKEN",
     "MULTIPLY",
     "ALPHATOP",
     "TOP"
 };
 
-eMergeType fromString ( std::string strMergeMethod ) {
+eMergeType from_string ( std::string strMergeMethod ) {
     int i;
-    for ( i = mergeType_size; i ; --i ) {
+    for ( i = mergetype_size; i ; --i ) {
         if ( strMergeMethod.compare ( mergeType_name[i] ) == 0 )
             break;
     }
     return static_cast<eMergeType> ( i );
 }
 
-std::string toString ( eMergeType mergeMethod ) {
-    return std::string ( mergeType_name[mergeMethod] );
+std::string to_string ( eMergeType merge_method ) {
+    return std::string ( mergeType_name[merge_method] );
 }
 }

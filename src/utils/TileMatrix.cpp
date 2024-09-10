@@ -55,76 +55,76 @@ TileMatrix::TileMatrix(json11::Json doc) : Configuration() {
     if (doc["id"].is_string()) {
         id = doc["id"].string_value();
     } else {
-        errorMessage = "id have to be provided and be a string";
+        error_message = "id have to be provided and be a string";
         return;
     }
     if (doc["cellSize"].is_number()) {
         res = doc["cellSize"].number_value();
     } else {
-        errorMessage = "cellSize have to be provided and be a number";
+        error_message = "cellSize have to be provided and be a number";
         return;
     }
     if (doc["tileWidth"].is_number()) {
-        tileW = doc["tileWidth"].number_value();
+        tile_width = doc["tileWidth"].number_value();
     } else {
-        errorMessage = "tileWidth have to be provided and be a number";
+        error_message = "tileWidth have to be provided and be a number";
         return;
     }
     if (doc["tileHeight"].is_number()) {
-        tileH = doc["tileHeight"].number_value();
+        tile_height = doc["tileHeight"].number_value();
     } else {
-        errorMessage = "tileHeight have to be provided and be a number";
+        error_message = "tileHeight have to be provided and be a number";
         return;
     }
     if (doc["matrixWidth"].is_number()) {
-        matrixW = doc["matrixWidth"].number_value();
+        matrix_width = doc["matrixWidth"].number_value();
     } else {
-        errorMessage = "matrixWidth have to be provided and be a number";
+        error_message = "matrixWidth have to be provided and be a number";
         return;
     }
     if (doc["matrixHeight"].is_number()) {
-        matrixH = doc["matrixHeight"].number_value();
+        matrix_height = doc["matrixHeight"].number_value();
     } else {
-        errorMessage = "matrixHeight have to be provided and be a number";
+        error_message = "matrixHeight have to be provided and be a number";
         return;
     }
     if (doc["pointOfOrigin"].is_array() && doc["pointOfOrigin"][0].is_number()) {
         x0 = doc["pointOfOrigin"][0].number_value();
     } else {
-        errorMessage = "pointOfOrigin have to be provided and be a number array (2 items)";
+        error_message = "pointOfOrigin have to be provided and be a number array (2 items)";
         return;
     }
     if (doc["pointOfOrigin"].is_array() && doc["pointOfOrigin"][1].is_number()) {
         y0 = doc["pointOfOrigin"][1].number_value();
     } else {
-        errorMessage = "pointOfOrigin have to be provided and be a number array (2 items)";
+        error_message = "pointOfOrigin have to be provided and be a number array (2 items)";
         return;
     }
 }
 
-double   TileMatrix::getRes()    {
+double   TileMatrix::get_res()    {
     return res;
 }
-double   TileMatrix::getX0()     {
+double   TileMatrix::get_x0()     {
     return x0;
 }
-double   TileMatrix::getY0()     {
+double   TileMatrix::get_y0()     {
     return y0;
 }
-int      TileMatrix::getTileW()  {
-    return tileW;
+int      TileMatrix::get_tile_width()  {
+    return tile_width;
 }
-int      TileMatrix::getTileH()  {
-    return tileH;
+int      TileMatrix::get_tile_height()  {
+    return tile_height;
 }
-long int TileMatrix::getMatrixW() {
-    return matrixW;
+long int TileMatrix::get_matrix_width() {
+    return matrix_width;
 }
-long int TileMatrix::getMatrixH() {
-    return matrixH;
+long int TileMatrix::get_matrix_height() {
+    return matrix_height;
 }
 
-std::string TileMatrix::getId()  {
+std::string TileMatrix::get_id()  {
     return id;
 }
 
@@ -134,10 +134,10 @@ TileMatrix& TileMatrix::operator= ( const TileMatrix& other ) {
     this->res = other.res;
     this->x0 = other.x0;
     this->y0 = other.y0;
-    this->tileW = other.tileW;
-    this->tileH = other.tileH;
-    this->matrixW = other.matrixW;
-    this->matrixH = other.matrixH;
+    this->tile_width = other.tile_width;
+    this->tile_height = other.tile_height;
+    this->matrix_width = other.matrix_width;
+    this->matrix_height = other.matrix_height;
 
     return *this;
 }
@@ -147,10 +147,10 @@ bool TileMatrix::operator== ( const TileMatrix& other ) const {
     return ( this->res == other.res
              && this->x0 == other.x0
              && this->y0 == other.y0
-             && this->tileH == other.tileH
-             && this->tileW == other.tileW
-             && this->matrixH == other.matrixH
-             && this->matrixW == other.matrixW
+             && this->tile_height == other.tile_height
+             && this->tile_width == other.tile_width
+             && this->matrix_height == other.matrix_height
+             && this->matrix_width == other.matrix_width
              && this->id.compare ( other.id ) ==0 );
 }
 
@@ -160,38 +160,38 @@ bool TileMatrix::operator!= ( const TileMatrix& other ) const {
 
 TileMatrix::~TileMatrix() { }
 
-TileMatrixLimits TileMatrix::bboxToTileLimits(BoundingBox<double> bbox) {
+TileMatrixLimits TileMatrix::bbox_to_tile_limits(BoundingBox<double> bbox) {
 
     // On force les indices entre 0 et les max des matrix
 
-    uint32_t minTileCol = std::min(std::max(long((bbox.xmin - x0) / (tileW * res)), 0L), matrixW);
-    uint32_t maxTileCol = std::min(std::max(long((bbox.xmax - x0) / (tileW * res)), 0L), matrixW);
+    uint32_t min_tile_col = std::min(std::max(long((bbox.xmin - x0) / (tile_width * res)), 0L), matrix_width);
+    uint32_t max_tile_col = std::min(std::max(long((bbox.xmax - x0) / (tile_width * res)), 0L), matrix_width);
 
-    uint32_t minTileRow = std::min(std::max(long((y0 - bbox.ymax) / (tileH * res)), 0L), matrixH);
-    uint32_t maxTileRow = std::min(std::max(long((y0 - bbox.ymin) / (tileH * res)), 0L), matrixH);
+    uint32_t min_tile_row = std::min(std::max(long((y0 - bbox.ymax) / (tile_height * res)), 0L), matrix_height);
+    uint32_t max_tile_row = std::min(std::max(long((y0 - bbox.ymin) / (tile_height * res)), 0L), matrix_height);
 
-    return TileMatrixLimits(id, minTileRow, maxTileRow, minTileCol, maxTileCol);
+    return TileMatrixLimits(id, min_tile_row, max_tile_row, min_tile_col, max_tile_col);
 }
 
 
-BoundingBox<double> TileMatrix::bboxFromTileLimits(TileMatrixLimits limits) {
+BoundingBox<double> TileMatrix::bbox_from_tile_limits(TileMatrixLimits limits) {
 
     // On force les indices entre 0 et les max des matrix
 
-    double xmin = res * limits.getMinTileCol() * tileW + x0;
-    double ymax = y0 - res * limits.getMinTileRow() * tileH ;
-    double xmax = res * (limits.getMaxTileCol() + 1) * tileW + x0;
-    double ymin = y0 - res * (limits.getMaxTileRow() + 1) * tileH;
+    double xmin = res * limits.get_min_tile_col() * tile_width + x0;
+    double ymax = y0 - res * limits.get_min_tile_row() * tile_height ;
+    double xmax = res * (limits.get_max_tile_col() + 1) * tile_width + x0;
+    double ymin = y0 - res * (limits.get_max_tile_row() + 1) * tile_height;
 
     return BoundingBox<double>(xmin,ymin,xmax,ymax) ;
 }
 
-BoundingBox<double> TileMatrix::tileIndicesToBbox (int col, int row) {
+BoundingBox<double> TileMatrix::tile_indices_to_bbox (int col, int row) {
 
-    double xmin = res * col * tileW + x0;
-    double ymax = y0 - res * row * tileH ;
-    double xmax = xmin + res * tileW;
-    double ymin = ymax - res * tileH;
+    double xmin = res * col * tile_width + x0;
+    double ymax = y0 - res * row * tile_height ;
+    double xmax = xmin + res * tile_width;
+    double ymin = ymax - res * tile_height;
 
     return BoundingBox<double>(xmin,ymin,xmax,ymax) ;
 }

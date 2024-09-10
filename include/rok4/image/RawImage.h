@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef RAW_IMAGE_H
-#define RAW_IMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/datasource/DataSource.h"
@@ -51,24 +50,24 @@ public:
     /** Constructeur */
     RawImage ( int width, int height, int channels, DataSource* data_source ) : Image ( width, height, channels ) {
         // Verifier en amont que data_source n'est pas nul
-        source=data_source;
+        source = data_source;
     }
 
-    virtual int getline ( uint8_t *buffer, int line ) {
+    virtual int get_line ( uint8_t *buffer, int line ) {
         size_t size;
-        const uint8_t* data=source->getData ( size );
-        if ( !data ) {
-            buffer=0;
+        const uint8_t* data = source->get_data ( size );
+        if ( ! data ) {
+            buffer = 0;
             return 0;
         }
         memcpy ( buffer, ( uint8_t* ) &data[line*channels*width],width*channels*sizeof ( uint8_t ) );
         return width*channels*sizeof ( uint8_t );
     }
-    virtual int getline ( float *buffer, int line ) {
+    virtual int get_line ( float *buffer, int line ) {
         buffer = 0;
         return 0;
     }
-    virtual int getline ( uint16_t *buffer, int line ) {
+    virtual int get_line ( uint16_t *buffer, int line ) {
         buffer = 0;
         return 0;
     }
@@ -80,4 +79,4 @@ public:
     }
 };
 
-#endif
+
