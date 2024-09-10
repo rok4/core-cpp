@@ -288,9 +288,9 @@ const char *eformat_extension[] = {
     "tif",
     "tif",
 
+    "bil",
     "tif",
-    "tif",
-    "tif",
+    "zbil",
     "tif",
 
     "pbf"
