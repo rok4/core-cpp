@@ -38,19 +38,16 @@
 /**
  * \file LibopenjpegImage.h
  ** \~french
- * \brief Définition des classes LibopenjpegImage et LibopenjpegImageFactory
+ * \brief Définition des classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : gestion d'une image au format JPEG2000, en lecture, utilisant la librairie openjpeg
- * \li LibopenjpegImageFactory : usine de création d'objet LibopenjpegImage
  ** \~english
- * \brief Define classes LibopenjpegImage and LibopenjpegImageFactory
+ * \brief Define classes LibopenjpegImage
  * \details
  * \li LibopenjpegImage : manage a JPEG2000 format image, reading, using the library openjpeg
- * \li LibopenjpegImageFactory : factory to create LibopenjpegImage object
  */
 
-#ifndef LIBOPENJPEG_IMAGE_H
-#define LIBOPENJPEG_IMAGE_H
+#pragma once
 
 #include "utils/BoundingBox.h"
 #include "image/file/FileImage.h"
@@ -68,8 +65,6 @@
  * \details Une image JPEG2000 est une vraie image dans ce sens où elle est rattachée à un fichier, pour la lecture de données au format JPEG2000. La librairie utilisée est openjpeg (open source et intégrée statiquement dans le projet ROK4).
  */
 class LibopenjpegImage : public FileImage {
-    
-friend class LibopenjpegImageFactory;
     
 private:
      
@@ -114,12 +109,10 @@ private:
      */
     template<typename T>
     int _getline ( T* buffer, int line );
-
-protected:
    
     /** \~french
      * \brief Crée un objet LibopenjpegImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine LibopenjpegImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create_to_read, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] resx résolution dans le sens des X
@@ -127,8 +120,7 @@ protected:
      * \param[in] channel nombre de canaux par pixel
      * \param[in] bbox emprise rectangulaire de l'image
      * \param[in] name chemin du fichier image
-     * \param[in] sampleformat format des canaux
-     * \param[in] bitspersample nombre de bits par canal
+     * \param[in] sample_format format des canaux
      * \param[in] photometric photométrie des données
      * \param[in] compression compression des données
      * \param[in] image pointeur vers l'objet image OpenJPEG
@@ -145,8 +137,7 @@ protected:
      * \param[in] channel number of samples per pixel
      * \param[in] bbox bounding box
      * \param[in] name path to image file
-     * \param[in] sampleformat samples' format
-     * \param[in] bitspersample number of bits per sample
+     * \param[in] sample_format samples' format
      * \param[in] photometric data photometric
      * \param[in] compression data compression
      * \param[in] parameters OpenJPEG parameters
@@ -155,25 +146,15 @@ protected:
      */
     LibopenjpegImage (
         int width, int height, double resx, double resy, int channels, BoundingBox< double > bbox, std::string name,
-        SampleFormat::eSampleFormat sampleformat, int bitspersample, Photometric::ePhotometric photometric, Compression::eCompression compression,
+        SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression,
         opj_dparameters_t parameters, OPJ_CODEC_FORMAT codec_format, int rowsperstrip, int tw
     );
 
 public:
-    
-    static bool canRead ( int bps, SampleFormat::eSampleFormat sf) {
-        return (
-            ( bps == 8 && sf == SampleFormat::UINT )
-        );
-    }
-    
-    static bool canWrite ( int bps, SampleFormat::eSampleFormat sf) {
-        return false;
-    }
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
     
 
     /**
@@ -183,7 +164,7 @@ public:
      * \param[in] pIn source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( Image* pIn ) {
+    int write_image ( Image* pIn ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -195,7 +176,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint8_t* buffer ) {
+    int write_image ( uint8_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -207,7 +188,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( uint16_t* buffer ) {
+    int write_image ( uint16_t* buffer ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -219,7 +200,7 @@ public:
      * \param[in] buffer source des donnée de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeImage ( float* buffer)  {
+    int write_image ( float* buffer)  {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -232,7 +213,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint8_t* buffer, int line ) {
+    int write_line ( uint8_t* buffer, int line ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -245,7 +226,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( uint16_t* buffer, int line ) {
+    int write_line ( uint16_t* buffer, int line ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -258,7 +239,7 @@ public:
      * \param[in] line ligne de l'image à écrire
      * \return 0 en cas de succes, -1 sinon
      */
-    int writeLine ( float* buffer, int line) {
+    int write_line ( float* buffer, int line) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot write JPEG2000 image" ;
         return -1;
     }
@@ -287,16 +268,6 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 
-};
-
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image JPEG2000, manipulée avec la librairie openjpeg
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe LibopenjpegImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de LibopenjpegImage et de sortir en erreur en cas de problème. Dans le cas d'une image JPEG2000 pour la lecture, on récupère dans le fichier toutes les méta-informations sur l'image.
- */
-class LibopenjpegImageFactory {
-public:
     /** \~french
      * \brief Crée un objet LibopenjpegImage, pour la lecture
      * \details On considère que les informations d'emprise et de résolutions ne sont pas présentes dans le JPEG2000, on les précise donc à l'usine. Tout le reste sera lu dans les en-têtes JPEG2000. On vérifiera aussi la cohérence entre les emprise et résolutions fournies et les dimensions récupérées dans le fichier JPEG2000.
@@ -319,10 +290,9 @@ public:
      * \param[in] resy Y wise resolution.
      * \return a LibopenjpegImage object pointer, NULL if error
      */
-    LibopenjpegImage* createLibopenjpegImageToRead ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
-
+    static LibopenjpegImage* create_to_read ( std::string filename, BoundingBox<double> bbox, double resx, double resy );
 };
 
 
-#endif
+
 

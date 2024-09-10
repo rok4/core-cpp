@@ -37,12 +37,10 @@
 
 class Pyramid;
 
-#ifndef PYRAMID_H
-#define PYRAMID_H
+#pragma once
 
 #include <string>
 #include <map>
-#include <set>
 #include <functional>
 #include "rok4/utils/Level.h"
 #include "rok4/utils/TileMatrixSet.h"
@@ -55,9 +53,6 @@ class Pyramid;
 #include "rok4/storage/Context.h"
 
 #define DEFAULT_NODATAVALUE 255
-
-typedef std::function<bool(std::pair<std::string, Level*>, std::pair<std::string, Level*>)> ComparatorLevel;
-
 
 /**
 * @class Pyramid
@@ -82,6 +77,12 @@ private:
     std::map<std::string, Level*> levels;
 
     /**
+     * \~french \brief Liste des TileMatrix dans l'ordre des résolutions décroissante
+     * \~english \brief List of TileMatrix, resolution desc
+     */
+    std::vector<Level*> levels_ordered;
+
+    /**
      * \~french \brief TileMatrixSet des données
      * \~english \brief TileMatrixSet of the data
      */
@@ -91,19 +92,19 @@ private:
      * \~french \brief Format des tuiles
      * \~english \brief Format of the tiles
      */
-    Rok4Format::eformat_data format;
+    Rok4Format::eFormat format;
 
     /**
      * \~french \brief Référence au niveau le plus haut
      * \~english \brief Reference to the highest level
      */
-    Level* highestLevel;
+    Level* highest_level;
 
     /**
      * \~french \brief Référence au niveau le plus bas
      * \~english \brief Reference to the lowest level
      */
-    Level* lowestLevel;
+    Level* lowest_level;
 
     /******************* PYRAMIDE RASTER *********************/
 
@@ -119,7 +120,7 @@ private:
      * \~french \brief Donne les valeurs des noData pour la pyramide
      * \~english \brief Give the noData value
      */
-    int* nodataValue;
+    int* nodata_value;
 
     /**
      * \~french \brief Nombre de canaux pour les tuiles
@@ -159,7 +160,7 @@ public:
      * \~english
      * \brief Storage context
      */
-    Context* getContext ();
+    Context* get_context ();
 
     /**
      * \~french
@@ -173,7 +174,7 @@ public:
      * \param[in] bottomLevel bottom level
      * \param[in] topLevel top level
      */
-    bool addLevels (Pyramid* p, std::string bottomLevel, std::string topLevel);
+    bool add_levels (Pyramid* p, std::string bottomLevel, std::string topLevel);
 
     /**
      * \~french \brief Récupère le plus haut niveau
@@ -181,7 +182,7 @@ public:
      * \~english \brief Get the highest level
      * \return level highest level
      */
-    Level* getHighestLevel() ;
+    Level* get_highest_level() ;
 
     /**
      * \~french \brief Récupère le plus bas niveau
@@ -189,7 +190,7 @@ public:
      * \~english \brief Get the lowest level
      * \return level lowest level
      */
-    Level* getLowestLevel() ;
+    Level* get_lowest_level() ;
 
     /**
      * \~french \brief Récupère le TMS
@@ -197,7 +198,7 @@ public:
      * \~english \brief Get the TMS
      * \return TileMatrixSet
      */
-    TileMatrixSet* getTms();
+    TileMatrixSet* get_tms();
 
     /**
      * \~french \brief Récupère les niveaux
@@ -205,17 +206,19 @@ public:
      * \~english \brief Get the levels
      * \return List of level
      */
-    std::map<std::string, Level*>& getLevels() ;
+    std::map<std::string, Level*>& get_levels() ;
 
     /**
-     * \~french \brief Récupère les niveaux ordonnés par résolution décroissante
-     * \return Liste de level
-     * \~english \brief Get the levels ordered
-     * \return List of level
+     * \~french
+     * \brief Récupère les niveaux ordonnés par résolution décroissante
+     * \return Liste de Level
+     * \~english
+     * \brief Get the levels ordered
+     * \return List of Level
      */
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> getOrderedLevels(bool asc) ;
+    std::vector<Level*> get_ordered_levels(bool bottom_to_top) ;
 
-    Level* getLevel(std::string id) ;
+    Level* get_level(std::string id) ;
 
     /**
      * \~french \brief Récupère le format
@@ -223,7 +226,7 @@ public:
      * \~english \brief Get the format
      * \return format
      */
-    Rok4Format::eformat_data getFormat() ;
+    Rok4Format::eFormat get_format() ;
 
     /**
      * \~french \brief Destructeur
@@ -239,7 +242,7 @@ public:
      * \~english \brief Indicate the photometry of the pyramid
      * \return photo
      */
-    Photometric::ePhotometric getPhotometric();
+    Photometric::ePhotometric get_photometric();
 
     /**
      * \~french \brief Récupère le sample
@@ -247,7 +250,7 @@ public:
      * \~english \brief Get the sample
      * \return format
      */
-    SampleFormat::eSampleFormat getSampleFormat();
+    SampleFormat::eSampleFormat get_sample_format();
 
     /**
      * \~french \brief Récupère la compression
@@ -255,29 +258,15 @@ public:
      * \~english \brief Get the compression
      * \return format
      */
-    Compression::eCompression getSampleCompression();
+    Compression::eCompression get_sample_compression();
 
     /**
      * \~french \brief Indique les valeurs de noData
-     * \return nodataValue
+     * \return nodata_value
      * \~english \brief Indicate the noData values
-     * \return nodataValue
+     * \return nodata_value
      */
-    int* getNodataValue() ;
-
-    /**
-     * \~french \brief Retourne la premiere valeur de noData
-     * \~english \brief Return the first noData value
-     */
-    int getFirstnodataValue ();
-
-    /**
-     * \~french \brief Récupère le nombre de bits par sample
-     * \return format
-     * \~english \brief Get the number of bits per sample
-     * \return format
-     */
-    int getBitsPerSample();
+    int* get_nodata_value() ;
 
     /**
      * \~french \brief Récupère le nombre de canaux d'une tuile
@@ -285,15 +274,15 @@ public:
      * \~english \brief Get the number of channels of a tile
      * \return number of channels
      */
-    int getChannels() ;
+    int get_channels() ;
 
     /**
      * \~french \brief Récupère le meilleur niveau pour une résolution donnée
-     * \param[in] résolution en x
-     * \param[in] résolution en y
+     * \param[in] resolution_x résolution en x
+     * \param[in] resolution_y résolution en y
      * \~english \brief Get the best level for the given resolution
-     * \param[in] resolution in x
-     * \param[in] resolution in y
+     * \param[in] resolution_x resolution in x
+     * \param[in] resolution_y resolution in y
      */
     std::string best_level ( double resolution_x, double resolution_y );
 
@@ -302,15 +291,15 @@ public:
      * \~french \brief Récupère une image
      * \~english \brief Get an image
      */
-    Image* getbbox (unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi, int& error );
+    Image* getbbox (unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi );
 
     /**
      * \~french \brief Créé une image reprojetée
      * \~english \brief Create a reprojected image
      */
-    Image *createReprojectedImage(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error);
+    Image* create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation);
 
 };
 
 
-#endif
+

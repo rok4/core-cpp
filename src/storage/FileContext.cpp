@@ -88,7 +88,7 @@ int FileContext::read(uint8_t* data, int offset, int size, std::string name) {
 }
 
 
-uint8_t* FileContext::readFull(int& size, std::string name) {
+uint8_t* FileContext::read_full(int& size, std::string name) {
     size = -1;
 
     std::string fullName = root_dir + name;
@@ -132,7 +132,7 @@ bool FileContext::write(uint8_t* data, int offset, int size, std::string name) {
     return true;
 }
 
-bool FileContext::writeFull(uint8_t* data, int size, std::string name) {
+bool FileContext::write_full(uint8_t* data, int size, std::string name) {
     std::string fullName = root_dir + name;
     BOOST_LOG_TRIVIAL(debug) << "File write : " << size << " bytes (one shot) in the file " << fullName;
 
@@ -146,15 +146,15 @@ bool FileContext::writeFull(uint8_t* data, int size, std::string name) {
     return true;
 }
 
-ContextType::eContextType FileContext::getType() {
+ContextType::eContextType FileContext::get_type() {
     return ContextType::FILECONTEXT;
 }
 
-std::string FileContext::getTypeStr() {
+std::string FileContext::get_type_string() {
     return "FILECONTEXT";
 }
 
-std::string FileContext::getTray() {
+std::string FileContext::get_tray() {
     return root_dir;
 }
 
@@ -165,7 +165,7 @@ std::string FileContext::getTray() {
 static const char* Base36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
-std::string FileContext::getPath(std::string racine,int x,int y,int pathDepth){
+std::string FileContext::get_path(std::string racine,int x,int y,int pathDepth){
 
     int pos;
     char path[32];
@@ -196,12 +196,12 @@ std::string FileContext::getPath(std::string racine,int x,int y,int pathDepth){
 }
 
 
-std::string FileContext::getPath(std::string name) {  
+std::string FileContext::get_path(std::string name) {  
     return root_dir + name;
 }
 
 bool FileContext::exists(std::string name) {
-    BOOST_LOG_TRIVIAL(debug) << "Exists (FILE) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (FILE) ? " << get_path(name);
     struct stat buffer;   
-    return (stat (getPath(name).c_str(), &buffer) == 0);
+    return (stat (get_path(name).c_str(), &buffer) == 0);
 }

@@ -43,11 +43,13 @@
  * \brief Define the LegendURL Class handling capabilities legends elements
  */
 
-#ifndef LEGENDURL_H
-#define LEGENDURL_H
+#pragma once
+
+#include <string>
+#include <boost/property_tree/ptree.hpp>
+using boost::property_tree::ptree;
 
 #include "rok4/utils/ResourceLocator.h"
-#include <string>
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -74,12 +76,12 @@ private:
      * \~french \brief Échelle minimum à laquelle s'applique la légende
      * \~english \brief Minimum scale at which the legend is applicable
      */
-    double minScaleDenominator;
+    double min_scale_denominator;
     /**
      * \~french \brief Échelle maximum à laquelle s'applique la légende
      * \~english \brief Maximum scale at which the legend is applicable
      */
-    double maxScaleDenominator;
+    double max_scale_denominator;
     
 public:
     /**
@@ -91,43 +93,43 @@ public:
      * \param[in] doc JSON element
      */
     LegendURL ( json11::Json doc ) {
-        missingField = "";
+        missing_field = "";
 
         if (! doc["format"].is_string()) {
-            missingField = "format";
+            missing_field = "format";
             return;
         }
         format = doc["format"].string_value();
 
         if (! doc["url"].is_string()) {
-            missingField = "url";
+            missing_field = "url";
             return;
         }
         href = doc["url"].string_value();
         
         if (! doc["height"].is_number()) {
-            missingField = "height";
+            missing_field = "height";
             return;
         }
         height = doc["height"].number_value();
         
         if (! doc["width"].is_number()) {
-            missingField = "width";
+            missing_field = "width";
             return;
         }
         width = doc["width"].number_value();
         
         if (! doc["min_scale_denominator"].is_number()) {
-            missingField = "min_scale_denominator";
+            missing_field = "min_scale_denominator";
             return;
         }
-        minScaleDenominator = doc["min_scale_denominator"].number_value();
+        min_scale_denominator = doc["min_scale_denominator"].number_value();
         
         if (! doc["max_scale_denominator"].is_number()) {
-            missingField = "max_scale_denominator";
+            missing_field = "max_scale_denominator";
             return;
         }
-        maxScaleDenominator = doc["max_scale_denominator"].number_value();
+        max_scale_denominator = doc["max_scale_denominator"].number_value();
     };
     /**
      * \~french
@@ -144,8 +146,8 @@ public:
         format = origLUrl.format;
         height = origLUrl.height;
         width = origLUrl.width;
-        maxScaleDenominator = origLUrl.maxScaleDenominator;
-        minScaleDenominator = origLUrl.minScaleDenominator;
+        max_scale_denominator = origLUrl.max_scale_denominator;
+        min_scale_denominator = origLUrl.min_scale_denominator;
     };
     /**
      * \~french
@@ -158,8 +160,8 @@ public:
             ResourceLocator::operator= ( other );
             this->height = other.height;
             this->width = other.width;
-            this->maxScaleDenominator = other.maxScaleDenominator;
-            this->minScaleDenominator = other.minScaleDenominator;
+            this->max_scale_denominator = other.max_scale_denominator;
+            this->min_scale_denominator = other.min_scale_denominator;
         }
         return *this;
     };
@@ -173,10 +175,10 @@ public:
      */
     bool operator== ( const LegendURL& other ) const {
         return ( this->width == other.width && this->height == other.height
-                && this->minScaleDenominator == other.minScaleDenominator
-                && this->maxScaleDenominator == other.maxScaleDenominator
-                && this->getFormat().compare ( other.getFormat() ) == 0
-                && this->getHRef().compare ( other.getHRef() ) == 0 );
+                && this->min_scale_denominator == other.min_scale_denominator
+                && this->max_scale_denominator == other.max_scale_denominator
+                && this->get_format().compare ( other.get_format() ) == 0
+                && this->get_href().compare ( other.get_href() ) == 0 );
     };
     /**
      * \~french
@@ -198,7 +200,7 @@ public:
      * \brief Return the image width
      * \return width
      */
-    inline int getWidth() {
+    inline int get_width() {
         return width;
     }
 
@@ -210,7 +212,7 @@ public:
      * \brief Return the image height
      * \return height
      */
-    inline int getHeight() {
+    inline int get_height() {
         return height;
     }
 
@@ -222,8 +224,8 @@ public:
      * \brief Return the minimum scale
      * \return minimum scale
      */
-    inline double getMinScaleDenominator() {
-        return minScaleDenominator;
+    inline double get_min_scale_denominator() {
+        return min_scale_denominator;
     }
 
     /**
@@ -234,9 +236,50 @@ public:
      * \brief Return the maximum scale
      * \return maximum scale
      */
-    inline double getMaxScaleDenominator() {
-        return maxScaleDenominator;
+    inline double get_max_scale_denominator() {
+        return max_scale_denominator;
     }
+
+    /**
+     * \~french \brief Ajoute un noeud WMTS correpondant à la légende
+     * \param[in] parent Noeud auquel ajouter celui de la légende
+     * \~english \brief Add a WMTS node corresponding to legend
+     * \param[in] parent Node to whom add the legend node
+     */
+    void add_node_wmts(ptree& parent) {
+        ptree& node = parent.add("LegendURL", "");
+        node.add("<xmlattr>.format", format);
+        node.add("<xmlattr>.xlink:href", href);
+
+        if ( width != 0 ) {
+            node.add("<xmlattr>.width", width);
+        }
+        if ( height != 0 ) {
+            node.add("<xmlattr>.height", height);
+        }
+        if ( min_scale_denominator != 0 ) {
+            node.add("<xmlattr>.minScaleDenominator", min_scale_denominator);
+        }
+        if ( max_scale_denominator != 0 ) {
+            node.add("<xmlattr>.maxScaleDenominator", max_scale_denominator);
+        }
+    }
+
+    /**
+     * \~french \brief Ajoute un noeud WMS correpondant à la légende
+     * \param[in] parent Noeud auquel ajouter celui de la légende
+     * \~english \brief Add a WMS node corresponding to legend
+     * \param[in] parent Node to whom add the legend node
+     */
+    void add_node_wms(ptree& parent) {
+        ptree& node = parent.add("LegendURL", "");
+        node.add("<xmlattr>.width", width);
+        node.add("<xmlattr>.height", height);
+        node.add("Format", format);
+        node.add("OnlineResource.<xmlattr>.xlink:href", href);
+        node.add("OnlineResource.<xmlattr>.xlink:type", "simple");
+    }
+
     /**
      * \~french
      * \brief Destructeur par défaut
@@ -246,4 +289,4 @@ public:
     virtual ~LegendURL() {};
 };
 
-#endif // LEGENDURL_H
+

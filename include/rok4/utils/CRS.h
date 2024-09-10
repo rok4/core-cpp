@@ -44,8 +44,7 @@
  * \brief Define the reference systems handler
  */
 
-#ifndef CRS_H
-#define CRS_H
+#pragma once
 
 #include <string>
 #include "rok4/utils/BoundingBox.h"
@@ -75,22 +74,22 @@ private:
      * \~french \brief Code du CRS tel qu'il est ecrit dans la requete WMS
      * \~english \brief CRS identifier from the WMS request
      */
-    std::string requestCode;
+    std::string request_code;
     /**
      * \~french \brief Code du CRS dans la base proj
      * \~english \brief CRS identifier from Proj registry
      */
-    std::string projCode;
+    std::string proj_code;
     /**
      * \~french \brief Emprise de définition du CRS en géographique
      * \~english \brief CRS's definition area
      */
-    BoundingBox<double> definitionArea;
+    BoundingBox<double> definition_area;
     /**
      * \~french \brief Emprise de définition du CRS en natif
      * \~english \brief CRS's definition area
      */
-    BoundingBox<double> nativeDefinitionArea;
+    BoundingBox<double> native_definition_area;
 
     PJ* pj_proj;
 
@@ -159,7 +158,14 @@ public:
      * \brief Test whether the CRS is geographic
      * \return true if geographic
      */
-    bool isLongLat();
+    bool is_geographic();
+    /**
+     * \~french
+     * \brief Test si les coordonnées sont dans l'ordre latitude longitude
+     * \~english
+     * \brief Test if coordinates are latitude/longitude order
+     */
+    bool is_lat_lon();
     /**
      * \~french
      * \brief Renvoit le zone de définition du CRS
@@ -168,8 +174,8 @@ public:
      * \brief Return the definition area of the CRS
      * \return BoundingBox representing the zone in EPSG:4326
      */
-    BoundingBox<double> getCrsDefinitionArea() {
-        return definitionArea;
+    BoundingBox<double> get_crs_definition_area() {
+        return definition_area;
     };
 
     /**
@@ -180,8 +186,8 @@ public:
      * \brief Return the native definition area of the CRS
      * \return BoundingBox representing the zone in CRS
      */
-    BoundingBox<double> getNativeCrsDefinitionArea() {
-        return nativeDefinitionArea;
+    BoundingBox<double> get_native_crs_definition_area() {
+        return native_definition_area;
     };
 
     /**
@@ -194,7 +200,7 @@ public:
      * \return quotient between meter and CRS's unit
      * \todo Support all CRS types not only projected in meter and geographic in degree
      */
-    long double getMetersPerUnit();
+    long double get_meters_per_unit();
 
     /**
      * \~french
@@ -206,25 +212,37 @@ public:
      * \param[in] crs string for comparison
      * \return true if identic (case insensitive)
      */
-    bool cmpRequestCode ( std::string crs );
+    bool cmp_request_code ( std::string crs );
     /**
      * \~french
      * \brief Retourne l'authorité du CRS
+     * \details Renvoie l'autorite du code passe dans la requete WMS (Ex: EPSG,epsg,IGNF,etc.)
      * \return l'identifiant de l'authorité
      * \~english
      * \brief Return the CRS authority
      * \return the authority identifier
      */
-    std::string getAuthority(); // Renvoie l'autorite du code passe dans la requete WMS (Ex: EPSG,epsg,IGNF,etc.)
+    std::string get_authority();
     /**
      * \~french
      * \brief Retourne l'identifiant du CRS sans l'authorité
+     * \details Renvoie l'identifiant du code passe dans la requete WMS (Ex: 4326,LAMB93,etc.)
      * \return l'identifiant du système
      * \~english
      * \brief Return the CRS identifier without the authority
      * \return the system identifier
      */
-    std::string getIdentifier();// Renvoie l'identifiant du code passe dans la requete WMS (Ex: 4326,LAMB93,etc.)
+    std::string get_identifier();
+
+    /**
+     * \~french
+     * \brief Retourne une URL de description
+     * \details Selon l'autorité
+     * \~english
+     * \brief Return the description URL
+     * \details Depends to authority
+     */
+    std::string get_url();
 
     /**
      * \~french
@@ -234,8 +252,8 @@ public:
      * \brief Test whether the CRS has a Proj equivalent
      * \return true if available in Proj
      */
-    bool inline isDefine() {
-        return projCode != NO_PROJ_CODE;
+    bool inline is_define() {
+        return proj_code != NO_PROJ_CODE;
     }
 
     /**
@@ -246,8 +264,8 @@ public:
      * \brief Return the CRS identifier from the WMS request
      * \return CRS identifier
      */
-    std::string inline getRequestCode() {
-        return requestCode;
+    std::string inline get_request_code() {
+        return request_code;
     }
 
     /**
@@ -258,8 +276,8 @@ public:
      * \brief Return the CRS identifier from Proj registry
      * \return CRS identifier
      */
-    std::string inline getProjCode() {
-        return projCode;
+    std::string inline get_proj_code() {
+        return proj_code;
     }
 
     /**
@@ -268,19 +286,9 @@ public:
      * \~english
      * \brief Return PROJ instance
      */
-    PJ* getProjObject() {
+    PJ* get_proj_instance() {
         return pj_proj;
     }
-
-    /**
-     * \~french
-     * \brief Retourne la définition complète du CRS dans la base projCode
-     * \return la définition du CRS
-     * \~english
-     * \brief Return the complete definition of the CRS from Proj registry
-     * \return CRS definition
-     */
-    std::string getProjDef();
     
     /**
      * \~french
@@ -292,7 +300,7 @@ public:
      * \param[in] param parameter name
      * \return parameter value
      */
-    std::string getProjParam( std::string paramName );
+    std::string get_proj_param( std::string paramName );
 
     /**
      * \~french
@@ -304,7 +312,7 @@ public:
      * \param[in] param parameter name
      * \return bool
      */
-    bool testProjParam( std::string paramName );
+    bool test_proj_param( std::string paramName );
     
 
     /**
@@ -315,7 +323,7 @@ public:
      * \brief Return the CRS EPSG:4326
      * \return CRS
      */
-    static CRS* getEpsg4326();
+    static CRS* get_epsg4326();
 
     /**
      * \~french
@@ -327,5 +335,5 @@ public:
 
 };
 
-#endif
+
 

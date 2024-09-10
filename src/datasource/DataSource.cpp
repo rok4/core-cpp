@@ -46,7 +46,7 @@
  */
 
 // TODO : peut être optimisé, à mettre au propre
-BufferedDataSource::BufferedDataSource ( DataStream* dataStream ) : type ( dataStream->getType() ), httpStatus ( dataStream->getHttpStatus() ), dataSize ( 0 ), encoding( dataStream->getEncoding()) {
+BufferedDataSource::BufferedDataSource ( DataStream* dataStream ) : type ( dataStream->get_type() ), http_status ( dataStream->get_http_status() ), data_size ( 0 ), encoding( dataStream->get_encoding()) {
     // On initialise data à une taille arbitraire de 32Ko.
     size_t maxSize = 32768;
     data = new uint8_t[maxSize];
@@ -54,13 +54,13 @@ BufferedDataSource::BufferedDataSource ( DataStream* dataStream ) : type ( dataS
 
     while ( !dataStream->eof() ) { // On lit le DataStream jusqu'au bout
 
-        size_t size = dataStream->read ( data + dataSize, maxSize);
-        dataSize += size;
+        size_t size = dataStream->read ( data + data_size, maxSize);
+        data_size += size;
 
         if (size == 0) {
             //il y a eu un probleme lors de la lecture
             status = false;
-            dataSize = 0;
+            data_size = 0;
             break;
         }
 
@@ -70,8 +70,8 @@ BufferedDataSource::BufferedDataSource ( DataStream* dataStream ) : type ( dataS
         } else {
             //on doit encore lire, on augmente la taille du buffer de lecture
             maxSize *= 2;
-            uint8_t* tmp = new uint8_t[maxSize+dataSize];
-            memcpy ( tmp, data, dataSize );
+            uint8_t* tmp = new uint8_t[maxSize+data_size];
+            memcpy ( tmp, data, data_size );
             delete[] data;
             data = tmp;
         }
@@ -80,9 +80,9 @@ BufferedDataSource::BufferedDataSource ( DataStream* dataStream ) : type ( dataS
 
     if (status) {
         // On réalloue exactement la taille nécessaire pour ne pas perdre de place
-        uint8_t* tmp = new uint8_t[dataSize];
+        uint8_t* tmp = new uint8_t[data_size];
 
-        memcpy ( tmp, data, dataSize );
+        memcpy ( tmp, data, data_size );
         delete[] data;
         data = tmp;
     }

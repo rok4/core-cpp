@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef ESTOMPAGEIMAGE_H
-#define ESTOMPAGEIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/style/Estompage.h"
@@ -48,32 +47,28 @@ private:
     ** \~english
     * \brief Origin image used to compute the estompage
     */
-    Image* origImage;
+    Image* source_image;
 
     /** \~french
     * \brief Nombre de ligne en mémoire
     ** \~english
     * \brief Memorize lines number
     */
-    int memorizedOrigLines;
+    int memorized_source_lines;
 
     /** \~french
     * \brief Buffer contenant les lignes sources
     ** \~english
     * \brief Source lines memory buffer
     */
-    float* origLinesBuffer;
+    float* source_lines_buffer;
 
     /** \~french
     * \brief Numéros des lignes en mémoire
     ** \~english
     * \brief Memorized lines indexes
     */
-    int* origLines;
-
-    float zenith;
-    float azimuth;
-    float zFactor;
+    int* source_lines;
 
     /** \~french
     * \brief Résolution de l'image en X, en mètre
@@ -90,6 +85,13 @@ private:
     float resymeter;
 
     /** \~french
+    * \brief Configuration de l'estompage
+    ** \~english
+    * \brief Estompage configuration
+    */
+    Estompage* estompage;
+
+    /** \~french
     * \brief Calcule la ligne
     ** \~english
     * \brief Process line
@@ -98,9 +100,9 @@ private:
     int _getline ( T* buffer, int line );
 
 public:
-    virtual int getline ( float* buffer, int line );
-    virtual int getline ( uint8_t* buffer, int line );
-    virtual int getline ( uint16_t* buffer, int line );
+    virtual int get_line ( float* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
     EstompageImage (Image* image, Estompage* est);
     virtual ~EstompageImage();
 
@@ -113,12 +115,11 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ EstompageImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Zenith = " << zenith ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Azimuth = " << azimuth ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Z factor = " << zFactor ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Zenith = " << estompage->zenith ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Azimuth = " << estompage->azimuth ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Z factor = " << estompage->z_factor ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 };
 
-#endif // ESTOMPAGEIMAGE_H

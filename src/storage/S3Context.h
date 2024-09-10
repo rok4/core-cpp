@@ -47,8 +47,7 @@
  * \li S3Context : S3 container connection
  */
 
-#ifndef S3_CONTEXT_H
-#define S3_CONTEXT_H
+#pragma once
 
 #include <curl/curl.h>
 #include <boost/log/trivial.hpp>
@@ -58,10 +57,6 @@
 #define ROK4_S3_URL "ROK4_S3_URL"
 #define ROK4_S3_KEY "ROK4_S3_KEY"
 #define ROK4_S3_SECRETKEY "ROK4_S3_SECRETKEY"
-
-#ifndef ROK4_SSL_NO_VERIFY
-#define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
-#endif
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -184,9 +179,9 @@ public:
      */
     S3Context (std::string b);
 
-    ContextType::eContextType getType();
-    std::string getTypeStr();
-    std::string getTray();
+    ContextType::eContextType get_type();
+    std::string get_type_string();
+    std::string get_tray();
     std::string getCluster();
 
     /**
@@ -196,15 +191,15 @@ public:
     static std::string get_default_cluster();
 
     int read(uint8_t* data, int offset, int size, std::string name);
-    uint8_t* readFull(int& size, std::string name);
+    uint8_t* read_full(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
-    bool writeFull(uint8_t* data, int size, std::string name);
+    bool write_full(uint8_t* data, int size, std::string name);
 
-    bool openToWrite(std::string name);
-    bool closeToWrite(std::string name);
+    bool open_to_write(std::string name);
+    bool close_to_write(std::string name);
 
-    std::string getPath(std::string racine,int x,int y,int pathDepth);
-    std::string getPath(std::string name);
+    std::string get_path(std::string racine,int x,int y,int pathDepth);
+    std::string get_path(std::string name);
 
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "------ S3 Context -------" ;
@@ -214,7 +209,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- Bucket name = " << bucket_name ;
     }
 
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ S3 Context -------" << std::endl;
@@ -239,13 +234,13 @@ public:
     
     bool exists(std::string name);
 
-    void closeConnection() {
+    void close_connection() {
         connected = false;
     }
 
     ~S3Context() {
-        closeConnection();
+        close_connection();
     }
 };
 
-#endif
+

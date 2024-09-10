@@ -42,41 +42,42 @@
 /* --------------------------------- DÉFINITION DES FONCTIONS ------------------------------------- */
 /* ------------------------------------------------------------------------------------------------ */
 
-void Line::alphaBlending ( Line* above ) {
+void Line::alpha_blending ( Line* above ) {
     // Initialisation des pointeurs courants sur les pixels et l'alpha (final et above)
     float* pix = samples;
     float* al = alpha;
-    float* pixAb = above->samples;
-    float* alAb = above->alpha;
-    for ( int i = 0; i < width; i++, pix += 3, pixAb += 3, al++, alAb++ ) {
-        if ( *alAb == 0. || ! above->mask[i] ) {
+    float* pix_above = above->samples;
+    float* al_above = above->alpha;
+    
+    for ( int i = 0; i < width; i++, pix += 3, pix_above += 3, al++, al_above++ ) {
+        if ( *al_above == 0. || ! above->mask[i] ) {
             // Le pixel de la ligne du dessus est transparent, ou n'est pas de la donnée, il ne change donc pas le pixel du dessous.
             continue;
         }
 
         if ( *al == 0. ) {
             // Le pixel de la ligne du dessous est complètement transparent, le résultat est donc égal au pixel du dessus
-            *al = *alAb;
-            memcpy(pix, pixAb, 3*sizeof(float));
+            *al = *al_above;
+            memcpy(pix, pix_above, 3*sizeof(float));
             continue;
         }
 
-        float a = *alAb + *al * ( 1. - *alAb );
+        float a = *al_above + *al * ( 1. - *al_above );
 
-        pix[0] = ( *alAb * pixAb[0] + *al * pix[0] * ( 1 - *alAb ) ) / a;
-        pix[1] = ( *alAb * pixAb[1] + *al * pix[1] * ( 1 - *alAb ) ) / a;
-        pix[2] = ( *alAb * pixAb[2] + *al * pix[2] * ( 1 - *alAb ) ) / a;
+        pix[0] = ( *al_above * pix_above[0] + *al * pix[0] * ( 1 - *al_above ) ) / a;
+        pix[1] = ( *al_above * pix_above[1] + *al * pix[1] * ( 1 - *al_above ) ) / a;
+        pix[2] = ( *al_above * pix_above[2] + *al * pix[2] * ( 1 - *al_above ) ) / a;
         *al = a;
     }
 }
 
-void Line::useMask ( Line* above ) {
+void Line::use_masks ( Line* above ) {
     float* pix = samples;
-    float* pixAb = above->samples;
-    for ( int i = 0; i < width; i++, pix += 3, pixAb += 3 ) {
+    float* pix_above = above->samples;
+    for ( int i = 0; i < width; i++, pix += 3, pix_above += 3 ) {
         if ( above->mask[i] ) {
             alpha[i] = above->alpha[i];
-            memcpy(pix, pixAb, 3 * sizeof(float));
+            memcpy(pix, pix_above, 3 * sizeof(float));
         }
     }
 }
@@ -101,33 +102,33 @@ void Line::multiply ( Line* above ) {
 // -------------- UINT8
 
 template <>
-void Line::store ( uint8_t* imageIn, uint8_t* maskIn, int srcSpp, uint8_t* transparent ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( uint8_t* input_image, uint8_t* input_mask, int input_channels, uint8_t* transparent ) {
+    memcpy ( mask, input_mask, width );
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
-            if ( imageIn[i] == transparent[0] && imageIn[i] == transparent[1] && imageIn[i] == transparent[2] ) {
+            if ( input_image[i] == transparent[0] && input_image[i] == transparent[1] && input_image[i] == transparent[2] ) {
                 alpha[i] = 0.0;
             } else {
                 alpha[i] = 1.0;
             }
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[i];
         }
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            if ( imageIn[2*i] == transparent[0] && imageIn[2*i] == transparent[1] && imageIn[2*i] == transparent[2] ) {
+            if ( input_image[2*i] == transparent[0] && input_image[2*i] == transparent[1] && input_image[2*i] == transparent[2] ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = ( float ) imageIn[2*i+1] / 255.;
+                alpha[i] = ( float ) input_image[2*i+1] / 255.;
             }
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[2*i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[2*i];
         }
         break;
     case 3:
-        convert( samples, imageIn, 3*width );
+        convert( samples, input_image, 3*width );
         for ( int i = 0; i < width; i++ ) {
-            if ( ! memcmp ( imageIn+3*i, transparent, 3 ) ) {
+            if ( ! memcmp ( input_image+3*i, transparent, 3 ) ) {
                 alpha[i] = 0.0;
             } else {
                 alpha[i] = 1.0;
@@ -136,11 +137,11 @@ void Line::store ( uint8_t* imageIn, uint8_t* maskIn, int srcSpp, uint8_t* trans
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            convert( samples+i*3, imageIn+i*4, 3 );
-            if ( ! memcmp ( imageIn+4*i, transparent, 3 ) ) {
+            convert( samples+i*3, input_image+i*4, 3 );
+            if ( ! memcmp ( input_image+4*i, transparent, 3 ) ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = ( float ) imageIn[i*4+3] / 255.;
+                alpha[i] = ( float ) input_image[i*4+3] / 255.;
             }
         }
         break;
@@ -148,31 +149,32 @@ void Line::store ( uint8_t* imageIn, uint8_t* maskIn, int srcSpp, uint8_t* trans
 }
 
 template <>
-void Line::store ( uint8_t* imageIn, uint8_t* maskIn, int srcSpp ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( uint8_t* input_image, uint8_t* input_mask, int input_channels ) {
+    memcpy ( mask, input_mask, width );
+
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
             alpha[i] = 1.0;
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[i];
         }
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            alpha[i] = ( float ) imageIn[2*i+1] / 255.;
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[2*i];
+            alpha[i] = ( float ) input_image[2*i+1] / 255.;
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[2*i];
         }
         break;
     case 3:
-        convert( samples, imageIn, 3*width );
+        convert( samples, input_image, 3*width );
         for ( int i = 0; i < width; i++ ) {
             alpha[i] = 1.0;
         }
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            convert( samples+i*3, imageIn+i*4, 3 );
-            alpha[i] = ( float ) imageIn[i*4+3] / 255.;
+            convert( samples+i*3, input_image+i*4, 3 );
+            alpha[i] = ( float ) input_image[i*4+3] / 255.;
         }
         break;
     }
@@ -181,33 +183,33 @@ void Line::store ( uint8_t* imageIn, uint8_t* maskIn, int srcSpp ) {
 // -------------- UINT16
 
 template <>
-void Line::store ( uint16_t* imageIn, uint8_t* maskIn, int srcSpp, uint16_t* transparent ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( uint16_t* input_image, uint8_t* input_mask, int input_channels, uint16_t* transparent ) {
+    memcpy ( mask, input_mask, width );
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
-            if ( imageIn[i] == transparent[0] && imageIn[i] == transparent[1] && imageIn[i] == transparent[2] ) {
+            if ( input_image[i] == transparent[0] && input_image[i] == transparent[1] && input_image[i] == transparent[2] ) {
                 alpha[i] = 0.0;
             } else {
                 alpha[i] = 1.0;
             }
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[i];
         }
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            if ( imageIn[2*i] == transparent[0] && imageIn[2*i] == transparent[1] && imageIn[2*i] == transparent[2] ) {
+            if ( input_image[2*i] == transparent[0] && input_image[2*i] == transparent[1] && input_image[2*i] == transparent[2] ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = ( float ) imageIn[2*i+1] / 65535.;
+                alpha[i] = ( float ) input_image[2*i+1] / 65535.;
             }
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[2*i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[2*i];
         }
         break;
     case 3:
-        convert( samples, imageIn, 3*width );
+        convert( samples, input_image, 3*width );
         for ( int i = 0; i < width; i++ ) {
-            if ( ! memcmp ( imageIn+3*i, transparent, 3*sizeof(uint16_t) ) ) {
+            if ( ! memcmp ( input_image+3*i, transparent, 3*sizeof(uint16_t) ) ) {
                 alpha[i] = 0.0;
             } else {
                 alpha[i] = 1.0;
@@ -216,11 +218,11 @@ void Line::store ( uint16_t* imageIn, uint8_t* maskIn, int srcSpp, uint16_t* tra
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            convert( samples+i*3, imageIn+i*4, 3 );
-            if ( ! memcmp ( imageIn+4*i, transparent, 3*sizeof(uint16_t) ) ) {
+            convert( samples+i*3, input_image+i*4, 3 );
+            if ( ! memcmp ( input_image+4*i, transparent, 3*sizeof(uint16_t) ) ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = ( float ) imageIn[i*4+3] / 65535.;
+                alpha[i] = ( float ) input_image[i*4+3] / 65535.;
             }
         }
         break;
@@ -229,31 +231,31 @@ void Line::store ( uint16_t* imageIn, uint8_t* maskIn, int srcSpp, uint16_t* tra
 
 
 template <>
-void Line::store ( uint16_t* imageIn, uint8_t* maskIn, int srcSpp ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( uint16_t* input_image, uint8_t* input_mask, int input_channels ) {
+    memcpy ( mask, input_mask, width );
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
             alpha[i] = 1.0;
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[i];
         }
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            alpha[i] = ( float ) imageIn[2*i+1] / 65535.;
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) imageIn[2*i];
+            alpha[i] = ( float ) input_image[2*i+1] / 65535.;
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = (float) input_image[2*i];
         }
         break;
     case 3:
-        convert( samples, imageIn, 3*width );
+        convert( samples, input_image, 3*width );
         for ( int i = 0; i < width; i++ ) {
             alpha[i] = 1.0;
         }
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            convert( samples+i*3, imageIn+i*4, 3 );
-            alpha[i] = ( float ) imageIn[i*4+3] / 65535.;
+            convert( samples+i*3, input_image+i*4, 3 );
+            alpha[i] = ( float ) input_image[i*4+3] / 65535.;
         }
         break;
     }
@@ -263,12 +265,12 @@ void Line::store ( uint16_t* imageIn, uint8_t* maskIn, int srcSpp ) {
 // -------------- FLOAT
 
 template <>
-void Line::store ( float* imageIn, uint8_t* maskIn, int srcSpp, float* transparent ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( float* input_image, uint8_t* input_mask, int input_channels, float* transparent ) {
+    memcpy ( mask, input_mask, width );
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = input_image[i];
             //if ( ! memcmp ( samples+3*i, transparent, 3*sizeof ( float ) ) ) {
 	    if ( ! memcmp ( samples+3*i, transparent, 3*sizeof ( float ) ) || fabsf((*(samples+3*i)-*transparent)/(*transparent))<0.001 ) {
                 alpha[i] = 0.0;
@@ -279,16 +281,16 @@ void Line::store ( float* imageIn, uint8_t* maskIn, int srcSpp, float* transpare
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = imageIn[2*i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = input_image[2*i];
             if ( ! memcmp ( samples+3*i, transparent, 3*sizeof ( float ) ) || fabsf((*(samples+3*i)-*transparent)/(*transparent))<0.001 ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = imageIn[2*i+1];
+                alpha[i] = input_image[2*i+1];
             }
         }
         break;
     case 3:
-        memcpy ( samples, imageIn, sizeof ( float ) *3*width );
+        memcpy ( samples, input_image, sizeof ( float ) *3*width );
         for ( int i = 0; i < width; i++ ) {
             if ( ! memcmp ( samples+3*i, transparent, 3*sizeof ( float ) )
 	      || (fabsf((*(samples+3*i)-*transparent)/(*transparent))<0.001 && fabsf((*(samples+3*i+1)-*(transparent+1))/(*(transparent+1))<0.001) && fabsf((*(samples+3*i+2)-*(transparent+2))/(*(transparent+2)))<0.001 ) ) {
@@ -300,12 +302,12 @@ void Line::store ( float* imageIn, uint8_t* maskIn, int srcSpp, float* transpare
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            memcpy ( samples+i*3, imageIn+i*4, sizeof ( float ) *3 );
+            memcpy ( samples+i*3, input_image+i*4, sizeof ( float ) *3 );
             if ( ! memcmp ( samples+3*i, transparent, 3*sizeof ( float ) )
 	      || (fabsf((*(samples+3*i)-*transparent)/(*transparent))<0.001 && fabsf((*(samples+3*i+1)-*(transparent+1))/(*(transparent+1))<0.001) && fabsf((*(samples+3*i+2)-*(transparent+2))/(*(transparent+2)))<0.001 ) ) {
                 alpha[i] = 0.0;
             } else {
-                alpha[i] = imageIn[i*4+3];
+                alpha[i] = input_image[i*4+3];
             }
         }
         break;
@@ -313,31 +315,31 @@ void Line::store ( float* imageIn, uint8_t* maskIn, int srcSpp, float* transpare
 }
 
 template <>
-void Line::store ( float* imageIn, uint8_t* maskIn, int srcSpp ) {
-    memcpy ( mask, maskIn, width );
-    switch ( srcSpp ) {
+void Line::store ( float* input_image, uint8_t* input_mask, int input_channels ) {
+    memcpy ( mask, input_mask, width );
+    switch ( input_channels ) {
     case 1:
         for ( int i = 0; i < width; i++ ) {
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = imageIn[i];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = input_image[i];
             alpha[i] = 1.0;
         }
         break;
     case 2:
         for ( int i = 0; i < width; i++ ) {
-            samples[3*i] = samples[3*i+1] = samples[3*i+2] = imageIn[2*i];
-            alpha[i] = imageIn[2*i+1];
+            samples[3*i] = samples[3*i+1] = samples[3*i+2] = input_image[2*i];
+            alpha[i] = input_image[2*i+1];
         }
         break;
     case 3:
-        memcpy ( samples, imageIn, sizeof ( float ) *3*width );
+        memcpy ( samples, input_image, sizeof ( float ) *3*width );
         for ( int i = 0; i < width; i++ ) {
             alpha[i] = 1.0;
         }
         break;
     case 4:
         for ( int i = 0; i < width; i++ ) {
-            memcpy ( samples+i*3,imageIn+i*4,sizeof ( float ) *3 );
-            alpha[i] = imageIn[i*4+3];
+            memcpy ( samples+i*3,input_image+i*4,sizeof ( float ) *3 );
+            alpha[i] = input_image[i*4+3];
         }
         break;
     }

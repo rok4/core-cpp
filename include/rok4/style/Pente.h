@@ -43,8 +43,7 @@
  * \brief Define class Pente
  */
 
-#ifndef PENTE_H
-#define PENTE_H
+#pragma once
 
 #include <boost/log/trivial.hpp>
 
@@ -55,7 +54,7 @@
 
 class Pente : public Configuration {
 
-private:
+public:
 
      /** \~french
      * \brief algo : choix de l'algorithme de calcul de pentes par l'utilisateur ("H" pour Horn)
@@ -72,29 +71,26 @@ private:
     std::string unit;
 
     /** \~french
-    * \brief noData : valeur de noData pour la pente
+    * \brief noData : valeur de nodata pour la pente
     ** \~english
-    * \brief noData : value of noData for the slope
+    * \brief noData : value of nodata for the slope
     */
-    int slopeNoData;
+    int slope_nodata_value;
 
     /** \~french
-    * \brief noData : valeur de noData pour l'image source
+    * \brief noData : valeur de nodata pour l'image source
     ** \~english
-    * \brief noData : value of noData for the source image
+    * \brief noData : value of nodata for the source image
     */
-    float imgNoData;
+    float input_nodata_value;
 
     /** \~french
     * \brief maxSlope : valeur max pour la pente
     ** \~english
     * \brief maxSlope : max value for the slope
     */
-    int maxSlope;
+    int max_slope;
 
-
-
-public:
 
     /**
      * \~french
@@ -102,7 +98,7 @@ public:
      * \~english
      * \brief Constructor without arguments
      */
-    Pente(): Configuration(), algo ("H"), unit ("degree"), slopeNoData (0), imgNoData (-99999), maxSlope (90) {
+    Pente(): Configuration(), algo ("H"), unit ("degree"), slope_nodata_value (0), input_nodata_value (-99999), max_slope (90) {
 
     }
 
@@ -114,19 +110,19 @@ public:
      */
     Pente(json11::Json doc) : Configuration() {
         if (doc["image_nodata"].is_number()) {
-            imgNoData = doc["image_nodata"].number_value();
+            input_nodata_value = doc["image_nodata"].number_value();
         } else {
-            imgNoData = -99999;
+            input_nodata_value = -99999;
         }
         if (doc["slope_nodata"].is_number()) {
-            slopeNoData = doc["slope_nodata"].number_value();
+            slope_nodata_value = doc["slope_nodata"].number_value();
         } else {
-            slopeNoData = 0;
+            slope_nodata_value = 0;
         }
         if (doc["slope_max"].is_number()) {
-            maxSlope = doc["slope_max"].number_value();
+            max_slope = doc["slope_max"].number_value();
         } else {
-            maxSlope = 90;
+            max_slope = 90;
         }
 
         if (doc["algo"].is_string()) {
@@ -151,58 +147,6 @@ public:
 
     }
 
-
-    /**
-     * \~french
-     * \brief Renvoie l'algo
-     * \~english
-     * \brief Get algo
-     */
-    std::string getAlgo(){
-        return algo;
-    }
-
-    /**
-     * \~french
-     * \brief Renvoie unit
-     * \~english
-     * \brief Get unit
-     */
-    std::string getUnit(){
-        return unit;
-    }
-
-    /**
-     * \~french
-     * \brief Renvoie noData de la pente
-     * \~english
-     * \brief Get noData of the slope
-     */
-    int getSlopeNoData(){
-        return slopeNoData;
-    }
-
-    /**
-     * \~french
-     * \brief Renvoie noData de l'image
-     * \~english
-     * \brief Get noData of image
-     */
-    float getImgNoData(){
-        return imgNoData;
-    }
-
-    /**
-     * \~french
-     * \brief Renvoie maxSlope de la pente
-     * \~english
-     * \brief Get maxSlope of the slope
-     */
-    int getMaxSlope(){
-        return maxSlope;
-    }
-
-
 };
-#endif
+
 

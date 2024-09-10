@@ -38,21 +38,18 @@
 /**
  * \file ExtendedCompoundImage.h
  ** \~french
- * \brief Définition des classes ExtendedCompoundImage, ExtendedCompoundMask et ExtendedCompoundImageFactory
+ * \brief Définition des classes ExtendedCompoundImage, ExtendedCompoundMask
  * \details
  * \li ExtendedCompoundImage : image composée d'images compatibles, superposables
  * \li ExtendedCompoundMask : masque composé, associé à une image composée
- * \li ExtendedCompoundImageFactory : usine de création d'objet ExtendedCompoundImage
  ** \~english
- * \brief Define classes ExtendedCompoundImage, ExtendedCompoundMask and ExtendedCompoundImageFactory
+ * \brief Define classes ExtendedCompoundImage, ExtendedCompoundMask
  * \details
  * \li ExtendedCompoundImage : image compounded with superimpose images
  * \li ExtendedCompoundMask : compounded mask, associated with a compounded image
- * \li ExtendedCompoundImageFactory : factory to create ExtendedCompoundImage object
  */
 
-#ifndef EXTENTED_COMPOUND_IMAGE_H
-#define EXTENTED_COMPOUND_IMAGE_H
+#pragma once
 
 #include <vector>
 #include <cstring>
@@ -83,8 +80,6 @@
  */
 class ExtendedCompoundImage : public Image {
 
-    friend class ExtendedCompoundImageFactory;
-
 private:
 
     /**
@@ -93,14 +88,14 @@ private:
      * \~english \brief Source images, consistent , to make the compounded image
      * \details First image is the bottom one
      */
-    std::vector<Image*> sourceImages;
+    std::vector<Image*> source_images;
     
     /**
      * \~french \brief Offset sur les lignes
      * \details Numéro de la ligne dans l'ExtendedCompoundImage correspondant à la première ligne de l'image source
      * \~english \brief Row's offset
      */
-    std::vector<int> rowsOffsets;
+    std::vector<int> rows_offsets;
     
     /**
      * \~french \brief Offset sur les colonnes
@@ -128,14 +123,14 @@ private:
      * \details Certaines images sources peuvent etre des miroirs (MirrorImage). Lors de la composition de l'image, on ne veut pas que les données des vraies images soient écrasées par des données "miroirs". C'est pourquoi on veut connaître le nombre d'images miroirs dans le tableau et on sait qu'elles sont placées au début.
      * \~english \brief Mirror images' number among source images
      */
-    uint mirrorsNumber;
+    uint mirrors_count;
 
     /**
      * \~french \brief Valeur de non-donnée
      * \details On a une valeur entière par canal. Tous les pixel de l'image composée seront initialisés avec cette valeur.
      * \~english \brief Nodata value
      */
-    int* nodata;
+    int* nodata_value;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -155,33 +150,30 @@ private:
     /** \~french
      * \brief Calcule les offsets pour chaque image source
      * \details Les offsets à caculer sont :
-     * \li #rowsOffsets
+     * \li #rows_offsets
      * \li #c0s
      * \li #c1s
      * \li #c2s
      */
-    void calculateOffsets() {
-        rowsOffsets.clear();
+    void calculate_offsets() {
+        rows_offsets.clear();
         c0s.clear();
         c1s.clear();
         c2s.clear();
         
-        for ( int i = 0; i < ( int ) sourceImages.size(); i++ ) {
+        for ( int i = 0; i < ( int ) source_images.size(); i++ ) {
             
-            double y = sourceImages[i]->l2y ( 0 );
+            double y = source_images[i]->line_to_y ( 0 );
             
-            rowsOffsets.push_back(y2l ( y ));
-            c0s.push_back(std::max ( 0,x2c ( sourceImages[i]->getXmin() + 0.5*sourceImages[i]->getResX() ) ));
-            c1s.push_back(std::min ( width - 1,x2c ( sourceImages[i]->getXmax() - 0.5*sourceImages[i]->getResX() ) ));
-            c2s.push_back(std::max ( 0, sourceImages[i]->x2c ( bbox.xmin + 0.5*resx ) ) );
+            rows_offsets.push_back(y_to_line ( y ));
+            c0s.push_back(std::max ( 0,x_to_column ( source_images[i]->get_xmin() + 0.5*source_images[i]->get_resx() ) ));
+            c1s.push_back(std::min ( width - 1,x_to_column ( source_images[i]->get_xmax() - 0.5*source_images[i]->get_resx() ) ));
+            c2s.push_back(std::max ( 0, source_images[i]->x_to_column ( bbox.xmin + 0.5*resx ) ) );
         }
     }
 
-protected:
-
     /** \~french
      * \brief Crée un objet ExtendedCompoundImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine ExtendedCompoundImageFactory, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
@@ -206,190 +198,15 @@ protected:
     ExtendedCompoundImage ( int width, int height, int channels, double resx, double resy, BoundingBox<double> bbox,
                             std::vector<Image*>& images, int* nd, uint mirrors ) :
         Image ( width, height, channels, resx, resy, bbox ),
-        sourceImages ( images ),
-        mirrorsNumber ( mirrors ) {
+        source_images ( images ),
+        mirrors_count ( mirrors ) {
 
-        nodata = new int[channels];
-        memcpy ( nodata,nd,channels*sizeof ( int ) );
+        nodata_value = new int[channels];
+        memcpy ( nodata_value,nd,channels*sizeof ( int ) );
         
-        calculateOffsets();
+        calculate_offsets();
     }
 
-public:
-    /**
-     * \~french
-     * \brief Retourne le tableau des images sources
-     * \return images sources
-     * \~english
-     * \brief Return the array of source images
-     * \return source images
-     */
-    std::vector<Image*>* getImages() {
-        return &sourceImages;
-    }
-    
-    /**
-     * \~french
-     * \brief Retourne les différents offsets pour l'image demandée, pour les lignes et les colonnes
-     * \return offsets
-     * \~english
-     * \brief Return asked image's offsets, for columns and lines
-     * \return offsets
-     */
-    void getOffsets(int i, int* ol, int* c0, int* c1, int* c2) {
-        *ol = rowsOffsets[i];
-        *c0 = c0s[i];
-        *c1 = c1s[i];
-        *c2 = c2s[i];
-    }
-
-    /**
-     * \~french
-     * \brief Précise si au moins une image source possède un masque de donnée
-     * \return présence de masque
-     * \~english
-     * \brief Precise if one or more source images own a mask
-     * \return mask presence
-     */
-    bool useMasks() {
-        for ( uint i=0; i < sourceImages.size(); i++ ) {
-            if ( getMask ( i ) ) return true;
-        }
-        return false;
-    }
-
-    /**
-     * \~french
-     * \brief Retourne le masque de l'image source d'indice i
-     * \param[in] i indice de l'image source dont on veut le masque
-     * \return masque
-     * \~english
-     * \brief Return the mask of source images with indice i
-     * \param[in] i source image indice, whose mask is wanted
-     * \return mask
-     */
-    Image* getMask ( int i ) {
-        return sourceImages.at ( i )->getMask();
-    }
-    /**
-     * \~french
-     * \brief Retourne l'image source d'indice i
-     * \param[in] i indice de l'image source voulue
-     * \return image
-     * \~english
-     * \brief Return the source images with indice i
-     * \param[in] i wanted source image indice
-     * \return image
-     */
-    Image* getImage ( int i ) {
-        return sourceImages.at ( i );
-    }
-
-    /**
-     * \~french \brief Ajoute des miroirs à chacune des images sources
-     * \details On va vouloir réechantillonner (ou reprojeter) ce paquet d'images, donc utiliser une interpolation. Une interpolation se fait sur un nombre plus ou moins grand de pixels sources, selon le type. On veut que l'interpolation soit possible même sur les pixels du bord, et ce sans effet de bord.
-     *
-     * On ajoute donc des pixels virtuels, qui ne sont que le reflet des pixels de l'image. On crée ainsi 4 images miroirs (objets de la classe MirrorImage) par image du paquet (une à chaque bord). On sait distinguer les vraies images de celles virtuelles.
-     *
-     * On aura préalablement optimisé la taille des miroirs, pour qu'elle soit juste suffisante pour l'interpolation.
-     *
-     * \param[in] mirrorSize taille en pixel des miroirs, dépendant du mode d'interpolation et du ratio des résolutions
-     * \return VRAI dans le cas d'un succès, FAUX sinon.
-     * \~english \brief Add mirrors to source images
-     * \~ \image html miroirs.png \~french
-     */
-    bool addMirrors ( int mirrorSize );
-
-    /**
-     * \~french \brief Modifie les dimensions de l'image
-     * \details On veut potentiellement augmenter l'étendue de l'image. Cela implique donc de changer les dimensions pixel #width et #height (pas de modification des résolutions). On vérifie bien que la nouvelle bounding box garde la même phase que l'ancienne. Étant donné qu'on n'ajoute pas de nouvelle image source, on augmente donc la quantité de nodata dans l'image.
-     *
-     * L'extension se déroule en 3 étapes :
-     * \li augmentation afin d'inclure la bbox fournie : on ajoute des nombres entiers de pixel à gauche,à droite, en haut et en bas
-     * \li on ajoute optionnellement un nombre fixe de pixels des 4 côtés
-     * \li on met à jour les attributs de l'ExtendedCompoundImage : les dimensions pixel, la bounding box et éventuellement le masque associé
-     *
-     * \param[in] otherbbox rectangle englobant à inclure dans celui de l'image
-     * \param[in] morePix taille en pixel à ajouter de chaque côté, en plus de vouloir inclure "otherbbox"
-     * \return VRAI dans le cas d'un succès, FAUX sinon.
-     * \~english \brief Modify image's dimensions
-     */
-    bool extendBbox ( BoundingBox<double> otherbbox, int morePix );
-
-    /**
-     * \~french
-     * \brief Retourne le nombre de miroirs parmi les images sources
-     * \return nombre d'images miroirs
-     * \~english
-     * \brief Return the mirror images' number among source images
-     * \return mirror images' number
-     */
-    uint getMirrorsNumber() {
-        return mirrorsNumber;
-    }
-
-    /**
-     * \~french
-     * \brief Retourne la valeur de non-donnée
-     * \return Valeur de non-donnée
-     * \~english
-     * \brief Return the nodata value
-     * \return nodata value
-     */
-    int* getNodata() {
-        return nodata;
-    }
-
-    int getline ( uint8_t* buffer, int line );
-    int getline ( float* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-
-    /**
-     * \~french
-     * \brief Destructeur par défaut
-     * \details Suppression de toutes les images composant l'ExtendedCompoundImage
-     * \~english
-     * \brief Default destructor
-     */
-    virtual ~ExtendedCompoundImage() {
-        delete[] nodata;
-        if ( ! isMask ) {
-            for ( uint i=0; i < sourceImages.size(); i++ ) {
-                delete sourceImages[i];
-            }
-        }
-    }
-
-    /** \~french
-     * \brief Sortie des informations sur l'image composée
-     ** \~english
-     * \brief Compounded image description output
-     */
-    void print() {
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "------ ExtendedCompoundImage -------" ;
-        Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " << sourceImages.size() << ", whose " << mirrorsNumber << " mirrors" ;
-        
-        BOOST_LOG_TRIVIAL(info) <<  "\t\t- offsets : line, c0, c1, c2";
-        for ( int i = 0; i < ( int ) sourceImages.size(); i++ ) {
-            BOOST_LOG_TRIVIAL(info) <<  "\t\t- image " << i << " : " << rowsOffsets[i] << ", " << c0s[i] << ", " << c1s[i] << ", " << c2s[i];
-            //sourceImages[i]->print();
-        }
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-    }
-};
-
-
-
-
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image composée
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe ExtendedCompoundImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de ExtendedCompoundImage et de sortir en erreur en cas de problème.
- */
-class ExtendedCompoundImageFactory {
 public:
     /** \~french
      * \brief Teste et calcule les caractéristiques d'une image composée et crée un objet ExtendedCompoundImage
@@ -406,7 +223,7 @@ public:
      * \param[in] mirrors mirror images' number in source images (put in front)
      * \return a ExtendedCompoundImage object pointer, NULL if error
      */
-    ExtendedCompoundImage* createExtendedCompoundImage ( std::vector<Image*>& images, int* nodata, uint mirrors );
+    static ExtendedCompoundImage* create ( std::vector<Image*>& images, int* nodata, uint mirrors );
 
     /** \~french
      * \brief Vérifie la superposabilité des images sources et crée un objet ExtendedCompoundImage
@@ -429,12 +246,173 @@ public:
      * \param[in] mirrors mirror images' number in source images (put in front)
      * \return a ExtendedCompoundImage object pointer, NULL if error
      */
-    ExtendedCompoundImage* createExtendedCompoundImage ( int width, int height, int channels,
+    static ExtendedCompoundImage* create ( int width, int height, int channels,
             BoundingBox<double> bbox,
             std::vector<Image*>& images, int* nodata, uint mirrors );
+
+    /**
+     * \~french
+     * \brief Retourne le tableau des images sources
+     * \return images sources
+     * \~english
+     * \brief Return the array of source images
+     * \return source images
+     */
+    std::vector<Image*>* get_images() {
+        return &source_images;
+    }
+    
+    /**
+     * \~french
+     * \brief Retourne les différents offsets pour l'image demandée, pour les lignes et les colonnes
+     * \return offsets
+     * \~english
+     * \brief Return asked image's offsets, for columns and lines
+     * \return offsets
+     */
+    void get_offsets(int i, int* ol, int* c0, int* c1, int* c2) {
+        *ol = rows_offsets[i];
+        *c0 = c0s[i];
+        *c1 = c1s[i];
+        *c2 = c2s[i];
+    }
+
+    /**
+     * \~french
+     * \brief Précise si au moins une image source possède un masque de donnée
+     * \return présence de masque
+     * \~english
+     * \brief Precise if one or more source images own a mask
+     * \return mask presence
+     */
+    bool use_masks() {
+        for ( uint i=0; i < source_images.size(); i++ ) {
+            if ( get_mask ( i ) ) return true;
+        }
+        return false;
+    }
+
+    /**
+     * \~french
+     * \brief Retourne le masque de l'image source d'indice i
+     * \param[in] i indice de l'image source dont on veut le masque
+     * \return masque
+     * \~english
+     * \brief Return the mask of source images with indice i
+     * \param[in] i source image indice, whose mask is wanted
+     * \return mask
+     */
+    Image* get_mask ( int i ) {
+        return source_images.at ( i )->get_mask();
+    }
+    /**
+     * \~french
+     * \brief Retourne l'image source d'indice i
+     * \param[in] i indice de l'image source voulue
+     * \return image
+     * \~english
+     * \brief Return the source images with indice i
+     * \param[in] i wanted source image indice
+     * \return image
+     */
+    Image* get_source_image ( int i ) {
+        return source_images.at ( i );
+    }
+
+    /**
+     * \~french \brief Ajoute des miroirs à chacune des images sources
+     * \details On va vouloir réechantillonner (ou reprojeter) ce paquet d'images, donc utiliser une interpolation. Une interpolation se fait sur un nombre plus ou moins grand de pixels sources, selon le type. On veut que l'interpolation soit possible même sur les pixels du bord, et ce sans effet de bord.
+     *
+     * On ajoute donc des pixels virtuels, qui ne sont que le reflet des pixels de l'image. On crée ainsi 4 images miroirs (objets de la classe MirrorImage) par image du paquet (une à chaque bord). On sait distinguer les vraies images de celles virtuelles.
+     *
+     * On aura préalablement optimisé la taille des miroirs, pour qu'elle soit juste suffisante pour l'interpolation.
+     *
+     * \param[in] mirrorSize taille en pixel des miroirs, dépendant du mode d'interpolation et du ratio des résolutions
+     * \return VRAI dans le cas d'un succès, FAUX sinon.
+     * \~english \brief Add mirrors to source images
+     * \~ \image html miroirs.png \~french
+     */
+    bool add_mirrors ( int mirrorSize );
+
+    /**
+     * \~french \brief Modifie les dimensions de l'image
+     * \details On veut potentiellement augmenter l'étendue de l'image. Cela implique donc de changer les dimensions pixel #width et #height (pas de modification des résolutions). On vérifie bien que la nouvelle bounding box garde la même phase que l'ancienne. Étant donné qu'on n'ajoute pas de nouvelle image source, on augmente donc la quantité de nodata dans l'image.
+     *
+     * L'extension se déroule en 3 étapes :
+     * \li augmentation afin d'inclure la bbox fournie : on ajoute des nombres entiers de pixel à gauche,à droite, en haut et en bas
+     * \li on ajoute optionnellement un nombre fixe de pixels des 4 côtés
+     * \li on met à jour les attributs de l'ExtendedCompoundImage : les dimensions pixel, la bounding box et éventuellement le masque associé
+     *
+     * \param[in] otherbbox rectangle englobant à inclure dans celui de l'image
+     * \param[in] morePix taille en pixel à ajouter de chaque côté, en plus de vouloir inclure "otherbbox"
+     * \return VRAI dans le cas d'un succès, FAUX sinon.
+     * \~english \brief Modify image's dimensions
+     */
+    bool extend_bbox ( BoundingBox<double> otherbbox, int morePix );
+
+    /**
+     * \~french
+     * \brief Retourne le nombre de miroirs parmi les images sources
+     * \return nombre d'images miroirs
+     * \~english
+     * \brief Return the mirror images' number among source images
+     * \return mirror images' number
+     */
+    uint get_mirrors_count() {
+        return mirrors_count;
+    }
+
+    /**
+     * \~french
+     * \brief Retourne la valeur de non-donnée
+     * \return Valeur de non-donnée
+     * \~english
+     * \brief Return the nodata value
+     * \return nodata value
+     */
+    int* get_nodata_value() {
+        return nodata_value;
+    }
+
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( float* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+
+    /**
+     * \~french
+     * \brief Destructeur par défaut
+     * \details Suppression de toutes les images composant l'ExtendedCompoundImage
+     * \~english
+     * \brief Default destructor
+     */
+    virtual ~ExtendedCompoundImage() {
+        delete[] nodata_value;
+        if ( ! is_mask ) {
+            for ( uint i=0; i < source_images.size(); i++ ) {
+                delete source_images[i];
+            }
+        }
+    }
+
+    /** \~french
+     * \brief Sortie des informations sur l'image composée
+     ** \~english
+     * \brief Compounded image description output
+     */
+    void print() {
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+        BOOST_LOG_TRIVIAL(info) <<  "------ ExtendedCompoundImage -------" ;
+        Image::print();
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of images = " << source_images.size() << ", whose " << mirrors_count << " mirrors" ;
+        
+        BOOST_LOG_TRIVIAL(info) <<  "\t\t- offsets : line, c0, c1, c2";
+        for ( int i = 0; i < ( int ) source_images.size(); i++ ) {
+            BOOST_LOG_TRIVIAL(info) <<  "\t\t- image " << i << " : " << rows_offsets[i] << ", " << c0s[i] << ", " << c1s[i] << ", " << c2s[i];
+            //source_images[i]->print();
+        }
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+    }
 };
-
-
 
 
 
@@ -472,12 +450,12 @@ public:
      * \param[in] ECI Compounded image
      */
     ExtendedCompoundMask ( ExtendedCompoundImage* ECI ) :
-        Image ( ECI->getWidth(), ECI->getHeight(), 1, ECI->getResX(), ECI->getResY(),ECI->getBbox() ),
+        Image ( ECI->get_width(), ECI->get_height(), 1, ECI->get_resx(), ECI->get_resy(),ECI->get_bbox() ),
         ECI ( ECI ) {}
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( float* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( float* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
 
     /**
      * \~french
@@ -500,4 +478,4 @@ public:
 
 };
 
-#endif
+

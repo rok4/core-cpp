@@ -43,8 +43,7 @@
  * \brief Define the TileMatrixSet Class handling a pyramid of matrix (See TileMatrix)
  */
 
-#ifndef TILEMATRIXSET_H_
-#define TILEMATRIXSET_H_
+#pragma once
 
 #include <string>
 #include <vector>
@@ -118,7 +117,7 @@ private:
      * \~french \brief Liste des mots-clés
      * \~english \brief List of keywords
      */
-    std::vector<Keyword> keyWords;
+    std::vector<Keyword> keywords;
     /**
      * \~french \brief Système de coordonnées associé
      * \~english \brief Linked coordinates system
@@ -128,12 +127,17 @@ private:
      * \~french \brief Est ce que le TMS est un QTree ?
      * \~english \brief Is TMS a QTree ?
      */
-    bool isQTree;
+    bool qtree;
     /**
      * \~french \brief Liste des TileMatrix
      * \~english \brief List of TileMatrix
      */
-    std::map<std::string, TileMatrix*> tmList;
+    std::map<std::string, TileMatrix*> tm_map;
+    /**
+     * \~french \brief Liste des TileMatrix dans l'ordre des résolutions décroissante
+     * \~english \brief List of TileMatrix, resolution desc
+     */
+    std::vector<TileMatrix*> tm_ordered;
 
     bool parse(json11::Json& doc);
 public:
@@ -161,6 +165,7 @@ public:
      * \return true if attributes are equal and lists have the same size
      */
     bool operator== ( const TileMatrixSet& other ) const;
+
     /**
      * \~french
      * La comparaison ignore les mots-clés et les TileMatrix
@@ -172,15 +177,7 @@ public:
      * \return true if one of their attribute is different or lists have different size
      */
     bool operator!= ( const TileMatrixSet& other ) const;
-    /**
-     * \~french
-     * \brief Retourne la liste des TileMatrix
-     * \return liste de TileMatrix
-     * \~english
-     * \brief Return the list of TileMatrix
-     * \return liste of TileMatrix
-     */
-    std::map<std::string, TileMatrix*>* getTmList();
+
     /**
      * \~french
      * \brief Retourne la TileMatrix
@@ -189,20 +186,20 @@ public:
      * \brief Return the TileMatrix
      * \return TileMatrix
      */
-    TileMatrix* getTm(std::string id);
+    TileMatrix* get_tm(std::string id);
 
 
     /**
      * \~french
      * \brief Récupère les niveaux ordonnés par résolution décroissante
-     * \return Liste de level
+     * \return Liste de Tile Matrix
      * \~english
      * \brief Get the levels ordered
-     * \return List of level
+     * \return List of Tile Matrix
      */
-    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> getOrderedTileMatrix(bool asc) ;
+    std::vector<TileMatrix*> get_ordered_tm(bool bottom_to_top) ;
 
-    TileMatrix* getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatrixSet* tmsIn);
+    TileMatrix* get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet* tmsIn);
 
     /**
      * \~french
@@ -212,7 +209,7 @@ public:
      * \brief Return the identifier
      * \return identifier
      */
-    std::string getId();
+    std::string get_id();
     /**
      * \~french
      * \brief Retourne le titre
@@ -221,16 +218,16 @@ public:
      * \brief Return the title
      * \return title
      */
-    std::string getTitle() ;
+    std::string get_title() ;
     /**
      * \~french
      * \brief Précise si le TileMatrixSet est un QTree
-     * \return isQTree
+     * \return qtree
      * \~english
      * \brief Precise if the TileMatrixSet is a QTree
-     * \return isQTree
+     * \return qtree
      */
-    bool getIsQTree();
+    bool is_qtree();
     /**
      * \~french
      * \brief Retourne le résumé
@@ -239,7 +236,7 @@ public:
      * \brief Return the abstract
      * \return abstract
      */
-    std::string getAbstract() ;
+    std::string get_abstract() ;
     /**
      * \~french
      * \brief Retourne la liste des mots-clés
@@ -248,7 +245,7 @@ public:
      * \brief Return the list of keywords
      * \return keywords
      */
-    std::vector<Keyword>* getKeyWords() ;
+    std::vector<Keyword>* get_keywords() ;
     /**
      * \~french
      * \brief Retourne le système de coordonnées utilisé
@@ -257,10 +254,7 @@ public:
      * \brief Return the linked coordinates system
      * \return crs
      */
-    CRS* getCrs();
-
-    ///\TODO
-    int best_scale ( double resolution_x, double resolution_y );
+    CRS* get_crs();
 
     /**
      * \~french
@@ -271,4 +265,4 @@ public:
     ~TileMatrixSet();
 };
 
-#endif /* TILEMATRIXSET_H_ */
+

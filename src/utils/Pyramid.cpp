@@ -52,18 +52,12 @@
 #include <cfloat>
 #include "image/EmptyImage.h"
 
-ComparatorLevel compLevelDesc =
-    [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
-    {
-        return elem1.second->getRes() > elem2.second->getRes();
-    };
 
-ComparatorLevel compLevelAsc =
-    [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
-    {
-        return elem1.second->getRes() < elem2.second->getRes();
-    };
 
+bool order_levels(Level* a, Level* b) 
+{ 
+    return (a->get_res() > b->get_res()); 
+} 
 
 bool Pyramid::parse(json11::Json& doc) {
 
@@ -72,13 +66,13 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["tile_matrix_set"].is_string()) {
         tmsName = doc["tile_matrix_set"].string_value();
     } else {
-        errorMessage = "tile_matrix_set have to be provided and be a string";
+        error_message = "tile_matrix_set have to be provided and be a string";
         return false;
     }
 
     tms = TmsBook::get_tms(tmsName);
     if ( tms == NULL ) {
-        errorMessage =  "Pyramid use unknown or unloadable TMS [" + tmsName + "]" ;
+        error_message =  "Pyramid use unknown or unloadable TMS [" + tmsName + "]" ;
         return false;
     }
 
@@ -87,21 +81,21 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["format"].is_string()) {
         formatStr = doc["format"].string_value();
     } else {
-        errorMessage = "format have to be provided and be a string";
+        error_message = "format have to be provided and be a string";
         return false;
     }
 
-    format = Rok4Format::fromString ( formatStr );
+    format = Rok4Format::from_string ( formatStr );
     if ( ! ( format ) ) {
-        errorMessage =  "Le format [" + formatStr + "] n'est pas gere." ;
+        error_message =  "Le format [" + formatStr + "] n'est pas gere." ;
         return false;
     }
 
     /******************* PYRAMIDE RASTER *********************/
     
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         if (! doc["raster_specifications"].is_object()) {
-            errorMessage = "raster_specifications have to be provided and be an object for raster format";
+            error_message = "raster_specifications have to be provided and be an object for raster format";
             return false;
         }
 
@@ -110,13 +104,13 @@ bool Pyramid::parse(json11::Json& doc) {
         if (doc["raster_specifications"]["photometric"].is_string()) {
             photometricStr = doc["raster_specifications"]["photometric"].string_value();
         } else {
-            errorMessage = "raster_specifications.photometric have to be provided and be a string";
+            error_message = "raster_specifications.photometric have to be provided and be a string";
             return false;
         }
 
-        photo = Photometric::fromString ( photometricStr );
+        photo = Photometric::from_string ( photometricStr );
         if ( ! ( photo ) ) {
-            errorMessage =  "La photométrie [" + photometricStr + "] n'est pas gere." ;
+            error_message =  "La photométrie [" + photometricStr + "] n'est pas gere." ;
             return false;
         }
 
@@ -124,12 +118,12 @@ bool Pyramid::parse(json11::Json& doc) {
         if (doc["raster_specifications"]["channels"].is_number()) {
             channels = doc["raster_specifications"]["channels"].number_value();
         } else {
-            errorMessage = "raster_specifications.channels have to be provided and be an integer";
+            error_message = "raster_specifications.channels have to be provided and be an integer";
             return false;
         }
 
         // NODATAVALUE
-        nodataValue = new int[channels];
+        nodata_value = new int[channels];
         if (doc["raster_specifications"]["nodata"].is_string()) {
             std::string nodataValueStr = doc["raster_specifications"]["nodata"].string_value();
             std::size_t found = nodataValueStr.find_first_of(",");
@@ -140,7 +134,7 @@ bool Pyramid::parse(json11::Json& doc) {
                 curVal = DEFAULT_NODATAVALUE;
             }
             int i = 0;
-            nodataValue[i] = curVal;
+            nodata_value[i] = curVal;
             i++;
             while (found!=std::string::npos && i < channels) {
                 found = endOfValues.find_first_of(",");
@@ -150,15 +144,15 @@ bool Pyramid::parse(json11::Json& doc) {
                 if (currentValue == "") {
                     curVal = DEFAULT_NODATAVALUE;
                 }
-                nodataValue[i] = curVal;
+                nodata_value[i] = curVal;
                 i++;
             }
             if (i < channels) {
-                errorMessage =  "channels is greater than the count of value for nodata";
+                error_message =  "channels is greater than the count of value for nodata";
                 return false;
             }
         } else {
-            errorMessage = "raster_specifications.nodata have to be provided and be a string";
+            error_message = "raster_specifications.nodata have to be provided and be a string";
             return false;
         }
     }
@@ -169,43 +163,46 @@ bool Pyramid::parse(json11::Json& doc) {
     if (doc["levels"].is_array()) {
         for (json11::Json l : doc["levels"].array_items()) {
             if (l.is_object()) {
-                Level* level = new Level(l, this, filePath);
-                if ( ! level->isOk() ) {
-                    errorMessage = "levels contains an invalid level : " + level->getErrorMessage();
+                Level* level = new Level(l, this, file_path);
+                if ( ! level->is_ok() ) {
+                    error_message = "levels contains an invalid level : " + level->get_error_message();
                     delete level;
                     return false;
                 }
 
                 //on va vérifier que le level qu'on vient de charger n'a pas déjà été chargé
-                std::map<std::string, Level*>::iterator it = levels.find ( level->getId() );
+                std::map<std::string, Level*>::iterator it = levels.find ( level->get_id() );
                 if ( it != levels.end() ) {
-                    errorMessage =  "Level " + level->getId() + " defined twice" ;
+                    error_message =  "Level " + level->get_id() + " defined twice" ;
                     delete level;
                     return false;
                 }
 
-                levels.insert ( std::pair<std::string, Level*> ( level->getId(), level ) );
+                levels.insert ( std::pair<std::string, Level*> ( level->get_id(), level ) );
+                levels_ordered.push_back(level);
             } else {
-                errorMessage = "levels have to be provided and be an object array";
+                error_message = "levels have to be provided and be an object array";
                 return false;
             }
         }
     } else {
-        errorMessage = "levels have to be provided and be an object array";
+        error_message = "levels have to be provided and be an object array";
         return false;
     }
 
     if ( levels.size() == 0 ) {
-        errorMessage = "No level loaded";
+        error_message = "No level loaded";
         return false;
     }
+
+    std::sort(levels_ordered.begin(), levels_ordered.end(), order_levels);
 
     return true;
 }
 
 Pyramid::Pyramid(std::string path) : Configuration(path) {
 
-    nodataValue = NULL;
+    nodata_value = NULL;
 
     /********************** Read */
 
@@ -215,15 +212,15 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     
     context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read pyramid's descriptor";
+        error_message = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read pyramid's descriptor";
         return;
     }
 
     int size = -1;
-    uint8_t* data = context->readFull(size, fo_name);
+    uint8_t* data = context->read_full(size, fo_name);
 
     if (size < 0) {
-        errorMessage = "Cannot read descriptor "  + path ;
+        error_message = "Cannot read descriptor "  + path ;
         if (data != NULL) delete[] data;
         return;
     }
@@ -231,7 +228,7 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        error_message = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
@@ -242,46 +239,32 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
         return;
     }
 
-    std::map<std::string, Level*>::iterator itLevel;
-    double minRes= DBL_MAX;
-    double maxRes= DBL_MIN;
-    for ( itLevel=levels.begin(); itLevel!=levels.end(); itLevel++ ) {
-
-        //Determine Higher and Lower Levels
-        double d = itLevel->second->getRes();
-        if ( minRes > d ) {
-            minRes = d;
-            lowestLevel = itLevel->second;
-        }
-        if ( maxRes < d ) {
-            maxRes = d;
-            highestLevel = itLevel->second;
-        }
-    }
+    highest_level = levels_ordered.at(0);
+    lowest_level = levels_ordered.back();
 }
 
 Pyramid::Pyramid (Pyramid* obj) {
     tms = obj->tms;
     format = obj->format;
-    lowestLevel = NULL;
-    highestLevel = NULL;
-    nodataValue = NULL;
+    lowest_level = NULL;
+    highest_level = NULL;
+    nodata_value = NULL;
 
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         photo = obj->photo;
         channels = obj->channels;
 
-        nodataValue = new int[channels];
-        memcpy ( nodataValue, obj->nodataValue, channels * sizeof(int) );
+        nodata_value = new int[channels];
+        memcpy ( nodata_value, obj->nodata_value, channels * sizeof(int) );
     }
 }
 
-Context* Pyramid::getContext() { return context; }
+Context* Pyramid::get_context() { return context; }
 
-bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topLevel) {
+bool Pyramid::add_levels (Pyramid* obj, std::string bottomLevel, std::string topLevel) {
 
     // Caractéristiques globales
-    if (tms->getId() != obj->tms->getId()) {
+    if (tms->get_id() != obj->tms->get_id()) {
         BOOST_LOG_TRIVIAL(error) << "TMS have to be the same for all used pyramids";
         return false;
     }
@@ -290,7 +273,7 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
         return false;
     }
 
-    if (Rok4Format::isRaster(format)) {
+    if (Rok4Format::is_raster(format)) {
         if (photo != obj->photo) {
             BOOST_LOG_TRIVIAL(error) << "Photometric have to be the same for all used pyramids";
             return false;
@@ -304,30 +287,23 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
     // Niveaux
     bool begin = false;
     bool end = false;
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> orderedLevels = obj->getOrderedLevels(true);
-    for (std::pair<std::string, Level*> element : orderedLevels) {
-        std::string levelId = element.second->getId();
-        if (! begin && levelId != bottomLevel) {
+    for (Level* level : obj->get_ordered_levels(true)) {
+        std::string level_id = level->get_id();
+        if (! begin && level_id != bottomLevel) {
             continue;
         }
         begin = true;
 
-        if (getLevel(levelId) != NULL) {
-            BOOST_LOG_TRIVIAL(error) << "Level " << levelId << " is already present"  ;
+        if (get_level(level_id) != NULL) {
+            BOOST_LOG_TRIVIAL(error) << "Level " << level_id << " is already present"  ;
             return false;
         }
 
-        Level* l = new Level(element.second);
-        levels.insert ( std::pair<std::string, Level*> ( levelId, l ) );
+        Level* l = new Level(level);
+        levels.insert ( std::pair<std::string, Level*> ( level_id, l ) );
+        levels_ordered.push_back(l);
 
-        if (lowestLevel == NULL || l->getRes() < lowestLevel->getRes()) {
-            lowestLevel = l;
-        }
-        if (highestLevel == NULL || l->getRes() > highestLevel->getRes()) {
-            highestLevel = l;
-        }
-
-        if (levelId == topLevel) {
+        if (level_id == topLevel) {
             end = true;
             break;
         }
@@ -343,6 +319,11 @@ bool Pyramid::addLevels (Pyramid* obj, std::string bottomLevel, std::string topL
         return false;
     }
 
+    std::sort(levels_ordered.begin(), levels_ordered.end(), order_levels);
+
+    highest_level = levels_ordered.at(0);
+    lowest_level = levels_ordered.back();
+    
     return true;
 }
 
@@ -354,10 +335,10 @@ std::string Pyramid::best_level ( double resolution_x, double resolution_y ) {
 
     std::map<std::string, Level*>::iterator it ( levels.begin() ), itend ( levels.end() );
     std::string best_h = it->first;
-    double best = resolution_x / it->second->getRes();
+    double best = resolution_x / it->second->get_res();
     ++it;
     for ( ; it!=itend; ++it ) {
-        double d = resolution / it->second->getRes();
+        double d = resolution / it->second->get_res();
         if ( ( best < 0.8 && d > best ) ||
                 ( best >= 0.8 && d >= 0.8 && d < best ) ) {
             best = d;
@@ -368,12 +349,12 @@ std::string Pyramid::best_level ( double resolution_x, double resolution_y ) {
 }
 
 
-Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi, int& error ) {
+Image* Pyramid::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, BoundingBox<double> bbox, int width, int height, CRS* dst_crs, bool crs_equals, Interpolation::KernelType interpolation, int dpi ) {
 
     // On calcule la résolution de la requete dans le crs source selon une diagonale de l'image
     double resolution_x, resolution_y;
 
-    BOOST_LOG_TRIVIAL(debug) << "Reprojection " << tms->getCrs()->getProjCode() << " -> " << dst_crs->getProjCode() ;
+    BOOST_LOG_TRIVIAL(debug) << "Reprojection " << tms->get_crs()->get_proj_code() << " -> " << dst_crs->get_proj_code() ;
 
     if ( crs_equals ) {
         resolution_x = ( bbox.xmax - bbox.xmin ) / width;
@@ -381,12 +362,14 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
     } else {
         BoundingBox<double> tmp = bbox;
 
-        if ( ! tmp.reproject ( dst_crs, tms->getCrs() ) ) {
+        if ( ! tmp.reproject ( dst_crs, tms->get_crs() ) ) {
             // BBOX invalide
 
             BOOST_LOG_TRIVIAL(warning) << "reproject en erreur" ;
-            error = 1;
-            return 0;
+            
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
+            return fond;
         }
 
         resolution_x = ( tmp.xmax - tmp.xmin ) / width;
@@ -399,8 +382,7 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
         resolution_y = resolution_y * dpi / 90.7;
         //on teste si on vient d'avoir des NaN
         if (resolution_x != resolution_x || resolution_y != resolution_y) {
-            error = 3;
-            return 0;
+            return NULL;
         }
     }
 
@@ -408,34 +390,34 @@ Image* Pyramid::getbbox ( unsigned int maxTileX, unsigned int maxTileY, Bounding
     BOOST_LOG_TRIVIAL(debug) <<  "best_level=" << l <<" resolution requete=" << resolution_x << " " << resolution_y  ;
 
     if ( crs_equals ) {
-        return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, interpolation, error );
+        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, interpolation );
     } else {
-        return createReprojectedImage(l, bbox, dst_crs, maxTileX, maxTileY, width, height, interpolation, error);
+        return create_reprojected_image(l, bbox, dst_crs, max_tile_x, max_tile_y, width, height, interpolation);
     }
 
 }
 
-Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int maxTileX, unsigned int maxTileY, int width, int height, Interpolation::KernelType interpolation, int error) {
+Image* Pyramid::create_reprojected_image(std::string l, BoundingBox<double> bbox, CRS* dst_crs, unsigned int max_tile_x, unsigned int max_tile_y, int width, int height, Interpolation::KernelType interpolation) {
 
-    bbox.crs = dst_crs->getRequestCode();
+    bbox.crs = dst_crs->get_request_code();
 
-    if (bbox.isInAreaOfCRS(dst_crs)) {
+    if (bbox.is_in_crs_area(dst_crs)) {
         // La bbox entière de l'image demandée est dans l'aire de définition du CRS cible
-        return levels[l]->getbbox ( maxTileX, maxTileY, bbox, width, height, tms->getCrs(), dst_crs, interpolation, error );
+        return levels[l]->getbbox ( max_tile_x, max_tile_y, bbox, width, height, tms->get_crs(), dst_crs, interpolation );
 
-    } else if (bbox.intersectAreaOfCRS(dst_crs)) {
+    } else if (bbox.intersect_crs_area(dst_crs)) {
         // La bbox n'est pas entièrement dans l'aire du CRS, on doit faire la projection que sur la partie intérieure
 
-        BoundingBox<double> croped = bbox.cropToAreaOfCRS(dst_crs);
+        BoundingBox<double> croped = bbox.crop_to_crs_area(dst_crs);
 
         double resx = (bbox.xmax - bbox.xmin) / width;
         double resy = (bbox.ymax - bbox.ymin) / height;
         croped.phase(bbox, resx, resy);
 
-        if (croped.hasNullArea()) {
+        if (croped.has_null_area()) {
             BOOST_LOG_TRIVIAL(debug) <<   "BBox decoupée d'aire nulle"  ;
-            EmptyImage* fond = new EmptyImage(width, height, channels, nodataValue);
-            fond->setBbox(bbox);
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
             return fond;
         }
 
@@ -443,31 +425,33 @@ Image* Pyramid::createReprojectedImage(std::string l, BoundingBox<double> bbox, 
         int croped_height = int ( ( croped.ymax - croped.ymin ) / resy + 0.5 );
 
         std::vector<Image*> images;
-        Image* tmp = levels[l]->getbbox ( maxTileX, maxTileY, croped, croped_width, croped_height, tms->getCrs(), dst_crs, interpolation, error );
+        Image* tmp = levels[l]->getbbox ( max_tile_x, max_tile_y, croped, croped_width, croped_height, tms->get_crs(), dst_crs, interpolation );
         if ( tmp != 0 ) {
             BOOST_LOG_TRIVIAL(debug) <<   "Image decoupée valide"  ;
             images.push_back ( tmp );
         } else {
-            BOOST_LOG_TRIVIAL(error) <<   "Image decoupée non valide"  ;
-            EmptyImage* fond = new EmptyImage(width, height, channels, nodataValue);
-            fond->setBbox(bbox);
+            BOOST_LOG_TRIVIAL(warning) <<   "Image decoupée non valide"  ;
+            EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+            fond->set_bbox(bbox);
             return fond;
         }
 
-        ExtendedCompoundImageFactory facto;
-        return facto.createExtendedCompoundImage ( width, height, channels, bbox, images, nodataValue, 0 );
+        return ExtendedCompoundImage::create ( width, height, channels, bbox, images, nodata_value, 0 );
         
     } else {
 
-        BOOST_LOG_TRIVIAL(error) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->getProjCode() ;
-        BOOST_LOG_TRIVIAL(error) <<  bbox.toString() ;
-        return 0;
+        BOOST_LOG_TRIVIAL(warning) <<  "La bbox de l'image demandée est totalement en dehors de l'aire de définition du CRS de destination " << dst_crs->get_proj_code() ;
+        BOOST_LOG_TRIVIAL(warning) <<  bbox.to_string() ;
+
+        EmptyImage* fond = new EmptyImage(width, height, channels, nodata_value);
+        fond->set_bbox(bbox);
+        return fond;
     }
 }
 
 Pyramid::~Pyramid() {
 
-    if (nodataValue != NULL) delete[] nodataValue;
+    if (nodata_value != NULL) delete[] nodata_value;
 
     std::map<std::string, Level*>::iterator iLevel;
     for ( iLevel=levels.begin(); iLevel!=levels.end(); iLevel++ )
@@ -475,35 +459,33 @@ Pyramid::~Pyramid() {
 
 }
 
-Compression::eCompression Pyramid::getSampleCompression() {
-    return Rok4Format::getCompression(format);
+Compression::eCompression Pyramid::get_sample_compression() {
+    return Rok4Format::get_compression(format);
 }
 
-SampleFormat::eSampleFormat Pyramid::getSampleFormat() {
-    return Rok4Format::getSampleFormat(format);
+SampleFormat::eSampleFormat Pyramid::get_sample_format() {
+    return Rok4Format::get_sample_format(format);
 }
 
-int Pyramid::getBitsPerSample() {
-    return Rok4Format::getBitsPerSample(format);
-}
+Level* Pyramid::get_highest_level() { return highest_level; }
+Level* Pyramid::get_lowest_level() { return lowest_level; }
 
-Level* Pyramid::getHighestLevel() { return highestLevel; }
-Level* Pyramid::getLowestLevel() { return lowestLevel; }
+TileMatrixSet* Pyramid::get_tms() { return tms; }
+std::map<std::string, Level*>& Pyramid::get_levels() { return levels; }
 
-TileMatrixSet* Pyramid::getTms() { return tms; }
-std::map<std::string, Level*>& Pyramid::getLevels() { return levels; }
-
-std::set<std::pair<std::string, Level*>, ComparatorLevel> Pyramid::getOrderedLevels(bool asc) {
+std::vector<Level*> Pyramid::get_ordered_levels(bool bottom_to_top) {
  
-    if (asc) {
-        return std::set<std::pair<std::string, Level*>, ComparatorLevel>(levels.begin(), levels.end(), compLevelAsc);
+    if (bottom_to_top) {
+        std::vector<Level*> lvs = levels_ordered;
+        std::reverse(lvs.begin(),lvs.end());
+        return lvs;
     } else {
-        return std::set<std::pair<std::string, Level*>, ComparatorLevel>(levels.begin(), levels.end(), compLevelDesc);
+        return levels_ordered;
     }
 
 }
 
-Level* Pyramid::getLevel(std::string id) {
+Level* Pyramid::get_level(std::string id) {
     std::map<std::string, Level*>::iterator it= levels.find ( id );
     if ( it == levels.end() ) {
         return NULL;
@@ -511,8 +493,7 @@ Level* Pyramid::getLevel(std::string id) {
     return it->second;
 }
 
-Rok4Format::eformat_data Pyramid::getFormat() { return format; }
-Photometric::ePhotometric Pyramid::getPhotometric() { return photo; }
-int Pyramid::getChannels() { return channels; }
-int* Pyramid::getNodataValue() { return nodataValue; }
-int Pyramid::getFirstnodataValue () { return nodataValue[0]; }
+Rok4Format::eFormat Pyramid::get_format() { return format; }
+Photometric::ePhotometric Pyramid::get_photometric() { return photo; }
+int Pyramid::get_channels() { return channels; }
+int* Pyramid::get_nodata_value() { return nodata_value; }

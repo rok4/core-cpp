@@ -35,8 +35,7 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PENTEIMAGE_H
-#define PENTEIMAGE_H
+#pragma once
 
 #include "rok4/image/Image.h"
 #include "rok4/style/Pente.h"
@@ -52,28 +51,28 @@ private:
     ** \~english
     * \brief Origin image used to compute the slope
     */
-    Image* origImage;
+    Image* source_image;
 
     /** \~french
     * \brief Nombre de ligne en mémoire
     ** \~english
     * \brief Memorize lines number
     */
-    int memorizedOrigLines;
+    int memorized_source_lines;
 
     /** \~french
     * \brief Buffer contenant les lignes sources
     ** \~english
     * \brief Source lines memory buffer
     */
-    float* origLinesBuffer;
+    float* source_lines_buffer;
 
     /** \~french
     * \brief Numéros des lignes en mémoire
     ** \~english
     * \brief Memorized lines indexes
     */
-    int* origLines;
+    int* source_lines;
 
     /** \~french
     * \brief Résolution de l'image en X, en mètre
@@ -90,40 +89,11 @@ private:
     float resymeter;
 
     /** \~french
-    * \brief algo : choix de l'algorithme de calcul de pentes par l'utilisateur ("H" pour Horn)
+    * \brief Configuration de la pente
     ** \~english
-    * \brief algo : slope calculation algorithm chosen by the user ("H" for Horn)
+    * \brief Slope configuration
     */
-    std::string algo;
-
-    /** \~french
-    * \brief unit : unité de la pente
-    ** \~english
-    * \brief unit : slope unit
-    */
-    std::string unit;
-
-    /** \~french
-    * \brief slopeNoData : noData de la pente
-    ** \~english
-    * \brief slopeNoData : slope noData
-    */
-    int slopeNoData;
-
-    /** \~french
-    * \brief imgNoData : noData de l'image
-    ** \~english
-    * \brief imgNoData : image noData
-    */
-    float imgNoData;
-
-    /** \~french
-    * \brief maxSlope : max de la pente
-    ** \~english
-    * \brief maxSlope : max slope
-    */
-    int maxSlope;
-
+    Pente* pente;
 
     /** \~french
     * \brief Calcule la ligne
@@ -140,21 +110,21 @@ public:
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( float* buffer, int line );
+    virtual int get_line ( float* buffer, int line );
 
     /** \~french
     * \brief Récupère la ligne
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( uint8_t* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
 
     /** \~french
     * \brief Récupère la ligne
     ** \~english
     * \brief Get line
     */
-    virtual int getline ( uint16_t* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
 
     /** \~french
     * \brief Constructeur
@@ -179,15 +149,14 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ PenteImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << algo ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Unit = " << unit ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- max Slope = " << maxSlope ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Slope nodata = " << slopeNoData ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Image nodata = " << imgNoData ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << pente->algo ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Unit = " << pente->unit ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- max Slope = " << pente->max_slope ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Slope nodata = " << pente->slope_nodata_value ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Image nodata = " << pente->input_nodata_value ;
         
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
 
 };
 
-#endif // PENTEIMAGE_H

@@ -47,8 +47,7 @@
  * \li SwiftContext : Swift container connection
  */
 
-#ifndef SWIFT_CONTEXT_H
-#define SWIFT_CONTEXT_H
+#pragma once
 
 #include <curl/curl.h>
 #include <boost/log/trivial.hpp>
@@ -66,9 +65,6 @@
 #define ROK4_SWIFT_ACCOUNT "ROK4_SWIFT_ACCOUNT"
 #define ROK4_SWIFT_TOKEN_FILE "ROK4_SWIFT_TOKEN_FILE"
 
-#ifndef ROK4_SSL_NO_VERIFY
-#define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
-#endif
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french
@@ -179,20 +175,20 @@ public:
      */
     SwiftContext (std::string cont);
 
-    ContextType::eContextType getType();
-    std::string getTypeStr();
-    std::string getTray();
+    ContextType::eContextType get_type();
+    std::string get_type_string();
+    std::string get_tray();
           
     int read(uint8_t* data, int offset, int size, std::string name);
-    uint8_t* readFull(int& size, std::string name);
+    uint8_t* read_full(int& size, std::string name);
     bool write(uint8_t* data, int offset, int size, std::string name);
-    bool writeFull(uint8_t* data, int size, std::string name);
+    bool write_full(uint8_t* data, int size, std::string name);
 
-    bool openToWrite(std::string name);
-    bool closeToWrite(std::string name);
+    bool open_to_write(std::string name);
+    bool close_to_write(std::string name);
 
-    std::string getPath(std::string racine,int x,int y,int pathDepth);
-    std::string getPath(std::string name);
+    std::string get_path(std::string racine,int x,int y,int pathDepth);
+    std::string get_path(std::string name);
 
     void print() {
         BOOST_LOG_TRIVIAL(info) <<  "------ Swift Context -------" ;
@@ -200,7 +196,7 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "\t- token = " << token ;
     }
 
-    std::string toString() {
+    std::string to_string() {
         std::ostringstream oss;
         oss.setf ( std::ios::fixed,std::ios::floatfield );
         oss << "------ Swift Context -------" << std::endl;
@@ -240,7 +236,7 @@ public:
      */
     std::string getAuthToken();
 
-    void closeConnection() {
+    void close_connection() {
         connected = false;        
         // On met à jour le fichier de jeton d'authentification Swift s'il a été fourni et que le token utilisé n'est pas celui dedans
         if(token_file != "" && ! use_token_from_file) {
@@ -260,8 +256,8 @@ public:
     }
     
     ~SwiftContext() {
-        closeConnection();
+        close_connection();
     }
 };
 
-#endif
+

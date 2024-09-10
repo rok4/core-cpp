@@ -31,12 +31,8 @@ void CppUnitTiffHeaderDataSource::rawHeaderConformity() {
     int height = 256;
     int channels = 3;
 
-    rawImage = new RawImage ( width, height, channels, 0 );
-    DataStream* tiffStream = TiffEncoder::getTiffEncoder ( rawImage, Rok4Format::TIFF_RAW_UINT8 );
-    tiffStream->read ( TiffEncoderBuffer, pos );
-
     fullTiffDS = new TiffHeaderDataSource ( 0, Rok4Format::TIFF_RAW_UINT8, channels, width, height, width*height*channels );
-    tiffHeaderBuffer = fullTiffDS->getData ( tiffHeaderSize );
+    tiffHeaderBuffer = fullTiffDS->get_data ( tiffHeaderSize );
     CPPUNIT_ASSERT_MESSAGE ( "RAW INT8 RGB, Header Size incorrect", tiffHeaderSize == pos );
     pos--;
     for ( ; pos; pos-- ) {
@@ -48,18 +44,13 @@ void CppUnitTiffHeaderDataSource::rawHeaderConformity() {
     memset ( TiffEncoderBuffer, 0, pos );
 
     delete fullTiffDS;
-    delete tiffStream;
 
     width = 256;
     height = 256;
     channels = 1;
 
-    rawImage = new RawImage ( width, height, channels, 0 );
-    tiffStream = TiffEncoder::getTiffEncoder ( rawImage, Rok4Format::TIFF_RAW_UINT8 );
-    tiffStream->read ( TiffEncoderBuffer, pos );
-
     fullTiffDS = new TiffHeaderDataSource ( 0, Rok4Format::TIFF_RAW_UINT8, channels, width, height, width*height*channels );
-    tiffHeaderBuffer = fullTiffDS->getData ( tiffHeaderSize );
+    tiffHeaderBuffer = fullTiffDS->get_data ( tiffHeaderSize );
 
     CPPUNIT_ASSERT_MESSAGE ( "RAW INT8 GRAY,Header Size incorrect", tiffHeaderSize == pos );
     pos--;
@@ -67,6 +58,6 @@ void CppUnitTiffHeaderDataSource::rawHeaderConformity() {
         CPPUNIT_ASSERT_MESSAGE ( "RAW INT8 GRAY,Header incorrect", TiffEncoderBuffer[pos] == * ( tiffHeaderBuffer + pos ) );
     }
 
-    //pos = TiffHeader::headerSize;
+    //pos = TiffHeader::header_size;
 
 }

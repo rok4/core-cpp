@@ -52,14 +52,18 @@
 #include <cmath>
 #include <fstream>
 
+bool order_tm(TileMatrix* a, TileMatrix* b) 
+{ 
+    return (a->get_res() > b->get_res()); 
+} 
 
 bool TileMatrixSet::parse(json11::Json& doc) {
 
     // Récupération du CRS
     if (doc["crs"].is_string()) {
-        crs = new CRS( doc["crs"].string_value() );
+        crs = CrsBook::get_crs( doc["crs"].string_value() );
     } else {
-        errorMessage = "crs have to be provided and be a string";
+        error_message = "crs have to be provided and be a string";
         return false;
     }
     
@@ -78,7 +82,7 @@ bool TileMatrixSet::parse(json11::Json& doc) {
     if (doc["keywords"].is_array()) {
         for (json11::Json kw : doc["keywords"].array_items()) {
             if (kw.is_string()) {
-                keyWords.push_back(Keyword ( kw.string_value()));
+                keywords.push_back(Keyword ( kw.string_value()));
             }
         }
     }
@@ -87,26 +91,29 @@ bool TileMatrixSet::parse(json11::Json& doc) {
         for (json11::Json tMat : doc["tileMatrices"].array_items()) {
             if (tMat.is_object()) {
                 TileMatrix* tm = new TileMatrix(tMat.object_items());
-                if (! tm->isOk()) {
-                    errorMessage = "tileMatrices contains an invalid level : " + tm->getErrorMessage();
+                if (! tm->is_ok()) {
+                    error_message = "tileMatrices contains an invalid level : " + tm->get_error_message();
                     delete tm;
                     return false;
                 }
-                tmList.insert ( std::pair<std::string, TileMatrix*> ( tm->id, tm ) );
+                tm_map.insert ( std::pair<std::string, TileMatrix*> ( tm->id, tm ) );
+                tm_ordered.push_back(tm);
             } else {
-                errorMessage = "tileMatrices have to be provided and be an object array";
+                error_message = "tileMatrices have to be provided and be an object array";
                 return false;
             }
         }
     } else {
-        errorMessage = "tileMatrices have to be provided and be an object array";
+        error_message = "tileMatrices have to be provided and be an object array";
         return false;
     }
 
-    if ( tmList.size() == 0 ) {
-        errorMessage =  "No tile matrix in the Tile Matrix Set " + id ;
+    if ( tm_map.size() == 0 ) {
+        error_message =  "No tile matrix in the Tile Matrix Set " + id ;
         return false;
     }
+
+    std::sort(tm_ordered.begin(), tm_ordered.end(), order_tm); 
 
     return true;
 }
@@ -114,17 +121,17 @@ bool TileMatrixSet::parse(json11::Json& doc) {
 TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     crs = NULL;
-    isQTree = true;
+    qtree = true;
 
     ContextType::eContextType storage_type;
     std::string tray_name, fo_name;
     ContextType::split_path(path, storage_type, fo_name, tray_name);
 
     /********************** Id */
-    id = Configuration::getFileName(filePath, ".json");
+    id = Configuration::get_filename(file_path, ".json");
 
-    if ( containForbiddenChars(id) ) {
-        errorMessage =  "TileMatrixSet identifier contains forbidden chars" ;
+    if ( contain_chars(id, "<>") ) {
+        error_message =  "TileMatrixSet identifier contains forbidden chars" ;
         return;
     }
 
@@ -134,7 +141,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
 
     Context* context = StoragePool::get_context(storage_type, tray_name);
     if (context == NULL) {
-        errorMessage = "Cannot add " + ContextType::toString(storage_type) + " storage context to read TMS";
+        error_message = "Cannot add " + ContextType::to_string(storage_type) + " storage context to read TMS";
         return;
     }
 
@@ -148,18 +155,18 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
 
     if (context->exists(fo_name)) {
-        data = context->readFull(size, fo_name);
+        data = context->read_full(size, fo_name);
     } else if (context->exists(fo_name + ".json")) {
-        data = context->readFull(size, fo_name + ".json");
+        data = context->read_full(size, fo_name + ".json");
     } else {
-        errorMessage = "Cannot read TMS "  + path + ", with or without extension .json";
+        error_message = "Cannot read TMS "  + path + ", with or without extension .json";
         return;
     }
 
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );
     if ( doc.is_null() ) {
-        errorMessage = "Cannot load JSON file "  + path + " : " + err ;
+        error_message = "Cannot load JSON file "  + path + " : " + err ;
         return;
     }
     if (data != NULL) delete[] data;
@@ -171,29 +178,29 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
     
     // Détection des TMS Quad tree
-    std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> ascTM = getOrderedTileMatrix(true);
     bool first = true;
     double res = 0;
     double x0 = 0;
     double y0 = 0;
-    int tileW = 0;
-    int tileH = 0;
-    for (std::pair<std::string, TileMatrix*> element : ascTM) {
-        TileMatrix* tm = element.second;
+    int tile_width = 0;
+    int tile_height = 0;
+    std::vector<TileMatrix*> bottom_to_top = tm_ordered;
+    std::reverse(bottom_to_top.begin(), bottom_to_top.end());
+    for (TileMatrix* tm : bottom_to_top) {
         if (first) {
             // Niveau du bas, de référence
-            res = tm->getRes();
-            x0 = tm->getX0();
-            y0 = tm->getY0();
-            tileW = tm->getTileW();
-            tileH = tm->getTileH();
+            res = tm->get_res();
+            x0 = tm->get_x0();
+            y0 = tm->get_y0();
+            tile_width = tm->get_tile_width();
+            tile_height = tm->get_tile_height();
             first = false;
             continue;
         }
-        if (abs(res * 2 - tm->getRes()) < 0.0001 * res && tm->getX0() == x0 && tm->getY0() == y0 && tm->getTileW() == tileW && tm->getTileH() == tileH) {
-            res = tm->getRes();
+        if (abs(res * 2 - tm->get_res()) < 0.0001 * res && tm->get_x0() == x0 && tm->get_y0() == y0 && tm->get_tile_width() == tile_width && tm->get_tile_height() == tile_height) {
+            res = tm->get_res();
         } else {
-            isQTree = false;
+            qtree = false;
             break;
         }
     }
@@ -201,39 +208,25 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     return;
 }
 
-
-ComparatorTileMatrix compTMDesc =
-    [](std::pair<std::string, TileMatrix*> elem1 ,std::pair<std::string, TileMatrix*> elem2)
-    {
-        return elem1.second->getRes() > elem2.second->getRes();
-    };
-
-ComparatorTileMatrix compTMAsc =
-    [](std::pair<std::string, TileMatrix*> elem1 ,std::pair<std::string, TileMatrix*> elem2)
-    {
-        return elem1.second->getRes() < elem2.second->getRes();
-    };
-
-std::string TileMatrixSet::getId() {
+std::string TileMatrixSet::get_id() {
     return id;
 }
-std::map<std::string, TileMatrix*>* TileMatrixSet::getTmList() {
-    return &tmList;
-}
 
-std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix> TileMatrixSet::getOrderedTileMatrix(bool asc) {
+std::vector<TileMatrix*> TileMatrixSet::get_ordered_tm(bool bottom_to_top) {
  
-    if (asc) {
-        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tmList.begin(), tmList.end(), compTMAsc);
+    if (bottom_to_top) {
+        std::vector<TileMatrix*> levels = tm_ordered;
+        std::reverse(levels.begin(),levels.end());
+        return levels;
     } else {
-        return std::set<std::pair<std::string, TileMatrix*>, ComparatorTileMatrix>(tmList.begin(), tmList.end(), compTMDesc);
+        return tm_ordered;
     }
 
 }
 
 bool TileMatrixSet::operator== ( const TileMatrixSet& other ) const {
-    return ( this->keyWords.size() ==other.keyWords.size()
-             && this->tmList.size() ==other.tmList.size()
+    return ( this->keywords.size() ==other.keywords.size()
+             && this->tm_map.size() ==other.tm_map.size()
              && this->id.compare ( other.id ) == 0
              && this->title.compare ( other.title ) == 0
              && this->abstract.compare ( other.abstract ) == 0
@@ -245,73 +238,69 @@ bool TileMatrixSet::operator!= ( const TileMatrixSet& other ) const {
 }
 
 TileMatrixSet::~TileMatrixSet() {
-    std::map<std::string, TileMatrix*>::iterator itTM;
-    for ( itTM=tmList.begin(); itTM != tmList.end(); itTM++ )
-        delete itTM->second;
-
-    if (crs != NULL) {
-        delete crs;
-    }
+    std::map<std::string, TileMatrix*>::iterator it;
+    for ( it=tm_map.begin(); it != tm_map.end(); it++ )
+        delete it->second;
 }
 
-TileMatrix* TileMatrixSet::getTm(std::string id) {
+TileMatrix* TileMatrixSet::get_tm(std::string id) {
 
-    std::map<std::string, TileMatrix*>::iterator itTM = tmList.find ( id );
+    std::map<std::string, TileMatrix*>::iterator it = tm_map.find ( id );
 
-    if ( itTM == tmList.end() ) {
+    if ( it == tm_map.end() ) {
         return NULL;
     }
 
-    return itTM->second;
+    return it->second;
 }
 
-CRS* TileMatrixSet::getCrs() {
+CRS* TileMatrixSet::get_crs() {
     return crs;
 }
 
-bool TileMatrixSet::getIsQTree() {
-    return isQTree;
+bool TileMatrixSet::is_qtree() {
+    return qtree;
 }
 
-std::vector<Keyword>* TileMatrixSet::getKeyWords() {
-    return &keyWords;
+std::vector<Keyword>* TileMatrixSet::get_keywords() {
+    return &keywords;
 }
 
-std::string TileMatrixSet::getAbstract() {
+std::string TileMatrixSet::get_abstract() {
     return abstract;
 }
-std::string TileMatrixSet::getTitle() {
+std::string TileMatrixSet::get_title() {
     return title;
 }
 
-TileMatrix* TileMatrixSet::getCorrespondingTileMatrix(TileMatrix* tmIn, TileMatrixSet* tmsIn) {
+TileMatrix* TileMatrixSet::get_corresponding_tm(TileMatrix* tmIn, TileMatrixSet* tmsIn) {
 
     TileMatrix* tm = NULL;
 
     // on calcule la bbox géographique d'intersection des aires de définition des CRS des deux TMS, que l'on reprojete dans chaque CRS
-    BoundingBox<double> bboxThis = getCrs()->getCrsDefinitionArea().getIntersection(tmsIn->getCrs()->getCrsDefinitionArea());
+    BoundingBox<double> bboxThis = get_crs()->get_crs_definition_area().get_intersection(tmsIn->get_crs()->get_crs_definition_area());
     BoundingBox<double> bboxIn = bboxThis;
 
-    if (bboxThis.reproject(CRS::getEpsg4326(), getCrs()) && bboxIn.reproject(CRS::getEpsg4326(), tmsIn->getCrs())) {
+    if (bboxThis.reproject(CRS::get_epsg4326(), get_crs()) && bboxIn.reproject(CRS::get_epsg4326(), tmsIn->get_crs())) {
 
-        double ratioX, ratioY, resOutX, resOutY;
-        double resIn = tmIn->getRes();
+        double ratio_x, ratio_y, resOutX, resOutY;
+        double resIn = tmIn->get_res();
 
-        ratioX = (bboxThis.xmax - bboxThis.xmin) / (bboxIn.xmax - bboxIn.xmin);
-        ratioY = (bboxThis.ymax - bboxThis.ymin) / (bboxIn.ymax - bboxIn.ymin);
+        ratio_x = (bboxThis.xmax - bboxThis.xmin) / (bboxIn.xmax - bboxIn.xmin);
+        ratio_y = (bboxThis.ymax - bboxThis.ymin) / (bboxIn.ymax - bboxIn.ymin);
 
-        resOutX = resIn * ratioX;
-        resOutY = resIn * ratioY;
+        resOutX = resIn * ratio_x;
+        resOutY = resIn * ratio_y;
 
         double resolution = sqrt ( resOutX * resOutY );
 
         // On cherche le niveau du TMS le plus proche (ratio des résolutions le plus proche de 1)
         // On cherche un ration entre 0.8 et 1.5
-        std::map<std::string, TileMatrix*>::iterator it = tmList.begin();
+        std::map<std::string, TileMatrix*>::iterator it = tm_map.begin();
         double ratio = 0;
 
-        for ( ; it != tmList.end(); it++ ) {
-            double d = resolution / it->second->getRes();
+        for ( ; it != tm_map.end(); it++ ) {
+            double d = resolution / it->second->get_res();
             if (d < 0.8 || d > 1.5) {continue;}
             if (ratio == 0 || abs(d-1) < abs(ratio-1)) {
                 ratio = d;

@@ -43,11 +43,11 @@
  * \brief Define the RessourceLocator Class handling capabilities external link elements
  */
 
-#ifndef RESOURCELOCATOR_H
-#define RESOURCELOCATOR_H
+#pragma once
 
 #include <string>
-#include <json11.hpp>
+
+#include "rok4/thirdparty/json11.hpp"
 
 /**
  * \author Institut national de l'information géographique et forestière
@@ -74,7 +74,7 @@ protected:
      * \~french \brief Éventuel attribut manquant lors de la construction
      * \~english \brief Constructor missing field
      */
-    std::string missingField;
+    std::string missing_field;
 public:
     /**
      * \~french
@@ -108,7 +108,7 @@ public:
         format = origRL.format;
         href = origRL.href;
     };
-    std::string getMissingField() {return missingField;}
+    std::string get_missing_field() {return missing_field;}
     /**
     * \~french
     * \brief Affectation
@@ -154,7 +154,7 @@ public:
      * \brief Return the linked file mime type
      * \return type/mime
      */
-    inline const std::string getFormat() const {
+    inline const std::string get_format() const {
         return format;
     }
 
@@ -166,7 +166,7 @@ public:
      * \brief Return the file link in URL format
      * \return URL
      */
-    inline const std::string getHRef() const {
+    inline const std::string get_href() const {
         return href;
     }
 
@@ -180,4 +180,4 @@ public:
 
 };
 
-#endif // RESOURCELOCATOR_H
+

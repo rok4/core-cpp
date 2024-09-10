@@ -38,26 +38,23 @@
 /**
  * \file DecimatedImage.h
  ** \~french
- * \brief Définition des classes DecimatedImage et DecimatedImageFactory
+ * \brief Définition des classes DecimatedImage
  * \details
  * \li DecimatedImage : image résultant de la décimation d'une image source
- * \li DecimatedImageFactory : usine de création d'objet DecimatedImage
  ** \~english
- * \brief Define classes DecimatedImage and DecimatedImageFactory
+ * \brief Define classes DecimatedImage
  * \details
  * \li DecimatedImage : image built by source image's decimation
- * \li DecimatedImageFactory : factory to create DecimatedImage object
  */
 
-#ifndef DECIMATED_IMAGE_H
-#define DECIMATED_IMAGE_H
+#pragma once
 
 #include <vector>
 #include <cstring>
 #include <iostream>
 #include <math.h>
-
 #include <boost/log/trivial.hpp>
+
 #include "rok4/utils/Utils.h"
 #include "rok4/image/Image.h"
 
@@ -68,15 +65,13 @@
  */
 class DecimatedImage : public Image {
 
-    friend class DecimatedImageFactory;
-
 private:
 
     /**
      * \~french \brief Image source à décimer
      * \~english \brief Source image, to decimate
      */
-    Image* sourceImage;
+    Image* source_image;
 
     /**
      * \~french \brief Valeur de non-donnée
@@ -89,32 +84,32 @@ private:
      * \~french \brief Pas de la décimation dans le sens des X
      * \~english \brief Decimation's step, widthwise
      */
-    int ratioX; 
+    int ratio_x; 
     /**
      * \~french \brief Pas de la décimation dans le sens des Y
      * \~english \brief Decimation's step, heightwise
      */
-    int ratioY;
+    int ratio_y;
     /**
      * \~french \brief Colonne du premier pixel de l'image source à être dans l'image décimée
      * \~english \brief First source pixel column to be in the decimated image
      */
-    int sourceOffsetX;
+    int source_offset_x;
     /**
      * \~french \brief Nombre de pixel à prendre dans l'image source pour composer l'image décimée
      * \details Peut être égal à zéro, auquel cas l'image source n'est pas lue et l'image décimée et pleine de #nodata
      * \~english \brief Pixel number to read in the source image, to build decimated image
      */
-    int numberX;
+    int count_x;
     /**
      * \~french \brief Colonne du premier pixel de l'image décimée à provenir de l'image source
      * \~english \brief First decimated pixel column to come from the source image
      */
-    int imageOffsetX;
+    int image_offset_x;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
-     * \details Lorsque l'on veut récupérer une ligne d'une image décimée, on ne garde que un pixel tous les #ratioX de l'image source
+     * \details Lorsque l'on veut récupérer une ligne d'une image décimée, on ne garde que un pixel tous les #ratio_x de l'image source
      *
      * \param[in] buffer Tableau contenant au moins width*channels valeurs
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
@@ -123,11 +118,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );
 
-protected:
-
     /** \~french
      * \brief Crée un objet DecimatedImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine DecimatedImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est privé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
@@ -160,8 +153,8 @@ public:
      * \brief Return the mask of source image
      * \return mask
      */
-    Image* getMask () {
-        return sourceImage->getMask();
+    Image* get_mask () {
+        return source_image->get_mask();
     }
     /**
      * \~french
@@ -171,8 +164,8 @@ public:
      * \brief Return the source image
      * \return image
      */
-    Image* getImage () {
-        return sourceImage;
+    Image* get_source_image () {
+        return source_image;
     }
 
     /**
@@ -183,13 +176,13 @@ public:
      * \brief Return the nodata value
      * \return nodata value
      */
-    int* getNodata() {
+    int* get_nodata_value() {
         return nodata;
     }
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -200,8 +193,8 @@ public:
      */
     virtual ~DecimatedImage() {
         delete[] nodata;
-        if ( ! isMask ) {
-            delete sourceImage;
+        if ( ! is_mask ) {
+            delete source_image;
         }
     }
 
@@ -214,41 +207,28 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "" ;
         BOOST_LOG_TRIVIAL(info) <<  "------ DecimatedImage -------" ;
         Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of picked source pixels : " << numberX;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Decimated image offset : " << imageOffsetX;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Source image offset : " << sourceOffsetX;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- X wise ratio : " << ratioX;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Y wise ratio : " << ratioY;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Number of picked source pixels : " << count_x;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Decimated image offset : " << image_offset_x;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Source image offset : " << source_offset_x;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- X wise ratio : " << ratio_x;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Y wise ratio : " << ratio_y;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
 
-
-
-
-
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image composée
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe DecimatedImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de DecimatedImage et de sortir en erreur en cas de problème.
- */
-class DecimatedImageFactory {
-public:
     /** \~french
      * \brief Teste et calcule les caractéristiques d'une image composée et crée un objet DecimatedImage
      * \details Largeur, hauteur, nombre de canaux et bbox sont déduits des composantes de l'image source et des paramètres. On vérifie la superposabilité des images sources.
-     * \param[in] images images sources
+     * \param[in] source_images source_images sources
      * \param[in] nodata valeur de non-donnée
      * \return un pointeur d'objet DecimatedImage, NULL en cas d'erreur
      ** \~english
      * \brief Check and calculate compounded image components and create an DecimatedImage object
      * \details Height, width, samples' number and bbox are deduced from source image's components and parameters. We check if source images are superimpose.
-     * \param[in] images source images
+     * \param[in] source_images source source_images
      * \param[in] nodata nodata value
      * \return a DecimatedImage object pointer, NULL if error
      */
-    DecimatedImage* createDecimatedImage ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata );
+    static DecimatedImage* create ( Image* image, BoundingBox<double> bb, double res_x, double res_y, int* nodata );
 };
 
 
-#endif

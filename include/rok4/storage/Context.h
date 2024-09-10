@@ -45,8 +45,7 @@
  * \details Storage context abstraction
  */
 
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#pragma once
 
 #include <map>
 #include <stdint.h>// pour uint8_t
@@ -91,7 +90,7 @@ const int contexttype_size = 4;
  * \param[in] strComp string to convert
  * \return the binding storage type, FILECONTEXT (0) if string is not recognized
  */
-eContextType fromString ( std::string strct );
+eContextType from_string ( std::string strct );
 
 /**
  * \~french \brief Conversion d'un type de contexte vers une chaîne de caractères
@@ -101,7 +100,7 @@ eContextType fromString ( std::string strct );
  * \param[in] ct context type to convert
  * \return string namming the context type
  */
-std::string toString ( eContextType ct );
+std::string to_string ( eContextType ct );
 
 
 /**
@@ -133,7 +132,7 @@ protected:
      * \~french \brief Buffers pour les écritures différées
      * \~english \brief Postponed writings buffers
      */
-    std::map<std::string, std::vector<char>*> writingBuffers;
+    std::map<std::string, std::vector<char>*> write_buffers;
 
     /**
      * \~french \brief Précise si le contexte est connecté
@@ -173,7 +172,7 @@ public:
      * \~english \brief Change waiting time between two attempts
      * \param[in] t Time, in seconds
      */
-    void setWaitingTime (int t) {
+    void set_waiting_time (int t) {
         if (t < 0) t = 0;
         waiting_time = t;
     }
@@ -182,7 +181,7 @@ public:
      * \~french \brief Modifie le nombre de tentative pour la lecture
      * \~english \brief Change attempts number for readings
      */
-    void setReadAttempts (int a) {
+    void set_read_attempts (int a) {
         if (a < 1) a = 1;
         read_attempts = a;
     }
@@ -191,7 +190,7 @@ public:
      * \~french \brief Modifie le nombre de tentative pour l'écriture
      * \~english \brief Change attempts number for writtings
      */
-    void setWriteAttempts (int a) {
+    void set_write_attempts (int a) {
         if (a < 1) a = 1;
         write_attempts = a;
     }
@@ -200,7 +199,7 @@ public:
      * \~french \brief Modifie le nombre de tentative pour l'écriture et la lecture
      * \~english \brief Change attempts number for writtings and readings
      */
-    void setAttempts (int a) {
+    void set_attempts (int a) {
         if (a < 1) a = 1;
         read_attempts = a;
         write_attempts = a;
@@ -224,7 +223,7 @@ public:
      * \~french \brief Précise si le contexte est connecté
      * \~english \brief Precise if context is connected
      */
-    bool isConnected() {
+    bool is_connected() {
         return connected;
     }
 
@@ -255,7 +254,7 @@ public:
      * \param[in] name Object's name we want to read
      * \return Buffer where read data is stored.
      */
-    virtual uint8_t* readFull(int& size, std::string name) = 0;
+    virtual uint8_t* read_full(int& size, std::string name) = 0;
 
     /**
      * \~french \brief Écrit de la donnée dans l'objet ou fichier
@@ -281,7 +280,7 @@ public:
      * \param[in] size Number of bytes we want to write
      * \param[in] name Object's name to write
      */
-    virtual bool writeFull(uint8_t* data, int size, std::string name) = 0;
+    virtual bool write_full(uint8_t* data, int size, std::string name) = 0;
 
     /**
      * \~french \brief Prépare l'objet ou fichier en écriture
@@ -289,43 +288,43 @@ public:
      * \~english \brief Prepare object or file to write
      * \param[in] name Object's name we want to write into
      */
-    virtual bool openToWrite(std::string name) = 0;
+    virtual bool open_to_write(std::string name) = 0;
     /**
      * \~french \brief Termine l'écriture d'un objet ou fichier
      * \param[in] name Nom de l'objet dans lequel on a voulu écrire
      * \~english \brief Stop the writing
      * \param[in] name Object's name we wanted to write into
      */
-    virtual bool closeToWrite(std::string name) = 0;
+    virtual bool close_to_write(std::string name) = 0;
 
     /**
      * \~french \brief Retourne le type du contexte
      * \~english \brief Return the context's type
      */
-    virtual ContextType::eContextType getType() = 0;
+    virtual ContextType::eContextType get_type() = 0;
     /**
      * \~french \brief Retourne le type du contexte, sous forme de texte
      * \~english \brief Return the context's type, as string
      */
-    virtual std::string getTypeStr() = 0;
+    virtual std::string get_type_string() = 0;
 
     /**
      * \~french \brief Retourne le contenant dans le contexte
      * \~english \brief Return the tray in the context
      */
-    virtual std::string getTray() = 0;
+    virtual std::string get_tray() = 0;
 
     /**
      * \~french \brief Retourne le chemin pour une tuile X/Y relatif à ce contexte
      * \~english \brief Return the path for a tile (X/Y) in this context
      */
-    virtual std::string getPath(std::string racine,int x,int y,int pathDepth = 2) = 0;
+    virtual std::string get_path(std::string racine,int x,int y,int pathDepth = 2) = 0;
 
     /**
      * \~french \brief Retourne le chemin complet pour un fichier/objet relatif à ce contexte
      * \~english \brief Return the full path for a file / object in this context
      */
-    virtual std::string getPath(std::string name) = 0;
+    virtual std::string get_path(std::string name) = 0;
 
     /**
      * \~french \brief Sortie des informations sur le contexte
@@ -337,13 +336,13 @@ public:
      * \~french \brief Retourne une chaîne de caracère décrivant le contexte
      * \~english \brief Return a string describing the context
      */
-    virtual std::string toString() = 0;
+    virtual std::string to_string() = 0;
 
     /**
      * \~french \brief Déconnecte le contexte
      * \~english \brief Disconnect the context
      */
-    virtual void closeConnection() = 0;
+    virtual void close_connection() = 0;
 
     /**
      * \~french \brief Destructeur
@@ -351,10 +350,10 @@ public:
      */
     virtual ~Context() {
         std::map<std::string,std::vector<char>*>::iterator it;
-        for (it = writingBuffers.begin(); it != writingBuffers.end(); ++it) {
+        for (it = write_buffers.begin(); it != write_buffers.end(); ++it) {
             delete it->second;
         }
     }
 };
 
-#endif
+

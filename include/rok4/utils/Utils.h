@@ -44,8 +44,7 @@
  * \image html conversions.png
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 #include <cstring>
 #include <iostream>
@@ -54,7 +53,6 @@
 #ifdef __SSE2__
 #include <emmintrin.h>
 #endif
-
 
 /**
  * \brief Conversion qui n'est qu'une copie.
@@ -75,14 +73,33 @@ inline void convert ( T* to, const T* from, size_t length ) {
  * \brief Search forbidden chars to avoid code injection
  * \param[in] str the string
  */
-inline bool containForbiddenChars ( std::string str ) {
-    const char* forbidden = "<>";
+inline bool contain_chars ( std::string str, const char* chars ) {
     
-    for ( int i = 0; forbidden[i]; i++ )
-        if (str.find(forbidden[i]) != std::string::npos)
+    for ( int i = 0; chars[i]; i++ )
+        if (str.find(chars[i]) != std::string::npos)
             return true;
 
     return false;
+}
+
+/**
+ * \~french \brief Transforme la chaîne fournie en minuscule
+ * \~english \brief Transform the string to lowercase
+ */
+inline std::string to_lower_case ( std::string str ) {
+    std::string lc_str=str;
+    for ( int i = 0; str[i]; i++ ) lc_str[i] = tolower ( str[i] );
+    return lc_str;
+}
+
+/**
+ * \~french \brief Transforme la chaîne fournie en majuscule
+ * \~english \brief Transform the string to uppercase
+ */
+inline std::string to_upper_case ( std::string str ) {
+    std::string uc_str=str;
+    for ( int i = 0; str[i]; i++ ) uc_str[i] = toupper ( str[i] );
+    return uc_str;
 }
 
 /**
@@ -205,53 +222,6 @@ inline void convert ( uint8_t* to, const float* from, int length ) {
         else to[i] = t;
     }
 }
-/*
-inline void convert ( uint8_t* to, const float* from, int length ) {
-    // _MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
-    //
-    // On avance sur les premiers éléments jusqu'à alignement de to sur 128bits
-    while ( ( intptr_t ) from & 0x0f && length ) {
-        if ( *from > 255 ) *to = 255;
-        else if ( *from < 0 ) *to = 0;
-        else *to = ( uint8_t ) *from;
-        ++from;
-        ++to;
-        --length;
-    }
-    while ( length & 0x0f )  { // On s'arrange pour avoir un multiple de 16 d'éléments à traiter.
-        --length;
-        if ( from[length] > 255 ) to[length] = 255;
-        else if ( from[length] < 0 ) to[length] = 0;
-        else to[length] = ( uint8_t ) from[length];
-    }
-
-    // On traite les éléments 16 par 16 en utlisant les fonctions intrinsics SSE
-    __m128i* T = ( __m128i* ) to;
-    length /= 16;
-
-    if ( ( intptr_t ) to & 0x0f )
-        for ( int i = 0; i < length; i++ ) { // Cas to non aligné
-            __m128i m1 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i ) );
-            __m128i m2 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+4 ) );
-            __m128i m3 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+8 ) );
-            __m128i m4 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+12 ) );
-            m1 = _mm_packs_epi32 ( m1, m2 );
-            m3 = _mm_packs_epi32 ( m3, m4 );
-            m1 = _mm_packus_epi16 ( m1, m3 );
-            _mm_storeu_si128 ( T + i, m1 );
-        }
-    else
-        for ( int i = 0; i < length; i++ ) { // cas to aligné
-            __m128i m1 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i ) );
-            __m128i m2 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+4 ) );
-            __m128i m3 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+8 ) );
-            __m128i m4 = _mm_cvtps_epi32 ( _mm_load_ps ( from + 16*i+12 ) );
-            m1 = _mm_packs_epi32 ( m1, m2 );
-            m3 = _mm_packs_epi32 ( m3, m4 );
-            m1 = _mm_packus_epi16 ( m1, m3 );
-            _mm_store_si128 ( T + i, m1 );
-        }
-}*/
 #else // Version non SSE
 
 inline void convert ( uint8_t* to, const float* from, int length ) {
@@ -712,7 +682,5 @@ inline void dot_prod ( int C, int K, float* to, const float* from, const float* 
         break;
     }
 }
-
-#endif
 
 

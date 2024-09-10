@@ -36,33 +36,33 @@
  */
 
 
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#pragma once
 
 #include <dirent.h>
 #include <string>
 #include <libgen.h>
-#include <json11.hpp>
 #include <sys/stat.h>
 #include <boost/log/trivial.hpp>
+
+#include "rok4/thirdparty/json11.hpp"
 
 class Configuration
 {
     protected:
 
-        std::string filePath;
-        std::string fileDirectory;
-        std::string errorMessage;
-        Configuration() {errorMessage =  ""; filePath = ""; fileDirectory = "";}
+        std::string file_path;
+        std::string file_directory;
+        std::string error_message;
+        Configuration() {error_message =  ""; file_path = ""; file_directory = "";}
         Configuration(std::string path) {
-            errorMessage =  "";             
+            error_message =  "";             
             
-            filePath = path;
+            file_path = path;
 
             char * fileNameChar = ( char * ) malloc ( strlen ( path.c_str() ) + 1 );
             strcpy ( fileNameChar, path.c_str() );
             char * parentDirChar = dirname ( fileNameChar );
-            fileDirectory = std::string ( parentDirChar );
+            file_directory = std::string ( parentDirChar );
             free ( fileNameChar );
             fileNameChar=NULL;
             parentDirChar=NULL;
@@ -87,7 +87,7 @@ class Configuration
          * \brief Precis if error occured
          * \return ok
          */
-        bool isOk() { return errorMessage == ""; }
+        bool is_ok() { return error_message == ""; }
 
         /**
          * \~french
@@ -97,7 +97,7 @@ class Configuration
          * \brief Return error message
          * \return error message
          */
-        std::string getErrorMessage() { return errorMessage; }
+        std::string get_error_message() { return error_message; }
 
 
         /**
@@ -106,7 +106,7 @@ class Configuration
          * \~english
          * \brief Get file name
          */
-        static std::string getFileName(std::string file, std::string extension) {
+        static std::string get_filename(std::string file, std::string extension) {
 
             std::string id;
 
@@ -126,4 +126,4 @@ class Configuration
 
 };
 
-#endif // CONFIGURATION_H
+

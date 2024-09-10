@@ -43,8 +43,7 @@
  * \brief Define available interpolations' enumeration and conversions
  */
 
-#ifndef INTERPOLATION_H
-#define INTERPOLATION_H
+#pragma once
 
 #include <string>
 
@@ -76,15 +75,15 @@ enum KernelType {
  * \param[in] strInterpolation interpolation sous forme de chaîne de caractère
  * \return membre de l'énumération correspondant
  */
-KernelType fromString ( std::string strInterpolation );
+KernelType from_string ( std::string strInterpolation );
 /**
  * \~french
  * \brief Conversion d'un membre de l'énumération en chaîne de caractères
  * \param[in] interpolation interpolation, membre de l'énumération
  * \return interpolation en chaîne de caractère correspondante
  */
-std::string toString ( KernelType interpolation );
+std::string to_string ( KernelType interpolation );
 
 }
 
-#endif //INTERPOLATION_H
+

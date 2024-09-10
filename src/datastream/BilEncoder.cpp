@@ -44,19 +44,19 @@ size_t BilEncoder::read ( uint8_t *buffer, size_t size ) {
     size_t offset = 0;
 
     // Hypothese 1 : tous les bil produits sont en float
-    int linesize = image->getWidth() * image->getChannels() * sizeof ( float );
+    int linesize = image->get_width() * image->get_channels() * sizeof ( float );
 
     // Hypothese 2 : le pixel de l'image source est de type float
-    float* buf_f=new float[image->getWidth() *image->getChannels()];
-    for ( ; line < image->getHeight() && offset + linesize <= size; line++ ) {
+    float* buf_f=new float[image->get_width() *image->get_channels()];
+    for ( ; line < image->get_height() && offset + linesize <= size; line++ ) {
 
-        //	image->getline(buffer + offset, line);
-        image->getline ( buf_f,line );
+        //	image->get_line(buffer + offset, line);
+        image->get_line ( buf_f,line );
 
-        // Hypothese 3 : image->getChannels()=1
+        // Hypothese 3 : image->get_channels()=1
         // On n'utilise pas la fonction convert qui caste un float en uint8_t
         // On copie simplement les octets des floats dans des uint8_t
-        for ( int i=0; i<image->getWidth(); i++ ) {
+        for ( int i=0; i<image->get_width(); i++ ) {
             for ( int j=0; j<sizeof ( float ); j++ )
                 buffer[offset+sizeof ( float ) *i+j]=* ( ( uint8_t* ) ( &buf_f[i] ) +j );
         }
@@ -73,5 +73,5 @@ BilEncoder::~BilEncoder() {
 }
 
 bool BilEncoder::eof() {
-    return line >= image->getHeight();
+    return line >= image->get_height();
 }

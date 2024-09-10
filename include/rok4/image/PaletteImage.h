@@ -35,30 +35,38 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef PKBENCODER_H
-#define PKBENCODER_H
+#pragma once
 
-#include <cstddef>
-#include <climits>
-#include <stdint.h>
-#include <cstdlib>
-#include <ctype.h>
+#include "rok4/image/Image.h"
+#include "rok4/style/Palette.h"
 
-class pkbEncoder
-{
-
+class PaletteImage : public Image {
 private:
-    enum compression_state { BASE,
-                             LITERAL,
-                             RUN/*,
-                            LITERAL_RUN*/
-                           };
+    Image* source_image;
+    Palette* palette;
 
-  
+    template<typename T>
+    int _getline ( T* buffer, int line );
+
 public:
-    pkbEncoder();
-    uint8_t* encode(const uint8_t * in, size_t inSize, size_t &outSize);
-    virtual ~pkbEncoder();
+    virtual int get_line ( float* buffer, int line );
+    virtual int get_line ( uint16_t* buffer, int line );
+    virtual int get_line ( uint8_t* buffer, int line );
+    PaletteImage ( Image* image, Palette* palette );
+    virtual ~PaletteImage();
+
+    /** \~french
+     * \brief Sortie des informations sur l'image estompée
+     ** \~english
+     * \brief Estompage image description output
+     */
+    void print() {
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+        BOOST_LOG_TRIVIAL(info) <<  "------ PaletteImage -------" ;
+        Image::print();
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->get_colours_map()->size() ;
+        
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+    }
 };
 
-#endif // PKBENCODER_H

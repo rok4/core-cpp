@@ -35,35 +35,38 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#ifndef _BILENCODER_
-#define _BILENCODER_
+#pragma once
 
 #include "rok4/datastream/DataStream.h"
 #include "rok4/image/Image.h"
 
 class BilEncoder : public DataStream {
+
+private:
+
     Image* image;
     int line;
 
 public:
+
     BilEncoder ( Image* image ) : image ( image ), line ( 0 ) {}
     ~BilEncoder();
     size_t read ( uint8_t *buffer, size_t size );
-    int getHttpStatus() {
+    int get_http_status() {
         return 200;
     }
-    std::string getType() {
+    std::string get_type() {
         return "image/x-bil;bits=32";
     }
-    std::string getEncoding() {
+    std::string get_encoding() {
         return "";
     }
     bool eof();
-    unsigned int getLength(){
-        return image->getWidth()*image->getHeight()*sizeof ( float );
+    unsigned int get_length(){
+        return image->get_width()*image->get_height()*sizeof ( float );
     }
 
 };
-#endif
+
 
 

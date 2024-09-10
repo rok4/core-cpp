@@ -132,9 +132,7 @@ bool S3Context::load_env() {
         env_secret_keys.push_back(token);
     }
 
-    if (getenv(ROK4_SSL_NO_VERIFY) != NULL) {
-        ssl_no_verify = true;
-    }
+    ssl_no_verify = get_ssl_no_verify();
 
     // Analyse des valeurs
 
@@ -296,7 +294,7 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
 
         int lastBytes = offset + size - 1;
 
-        CURL *curl = CurlPool::getCurlEnv();
+        CURL *curl = CurlPool::get_curl_env();
 
         std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
@@ -385,7 +383,7 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
     return -1;
 }
 
-uint8_t *S3Context::readFull(int &size, std::string name) {
+uint8_t *S3Context::read_full(int &size, std::string name) {
     size = -1;
 
     BOOST_LOG_TRIVIAL(debug) << "S3 read full : " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
@@ -400,7 +398,7 @@ uint8_t *S3Context::readFull(int &size, std::string name) {
         chunk.data = (char *)malloc(1);
         chunk.size = 0;
 
-        CURL *curl = CurlPool::getCurlEnv();
+        CURL *curl = CurlPool::get_curl_env();
 
         std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
@@ -487,8 +485,8 @@ uint8_t *S3Context::readFull(int &size, std::string name) {
 bool S3Context::write(uint8_t *data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 write : " << size << " bytes (from the " << offset << " one) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
-    if (it1 == writingBuffers.end()) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = write_buffers.find(name);
+    if (it1 == write_buffers.end()) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No writing buffer for the name " << name;
         return false;
@@ -506,11 +504,11 @@ bool S3Context::write(uint8_t *data, int offset, int size, std::string name) {
     return true;
 }
 
-bool S3Context::writeFull(uint8_t *data, int size, std::string name) {
+bool S3Context::write_full(uint8_t *data, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 write : " << size << " bytes (one shot) in the writing buffer " << name;
 
-    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
-    if (it1 == writingBuffers.end()) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = write_buffers.find(name);
+    if (it1 == write_buffers.end()) {
         // pas de buffer pour ce nom d'objet
         BOOST_LOG_TRIVIAL(error) << "No S3 writing buffer for the name " << name;
         return false;
@@ -524,15 +522,15 @@ bool S3Context::writeFull(uint8_t *data, int size, std::string name) {
     return true;
 }
 
-ContextType::eContextType S3Context::getType() {
+ContextType::eContextType S3Context::get_type() {
     return ContextType::S3CONTEXT;
 }
 
-std::string S3Context::getTypeStr() {
+std::string S3Context::get_type_string() {
     return "S3Context";
 }
 
-std::string S3Context::getTray() {
+std::string S3Context::get_tray() {
     return bucket_name;
 }
 
@@ -540,29 +538,29 @@ std::string S3Context::getCluster() {
     return cluster_name;
 }
 
-std::string S3Context::getPath(std::string racine, int x, int y, int pathDepth) {
+std::string S3Context::get_path(std::string racine, int x, int y, int pathDepth) {
     return racine + "_" + std::to_string(x) + "_" + std::to_string(y);
 }
 
-std::string S3Context::getPath(std::string name) {
+std::string S3Context::get_path(std::string name) {
     return bucket_name + "/" + name;
 }
 
-bool S3Context::openToWrite(std::string name) {
-    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
-    if (it1 != writingBuffers.end()) {
+bool S3Context::open_to_write(std::string name) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = write_buffers.find(name);
+    if (it1 != write_buffers.end()) {
         BOOST_LOG_TRIVIAL(error) << "A S3 writing buffer already exists for the name " << name;
         return false;
     } else {
-        writingBuffers.insert(std::pair<std::string, std::vector<char> *>(name, new std::vector<char>()));
+        write_buffers.insert(std::pair<std::string, std::vector<char> *>(name, new std::vector<char>()));
     }
 
     return true;
 }
 
-bool S3Context::closeToWrite(std::string name) {
-    std::map<std::string, std::vector<char> *>::iterator it1 = writingBuffers.find(name);
-    if (it1 == writingBuffers.end()) {
+bool S3Context::close_to_write(std::string name) {
+    std::map<std::string, std::vector<char> *>::iterator it1 = write_buffers.find(name);
+    if (it1 == write_buffers.end()) {
         BOOST_LOG_TRIVIAL(error) << "The S3 writing buffer with name " << name << "does not exist, cannot flush it";
         return false;
     }
@@ -574,7 +572,7 @@ bool S3Context::closeToWrite(std::string name) {
 
         CURLcode res;
         struct curl_slist *list = NULL;
-        CURL *curl = CurlPool::getCurlEnv();
+        CURL *curl = CurlPool::get_curl_env();
 
         std::string fullUrl = url + "/" + bucket_name + "/" + name;
 
@@ -652,7 +650,7 @@ bool S3Context::closeToWrite(std::string name) {
 
         BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
         delete it1->second;
-        writingBuffers.erase(it1);
+        write_buffers.erase(it1);
         return true;
     }
 
@@ -662,12 +660,12 @@ bool S3Context::closeToWrite(std::string name) {
 }
 
 bool S3Context::exists(std::string name) {
-    BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << getPath(name);
+    BOOST_LOG_TRIVIAL(debug) << "Exists (S3) ? " << get_path(name);
 
     CURLcode res;
     struct curl_slist *list = NULL;
 
-    CURL *curl = CurlPool::getCurlEnv();
+    CURL *curl = CurlPool::get_curl_env();
 
     std::string fullUrl = url + "/" + bucket_name + "/" + name;
 

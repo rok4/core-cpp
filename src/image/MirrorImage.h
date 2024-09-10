@@ -38,19 +38,16 @@
 /**
  * \file MirrorImage.h
  ** \~french
- * \brief Définition des classes MirrorImage et MirrorImageFactory
+ * \brief Définition des classes MirrorImage
  * \details
  * \li MirrorImage : image par reflet
- * \li MirrorImageFactory : usine de création d'objet MirrorImage
  ** \~english
- * \brief Define classes MirrorImage and MirrorImageFactory
+ * \brief Define classes MirrorImage
  * \details
  * \li MirrorImage : reflection image
- * \li MirrorImageFactory : factory to create MirrorImage object
  */
 
-#ifndef MIRROR_IMAGE_H
-#define MIRROR_IMAGE_H
+#pragma once
 
 #include "image/Image.h"
 #include "enums/Format.h"
@@ -88,14 +85,12 @@ class MirrorImage : public Image {
         |             position 2                 |
         |________________________________________| */
 
-    friend class MirrorImageFactory;
-
 private:
     /**
      * \~french \brief Image source, utilisée pour composer l'image miroir
      * \~english \brief Source images, to compose the mirror image
      */
-    Image* sourceImage;
+    Image* source_image;
     /**
      * \~french \brief Position du miroir par rapport à l'image source
      * \details
@@ -118,7 +113,7 @@ private:
      * En pratique, cette taille correspondra au nombre de pixels nécessaires pour l'interpolation.
      * \~english \brief Mirror's size, in pixel
      */
-    uint mirrorSize;
+    uint size;
 
     /** \~french
      * \brief Retourne une ligne, flottante ou entière
@@ -132,10 +127,9 @@ private:
     template<typename T>
     int _getline ( T* buffer, int line );
 
-protected:
     /** \~french
      * \brief Crée un objet MirrorImage à partir de tous ses éléments constitutifs
-     * \details Ce constructeur est protégé afin de n'être appelé que par l'usine mirrorImageFactory, qui fera différents tests et calculs.
+     * \details Ce constructeur est protégé afin de n'être appelé que par la méthode statique #create, qui fera différents tests et calculs.
      * \param[in] width largeur de l'image en pixel
      * \param[in] height hauteur de l'image en pixel
      * \param[in] channel nombre de canaux par pixel
@@ -153,13 +147,13 @@ protected:
      * \param[in] position mirror position to image source
      * \param[in] mirrorSize mirror's size, in pixel
      */
-    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->getResX(),image->getResY(),bbox ), sourceImage ( image ), position ( position ), mirrorSize ( mirrorSize ) {}
+    MirrorImage ( int width, int height, int channels, BoundingBox<double> bbox, Image* image, int position,uint mirrorSize ) : Image ( width,height,channels,image->get_resx(),image->get_resy(),bbox ), source_image ( image ), position ( position ), size ( mirrorSize ) {}
 
 public:
 
-    int getline ( uint8_t* buffer, int line );
-    int getline ( uint16_t* buffer, int line );
-    int getline ( float* buffer, int line );
+    int get_line ( uint8_t* buffer, int line );
+    int get_line ( uint16_t* buffer, int line );
+    int get_line ( float* buffer, int line );
 
     /**
      * \~french
@@ -179,18 +173,10 @@ public:
         BOOST_LOG_TRIVIAL(info) <<  "------ MirrorImage -------" ;
         Image::print();
         BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's position = " << position ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's size = " << mirrorSize ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Mirror's size = " << size ;
         BOOST_LOG_TRIVIAL(info) <<  "" ;
     }
-};
 
-/** \~ \author Institut national de l'information géographique et forestière
- ** \~french
- * \brief Usine de création d'une image miroir
- * \details Il est nécessaire de passer par cette classe pour créer des objets de la classe MirrorImage. Cela permet de réaliser quelques tests en amont de l'appel au constructeur de MirrorImage et de sortir en erreur en cas de problème.
- */
-class MirrorImageFactory {
-public:
     /** \~french
      * \brief Teste et calcule les caractéristiques d'une image miroir et crée un objet MirrorImage
      * \details Largeur, hauteur, nombre de canaux et bbox sont déduits des composantes de l'image source et des paramètres.
@@ -206,7 +192,7 @@ public:
      * \param[in] mirrorSize mirror's size, in pixel
      * \return a MirrorImage object pointer, NULL if error
      */
-    MirrorImage* createMirrorImage ( Image* pImageSrc, int position,uint mirrorSize );
+    static MirrorImage* create ( Image* pImageSrc, int position,uint mirrorSize );
 };
 
-#endif
+
