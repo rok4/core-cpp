@@ -52,18 +52,12 @@
 #include <cfloat>
 #include "image/EmptyImage.h"
 
-ComparatorLevel compLevelDesc =
-    [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
-    {
-        return elem1.second->get_res() > elem2.second->get_res();
-    };
 
-ComparatorLevel compLevelAsc =
-    [](std::pair<std::string, Level*> elem1 ,std::pair<std::string, Level*> elem2)
-    {
-        return elem1.second->get_res() < elem2.second->get_res();
-    };
 
+bool order_levels(Level* a, Level* b) 
+{ 
+    return (a->get_res() > b->get_res()); 
+} 
 
 bool Pyramid::parse(json11::Json& doc) {
 
@@ -185,6 +179,7 @@ bool Pyramid::parse(json11::Json& doc) {
                 }
 
                 levels.insert ( std::pair<std::string, Level*> ( level->get_id(), level ) );
+                levels_ordered.push_back(level);
             } else {
                 error_message = "levels have to be provided and be an object array";
                 return false;
@@ -199,6 +194,8 @@ bool Pyramid::parse(json11::Json& doc) {
         error_message = "No level loaded";
         return false;
     }
+
+    std::sort(levels_ordered.begin(), levels_ordered.end(), order_levels);
 
     return true;
 }
@@ -242,22 +239,8 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
         return;
     }
 
-    std::map<std::string, Level*>::iterator itLevel;
-    double minRes= DBL_MAX;
-    double maxRes= DBL_MIN;
-    for ( itLevel=levels.begin(); itLevel!=levels.end(); itLevel++ ) {
-
-        //Determine Higher and Lower Levels
-        double d = itLevel->second->get_res();
-        if ( minRes > d ) {
-            minRes = d;
-            lowest_level = itLevel->second;
-        }
-        if ( maxRes < d ) {
-            maxRes = d;
-            highest_level = itLevel->second;
-        }
-    }
+    highest_level = levels_ordered.at(0);
+    lowest_level = levels_ordered.back();
 }
 
 Pyramid::Pyramid (Pyramid* obj) {
@@ -304,30 +287,23 @@ bool Pyramid::add_levels (Pyramid* obj, std::string bottomLevel, std::string top
     // Niveaux
     bool begin = false;
     bool end = false;
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> orderedLevels = obj->get_ordered_levels(true);
-    for (std::pair<std::string, Level*> element : orderedLevels) {
-        std::string levelId = element.second->get_id();
-        if (! begin && levelId != bottomLevel) {
+    for (Level* level : obj->get_ordered_levels(true)) {
+        std::string level_id = level->get_id();
+        if (! begin && level_id != bottomLevel) {
             continue;
         }
         begin = true;
 
-        if (get_level(levelId) != NULL) {
-            BOOST_LOG_TRIVIAL(error) << "Level " << levelId << " is already present"  ;
+        if (get_level(level_id) != NULL) {
+            BOOST_LOG_TRIVIAL(error) << "Level " << level_id << " is already present"  ;
             return false;
         }
 
-        Level* l = new Level(element.second);
-        levels.insert ( std::pair<std::string, Level*> ( levelId, l ) );
+        Level* l = new Level(level);
+        levels.insert ( std::pair<std::string, Level*> ( level_id, l ) );
+        levels_ordered.push_back(l);
 
-        if (lowest_level == NULL || l->get_res() < lowest_level->get_res()) {
-            lowest_level = l;
-        }
-        if (highest_level == NULL || l->get_res() > highest_level->get_res()) {
-            highest_level = l;
-        }
-
-        if (levelId == topLevel) {
+        if (level_id == topLevel) {
             end = true;
             break;
         }
@@ -343,6 +319,11 @@ bool Pyramid::add_levels (Pyramid* obj, std::string bottomLevel, std::string top
         return false;
     }
 
+    std::sort(levels_ordered.begin(), levels_ordered.end(), order_levels);
+
+    highest_level = levels_ordered.at(0);
+    lowest_level = levels_ordered.back();
+    
     return true;
 }
 
@@ -492,12 +473,14 @@ Level* Pyramid::get_lowest_level() { return lowest_level; }
 TileMatrixSet* Pyramid::get_tms() { return tms; }
 std::map<std::string, Level*>& Pyramid::get_levels() { return levels; }
 
-std::set<std::pair<std::string, Level*>, ComparatorLevel> Pyramid::get_ordered_levels(bool asc) {
+std::vector<Level*> Pyramid::get_ordered_levels(bool bottom_to_top) {
  
-    if (asc) {
-        return std::set<std::pair<std::string, Level*>, ComparatorLevel>(levels.begin(), levels.end(), compLevelAsc);
+    if (bottom_to_top) {
+        std::vector<Level*> lvs = levels_ordered;
+        std::reverse(lvs.begin(),lvs.end());
+        return lvs;
     } else {
-        return std::set<std::pair<std::string, Level*>, ComparatorLevel>(levels.begin(), levels.end(), compLevelDesc);
+        return levels_ordered;
     }
 
 }

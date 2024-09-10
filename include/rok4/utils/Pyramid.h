@@ -41,7 +41,6 @@ class Pyramid;
 
 #include <string>
 #include <map>
-#include <set>
 #include <functional>
 #include "rok4/utils/Level.h"
 #include "rok4/utils/TileMatrixSet.h"
@@ -54,9 +53,6 @@ class Pyramid;
 #include "rok4/storage/Context.h"
 
 #define DEFAULT_NODATAVALUE 255
-
-typedef std::function<bool(std::pair<std::string, Level*>, std::pair<std::string, Level*>)> ComparatorLevel;
-
 
 /**
 * @class Pyramid
@@ -79,6 +75,12 @@ private:
      * \~english \brief List of the different level
      */
     std::map<std::string, Level*> levels;
+
+    /**
+     * \~french \brief Liste des TileMatrix dans l'ordre des résolutions décroissante
+     * \~english \brief List of TileMatrix, resolution desc
+     */
+    std::vector<Level*> levels_ordered;
 
     /**
      * \~french \brief TileMatrixSet des données
@@ -207,12 +209,14 @@ public:
     std::map<std::string, Level*>& get_levels() ;
 
     /**
-     * \~french \brief Récupère les niveaux ordonnés par résolution décroissante
-     * \return Liste de level
-     * \~english \brief Get the levels ordered
-     * \return List of level
+     * \~french
+     * \brief Récupère les niveaux ordonnés par résolution décroissante
+     * \return Liste de Level
+     * \~english
+     * \brief Get the levels ordered
+     * \return List of Level
      */
-    std::set<std::pair<std::string, Level*>, ComparatorLevel> get_ordered_levels(bool asc) ;
+    std::vector<Level*> get_ordered_levels(bool bottom_to_top) ;
 
     Level* get_level(std::string id) ;
 
