@@ -46,47 +46,43 @@ size_t AscEncoder::read ( uint8_t *buffer, size_t size ) {
     std::ostringstream tmp_stream;
     std::string tmp_str;
 
-    nodata_value=-99999.00;
-
     // Définit l'affichage des nombres dans les chaines
     tmp_stream << std::fixed << std::setprecision(2);
 
-    if(line==0 ){
+    if (line == 0) {
         //On traite l'entete
         tmp_stream << std::setprecision(8)
                    << "ncols        " << image->get_width() << std::endl
                    << "nrows        " << image->get_height() << std::endl
                    << "xllcorner    " << image->get_xmin() << std::endl
                    << "yllcorner    " << image->get_ymin() << std::endl
-                   << "cellsize     " << image->get_resx(true) << std::endl
-                   << "NODATA_value " << std::setprecision(2) << nodata_value ;
+                   << "cellsize     " << image->get_resx(true);
     }
 
     // stockage d'une ligne de donnée (1 canal)
-    float* buffer_line=new float[image->get_width()];
+    float* buffer_line = new float[image->get_width()];
 
     if( line < image->get_height() ){
 
         image->get_line(buffer_line,line++);
 
         tmp_stream << std::endl;
-        for( int i=0;i<image->get_width();i++){
+        for (int i = 0; i < image->get_width(); i++) {
         // formattage des données
-            tmp_stream << " " << buffer_line[(i*image->get_channels())];
+            tmp_stream << " " << buffer_line[i];
         }
 
         tmp_str = tmp_stream.str();
 
-        if(tmp_str.size()<=size){
+        if (tmp_str.size() <= size) {
         //écriture des données texte dans le buffer flux
-            for ( int i=0; i<tmp_str.size(); i++ ) {
-                buffer[sizeof(uint8_t)*i]= (uint8_t) tmp_str.at(i);
+            for (int i = 0; i < tmp_str.size(); i++ ) {
+                buffer[sizeof(uint8_t)*i] = (uint8_t) tmp_str.at(i);
             }
-        }else{
-          BOOST_LOG_TRIVIAL(error) <<  "Too much data to write on 2^21 buffer";
-          return tmp_str.size();
+        } else {
+            BOOST_LOG_TRIVIAL(error) <<  "Too much data to write on 2^21 buffer";
+            return tmp_str.size();
         }
-
     }
 
     delete[] buffer_line;
