@@ -397,6 +397,7 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
     Image* image = getwindow ( max_tile_x, max_tile_y, bbox_int );
     if ( !image ) {
         BOOST_LOG_TRIVIAL(debug) <<  "Image invalid !"  ;
+        delete grid;
         return 0;
     }
 
