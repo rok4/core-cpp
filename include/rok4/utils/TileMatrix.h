@@ -97,12 +97,12 @@ protected:
     double res;
     /**
      * \~french \brief Abcisse du point en haut à gauche dans le système de coordonnées associé.
-     * \~english \brief X-coordinate of the top right corner in the linked coordinate system.
+     * \~english \brief X-coordinate of the top left corner in the linked coordinate system.
      */
     double x0;
     /**
      * \~french \brief Ordonnée du point en haut à gauche dans le système de coordonnées associé.
-     * \~english \brief Y-coordinate of the top right corner in the linked coordinate system.
+     * \~english \brief Y-coordinate of the top left corner in the linked coordinate system.
      */
     double y0;
     /**
@@ -186,7 +186,7 @@ public:
      * \brief Retourne l'abscisse du point en haut à gauche dans le système de coordonnées associé.
      * \return abscisse
      * \~english
-     * \brief Return the x-coordinate of the top right corner in the linked coordinate system.
+     * \brief Return the x-coordinate of the top left corner in the linked coordinate system.
      * \return x-coordinate
      */
     double get_x0();
@@ -195,7 +195,7 @@ public:
      * \brief Retourne l'ordonnée du point en haut à gauche dans le système de coordonnées associé.
      * \return ordonnée
      * \~english
-     * \brief Return the y-coordinate of the top right corner in the linked coordinate system.
+     * \brief Return the y-coordinate of the top left corner in the linked coordinate system.
      * \return y-coordinate
      */
     double get_y0();
