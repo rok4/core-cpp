@@ -202,6 +202,10 @@ public:
         }
     }
 
+    json11::Json to_json() const {
+        return content;
+    }
+
     /**
      * \~french
      * \brief Destructeur par défaut
