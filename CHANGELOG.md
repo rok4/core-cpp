@@ -1,3 +1,10 @@
+## 2.0.1
+
+### [Added]
+
+* `Keyword` : ajout d'un exporteur JSON (API Tiles)
+* `TileMatrixLimits` : ajout d'un exporteur JSON (API Tiles)
+
 ## 2.0.0
 
 ### [Added]
