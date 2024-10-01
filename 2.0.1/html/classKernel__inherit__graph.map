@@ -1,0 +1,7 @@
+<map id="Kernel" name="Kernel">
+<area shape="rect" id="node1" title="Gestion du noyau d&#39;interpolation." alt="" coords="183,5,246,32"/>
+<area shape="rect" id="node2" href="$classCatRom.html" title="Noyau d&#39;interpolation de type bicubique." alt="" coords="5,80,80,107"/>
+<area shape="rect" id="node3" href="$classLanczos.html" title="Noyau d&#39;interpolation de type Lanczos." alt="" coords="105,80,215,107"/>
+<area shape="rect" id="node4" href="$classLinear.html" title="Noyau d&#39;interpolation de type linéaire." alt="" coords="239,80,302,107"/>
+<area shape="rect" id="node5" href="$classNearestNeighbour.html" title="Noyau d&#39;interpolation de type plus proche voisin." alt="" coords="326,80,466,107"/>
+</map>

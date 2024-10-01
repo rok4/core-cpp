@@ -1,0 +1,7 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classKernel.html" title="Gestion du noyau d&#39;interpolation." alt="" coords="5,81,68,108"/>
+<area shape="rect" id="node2" href="$classCatRom.html" title="Noyau d&#39;interpolation de type bicubique." alt="" coords="149,5,223,32"/>
+<area shape="rect" id="node3" href="$classLanczos.html" title="Noyau d&#39;interpolation de type Lanczos." alt="" coords="131,56,241,83"/>
+<area shape="rect" id="node4" href="$classLinear.html" title="Noyau d&#39;interpolation de type linéaire." alt="" coords="155,107,217,133"/>
+<area shape="rect" id="node5" href="$classNearestNeighbour.html" title="Noyau d&#39;interpolation de type plus proche voisin." alt="" coords="116,157,256,184"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="DecimatedImage" name="DecimatedImage">
+<area shape="rect" id="node1" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="5,260,140,287"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="41,184,104,211"/>
+<area shape="rect" id="node3" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="22,95,70,121"/>
+<area shape="rect" id="node4" href="$classBoundingBox.html" title=" " alt="" coords="95,95,277,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="157,5,215,32"/>
+</map>

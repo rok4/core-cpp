@@ -1,0 +1,77 @@
+var Format_8h =
+[
+    [ "JPEG_BLOC_SIZE", "Format_8h.html#a7549df6e9bad03542223e96030b52d23", null ],
+    [ "ROK4_IMAGE_HEADER_SIZE", "Format_8h.html#a91f1ba1250bac23b4423263ab5e89f41", null ],
+    [ "ROK4_SYMLINK_SIGNATURE", "Format_8h.html#a61d3ae2c649c135f09740e8c8c2a48e0", null ],
+    [ "ROK4_SYMLINK_SIGNATURE_SIZE", "Format_8h.html#a7b076d3784ddf23e5edc273db89d5a2b", null ],
+    [ "eCompression", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030", [
+      [ "UNKNOWN", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a50385e0f27c55abc449ce7f06b086c11", null ],
+      [ "NONE", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a2b5e039bbe82314627dc64503a6d97d4", null ],
+      [ "DEFLATE", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030aa30c4577de65d02c36eba5303e86a084", null ],
+      [ "JPEG", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030aaa0f3230539dbad856472414cfdaa08f", null ],
+      [ "JPEG90", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a029400de4fe260d8a2ebb076b0758b8a", null ],
+      [ "PNG", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a914cd76b937f73f5098a84cc318f0d2c", null ],
+      [ "LZW", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030aaf8f342ddee3a4c05dadf3268c721488", null ],
+      [ "PACKBITS", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a2d09345b63422ff0eee3d728af7efe4a", null ],
+      [ "JPEG2000", "Format_8h.html#ab59ae0c9640db55b2cbed59310434030a89a97ef185bf26fe88d297ea2ab03bb8", null ]
+    ] ],
+    [ "eExtraSample", "Format_8h.html#a03cd3369209d3bb2f8991d613c392f94", [
+      [ "UNKNOWN", "Format_8h.html#a03cd3369209d3bb2f8991d613c392f94ade7c0326389e70cc74f6287ed58f3710", null ],
+      [ "NONE", "Format_8h.html#a03cd3369209d3bb2f8991d613c392f94aeffc0360073a92eb996f48da315890ec", null ],
+      [ "ALPHA_ASSOC", "Format_8h.html#a03cd3369209d3bb2f8991d613c392f94a9676957902e22e6f8510b38f53f4ebbb", null ],
+      [ "ALPHA_UNASSOC", "Format_8h.html#a03cd3369209d3bb2f8991d613c392f94ad63322cb1554b8c202688ed45dacf35b", null ]
+    ] ],
+    [ "eFormat", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5", [
+      [ "UNKNOWN", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5ac239e59b2e41c32848d3f8905e7f91c5", null ],
+      [ "TIFF_RAW_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5af5f7991c6c78583a81ceed3a643df025", null ],
+      [ "TIFF_JPG_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a53c0f4cfa0ac1923d709fa3474c87768", null ],
+      [ "TIFF_JPG90_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a51d62a34a78e27261f021cc2ebfb8df3", null ],
+      [ "TIFF_PNG_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a2bedd9f92928f3805c76923efd9d834c", null ],
+      [ "TIFF_LZW_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5abeb9beea9d70894fb40a7b388d5f8268", null ],
+      [ "TIFF_ZIP_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5ad8890e6a6846b301bc56a7324e7e2c4c", null ],
+      [ "TIFF_PKB_UINT8", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5ace6d0b6d1a7a9a1f544caa18d162034a", null ],
+      [ "TIFF_RAW_FLOAT32", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5ad912930303b5f3c158246785dea00e6c", null ],
+      [ "TIFF_LZW_FLOAT32", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a83a8c8f77953268ed8c0ad15c1d7b126", null ],
+      [ "TIFF_ZIP_FLOAT32", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a2d5e9957d89234717144740935a44e83", null ],
+      [ "TIFF_PKB_FLOAT32", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a51711260a4f69b48d32dca05eb11da92", null ],
+      [ "TIFF_PBF_MVT", "Format_8h.html#a92a5b0c2bebf2bea2b2699d8c7424cf5a06651f184b153015c1632087afbc438d", null ]
+    ] ],
+    [ "ePhotometric", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203", [
+      [ "UNKNOWN", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203a5dc2d2521e29dfa4aee8357140fab865", null ],
+      [ "GRAY", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203aa42a02a55eae46c78d471615f8cb284e", null ],
+      [ "RGB", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203a71e0bb86d5e03e29a07288b902d4f18f", null ],
+      [ "PALETTE", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203a0f4e8ef5e87253f6dc8c97c549eb8156", null ],
+      [ "YCBCR", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203a93d644186762e438dd53af251c7f9d08", null ],
+      [ "MASK", "Format_8h.html#a2400cfa91cf2e98ca0cca9024b029203a4f063767160c8515414fbeb19f54caee", null ]
+    ] ],
+    [ "eSampleFormat", "Format_8h.html#ad788f42d581e9caded3e9b0f46c3ce1b", [
+      [ "UNKNOWN", "Format_8h.html#ad788f42d581e9caded3e9b0f46c3ce1bad6b304c0fb79c23ad8aa14560cc06e46", null ],
+      [ "UINT8", "Format_8h.html#ad788f42d581e9caded3e9b0f46c3ce1ba5c0c553c3e183017d3e806e4c8de5a61", null ],
+      [ "UINT16", "Format_8h.html#ad788f42d581e9caded3e9b0f46c3ce1ba2d07a3023e45815aa7c9b07250e3b2c5", null ],
+      [ "FLOAT32", "Format_8h.html#ad788f42d581e9caded3e9b0f46c3ce1ba7ca12d1632ac98f669ed6873c32f718c", null ]
+    ] ],
+    [ "from_string", "Format_8h.html#a428fbccb65575676fcd2dc5166ba3fa6", null ],
+    [ "from_string", "Format_8h.html#a27ec813941e5f9e5cfbc14d6777b7595", null ],
+    [ "from_string", "Format_8h.html#ab908ad617668504820d327ecf0d98c99", null ],
+    [ "from_string", "Format_8h.html#a045d0d75d76c9104ac1a53b71cfdc9c7", null ],
+    [ "from_string", "Format_8h.html#aa3af88b65317a2283a1c38d60a8cf530", null ],
+    [ "get_bits_per_sample", "Format_8h.html#a516235ca4c2427a13d3594ad95e796e2", null ],
+    [ "get_bits_per_sample", "Format_8h.html#a705bb46941dd5fbacaa2848c9a0bd4f0", null ],
+    [ "get_compression", "Format_8h.html#aa6c7db036607f16d2a239be968951901", null ],
+    [ "get_sample_format", "Format_8h.html#a8950e34687918d8815a47a5845814c29", null ],
+    [ "is_raster", "Format_8h.html#a5339e65596ed61306edaf808adef7faa", null ],
+    [ "to_encoding", "Format_8h.html#a3d32ef089ac222f882906fa9dea56179", null ],
+    [ "to_extension", "Format_8h.html#a6611ea18e5a6b17fefe7e772a02faa63", null ],
+    [ "to_mime_type", "Format_8h.html#a621473264ff2ee5bc8fc4aee3112c2e7", null ],
+    [ "to_string", "Format_8h.html#aae54011f247d7d047c7e60aa775fa6d0", null ],
+    [ "to_string", "Format_8h.html#aab7e4b360dc8d1f79d75847bffbce5bb", null ],
+    [ "to_string", "Format_8h.html#a70028b505d36f5f79b0031f00f2963e4", null ],
+    [ "to_string", "Format_8h.html#a67391ad90ddc951ac578af0d394825d7", null ],
+    [ "to_string", "Format_8h.html#a11e6d01a832f12672ee97073d37888ad", null ],
+    [ "to_tiles_format", "Format_8h.html#a6e1571570771bbaca0c1bb1078161fb6", null ],
+    [ "compression_size", "Format_8h.html#abd75fc3819e871bbec66edf920e958b7", null ],
+    [ "eformat_size", "Format_8h.html#ade80ee8011a76836df2208a1e4f15951", null ],
+    [ "extraSample_size", "Format_8h.html#accf4b3d09064a1ac0ea942893a5dfc83", null ],
+    [ "photometric_size", "Format_8h.html#a3d580c0180c2e29c0f945e51a518109c", null ],
+    [ "sampleformat_size", "Format_8h.html#a6290eb0d998f678e08e6d0a30e6ac673", null ]
+];

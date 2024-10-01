@@ -1,0 +1,12 @@
+<map id="include/rok4/processors/PixelConverter.h" name="include/rok4/processors/PixelConverter.h">
+<area shape="rect" id="node1" title="Définition de la classe PixelConverter, permettant de convertir à la volée les pixels." alt="" coords="179,5,355,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,76,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,95,167,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="191,95,343,121"/>
+<area shape="rect" id="node5" href="$Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="368,95,497,121"/>
+<area shape="rect" id="node9" href="$Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format." alt="" coords="521,95,683,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="302,169,369,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="393,169,473,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="497,169,568,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="593,169,651,196"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="MirrorImage" name="MirrorImage">
+<area shape="rect" id="node1" title="Manipulation d&#39;une image miroir." alt="" coords="5,260,108,287"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="25,184,88,211"/>
+<area shape="rect" id="node3" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="6,95,54,121"/>
+<area shape="rect" id="node4" href="$classBoundingBox.html" title=" " alt="" coords="79,95,261,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="141,5,199,32"/>
+</map>
