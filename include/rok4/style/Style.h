@@ -97,7 +97,7 @@ class Style;
  *         "slope_max": 254
  *     },
  *     "palette": {
- *         "max_value": 255,
+ *         "no_alpha": false,
  *         "rgb_continuous": true,
  *         "alpha_continuous": true,
  *         "colours": [

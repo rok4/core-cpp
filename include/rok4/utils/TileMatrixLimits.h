@@ -171,6 +171,18 @@ public:
         node.add("MaxTileCol", std::to_string(max_tile_col));
     }
 
+    json11::Json to_json() const {
+        json11::Json::object res = json11::Json::object {
+            { "tileMatrix", tm_id },
+            { "minTileRow", int(min_tile_row) },
+            { "maxTileRow", int(max_tile_row) },
+            { "minTileCol", int(min_tile_col) },
+            { "maxTileCol", int(max_tile_col) }
+        };
+        
+        return res;
+    }
+
 };
 
 
