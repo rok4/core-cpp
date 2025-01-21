@@ -656,7 +656,7 @@ bool S3Context::close_to_write(std::string name) {
 
     BOOST_LOG_TRIVIAL(error) <<  "Unable to flush " << it1->second->size() << " bytes in the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << write_attempts << " tries" ;
 
-    return true;
+    return false;
 }
 
 bool S3Context::exists(std::string name) {
