@@ -1,0 +1,15 @@
+<map id="include/rok4/image/file/FileImage.h" name="include/rok4/image/file/FileImage.h">
+<area shape="rect" id="node1" title="Définition de la classe FileImage." alt="" coords="662,5,809,47"/>
+<area shape="rect" id="node2" href="$BilzImage_8h.html" title="Définition des classes BilzImage." alt="" coords="125,102,316,129"/>
+<area shape="rect" id="node4" href="$FileImage_8cpp.html" title="Implémentation de la classe FileImage." alt="" coords="490,191,695,218"/>
+<area shape="rect" id="node5" href="$LibjpegImage_8h.html" title="Définition des classes LibjpegImage." alt="" coords="340,102,555,129"/>
+<area shape="rect" id="node7" href="$LibpngImage_8h.html" title="Définition des classes LibpngImage." alt="" coords="630,102,841,129"/>
+<area shape="rect" id="node9" href="$LibtiffImage_8h.html" title="Définition des classes LibtiffImage." alt="" coords="865,102,1069,129"/>
+<area shape="rect" id="node11" href="$LibopenjpegImage_8h.html" title="Définition des classes LibopenjpegImage." alt="" coords="1093,95,1268,136"/>
+<area shape="rect" id="node13" href="$TiffNodataManager_8h.html" title="Définition de la classe TiffNodataManager, permettant de modifier la couleur de nodata des images à c..." alt="" coords="1293,95,1479,136"/>
+<area shape="rect" id="node3" href="$BilzImage_8cpp.html" title="Implémentation des classes BilzImage." alt="" coords="5,191,212,218"/>
+<area shape="rect" id="node6" href="$LibjpegImage_8cpp.html" title="Implémentation des classes LibjpegImage." alt="" coords="237,191,466,218"/>
+<area shape="rect" id="node8" href="$LibpngImage_8cpp.html" title="Implémentation des classes LibpngImage." alt="" coords="720,191,945,218"/>
+<area shape="rect" id="node10" href="$LibtiffImage_8cpp.html" title="Implémentation des classes LibtiffImage." alt="" coords="970,191,1189,218"/>
+<area shape="rect" id="node12" href="$LibopenjpegImage_8cpp.html" title="Implémentation des classes LibopenjpegImage." alt="" coords="1213,184,1388,225"/>
+</map>

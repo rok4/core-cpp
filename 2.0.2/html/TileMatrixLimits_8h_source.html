@@ -1,0 +1,220 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('TileMatrixLimits_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">TileMatrixLimits.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="TileMatrixLimits_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;geop_services@geoportail.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">class </span><a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;boost/property_tree/ptree.hpp&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">using</span> boost::property_tree::ptree;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &quot;rok4/utils/Configuration.h&quot;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html">   59</a></span>&#160;<span class="keyword">class </span><a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#aa998c5913c8d0ffc3e9d46e76d2d33c3">   79</a></span>&#160;    <a class="code" href="classTileMatrixLimits.html#aa998c5913c8d0ffc3e9d46e76d2d33c3">TileMatrixLimits</a>(std::string <span class="keywordtype">id</span>, uint32_t rmin, uint32_t rmax, uint32_t cmin, uint32_t cmax) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a> = id;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a> = rmin;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a> = rmax;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a> = cmin;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a> = cmax;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    };</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a2674e08ea5dd3a047fa80635da7fb25e">   94</a></span>&#160;    <a class="code" href="classTileMatrixLimits.html#a2674e08ea5dd3a047fa80635da7fb25e">TileMatrixLimits</a>() {};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="classTileMatrixLimits.html#a2674e08ea5dd3a047fa80635da7fb25e">TileMatrixLimits</a>(<a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a> <span class="keyword">const</span>&amp; other) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a> = other.<a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a> = other.<a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a> = other.<a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a> = other.<a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a> = other.<a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    };</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a5d4010866d9999f08611a4d96078dd53">  110</a></span>&#160;    <a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a>&amp; <a class="code" href="classTileMatrixLimits.html#a5d4010866d9999f08611a4d96078dd53">operator= </a>( <a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a> <span class="keyword">const</span>&amp; other ) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> ( <span class="keyword">this</span> != &amp;other ) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            this-&gt;<a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a> = other.<a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            this-&gt;<a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a> = other.<a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            this-&gt;<a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a> = other.<a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            this-&gt;<a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a> = other.<a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            this-&gt;<a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a> = other.<a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    ~<a class="code" href="classTileMatrixLimits.html">TileMatrixLimits</a>(){};</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    uint32_t get_min_tile_row() {<span class="keywordflow">return</span> <a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    uint32_t get_max_tile_row() {<span class="keywordflow">return</span> <a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>;}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    uint32_t get_min_tile_col() {<span class="keywordflow">return</span> <a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    uint32_t get_max_tile_col() {<span class="keywordflow">return</span> <a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>;}</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">bool</span> contain_tile(<span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> (row &gt;= <a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a> &amp;&amp; row &lt;= max_tile_row &amp;&amp; col &gt;= <a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a> &amp;&amp; col &lt;= <a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">  136</a></span>&#160;    std::string <a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">  141</a></span>&#160;    uint32_t <a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">  146</a></span>&#160;    uint32_t <a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">  151</a></span>&#160;    uint32_t <a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">  156</a></span>&#160;    uint32_t <a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="classTileMatrixLimits.html#a57f4a0465ab43f0d2a8f047d2a926016">  164</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTileMatrixLimits.html#a57f4a0465ab43f0d2a8f047d2a926016">add_node</a>(ptree&amp; parent) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        ptree&amp; node = parent.add(<span class="stringliteral">&quot;TileMatrixLimits&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        node.add(<span class="stringliteral">&quot;TileMatrix&quot;</span>, <a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a>);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        node.add(<span class="stringliteral">&quot;MinTileRow&quot;</span>, <a class="code" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">std::to_string</a>(<a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>));</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        node.add(<span class="stringliteral">&quot;MaxTileRow&quot;</span>, <a class="code" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">std::to_string</a>(<a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>));</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        node.add(<span class="stringliteral">&quot;MinTileCol&quot;</span>, <a class="code" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">std::to_string</a>(<a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>));</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        node.add(<span class="stringliteral">&quot;MaxTileCol&quot;</span>, <a class="code" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">std::to_string</a>(<a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>));</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="classjson11_1_1Json.html">json11::Json</a> to_json()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        json11::Json::object res = json11::Json::object {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            { <span class="stringliteral">&quot;tileMatrix&quot;</span>, <a class="code" href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">tm_id</a> },</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            { <span class="stringliteral">&quot;minTileRow&quot;</span>, int(<a class="code" href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">min_tile_row</a>) },</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            { <span class="stringliteral">&quot;maxTileRow&quot;</span>, int(<a class="code" href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">max_tile_row</a>) },</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            { <span class="stringliteral">&quot;minTileCol&quot;</span>, int(<a class="code" href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">min_tile_col</a>) },</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            { <span class="stringliteral">&quot;maxTileCol&quot;</span>, int(<a class="code" href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">max_tile_col</a>) }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        };</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;};</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassTileMatrixLimits_html_aa417bc46cb5802fa06d80cc892a5685e"><div class="ttname"><a href="classTileMatrixLimits.html#aa417bc46cb5802fa06d80cc892a5685e">TileMatrixLimits::min_tile_col</a></div><div class="ttdeci">uint32_t min_tile_col</div><div class="ttdoc">Indice de colonne maximal.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:156</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a6af3bc624a97fdc4fe3fdbd56abbc4eb"><div class="ttname"><a href="classTileMatrixLimits.html#a6af3bc624a97fdc4fe3fdbd56abbc4eb">TileMatrixLimits::tm_id</a></div><div class="ttdeci">std::string tm_id</div><div class="ttdoc">Identifiant de niveau.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:136</div></div>
+<div class="ttc" id="aclassjson11_1_1Json_html"><div class="ttname"><a href="classjson11_1_1Json.html">json11::Json</a></div><div class="ttdef"><b>Definition:</b> json11.hpp:79</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a2674e08ea5dd3a047fa80635da7fb25e"><div class="ttname"><a href="classTileMatrixLimits.html#a2674e08ea5dd3a047fa80635da7fb25e">TileMatrixLimits::TileMatrixLimits</a></div><div class="ttdeci">TileMatrixLimits()</div><div class="ttdoc">Crée un TileMatrixLimits vide.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:94</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a37ec653afb971f0394939127b2fda795"><div class="ttname"><a href="classTileMatrixLimits.html#a37ec653afb971f0394939127b2fda795">TileMatrixLimits::min_tile_row</a></div><div class="ttdeci">uint32_t min_tile_row</div><div class="ttdoc">Indice de ligne minimal.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:146</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html"><div class="ttname"><a href="classTileMatrixLimits.html">TileMatrixLimits</a></div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:59</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a6d8d243c7e56c9c057ba32a691349358"><div class="ttname"><a href="classTileMatrixLimits.html#a6d8d243c7e56c9c057ba32a691349358">TileMatrixLimits::max_tile_col</a></div><div class="ttdeci">uint32_t max_tile_col</div><div class="ttdoc">Indice de colonne maximal.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:151</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_aa998c5913c8d0ffc3e9d46e76d2d33c3"><div class="ttname"><a href="classTileMatrixLimits.html#aa998c5913c8d0ffc3e9d46e76d2d33c3">TileMatrixLimits::TileMatrixLimits</a></div><div class="ttdeci">TileMatrixLimits(std::string id, uint32_t rmin, uint32_t rmax, uint32_t cmin, uint32_t cmax)</div><div class="ttdoc">Crée un TileMatrixLimits à partir des ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:79</div></div>
+<div class="ttc" id="anamespaceCompression_html_aae54011f247d7d047c7e60aa775fa6d0"><div class="ttname"><a href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Compression::to_string</a></div><div class="ttdeci">std::string to_string(eCompression comp)</div><div class="ttdoc">Conversion d'une compression vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:86</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a7f7351d48a021cc6f42adadeacd4e6f0"><div class="ttname"><a href="classTileMatrixLimits.html#a7f7351d48a021cc6f42adadeacd4e6f0">TileMatrixLimits::max_tile_row</a></div><div class="ttdeci">uint32_t max_tile_row</div><div class="ttdoc">Indice de ligne maximal.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:141</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a57f4a0465ab43f0d2a8f047d2a926016"><div class="ttname"><a href="classTileMatrixLimits.html#a57f4a0465ab43f0d2a8f047d2a926016">TileMatrixLimits::add_node</a></div><div class="ttdeci">void add_node(ptree &amp;parent)</div><div class="ttdoc">Ajoute un noeud correpondant aux limites.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:164</div></div>
+<div class="ttc" id="aclassTileMatrixLimits_html_a5d4010866d9999f08611a4d96078dd53"><div class="ttname"><a href="classTileMatrixLimits.html#a5d4010866d9999f08611a4d96078dd53">TileMatrixLimits::operator=</a></div><div class="ttdeci">TileMatrixLimits &amp; operator=(TileMatrixLimits const &amp;other)</div><div class="ttdoc">Affectation.</div><div class="ttdef"><b>Definition:</b> TileMatrixLimits.h:110</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="TileMatrixLimits_8h.html">TileMatrixLimits.h</a></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

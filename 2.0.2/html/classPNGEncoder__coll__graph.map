@@ -1,0 +1,10 @@
+<map id="PNGEncoder" name="PNGEncoder">
+<area shape="rect" id="node1" title=" " alt="" coords="112,317,215,344"/>
+<area shape="rect" id="node2" href="$classDataStream.html" title=" " alt="" coords="5,213,105,240"/>
+<area shape="rect" id="node3" href="$classPalette.html" title=" " alt="" coords="130,213,197,240"/>
+<area shape="rect" id="node4" href="$classConfiguration.html" title=" " alt="" coords="93,124,202,151"/>
+<area shape="rect" id="node5" title=" " alt="" coords="203,5,262,32"/>
+<area shape="rect" id="node8" href="$classBoundingBox.html" title=" " alt="" coords="227,124,409,151"/>
+<area shape="rect" id="node6" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="287,213,349,240"/>
+<area shape="rect" id="node7" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="434,124,482,151"/>
+</map>

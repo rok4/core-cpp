@@ -1,0 +1,9 @@
+<map id="LibopenjpegImage" name="LibopenjpegImage">
+<area shape="rect" id="node1" title="Manipulation d&#39;une image JPEG2000, avec la librarie openjpeg." alt="" coords="71,349,214,376"/>
+<area shape="rect" id="node2" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="99,273,186,300"/>
+<area shape="rect" id="node3" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="111,184,174,211"/>
+<area shape="rect" id="node4" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="259,95,307,121"/>
+<area shape="rect" id="node5" href="$classBoundingBox.html" title=" " alt="" coords="51,95,234,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,5,64,32"/>
+<area shape="rect" id="node7" href="$classPixelConverter.html" title="Outil de conversion des images à la volée." alt="" coords="264,184,381,211"/>
+</map>

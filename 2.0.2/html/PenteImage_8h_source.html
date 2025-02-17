@@ -1,0 +1,192 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('PenteImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">PenteImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">rok4/image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Pente_8h.html">rok4/style/Pente.h</a>&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classPenteImage.html">   45</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPenteImage.html">PenteImage</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classImage.html">Image</a>* source_image;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">int</span> memorized_source_lines;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">float</span>* source_lines_buffer;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">int</span>* source_lines;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">float</span> resxmeter;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">float</span> resymeter;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="classPente.html">Pente</a>* pente;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">int</span> _getline ( T* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classPenteImage.html#a6d84e3b5ca037a46a613a4c80acf8535">get_line</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classPenteImage.html#a6d84e3b5ca037a46a613a4c80acf8535">get_line</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classPenteImage.html#a6d84e3b5ca037a46a613a4c80acf8535">get_line</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="classPenteImage.html#a26d9ed08ccd4b528565c48dd1d2c45a0">PenteImage</a> (<a class="code" href="classImage.html">Image</a>* image, <a class="code" href="classPente.html">Pente</a>* p);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classPenteImage.html#a8846da739ab1b5973d49e14b5b269657">~PenteImage</a>();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="classPenteImage.html#a81c7e96bed0199f997054a40832bbae2">  148</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPenteImage.html#a81c7e96bed0199f997054a40832bbae2">print</a>() {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;------ PenteImage -------&quot;</span> ;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Algo = &quot;</span> &lt;&lt; pente-&gt;<a class="code" href="classPente.html#a66ac227fbc063b2aa996477a8b403e24">algo</a> ;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Unit = &quot;</span> &lt;&lt; pente-&gt;<a class="code" href="classPente.html#aaf016b61cbd39e96c4312cf3f033d541">unit</a> ;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- max Slope = &quot;</span> &lt;&lt; pente-&gt;<a class="code" href="classPente.html#a1895a271464d1e68d1283cfdc08a8602">max_slope</a> ;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Slope nodata = &quot;</span> &lt;&lt; pente-&gt;<a class="code" href="classPente.html#ab02fc60362d24b79e665526855cb1604">slope_nodata_value</a> ;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Image nodata = &quot;</span> &lt;&lt; pente-&gt;<a class="code" href="classPente.html#a7de3240cd6ba9c8c7a0405a88e95f03e">input_nodata_value</a> ;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;};</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassPenteImage_html_a6d84e3b5ca037a46a613a4c80acf8535"><div class="ttname"><a href="classPenteImage.html#a6d84e3b5ca037a46a613a4c80acf8535">PenteImage::get_line</a></div><div class="ttdeci">virtual int get_line(float *buffer, int line)</div><div class="ttdoc">Récupère la ligne.</div><div class="ttdef"><b>Definition:</b> PenteImage.cpp:48</div></div>
+<div class="ttc" id="aPente_8h_html"><div class="ttname"><a href="Pente_8h.html">Pente.h</a></div><div class="ttdoc">D�finition de la classe Pente.</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:73</div></div>
+<div class="ttc" id="aclassPente_html_a7de3240cd6ba9c8c7a0405a88e95f03e"><div class="ttname"><a href="classPente.html#a7de3240cd6ba9c8c7a0405a88e95f03e">Pente::input_nodata_value</a></div><div class="ttdeci">float input_nodata_value</div><div class="ttdoc">noData : valeur de nodata pour l'image source</div><div class="ttdef"><b>Definition:</b> Pente.h:85</div></div>
+<div class="ttc" id="aclassPente_html_a1895a271464d1e68d1283cfdc08a8602"><div class="ttname"><a href="classPente.html#a1895a271464d1e68d1283cfdc08a8602">Pente::max_slope</a></div><div class="ttdeci">int max_slope</div><div class="ttdoc">maxSlope : valeur max pour la pente</div><div class="ttdef"><b>Definition:</b> Pente.h:92</div></div>
+<div class="ttc" id="aclassPenteImage_html"><div class="ttname"><a href="classPenteImage.html">PenteImage</a></div><div class="ttdef"><b>Definition:</b> PenteImage.h:45</div></div>
+<div class="ttc" id="aclassPenteImage_html_a8846da739ab1b5973d49e14b5b269657"><div class="ttname"><a href="classPenteImage.html#a8846da739ab1b5973d49e14b5b269657">PenteImage::~PenteImage</a></div><div class="ttdeci">virtual ~PenteImage()</div><div class="ttdoc">Destructeur.</div><div class="ttdef"><b>Definition:</b> PenteImage.cpp:92</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassPenteImage_html_a81c7e96bed0199f997054a40832bbae2"><div class="ttname"><a href="classPenteImage.html#a81c7e96bed0199f997054a40832bbae2">PenteImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image estompée.</div><div class="ttdef"><b>Definition:</b> PenteImage.h:148</div></div>
+<div class="ttc" id="aclassPenteImage_html_a26d9ed08ccd4b528565c48dd1d2c45a0"><div class="ttname"><a href="classPenteImage.html#a26d9ed08ccd4b528565c48dd1d2c45a0">PenteImage::PenteImage</a></div><div class="ttdeci">PenteImage(Image *image, Pente *p)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> PenteImage.cpp:61</div></div>
+<div class="ttc" id="aclassPente_html_ab02fc60362d24b79e665526855cb1604"><div class="ttname"><a href="classPente.html#ab02fc60362d24b79e665526855cb1604">Pente::slope_nodata_value</a></div><div class="ttdeci">int slope_nodata_value</div><div class="ttdoc">noData : valeur de nodata pour la pente</div><div class="ttdef"><b>Definition:</b> Pente.h:78</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:686</div></div>
+<div class="ttc" id="aclassPente_html_aaf016b61cbd39e96c4312cf3f033d541"><div class="ttname"><a href="classPente.html#aaf016b61cbd39e96c4312cf3f033d541">Pente::unit</a></div><div class="ttdeci">std::string unit</div><div class="ttdoc">unit : unité de la pente</div><div class="ttdef"><b>Definition:</b> Pente.h:71</div></div>
+<div class="ttc" id="aclassPente_html"><div class="ttname"><a href="classPente.html">Pente</a></div><div class="ttdef"><b>Definition:</b> Pente.h:55</div></div>
+<div class="ttc" id="aclassPente_html_a66ac227fbc063b2aa996477a8b403e24"><div class="ttname"><a href="classPente.html#a66ac227fbc063b2aa996477a8b403e24">Pente::algo</a></div><div class="ttdeci">std::string algo</div><div class="ttdoc">algo : choix de l'algorithme de calcul de pentes par l'utilisateur (&quot;H&quot; pour Horn)</div><div class="ttdef"><b>Definition:</b> Pente.h:64</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_128fc099d035536e093f6a644b1f5923.html">image</a></li><li class="navelem"><b>PenteImage.h</b></li>
+    <li class="footer">Généré par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>
