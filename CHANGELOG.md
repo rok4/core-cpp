@@ -1,3 +1,9 @@
+## 2.0.2
+
+### [Fixed]
+
+* `TiffDeflateEncoder` : l'encodage du résultat final n'est pas en deflate (seule la donnée dans le tiff l'est, et non le résultat complet)
+
 ## 2.0.1
 
 ### [Added]
