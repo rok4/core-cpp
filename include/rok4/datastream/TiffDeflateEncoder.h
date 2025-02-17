@@ -160,7 +160,7 @@ public:
     }
 
     std::string get_encoding() {
-        return "deflate";
+        return "";
     }
 };
 
