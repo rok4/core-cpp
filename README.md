@@ -1,6 +1,6 @@
 # Librairies ROK4 C++
 
-![ROK4 Logo](https://rok4.github.io/assets/images/rok4.png)
+![ROK4 Logo](https://rok4.github.io/assets/images/rok4-256.png)
 
 Ces librairies facilitent la manipulation d'entités du projet ROK4 comme les Tile Matrix Sets ou les pyramides, mais aussi la manipulation des données : lecture et écriture des dalles, réechantillonnage et reprojection de données raster. 4 types de stockages sont gérés : fichier, S3, Swift et optionnellement Ceph.
 

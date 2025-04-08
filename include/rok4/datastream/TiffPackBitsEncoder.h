@@ -103,7 +103,7 @@ protected:
     }
 
 public:
-    TiffPackBitsEncoder ( Image *image, bool is_geotiff = false ) : TiffEncoder( image, -1, is_geotiff ) , raw_buffer_size ( 0 ), raw_buffer ( NULL ) {
+    TiffPackBitsEncoder ( Image *image, bool is_geotiff = false, int nodata = 0 ) : TiffEncoder( image, -1, is_geotiff, nodata ) , raw_buffer_size ( 0 ), raw_buffer ( NULL ) {
 
     }
     ~TiffPackBitsEncoder() {

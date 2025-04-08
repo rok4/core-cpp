@@ -1,3 +1,13 @@
+## 2.0.3
+
+### [Added]
+
+* `TiffHeader` : la valeur de nodata est ajoutée dans le header des Geotiff
+
+### [Fixed]
+
+* `Style` : gestion d'une valeur par défaut pour la demande de nodata, en entrée et en sortie
+
 ## 2.0.2
 
 ### [Fixed]

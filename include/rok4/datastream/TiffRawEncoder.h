@@ -81,7 +81,7 @@ protected:
     }
 
 public:
-    TiffRawEncoder ( Image *image, bool is_geotiff = false ) : TiffEncoder( image, -1, is_geotiff ) {}
+    TiffRawEncoder ( Image *image, bool is_geotiff = false, int nodata = 0 ) : TiffEncoder( image, -1, is_geotiff, nodata ) {}
     ~TiffRawEncoder() {
     }
    
