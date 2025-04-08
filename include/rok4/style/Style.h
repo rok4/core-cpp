@@ -263,16 +263,24 @@ public:
      * \~french \brief Valeur de nodata après style
      * \~english \brief Style nodata value
      */
-    int* get_output_nodata_value () {
-        return output_nodata_value;
+    int* get_output_nodata_value (int* default_nodata) {
+        if (is_identity()) {
+            return default_nodata;
+        } else {
+            return output_nodata_value;
+        }
     }
 
     /**
      * \~french \brief Valeur de nodata attendue dans les données en entrée
      * \~english \brief Nodata value expected in input data
      */
-    int* get_input_nodata_value () {
-        return input_nodata_value;
+    int* get_input_nodata_value (int* default_nodata) {
+        if (is_identity()) {
+            return default_nodata;
+        } else {
+            return input_nodata_value;
+        }
     }
 
     /**

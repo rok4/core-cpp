@@ -48,6 +48,7 @@ protected:
     Image *image;
     int line;   // Ligne courante
     bool is_geotiff;
+    int nodata;
     
     virtual void prepare_header() = 0;
     uint8_t* header;
@@ -60,11 +61,8 @@ protected:
 
 public:
 
-    TiffEncoder(Image *image, int line, bool is_geotiff);
-    TiffEncoder(Image *image, int line);
+    TiffEncoder(Image *image, int line, bool is_geotiff, int nodata);
     ~TiffEncoder();
-  
-    static DataStream* get_tiff_encoder ( Image* image, Rok4Format::eFormat format, bool is_geotiff = false );
 
     virtual size_t read ( uint8_t *buffer, size_t size );
     virtual bool eof();

@@ -145,7 +145,7 @@ protected:
     }
 
 public:
-    TiffDeflateEncoder(Image* image, bool is_geotiff = false) : TiffEncoder(image, -1, is_geotiff) {
+    TiffDeflateEncoder(Image* image, bool is_geotiff = false, int nodata = 0) : TiffEncoder(image, -1, is_geotiff, nodata) {
         //         zstream.zalloc = Z_NULL;
         //         zstream.zfree = Z_NULL;
         //         zstream.opaque = Z_NULL;

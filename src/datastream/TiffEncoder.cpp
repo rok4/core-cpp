@@ -43,7 +43,7 @@
 #include "datastream/TiffPackBitsEncoder.h"
 
 
-TiffEncoder::TiffEncoder(Image *image, int line, bool is_geotiff): image(image), line(line), is_geotiff(is_geotiff) {
+TiffEncoder::TiffEncoder(Image *image, int line, bool is_geotiff, int nodata): image(image), line(line), is_geotiff(is_geotiff), nodata(nodata) {
     tmp_buffer = NULL;
     tmp_buffer_pos = 0;
     tmp_buffer_size = 0;
@@ -71,7 +71,7 @@ size_t TiffEncoder::read(uint8_t* buffer, size_t size) {
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation de l'en-tete";
         prepare_header();
         if ( is_geotiff ){
-            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size) );
+            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size), nodata );
         }
     }
     
@@ -110,7 +110,7 @@ unsigned int TiffEncoder::get_length(){
         BOOST_LOG_TRIVIAL(debug) << "TiffEncoder : preparation de l'en-tete";
         prepare_header();
         if ( is_geotiff ){
-            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size) );
+            this->header = TiffHeader::insert_geo_tags(image, this->header, &(this->header_size), nodata );
         }
     }
     return header_size + tmp_buffer_size;
