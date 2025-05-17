@@ -80,7 +80,7 @@ enum eMergeType {
  * \~french \brief Nombre de méthodes disponibles
  * \~english \brief Number of available merge methods
  */
-const int mergetype_size = 6;
+const int mergetype_size = 5;
 
 /**
  * \~french \brief Conversion d'une chaîne de caractères vers une méthode de fusion de l'énumération

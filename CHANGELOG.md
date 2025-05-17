@@ -1,3 +1,9 @@
+## 2.0.4
+
+### [Fixed]
+
+* `Merge` : correction du nombre de méthode
+
 ## 2.0.3
 
 ### [Added]
