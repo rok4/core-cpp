@@ -1,0 +1,4 @@
+<map id="S3Context" name="S3Context">
+<area shape="rect" id="node1" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d..." alt="" coords="5,80,95,107"/>
+<area shape="rect" id="node2" href="$classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="13,5,87,32"/>
+</map>

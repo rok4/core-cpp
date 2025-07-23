@@ -1,0 +1,269 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('MergeImage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">MergeImage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="MergeImage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * liability.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">rok4/image/Image.h</a>&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceMerge.html">Merge</a> {</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">   71</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">eMergeType</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    UNKNOWN = 0,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    NORMAL = 1,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    MULTIPLY = 2,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ALPHATOP = 3,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    TOP = 4</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="namespaceMerge.html#a32e52ad0743ec9f09599906d537150ce">   83</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespaceMerge.html#a32e52ad0743ec9f09599906d537150ce">mergetype_size</a> = 5;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">eMergeType</a> <a class="code" href="namespaceMerge.html#a96b7faadef3c944c19358aafd417dc8c">from_string</a> ( std::string strMergeMethod );</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;std::string <a class="code" href="namespaceMerge.html#ae59996043a913148e96b5aba66792a8d">to_string</a> ( <a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">eMergeType</a> merge_method );</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classMergeImage.html">  120</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMergeImage.html">MergeImage</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    std::vector&lt;Image*&gt; source_images;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">Merge::eMergeType</a> composition;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">int</span>* background_value;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">int</span>* transparent_value;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">int</span> _getline ( T* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="classMergeImage.html">MergeImage</a> ( std::vector&lt; Image* &gt;&amp; images, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>,</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                 <span class="keywordtype">int</span>* bg, <span class="keywordtype">int</span>* transparent, <a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">Merge::eMergeType</a> composition = Merge::NORMAL ) :</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="classImage.html#afbd736f60f7951ca41bced1c51061dca">Image</a> ( images.at ( 0 )-&gt;get_width(),images.at ( 0 )-&gt;get_height(), <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, images.at ( 0 )-&gt;get_resx(),images.at ( 0 )-&gt;get_resy(), images.at ( 0 )-&gt;get_bbox() ),</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        source_images ( images ), composition ( composition ), background_value ( bg ), transparent_value ( transparent ) {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">if</span> ( transparent_value != NULL ) {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            transparent_value = <span class="keyword">new</span> <span class="keywordtype">int</span>[3];</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            memcpy ( transparent_value, transparent, 3*<span class="keyword">sizeof</span> ( <span class="keywordtype">int</span> ) );</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        background_value = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>];</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        memcpy ( background_value, bg, <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>*<span class="keyword">sizeof</span> ( <span class="keywordtype">int</span> ) );</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMergeImage.html#a235b223564e71e60ebcb727f940b1983">get_line</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMergeImage.html#a235b223564e71e60ebcb727f940b1983">get_line</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMergeImage.html#a235b223564e71e60ebcb727f940b1983">get_line</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="classMergeImage.html#a6f34c550d2fcb736e7cd5b38f2e34b43">  206</a></span>&#160;    std::vector&lt;Image*&gt;* <a class="code" href="classMergeImage.html#a6f34c550d2fcb736e7cd5b38f2e34b43">get_images</a>() {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">return</span> &amp;source_images;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="classMergeImage.html#a6c8028d6fc07625a28225e78a0862f55">  220</a></span>&#160;    <a class="code" href="classImage.html">Image</a>* <a class="code" href="classMergeImage.html#a6c8028d6fc07625a28225e78a0862f55">get_mask</a> ( <span class="keywordtype">int</span> i ) {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keywordflow">return</span> source_images.at ( i )-&gt;<a class="code" href="classImage.html#a51687ae12560be213c5094a40e97782d">get_mask</a>();</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="classMergeImage.html#a3f94e9c6bd2849e6ab9f51fcbee08d0a">  231</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classMergeImage.html#a3f94e9c6bd2849e6ab9f51fcbee08d0a">~MergeImage</a>() {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">if</span> ( ! <a class="code" href="classImage.html#ad71270a9e993d4b7b6af662ee1cd9b45">is_mask</a> ) {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; source_images.size(); i++ ) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                <span class="keyword">delete</span> source_images[i];</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keyword">delete</span> [] background_value;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">if</span> ( transparent_value != NULL ) <span class="keyword">delete</span> [] transparent_value;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="classMergeImage.html#a2c3b77431be3c0e3896f974d9a4204da">  246</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMergeImage.html#a2c3b77431be3c0e3896f974d9a4204da">print</a>() {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;------ MergeImage -------&quot;</span> ;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Number of images = &quot;</span> &lt;&lt; source_images.size() ;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Merge method : &quot;</span> &lt;&lt; <a class="code" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">to_string</a> ( composition ) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> ;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Background value : &quot;</span> &lt;&lt; background_value &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> ;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    }</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">static</span> <a class="code" href="classMergeImage.html">MergeImage</a>* <a class="code" href="classMergeImage.html#ac615bcfcbb1f7ab763fd8ba977aa4aa3">create</a> ( std::vector&lt; Image* &gt;&amp; images, <span class="keywordtype">int</span> <a class="code" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>,</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                                   <span class="keywordtype">int</span>* background_value, <span class="keywordtype">int</span>* transparent_value, <a class="code" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">Merge::eMergeType</a> composition = Merge::NORMAL );</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;};</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="classMergeMask.html">  283</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMergeMask.html">MergeMask</a> : <span class="keyword">public</span> <a class="code" href="classImage.html">Image</a> {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="classMergeImage.html">MergeImage</a>* MI;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="classMergeMask.html#aae1c35a891603f5cdaa206e4ddf057de">  302</a></span>&#160;    <a class="code" href="classMergeMask.html#aae1c35a891603f5cdaa206e4ddf057de">MergeMask</a> ( <a class="code" href="classMergeImage.html">MergeImage</a>*&amp; MI ) :</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <a class="code" href="classImage.html">Image</a> ( MI-&gt;<a class="code" href="classImage.html#a4eeafefc0bae9658ffe8877c5cf681e7">get_width</a>(), MI-&gt;<a class="code" href="classImage.html#a5082f1fdc63e6bb76a105348e72e2e02">get_height</a>(), 1,MI-&gt;<a class="code" href="classImage.html#aa3fee3518036affd30a53ec93863f36b">get_resx</a>(), MI-&gt;<a class="code" href="classImage.html#a86fb743b4144f6cf3fd98078fe636b74">get_resy</a>(),MI-&gt;<a class="code" href="classImage.html#aaf1860cc8b44f180d281f649f06b7ac1">get_bbox</a>() ),</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        MI ( MI ) {}</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMergeMask.html#a036baf89308087b22c6000e79de94b91">get_line</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMergeMask.html#a036baf89308087b22c6000e79de94b91">get_line</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classMergeMask.html#a036baf89308087b22c6000e79de94b91">get_line</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno"><a class="line" href="classMergeMask.html#ad2ddae6b6179e9c242f3346c7171f423">  316</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classMergeMask.html#ad2ddae6b6179e9c242f3346c7171f423">~MergeMask</a>() {}</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="classMergeMask.html#a36b2dc8fc4aacd9b11fa97aa864b2458">  323</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMergeMask.html#a36b2dc8fc4aacd9b11fa97aa864b2458">print</a>() {</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;------ MergeMask -------&quot;</span> ;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <a class="code" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;};</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format.</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition:</b> Image.h:73</div></div>
+<div class="ttc" id="aclassImage_html_a4eeafefc0bae9658ffe8877c5cf681e7"><div class="ttname"><a href="classImage.html#a4eeafefc0bae9658ffe8877c5cf681e7">Image::get_width</a></div><div class="ttdeci">int get_width()</div><div class="ttdoc">Retourne la largeur en pixel de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:206</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:686</div></div>
+<div class="ttc" id="aclassImage_html_a5082f1fdc63e6bb76a105348e72e2e02"><div class="ttname"><a href="classImage.html#a5082f1fdc63e6bb76a105348e72e2e02">Image::get_height</a></div><div class="ttdeci">int get_height()</div><div class="ttdoc">Retourne la hauteur en pixel de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:218</div></div>
+<div class="ttc" id="aclassImage_html_a51687ae12560be213c5094a40e97782d"><div class="ttname"><a href="classImage.html#a51687ae12560be213c5094a40e97782d">Image::get_mask</a></div><div class="ttdeci">Image * get_mask()</div><div class="ttdoc">Retourne le masque de donnée associé à l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:387</div></div>
+<div class="ttc" id="aclassImage_html_a73572ed4b7f15054c5a598c6aabffd86"><div class="ttname"><a href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">Image::channels</a></div><div class="ttdeci">int channels</div><div class="ttdoc">Nombre de canaux de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:81</div></div>
+<div class="ttc" id="aclassImage_html_a86fb743b4144f6cf3fd98078fe636b74"><div class="ttname"><a href="classImage.html#a86fb743b4144f6cf3fd98078fe636b74">Image::get_resy</a></div><div class="ttdeci">double get_resy(bool force_meter=false) const</div><div class="ttdoc">Retourne la résolution dans le sens des Y.</div><div class="ttdef"><b>Definition:</b> Image.h:374</div></div>
+<div class="ttc" id="aclassImage_html_aa3fee3518036affd30a53ec93863f36b"><div class="ttname"><a href="classImage.html#aa3fee3518036affd30a53ec93863f36b">Image::get_resx</a></div><div class="ttdeci">double get_resx(bool force_meter=false) const</div><div class="ttdoc">Retourne la résolution dans le sens des X.</div><div class="ttdef"><b>Definition:</b> Image.h:360</div></div>
+<div class="ttc" id="aclassImage_html_aaf1860cc8b44f180d281f649f06b7ac1"><div class="ttname"><a href="classImage.html#aaf1860cc8b44f180d281f649f06b7ac1">Image::get_bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; get_bbox() const</div><div class="ttdoc">Retourne l'emprise rectangulaire de l'image.</div><div class="ttdef"><b>Definition:</b> Image.h:269</div></div>
+<div class="ttc" id="aclassImage_html_ad71270a9e993d4b7b6af662ee1cd9b45"><div class="ttname"><a href="classImage.html#ad71270a9e993d4b7b6af662ee1cd9b45">Image::is_mask</a></div><div class="ttdeci">bool is_mask</div><div class="ttdoc">L'image est-ell un masque ?</div><div class="ttdef"><b>Definition:</b> Image.h:98</div></div>
+<div class="ttc" id="aclassImage_html_afbd736f60f7951ca41bced1c51061dca"><div class="ttname"><a href="classImage.html#afbd736f60f7951ca41bced1c51061dca">Image::Image</a></div><div class="ttdeci">Image(int width, int height, int channels, double resx, double resy, BoundingBox&lt; double &gt; bbox)</div><div class="ttdoc">Crée un objet Image à partir de tous ses éléments constitutifs.</div><div class="ttdef"><b>Definition:</b> Image.h:577</div></div>
+<div class="ttc" id="aclassMergeImage_html"><div class="ttname"><a href="classMergeImage.html">MergeImage</a></div><div class="ttdoc">Fusion d'images de mêmes dimensions.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:120</div></div>
+<div class="ttc" id="aclassMergeImage_html_a235b223564e71e60ebcb727f940b1983"><div class="ttname"><a href="classMergeImage.html#a235b223564e71e60ebcb727f940b1983">MergeImage::get_line</a></div><div class="ttdeci">virtual int get_line(uint8_t *buffer, int line)</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:132</div></div>
+<div class="ttc" id="aclassMergeImage_html_a2c3b77431be3c0e3896f974d9a4204da"><div class="ttname"><a href="classMergeImage.html#a2c3b77431be3c0e3896f974d9a4204da">MergeImage::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image fusionnée.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:246</div></div>
+<div class="ttc" id="aclassMergeImage_html_a3f94e9c6bd2849e6ab9f51fcbee08d0a"><div class="ttname"><a href="classMergeImage.html#a3f94e9c6bd2849e6ab9f51fcbee08d0a">MergeImage::~MergeImage</a></div><div class="ttdeci">virtual ~MergeImage()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:231</div></div>
+<div class="ttc" id="aclassMergeImage_html_a6c8028d6fc07625a28225e78a0862f55"><div class="ttname"><a href="classMergeImage.html#a6c8028d6fc07625a28225e78a0862f55">MergeImage::get_mask</a></div><div class="ttdeci">Image * get_mask(int i)</div><div class="ttdoc">Retourne le masque de l'image source d'indice i.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:220</div></div>
+<div class="ttc" id="aclassMergeImage_html_a6f34c550d2fcb736e7cd5b38f2e34b43"><div class="ttname"><a href="classMergeImage.html#a6f34c550d2fcb736e7cd5b38f2e34b43">MergeImage::get_images</a></div><div class="ttdeci">std::vector&lt; Image * &gt; * get_images()</div><div class="ttdoc">Retourne le tableau des images sources.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:206</div></div>
+<div class="ttc" id="aclassMergeImage_html_ac615bcfcbb1f7ab763fd8ba977aa4aa3"><div class="ttname"><a href="classMergeImage.html#ac615bcfcbb1f7ab763fd8ba977aa4aa3">MergeImage::create</a></div><div class="ttdeci">static MergeImage * create(std::vector&lt; Image * &gt; &amp;images, int channels, int *background_value, int *transparent_value, Merge::eMergeType composition=Merge::NORMAL)</div><div class="ttdoc">Teste et calcule les caractéristiques d'une image fusionnée et crée un objet MergeImage.</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:146</div></div>
+<div class="ttc" id="aclassMergeMask_html"><div class="ttname"><a href="classMergeMask.html">MergeMask</a></div><div class="ttdoc">Manipulation d'un masque fusionné, s'appuyant sur une image fusionné</div><div class="ttdef"><b>Definition:</b> MergeImage.h:283</div></div>
+<div class="ttc" id="aclassMergeMask_html_a036baf89308087b22c6000e79de94b91"><div class="ttname"><a href="classMergeMask.html#a036baf89308087b22c6000e79de94b91">MergeMask::get_line</a></div><div class="ttdeci">int get_line(uint8_t *buffer, int line)</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:174</div></div>
+<div class="ttc" id="aclassMergeMask_html_a36b2dc8fc4aacd9b11fa97aa864b2458"><div class="ttname"><a href="classMergeMask.html#a36b2dc8fc4aacd9b11fa97aa864b2458">MergeMask::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur le masque fusionné</div><div class="ttdef"><b>Definition:</b> MergeImage.h:323</div></div>
+<div class="ttc" id="aclassMergeMask_html_aae1c35a891603f5cdaa206e4ddf057de"><div class="ttname"><a href="classMergeMask.html#aae1c35a891603f5cdaa206e4ddf057de">MergeMask::MergeMask</a></div><div class="ttdeci">MergeMask(MergeImage *&amp;MI)</div><div class="ttdoc">Crée un MergeMask.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:302</div></div>
+<div class="ttc" id="aclassMergeMask_html_ad2ddae6b6179e9c242f3346c7171f423"><div class="ttname"><a href="classMergeMask.html#ad2ddae6b6179e9c242f3346c7171f423">MergeMask::~MergeMask</a></div><div class="ttdeci">virtual ~MergeMask()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:316</div></div>
+<div class="ttc" id="anamespaceCompression_html_aae54011f247d7d047c7e60aa775fa6d0"><div class="ttname"><a href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Compression::to_string</a></div><div class="ttdeci">std::string to_string(eCompression comp)</div><div class="ttdoc">Conversion d'une compression vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> Format.cpp:86</div></div>
+<div class="ttc" id="anamespaceMerge_html"><div class="ttname"><a href="namespaceMerge.html">Merge</a></div><div class="ttdoc">Gestion des informations liées à la méthode de fusion.</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:221</div></div>
+<div class="ttc" id="anamespaceMerge_html_a32e52ad0743ec9f09599906d537150ce"><div class="ttname"><a href="namespaceMerge.html#a32e52ad0743ec9f09599906d537150ce">Merge::mergetype_size</a></div><div class="ttdeci">const int mergetype_size</div><div class="ttdoc">Nombre de méthodes disponibles.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:83</div></div>
+<div class="ttc" id="anamespaceMerge_html_a96b7faadef3c944c19358aafd417dc8c"><div class="ttname"><a href="namespaceMerge.html#a96b7faadef3c944c19358aafd417dc8c">Merge::from_string</a></div><div class="ttdeci">eMergeType from_string(std::string str_merge_method)</div><div class="ttdoc">Conversion d'une chaîne de caractères vers une méthode de fusion de l'énumération.</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:231</div></div>
+<div class="ttc" id="anamespaceMerge_html_ae59996043a913148e96b5aba66792a8d"><div class="ttname"><a href="namespaceMerge.html#ae59996043a913148e96b5aba66792a8d">Merge::to_string</a></div><div class="ttdeci">std::string to_string(eMergeType merge_method)</div><div class="ttdoc">Conversion d'une méthode de fusion vers une chaîne de caractères.</div><div class="ttdef"><b>Definition:</b> MergeImage.cpp:240</div></div>
+<div class="ttc" id="anamespaceMerge_html_afb369901290981aaabe51f39e2c32936"><div class="ttname"><a href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">Merge::eMergeType</a></div><div class="ttdeci">eMergeType</div><div class="ttdoc">Énumération des méthodes de fusion disponibles.</div><div class="ttdef"><b>Definition:</b> MergeImage.h:71</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_128fc099d035536e093f6a644b1f5923.html">image</a></li><li class="navelem"><a class="el" href="MergeImage_8h.html">MergeImage.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

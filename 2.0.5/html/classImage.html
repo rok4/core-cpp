@@ -1,0 +1,1538 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classImage.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pub-static-methods">Fonctions membres publiques statiques</a> &#124;
+<a href="#pro-methods">Fonctions membres protégées</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a> &#124;
+<a href="classImage-members.html">Liste de tous les membres</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe Image<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Interface de manipulation d'images.  
+ <a href="classImage.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Image_8h_source.html">Image.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe d'héritage de Image:</div>
+<div class="dyncontent">
+<div class="center"><img src="classImage__inherit__graph.png" border="0" usemap="#aImage_inherit__map" alt="Inheritance graph"/></div>
+<map name="aImage_inherit__map" id="aImage_inherit__map">
+<area shape="rect" title="Interface de manipulation d&#39;images." alt="" coords="5,436,68,463"/>
+<area shape="rect" href="classAspectImage.html" title=" " alt="" coords="160,5,267,32"/>
+<area shape="rect" href="classCompoundImage.html" title=" " alt="" coords="147,56,280,83"/>
+<area shape="rect" href="classDecimatedImage.html" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="146,107,281,133"/>
+<area shape="rect" href="classEmptyImage.html" title="Création d&#39;une image monochrome, utile pour simulée une image source ou remplir de nodata." alt="" coords="161,157,266,184"/>
+<area shape="rect" href="classEstompageImage.html" title=" " alt="" coords="145,208,281,235"/>
+<area shape="rect" href="classExtendedCompoundImage.html" title="Manipulation d&#39;un paquet d&#39;images compatibles." alt="" coords="116,259,311,285"/>
+<area shape="rect" href="classExtendedCompoundMask.html" title="Manipulation d&#39;un masque composé, s&#39;appuyant sur une image composée." alt="" coords="119,309,307,336"/>
+<area shape="rect" href="classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="170,360,257,387"/>
+<area shape="rect" href="classImageDecoder.html" title=" " alt="" coords="155,411,272,437"/>
+<area shape="rect" href="classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions." alt="" coords="161,461,265,488"/>
+<area shape="rect" href="classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné" alt="" coords="164,512,263,539"/>
+<area shape="rect" href="classMirrorImage.html" title="Manipulation d&#39;une image miroir." alt="" coords="162,563,265,589"/>
+<area shape="rect" href="classPaletteImage.html" title=" " alt="" coords="159,613,267,640"/>
+<area shape="rect" href="classPenteImage.html" title=" " alt="" coords="163,664,263,691"/>
+<area shape="rect" href="classRawImage.html" title=" " alt="" coords="168,715,259,741"/>
+<area shape="rect" href="classReprojectedImage.html" title="Manipulation d&#39;image reprojetée." alt="" coords="143,765,284,792"/>
+<area shape="rect" href="classResampledImage.html" title="Manipulation d&#39;image réechantillonnée." alt="" coords="145,816,281,843"/>
+<area shape="rect" href="classRok4Image.html" title="Manipulation d&#39;une image ROK4 Server." alt="" coords="165,867,261,893"/>
+<area shape="rect" href="classBilzImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="387,259,473,285"/>
+<area shape="rect" href="classLibjpegImage.html" title="Manipulation d&#39;une image JPEG." alt="" coords="375,309,485,336"/>
+<area shape="rect" href="classLibopenjpegImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie openjpeg." alt="" coords="359,360,501,387"/>
+<area shape="rect" href="classLibpngImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="377,411,483,437"/>
+<area shape="rect" href="classLibtiffImage.html" title="Manipulation d&#39;une image TIFF." alt="" coords="380,461,480,488"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">légende</a>]</span></center></div>
+<div class="dynheader">
+Graphe de collaboration de Image:</div>
+<div class="dyncontent">
+<div class="center"><img src="classImage__coll__graph.png" border="0" usemap="#aImage_coll__map" alt="Collaboration graph"/></div>
+<map name="aImage_coll__map" id="aImage_coll__map">
+<area shape="rect" title="Interface de manipulation d&#39;images." alt="" coords="67,95,130,121"/>
+<area shape="rect" href="classCRS.html" title="Gestion des systèmes de référence." alt="" coords="5,5,53,32"/>
+<area shape="rect" href="classBoundingBox.html" title=" " alt="" coords="78,5,261,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">légende</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:a874cc1f51f6ce068474e11222175edf1"><td class="memItemLeft" align="right" valign="top"><a id="a874cc1f51f6ce068474e11222175edf1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a874cc1f51f6ce068474e11222175edf1">make_mask</a> ()</td></tr>
+<tr class="memdesc:a874cc1f51f6ce068474e11222175edf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'image comme un masque. <br /></td></tr>
+<tr class="separator:a874cc1f51f6ce068474e11222175edf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c5235e89dac8310bc1c500edead968e"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a4c5235e89dac8310bc1c500edead968e">get_channels</a> ()</td></tr>
+<tr class="memdesc:a4c5235e89dac8310bc1c500edead968e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le nombre de canaux par pixel.  <a href="classImage.html#a4c5235e89dac8310bc1c500edead968e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4c5235e89dac8310bc1c500edead968e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eeafefc0bae9658ffe8877c5cf681e7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a4eeafefc0bae9658ffe8877c5cf681e7">get_width</a> ()</td></tr>
+<tr class="memdesc:a4eeafefc0bae9658ffe8877c5cf681e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la largeur en pixel de l'image.  <a href="classImage.html#a4eeafefc0bae9658ffe8877c5cf681e7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4eeafefc0bae9658ffe8877c5cf681e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5082f1fdc63e6bb76a105348e72e2e02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a5082f1fdc63e6bb76a105348e72e2e02">get_height</a> ()</td></tr>
+<tr class="memdesc:a5082f1fdc63e6bb76a105348e72e2e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la hauteur en pixel de l'image.  <a href="classImage.html#a5082f1fdc63e6bb76a105348e72e2e02">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5082f1fdc63e6bb76a105348e72e2e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade4c83cdd9dcb16ad2d5347d41b06cc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ade4c83cdd9dcb16ad2d5347d41b06cc5">set_bbox</a> (<a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt; box)</td></tr>
+<tr class="memdesc:ade4c83cdd9dcb16ad2d5347d41b06cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'emprise rectangulaire de l'image et calcule les résolutions.  <a href="classImage.html#ade4c83cdd9dcb16ad2d5347d41b06cc5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ade4c83cdd9dcb16ad2d5347d41b06cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88bbbb12cccfb44a9407f9373a9200c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a88bbbb12cccfb44a9407f9373a9200c2">set_dimensions</a> (int w, int h, <a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt; box, double rx, double ry)</td></tr>
+<tr class="memdesc:a88bbbb12cccfb44a9407f9373a9200c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit les dimensions de l'image, en vérifiant leurs cohérences.  <a href="classImage.html#a88bbbb12cccfb44a9407f9373a9200c2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a88bbbb12cccfb44a9407f9373a9200c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf1860cc8b44f180d281f649f06b7ac1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aaf1860cc8b44f180d281f649f06b7ac1">get_bbox</a> () const</td></tr>
+<tr class="memdesc:aaf1860cc8b44f180d281f649f06b7ac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'emprise rectangulaire de l'image.  <a href="classImage.html#aaf1860cc8b44f180d281f649f06b7ac1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaf1860cc8b44f180d281f649f06b7ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3570c22e904bf909aaf831ba8e5b74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aaa3570c22e904bf909aaf831ba8e5b74">set_crs</a> (<a class="el" href="classCRS.html">CRS</a> *c)</td></tr>
+<tr class="memdesc:aaa3570c22e904bf909aaf831ba8e5b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le SRS de l'emprise rectangulaire.  <a href="classImage.html#aaa3570c22e904bf909aaf831ba8e5b74">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaa3570c22e904bf909aaf831ba8e5b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1002343187ccb71d6ce6138eeefe970a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCRS.html">CRS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a1002343187ccb71d6ce6138eeefe970a">get_crs</a> () const</td></tr>
+<tr class="memdesc:a1002343187ccb71d6ce6138eeefe970a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le SRS de l'emprise rectangulaire de l'image.  <a href="classImage.html#a1002343187ccb71d6ce6138eeefe970a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1002343187ccb71d6ce6138eeefe970a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a37fd94f2348080c10de2cbf3c5e21f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a8a37fd94f2348080c10de2cbf3c5e21f">get_xmin</a> () const</td></tr>
+<tr class="memdesc:a8a37fd94f2348080c10de2cbf3c5e21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le xmin de l'emprise rectangulaire.  <a href="classImage.html#a8a37fd94f2348080c10de2cbf3c5e21f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8a37fd94f2348080c10de2cbf3c5e21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54ae13f9aa1253a14f372a19c6956b7e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a54ae13f9aa1253a14f372a19c6956b7e">get_ymax</a> () const</td></tr>
+<tr class="memdesc:a54ae13f9aa1253a14f372a19c6956b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le ymax de l'emprise rectangulaire.  <a href="classImage.html#a54ae13f9aa1253a14f372a19c6956b7e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a54ae13f9aa1253a14f372a19c6956b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b3756a75830428322542fccda612d3a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a2b3756a75830428322542fccda612d3a">get_xmax</a> () const</td></tr>
+<tr class="memdesc:a2b3756a75830428322542fccda612d3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le xmax de l'emprise rectangulaire.  <a href="classImage.html#a2b3756a75830428322542fccda612d3a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2b3756a75830428322542fccda612d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa8140d71c10756b55df5fc73814480"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#afaa8140d71c10756b55df5fc73814480">get_ymin</a> () const</td></tr>
+<tr class="memdesc:afaa8140d71c10756b55df5fc73814480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le ymin de l'emprise rectangulaire.  <a href="classImage.html#afaa8140d71c10756b55df5fc73814480">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afaa8140d71c10756b55df5fc73814480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3fee3518036affd30a53ec93863f36b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aa3fee3518036affd30a53ec93863f36b">get_resx</a> (bool force_meter=false) const</td></tr>
+<tr class="memdesc:aa3fee3518036affd30a53ec93863f36b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la résolution dans le sens des X.  <a href="classImage.html#aa3fee3518036affd30a53ec93863f36b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa3fee3518036affd30a53ec93863f36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86fb743b4144f6cf3fd98078fe636b74"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a86fb743b4144f6cf3fd98078fe636b74">get_resy</a> (bool force_meter=false) const</td></tr>
+<tr class="memdesc:a86fb743b4144f6cf3fd98078fe636b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la résolution dans le sens des Y.  <a href="classImage.html#a86fb743b4144f6cf3fd98078fe636b74">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a86fb743b4144f6cf3fd98078fe636b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51687ae12560be213c5094a40e97782d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classImage.html">Image</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a51687ae12560be213c5094a40e97782d">get_mask</a> ()</td></tr>
+<tr class="memdesc:a51687ae12560be213c5094a40e97782d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le masque de donnée associé à l'image.  <a href="classImage.html#a51687ae12560be213c5094a40e97782d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a51687ae12560be213c5094a40e97782d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c806b89969b447cae6571461fcd2dcf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a6c806b89969b447cae6571461fcd2dcf">set_mask</a> (<a class="el" href="classImage.html">Image</a> *new_mask)</td></tr>
+<tr class="memdesc:a6c806b89969b447cae6571461fcd2dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le masque de donnée et contrôle la cohérence avec l'image.  <a href="classImage.html#a6c806b89969b447cae6571461fcd2dcf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6c806b89969b447cae6571461fcd2dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbee33516b2fb0a0145b24a404852958"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#abbee33516b2fb0a0145b24a404852958">x_to_column</a> (double x)</td></tr>
+<tr class="memdesc:abbee33516b2fb0a0145b24a404852958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion de l'abscisse terrain vers l'indice de colonne dans l'image.  <a href="classImage.html#abbee33516b2fb0a0145b24a404852958">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abbee33516b2fb0a0145b24a404852958"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afed82aedde61b2137be1309f633cd4ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#afed82aedde61b2137be1309f633cd4ff">y_to_line</a> (double y)</td></tr>
+<tr class="memdesc:afed82aedde61b2137be1309f633cd4ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion de l'ordonnée terrain vers l'indice de ligne dans l'image.  <a href="classImage.html#afed82aedde61b2137be1309f633cd4ff">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afed82aedde61b2137be1309f633cd4ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d60187139613a415b79e754914b4d5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a26d60187139613a415b79e754914b4d5">column_to_x</a> (int c)</td></tr>
+<tr class="memdesc:a26d60187139613a415b79e754914b4d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion de l'indice de colonne dans l'image vers l'abscisse terrain du centre du pixel.  <a href="classImage.html#a26d60187139613a415b79e754914b4d5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a26d60187139613a415b79e754914b4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200ae8f8f08106d0b4b70134d9a40ed9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a200ae8f8f08106d0b4b70134d9a40ed9">line_to_y</a> (int l)</td></tr>
+<tr class="memdesc:a200ae8f8f08106d0b4b70134d9a40ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion de l'indice de ligne dans l'image vers l'ordonnée terrain du centre du pixel.  <a href="classImage.html#a200ae8f8f08106d0b4b70134d9a40ed9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a200ae8f8f08106d0b4b70134d9a40ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eca1ad6d98626fb5f53b6e3fd270ae5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a6eca1ad6d98626fb5f53b6e3fd270ae5">get_phasex</a> ()</td></tr>
+<tr class="memdesc:a6eca1ad6d98626fb5f53b6e3fd270ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul de la phase dans le sens des X.  <a href="classImage.html#a6eca1ad6d98626fb5f53b6e3fd270ae5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6eca1ad6d98626fb5f53b6e3fd270ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0d704b46226611dc86425fcf8b8b7d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aea0d704b46226611dc86425fcf8b8b7d">get_phasey</a> ()</td></tr>
+<tr class="memdesc:aea0d704b46226611dc86425fcf8b8b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul de la phase dans le sens des Y.  <a href="classImage.html#aea0d704b46226611dc86425fcf8b8b7d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aea0d704b46226611dc86425fcf8b8b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e11502f4e46c9fada57ecdbccea258f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a5e11502f4e46c9fada57ecdbccea258f">compatible</a> (<a class="el" href="classImage.html">Image</a> *other)</td></tr>
+<tr class="memdesc:a5e11502f4e46c9fada57ecdbccea258f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine la compatibilité avec une autre image, en comparant phases et résolutions.  <a href="classImage.html#a5e11502f4e46c9fada57ecdbccea258f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5e11502f4e46c9fada57ecdbccea258f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd736f60f7951ca41bced1c51061dca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#afbd736f60f7951ca41bced1c51061dca">Image</a> (int <a class="el" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, int <a class="el" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, int <a class="el" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, double <a class="el" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, double <a class="el" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt; <a class="el" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>)</td></tr>
+<tr class="memdesc:afbd736f60f7951ca41bced1c51061dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un objet <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> à partir de tous ses éléments constitutifs.  <a href="classImage.html#afbd736f60f7951ca41bced1c51061dca">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afbd736f60f7951ca41bced1c51061dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a6c85e37ae6c9782e93154a301fb0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ac3a6c85e37ae6c9782e93154a301fb0b">Image</a> (int <a class="el" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, int <a class="el" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, int <a class="el" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>)</td></tr>
+<tr class="memdesc:ac3a6c85e37ae6c9782e93154a301fb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser de géoréférencement, ni résolutions, ni rectangle englobant.  <a href="classImage.html#ac3a6c85e37ae6c9782e93154a301fb0b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac3a6c85e37ae6c9782e93154a301fb0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d9b0461e4f1962ce75907b50164174"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a19d9b0461e4f1962ce75907b50164174">Image</a> (int <a class="el" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, int <a class="el" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, int <a class="el" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, <a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt; <a class="el" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>)</td></tr>
+<tr class="memdesc:a19d9b0461e4f1962ce75907b50164174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser les résolutions.  <a href="classImage.html#a19d9b0461e4f1962ce75907b50164174">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a19d9b0461e4f1962ce75907b50164174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefde1103df65636da9495307c14c5282"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aefde1103df65636da9495307c14c5282">Image</a> (int <a class="el" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, int <a class="el" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, int <a class="el" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, double <a class="el" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, double <a class="el" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>)</td></tr>
+<tr class="memdesc:aefde1103df65636da9495307c14c5282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un objet <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser le rectangle englobant.  <a href="classImage.html#aefde1103df65636da9495307c14c5282">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aefde1103df65636da9495307c14c5282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96d36f749078062c6128380bf32df8c1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a96d36f749078062c6128380bf32df8c1">get_line</a> (uint8_t *buffer, int line)=0</td></tr>
+<tr class="memdesc:a96d36f749078062c6128380bf32df8c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont pas intrinsèquement codées sur des entiers 8 bits, il n'y a pas de conversion (une valeur sur 32 bits occupera 4 "cases" sur 8 bits).  <a href="classImage.html#a96d36f749078062c6128380bf32df8c1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a96d36f749078062c6128380bf32df8c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9171734a88241b6e870398b1e905a7d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ab9171734a88241b6e870398b1e905a7d">get_line</a> (uint16_t *buffer, int line)=0</td></tr>
+<tr class="memdesc:ab9171734a88241b6e870398b1e905a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une ligne en entier 16 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont pas intrinsèquement codées sur des entiers 16 bits, il n'y a pas de conversion (une valeur sur 32 bits occupera 2 "cases" sur 16 bits).  <a href="classImage.html#ab9171734a88241b6e870398b1e905a7d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab9171734a88241b6e870398b1e905a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae96f2fbf9258f4f40c11f6b5aea7aacd"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ae96f2fbf9258f4f40c11f6b5aea7aacd">get_line</a> (float *buffer, int line)=0</td></tr>
+<tr class="memdesc:ae96f2fbf9258f4f40c11f6b5aea7aacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une ligne en flottant 32 bits. Les canaux sont entrelacés. Si les données ne sont pas intrinsèquement codées sur des flottants 32 bits, une conversion est effectuée.  <a href="classImage.html#ae96f2fbf9258f4f40c11f6b5aea7aacd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae96f2fbf9258f4f40c11f6b5aea7aacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46561cd7dcf7e203e9579737e8ace4eb"><td class="memItemLeft" align="right" valign="top"><a id="a46561cd7dcf7e203e9579737e8ace4eb"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a46561cd7dcf7e203e9579737e8ace4eb">~Image</a> ()</td></tr>
+<tr class="memdesc:a46561cd7dcf7e203e9579737e8ace4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur par défaut. <br /></td></tr>
+<tr class="separator:a46561cd7dcf7e203e9579737e8ace4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f323615ceb17633e8db743839c00fe0"><td class="memItemLeft" align="right" valign="top"><a id="a4f323615ceb17633e8db743839c00fe0"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">print</a> ()</td></tr>
+<tr class="memdesc:a4f323615ceb17633e8db743839c00fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sortie des informations sur l'image. <br /></td></tr>
+<tr class="separator:a4f323615ceb17633e8db743839c00fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12f81c3c4bd780836e2ea51feae620b"><td class="memItemLeft" align="right" valign="top"><a id="af12f81c3c4bd780836e2ea51feae620b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#af12f81c3c4bd780836e2ea51feae620b">print_tfw</a> ()</td></tr>
+<tr class="memdesc:af12f81c3c4bd780836e2ea51feae620b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sortie du tfw de l'image. <br /></td></tr>
+<tr class="separator:af12f81c3c4bd780836e2ea51feae620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c1a49a51e09024fad737e54db1a515"><td class="memItemLeft" align="right" valign="top"><a id="ae3c1a49a51e09024fad737e54db1a515"></a>
+virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ae3c1a49a51e09024fad737e54db1a515">get_mean_resolution</a> ()</td></tr>
+<tr class="memdesc:ae3c1a49a51e09024fad737e54db1a515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résolution moyenne. <br /></td></tr>
+<tr class="separator:ae3c1a49a51e09024fad737e54db1a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Fonctions membres publiques statiques</h2></td></tr>
+<tr class="memitem:adb131496f211af65e747430ed145704f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#adb131496f211af65e747430ed145704f">are_dimensions_consistent</a> (double resolution_x, double resolution_y, int w, int h, <a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt; bounding_box)</td></tr>
+<tr class="memdesc:adb131496f211af65e747430ed145704f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie la cohérence des dimensions d'image fournies.  <a href="classImage.html#adb131496f211af65e747430ed145704f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adb131496f211af65e747430ed145704f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Fonctions membres protégées</h2></td></tr>
+<tr class="memitem:acfab2bb3b152ee955662d29be08c037a"><td class="memItemLeft" align="right" valign="top"><a id="acfab2bb3b152ee955662d29be08c037a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#acfab2bb3b152ee955662d29be08c037a">compute_resolutions</a> ()</td></tr>
+<tr class="memdesc:acfab2bb3b152ee955662d29be08c037a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul des resolutions en x et en y, calculées à partir des dimensions et de la bouding box. <br /></td></tr>
+<tr class="separator:acfab2bb3b152ee955662d29be08c037a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr class="memitem:a73572ed4b7f15054c5a598c6aabffd86"><td class="memItemLeft" align="right" valign="top"><a id="a73572ed4b7f15054c5a598c6aabffd86"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a></td></tr>
+<tr class="memdesc:a73572ed4b7f15054c5a598c6aabffd86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de canaux de l'image. <br /></td></tr>
+<tr class="separator:a73572ed4b7f15054c5a598c6aabffd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d12f635013c04159cd4d3d972bac88"><td class="memItemLeft" align="right" valign="top"><a id="ab8d12f635013c04159cd4d3d972bac88"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a></td></tr>
+<tr class="memdesc:ab8d12f635013c04159cd4d3d972bac88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur de l'image en pixel. <br /></td></tr>
+<tr class="separator:ab8d12f635013c04159cd4d3d972bac88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51df43db420c9c0b57536cb2dd36de5c"><td class="memItemLeft" align="right" valign="top"><a id="a51df43db420c9c0b57536cb2dd36de5c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a></td></tr>
+<tr class="memdesc:a51df43db420c9c0b57536cb2dd36de5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de l'image en pixel. <br /></td></tr>
+<tr class="separator:a51df43db420c9c0b57536cb2dd36de5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad71270a9e993d4b7b6af662ee1cd9b45"><td class="memItemLeft" align="right" valign="top"><a id="ad71270a9e993d4b7b6af662ee1cd9b45"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ad71270a9e993d4b7b6af662ee1cd9b45">is_mask</a></td></tr>
+<tr class="memdesc:ad71270a9e993d4b7b6af662ee1cd9b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image est-ell un masque ? <br /></td></tr>
+<tr class="separator:ad71270a9e993d4b7b6af662ee1cd9b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a792f6f0da13e8efa5e97d4cdbf0226"><td class="memItemLeft" align="right" valign="top"><a id="a3a792f6f0da13e8efa5e97d4cdbf0226"></a>
+<a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a></td></tr>
+<tr class="memdesc:a3a792f6f0da13e8efa5e97d4cdbf0226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emprise rectangulaire au sol de l'image. <br /></td></tr>
+<tr class="separator:a3a792f6f0da13e8efa5e97d4cdbf0226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2638441e9c5b90dd121e29726669e4f"><td class="memItemLeft" align="right" valign="top"><a id="aa2638441e9c5b90dd121e29726669e4f"></a>
+<a class="el" href="classCRS.html">CRS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aa2638441e9c5b90dd121e29726669e4f">crs</a></td></tr>
+<tr class="memdesc:aa2638441e9c5b90dd121e29726669e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classCRS.html" title="Gestion des systèmes de référence.">CRS</a> du rectangle englobant de l'image. <br /></td></tr>
+<tr class="separator:aa2638441e9c5b90dd121e29726669e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addf8dfc5450f39fda76423414dd2ae3f"><td class="memItemLeft" align="right" valign="top"><a id="addf8dfc5450f39fda76423414dd2ae3f"></a>
+<a class="el" href="classImage.html">Image</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#addf8dfc5450f39fda76423414dd2ae3f">mask</a></td></tr>
+<tr class="memdesc:addf8dfc5450f39fda76423414dd2ae3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masque de donnée associé à l'image, facultatif. <br /></td></tr>
+<tr class="separator:addf8dfc5450f39fda76423414dd2ae3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe29aeaf20398569b02db53e87b07707"><td class="memItemLeft" align="right" valign="top"><a id="afe29aeaf20398569b02db53e87b07707"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a></td></tr>
+<tr class="memdesc:afe29aeaf20398569b02db53e87b07707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution de l'image, dans le sens des X. <br /></td></tr>
+<tr class="separator:afe29aeaf20398569b02db53e87b07707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8f90faecc126e872d6412d8b4db27c"><td class="memItemLeft" align="right" valign="top"><a id="aef8f90faecc126e872d6412d8b4db27c"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a></td></tr>
+<tr class="memdesc:aef8f90faecc126e872d6412d8b4db27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution de l'image, dans le sens des Y. <br /></td></tr>
+<tr class="separator:aef8f90faecc126e872d6412d8b4db27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Interface de manipulation d'images. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Institut national de l'information géographique et forestière</dd></dl>
+<p>Cette classe abstraite permet d'utiliser toutes les images de la même manière, en assurant les définitions des fonctions permettant de lire une ligne, connaître l'emprise géographique de l'image... Toutes ces informations que l'on veut connaître sur une image, qu'elle soit directement liée à un fichier, ou le réechantillonnage d'un ensemble d'images.</p>
+<p>On permet l'association d'un masque de donnée, qui n'est autre qu'une image à un canal sur 8 bits qui permet la distinction entre un pixel de l'image qui contient de la vraie donnée de celui qui contient du nodata.</p>
+<p>Ne sont gérés que les formats suivant pour les canaux : </p><ul>
+<li>flottant sur 32 bits </li>
+<li>entier non signé sur 8 bits</li>
+</ul>
+<p>Le géoréférencement est assuré par le renseignement des résolutions et du rectangle englobant. Cependant, on peut également gérer des images simples. Dans ce cas, on mettra par convention une bbox à 0,0,0,0 et des résolutions à -1. Aucun test ne sera fait par les fonctions qui utilisent ces attributs. On doit donc bien faire attention à rester cohérent. </p>
+</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<a id="afbd736f60f7951ca41bced1c51061dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd736f60f7951ca41bced1c51061dca">&#9670;&nbsp;</a></span>Image() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Image::Image </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>channels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>bbox</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée un objet <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> à partir de tous ses éléments constitutifs. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>largeur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>hauteur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">channel</td><td>nombre de canaux par pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resx</td><td>résolution dans le sens des X </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resy</td><td>résolution dans le sens des Y </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bbox</td><td>emprise rectangulaire de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac3a6c85e37ae6c9782e93154a301fb0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a6c85e37ae6c9782e93154a301fb0b">&#9670;&nbsp;</a></span>Image() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Image::Image </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>channels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée une <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser de géoréférencement, ni résolutions, ni rectangle englobant. </p>
+<p>La résolution sera de 1 dans les 2 sens et le rectangle englobant sera 0,0 width,height </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>largeur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>hauteur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">channel</td><td>nombre de canaux par pixel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19d9b0461e4f1962ce75907b50164174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d9b0461e4f1962ce75907b50164174">&#9670;&nbsp;</a></span>Image() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Image::Image </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>channels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>bbox</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée une <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser les résolutions. </p>
+<p>Les résolutions sont calculées à partie du rectangle englobant et des dimensions en pixel. </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>largeur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>hauteur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">channel</td><td>nombre de canaux par pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bbox</td><td>emprise rectangulaire de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aefde1103df65636da9495307c14c5282"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefde1103df65636da9495307c14c5282">&#9670;&nbsp;</a></span>Image() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Image::Image </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>channels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée un objet <a class="el" href="classImage.html" title="Interface de manipulation d&#39;images.">Image</a> sans préciser le rectangle englobant. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>largeur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>hauteur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">channel</td><td>nombre de canaux par pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resx</td><td>résolution dans le sens des X </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resy</td><td>résolution dans le sens des Y </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="adb131496f211af65e747430ed145704f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb131496f211af65e747430ed145704f">&#9670;&nbsp;</a></span>are_dimensions_consistent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool Image::are_dimensions_consistent </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resolution_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>resolution_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>bounding_box</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vérifie la cohérence des dimensions d'image fournies. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">resolution_x</td><td>Resolution de l'image, dans le sens des X </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resolution_y</td><td>Resolution de l'image, dans le sens des Y </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>Largeur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">h</td><td>Hauteur de l'image en pixel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bounding_box</td><td>Emprise rectangulaire au sol de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a26d60187139613a415b79e754914b4d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d60187139613a415b79e754914b4d5">&#9670;&nbsp;</a></span>column_to_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::column_to_x </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion de l'indice de colonne dans l'image vers l'abscisse terrain du centre du pixel. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>colonne </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>abscisse terrain </dd></dl>
+
+</div>
+</div>
+<a id="a5e11502f4e46c9fada57ecdbccea258f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e11502f4e46c9fada57ecdbccea258f">&#9670;&nbsp;</a></span>compatible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::compatible </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classImage.html">Image</a> *&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Détermine la compatibilité avec une autre image, en comparant phases et résolutions. </p>
+<p>On parle d'images compatibles lorsqu'elles ont : </p><ul>
+<li>le même SRS </li>
+<li>la même résolution en X </li>
+<li>la même résolution en Y </li>
+<li>la même phase en X </li>
+<li>la même phase en Y </li>
+<li>le même nombre de canaux</li>
+</ul>
+<p>Les tests d'égalité acceptent un epsilon qui est le suivant : </p><ul>
+<li>1 pour mille de la résolution la plus petite pour les résolutions </li>
+<li>1 pour mille pour les phases</li>
+</ul>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td>image à comparer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>compatibilité </dd></dl>
+
+</div>
+</div>
+<a id="aaf1860cc8b44f180d281f649f06b7ac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf1860cc8b44f180d281f649f06b7ac1">&#9670;&nbsp;</a></span>get_bbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt;double&gt; Image::get_bbox </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne l'emprise rectangulaire de l'image. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>emprise </dd></dl>
+
+</div>
+</div>
+<a id="a4c5235e89dac8310bc1c500edead968e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c5235e89dac8310bc1c500edead968e">&#9670;&nbsp;</a></span>get_channels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Image::get_channels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le nombre de canaux par pixel. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>channels </dd></dl>
+
+<p>Réimplémentée dans <a class="el" href="classFileImage.html#ad1a0c2a96e8946d7a3212de3e90d9f7c">FileImage</a>.</p>
+
+</div>
+</div>
+<a id="a1002343187ccb71d6ce6138eeefe970a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1002343187ccb71d6ce6138eeefe970a">&#9670;&nbsp;</a></span>get_crs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCRS.html">CRS</a>* Image::get_crs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le SRS de l'emprise rectangulaire de l'image. </p>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="classCRS.html" title="Gestion des systèmes de référence.">CRS</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5082f1fdc63e6bb76a105348e72e2e02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5082f1fdc63e6bb76a105348e72e2e02">&#9670;&nbsp;</a></span>get_height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Image::get_height </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne la hauteur en pixel de l'image. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>hauteur </dd></dl>
+
+</div>
+</div>
+<a id="ae96f2fbf9258f4f40c11f6b5aea7aacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae96f2fbf9258f4f40c11f6b5aea7aacd">&#9670;&nbsp;</a></span>get_line() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Image::get_line </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne une ligne en flottant 32 bits. Les canaux sont entrelacés. Si les données ne sont pas intrinsèquement codées sur des flottants 32 bits, une conversion est effectuée. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buffer</td><td>Tableau contenant au moins 'width * channels' flottant sur 32 bits </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">line</td><td>Indice de la ligne à retourner (0 &lt;= line &lt; height) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>taille utile du buffer, 0 si erreur </dd></dl>
+
+<p>Implémenté dans <a class="el" href="classFileImage.html#aa2ada4188ca876f1f25052648db6c007">FileImage</a>, <a class="el" href="classMirrorImage.html#a3b4f5433488116b9da55ef1b0c258270">MirrorImage</a>, <a class="el" href="classLibopenjpegImage.html#a6b9d3870aaf5535c22ed0feb078f8ea9">LibopenjpegImage</a>, <a class="el" href="classLibtiffImage.html#a3f64f7558f4603e94a80b37326a05ff1">LibtiffImage</a>, <a class="el" href="classLibpngImage.html#a46115f41eb68952b68b55879831d85cc">LibpngImage</a>, <a class="el" href="classLibjpegImage.html#a71891a7005517a5884f6765e07f8fc85">LibjpegImage</a>, <a class="el" href="classBilzImage.html#a859a8808485df1665ccf8d6785ace80a">BilzImage</a>, <a class="el" href="classResampledImage.html#a985ebdb2634e894e40ad8813d981d851">ResampledImage</a>, <a class="el" href="classReprojectedImage.html#a7e796e7e26c95f9c572e75ac6919e175">ReprojectedImage</a>, <a class="el" href="classRawImage.html#a4206377b6a375abd63810c6e9f9d465d">RawImage</a>, <a class="el" href="classPenteImage.html#a6d84e3b5ca037a46a613a4c80acf8535">PenteImage</a>, <a class="el" href="classPaletteImage.html#aa9747c80347196ddf57d0b4d3e8f0d33">PaletteImage</a>, <a class="el" href="classMergeMask.html#a164b01818463abe976bc96f8885ae372">MergeMask</a>, <a class="el" href="classMergeImage.html#a2b343728da43af1b30f97c2e25071cdf">MergeImage</a>, <a class="el" href="classRok4Image.html#a5afd291946220e7e54bea908fadfe8be">Rok4Image</a>, <a class="el" href="classExtendedCompoundMask.html#a76049c3867861b8a2d6c912a940fa9f6">ExtendedCompoundMask</a>, <a class="el" href="classExtendedCompoundImage.html#a3e23875f9dae12dec690ed3e73e28981">ExtendedCompoundImage</a>, <a class="el" href="classEstompageImage.html#a81f99d33efc1f4f1cec72bc385187f5b">EstompageImage</a>, <a class="el" href="classEmptyImage.html#a16c4f3ad2d0a3c3e1222bca8aea00762">EmptyImage</a>, <a class="el" href="classDecimatedImage.html#a638936b73963205cfded69544cd7d275">DecimatedImage</a>, <a class="el" href="classCompoundImage.html#aba8511271deaad45c657b8ef09138b60">CompoundImage</a>, <a class="el" href="classAspectImage.html#a9e029161580a43c11fdbe802f5cf704d">AspectImage</a>, et <a class="el" href="classImageDecoder.html#a74edc1788d02c5dcade11f1147c57d22">ImageDecoder</a>.</p>
+
+</div>
+</div>
+<a id="ab9171734a88241b6e870398b1e905a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9171734a88241b6e870398b1e905a7d">&#9670;&nbsp;</a></span>get_line() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Image::get_line </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne une ligne en entier 16 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont pas intrinsèquement codées sur des entiers 16 bits, il n'y a pas de conversion (une valeur sur 32 bits occupera 2 "cases" sur 16 bits). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buffer</td><td>Tableau contenant au moins 'width * channels * sizeof(sample)' entier sur 16 bits </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">line</td><td>Indice de la ligne à retourner (0 &lt;= line &lt; height) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>taille utile du buffer, 0 si erreur </dd></dl>
+
+<p>Implémenté dans <a class="el" href="classFileImage.html#afe479763e4db0ed7c08535654010edbd">FileImage</a>, <a class="el" href="classMirrorImage.html#a97071876ea35eff781c00b1926c6bccc">MirrorImage</a>, <a class="el" href="classLibopenjpegImage.html#aa9e86bec7bee4482ae8bddf33bb2be23">LibopenjpegImage</a>, <a class="el" href="classLibtiffImage.html#ae60a0acb0a90c69ef1c29067d257be24">LibtiffImage</a>, <a class="el" href="classLibpngImage.html#aa86d3ad0947264430057a54f29af81ae">LibpngImage</a>, <a class="el" href="classLibjpegImage.html#abf95eea706f4e883576a71795d5508d4">LibjpegImage</a>, <a class="el" href="classBilzImage.html#af2e9f5652dae9a0bd3d42eed5737e4ec">BilzImage</a>, <a class="el" href="classResampledImage.html#afee981d0f4e89b4a32612cd06780c6d1">ResampledImage</a>, <a class="el" href="classReprojectedImage.html#ab5ad1e7039b9cab0da2507b71159faa7">ReprojectedImage</a>, <a class="el" href="classRawImage.html#a23cb2cbba65a8fb448ac3dcaf314cea1">RawImage</a>, <a class="el" href="classPenteImage.html#ae1595844fd0776df179ee33994454776">PenteImage</a>, <a class="el" href="classPaletteImage.html#a1221d0a45c07e9b16f06009eaaa7f199">PaletteImage</a>, <a class="el" href="classMergeMask.html#a9e654f91882eb3a1a7d99b17057d151b">MergeMask</a>, <a class="el" href="classMergeImage.html#aeecb8ccd0bcee5481c7865e6120d81ce">MergeImage</a>, <a class="el" href="classRok4Image.html#a42d7353feed51f3564cb151d8224e2dd">Rok4Image</a>, <a class="el" href="classExtendedCompoundMask.html#a1a00c1da876df387e542cf2c93e6ea5c">ExtendedCompoundMask</a>, <a class="el" href="classExtendedCompoundImage.html#ae11f77ea08e4458b6122fe78c96dea63">ExtendedCompoundImage</a>, <a class="el" href="classEstompageImage.html#a49a0832ccf61d6ffb7c2e14634c4654c">EstompageImage</a>, <a class="el" href="classEmptyImage.html#adb911860f415d3567ce4ccb3639402d3">EmptyImage</a>, <a class="el" href="classDecimatedImage.html#af9e330c48d379ef35c17aaaee7e04da9">DecimatedImage</a>, <a class="el" href="classCompoundImage.html#a529826e0880ee12d39c11d2fc030a514">CompoundImage</a>, <a class="el" href="classAspectImage.html#a31108ae1230816bdedaa5efb2ff5e6a1">AspectImage</a>, et <a class="el" href="classImageDecoder.html#ab98d8d564457bcc477e81c203c53bce3">ImageDecoder</a>.</p>
+
+</div>
+</div>
+<a id="a96d36f749078062c6128380bf32df8c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96d36f749078062c6128380bf32df8c1">&#9670;&nbsp;</a></span>get_line() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Image::get_line </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont pas intrinsèquement codées sur des entiers 8 bits, il n'y a pas de conversion (une valeur sur 32 bits occupera 4 "cases" sur 8 bits). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buffer</td><td>Tableau contenant au moins 'width * channels * sizeof(sample)' entier sur 8 bits </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">line</td><td>Indice de la ligne à retourner (0 &lt;= line &lt; height) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>taille utile du buffer, 0 si erreur </dd></dl>
+
+<p>Implémenté dans <a class="el" href="classFileImage.html#a5ad1f61bc67aaadfda4772a52cfd0309">FileImage</a>, <a class="el" href="classMirrorImage.html#a71f88917fc53c518cb8b78df6efab3da">MirrorImage</a>, <a class="el" href="classLibopenjpegImage.html#a1e50f6e5a8d7d4fbea0203c19e556ec7">LibopenjpegImage</a>, <a class="el" href="classLibtiffImage.html#a9a7fc0659234991f2b51f01bbe12ffb2">LibtiffImage</a>, <a class="el" href="classLibpngImage.html#a3e4edd0462b88f3cd768f0d41e26f09f">LibpngImage</a>, <a class="el" href="classLibjpegImage.html#ab67c0a4a8ff58531567af61bf091b568">LibjpegImage</a>, <a class="el" href="classBilzImage.html#ad0923dadcc019845968c28a5cf979a8b">BilzImage</a>, <a class="el" href="classResampledImage.html#a8e2356e5805a2fe9a7f078fb40de27a9">ResampledImage</a>, <a class="el" href="classReprojectedImage.html#a48d97dcd1cdf80b9ff3c3d2957eae6ae">ReprojectedImage</a>, <a class="el" href="classRawImage.html#afac4c3080723d58adf9931ce5d528ef7">RawImage</a>, <a class="el" href="classPenteImage.html#a5ad8c77de10e1cbd0619bd06228c2661">PenteImage</a>, <a class="el" href="classPaletteImage.html#a13c4749a25cd23a81d38de710ba021cc">PaletteImage</a>, <a class="el" href="classMergeMask.html#a036baf89308087b22c6000e79de94b91">MergeMask</a>, <a class="el" href="classMergeImage.html#a235b223564e71e60ebcb727f940b1983">MergeImage</a>, <a class="el" href="classRok4Image.html#a7d7b29514bb811b04087b5588f28a1f8">Rok4Image</a>, <a class="el" href="classExtendedCompoundMask.html#a8e4f30caa7c06356a5c6806ea215fbad">ExtendedCompoundMask</a>, <a class="el" href="classExtendedCompoundImage.html#acb9e6d1fb1504cac2c2fe4e47e9ba97b">ExtendedCompoundImage</a>, <a class="el" href="classEstompageImage.html#a6fae6772270df665967a459b07727c1d">EstompageImage</a>, <a class="el" href="classEmptyImage.html#afc9d3f12fe96ddd6a948828fbb5f1207">EmptyImage</a>, <a class="el" href="classDecimatedImage.html#a7a7f99ce90df27684c9a381663f2fff2">DecimatedImage</a>, <a class="el" href="classCompoundImage.html#af9678a5ad43c8bba58499ff51b875bf4">CompoundImage</a>, <a class="el" href="classAspectImage.html#ad9d34d6c9576eef064b45e37f3fc53e9">AspectImage</a>, et <a class="el" href="classImageDecoder.html#a5e9d5544c82fe01e94c17d5be3d34f0d">ImageDecoder</a>.</p>
+
+</div>
+</div>
+<a id="a51687ae12560be213c5094a40e97782d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51687ae12560be213c5094a40e97782d">&#9670;&nbsp;</a></span>get_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classImage.html">Image</a>* Image::get_mask </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le masque de donnée associé à l'image. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>masque </dd></dl>
+
+</div>
+</div>
+<a id="a6eca1ad6d98626fb5f53b6e3fd270ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eca1ad6d98626fb5f53b6e3fd270ae5">&#9670;&nbsp;</a></span>get_phasex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_phasex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcul de la phase dans le sens des X. </p>
+<p>La phase en X est le décalage entre le bord gauche du pixel et le 0 des abscisses, évalué en pixel. On a donc un nombre décimal appartenant à [0,1[. </p><div class="image">
+<img src="phases.png" alt=""/>
+</div>
+ <dl class="section return"><dt>Renvoie</dt><dd>phase X </dd></dl>
+
+</div>
+</div>
+<a id="aea0d704b46226611dc86425fcf8b8b7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea0d704b46226611dc86425fcf8b8b7d">&#9670;&nbsp;</a></span>get_phasey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_phasey </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcul de la phase dans le sens des Y. </p>
+<p>La phase en Y est le décalage entre le bord haut du pixel et le 0 des ordonnées, évalué en pixel. On a donc un nombre décimal appartenant à [0,1[. </p><dl class="section return"><dt>Renvoie</dt><dd>phase Y </dd></dl>
+
+</div>
+</div>
+<a id="aa3fee3518036affd30a53ec93863f36b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3fee3518036affd30a53ec93863f36b">&#9670;&nbsp;</a></span>get_resx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_resx </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>force_meter</em> = <code>false</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne la résolution dans le sens des X. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">force_meter</td><td>Cherche à convertir en mètre si besoin </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>résolution en X </dd></dl>
+
+</div>
+</div>
+<a id="a86fb743b4144f6cf3fd98078fe636b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fb743b4144f6cf3fd98078fe636b74">&#9670;&nbsp;</a></span>get_resy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_resy </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>force_meter</em> = <code>false</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne la résolution dans le sens des Y. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">force_meter</td><td>Cherche à convertir en mètre si besoin </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>résolution en Y </dd></dl>
+
+</div>
+</div>
+<a id="a4eeafefc0bae9658ffe8877c5cf681e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eeafefc0bae9658ffe8877c5cf681e7">&#9670;&nbsp;</a></span>get_width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Image::get_width </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne la largeur en pixel de l'image. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>largeur </dd></dl>
+
+</div>
+</div>
+<a id="a2b3756a75830428322542fccda612d3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3756a75830428322542fccda612d3a">&#9670;&nbsp;</a></span>get_xmax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_xmax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le xmax de l'emprise rectangulaire. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>xmax </dd></dl>
+
+</div>
+</div>
+<a id="a8a37fd94f2348080c10de2cbf3c5e21f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a37fd94f2348080c10de2cbf3c5e21f">&#9670;&nbsp;</a></span>get_xmin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_xmin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le xmin de l'emprise rectangulaire. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>xmin </dd></dl>
+
+</div>
+</div>
+<a id="a54ae13f9aa1253a14f372a19c6956b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54ae13f9aa1253a14f372a19c6956b7e">&#9670;&nbsp;</a></span>get_ymax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_ymax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le ymax de l'emprise rectangulaire. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>ymax </dd></dl>
+
+</div>
+</div>
+<a id="afaa8140d71c10756b55df5fc73814480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa8140d71c10756b55df5fc73814480">&#9670;&nbsp;</a></span>get_ymin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::get_ymin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retourne le ymin de l'emprise rectangulaire. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>ymin </dd></dl>
+
+</div>
+</div>
+<a id="a200ae8f8f08106d0b4b70134d9a40ed9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200ae8f8f08106d0b4b70134d9a40ed9">&#9670;&nbsp;</a></span>line_to_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Image::line_to_y </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion de l'indice de ligne dans l'image vers l'ordonnée terrain du centre du pixel. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">l</td><td>ligne </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ordonnée terrain </dd></dl>
+
+</div>
+</div>
+<a id="ade4c83cdd9dcb16ad2d5347d41b06cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4c83cdd9dcb16ad2d5347d41b06cc5">&#9670;&nbsp;</a></span>set_bbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Image::set_bbox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>box</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit l'emprise rectangulaire de l'image et calcule les résolutions. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">box</td><td>Emprise rectangulaire de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaa3570c22e904bf909aaf831ba8e5b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3570c22e904bf909aaf831ba8e5b74">&#9670;&nbsp;</a></span>set_crs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Image::set_crs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCRS.html">CRS</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit le SRS de l'emprise rectangulaire. </p>
+<p>On clone bien le <a class="el" href="classCRS.html" title="Gestion des systèmes de référence.">CRS</a> pour ne pas avoir de conflit lors du nettoyage </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">box</td><td>Emprise rectangulaire de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a88bbbb12cccfb44a9407f9373a9200c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88bbbb12cccfb44a9407f9373a9200c2">&#9670;&nbsp;</a></span>set_dimensions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::set_dimensions </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classBoundingBox.html">BoundingBox</a>&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>ry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit les dimensions de l'image, en vérifiant leurs cohérences. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">box</td><td>Emprise rectangulaire de l'image </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c806b89969b447cae6571461fcd2dcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c806b89969b447cae6571461fcd2dcf">&#9670;&nbsp;</a></span>set_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::set_mask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classImage.html">Image</a> *&#160;</td>
+          <td class="paramname"><em>new_mask</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit le masque de donnée et contrôle la cohérence avec l'image. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">new_mask</td><td>Masque de donnée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abbee33516b2fb0a0145b24a404852958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbee33516b2fb0a0145b24a404852958">&#9670;&nbsp;</a></span>x_to_column()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Image::x_to_column </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion de l'abscisse terrain vers l'indice de colonne dans l'image. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>abscisse terrain </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>colonne </dd></dl>
+
+</div>
+</div>
+<a id="afed82aedde61b2137be1309f633cd4ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed82aedde61b2137be1309f633cd4ff">&#9670;&nbsp;</a></span>y_to_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Image::y_to_line </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion de l'ordonnée terrain vers l'indice de ligne dans l'image. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>ordonnée terrain </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ligne </dd></dl>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>include/rok4/image/<a class="el" href="Image_8h_source.html">Image.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classImage.html">Image</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

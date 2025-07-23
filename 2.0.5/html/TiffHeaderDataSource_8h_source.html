@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('TiffHeaderDataSource_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">TiffHeaderDataSource.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;rok4/datasource/DataSource.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="classTiffHeaderDataSource.html">TiffHeaderDataSource</a> : <span class="keyword">public</span> <a class="code" href="classDataSource.html">DataSource</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classDataSource.html">DataSource</a>* source_data;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">size_t</span> tile_size;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">size_t</span> data_size;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    uint8_t* data;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a> format;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">int</span> channel;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> width;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">int</span> height;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classTiffHeaderDataSource.html#a16ea855c6d5eb38998b92f553df9c3bb">TiffHeaderDataSource</a> ( <a class="code" href="classDataSource.html">DataSource</a>* source_data, <a class="code" href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a> format,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                           <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keywordtype">size_t</span> tile_size=0 );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html#af91c74b40c674da2fcafe1162b49c293">   33</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classTiffHeaderDataSource.html#af91c74b40c674da2fcafe1162b49c293">release_data</a>() {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> source_data-&gt;<a class="code" href="classDataSource.html#a5f8efb75bad39cd5c789fcb490c651e8">release_data</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html#a2e741fee90f73cbe1299dd4c8d7939c4">   36</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="classTiffHeaderDataSource.html#a2e741fee90f73cbe1299dd4c8d7939c4">get_type</a>() {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">return</span> source_data-&gt;<a class="code" href="classDataSource.html#afb634a823dd8d706c4efbfde76af646c">get_type</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html#a05cc769f4ad7553f5b572a8199551d0e">   39</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classTiffHeaderDataSource.html#a05cc769f4ad7553f5b572a8199551d0e">get_http_status</a>() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> source_data-&gt;<a class="code" href="classDataSource.html#af94cef72ecb6055b491692cfb1bff33c">get_http_status</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html#accd65dc0d87e1274ef188b644d8ef7b6">   42</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="classTiffHeaderDataSource.html#accd65dc0d87e1274ef188b644d8ef7b6">get_encoding</a>() {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> source_data-&gt;<a class="code" href="classDataSource.html#a17cbdcfcce5965c4297b1baac778554b">get_encoding</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classTiffHeaderDataSource.html#a98fedf9717dd86a6ecfed7c1ad0d3740">   45</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classTiffHeaderDataSource.html#a98fedf9717dd86a6ecfed7c1ad0d3740">get_length</a>() {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> data_size;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> uint8_t* <a class="code" href="classTiffHeaderDataSource.html#a3154111cbb47a5bd387db6ef043ac2e4">get_data</a> ( <span class="keywordtype">size_t</span>&amp; size );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classTiffHeaderDataSource.html">TiffHeaderDataSource</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format.</div></div>
+<div class="ttc" id="aclassDataSource_html"><div class="ttname"><a href="classDataSource.html">DataSource</a></div><div class="ttdef"><b>Definition:</b> DataSource.h:54</div></div>
+<div class="ttc" id="aclassDataSource_html_a17cbdcfcce5965c4297b1baac778554b"><div class="ttname"><a href="classDataSource.html#a17cbdcfcce5965c4297b1baac778554b">DataSource::get_encoding</a></div><div class="ttdeci">virtual std::string get_encoding()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_a5f8efb75bad39cd5c789fcb490c651e8"><div class="ttname"><a href="classDataSource.html#a5f8efb75bad39cd5c789fcb490c651e8">DataSource::release_data</a></div><div class="ttdeci">virtual bool release_data()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_af94cef72ecb6055b491692cfb1bff33c"><div class="ttname"><a href="classDataSource.html#af94cef72ecb6055b491692cfb1bff33c">DataSource::get_http_status</a></div><div class="ttdeci">virtual int get_http_status()=0</div></div>
+<div class="ttc" id="aclassDataSource_html_afb634a823dd8d706c4efbfde76af646c"><div class="ttname"><a href="classDataSource.html#afb634a823dd8d706c4efbfde76af646c">DataSource::get_type</a></div><div class="ttdeci">virtual std::string get_type()=0</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html"><div class="ttname"><a href="classTiffHeaderDataSource.html">TiffHeaderDataSource</a></div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:6</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_a05cc769f4ad7553f5b572a8199551d0e"><div class="ttname"><a href="classTiffHeaderDataSource.html#a05cc769f4ad7553f5b572a8199551d0e">TiffHeaderDataSource::get_http_status</a></div><div class="ttdeci">int get_http_status()</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:39</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_a16ea855c6d5eb38998b92f553df9c3bb"><div class="ttname"><a href="classTiffHeaderDataSource.html#a16ea855c6d5eb38998b92f553df9c3bb">TiffHeaderDataSource::TiffHeaderDataSource</a></div><div class="ttdeci">TiffHeaderDataSource(DataSource *source_data, Rok4Format::eFormat format, int channel, int width, int height, size_t tile_size=0)</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.cpp:6</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_a2e741fee90f73cbe1299dd4c8d7939c4"><div class="ttname"><a href="classTiffHeaderDataSource.html#a2e741fee90f73cbe1299dd4c8d7939c4">TiffHeaderDataSource::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:36</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_a3154111cbb47a5bd387db6ef043ac2e4"><div class="ttname"><a href="classTiffHeaderDataSource.html#a3154111cbb47a5bd387db6ef043ac2e4">TiffHeaderDataSource::get_data</a></div><div class="ttdeci">virtual const uint8_t * get_data(size_t &amp;size)</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.cpp:110</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_a98fedf9717dd86a6ecfed7c1ad0d3740"><div class="ttname"><a href="classTiffHeaderDataSource.html#a98fedf9717dd86a6ecfed7c1ad0d3740">TiffHeaderDataSource::get_length</a></div><div class="ttdeci">unsigned int get_length()</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:45</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_accd65dc0d87e1274ef188b644d8ef7b6"><div class="ttname"><a href="classTiffHeaderDataSource.html#accd65dc0d87e1274ef188b644d8ef7b6">TiffHeaderDataSource::get_encoding</a></div><div class="ttdeci">std::string get_encoding()</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:42</div></div>
+<div class="ttc" id="aclassTiffHeaderDataSource_html_af91c74b40c674da2fcafe1162b49c293"><div class="ttname"><a href="classTiffHeaderDataSource.html#af91c74b40c674da2fcafe1162b49c293">TiffHeaderDataSource::release_data</a></div><div class="ttdeci">bool release_data()</div><div class="ttdef"><b>Definition:</b> TiffHeaderDataSource.h:33</div></div>
+<div class="ttc" id="anamespaceRok4Format_html_a92a5b0c2bebf2bea2b2699d8c7424cf5"><div class="ttname"><a href="namespaceRok4Format.html#a92a5b0c2bebf2bea2b2699d8c7424cf5">Rok4Format::eFormat</a></div><div class="ttdeci">eFormat</div><div class="ttdoc">Énumération des formats d'images disponibles.</div><div class="ttdef"><b>Definition:</b> Format.h:288</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_964091e39eff261d2e7cd59de866dedf.html">datasource</a></li><li class="navelem"><b>TiffHeaderDataSource.h</b></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
