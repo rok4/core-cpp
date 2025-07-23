@@ -280,6 +280,8 @@ void Style::add_node_wmts(ptree& parent, bool default_style) {
     ptree& node = parent.add("Style", "");
     if ( default_style ) {
         node.add("<xmlattr>.isDefault", "true");
+    } else {
+        node.add("<xmlattr>.isDefault", "false");
     }
     
     for (std::string t : titles) {

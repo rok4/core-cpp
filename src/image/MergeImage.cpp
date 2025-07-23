@@ -220,7 +220,7 @@ int MergeMask::get_line ( float* buffer, int line ) {
 
 namespace Merge {
 
-const char *mergeType_name[] = {
+const char *mergetype_names[] = {
     "UNKNOWN",
     "NORMAL",
     "MULTIPLY",
@@ -228,16 +228,16 @@ const char *mergeType_name[] = {
     "TOP"
 };
 
-eMergeType from_string ( std::string strMergeMethod ) {
+eMergeType from_string ( std::string str_merge_method ) {
     int i;
-    for ( i = mergetype_size; i ; --i ) {
-        if ( strMergeMethod.compare ( mergeType_name[i] ) == 0 )
+    for ( i = mergetype_size - 1; i ; --i ) {
+        if ( str_merge_method.compare ( mergetype_names[i] ) == 0 )
             break;
     }
     return static_cast<eMergeType> ( i );
 }
 
 std::string to_string ( eMergeType merge_method ) {
-    return std::string ( mergeType_name[merge_method] );
+    return std::string ( mergetype_names[merge_method] );
 }
 }

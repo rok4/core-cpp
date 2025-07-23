@@ -190,15 +190,15 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
     int width=0, height=0, channels=0, planarconfig=0, bitspersample=0, sf=0, ph=0, comp=0, rowsperstrip=0;
     bool tiled = false, palette = false;
     TIFF* tif = TIFFOpen ( filename.c_str(), "r" );
-    
-    
+
+
     /************** RECUPERATION DES INFORMATIONS **************/
 
     if ( tif == NULL ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to open TIFF (to read) " << filename ;
         return NULL;
     }
-    
+
     if ( TIFFGetField ( tif, TIFFTAG_IMAGEWIDTH, &width ) < 1 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Unable to read pixel width for file " << filename ;
         TIFFClose ( tif );
@@ -256,8 +256,8 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
         TIFFClose ( tif );
         return NULL;
     }
-    
-    if (to_rok4_photometric ( ph ) == Photometric::PALETTE) {        
+
+    if (to_rok4_photometric ( ph ) == Photometric::PALETTE) {
         palette = true;
     }
 
@@ -294,7 +294,7 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
         TIFFClose ( tif );
         return NULL;
     }
-    
+
     /********************** CONTROLES **************************/
 
     if ( to_rok4_sampleformat ( sf, bitspersample ) == SampleFormat::UNKNOWN ) {
@@ -315,7 +315,7 @@ LibtiffImage* LibtiffImage::create_to_read ( std::string filename, BoundingBox< 
         resx = 1.;
         resy = 1.;
     }
-    
+
     /******************** CRÉATION DE L'OBJET ******************/
 
     return new LibtiffImage (
@@ -343,12 +343,12 @@ LibtiffImage* LibtiffImage::create_to_write (
         BOOST_LOG_TRIVIAL(error) <<  "One dimension is not valid for the output image " << filename << " : " << width << ", " << height ;
         return NULL;
     }
-    
+
     if ( channels <= 0 ) {
         BOOST_LOG_TRIVIAL(error) <<  "Number of samples per pixel is not valid for the output image " << filename << " : " << channels ;
         return NULL;
     }
-    
+
     if ( resx > 0 && resy > 0 ) {
         // Vérification de la cohérence entre les résolutions et bbox fournies et les dimensions (en pixel) de l'image
         // Arrondi a la valeur entiere la plus proche
@@ -470,9 +470,9 @@ LibtiffImage::LibtiffImage (
               ),
 
     tif ( tif ), rowsperstrip ( rowsperstrip ), tiled (tiled), palette (palette) {
-    
+
     // Ce constructeur permet de déterminer si la conversion de 1 à 8 bits est nécessaire, et de savoir si 0 est blanc ou noir
-    
+
     if ( bps == 1 ) {
         // On fera la conversion en entiers sur 8 bits à la volée.
         // Cette image sera comme une image sur 8 bits.
@@ -501,7 +501,7 @@ LibtiffImage::LibtiffImage (
     current_strip = -1;
     int stripSize = width*rowsperstrip*pixel_size;
     strip_buffer = new uint8_t[stripSize];
-    
+
     if (bit_to_byte) {
         // On a besoin d'un buffer supplémentaire pour faire la conversion à la volée à la lecture
         bit_to_byte_buffer = new uint8_t[stripSize];
@@ -516,7 +516,7 @@ LibtiffImage::LibtiffImage (
     FileImage ( width, height, resx, resy, channels, bbox, name, sampleformat, photometric, compression, extra_sample_type ),
 
     tif ( tif ), rowsperstrip ( rowsperstrip ) {
-        
+
     bit_to_byte = 0;
 
     current_strip = -1;
@@ -530,9 +530,9 @@ LibtiffImage::LibtiffImage (
 template<typename T>
 int LibtiffImage::_getline ( T* buffer, int line ) {
     // buffer doit déjà être alloué, et assez grand, en tenant compte de la conversion
-    
+
     if ( line / rowsperstrip != current_strip ) {
-        
+
         // Les données n'ont pas encore été lue depuis l'image (strip pas en mémoire).
         current_strip = line / rowsperstrip;
 
@@ -559,7 +559,8 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
 
             for (int t = 0; t < tilenumber_widthwise; t++) {
 
-                if (palette) {
+                // Si l'image a une photometrie Palette ou bien YCBCR --> TIFFReadRGBATile
+                if (palette || photometric == Photometric::YCBCR) {
                     uint32* palette_buffer = new uint32[width * rowsperstrip];
 
                     size = TIFFReadRGBATile(tif, t * tile_width, current_strip * tile_height, palette_buffer );
@@ -604,7 +605,8 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
 
             _TIFFfree(tile_buf);
         } else {
-            if (palette) {
+            // Si l'image a une photometrie Palette ou bien YCBCR --> TIFFReadRGBAStrip
+            if (palette || photometric == Photometric::YCBCR) {
                 uint32* palette_buffer = new uint32[width * rowsperstrip];
                 size = TIFFReadRGBAStrip ( tif, line, palette_buffer);
                 if ( size == 0 ) {
@@ -625,7 +627,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
                     if (line / rowsperstrip == (height - 1) / rowsperstrip) {
                         rows_count = height % rowsperstrip;
                     }
-                    
+
                     for (int l = 0; l < rows_count; l++) {
                         for (int i = 0; i < width; i++) {
                             memcpy ( strip_buffer + (width * l + i) * pixel_size, palette_buffer + (rows_count - 1 - l) * width + i, 3 );
@@ -641,19 +643,19 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
                 }
             }
         }
-        
+
         if (bit_to_byte == 1) {
             OneBitConverter::minwhiteToGray(bit_to_byte_buffer, strip_buffer, size);
         } else if (bit_to_byte == 2) {
             OneBitConverter::minblackToGray(bit_to_byte_buffer, strip_buffer, size);
         }
     }
-    
+
 
     T buffertmp[width * channels];
 
     /************* SI CONVERSION 1 bit -> 8 bits **************/
-    
+
     if (bit_to_byte) {
         memcpy ( buffertmp, bit_to_byte_buffer + ( line%rowsperstrip ) * width * pixel_size, width * pixel_size );
     } else {
@@ -672,7 +674,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
         memcpy(buffer, buffertmp, pixel_size * width);
     }
 
-    
+
     return width * get_channels();
 }
 
@@ -698,7 +700,7 @@ int LibtiffImage::get_line ( uint8_t* buffer, int line ) {
 }
 
 int LibtiffImage::get_line ( uint16_t* buffer, int line ) {
-    
+
     if ( sample_format == SampleFormat::UINT8 ) {
         // On veut la ligne en entier 16 bits mais l'image lue est sur 8 bits : on convertit
         uint8_t* buffer_t = new uint8_t[width * get_channels()];
@@ -707,7 +709,7 @@ int LibtiffImage::get_line ( uint16_t* buffer, int line ) {
         delete [] buffer_t;
         return width * get_channels();
     } else if ( sample_format == SampleFormat::UINT16 ) { // uint16
-        return _getline ( buffer,line );        
+        return _getline ( buffer,line );
     } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         /* On ne convertit pas les nombres flottants en entier sur 16 bits (aucun intérêt)
         * On va copier le buffer flottant sur le buffer entier 16 bits, de même taille en octet (2 fois plus grand en "nombre de cases")*/
@@ -733,7 +735,7 @@ int LibtiffImage::get_line ( float* buffer, int line ) {
         _getline ( buffer_t,line );
         convert ( buffer, buffer_t, width * get_channels() );
         delete [] buffer_t;
-        return width * get_channels();   
+        return width * get_channels();
     } else if ( sample_format == SampleFormat::FLOAT32 ) { // float
         return _getline ( buffer, line );
     }
@@ -798,7 +800,7 @@ int LibtiffImage::write_image ( Image* pIn ) {
 }
 
 int LibtiffImage::write_image ( uint8_t* buffer) {
-    
+
     // Si l'image à écrire n'a pas des canaux en entiers sur 8 bits, on sort en erreur
 
     // Ecriture de l'image
@@ -813,14 +815,14 @@ int LibtiffImage::write_image ( uint8_t* buffer) {
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Image to write (from a buffer) has not 8-bit uint samples : " << filename;
         print();
-        return -1;        
+        return -1;
     }
 
     return 0;
 }
 
 int LibtiffImage::write_image ( uint16_t* buffer) {
-    
+
     // Si l'image à écrire n'a pas des canaux en entiers sur 16 bits, on sort en erreur
 
     // Ecriture de l'image
@@ -835,14 +837,14 @@ int LibtiffImage::write_image ( uint16_t* buffer) {
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Image to write (from a buffer) has not 16-bit uint samples : " << filename;
         print();
-        return -1;        
+        return -1;
     }
 
     return 0;
 }
 
 int LibtiffImage::write_image ( float* buffer) {
-    
+
     // Si l'image à écrire n'a pas des canaux en flottant sur 32 bits, on sort en erreur
 
     if ( sample_format == SampleFormat::FLOAT32 ) {
@@ -874,10 +876,10 @@ int LibtiffImage::write_line ( uint8_t* buffer, int line) {
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Image to write (line by line) has not 8-bit uint samples : " << filename;
         print();
-        return -1;        
+        return -1;
     }
-    
-    
+
+
     return 0;
 }
 
@@ -894,7 +896,7 @@ int LibtiffImage::write_line ( uint16_t* buffer, int line) {
     } else {
         BOOST_LOG_TRIVIAL(error) <<  "Image to write (line by line) has not 16-bit uint samples : " << filename;
         print();
-        return -1;        
+        return -1;
     }
 
     return 0;
@@ -902,7 +904,7 @@ int LibtiffImage::write_line ( uint16_t* buffer, int line) {
 
 int LibtiffImage::write_line ( float* buffer, int line) {
     // Si l'image à écrire n'a pas des canaux en flottant sur 32 bits, on sort en erreur
-    
+
     if ( sample_format == SampleFormat::FLOAT32 ) {
         if ( TIFFWriteScanline ( tif, buffer, line, 0 ) < 0 ) {
             BOOST_LOG_TRIVIAL(error) <<  "Cannot write file " << TIFFFileName ( tif ) << ", line " << line ;
@@ -916,4 +918,3 @@ int LibtiffImage::write_line ( float* buffer, int line) {
 
     return 0;
 }
-

@@ -1,3 +1,15 @@
+## 2.0.5
+
+### [Fixed]
+
+* `LibtiffImage` : Gestion des tiff jpeg de photometrie YCbCr avec les tiffs palettes dans le _getline (élargissement du test)
+
+## 2.0.4
+
+### [Fixed]
+
+* `Merge` : correction du nombre de méthode
+
 ## 2.0.3
 
 ### [Added]
