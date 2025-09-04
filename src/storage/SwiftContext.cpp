@@ -89,6 +89,7 @@ SwiftContext::SwiftContext (std::string cont) : Context(), ssl_no_verify(false),
     }
 
     ssl_no_verify = get_ssl_no_verify();
+    timeout = get_timeout();
 }
 
 bool SwiftContext::connection() {
@@ -175,6 +176,11 @@ bool SwiftContext::connection() {
                 curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
                 curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &chunk);
 
+                if (timeout) {
+                    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+                    curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+                }
+
                 res = curl_easy_perform(curl);
                 if( CURLE_OK != res) {
                     BOOST_LOG_TRIVIAL(error) << "Cannot authenticate to Keystone";
@@ -253,6 +259,11 @@ bool SwiftContext::connection() {
             curl_easy_setopt(curl, CURLOPT_HEADERDATA, (void*) &authHdr);
             curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, header_callback);
 
+            if (timeout) {
+                curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+                curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+            }
+
             res = curl_easy_perform(curl);
             if( CURLE_OK != res) {
                 BOOST_LOG_TRIVIAL(error) << "Cannot authenticate to Swift";
@@ -324,6 +335,11 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         }
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
 
         BOOST_LOG_TRIVIAL(debug) << "SWIFT READ START (" << size << ") " << pthread_self();
         res = curl_easy_perform(curl);
@@ -411,6 +427,11 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
         }
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
 
         res = curl_easy_perform(curl);
         
@@ -562,6 +583,11 @@ bool SwiftContext::close_to_write(std::string name) {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, &((*(it1->second))[0]));
         curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, it1->second->size());
 
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
+
         res = curl_easy_perform(curl);
         curl_slist_free_all(list);
 
@@ -644,6 +670,11 @@ bool SwiftContext::exists(std::string name) {
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
     if(ssl_no_verify){
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    }
+
+    if (timeout) {
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
     }
 
     res = curl_easy_perform(curl);
