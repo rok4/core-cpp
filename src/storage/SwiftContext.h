@@ -144,6 +144,12 @@ private:
      */
     bool ssl_no_verify;
 
+    /**
+     * \~french \brief Temps avant timeout en secondes
+     * \~english \brief Timeout value, in seconds
+     */
+    int timeout;
+
 
 public:
 

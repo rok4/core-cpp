@@ -104,6 +104,12 @@ private:
     static bool ssl_no_verify;
 
     /**
+     * \~french \brief Temps avant timeout en secondes
+     * \~english \brief Timeout value, in seconds
+     */
+    static int timeout;
+
+    /**
      * \~french \brief Charge les informations S3 depuis les variables d'environnement
      * \~english \brief Load S3 informations from environment variables
      */

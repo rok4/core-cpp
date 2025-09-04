@@ -49,6 +49,10 @@
 #define ROK4_SSL_NO_VERIFY "ROK4_SSL_NO_VERIFY"
 #endif
 
+#ifndef ROK4_NETWORK_TIMEOUT
+#define ROK4_NETWORK_TIMEOUT "ROK4_NETWORK_TIMEOUT"
+#endif
+
 #include <stdlib.h>
 
 struct HeaderStruct {
@@ -131,4 +135,13 @@ static bool get_ssl_no_verify() {
     return getenv(ROK4_SSL_NO_VERIFY) != NULL;
 }
 
+static int get_timeout() {
+
+    int t;
+    char* e = getenv (ROK4_NETWORK_TIMEOUT);
+    if (e == NULL || sscanf ( e, "%d", &t ) != 1 ) {
+        t = 0;
+    }
+    return t;
+}
 
