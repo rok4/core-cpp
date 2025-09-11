@@ -7,6 +7,15 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [2.0.6] - 2025-09-11
+
+### Added
 
 - `S3Context` et `SwiftContext` : possibilité de définir un timeout via la variable d'environnement `ROK4_NETWORK_TIMEOUT` (valeur à fournir en seconde)
 
@@ -155,13 +164,14 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
     * Compilation de la documentation et publication sur la branche gh-pages
 - Ajout du mode DEBUG à la compilation
 
-[Unreleased]: https://github.com/rok4/core-cpp/compare/v2.0.5...HEAD
-[2.0.5]: https://github.com/rok4/core-cpp/compare/v2.0.3...v2.0.5
-[2.0.3]: https://github.com/rok4/core-cpp/compare/v2.0.2...v2.0.3
-[2.0.2]: https://github.com/rok4/core-cpp/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/rok4/core-cpp/compare/v1.4.0...v2.0.1
-[1.4.0]: https://github.com/rok4/core-cpp/compare/v1.3.1...v1.4.0
-[1.3.1]: https://github.com/rok4/core-cpp/compare/v1.2.4...v1.3.1
-[1.2.4]: https://github.com/rok4/core-cpp/compare/v1.1.2...v1.2.4
-[1.1.2]: https://github.com/rok4/core-cpp/compare/v1.0.3...v1.1.2
-[1.0.3]: https://github.com/rok4/core-cpp/releases/tag/v1.0.3
+[2.0.6]: https://github.com/rok4/core-cpp/compare/2.0.5...HEAD
+[2.0.6]: https://github.com/rok4/core-cpp/compare/2.0.5...2.0.6
+[2.0.5]: https://github.com/rok4/core-cpp/compare/2.0.3...2.0.5
+[2.0.3]: https://github.com/rok4/core-cpp/compare/2.0.2...2.0.3
+[2.0.2]: https://github.com/rok4/core-cpp/compare/2.0.1...2.0.2
+[2.0.1]: https://github.com/rok4/core-cpp/compare/1.4.0...2.0.1
+[1.4.0]: https://github.com/rok4/core-cpp/compare/1.3.1...1.4.0
+[1.3.1]: https://github.com/rok4/core-cpp/compare/1.2.4...1.3.1
+[1.2.4]: https://github.com/rok4/core-cpp/compare/1.1.2...1.2.4
+[1.1.2]: https://github.com/rok4/core-cpp/compare/1.0.3...1.1.2
+[1.0.3]: https://github.com/rok4/core-cpp/releases/tag/1.0.3
