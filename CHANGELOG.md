@@ -9,6 +9,11 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Added
 
 - `SubsampledImage` : cette classe fille d'Image permet de moyenner les pixels de l'image en entrée, en donnant la taille en X et Y de l'emprise de la moyenne.
+- `Terrainrgb` : Ajout d'un style terrainrgb pour transformer les MNT en format Terrain RGB.
+- `Style` : Ajout d'une fonction permettant de savoir si une palette existe ou non.
+- Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
+- `StyledImage` : Récupération de l'affectation du style au sein de la lib core-cpp. Regroupement des traitements des styles regroupés dans StyledImage.
+- `StyledImage` : Ajout du traitement pour gérer le style Terrainrgb.
 
 ### Changed
 
@@ -21,6 +26,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
     * `TmsBook`
     * `StyleBook`
     * `CrsBook`
+- `Style` : Vérification de l'existance d'un bloc palette dans le json de style avant la création d'un objet palette. Ce changement nécessite la vérification de l'existance d'une palette qui n'était pas vérifié avant.
 
 ### Deprecated
 ### Removed
