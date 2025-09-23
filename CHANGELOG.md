@@ -9,11 +9,12 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Added
 
 - Compilation des artefacts sous ubuntu 24.04 (compatible debian 13 / trixie)
+- `Colorize` : Ajout d'un style colorize permettant de remplacer une couleur en une autre avec une possibilité de transparence.
 
 ### Fixed
 
--   `Boundingbox` : Mise en place de valeur maximale et minimale pour les bbox en wms-r.
--   `Style` : Ajout des préfix ogc pour le title et l'abstract sur le wmts
+- `Boundingbox` : Mise en place de valeur maximale et minimale pour les bbox en wms-r.
+- `Style` : Ajout des préfix ogc pour le title et l'abstract sur le wmts
 
 ## [3.0.0] - 2026-03-12
 
