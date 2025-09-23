@@ -46,7 +46,7 @@
 
 class Terrainrgb : public Configuration
 {
-private:
+public:
     /** \~french
      * \brief min_elevation : élévation minimale à partir de laquelle est calculée la couleur
      ** \~english
@@ -61,7 +61,6 @@ private:
      */
     float step;
 
-public:
     /**
      * \~french
      * \brief Constructeurs avec des arguments

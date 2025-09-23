@@ -38,7 +38,6 @@
 #include "image/TerrainrgbImage.h"
 
 #include <boost/log/trivial.hpp>
-#include "TerrainrgbImage.h"
 
 int TerrainrgbImage::get_line(float *buffer, int line)
 {
