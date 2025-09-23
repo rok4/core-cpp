@@ -55,6 +55,7 @@ class Style;
 #include "rok4/style/Pente.h"
 #include "rok4/style/Estompage.h"
 #include "rok4/style/Aspect.h"
+#include "rok4/style/Terrainrgb.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 #include "rok4/enums/Format.h"
@@ -162,6 +163,11 @@ private :
      * \~english \brief Define wether the server must compute a relief shadow
      */
     Estompage* estompage;
+    /**
+     * \~french \brief Définit si un terrainrgb doit être appliqué
+     * \~english \brief Define wether the server must compute a RGB terrain
+     */
+    Terrainrgb* terrainrgb;
 
     /**
      * \~french \brief Valeur de nodata attendue dans les données en entrée

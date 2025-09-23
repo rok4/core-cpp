@@ -62,6 +62,7 @@ bool Style::parse(json11::Json& doc) {
     aspect = 0;
     estompage = 0;
     palette = 0;
+    terrainrgb = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -106,10 +107,13 @@ bool Style::parse(json11::Json& doc) {
         legends.push_back(leg);
     }
 
-    palette = new Palette(doc["palette"].object_items());
-    if (! palette->is_ok()) {
-        error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
+    if (doc["palette"].is_object()){
+        palette = new Palette(doc["palette"].object_items());
+        if (! palette->is_ok()) {
+            BOOST_LOG_TRIVIAL(warning) << "Palette";
+            error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
         return false;
+        }
     }
 
     if (doc["estompage"].is_object()) {
@@ -140,6 +144,14 @@ bool Style::parse(json11::Json& doc) {
         aspect = new Aspect(doc["exposition"].object_items());
         if (! aspect->is_ok()) {
             error_message = "Aspect issue for style " + id + ": " + aspect->get_error_message();
+            return false;
+        }
+    }
+
+    if (doc["terrainrgb"].is_object()) {
+        terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
+        if (! terrainrgb->is_ok() || palette->is_ok()) {
+            error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
             return false;
         }
     }

@@ -77,9 +77,6 @@ int TerrainrgbImage::get_line(uint8_t *buffer, int line)
 
 TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *Terrainrgb) : Image(image->get_width(), image->get_height(), 1, image->get_bbox()), source_image(image)
 {
-    // Il n'y aura application de la palette et modification des canaux que si
-    // - la palette n'est pas nulle et pas vide
-    // - l'image source est sur un canal
     if (source_image->get_channels() == 1)
     {
         channels = 3;
