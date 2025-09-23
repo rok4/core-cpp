@@ -7,6 +7,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ## [Unreleased]
 
 ### Added
+
+- `Terrainrgb` : Ajout d'un style terrainrgb pour transformer les MNT en format Terrain RGB.
+- `TerrainrgbImage` : Ajout du processus de traitement du style Terrainrgb. 
+
 ### Changed
 ### Deprecated
 ### Removed
