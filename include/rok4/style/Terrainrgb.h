@@ -61,6 +61,13 @@ public:
      */
     float step;
 
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    float input_nodata_value;
+
     /**
      * \~french
      * \brief Constructeurs avec des arguments

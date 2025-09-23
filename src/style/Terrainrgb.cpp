@@ -42,7 +42,7 @@
 #include "byteswap.h"
 #include <boost/log/trivial.hpp>
 
-Terrainrgb::Terrainrgb(json11::Json doc) : Configuration()
+Terrainrgb::Terrainrgb(json11::Json doc) : Configuration(), input_nodata_value (-99999)
 {
 
     if (doc["min_elevation"].is_number())
