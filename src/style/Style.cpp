@@ -110,7 +110,6 @@ bool Style::parse(json11::Json& doc) {
     if (doc["palette"].is_object()){
         palette = new Palette(doc["palette"].object_items());
         if (! palette->is_ok()) {
-            BOOST_LOG_TRIVIAL(warning) << "Palette";
             error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
         return false;
         }
@@ -150,12 +149,11 @@ bool Style::parse(json11::Json& doc) {
 
     if (doc["terrainrgb"].is_object()) {
         terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
-        if (! terrainrgb->is_ok() || palette->is_ok()) {
+        if (! terrainrgb->is_ok()) {
             error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
             return false;
         }
     }
-
     return true;
 }
 
@@ -165,6 +163,7 @@ Style::Style ( std::string path ) : Configuration(path) {
     estompage = 0;
     palette = 0;
     aspect = 0;
+    terrainrgb = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -231,7 +230,12 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (pente_defined()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) pente->input_nodata_value;
-    } 
+    }
+    else if (terrainrgb_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
+        return;
+    }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) palette->get_colours_map()->begin()->first;
@@ -265,6 +269,10 @@ Style::Style ( std::string path ) : Configuration(path) {
         output_nodata_value = new int[1];
         output_nodata_value[0] = (int) pente->slope_nodata_value;
     }
+    else if (terrainrgb_defined()) {
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) terrainrgb->terrainrgb_nodata_value;
+    }
 }
 
 Style::~Style() {
@@ -279,6 +287,9 @@ Style::~Style() {
     }
     if (aspect != 0) {
         delete aspect;
+    }
+    if (terrainrgb != 0) {
+        delete terrainrgb;
     }
     if (input_nodata_value != NULL) {
         delete[] input_nodata_value;

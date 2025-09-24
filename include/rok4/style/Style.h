@@ -298,7 +298,7 @@ public:
             return false;
         }
 
-        if (estompage_defined() || pente_defined() || aspect_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
             return false;
         } else {
             return true;
@@ -426,6 +426,27 @@ public:
      */
     inline Aspect* get_aspect() {
         return aspect;
+    }
+
+    /**
+    * \~french
+    * \brief Return vrai si le style est un terrainrgb
+    * \return bool
+    * \~english
+    * \brief Return true if the style is an rgb terrain
+    * \return bool
+    */
+    inline bool terrainrgb_defined() {
+        return (terrainrgb != 0);
+    }
+    /**
+     * \~french
+     * \brief Retourne le terrainrgb
+     * \~english
+     * \brief Return rgb terrain
+     */
+    inline Terrainrgb* get_terrainrgb() {
+        return terrainrgb;
     }
 	
 
