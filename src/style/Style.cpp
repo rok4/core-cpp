@@ -107,12 +107,10 @@ bool Style::parse(json11::Json& doc) {
         legends.push_back(leg);
     }
 
-    if (doc["palette"].is_object()){
-        palette = new Palette(doc["palette"].object_items());
-        if (! palette->is_ok()) {
-            error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
-        return false;
-        }
+    palette = new Palette(doc["palette"].object_items());
+    if (! palette->is_ok()) {
+        error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
+    return false;
     }
 
     if (doc["estompage"].is_object()) {
@@ -234,7 +232,6 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (terrainrgb_defined()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
-        return;
     }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
