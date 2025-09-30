@@ -267,8 +267,10 @@ Style::Style ( std::string path ) : Configuration(path) {
         output_nodata_value[0] = (int) pente->slope_nodata_value;
     }
     else if (terrainrgb_defined()) {
-        output_nodata_value = new int[1];
-        output_nodata_value[0] = (int) terrainrgb->terrainrgb_nodata_value;
+        output_nodata_value = new int[3];
+            output_nodata_value[0] = 0;
+            output_nodata_value[1] = 0;
+            output_nodata_value[2] = 0;
     }
 }
 

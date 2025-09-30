@@ -75,7 +75,7 @@ int TerrainrgbImage::get_line(uint8_t *buffer, int line)
     }
 }
 
-TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *Terrainrgb) : Image(image->get_width(), image->get_height(), 1, image->get_bbox()), source_image(image)
+TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *terrainrgb) : Image(image->get_width(), image->get_height(), 1, image->get_bbox()), source_image(image), terrainrgb(terrainrgb)
 {
     if (source_image->get_channels() == 1)
     {
@@ -85,35 +85,34 @@ TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *Terrainrgb) : Image(i
     {
         channels = image->get_channels();
     }
-}
+} 
 
 TerrainrgbImage::~TerrainrgbImage()
 {
     delete source_image;
 }
 
-template <typename T>
-int TerrainrgbImage::_getline(T *buffer, int line)
-{
-    float *source = new float[source_image->get_width() * source_image->get_channels()];
-    source_image->get_line(source, line);
-    switch (channels)
-    {
-
+template<typename T>
+int TerrainrgbImage::_getline ( T* buffer, int line ) {
+    float* source = new float[source_image->get_width() * source_image->get_channels()];
+    source_image->get_line ( source, line );
+    switch ( channels ) {
     case 3:
-        for (int i = 0; i < source_image->get_width(); i++)
-        {
-            int base = *buffer + terrainrgb->min_elevation / terrainrgb->step;
-            int red = abs(base / (256 * 256)) % 256;
-            int green = abs((base - red * 256 * 256) / 256) % 256;
-            int blue = abs(base - red * 256 * 256 - green * 256);
-            *(buffer + i * 3) = red;
-            *(buffer + i * 3 + 1) = green;
-            *(buffer + i * 3 + 2) = blue;
+        for (int i = 0; i < source_image->get_width() ; i++ ) {
+            
+            int base = (std::max((T) *(source+i), (T) terrainrgb->min_elevation) -  terrainrgb->min_elevation) / terrainrgb->step;
+            int red = (base / (256 * 256) % 256);
+            int green = ((base - red * 256 * 256) / 256 % 256);
+            int blue = (base - red * 256 * 256 - green * 256);
+            * ( buffer+i*3 ) = (T) red;
+            * ( buffer+i*3+1 ) = (T) green;
+            * ( buffer+i*3+2 ) = (T) blue;
         }
         break;
     }
 
+    
+
     delete[] source;
-    return width * sizeof(T) * channels;
+    return width * sizeof ( T ) * channels;
 }

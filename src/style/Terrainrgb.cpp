@@ -42,7 +42,7 @@
 #include "byteswap.h"
 #include <boost/log/trivial.hpp>
 
-Terrainrgb::Terrainrgb(json11::Json doc) : Configuration(), input_nodata_value (-99999), terrainrgb_nodata_value(-10000)
+Terrainrgb::Terrainrgb(json11::Json doc) : Configuration()
 {
 
     if (doc["min_elevation"].is_number())
@@ -51,18 +51,17 @@ Terrainrgb::Terrainrgb(json11::Json doc) : Configuration(), input_nodata_value (
     }
     else
     {
-        BOOST_LOG_TRIVIAL(warning) << "Wrong format for terrainrgb, terrainrgb ignored";
-        return;
+        min_elevation = -10000;
     }
     if (doc["step"].is_number())
     {
-        min_elevation = doc["step"].number_value();
+        step = doc["step"].number_value();
     }
     else
     {
-        BOOST_LOG_TRIVIAL(warning) << "Wrong format for terrainrgb, terrainrgb ignored";
-        return;
+        step = 0.1;
     }
+    input_nodata_value=min_elevation;
 }
 
 Terrainrgb::~Terrainrgb()

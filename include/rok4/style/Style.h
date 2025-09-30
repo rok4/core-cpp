@@ -225,7 +225,7 @@ public:
      * \~english \brief Style is allowed ?
      */
     bool handle (int spp) {
-        if (estompage_defined() || pente_defined() || aspect_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
             return (spp == 1);
         } else {
             return true;
@@ -243,7 +243,11 @@ public:
             } else {
                 return 4;
             }
-        } else {
+        } 
+        else if (terrainrgb_defined()){
+                return 3;
+            }
+        else {
             if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
             } else {
@@ -251,6 +255,7 @@ public:
                 return orig_channels;
             }
         }
+        
     }
 
     /**
@@ -258,7 +263,7 @@ public:
      * \~english \brief Which sample format after style
      */
     SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
-        if (palette && ! palette->is_empty()) {
+        if ((palette && ! palette->is_empty()) || terrainrgb_defined()) {
             return SampleFormat::UINT8;
         } else {
             return sf;
