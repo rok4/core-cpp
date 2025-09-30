@@ -14,12 +14,12 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 - Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
 
 ### Changed
-
-- `Style` : Vérification de l'existance d'un bloc palette dans le json de style avant la création d'un objet palette. Ce changement nécessite la vérification de l'existance d'une palette qui n'était pas vérifié avant.
-
 ### Deprecated
 ### Removed
 ### Fixed
+
+- `Style` : Vérification de l'existance d'un bloc palette dans le json de style avant la création d'un objet palette. Ce changement nécessite la vérification de l'existance d'une palette qui n'était pas vérifié avant.
+
 ### Security
 
 ## [2.0.6] - 2025-09-11
