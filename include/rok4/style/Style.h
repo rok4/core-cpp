@@ -360,6 +360,17 @@ public:
 
     /**
      * \~french
+     * \brief Détermine si le style décrit une table de correspondance
+     * \return true si oui
+     * \~english
+     * \brief Determine if the style describe a lookup table
+     * \return true if it does
+     */
+    inline bool palette_defined() {
+        return (palette != 0);
+    }
+    /**
+     * \~french
      * \brief Retourne la table de correspondance
      * \return table de correspondance
      * \~english
