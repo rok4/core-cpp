@@ -35,6 +35,14 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+ /**
+ * \file Terrainrgb.cpp
+ * \~french
+ * \brief Implémentation de la classe Terrainrgb modélisant un terrainrgb.
+ * \~english
+ * \brief Implement the Terrainrgb Class handling terrainrgb definition.
+ */
+
 #include "style/Terrainrgb.h"
 #include <stdint.h>
 #include "zlib.h"

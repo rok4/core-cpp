@@ -35,6 +35,15 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+ /**
+ * \file Terrainrgb.h
+ ** \~french
+ * \brief D�finition de la classe Terrainrgb
+ ** \~english
+ * \brief Define class Terrainrgb
+ */
+
+
 #pragma once
 
 #include "rok4/utils/Configuration.h"

@@ -35,6 +35,13 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+ /**
+ * \file TerrainrgbImage.cpp
+ * \~french
+ * \brief Implémentation de la classe TerrainrgbImage permettant l'application du terrainrgb à une image.
+ * \~english
+ * \brief Implement the TerrainrgbImage Class handling computing of Terrainrgb style to an image.
+ */
 #include "image/TerrainrgbImage.h"
 
 #include <boost/log/trivial.hpp>
