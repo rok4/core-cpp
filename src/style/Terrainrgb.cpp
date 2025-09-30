@@ -40,7 +40,7 @@
  * \~french
  * \brief Implémentation de la classe Terrainrgb modélisant un terrainrgb.
  * \~english
- * \brief Implement the Terrainrgb Class handling terrainrgb definition.
+ * \brief Implement the Terrainrgb Class handling RGB terrain definition.
  */
 
 #include "style/Terrainrgb.h"
