@@ -10,8 +10,13 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 - `Terrainrgb` : Ajout d'un style terrainrgb pour transformer les MNT en format Terrain RGB.
 - `TerrainrgbImage` : Ajout du processus de traitement du style Terrainrgb. 
+- `Style` : Ajout d'une fonction permettant de savoir si une palette existe ou non.
+- Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
 
 ### Changed
+
+- `Style` : Vérification de l'existance d'un bloc palette dans le json de style avant la création d'un objet palette. Ce changement nécessite la vérification de l'existance d'une palette qui n'était pas vérifié avant.
+
 ### Deprecated
 ### Removed
 ### Fixed
