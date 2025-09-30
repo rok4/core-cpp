@@ -164,7 +164,7 @@ private :
      */
     Estompage* estompage;
     /**
-     * \~french \brief Définit si un terrainrgb doit être appliqué
+     * \~french \brief Définit si un calcul de terrainrgb doit être appliqué
      * \~english \brief Define wether the server must compute a RGB terrain
      */
     Terrainrgb* terrainrgb;

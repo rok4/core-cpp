@@ -45,25 +45,18 @@
 Terrainrgb::Terrainrgb(json11::Json doc) : Configuration()
 {
 
-    if (doc["min_elevation"].is_number())
-    {
+    if (doc["min_elevation"].is_number()) {
         min_elevation = doc["min_elevation"].number_value();
-    }
-    else
-    {
+    } else {
         min_elevation = -10000;
     }
-    if (doc["step"].is_number())
-    {
+    if (doc["step"].is_number()) {
         step = doc["step"].number_value();
-    }
-    else
-    {
+    } else {
         step = 0.1;
     }
     input_nodata_value=min_elevation;
 }
 
-Terrainrgb::~Terrainrgb()
-{
+Terrainrgb::~Terrainrgb() {
 }

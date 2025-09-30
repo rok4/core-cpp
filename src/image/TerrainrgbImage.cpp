@@ -39,56 +39,39 @@
 
 #include <boost/log/trivial.hpp>
 
-int TerrainrgbImage::get_line(float *buffer, int line)
-{
-    if (source_image->get_channels() == 1)
-    {
+int TerrainrgbImage::get_line(float *buffer, int line) {
+    if (source_image->get_channels() == 1) {
         return _getline(buffer, line);
-    }
-    else
-    {
+    } else {
         return source_image->get_line(buffer, line);
     }
 }
 
-int TerrainrgbImage::get_line(uint16_t *buffer, int line)
-{
-    if (source_image->get_channels() == 1)
-    {
+int TerrainrgbImage::get_line(uint16_t *buffer, int line) {
+    if (source_image->get_channels() == 1) {
         return _getline(buffer, line);
-    }
-    else
-    {
+    } else {
         return source_image->get_line(buffer, line);
     }
 }
 
-int TerrainrgbImage::get_line(uint8_t *buffer, int line)
-{
-    if (source_image->get_channels() == 1)
-    {
+int TerrainrgbImage::get_line(uint8_t *buffer, int line) {
+    if (source_image->get_channels() == 1) {
         return _getline(buffer, line);
-    }
-    else
-    {
+    } else {
         return source_image->get_line(buffer, line);
     }
 }
 
-TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *terrainrgb) : Image(image->get_width(), image->get_height(), 1, image->get_bbox()), source_image(image), terrainrgb(terrainrgb)
-{
-    if (source_image->get_channels() == 1)
-    {
+TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *terrainrgb) : Image(image->get_width(), image->get_height(), 1, image->get_bbox()), source_image(image), terrainrgb(terrainrgb) {
+    if (source_image->get_channels() == 1) {
         channels = 3;
-    }
-    else
-    {
+    } else {
         channels = image->get_channels();
     }
 } 
 
-TerrainrgbImage::~TerrainrgbImage()
-{
+TerrainrgbImage::~TerrainrgbImage() {
     delete source_image;
 }
 
@@ -100,18 +83,18 @@ int TerrainrgbImage::_getline ( T* buffer, int line ) {
     case 3:
         for (int i = 0; i < source_image->get_width() ; i++ ) {
             
+            // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
             int base = (std::max((T) *(source+i), (T) terrainrgb->min_elevation) -  terrainrgb->min_elevation) / terrainrgb->step;
             int red = (base / (256 * 256) % 256);
             int green = ((base - red * 256 * 256) / 256 % 256);
             int blue = (base - red * 256 * 256 - green * 256);
+
             * ( buffer+i*3 ) = (T) red;
             * ( buffer+i*3+1 ) = (T) green;
             * ( buffer+i*3+2 ) = (T) blue;
         }
         break;
     }
-
-    
 
     delete[] source;
     return width * sizeof ( T ) * channels;

@@ -55,9 +55,9 @@ public:
     int min_elevation;
 
     /** \~french
-     * \brief step : écart d'altitude entre deux couleurs différentes
+     * \brief step : résolution verticale
      ** \~english
-     * \brief step : altitude difference between two different colors
+     * \brief step : vertical resolution
      */
     float step;
 
@@ -69,9 +69,9 @@ public:
     float input_nodata_value;
 
     /** \~french
-    * \brief noData : valeur de nodata pour l'image source
+    * \brief noData : valeur de nodata pour le terrainrgb
     ** \~english
-    * \brief noData : value of nodata for the source image
+    * \brief noData : value of nodata for the RGB terrain
     */
     float terrainrgb_nodata_value;
 
