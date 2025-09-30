@@ -107,10 +107,12 @@ bool Style::parse(json11::Json& doc) {
         legends.push_back(leg);
     }
 
-    palette = new Palette(doc["palette"].object_items());
-    if (! palette->is_ok()) {
-        error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
-    return false;
+    if (doc["palette"].is_object()) {
+        palette = new Palette(doc["palette"].object_items());
+        if (! palette->is_ok()) {
+            error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
+        return false;
+        }
     }
 
     if (doc["estompage"].is_object()) {
@@ -146,6 +148,10 @@ bool Style::parse(json11::Json& doc) {
     }
 
     if (doc["terrainrgb"].is_object()) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0) {
+            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+            return false;
+        }
         terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
         if (! terrainrgb->is_ok()) {
             error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
@@ -255,8 +261,8 @@ Style::Style ( std::string path ) : Configuration(path) {
         }
     }
     else if (estompage_defined()) {
-            output_nodata_value = new int[1];
-            output_nodata_value[0] = (int) estompage->estompage_nodata_value;
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) estompage->estompage_nodata_value;
     }
     else if (aspect_defined()) {
         output_nodata_value = new int[1];
@@ -268,9 +274,9 @@ Style::Style ( std::string path ) : Configuration(path) {
     }
     else if (terrainrgb_defined()) {
         output_nodata_value = new int[3];
-            output_nodata_value[0] = 0;
-            output_nodata_value[1] = 0;
-            output_nodata_value[2] = 0;
+        output_nodata_value[0] = 0;
+        output_nodata_value[1] = 0;
+        output_nodata_value[2] = 0;
     }
 }
 
