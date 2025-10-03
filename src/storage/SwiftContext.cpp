@@ -48,10 +48,7 @@
  */
 
 #include "storage/SwiftContext.h"
-#include "utils/LibcurlStruct.h"
-#include <curl/curl.h>
 #include <sys/stat.h>
-#include "utils/Cache.h"
 #include <time.h>
 
 SwiftContext::SwiftContext (std::string cont) : Context(), ssl_no_verify(false), keystone_auth(false), container_name(cont), use_token_from_file(true) {
