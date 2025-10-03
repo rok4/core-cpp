@@ -65,89 +65,11 @@
 #include "rok4/utils/CRS.h"
 #include "rok4/storage/Context.h"
 
+
 #define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
 #define ROK4_TMS_NO_CACHE "ROK4_TMS_NO_CACHE"
 #define ROK4_STYLES_DIRECTORY "ROK4_STYLES_DIRECTORY"
 #define ROK4_STYLES_NO_CACHE "ROK4_STYLES_NO_CACHE"
-
-/**
- * \author Institut national de l'information géographique et forestière
- * \~french
- * \brief Création d'un pool de contextes Proj
- * \details Cette classe est prévue pour être utilisée sans instance
- */
-class ProjPool {  
-
-private:
-
-    /**
-     * \~french \brief Annuaire des contextes Proj
-     * \details La clé est l'identifiant du thread
-     * \~english \brief Proj contexts book
-     * \details Key is the thread's ID
-     */
-    static std::map<pthread_t, PJ_CONTEXT*> pool;
-
-    /**
-     * \~french
-     * \brief Constructeur
-     * \~english
-     * \brief Constructeur
-     */
-    ProjPool(){};
-
-public:
-
-    /**
-     * \~french
-     * \brief Destructeur
-     * \~english
-     * \brief Destructor
-     */
-    ~ProjPool(){};
-
-    /**
-     * \~french \brief Retourne un contexte Proj propre au thread appelant
-     * \details Si il n'existe pas encore de contexte Proj pour ce tread, on le crée et on l'initialise
-     * \~english \brief Get the Proj context specific to the calling thread
-     * \details If Proj context doesn't exist for this thread, it is created and initialized
-     */
-    static PJ_CONTEXT* get_proj_env() {
-        pthread_t i = pthread_self();
-
-        std::map<pthread_t, PJ_CONTEXT*>::iterator it = pool.find ( i );
-        if ( it == pool.end() ) {
-            PJ_CONTEXT* pjc = proj_context_create();
-            proj_log_level(pjc, PJ_LOG_NONE);
-            pool.insert ( std::pair<pthread_t, PJ_CONTEXT*>(i,pjc) );
-            return pjc;
-        } else {
-            return it->second;
-        }
-    }
-
-    /**
-     * \~french \brief Affiche le nombre de contextes proj dans l'annuaire
-     * \~english \brief Print the number of proj contexts in the book
-     */
-    static void print_projs_count () {
-        BOOST_LOG_TRIVIAL(info) <<  "Nombre de contextes proj : " << pool.size() ;
-    }
-
-    /**
-     * \~french \brief Nettoie tous les contextes proj dans l'annuaire et le vide
-     * \~english \brief Clean all proj objects in the book and empty it
-     */
-    static void clean_projs () {
-        std::map<pthread_t, PJ_CONTEXT*>::iterator it;
-        for (it = pool.begin(); it != pool.end(); ++it) {
-            proj_context_destroy(it->second);
-        }
-        pool.clear();
-    }
-
-};
-
 
 /**
  * \author Institut national de l'information géographique et forestière
