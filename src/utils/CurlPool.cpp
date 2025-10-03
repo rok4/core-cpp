@@ -35,6 +35,14 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+ /**
+ * \file CurlPool.cpp
+ ** \~french
+ * \brief Implémentation de la classe CurlPool
+ ** \~english
+ * \brief Implements classe CurlPool
+ */
+
 #include "utils/CurlPool.h"
 
 CurlPool::~CurlPool(){
