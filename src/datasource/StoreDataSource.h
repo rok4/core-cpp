@@ -54,6 +54,7 @@
 
 #include "datasource/DataSource.h"
 #include "storage/Context.h"
+#include "rok4/utils/StoragePool.h"
 
 /**
  * \author Institut national de l'information géographique et forestière

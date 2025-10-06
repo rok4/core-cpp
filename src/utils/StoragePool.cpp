@@ -1,0 +1,114 @@
+/*
+ * Copyright © (2011) Institut national de l'information
+ *                    géographique et forestière
+ *
+ * Géoportail SAV <contact.geoservices@ign.fr>
+ *
+ * This software is a computer program whose purpose is to publish geographic
+ * data using OGC WMS and WMTS protocol.
+ *
+ * This software is governed by the CeCILL-C license under French law and
+ * abiding by the rules of distribution of free software.  You can  use,
+ * modify and/ or redistribute the software under the terms of the CeCILL-C
+ * license as circulated by CEA, CNRS and INRIA at the following URL
+ * "http://www.cecill.info".
+ *
+ * As a counterpart to the access to the source code and  rights to copy,
+ * modify and redistribute granted by the license, users are provided only
+ * with a limited warranty  and the software's author,  the holder of the
+ * economic rights,  and the successive licensors  have only  limited
+ * liability.
+ *
+ * In this respect, the user's attention is drawn to the risks associated
+ * with loading,  using,  modifying and/or developing or reproducing the
+ * software by the user in light of its specific status of free software,
+ * that may mean  that it is complicated to manipulate,  and  that  also
+ * therefore means  that it is reserved for developers  and  experienced
+ * professionals having in-depth computer knowledge. Users are therefore
+ * encouraged to load and test the software's suitability as regards their
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
+ *
+ * The fact that you are presently reading this means that you have had
+ *
+ * knowledge of the CeCILL-C license and that you accept its terms.
+ */
+
+ /**
+ * \file StoragePool.cpp
+ ** \~french
+ * \brief Implémentation de la classe StoragePool
+ ** \~english
+ * \brief Implements classe StoragePool
+ */
+
+#include "utils/StoragePool.h"
+
+StoragePool::StoragePool(){
+
+}
+
+std::string StoragePool::to_string() {
+        std::ostringstream oss;
+        oss.setf ( std::ios::fixed,std::ios::floatfield );
+        oss << "------ Context pool -------" << std::endl;
+        oss << "\t- context number = " << pool.size() << std::endl;
+
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            oss << "\t\t- pot = " << key.first << "/" << key.second << std::endl;
+            oss << it->second->to_string() << std::endl;
+            it++;
+        }
+
+        return oss.str() ;
+    }
+
+
+
+void StoragePool::get_storages_count (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
+        file_count = 0;
+        s3_count = 0;
+        ceph_count = 0;
+        swift_count = 0;
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            switch(key.first) {
+                #if CEPH_ENABLED
+                case ContextType::CEPHCONTEXT:
+                    ceph_count++;
+                    break;
+                #endif
+                case ContextType::SWIFTCONTEXT:
+                    swift_count++;
+                    break;
+                case ContextType::S3CONTEXT:
+                    s3_count++;
+                    break;
+                case ContextType::FILECONTEXT:
+                    file_count++;
+                    break;
+            }
+            it++;
+        }
+    }
+
+std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::get_pool() {
+        return pool;
+    }
+
+StoragePool::~StoragePool(){
+
+}
+
+
+void StoragePool::clean_storages () {
+    std::map<std::pair<ContextType::eContextType,std::string>,Context*>::iterator it;
+    for (it=pool.begin(); it!=pool.end(); ++it) {
+        delete it->second;
+        it->second = NULL;
+    }
+}
