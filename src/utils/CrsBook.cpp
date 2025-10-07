@@ -36,34 +36,45 @@
  */
 
 /**
- * \file Cache.h
+ * \file CrsBook.cpp
  ** \~french
- * \brief Définition des classes IndexCache, CurlPool, StoragePool et ProjPool
+ * \brief Implémentation de la classe CrsBook
  ** \~english
- * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
+ * \brief Implements classe CrsBook
  */
 
-#pragma once
 
-#include <stdint.h>// pour uint8_t
-#include <boost/log/trivial.hpp>
-#include <map>
-#include <list>
-#include <unordered_map>
-#include <vector>
-#include <string.h>
-#include <sstream>
-#include <curl/curl.h>
-#include <proj.h>
-#include <thread>
-#include <mutex>
+#include "rok4/utils/CrsBook.h"
+
+CrsBook::CrsBook(){
+
+}
 
 
-#include "rok4/utils/TileMatrixSet.h"
-#include "rok4/style/Style.h"
-#include "rok4/utils/Utils.h"
-#include "rok4/utils/CRS.h"
-#include "rok4/utils/TmsBook.h"
-#include "rok4/utils/StyleBook.h"
-#include "rok4/utils/IndexCache.h"
-#include "rok4/storage/Context.h"
+CRS* CrsBook::get_crs(std::string id) {
+    id = to_upper_case(id);
+    std::map<std::string, CRS*>::iterator it = book.find ( id );
+    if ( it != book.end() ) {
+        return it->second;
+    }
+    mtx.lock();
+    CRS* crs = new CRS(id);
+    // Le CRS est potentiellement non défini (si il n'est pas valide), on le mémorise pour ne pas réessayer la prochaine fois
+    book.emplace(id, crs);
+    mtx.unlock();
+    return crs;
+}
+
+void CrsBook::clean_crss () {
+    mtx.lock();
+    std::map<std::string, CRS*>::iterator it;
+    for (it = book.begin(); it != book.end(); ++it) {
+        delete it->second;
+    }
+    book.clear();
+    mtx.unlock();
+}
+
+CrsBook::~CrsBook() {
+
+}

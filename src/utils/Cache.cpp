@@ -44,6 +44,7 @@
  */
 
 #include "utils/Cache.h"
+#include "utils/CrsBook.h"
 #include "rok4/utils/ProjPool.h"
 #include "storage/FileContext.h"
 #include "storage/SwiftContext.h"

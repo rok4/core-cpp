@@ -36,34 +36,82 @@
  */
 
 /**
- * \file Cache.h
+ * \file CrsBook.h
  ** \~french
- * \brief Définition des classes IndexCache, CurlPool, StoragePool et ProjPool
+ * \brief Définition de la classe CrsBook
  ** \~english
- * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
+ * \brief Define classe CrsBook
  */
 
 #pragma once
 
-#include <stdint.h>// pour uint8_t
 #include <boost/log/trivial.hpp>
 #include <map>
-#include <list>
-#include <unordered_map>
-#include <vector>
 #include <string.h>
-#include <sstream>
-#include <curl/curl.h>
-#include <proj.h>
-#include <thread>
 #include <mutex>
 
-
-#include "rok4/utils/TileMatrixSet.h"
-#include "rok4/style/Style.h"
-#include "rok4/utils/Utils.h"
 #include "rok4/utils/CRS.h"
-#include "rok4/utils/TmsBook.h"
-#include "rok4/utils/StyleBook.h"
-#include "rok4/utils/IndexCache.h"
-#include "rok4/storage/Context.h"
+/**
+ * \author Institut national de l'information géographique et forestière
+ * \~french
+ * \brief Création d'un annuaire de CRS
+ * \details Cette classe est prévue pour être utilisée sans instance
+ */
+class CrsBook {
+
+private:
+
+    /**
+     * \~french
+     * \brief Constructeur
+     * \~english
+     * \brief Constructeur
+     */
+    CrsBook();
+
+    /**
+     * \~french \brief Annuaire de styles
+     * \details La clé est l'identifiant du style
+     * \~english \brief Book of styles
+     * \details Key is a the style identifier
+     */
+    static std::map<std::string,CRS*> book;
+
+    /**
+     * \~french \brief Exclusion mutuelle
+     * \details Pour éviter les modifications concurrentes du cache de CRS
+     * \~english \brief Mutual exclusion
+     * \details To avoid concurrent CRS cache updates
+     */
+    static std::mutex mtx;
+
+public:
+
+
+    /**
+     * \~french
+     * \brief Retourne le CRS d'après son identifiant (code de requête)
+     * \param[in] id Identifiant du CRS voulu
+
+     * \brief Return the style according to its identifier
+     * \param[in] id Wanted style identifier
+     */
+    static CRS* get_crs(std::string id);
+
+    /**
+     * \~french \brief Nettoie tous les CRS dans l'annuaire et le vide
+     * \~english \brief Clean all CRS objects in the book and empty it
+     */
+    static void clean_crss ();
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    ~CrsBook();
+
+};
+
+
