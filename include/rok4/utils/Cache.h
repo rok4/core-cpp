@@ -63,6 +63,7 @@
 #include "rok4/style/Style.h"
 #include "rok4/utils/Utils.h"
 #include "rok4/utils/CRS.h"
+#include "rok4/utils/IndexCache.h"
 #include "rok4/storage/Context.h"
 
 
@@ -70,76 +71,6 @@
 #define ROK4_TMS_NO_CACHE "ROK4_TMS_NO_CACHE"
 #define ROK4_STYLES_DIRECTORY "ROK4_STYLES_DIRECTORY"
 #define ROK4_STYLES_NO_CACHE "ROK4_STYLES_NO_CACHE"
-
-
-/**
- * \author Institut national de l'information géographique et forestière
- * \~french
- * \brief Élément du cache des index de dalle
- */
-class IndexElement {
-friend class IndexCache;
-
-protected:
-    /**
-     * \~french \brief Date d'enregistrement dans le cache
-     * \~english \brief Cache date
-     */
-    std::time_t date;
-    /**
-     * \~french \brief Clé sous laquelle l'élément est enregistré dans le cache
-     * \~english \brief Cache key
-     */
-    std::string key;
-    /**
-     * \~french \brief Nom de la dalle dans laquelle lire la donnée
-     * \~english \brief Data slab to read
-     */
-    std::string name;
-    /**
-     * \~french \brief Contexte de stockage de la dalle de donnée
-     * \~english \brief Data slab storage context
-     */
-    Context* context;
-    /**
-     * \~french \brief Offsets des tuiles dans la dalle
-     * \~english \brief Tiles' offsets
-     */
-    std::vector<uint32_t> offsets;
-    /**
-     * \~french \brief Tailles des tuiles dans la dalle
-     * \~english \brief Tiles' sizes
-     */
-    std::vector<uint32_t> sizes;
-
-    /** \~french
-     * \brief Constructeur
-     * \param[in] k clé d'enregistrement dans le cache
-     * \param[in] s nom de la dalle
-     * \param[in] c contexte de stockage de la dalle
-     * \param[in] tiles_number nombre de tuiles dans la dalles
-     * \param[in] os offsets bruts des tuiles 
-     * \param[in] ss tailles brutes des tuiles
-     ** \~english
-     * \brief Constructor
-     * \param[in] k cache key
-     * \param[in] s data slab name
-     * \param[in] c data slab storage context
-     * \param[in] tiles_number tiles number
-     * \param[in] os raw tiles' offsets
-     * \param[in] ss raw tiles' sizes
-     */
-    IndexElement(std::string k, Context* c, std::string n, int tiles_number, uint8_t* os, uint8_t* ss) {
-        key = k;
-        context = c;
-        name = n;
-        date = std::time(NULL);
-        for (int i = 0; i < tiles_number; i++) {
-            offsets.push_back(*((uint32_t*) (os + i*4)));
-            sizes.push_back(*((uint32_t*) (ss + i*4)));
-        }        
-    };
-};
 
 /**
  * \author Institut national de l'information géographique et forestière

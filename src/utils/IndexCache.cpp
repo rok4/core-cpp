@@ -44,7 +44,6 @@
  */
 
 #include "rok4/utils/IndexCache.h"
-#include "IndexCache.h"
 
 IndexCache::IndexCache() {
 
