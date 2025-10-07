@@ -36,51 +36,36 @@
  */
 
 /**
- * \file Cache.h
+ * \file StyleBook.h
  ** \~french
- * \brief Définition des classes IndexCache, CurlPool, StoragePool et ProjPool
+ * \brief Définition de la classe StyleBook
  ** \~english
- * \brief Define classes IndexCache, CurlPool, StoragePool and ProjPool
+ * \brief Define classe StyleBook
  */
 
 #pragma once
 
-#include <stdint.h>// pour uint8_t
 #include <boost/log/trivial.hpp>
 #include <map>
-#include <list>
-#include <unordered_map>
 #include <vector>
 #include <string.h>
-#include <sstream>
-#include <curl/curl.h>
-#include <proj.h>
 #include <thread>
 #include <mutex>
 
-
-#include "rok4/utils/TileMatrixSet.h"
 #include "rok4/style/Style.h"
 #include "rok4/utils/Utils.h"
-#include "rok4/utils/CRS.h"
-#include "rok4/utils/TmsBook.h"
-#include "rok4/utils/StyleBook.h"
-#include "rok4/utils/IndexCache.h"
-#include "rok4/storage/Context.h"
 
-
-#define ROK4_TMS_DIRECTORY "ROK4_TMS_DIRECTORY"
-#define ROK4_TMS_NO_CACHE "ROK4_TMS_NO_CACHE"
 #define ROK4_STYLES_DIRECTORY "ROK4_STYLES_DIRECTORY"
 #define ROK4_STYLES_NO_CACHE "ROK4_STYLES_NO_CACHE"
+
 
 /**
  * \author Institut national de l'information géographique et forestière
  * \~french
- * \brief Création d'un annuaire de CRS
+ * \brief Création d'un annuaire de styles
  * \details Cette classe est prévue pour être utilisée sans instance
  */
-class CrsBook {
+class StyleBook {
 
 private:
 
@@ -90,7 +75,15 @@ private:
      * \~english
      * \brief Constructeur
      */
-    CrsBook(){};
+    StyleBook();
+
+    /**
+     * \~french
+     * \brief Répertoire de stockage des styles
+     * \~english
+     * \brief TMS storage directory
+     */
+    static std::string directory;
 
     /**
      * \~french \brief Annuaire de styles
@@ -98,13 +91,19 @@ private:
      * \~english \brief Book of styles
      * \details Key is a the style identifier
      */
-    static std::map<std::string,CRS*> book;
+    static std::map<std::string,Style*> book;
+
+    /**
+     * \~french \brief Corbeille de styles à supprimer
+     * \~english \brief Styles trash to delete
+     */
+    static std::vector<Style*> trash;
 
     /**
      * \~french \brief Exclusion mutuelle
-     * \details Pour éviter les modifications concurrentes du cache de CRS
+     * \details Pour éviter les modifications concurrentes du cache de styles
      * \~english \brief Mutual exclusion
-     * \details To avoid concurrent CRS cache updates
+     * \details To avoid concurrent styles cache updates
      */
     static std::mutex mtx;
 
@@ -112,45 +111,47 @@ public:
 
 
     /**
-     * \~french
-     * \brief Retourne le CRS d'après son identifiant (code de requête)
-     * \param[in] id Identifiant du CRS voulu
-
-     * \brief Return the style according to its identifier
-     * \param[in] id Wanted style identifier
+     * \~french \brief Vide l'annuaire et met le contenu à la corbeille
+     * \~english \brief Empty book and put content into trash
      */
-    static CRS* get_crs(std::string id) {
-
-        id = to_upper_case(id);
-
-        std::map<std::string, CRS*>::iterator it = book.find ( id );
-        if ( it != book.end() ) {
-            return it->second;
-        }
-
-        mtx.lock();
-
-        CRS* crs = new CRS(id);
-        // Le CRS est potentiellement non défini (si il n'est pas valide), on le mémorise pour ne pas réessayer la prochaine fois
-        book.emplace(id, crs);
-
-        mtx.unlock();
-        return crs;
-    }
+    static void send_to_trash ();
 
     /**
-     * \~french \brief Nettoie tous les CRS dans l'annuaire et le vide
-     * \~english \brief Clean all CRS objects in the book and empty it
+     * \~french \brief Vide la corbeille
+     * \~english \brief Empty trash
      */
-    static void clean_crss () {
-        mtx.lock();
-        std::map<std::string, CRS*>::iterator it;
-        for (it = book.begin(); it != book.end(); ++it) {
-            delete it->second;
-        }
-        book.clear();
-        mtx.unlock();
-    }
+    static void empty_trash ();
+
+
+    /**
+     * \~french \brief Renseigne le répertoire des style
+     * \~english \brief Set styles directory
+     */
+    static void set_directory (std::string d);
+
+    /**
+     * \~french \brief Retourne l'ensemble de l'annuaire
+     * \~english \brief Return the book
+     */
+    static std::map<std::string,Style*> get_book ();
+
+    /**
+     * \~french
+     * \brief Retourne le style d'après son identifiant
+     * \details Si le style demandé n'est pas encore dans l'annuaire, ou que l'on ne veut pas de cache, il est recherché dans le répertoire connu et chargé
+     * \param[in] id Identifiant du style voulu
+
+     * \brief Return the style according to its identifier
+     * \details If style is still not in the book, or cache is disabled, it is searched in the known directory and loaded
+     * \param[in] id Wanted style identifier
+     */
+    static Style* get_style(std::string id);
+
+    /**
+     * \~french \brief Retourne le nombre de styles dans l'annuaire
+     * \~english \brief Return the number of styles in the book
+     */
+    static int get_styles_count ();
 
     /**
      * \~french
@@ -158,8 +159,6 @@ public:
      * \~english
      * \brief Destructor
      */
-    ~CrsBook() {};
+    ~StyleBook();
 
 };
-
-
