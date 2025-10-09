@@ -44,6 +44,9 @@
  */
 
 #include "utils/StoragePool.h"
+#include "storage/FileContext.h"
+#include "storage/SwiftContext.h"
+#include "storage/S3Context.h"
 
 StoragePool::StoragePool(){
 

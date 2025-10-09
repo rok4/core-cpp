@@ -39,9 +39,7 @@
 
 #include "rok4/utils/StyleBook.h"
 #include "rok4/utils/IndexCache.h"
-#include "storage/FileContext.h"
-#include "storage/SwiftContext.h"
-#include "storage/S3Context.h"
+
 #if CEPH_ENABLED
     #include "storage/ceph/CephPoolContext.h"
 #endif
