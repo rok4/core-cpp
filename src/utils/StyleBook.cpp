@@ -137,3 +137,8 @@ int StyleBook::get_styles_count() {
 StyleBook::~StyleBook() {
 
 }
+
+std::map<std::string, Style*> StyleBook::book;
+std::vector<Style*> StyleBook::trash;
+std::string StyleBook::directory = "";
+std::mutex StyleBook::mtx;

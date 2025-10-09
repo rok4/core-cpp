@@ -146,3 +146,9 @@ void IndexCache::clean_indexes() {
     cache.clear();
     mtx.unlock();
 }
+
+std::list<IndexElement *> IndexCache::cache;
+std::unordered_map<std::string, std::list<IndexElement *>::iterator> IndexCache::map;
+int IndexCache::size = 100;
+int IndexCache::validity = 300;
+std::mutex IndexCache::mtx;

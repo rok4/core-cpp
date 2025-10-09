@@ -48,7 +48,6 @@
 #include "image/ExtendedCompoundImage.h"
 #include "enums/Format.h"
 #include "utils/Level.h"
-#include "utils/Cache.h"
 #include <cfloat>
 #include "image/EmptyImage.h"
 

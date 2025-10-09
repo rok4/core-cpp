@@ -77,3 +77,6 @@ void ProjPool::clean_projs() {
     }
     pool.clear();
 }
+
+std::map<pthread_t, PJ_CONTEXT*> ProjPool::pool;
+

@@ -78,3 +78,6 @@ void CrsBook::clean_crss () {
 CrsBook::~CrsBook() {
 
 }
+
+std::map<std::string, CRS*> CrsBook::book;
+std::mutex CrsBook::mtx;

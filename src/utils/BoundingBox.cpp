@@ -45,7 +45,6 @@
 
 #include "utils/BoundingBox.h"
 #include "utils/CRS.h"
-#include "utils/Cache.h"
 
 template<typename T>
 bool BoundingBox<T>::is_in_crs_area(CRS* c) {

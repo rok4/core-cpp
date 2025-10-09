@@ -53,8 +53,7 @@
 
 #include "rok4/utils/TileMatrix.h"
 #include "rok4/utils/CrsBook.h"
-#include "rok4/utils/Keyword.h"
-#include "rok4/utils/Configuration.h"
+#include "rok4/utils/StoragePool.h"
 
 typedef std::function<bool(std::pair<std::string, TileMatrix*>, std::pair<std::string, TileMatrix*>)> ComparatorTileMatrix;
 
@@ -96,6 +95,7 @@ typedef std::function<bool(std::pair<std::string, TileMatrix*>, std::pair<std::s
  *  }
  * \endcode
  */
+
 class TileMatrixSet : public Configuration {
 private:
     /**

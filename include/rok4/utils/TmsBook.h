@@ -49,7 +49,6 @@
 #include <map>
 #include <vector>
 #include <string.h>
-#include <thread>
 #include <mutex>
 
 #include "rok4/utils/TileMatrixSet.h"

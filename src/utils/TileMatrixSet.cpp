@@ -45,9 +45,6 @@
 
 
 #include "utils/TileMatrixSet.h"
-#include "utils/Utils.h"
-#include "utils/Cache.h"
-#include "storage/Context.h"
 
 #include <cmath>
 #include <fstream>

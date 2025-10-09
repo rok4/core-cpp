@@ -74,3 +74,5 @@ void CurlPool::clean_curls() {
     }
     pool.clear();
 }
+
+std::map<pthread_t, CURL*> CurlPool::pool;

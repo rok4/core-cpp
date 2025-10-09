@@ -132,3 +132,8 @@ int TmsBook::get_tms_count() {
 TmsBook::~TmsBook(){
 
 }
+
+std::map<std::string, TileMatrixSet*> TmsBook::book;
+std::vector<TileMatrixSet*> TmsBook::trash;
+std::string TmsBook::directory = "";
+std::mutex TmsBook::mtx;
