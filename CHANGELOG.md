@@ -8,6 +8,9 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ### Added
 ### Changed
+
+- `Cache` : Export de toutes les classes implémentées dans Cache dans leurs propres fichiers
+
 ### Deprecated
 ### Removed
 ### Fixed
