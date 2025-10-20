@@ -38,7 +38,7 @@
 #pragma once
 
 #include "rok4/utils/StyleBook.h"
-#include "rok4/utils/IndexCache.h"
+#include "rok4/storage/Context.h"
 
 #if CEPH_ENABLED
     #include "storage/ceph/CephPoolContext.h"
