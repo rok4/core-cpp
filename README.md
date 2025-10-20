@@ -85,7 +85,11 @@ Le programme qui suit charge une pyramide SCAN1000 à partir de son descripteur,
 #include <boost/log/trivial.hpp>
 #include <rok4/utils/Pyramid.h>
 #include <rok4/image/file/FileImage.h>
-#include "rok4/utils/Cache.h"
+#include "rok4/utils/CrsBook.h"
+#include "rok4/utils/TmsBook.h"
+#include "rok4/utils/ProjPool.h"
+#include "rok4/utils/IndexCache.h"
+#include "rok4/utils/StoragePool.h"
 
 int main( int argc, char *argv[] ) {
 

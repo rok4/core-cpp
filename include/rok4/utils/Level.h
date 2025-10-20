@@ -53,7 +53,6 @@ class Level;
 #include "rok4/utils/Configuration.h"
 #include "rok4/utils/Level.h"
 #include "rok4/utils/Table.h"
-#include "rok4/utils/Cache.h"
 
 /**
  */
