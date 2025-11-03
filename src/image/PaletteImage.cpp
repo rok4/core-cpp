@@ -40,7 +40,7 @@
 #include <boost/log/trivial.hpp>
 
 int PaletteImage::get_line ( float* buffer, int line ) {
-    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
+    if ( source_image->get_channels() == 1 && palette != NULL && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
         return source_image->get_line ( buffer, line );
@@ -48,7 +48,7 @@ int PaletteImage::get_line ( float* buffer, int line ) {
 }
 
 int PaletteImage::get_line ( uint16_t* buffer, int line ) {
-    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
+    if ( source_image->get_channels() == 1 && palette != NULL && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
         return source_image->get_line ( buffer, line );
@@ -56,7 +56,7 @@ int PaletteImage::get_line ( uint16_t* buffer, int line ) {
 }
 
 int PaletteImage::get_line ( uint8_t* buffer, int line ) {
-    if ( source_image->get_channels() == 1 && ! palette->is_empty() ) {
+    if ( source_image->get_channels() == 1 && palette != NULL && ! palette->is_empty() ) {
         return _getline ( buffer, line );
     } else {
         return source_image->get_line ( buffer, line );
