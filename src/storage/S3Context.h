@@ -53,6 +53,7 @@
 #include <boost/log/trivial.hpp>
 #include "storage/Context.h"
 #include "utils/LibcurlStruct.h"
+#include "utils/CurlPool.h"
 
 #define ROK4_S3_URL "ROK4_S3_URL"
 #define ROK4_S3_KEY "ROK4_S3_KEY"

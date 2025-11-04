@@ -14,6 +14,17 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 - Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
 
 ### Changed
+
+- `Cache` : Export de toutes les classes implémentées dans Cache dans leurs propres fichiers. Les fichiers ajoutés sont :
+    * `CurlPool`
+    * `ProjPool`
+    * `StoragePool`
+    * `IndexCache`
+    * `IndexElement`
+    * `TmsBook`
+    * `StyleBook`
+    * `CrsBook`
+
 ### Deprecated
 ### Removed
 ### Fixed

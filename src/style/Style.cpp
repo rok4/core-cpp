@@ -50,7 +50,6 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-#include "utils/Cache.h"
 
 #include "storage/Context.h"
 

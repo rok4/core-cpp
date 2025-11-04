@@ -49,15 +49,9 @@
 
 #include "storage/S3Context.h"
 
-#include <curl/curl.h>
 #include <openssl/hmac.h>
-#include <rok4/storage/Context.h>
 #include <sys/stat.h>
 #include <time.h>
-
-#include "S3Context.h"
-#include "utils/Cache.h"
-#include "utils/LibcurlStruct.h"
 
 std::vector<std::string> S3Context::env_hosts;
 std::vector<std::string> S3Context::env_keys;

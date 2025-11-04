@@ -43,12 +43,7 @@
  * \brief implement the reference systems handler
  */
 
-#include <boost/log/trivial.hpp>
-#include <proj.h>
-
 #include "utils/CRS.h"
-#include "utils/Cache.h"
-#include "utils/Utils.h"
 
 CRS CRS::epsg4326;
 
