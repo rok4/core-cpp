@@ -91,7 +91,7 @@ int TerrainrgbImage::_getline ( T* buffer, int line ) {
         for (int i = 0; i < source_image->get_width() ; i++ ) {
             
             // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
-            int base = (std::max((T) *(source+i), (T) terrainrgb->min_elevation) -  terrainrgb->min_elevation) / terrainrgb->step;
+            int base = (std::max( *(source+i), terrainrgb->min_elevation) -  terrainrgb->min_elevation) / terrainrgb->step;
             int red = (base / (256 * 256) % 256);
             int green = ((base - red * 256 * 256) / 256 % 256);
             int blue = (base - red * 256 * 256 - green * 256);

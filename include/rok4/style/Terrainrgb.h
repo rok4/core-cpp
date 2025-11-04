@@ -61,7 +61,7 @@ public:
      ** \~english
      * \brief min_elevation : minimum elevation from which the color is calculated
      */
-    int min_elevation;
+    float min_elevation;
 
     /** \~french
      * \brief step : résolution verticale
