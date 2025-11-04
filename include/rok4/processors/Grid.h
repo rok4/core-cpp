@@ -49,6 +49,7 @@
 #include "rok4/utils/CRS.h"
 #include <proj.h>
 #include <string>
+#include "rok4/utils/ProjPool.h"
 
 /**
  * \author Institut national de l'information géographique et forestière

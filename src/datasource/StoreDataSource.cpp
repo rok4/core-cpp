@@ -52,7 +52,6 @@
 #include <boost/log/trivial.hpp>
 #include <cstdio>
 #include <errno.h>
-#include "utils/Cache.h"
 #include "enums/Format.h"
 #include "storage/Context.h"
 

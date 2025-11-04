@@ -49,7 +49,7 @@ class Pyramid;
 #include "rok4/style/Style.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
-#include "rok4/utils/Cache.h"
+#include "rok4/utils/TmsBook.h"
 #include "rok4/storage/Context.h"
 
 #define DEFAULT_NODATAVALUE 255

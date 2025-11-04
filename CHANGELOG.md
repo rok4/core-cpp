@@ -8,6 +8,17 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ### Added
 ### Changed
+
+- `Cache` : Export de toutes les classes implémentées dans Cache dans leurs propres fichiers. Les fichiers ajoutés sont :
+    * `CurlPool`
+    * `ProjPool`
+    * `StoragePool`
+    * `IndexCache`
+    * `IndexElement`
+    * `TmsBook`
+    * `StyleBook`
+    * `CrsBook`
+
 ### Deprecated
 ### Removed
 ### Fixed

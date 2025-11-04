@@ -54,6 +54,7 @@
 #include "storage/Context.h"
 #include "utils/LibcurlStruct.h"
 #include <fstream>
+#include "utils/CurlPool.h"
 
 
 #define ROK4_SWIFT_AUTHURL "ROK4_SWIFT_AUTHURL"

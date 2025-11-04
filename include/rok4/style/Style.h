@@ -57,6 +57,7 @@ class Style;
 #include "rok4/style/Aspect.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
+#include "rok4/utils/StoragePool.h"
 #include "rok4/enums/Format.h"
 
 /**
