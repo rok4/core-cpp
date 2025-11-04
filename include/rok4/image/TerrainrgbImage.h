@@ -63,4 +63,17 @@ public:
     virtual int get_line(uint8_t *buffer, int line);
     TerrainrgbImage(Image *image, Terrainrgb *terrainrgb);
     virtual ~TerrainrgbImage();
+    /** \~french
+     * \brief Sortie des informations sur l'image reprojetée
+     ** \~english
+     * \brief Reprojected image description output
+     */
+    void print() {
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+        BOOST_LOG_TRIVIAL(info) <<  "--------- TerrainrgbImage -----------" ;
+        Image::print();
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Min elevation " << terrainrgb->min_elevation ;
+        BOOST_LOG_TRIVIAL(info) <<  "\t- Step = " << terrainrgb->step ;
+        BOOST_LOG_TRIVIAL(info) <<  "" ;
+    }
 };
