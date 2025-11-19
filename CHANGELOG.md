@@ -12,6 +12,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 - `TerrainrgbImage` : Ajout du processus de traitement du style Terrainrgb. 
 - `Style` : Ajout d'une fonction permettant de savoir si une palette existe ou non.
 - Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
+- `StyledImage` : Récupération de l'affectation du style au sein de la lib core-cpp.
 
 ### Changed
 
