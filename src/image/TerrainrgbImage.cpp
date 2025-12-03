@@ -74,7 +74,7 @@ TerrainrgbImage::TerrainrgbImage(Image *image, Terrainrgb *terrainrgb) : Image(i
     if (source_image->get_channels() == 1) {
         channels = 3;
     } else {
-        channels = image->get_channels();
+        channels = source_image->get_channels();
     }
 } 
 
