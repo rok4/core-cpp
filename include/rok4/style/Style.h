@@ -239,15 +239,25 @@ public:
      */
     int get_channels (int orig_channels) {
         if (palette && ! palette->is_empty()) {
-            if (palette->is_no_alpha()) {
-                return 3;
-            } else {
-                return 4;
+            if (orig_channels ==1){
+                if (palette->is_no_alpha()) {
+                    return 3;
+                } else {
+                    return 4;
+                }
+            }
+            else {
+                return orig_channels;
             }
         } 
         else if (terrainrgb_defined()){
+            if (orig_channels ==1){
                 return 3;
             }
+            else {
+                return orig_channels;
+            }
+        }
         else {
             if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
