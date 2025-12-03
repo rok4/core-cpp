@@ -55,14 +55,90 @@
 
 class StyledImage : public Image
 {
+private:
+    template <typename T>
+    int _getline(T *buffer, int line);
+    Image *source_image;
+    Style *style;
+    /** \~french
+    * \brief Résolution de l'image en X, en mètre
+    ** \~english
+    * \brief Resolution of the image (X), in meter
+    */
+    float resxmeter;
+
+    /** \~french
+    * \brief Résolution de l'image en Y, en mètre
+    ** \~english
+    * \brief Resolution of the image (Y), in meter
+    */
+    float resymeter;
+
+    /** \~french
+    * \brief Nombre de ligne en mémoire
+    ** \~english
+    * \brief Memorize lines number
+    */
+    int memorized_source_lines;
+
+    /** \~french
+    * \brief Buffer contenant les lignes sources
+    ** \~english
+    * \brief Source lines memory buffer
+    */
+    float* source_lines_buffer;
+
+    /** \~french
+    * \brief Numéros des lignes en mémoire
+    ** \~english
+    * \brief Memorized lines indexes
+    */
+    int* source_lines;
+
+    /** \~french
+    * \brief Matrice de convolution
+    ** \~english
+    * \brief Convolution matrix
+    */
+    float matrix[9];
+
+    /** \~french
+    * \brief Résolution de l'image d'origine et donc finale
+    ** \~english
+    * \brief Resolution of the image
+    */
+    float resolution;
+
+    /** \~french
+    * \brief Booléen précisant l'utilisation de buffer pour les traitements multi-lignes
+    ** \~english
+    * \brief Booleen that indicate if buffers are used for multi-line processes
+    */
+    bool multi_line_buffer;
+
+    StyledImage(Image* image, Style *style, int offset);
+
 public:
-    Image* styled_image;
-
-
     virtual int get_line(float *buffer, int line);
     virtual int get_line(uint16_t *buffer, int line);
     virtual int get_line(uint8_t *buffer, int line);
-    StyledImage(Image* image, Style *style);
+    
+
+    /** \~french
+     * \brief Teste et calcule les caractéristiques d'une image stylisée et crée un objet StyledImage
+     * \details Largeur, hauteur, nombre de canaux et bbox sont déduits des composantes de l'image source et des paramètres. On vérifie la superposabilité des images sources.
+     * \param[in] input_image image source
+     * \param[in] input_style style source
+     * \return un pointeur d'objet StyledImage, NULL en cas d'erreur
+     ** \~english
+     * \brief Check and calculate styled image components and create an StyledImage object
+     * \details Height, width, samples' number and bbox are deduced from source image's components and parameters. We check if source images are superimpose.
+     * \param[in] input_image source images
+     * \param[in] input_style nodata value
+     * \return a StyledImage object pointer, NULL if error
+     */
+    static StyledImage* create ( Image* input_image, Style* input_style );
+
     virtual ~StyledImage();
     /** \~french
      * \brief Sortie des informations sur l'image reprojetée
