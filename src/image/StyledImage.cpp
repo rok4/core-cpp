@@ -526,7 +526,7 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
         return new StyledImage(input_image,input_style,0);
     }
     else {
-        return nullptr;
+        return new StyledImage(input_image,input_style,0);
     }
 }
 
