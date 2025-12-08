@@ -539,3 +539,25 @@ StyledImage::~StyledImage() {
     }
     delete source_image;
 }
+
+void StyledImage::print() {
+    BOOST_LOG_TRIVIAL(info) <<  "" ;
+    BOOST_LOG_TRIVIAL(info) <<  "--------- StyledImage -----------" ;
+    if (style->aspect_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Aspect -----------" ;
+    }
+    if (style->estompage_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Estompage -----------" ;
+    }
+    if (style->pente_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Pente -----------" ;
+    }
+    if (style->terrainrgb_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Terrainrgb -----------" ;
+    }
+    if (style->palette_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Palette -----------" ;
+    }
+    Image::print();
+    BOOST_LOG_TRIVIAL(info) <<  "" ;
+}

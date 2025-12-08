@@ -145,10 +145,5 @@ public:
      ** \~english
      * \brief Reprojected image description output
      */
-    void print() {
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "--------- StyledImage -----------" ;
-        Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-    }
+    void print();
 };
