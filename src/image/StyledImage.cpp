@@ -519,15 +519,30 @@ int StyledImage::_getline(T *buffer, int line) {
 }
 
 StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
+    int offset=0;
     if (input_style->estompage_defined() || input_style->pente_defined() || input_style->aspect_defined()) {
-        return new StyledImage(input_image,input_style,2);
+        if (input_image->get_width()<=2 && input_image->get_height()<=2){
+            BOOST_LOG_TRIVIAL(error)<<"L'image source est trop petite pour appliquer ce style";
+            return NULL;
+        }
+        if (input_image->get_channels()!=1){
+            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à un canal";
+            return NULL;
+        }
+        offset=2;
     }
-    else if (input_style->terrainrgb_defined() || input_style->palette_defined()) {
-        return new StyledImage(input_image,input_style,0);
+    if (input_style->terrainrgb_defined() || input_style->palette_defined()) {
+        BOOST_LOG_TRIVIAL(error)<<"Les styles terrainrgb et palette ne sont pas compatibles";
+        return NULL;
     }
-    else {
-        return new StyledImage(input_image,input_style,0);
+    if (input_style->terrainrgb_defined()){
+        if (input_image->get_channels()!=1){
+            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à un canal";
+            return NULL;
+        }
     }
+    return new StyledImage(input_image,input_style,offset);
+
 }
 
 StyledImage::~StyledImage() {
