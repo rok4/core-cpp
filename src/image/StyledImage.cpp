@@ -531,7 +531,7 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
         }
         offset=2;
     }
-    if (input_style->terrainrgb_defined() || input_style->palette_defined()) {
+    if (input_style->terrainrgb_defined() && input_style->palette_defined()) {
         BOOST_LOG_TRIVIAL(error)<<"Les styles terrainrgb et palette ne sont pas compatibles";
         return NULL;
     }
