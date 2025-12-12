@@ -22,6 +22,9 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Deprecated
 ### Removed
 ### Fixed
+
+- `LibtiffImage` : correction de la lecture de la dernière tuile ou du dernier strip quand il y en a un nombre entier
+
 ### Security
 
 ## [2.0.6] - 2025-09-11
