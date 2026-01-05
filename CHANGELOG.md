@@ -9,10 +9,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Added
 
 - `Terrainrgb` : Ajout d'un style terrainrgb pour transformer les MNT en format Terrain RGB.
-- `TerrainrgbImage` : Ajout du processus de traitement du style Terrainrgb. 
 - `Style` : Ajout d'une fonction permettant de savoir si une palette existe ou non.
 - Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
 - `StyledImage` : Récupération de l'affectation du style au sein de la lib core-cpp. Regroupement des traitements des styles regroupés dans StyledImage.
+- `StyledImage` : Ajout du traitement pour gérer le style Terrainrgb.
 
 ### Changed
 
