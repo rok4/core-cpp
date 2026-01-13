@@ -7,6 +7,9 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ## [Unreleased]
 
 ### Added
+
+- `SubsampledImage` : cette classe fille d'Image permet de moyenner les pixels de l'image en entrée, en donnant la taille en X et Y de l'emprise de la moyenne.
+
 ### Changed
 
 - `Cache` : Export de toutes les classes implémentées dans Cache dans leurs propres fichiers. Les fichiers ajoutés sont :
