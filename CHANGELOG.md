@@ -9,6 +9,8 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Added
 
 - `SubsampledImage` : cette classe fille d'Image permet de moyenner les pixels de l'image en entrée, en donnant la taille en X et Y de l'emprise de la moyenne.
+- Mise en place d'un hook de pre commit avec un linter C++ (clang-format style google)
+- Préparation de l'utilisation de clang-tidy
 
 ### Changed
 
@@ -181,7 +183,7 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
     * Compilation de la documentation et publication sur la branche gh-pages
 - Ajout du mode DEBUG à la compilation
 
-[2.0.6]: https://github.com/rok4/core-cpp/compare/2.0.5...HEAD
+[Unreleased]: https://github.com/rok4/core-cpp/compare/2.0.6...HEAD
 [2.0.6]: https://github.com/rok4/core-cpp/compare/2.0.5...2.0.6
 [2.0.5]: https://github.com/rok4/core-cpp/compare/2.0.3...2.0.5
 [2.0.3]: https://github.com/rok4/core-cpp/compare/2.0.2...2.0.3

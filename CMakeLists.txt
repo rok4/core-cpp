@@ -8,6 +8,8 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 ################### PARAMÈTRES
 
 set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation location")
@@ -22,7 +24,7 @@ set(CPACK_PACKAGE_NAME "librok4-dev" CACHE STRING "Package's name")
 set(VERSION ${BUILD_VERSION})
 message("Version ${VERSION}")
 
-# Définit le nom du projet 
+# Définit le nom du projet
 project(rok4
     VERSION ${VERSION}
     DESCRIPTION "ROK4 library"
@@ -144,7 +146,7 @@ if(DOC_ENABLED)
     set(DOXYGEN_HTML_HEADER docs/doxygen/header.html)
     set(DOXYGEN_HTML_EXTRA_STYLESHEET ${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen/doxygen-awesome.css)
     set(DOXYGEN_HTML_COLORSTYLE LIGHT)
-        
+
     doxygen_add_docs(doc ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/include/ ${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen/)
 
 endif(DOC_ENABLED)
@@ -205,5 +207,3 @@ if(CPACK_SYSTEM_NAME AND CPACK_SYSTEM_NAME STREQUAL "alpine3")
 endif()
 
 include(CPack)
-
-

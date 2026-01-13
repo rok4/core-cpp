@@ -51,6 +51,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
+          - os: ubuntu-24.04
 
     runs-on: ${{ matrix.os }}
 
@@ -79,7 +80,6 @@ jobs:
           make package
 
       - name: Run unit tests
-        if: "matrix.os == 'ubuntu-22.04'"
         run: |
           cd build
           make test
@@ -92,7 +92,7 @@ jobs:
           release-tag: ${{ github.ref_name }}
 
       - name: Build documentation
-        if: "matrix.os == 'ubuntu-22.04'"
+        if: "matrix.os == 'ubuntu-24.04'"
         run: |
           cd build
           make doc
@@ -111,14 +111,14 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.12"
           cache: 'pip'
 
       - name: Install Mkdocs
         run: pip install -r docs/requirements.txt
 
       - name: Publish documentation
-        if: "matrix.os == 'ubuntu-22.04'"
+        if: "matrix.os == 'ubuntu-24.04'"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
