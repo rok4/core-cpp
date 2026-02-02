@@ -61,6 +61,7 @@ bool Style::parse(json11::Json& doc) {
     aspect = 0;
     estompage = 0;
     palette = 0;
+    white_to_alpha = 0;
     terrainrgb = 0;
 
     input_nodata_value = NULL;
@@ -147,13 +148,25 @@ bool Style::parse(json11::Json& doc) {
     }
 
     if (doc["terrainrgb"].is_object()) {
-        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || white_to_alpha !=0) {
             error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
             return false;
         }
         terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
         if (! terrainrgb->is_ok()) {
             error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
+            return false;
+        }
+    }
+
+    if (doc["colorize"].is_object()) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || terrainrgb !=0) {
+            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+            return false;
+        }
+        white_to_alpha = new White_to_alpha(doc["white_to_alpha"].object_items());
+        if (! white_to_alpha->is_ok()) {
+            error_message = "White_to_alpha issue for style " + id + ": " + white_to_alpha->get_error_message();
             return false;
         }
     }
@@ -167,6 +180,7 @@ Style::Style ( std::string path ) : Configuration(path) {
     palette = 0;
     aspect = 0;
     terrainrgb = 0;
+    white_to_alpha = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -237,6 +251,10 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (terrainrgb_defined()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
+    }
+    else if (white_to_alpha_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) white_to_alpha->input_nodata_value;
     }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
@@ -277,6 +295,13 @@ Style::Style ( std::string path ) : Configuration(path) {
         output_nodata_value[1] = 0;
         output_nodata_value[2] = 0;
     }
+    else if (white_to_alpha_defined()) {
+        output_nodata_value = new int[4];
+        output_nodata_value[0] = 0;
+        output_nodata_value[1] = 0;
+        output_nodata_value[2] = 0;
+        output_nodata_value[3] = 0;
+    }
 }
 
 Style::~Style() {
@@ -294,6 +319,9 @@ Style::~Style() {
     }
     if (terrainrgb != 0) {
         delete terrainrgb;
+    }
+    if (white_to_alpha != 0) {
+        delete white_to_alpha;
     }
     if (input_nodata_value != NULL) {
         delete[] input_nodata_value;

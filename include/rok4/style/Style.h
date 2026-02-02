@@ -56,6 +56,7 @@ class Style;
 #include "rok4/style/Estompage.h"
 #include "rok4/style/Aspect.h"
 #include "rok4/style/Terrainrgb.h"
+#include "rok4/style/White_to_alpha.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 #include "rok4/utils/StoragePool.h"
@@ -169,6 +170,11 @@ private :
      * \~english \brief Define wether the server must compute a RGB terrain
      */
     Terrainrgb* terrainrgb;
+    /**
+     * \~french \brief Définit si un calcul de white to alpha doit être appliqué
+     * \~english \brief Define wether the server must compute a white to alpha
+     */
+    White_to_alpha* white_to_alpha;
 
     /**
      * \~french \brief Valeur de nodata attendue dans les données en entrée
@@ -226,7 +232,7 @@ public:
      * \~english \brief Style is allowed ?
      */
     bool handle (int spp) {
-        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() || white_to_alpha_defined()) {
             return (spp == 1);
         } else {
             return true;
@@ -258,6 +264,14 @@ public:
                 return orig_channels;
             }
         }
+        else if (white_to_alpha_defined()){
+            if (orig_channels ==3 || orig_channels ==4){
+                return white_to_alpha->destination_channels;
+            }
+            else {
+                return orig_channels;
+            }
+        }
         else {
             if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
@@ -274,7 +288,7 @@ public:
      * \~english \brief Which sample format after style
      */
     SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
-        if ((palette && ! palette->is_empty()) || terrainrgb_defined()) {
+        if ((palette && ! palette->is_empty()) || terrainrgb_defined() || white_to_alpha_defined()) {
             return SampleFormat::UINT8;
         } else {
             return sf;
@@ -314,7 +328,7 @@ public:
             return false;
         }
 
-        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() || white_to_alpha_defined()) {
             return false;
         } else {
             return true;
@@ -474,6 +488,27 @@ public:
      */
     inline Terrainrgb* get_terrainrgb() {
         return terrainrgb;
+    }
+
+    /**
+    * \~french
+    * \brief Return vrai si le style est un white to alpha
+    * \return bool
+    * \~english
+    * \brief Return true if the style is an white to alpha
+    * \return bool
+    */
+    inline bool white_to_alpha_defined() {
+        return (white_to_alpha != 0);
+    }
+    /**
+     * \~french
+     * \brief Retourne le white to alpha
+     * \~english
+     * \brief Return white to alpha
+     */
+    inline White_to_alpha* get_white_to_alpha() {
+        return white_to_alpha;
     }
 	
 

@@ -169,6 +169,14 @@ StyledImage::StyledImage(Image *input_image, Style *input_style, int offset) : I
         }    
     }
 
+    else if (style->white_to_alpha_defined()) {
+        if (style->get_white_to_alpha()->source_channels == 3 || style->get_white_to_alpha()->source_channels == 4) {
+            channels = style->get_white_to_alpha()->destination_channels;
+        } else {
+            channels = input_image->get_channels();
+        }
+    }
+
     if (style->palette_defined()){
         // Il n'y aura application de la palette et modification des canaux que si
         // - la palette n'est pas nulle et pas vide
@@ -489,6 +497,57 @@ int StyledImage::_getline(T *buffer, int line) {
         space = width * sizeof ( T ) * channels;
     }
 
+    else if (style->white_to_alpha_defined()) {
+        switch ( channels ) {
+        case 3:
+            for (int i = 0; i < source_image->get_width() ; i++ ) {
+                // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
+                int red = *(source+i*3);
+                int green = *(source+i*3+1);
+                int blue = *(source+i*3+2);
+                int min = std::min({red,blue,green});
+
+                if (min>=255-style->get_white_to_alpha()->tolerance){
+                    * ( buffer+i*3 ) = (T) red;
+                    * ( buffer+i*3+1 ) = (T) green;
+                    * ( buffer+i*3+2 ) = (T) blue;
+                    * ( buffer+i*3+3 ) = (T) 0;
+                }
+                else{
+                    * ( buffer+i*3 ) = (T) red;
+                    * ( buffer+i*3+1 ) = (T) green;
+                    * ( buffer+i*3+2 ) = (T) blue;
+                    * ( buffer+i*3+3 ) = (T) 255;
+                }
+            }
+            break;
+        case 4:
+            for (int i = 0; i < source_image->get_width() ; i++ ) {
+                // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
+                int red = *(source+i*4);
+                int green = *(source+i*4+1);
+                int blue = *(source+i*4+2);
+                int min = std::min({red,blue,green});
+
+                if (min>=255-style->get_white_to_alpha()->tolerance){
+                    * ( buffer+i*4 ) = (T) red;
+                    * ( buffer+i*4+1 ) = (T) green;
+                    * ( buffer+i*4+2 ) = (T) blue;
+                    * ( buffer+i*4+3 ) = (T) 0;
+                }
+                else{
+                    * ( buffer+i*4 ) = (T) red;
+                    * ( buffer+i*4+1 ) = (T) green;
+                    * ( buffer+i*4+2 ) = (T) blue;
+                    * ( buffer+i*4+3 ) = (T) 255;
+                }
+            }
+            break;
+        }
+    
+        space = width * sizeof ( T ) * channels;
+    }
+
     if (style->palette_defined()){
         switch ( channels ) {
         case 4:
@@ -541,6 +600,12 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
             return NULL;
         }
     }
+    if (input_style->white_to_alpha_defined()){
+        if (input_image->get_channels()!=3 || input_image->get_channels()!=4){
+            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à un canal";
+            return NULL;
+        }
+    }
     return new StyledImage(input_image,input_style,offset);
 
 }
@@ -569,6 +634,9 @@ void StyledImage::print() {
     }
     if (style->terrainrgb_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Terrainrgb -----------" ;
+    }
+    if (style->white_to_alpha_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- White_to_alpha -----------" ;
     }
     if (style->palette_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Palette -----------" ;

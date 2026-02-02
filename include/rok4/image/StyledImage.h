@@ -36,21 +36,16 @@
  */
 
 /**
- * \file TerrainrgbImage.h
+ * \file StyledImage.h
  ** \~french
- * \brief D�finition de la classe TerrainrgbImage
+ * \brief D�finition de la classe StyledImage
  ** \~english
- * \brief Define class TerrainrgbImage
+ * \brief Define class StyledImage
  */
 
 #pragma once
 
 #include "rok4/image/Image.h"
-#include "rok4/image/EstompageImage.h"
-#include "rok4/image/PaletteImage.h"
-#include "rok4/image/PenteImage.h"
-#include "rok4/image/AspectImage.h"
-#include "rok4/image/TerrainrgbImage.h"
 #include "rok4/style/Style.h"
 
 class StyledImage : public Image
