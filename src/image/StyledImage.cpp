@@ -500,46 +500,112 @@ int StyledImage::_getline(T *buffer, int line) {
     else if (style->white_to_alpha_defined()) {
         switch ( channels ) {
         case 3:
-            for (int i = 0; i < source_image->get_width() ; i++ ) {
-                // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
-                int red = *(source+i*3);
-                int green = *(source+i*3+1);
-                int blue = *(source+i*3+2);
-                int min = std::min({red,blue,green});
+            if (source_image->get_channels()=3){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 3 canaux pour une arrivée en 3 canaux
+                    int red = *(source+i*3);
+                    int green = *(source+i*3+1);
+                    int blue = *(source+i*3+2);
+                    int s_red = style->get_white_to_alpha()->source[0];
+                    int s_green = style->get_white_to_alpha()->source[1];
+                    int s_blue = style->get_white_to_alpha()->source[2];
 
-                if (min>=255-style->get_white_to_alpha()->tolerance){
-                    * ( buffer+i*3 ) = (T) red;
-                    * ( buffer+i*3+1 ) = (T) green;
-                    * ( buffer+i*3+2 ) = (T) blue;
-                    * ( buffer+i*3+3 ) = (T) 0;
+                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
+                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
+                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance){
+                        * ( buffer+i*3 ) = (T) style->get_white_to_alpha()->destination[0];
+                        * ( buffer+i*3+1 ) = (T) style->get_white_to_alpha()->destination[1];
+                        * ( buffer+i*3+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                    }
+                    else{
+                        * ( buffer+i*3 ) = (T) red;
+                        * ( buffer+i*3+1 ) = (T) green;
+                        * ( buffer+i*3+2 ) = (T) blue;
+                    }
                 }
-                else{
-                    * ( buffer+i*3 ) = (T) red;
-                    * ( buffer+i*3+1 ) = (T) green;
-                    * ( buffer+i*3+2 ) = (T) blue;
-                    * ( buffer+i*3+3 ) = (T) 255;
+            }
+            if (source_image->get_channels()=4){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 4 canaux pour une arrivée en 3 canaux
+                    int red = *(source+i*4);
+                    int green = *(source+i*4+1);
+                    int blue = *(source+i*4+2);
+                    int alpha = *(source+i*4+3);
+                    int s_red = style->get_white_to_alpha()->source[0];
+                    int s_green = style->get_white_to_alpha()->source[1];
+                    int s_blue = style->get_white_to_alpha()->source[2];
+                    int s_alpha = style->get_white_to_alpha()->source[3];
+
+                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
+                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
+                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance ||
+                    alpha>=s_alpha-style->get_white_to_alpha()->tolerance || alpha<=s_alpha+style->get_white_to_alpha()->tolerance){
+                        * ( buffer+i*3 ) = (T) style->get_white_to_alpha()->destination[0];
+                        * ( buffer+i*3+1 ) = (T) style->get_white_to_alpha()->destination[1];
+                        * ( buffer+i*3+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                    }
+                    else{
+                        * ( buffer+i*3 ) = (T) red;
+                        * ( buffer+i*3+1 ) = (T) green;
+                        * ( buffer+i*3+2 ) = (T) blue;
+                    }
                 }
             }
             break;
         case 4:
-            for (int i = 0; i < source_image->get_width() ; i++ ) {
-                // découpage de l'altitude en RGB suivant la formule suivante : height = min_elevation + ((Red * 256 * 256 + Green * 256 + Blue) * step)
-                int red = *(source+i*4);
-                int green = *(source+i*4+1);
-                int blue = *(source+i*4+2);
-                int min = std::min({red,blue,green});
-
-                if (min>=255-style->get_white_to_alpha()->tolerance){
-                    * ( buffer+i*4 ) = (T) red;
-                    * ( buffer+i*4+1 ) = (T) green;
-                    * ( buffer+i*4+2 ) = (T) blue;
-                    * ( buffer+i*4+3 ) = (T) 0;
+        if (source_image->get_channels()=4){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 3 canaux pour une arrivée en 4 canaux
+                    int red = *(source+i*3);
+                    int green = *(source+i*3+1);
+                    int blue = *(source+i*3+2);
+                    int s_red = style->get_white_to_alpha()->source[0];
+                    int s_green = style->get_white_to_alpha()->source[1];
+                    int s_blue = style->get_white_to_alpha()->source[2];
+                
+                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
+                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
+                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance){
+                        * ( buffer+i*4 ) = (T) style->get_white_to_alpha()->destination[0];
+                        * ( buffer+i*4+1 ) = (T) style->get_white_to_alpha()->destination[1];
+                        * ( buffer+i*4+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                        * ( buffer+i*4+3 ) = (T) style->get_white_to_alpha()->destination[3];
+                    }
+                    else{
+                        * ( buffer+i*4 ) = (T) red;
+                        * ( buffer+i*4+1 ) = (T) green;
+                        * ( buffer+i*4+2 ) = (T) blue;
+                        * ( buffer+i*4+3 ) = (T) 0;
+                    }
                 }
-                else{
-                    * ( buffer+i*4 ) = (T) red;
-                    * ( buffer+i*4+1 ) = (T) green;
-                    * ( buffer+i*4+2 ) = (T) blue;
-                    * ( buffer+i*4+3 ) = (T) 255;
+            }
+            if (source_image->get_channels()=4){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 4 canaux pour une arrivée en 4 canaux
+                    int red = *(source+i*4);
+                    int green = *(source+i*4+1);
+                    int blue = *(source+i*4+2);
+                    int alpha = *(source+i*4+3);
+                    int s_red = style->get_white_to_alpha()->source[0];
+                    int s_green = style->get_white_to_alpha()->source[1];
+                    int s_blue = style->get_white_to_alpha()->source[2];
+                    int s_alpha = style->get_white_to_alpha()->source[3];
+
+                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
+                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
+                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance ||
+                    alpha>=s_alpha-style->get_white_to_alpha()->tolerance || alpha<=s_alpha+style->get_white_to_alpha()->tolerance){
+                        * ( buffer+i*4 ) = (T) style->get_white_to_alpha()->destination[0];
+                        * ( buffer+i*4+1 ) = (T) style->get_white_to_alpha()->destination[1];
+                        * ( buffer+i*4+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                        * ( buffer+i*4+3 ) = (T) style->get_white_to_alpha()->destination[3];
+                    }
+                    else{
+                        * ( buffer+i*4 ) = (T) red;
+                        * ( buffer+i*4+1 ) = (T) green;
+                        * ( buffer+i*4+2 ) = (T) blue;
+                        * ( buffer+i*4+3 ) = (T) alpha;
+                    }
                 }
             }
             break;
@@ -602,7 +668,11 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
     }
     if (input_style->white_to_alpha_defined()){
         if (input_image->get_channels()!=3 || input_image->get_channels()!=4){
-            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à un canal";
+            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à trois ou quatre canaux";
+            return NULL;
+        }
+        if (input_style->palette_defined()){
+            BOOST_LOG_TRIVIAL(error)<<"Le style white_to_alpha n'est pas compatible avec une palette";
             return NULL;
         }
     }
