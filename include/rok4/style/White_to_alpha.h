@@ -64,25 +64,25 @@ public:
     int tolerance;
 
     /** \~french
-     * \brief source_channels : nombre de caneaux de l'image d'entrée
+     * \brief source : valeur visée en entrée
      ** \~english
-     * \brief source_channels : number of channels in the source image
+     * \brief source : input target value
      */
-    int source_channels;
+    std::vector<int> source;
 
     /** \~french
-     * \brief destination_channels : nombre de caneaux de l'image de sortie
+     * \brief destination : valeur visée en sortie
      ** \~english
-     * \brief destination_channels : number of channels in the output image
+     * \brief destination : output target value
      */
-    int destination_channels;
+    std::vector<int> destination;
 
     /** \~french
     * \brief noData : valeur de nodata pour l'image source
     ** \~english
     * \brief noData : value of nodata for the source image
     */
-    float input_nodata_value;
+    std::vector<int> input_nodata_value;
 
     /** \~french
     * \brief noData : valeur de nodata pour le white_to_alpha

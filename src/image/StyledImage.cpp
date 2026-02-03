@@ -170,8 +170,8 @@ StyledImage::StyledImage(Image *input_image, Style *input_style, int offset) : I
     }
 
     else if (style->white_to_alpha_defined()) {
-        if (style->get_white_to_alpha()->source_channels == 3 || style->get_white_to_alpha()->source_channels == 4) {
-            channels = style->get_white_to_alpha()->destination_channels;
+        if (source_image->get_channels() == 3 || source_image->get_channels() == 4) {
+            channels = style->get_white_to_alpha()->destination.size();
         } else {
             channels = input_image->get_channels();
         }

@@ -59,16 +59,20 @@ White_to_alpha::White_to_alpha(json11::Json doc) : Configuration()
         tolerance = 0;
     }
     if (doc["source"].is_array()) {
-        source_channels = doc["source"].array_items().size();
+        for (json11::Json v : doc["source"].array_items()) {
+            source.push_back(v.number_value());
+        }
     } else {
-        source_channels = 0;
+        source = {255,255,255};
     }
     if (doc["destination"].is_array()) {
-        destination_channels = doc["destination"].array_items().size();
+        for (json11::Json v : doc["destination"].array_items()) {
+            destination.push_back(v.number_value());
+        }
     } else {
-        destination_channels = 0;
+        destination = {255,255,255,0};
     }
-    input_nodata_value=255;
+    input_nodata_value=source;
 }
 
 White_to_alpha::~White_to_alpha() {

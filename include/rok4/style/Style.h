@@ -266,7 +266,7 @@ public:
         }
         else if (white_to_alpha_defined()){
             if (orig_channels ==3 || orig_channels ==4){
-                return white_to_alpha->destination_channels;
+                return white_to_alpha->destination.size();
             }
             else {
                 return orig_channels;

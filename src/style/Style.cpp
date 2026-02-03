@@ -253,8 +253,13 @@ Style::Style ( std::string path ) : Configuration(path) {
         input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
     }
     else if (white_to_alpha_defined()) {
-        input_nodata_value = new int[1];
-        input_nodata_value[0] = (int) white_to_alpha->input_nodata_value;
+        int i = white_to_alpha->input_nodata_value.size();
+        input_nodata_value = new int[i];
+
+        for (int j = 0; j < i; ++j){
+            input_nodata_value[j] = white_to_alpha->input_nodata_value[j];
+        }  
+
     }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
@@ -296,11 +301,12 @@ Style::Style ( std::string path ) : Configuration(path) {
         output_nodata_value[2] = 0;
     }
     else if (white_to_alpha_defined()) {
-        output_nodata_value = new int[4];
-        output_nodata_value[0] = 0;
-        output_nodata_value[1] = 0;
-        output_nodata_value[2] = 0;
-        output_nodata_value[3] = 0;
+        int i = white_to_alpha->input_nodata_value.size();
+        input_nodata_value = new int[i];
+
+        for (int j = 0; j < i; ++j){
+            input_nodata_value[j] = white_to_alpha->destination[j];
+        }  
     }
 }
 
