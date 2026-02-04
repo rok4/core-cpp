@@ -500,7 +500,7 @@ int StyledImage::_getline(T *buffer, int line) {
     else if (style->white_to_alpha_defined()) {
         switch ( channels ) {
         case 3:
-            if (source_image->get_channels()=3){
+            if (source_image->get_channels()==3){
                 for (int i = 0; i < source_image->get_width() ; i++ ) {
                     //image de départ à 3 canaux pour une arrivée en 3 canaux
                     int red = *(source+i*3);
@@ -524,7 +524,7 @@ int StyledImage::_getline(T *buffer, int line) {
                     }
                 }
             }
-            if (source_image->get_channels()=4){
+            if (source_image->get_channels()==4){
                 for (int i = 0; i < source_image->get_width() ; i++ ) {
                     //image de départ à 4 canaux pour une arrivée en 3 canaux
                     int red = *(source+i*4);
@@ -553,7 +553,7 @@ int StyledImage::_getline(T *buffer, int line) {
             }
             break;
         case 4:
-        if (source_image->get_channels()=4){
+        if (source_image->get_channels()==4){
                 for (int i = 0; i < source_image->get_width() ; i++ ) {
                     //image de départ à 3 canaux pour une arrivée en 4 canaux
                     int red = *(source+i*3);
@@ -579,7 +579,7 @@ int StyledImage::_getline(T *buffer, int line) {
                     }
                 }
             }
-            if (source_image->get_channels()=4){
+            if (source_image->get_channels()==4){
                 for (int i = 0; i < source_image->get_width() ; i++ ) {
                     //image de départ à 4 canaux pour une arrivée en 4 canaux
                     int red = *(source+i*4);
