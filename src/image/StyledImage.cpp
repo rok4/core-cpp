@@ -586,7 +586,7 @@ int StyledImage::_getline(T *buffer, int line) {
                         * ( buffer+i*4 ) = (T) red;
                         * ( buffer+i*4+1 ) = (T) green;
                         * ( buffer+i*4+2 ) = (T) blue;
-                        * ( buffer+i*4+3 ) = (T) 0;
+                        * ( buffer+i*4+3 ) = (T) 255;
                     }
                 }
             }
