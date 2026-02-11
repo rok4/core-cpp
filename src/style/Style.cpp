@@ -164,7 +164,7 @@ bool Style::parse(json11::Json& doc) {
             error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
             return false;
         }
-        white_to_alpha = new White_to_alpha(doc["white_to_alpha"].object_items());
+        white_to_alpha = new White_to_alpha(doc["colorize"].object_items());
         if (! white_to_alpha->is_ok()) {
             error_message = "White_to_alpha issue for style " + id + ": " + white_to_alpha->get_error_message();
             return false;
@@ -302,10 +302,10 @@ Style::Style ( std::string path ) : Configuration(path) {
     }
     else if (white_to_alpha_defined()) {
         int i = white_to_alpha->input_nodata_value.size();
-        input_nodata_value = new int[i];
+        output_nodata_value = new int[i];
 
         for (int j = 0; j < i; ++j){
-            input_nodata_value[j] = white_to_alpha->destination[j];
+            output_nodata_value[j] = white_to_alpha->destination[j];
         }  
     }
 }
