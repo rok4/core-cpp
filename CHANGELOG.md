@@ -13,7 +13,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 - Ajout du traitement en cas de style terrainrgb. Il doit être l'unique style déclaré pour fonctionner.
 - `StyledImage` : Récupération de l'affectation du style au sein de la lib core-cpp. Regroupement des traitements des styles regroupés dans StyledImage.
 - `StyledImage` : Ajout du traitement pour gérer le style Terrainrgb.
-- `White_to_alpha` : Ajout d'un style white_to_alpha permettant de remplacer une couleur en une autre avec une possibilité de transparence.
+- `Colorize` : Ajout d'un style colorize permettant de remplacer une couleur en une autre avec une possibilité de transparence.
 
 ### Changed
 

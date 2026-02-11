@@ -169,9 +169,9 @@ StyledImage::StyledImage(Image *input_image, Style *input_style, int offset) : I
         }    
     }
 
-    else if (style->white_to_alpha_defined()) {
+    else if (style->colorize_defined()) {
         if (source_image->get_channels() == 3 || source_image->get_channels() == 4) {
-            channels = style->get_white_to_alpha()->destination.size();
+            channels = style->get_colorize()->destination.size();
         } else {
             channels = input_image->get_channels();
         }
@@ -497,8 +497,8 @@ int StyledImage::_getline(T *buffer, int line) {
         space = width * sizeof ( T ) * channels;
     }
 
-    else if (style->white_to_alpha_defined()) {
-        White_to_alpha* wta = style->get_white_to_alpha();
+    else if (style->colorize_defined()) {
+        Colorize* wta = style->get_colorize();
         switch ( channels ) {
         case 3:
             if (source_image->get_channels()==3){
@@ -681,13 +681,13 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
             return NULL;
         }
     }
-    if (input_style->white_to_alpha_defined()){
+    if (input_style->colorize_defined()){
         if (input_image->get_channels()!=3 && input_image->get_channels()!=4){
             BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à trois ou quatre canaux";
             return NULL;
         }
         if (input_style->palette_defined()){
-            BOOST_LOG_TRIVIAL(error)<<"Le style white_to_alpha n'est pas compatible avec une palette";
+            BOOST_LOG_TRIVIAL(error)<<"Le style colorize n'est pas compatible avec une palette";
             return NULL;
         }
     }
@@ -720,8 +720,8 @@ void StyledImage::print() {
     if (style->terrainrgb_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Terrainrgb -----------" ;
     }
-    if (style->white_to_alpha_defined()){
-        BOOST_LOG_TRIVIAL(info) <<  "--------- White_to_alpha -----------" ;
+    if (style->colorize_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Colorize -----------" ;
     }
     if (style->palette_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Palette -----------" ;

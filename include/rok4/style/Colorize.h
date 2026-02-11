@@ -36,44 +36,74 @@
  */
 
  /**
- * \file White_to_alpha.cpp
- * \~french
- * \brief Implémentation de la classe White_to_alpha pour rendre transparent les pixels blancs.
- * \~english
- * \brief Implement the White_to_alpha Class handling transparency for white pixels definition.
+ * \file Colorize.h
+ ** \~french
+ * \brief D�finition de la classe Colorize
+ ** \~english
+ * \brief Define class Colorize
  */
 
-#include "style/White_to_alpha.h"
+
+#pragma once
+
+#include "rok4/utils/Configuration.h"
+
 #include <stdint.h>
-#include "zlib.h"
-#include <string.h>
-#include "byteswap.h"
-#include <boost/log/trivial.hpp>
+#include <vector>
+#include <map>
+#include <stddef.h>
 
-White_to_alpha::White_to_alpha(json11::Json doc) : Configuration()
+class Colorize : public Configuration
 {
+public:
+    /** \~french
+     * \brief tolerance : seuil de tolérance pour gérer les teintes de blanc plus larges
+     ** \~english
+     * \brief tolerance : tolerance threshold for managing wider shades of white
+     */
+    int tolerance;
 
-    if (doc["tolerance"].is_number()) {
-        tolerance = doc["tolerance"].number_value();
-    } else {
-        tolerance = 0;
-    }
-    if (doc["source"].is_array()) {
-        for (json11::Json v : doc["source"].array_items()) {
-            source.push_back(v.number_value());
-        }
-    } else {
-        source = {255,255,255};
-    }
-    if (doc["destination"].is_array()) {
-        for (json11::Json v : doc["destination"].array_items()) {
-            destination.push_back(v.number_value());
-        }
-    } else {
-        destination = {255,255,255,0};
-    }
-    input_nodata_value=source;
-}
+    /** \~french
+     * \brief source : valeur visée en entrée
+     ** \~english
+     * \brief source : input target value
+     */
+    std::vector<int> source;
 
-White_to_alpha::~White_to_alpha() {
-}
+    /** \~french
+     * \brief destination : valeur visée en sortie
+     ** \~english
+     * \brief destination : output target value
+     */
+    std::vector<int> destination;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    std::vector<int> input_nodata_value;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour le colorize
+    ** \~english
+    * \brief noData : value of nodata for the colorize
+    */
+    float colorize_nodata_value;
+
+    /**
+     * \~french
+     * \brief Constructeurs avec des arguments
+     * \~english
+     * \brief Constructor with arguments
+     */
+    Colorize(json11::Json doc);
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    virtual ~Colorize();
+};
