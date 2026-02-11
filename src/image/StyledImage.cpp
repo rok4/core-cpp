@@ -561,7 +561,7 @@ int StyledImage::_getline(T *buffer, int line) {
             }
             break;
         case 4:
-        if (source_image->get_channels()==4){
+        if (source_image->get_channels()==3){
                 for (int i = 0; i < source_image->get_width() ; i++ ) {
                     //image de départ à 3 canaux pour une arrivée en 4 canaux
                     int red = *(source+i*3);
@@ -682,7 +682,7 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
         }
     }
     if (input_style->white_to_alpha_defined()){
-        if (input_image->get_channels()!=3 || input_image->get_channels()!=4){
+        if (input_image->get_channels()!=3 && input_image->get_channels()!=4){
             BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à trois ou quatre canaux";
             return NULL;
         }
