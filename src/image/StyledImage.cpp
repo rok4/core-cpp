@@ -498,6 +498,7 @@ int StyledImage::_getline(T *buffer, int line) {
     }
 
     else if (style->white_to_alpha_defined()) {
+        White_to_alpha* wta = style->get_white_to_alpha();
         switch ( channels ) {
         case 3:
             if (source_image->get_channels()==3){
@@ -506,16 +507,19 @@ int StyledImage::_getline(T *buffer, int line) {
                     int red = *(source+i*3);
                     int green = *(source+i*3+1);
                     int blue = *(source+i*3+2);
-                    int s_red = style->get_white_to_alpha()->source[0];
-                    int s_green = style->get_white_to_alpha()->source[1];
-                    int s_blue = style->get_white_to_alpha()->source[2];
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
 
-                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
-                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
-                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance){
-                        * ( buffer+i*3 ) = (T) style->get_white_to_alpha()->destination[0];
-                        * ( buffer+i*3+1 ) = (T) style->get_white_to_alpha()->destination[1];
-                        * ( buffer+i*3+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance){
+                        * ( buffer+i*3 ) = (T) wta->destination[0];
+                        * ( buffer+i*3+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*3+2 ) = (T) wta->destination[2];
                     }
                     else{
                         * ( buffer+i*3 ) = (T) red;
@@ -531,18 +535,22 @@ int StyledImage::_getline(T *buffer, int line) {
                     int green = *(source+i*4+1);
                     int blue = *(source+i*4+2);
                     int alpha = *(source+i*4+3);
-                    int s_red = style->get_white_to_alpha()->source[0];
-                    int s_green = style->get_white_to_alpha()->source[1];
-                    int s_blue = style->get_white_to_alpha()->source[2];
-                    int s_alpha = style->get_white_to_alpha()->source[3];
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    alpha  = alpha  < 0 ? 0 : (alpha  > 255 ? 255 : alpha);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+                    int s_alpha = wta->source[3];
 
-                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
-                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
-                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance ||
-                    alpha>=s_alpha-style->get_white_to_alpha()->tolerance || alpha<=s_alpha+style->get_white_to_alpha()->tolerance){
-                        * ( buffer+i*3 ) = (T) style->get_white_to_alpha()->destination[0];
-                        * ( buffer+i*3+1 ) = (T) style->get_white_to_alpha()->destination[1];
-                        * ( buffer+i*3+2 ) = (T) style->get_white_to_alpha()->destination[2];
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance &&
+                    alpha>=s_alpha-wta->tolerance && alpha<=s_alpha+wta->tolerance){
+                        * ( buffer+i*3 ) = (T) wta->destination[0];
+                        * ( buffer+i*3+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*3+2 ) = (T) wta->destination[2];
                     }
                     else{
                         * ( buffer+i*3 ) = (T) red;
@@ -559,17 +567,20 @@ int StyledImage::_getline(T *buffer, int line) {
                     int red = *(source+i*3);
                     int green = *(source+i*3+1);
                     int blue = *(source+i*3+2);
-                    int s_red = style->get_white_to_alpha()->source[0];
-                    int s_green = style->get_white_to_alpha()->source[1];
-                    int s_blue = style->get_white_to_alpha()->source[2];
-                
-                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
-                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
-                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance){
-                        * ( buffer+i*4 ) = (T) style->get_white_to_alpha()->destination[0];
-                        * ( buffer+i*4+1 ) = (T) style->get_white_to_alpha()->destination[1];
-                        * ( buffer+i*4+2 ) = (T) style->get_white_to_alpha()->destination[2];
-                        * ( buffer+i*4+3 ) = (T) style->get_white_to_alpha()->destination[3];
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance){
+                        * ( buffer+i*4 ) = (T) wta->destination[0];
+                        * ( buffer+i*4+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*4+2 ) = (T) wta->destination[2];
+                        * ( buffer+i*4+3 ) = (T) wta->destination[3];
                     }
                     else{
                         * ( buffer+i*4 ) = (T) red;
@@ -586,19 +597,23 @@ int StyledImage::_getline(T *buffer, int line) {
                     int green = *(source+i*4+1);
                     int blue = *(source+i*4+2);
                     int alpha = *(source+i*4+3);
-                    int s_red = style->get_white_to_alpha()->source[0];
-                    int s_green = style->get_white_to_alpha()->source[1];
-                    int s_blue = style->get_white_to_alpha()->source[2];
-                    int s_alpha = style->get_white_to_alpha()->source[3];
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    alpha  = alpha  < 0 ? 0 : (alpha  > 255 ? 255 : alpha);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+                    int s_alpha = wta->source[3];
 
-                    if (red>=s_red-style->get_white_to_alpha()->tolerance || red<=s_red+style->get_white_to_alpha()->tolerance ||
-                    green>=s_green-style->get_white_to_alpha()->tolerance || green<=s_green+style->get_white_to_alpha()->tolerance ||
-                    blue>=s_blue-style->get_white_to_alpha()->tolerance || blue<=s_blue+style->get_white_to_alpha()->tolerance ||
-                    alpha>=s_alpha-style->get_white_to_alpha()->tolerance || alpha<=s_alpha+style->get_white_to_alpha()->tolerance){
-                        * ( buffer+i*4 ) = (T) style->get_white_to_alpha()->destination[0];
-                        * ( buffer+i*4+1 ) = (T) style->get_white_to_alpha()->destination[1];
-                        * ( buffer+i*4+2 ) = (T) style->get_white_to_alpha()->destination[2];
-                        * ( buffer+i*4+3 ) = (T) style->get_white_to_alpha()->destination[3];
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance &&
+                    alpha>=s_alpha-wta->tolerance && alpha<=s_alpha+wta->tolerance){
+                        * ( buffer+i*4 ) = (T) wta->destination[0];
+                        * ( buffer+i*4+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*4+2 ) = (T) wta->destination[2];
+                        * ( buffer+i*4+3 ) = (T) wta->destination[3];
                     }
                     else{
                         * ( buffer+i*4 ) = (T) red;
