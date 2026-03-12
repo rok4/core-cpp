@@ -35,38 +35,68 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+ /**
+ * \file Terrainrgb.h
+ ** \~french
+ * \brief D�finition de la classe Terrainrgb
+ ** \~english
+ * \brief Define class Terrainrgb
+ */
+
+
 #pragma once
 
-#include "rok4/image/Image.h"
-#include "rok4/style/Palette.h"
+#include "rok4/utils/Configuration.h"
 
-class PaletteImage : public Image {
-private:
-    Image* source_image;
-    Palette* palette;
+#include <stdint.h>
+#include <vector>
+#include <map>
+#include <stddef.h>
 
-    template<typename T>
-    int _getline ( T* buffer, int line );
-
+class Terrainrgb : public Configuration
+{
 public:
-    virtual int get_line ( float* buffer, int line );
-    virtual int get_line ( uint16_t* buffer, int line );
-    virtual int get_line ( uint8_t* buffer, int line );
-    PaletteImage ( Image* image, Palette* palette );
-    virtual ~PaletteImage();
+    /** \~french
+     * \brief min_elevation : élévation minimale à partir de laquelle est calculée la couleur
+     ** \~english
+     * \brief min_elevation : minimum elevation from which the color is calculated
+     */
+    float min_elevation;
 
     /** \~french
-     * \brief Sortie des informations sur l'image estompée
+     * \brief step : résolution verticale
      ** \~english
-     * \brief Estompage image description output
+     * \brief step : vertical resolution
      */
-    void print() {
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "------ PaletteImage -------" ;
-        Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->get_colours_map()->size() ;
-        
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-    }
-};
+    float step;
 
+    /** \~french
+    * \brief noData : valeur de nodata pour l'image source
+    ** \~english
+    * \brief noData : value of nodata for the source image
+    */
+    float input_nodata_value;
+
+    /** \~french
+    * \brief noData : valeur de nodata pour le terrainrgb
+    ** \~english
+    * \brief noData : value of nodata for the RGB terrain
+    */
+    float terrainrgb_nodata_value;
+
+    /**
+     * \~french
+     * \brief Constructeurs avec des arguments
+     * \~english
+     * \brief Constructor with arguments
+     */
+    Terrainrgb(json11::Json doc);
+
+    /**
+     * \~french
+     * \brief Destructeur
+     * \~english
+     * \brief Destructor
+     */
+    virtual ~Terrainrgb();
+};

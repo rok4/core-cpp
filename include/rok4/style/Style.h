@@ -55,6 +55,7 @@ class Style;
 #include "rok4/style/Pente.h"
 #include "rok4/style/Estompage.h"
 #include "rok4/style/Aspect.h"
+#include "rok4/style/Terrainrgb.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 #include "rok4/utils/StoragePool.h"
@@ -163,6 +164,11 @@ private :
      * \~english \brief Define wether the server must compute a relief shadow
      */
     Estompage* estompage;
+    /**
+     * \~french \brief Définit si un calcul de terrainrgb doit être appliqué
+     * \~english \brief Define wether the server must compute a RGB terrain
+     */
+    Terrainrgb* terrainrgb;
 
     /**
      * \~french \brief Valeur de nodata attendue dans les données en entrée
@@ -220,7 +226,7 @@ public:
      * \~english \brief Style is allowed ?
      */
     bool handle (int spp) {
-        if (estompage_defined() || pente_defined() || aspect_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
             return (spp == 1);
         } else {
             return true;
@@ -233,12 +239,26 @@ public:
      */
     int get_channels (int orig_channels) {
         if (palette && ! palette->is_empty()) {
-            if (palette->is_no_alpha()) {
-                return 3;
-            } else {
-                return 4;
+            if (orig_channels ==1){
+                if (palette->is_no_alpha()) {
+                    return 3;
+                } else {
+                    return 4;
+                }
             }
-        } else {
+            else {
+                return orig_channels;
+            }
+        } 
+        else if (terrainrgb_defined()){
+            if (orig_channels ==1){
+                return 3;
+            }
+            else {
+                return orig_channels;
+            }
+        }
+        else {
             if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
             } else {
@@ -246,6 +266,7 @@ public:
                 return orig_channels;
             }
         }
+        
     }
 
     /**
@@ -253,7 +274,7 @@ public:
      * \~english \brief Which sample format after style
      */
     SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
-        if (palette && ! palette->is_empty()) {
+        if ((palette && ! palette->is_empty()) || terrainrgb_defined()) {
             return SampleFormat::UINT8;
         } else {
             return sf;
@@ -293,7 +314,7 @@ public:
             return false;
         }
 
-        if (estompage_defined() || pente_defined() || aspect_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
             return false;
         } else {
             return true;
@@ -348,6 +369,17 @@ public:
         return &legends;
     }
 
+    /**
+     * \~french
+     * \brief Détermine si le style décrit une table de correspondance
+     * \return true si oui
+     * \~english
+     * \brief Determine if the style describe a lookup table
+     * \return true if it does
+     */
+    inline bool palette_defined() {
+        return (palette != 0);
+    }
     /**
      * \~french
      * \brief Retourne la table de correspondance
@@ -421,6 +453,27 @@ public:
      */
     inline Aspect* get_aspect() {
         return aspect;
+    }
+
+    /**
+    * \~french
+    * \brief Return vrai si le style est un terrainrgb
+    * \return bool
+    * \~english
+    * \brief Return true if the style is an rgb terrain
+    * \return bool
+    */
+    inline bool terrainrgb_defined() {
+        return (terrainrgb != 0);
+    }
+    /**
+     * \~french
+     * \brief Retourne le terrainrgb
+     * \~english
+     * \brief Return rgb terrain
+     */
+    inline Terrainrgb* get_terrainrgb() {
+        return terrainrgb;
     }
 	
 
