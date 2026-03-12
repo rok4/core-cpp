@@ -35,23 +35,39 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
+/**
+ * \file StyledImage.h
+ ** \~french
+ * \brief D�finition de la classe StyledImage
+ ** \~english
+ * \brief Define class StyledImage
+ */
+
 #pragma once
 
 #include "rok4/image/Image.h"
-#include "rok4/style/Pente.h"
-#include <string>
+#include "rok4/style/Style.h"
 
-
-class PenteImage : public Image {
-
+class StyledImage : public Image
+{
 private:
+    template <typename T>
+    int _getline(T *buffer, int line);
+    Image *source_image;
+    Style *style;
+    /** \~french
+    * \brief Résolution de l'image en X, en mètre
+    ** \~english
+    * \brief Resolution of the image (X), in meter
+    */
+    float resxmeter;
 
     /** \~french
-    * \brief Image d'origine utilisée pour calculer la pente
+    * \brief Résolution de l'image en Y, en mètre
     ** \~english
-    * \brief Origin image used to compute the slope
+    * \brief Resolution of the image (Y), in meter
     */
-    Image* source_image;
+    float resymeter;
 
     /** \~french
     * \brief Nombre de ligne en mémoire
@@ -75,88 +91,54 @@ private:
     int* source_lines;
 
     /** \~french
-    * \brief Résolution de l'image en X, en mètre
+    * \brief Matrice de convolution
     ** \~english
-    * \brief Resolution of the image (X), in meter
+    * \brief Convolution matrix
     */
-    float resxmeter;
+    float matrix[9];
 
     /** \~french
-    * \brief Résolution de l'image en Y, en mètre
+    * \brief Résolution de l'image d'origine et donc finale
     ** \~english
-    * \brief Resolution of the image (Y), in meter
+    * \brief Resolution of the image
     */
-    float resymeter;
+    float resolution;
 
     /** \~french
-    * \brief Configuration de la pente
+    * \brief Booléen précisant l'utilisation de buffer pour les traitements multi-lignes
     ** \~english
-    * \brief Slope configuration
+    * \brief Booleen that indicate if buffers are used for multi-line processes
     */
-    Pente* pente;
+    bool multi_line_buffer;
 
-    /** \~french
-    * \brief Calcule la ligne
-    ** \~english
-    * \brief Process line
-    */
-    template<typename T>
-    int _getline ( T* buffer, int line );
+    StyledImage(Image* image, Style *style, int offset);
 
 public:
+    virtual int get_line(float *buffer, int line);
+    virtual int get_line(uint16_t *buffer, int line);
+    virtual int get_line(uint8_t *buffer, int line);
+    
 
     /** \~french
-    * \brief Récupère la ligne
-    ** \~english
-    * \brief Get line
-    */
-    virtual int get_line ( float* buffer, int line );
-
-    /** \~french
-    * \brief Récupère la ligne
-    ** \~english
-    * \brief Get line
-    */
-    virtual int get_line ( uint8_t* buffer, int line );
-
-    /** \~french
-    * \brief Récupère la ligne
-    ** \~english
-    * \brief Get line
-    */
-    virtual int get_line ( uint16_t* buffer, int line );
-
-    /** \~french
-    * \brief Constructeur
-    ** \~english
-    * \brief Construtor
-    */
-    PenteImage (Image* image, Pente* p);
-
-    /** \~french
-    * \brief Destructeur
-    ** \~english
-    * \brief Destructor
-    */
-    virtual ~PenteImage();
-
-    /** \~french
-     * \brief Sortie des informations sur l'image estompée
+     * \brief Teste et calcule les caractéristiques d'une image stylisée et crée un objet StyledImage
+     * \details Largeur, hauteur, nombre de canaux et bbox sont déduits des composantes de l'image source et des paramètres. On vérifie la superposabilité des images sources.
+     * \param[in] input_image image source
+     * \param[in] input_style style source
+     * \return un pointeur d'objet StyledImage, NULL en cas d'erreur
      ** \~english
-     * \brief Estompage image description output
+     * \brief Check and calculate styled image components and create an StyledImage object
+     * \details Height, width, samples' number and bbox are deduced from source image's components and parameters. We check if source images are superimpose.
+     * \param[in] input_image source images
+     * \param[in] input_style nodata value
+     * \return a StyledImage object pointer, NULL if error
      */
-    void print() {
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "------ PenteImage -------" ;
-        Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Algo = " << pente->algo ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Unit = " << pente->unit ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- max Slope = " << pente->max_slope ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Slope nodata = " << pente->slope_nodata_value ;
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Image nodata = " << pente->input_nodata_value ;
-        
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-    }
+    static StyledImage* create ( Image* input_image, Style* input_style );
 
+    virtual ~StyledImage();
+    /** \~french
+     * \brief Sortie des informations sur l'image reprojetée
+     ** \~english
+     * \brief Reprojected image description output
+     */
+    void print();
 };
-

@@ -53,6 +53,7 @@
 #include <boost/log/trivial.hpp>
 #include "storage/Context.h"
 #include "utils/LibcurlStruct.h"
+#include "utils/CurlPool.h"
 
 #define ROK4_S3_URL "ROK4_S3_URL"
 #define ROK4_S3_KEY "ROK4_S3_KEY"
@@ -102,6 +103,12 @@ private:
      * \~english \brief Don't verify SSL certificats with Curl ?
      */
     static bool ssl_no_verify;
+
+    /**
+     * \~french \brief Temps avant timeout en secondes
+     * \~english \brief Timeout value, in seconds
+     */
+    static int timeout;
 
     /**
      * \~french \brief Charge les informations S3 depuis les variables d'environnement

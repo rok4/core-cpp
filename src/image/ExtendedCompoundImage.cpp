@@ -166,6 +166,7 @@ bool ExtendedCompoundImage::add_mirrors ( int mirrorSize ) {
         }
     }
 
+    // On met les mirroirs au début pour ne pas écraser de la vraie donnée
     source_images.insert ( source_images.begin(),mirrorImages.begin(),mirrorImages.end() );
     mirrors_count = mirrorImages.size();
 

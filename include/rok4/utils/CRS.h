@@ -47,7 +47,11 @@
 #pragma once
 
 #include <string>
+#include <boost/log/trivial.hpp>
+#include <proj.h>
 #include "rok4/utils/BoundingBox.h"
+#include "rok4/utils/ProjPool.h"
+#include "rok4/utils/Utils.h"
 
 /**
  * \~french \brief Code utilisé en cas de non correspondance avec les référentiel de Proj

@@ -47,12 +47,11 @@
 
 #include <stdint.h>
 #include <string.h>
-#include <typeinfo>
 #include <cmath>
+#include <typeinfo>
 
 #include "rok4/utils/BoundingBox.h"
-#include "rok4/utils/CRS.h"
-#include "rok4/utils/Cache.h"
+#include "rok4/utils/CrsBook.h"
 
 #define METER_PER_DEG 111319.492
 
@@ -72,8 +71,7 @@
  */
 class Image {
 
-protected:
-
+   protected:
     /**
      * \~french \brief Nombre de canaux de l'image
      * \~english \brief Number of samples per pixel
@@ -133,12 +131,11 @@ protected:
      * \brief Resolutions calculation, from pixel size and bounding box
      */
     void compute_resolutions() {
-        resx = ( bbox.xmax - bbox.xmin ) / double ( width );
-        resy = ( bbox.ymax - bbox.ymin ) / double ( height );
+        resx = (bbox.xmax - bbox.xmin) / double(width);
+        resy = (bbox.ymax - bbox.ymin) / double(height);
     }
 
-public:
-    
+   public:
     /**
      * \~french
      * \brief Vérifie la cohérence des dimensions d'image fournies
@@ -155,21 +152,23 @@ public:
      * \param[in] h Image's height, in pixel
      * \param[in] bounding_box Image's bounding box
      */
-    static bool are_dimensions_consistent(double resolution_x, double resolution_y, int w, int h, BoundingBox<double> bounding_box) {
+    static bool are_dimensions_consistent(double resolution_x, double resolution_y, int w, int h,
+                                          BoundingBox<double> bounding_box) {
         // Vérification de la cohérence entre les résolutions et bbox fournies et les dimensions (en pixel) de l'image
         // Arrondi a la valeur entiere la plus proche
 
-        if (resolution_x == 0 || resolution_y == 0) return false;
+        if (resolution_x == 0 || resolution_y == 0)
+            return false;
 
-        int calcWidth = lround ( ( bounding_box.xmax - bounding_box.xmin ) / ( resolution_x ) );
-        int calcHeight = lround ( ( bounding_box.ymax - bounding_box.ymin ) / ( resolution_y ) );
+        int calcWidth = lround((bounding_box.xmax - bounding_box.xmin) / (resolution_x));
+        int calcHeight = lround((bounding_box.ymax - bounding_box.ymin) / (resolution_y));
 
-        if ( calcWidth != w || calcHeight != h ) {
-            BOOST_LOG_TRIVIAL(warning) <<  "height is " << h << " and calculation give " << calcHeight ;
-            BOOST_LOG_TRIVIAL(warning) <<  "width is " << w << " and calculation give " << calcWidth ;
+        if (calcWidth != w || calcHeight != h) {
+            BOOST_LOG_TRIVIAL(warning) << "height is " << h << " and calculation give " << calcHeight;
+            BOOST_LOG_TRIVIAL(warning) << "width is " << w << " and calculation give " << calcWidth;
             return false;
         }
-        
+
         return true;
     }
 
@@ -179,9 +178,7 @@ public:
      * \~english
      * \brief Define the image as a mask
      */
-    inline void make_mask () {
-        is_mask = true;
-    }
+    inline void make_mask() { is_mask = true; }
 
     /**
      * \~french
@@ -191,9 +188,7 @@ public:
      * \brief Return the number of samples per pixel
      * \return channels
      */
-    virtual int get_channels() {
-        return channels;
-    }
+    virtual int get_channels() { return channels; }
 
     /**
      * \~french
@@ -203,9 +198,7 @@ public:
      * \brief Return the image's width
      * \return width
      */
-    int inline get_width() {
-        return width;
-    }
+    int inline get_width() { return width; }
 
     /**
      * \~french
@@ -215,9 +208,7 @@ public:
      * \brief Return the image's height
      * \return height
      */
-    int inline get_height() {
-        return height;
-    }
+    int inline get_height() { return height; }
 
     /**
      * \~french
@@ -227,12 +218,15 @@ public:
      * \brief Define the image's bounding box and calculate resolutions
      * \param[in] box Image's bounding box
      */
-    inline void set_bbox ( BoundingBox<double> box ) {
+    inline void set_bbox(BoundingBox<double> box) {
         bbox = box;
         if (crs != NULL) {
             bbox.crs = crs->get_request_code();
         }
         compute_resolutions();
+        if (!is_mask && mask != NULL) {
+            mask->set_bbox(box);
+        }
     }
 
     /**
@@ -243,12 +237,13 @@ public:
      * \brief Define the image's bounding box and calculate resolutions
      * \param[in] box Image's bounding box
      */
-    inline bool set_dimensions ( int w, int h, BoundingBox<double> box, double rx, double ry ) {
+    inline bool set_dimensions(int w, int h, BoundingBox<double> box, double rx, double ry) {
         double calcWidth = (box.xmax - box.xmin) / rx;
         double calcHeight = (box.ymax - box.ymin) / ry;
-        
-        if ( std::abs(calcWidth - w) > 10E-3 || std::abs(calcHeight - h) > 10E-3) return false;
-        
+
+        if (std::abs(calcWidth - w) > 10E-3 || std::abs(calcHeight - h) > 10E-3)
+            return false;
+
         width = w;
         height = h;
         resx = rx;
@@ -266,9 +261,7 @@ public:
      * \brief Return the image's bounding box
      * \return bounding box
      */
-    BoundingBox<double> inline get_bbox() const {
-        return bbox;
-    }
+    BoundingBox<double> inline get_bbox() const { return bbox; }
 
     /**
      * \~french
@@ -279,7 +272,7 @@ public:
      * \brief Define the CRS of the image's bounding box
      * \param[in] box Image's bounding box
      */
-    void set_crs ( CRS* c ) {
+    void set_crs(CRS* c) {
         crs = NULL;
 
         if (c != NULL) {
@@ -287,6 +280,10 @@ public:
             bbox.crs = crs->get_request_code();
         } else {
             bbox.crs = "";
+        }
+
+        if (!is_mask && mask != NULL) {
+            mask->set_crs(c);
         }
     }
 
@@ -298,9 +295,7 @@ public:
      * \brief Return the image's bounding box's CRS
      * \return CRS
      */
-    CRS* get_crs() const {
-        return crs;
-    }
+    CRS* get_crs() const { return crs; }
 
     /**
      * \~french
@@ -310,9 +305,7 @@ public:
      * \brief Return bounding box's xmin
      * \return xmin
      */
-    double inline get_xmin() const {
-        return bbox.xmin;
-    }
+    double inline get_xmin() const { return bbox.xmin; }
     /**
      * \~french
      * \brief Retourne le ymax de l'emprise rectangulaire
@@ -321,9 +314,7 @@ public:
      * \brief Return bounding box's ymax
      * \return ymax
      */
-    double inline get_ymax() const {
-        return bbox.ymax;
-    }
+    double inline get_ymax() const { return bbox.ymax; }
     /**
      * \~french
      * \brief Retourne le xmax de l'emprise rectangulaire
@@ -332,9 +323,7 @@ public:
      * \brief Return bounding box's xmax
      * \return xmax
      */
-    double inline get_xmax() const {
-        return bbox.xmax;
-    }
+    double inline get_xmax() const { return bbox.xmax; }
     /**
      * \~french
      * \brief Retourne le ymin de l'emprise rectangulaire
@@ -343,9 +332,7 @@ public:
      * \brief Return bounding box's ymin
      * \return ymin
      */
-    double inline get_ymin() const {
-        return bbox.ymin;
-    }
+    double inline get_ymin() const { return bbox.ymin; }
 
     /**
      * \~french
@@ -358,7 +345,8 @@ public:
      * \return X resolution
      */
     inline double get_resx(bool force_meter = false) const {
-        if (force_meter && crs->get_meters_per_unit() != 1.0) return resx * METER_PER_DEG;
+        if (force_meter && crs->get_meters_per_unit() != 1.0)
+            return resx * METER_PER_DEG;
         return resx;
     }
     /**
@@ -372,7 +360,8 @@ public:
      * \return Y resolution
      */
     inline double get_resy(bool force_meter = false) const {
-        if (force_meter && crs->get_meters_per_unit() != 1.0) return resy * METER_PER_DEG;
+        if (force_meter && crs->get_meters_per_unit() != 1.0)
+            return resy * METER_PER_DEG;
         return resy;
     }
 
@@ -384,9 +373,7 @@ public:
      * \brief Return the associated mask
      * \return mask
      */
-    inline Image* get_mask() {
-        return mask;
-    }
+    inline Image* get_mask() { return mask; }
 
     /**
      * \~french
@@ -396,17 +383,17 @@ public:
      * \brief Defined data mask and check consistency
      * \param[in] new_mask Masque de donnée
      */
-    inline bool set_mask ( Image* new_mask ) {
+    inline bool set_mask(Image* new_mask) {
         if (mask != NULL) {
             // On a déjà un masque associé : on le supprime pour le remplacer par le nouveau
             delete mask;
         }
-        
-        if ( new_mask->get_width() != width || new_mask->get_height() != height || new_mask->get_channels() != 1 ) {
-            BOOST_LOG_TRIVIAL(error) <<   "Unvalid mask"  ;
-            BOOST_LOG_TRIVIAL(error) <<   "\t - channels have to be 1, it is " << new_mask->get_channels()  ;
-            BOOST_LOG_TRIVIAL(error) <<   "\t - width have to be " << width << ", it is " << new_mask->get_width()  ;
-            BOOST_LOG_TRIVIAL(error) <<   "\t - height have to be " << height << ", it is " << new_mask->get_height()  ;
+
+        if (new_mask->get_width() != width || new_mask->get_height() != height || new_mask->get_channels() != 1) {
+            BOOST_LOG_TRIVIAL(error) << "Unvalid mask";
+            BOOST_LOG_TRIVIAL(error) << "\t - channels have to be 1, it is " << new_mask->get_channels();
+            BOOST_LOG_TRIVIAL(error) << "\t - width have to be " << width << ", it is " << new_mask->get_width();
+            BOOST_LOG_TRIVIAL(error) << "\t - height have to be " << height << ", it is " << new_mask->get_height();
             return false;
         }
 
@@ -426,9 +413,7 @@ public:
      * \param[in] x terrain coordinate X
      * \return column
      */
-    int inline x_to_column ( double x ) {
-        return floor ( ( x-bbox.xmin ) /resx );
-    }
+    int inline x_to_column(double x) { return floor((x - bbox.xmin) / resx); }
     /**
      * \~french
      * \brief Conversion de l'ordonnée terrain vers l'indice de ligne dans l'image
@@ -439,9 +424,7 @@ public:
      * \param[in] y terrain coordinate Y
      * \return line
      */
-    int inline y_to_line ( double y ) {
-        return floor ( ( bbox.ymax-y ) /resy );
-    }
+    int inline y_to_line(double y) { return floor((bbox.ymax - y) / resy); }
 
     /**
      * \~french
@@ -453,9 +436,7 @@ public:
      * \param[in] c column
      * \return terrain coordinate X
      */
-    double inline column_to_x ( int c ) {
-        return ( bbox.xmin + (0.5 + c) * resx );
-    }
+    double inline column_to_x(int c) { return (bbox.xmin + (0.5 + c) * resx); }
     /**
      * \~french
      * \brief Conversion de l'indice de ligne dans l'image vers l'ordonnée terrain du centre du pixel
@@ -466,9 +447,7 @@ public:
      * \param[in] l line
      * \return terrain coordinate Y
      */
-    double inline line_to_y ( int l ) {
-        return ( bbox.ymax - (0.5 + l) * resy );
-    }
+    double inline line_to_y(int l) { return (bbox.ymax - (0.5 + l) * resy); }
 
     /**
      * \~french
@@ -481,9 +460,7 @@ public:
      * \image html phases.png
      * \return X phasis
      */
-    double inline get_phasex() {
-        return bbox.get_xmin_phase(resx);
-    }
+    double inline get_phasex() { return bbox.get_xmin_phase(resx); }
 
     /**
      * \~french
@@ -494,9 +471,7 @@ public:
      * \brief Phasis calculation, Y wise
      * \return Y phasis
      */
-    double inline get_phasey() {
-        return bbox.get_ymin_phase(resy);
-    }
+    double inline get_phasey() { return bbox.get_ymin_phase(resy); }
 
     /**
      * \~french
@@ -520,36 +495,37 @@ public:
      * \param[in] other image to compare
      * \return compatibility
      */
-    bool compatible ( Image* other ) {
+    bool compatible(Image* other) {
 
-        if ( crs != NULL && crs->is_define() && other->get_crs() != NULL && other->get_crs()->is_define() && ! crs->cmp_request_code(other->get_crs()->get_request_code()) ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different CRS"  ;
+        if (crs != NULL && crs->is_define() && other->get_crs() != NULL && other->get_crs()->is_define() &&
+            !crs->cmp_request_code(other->get_crs()->get_request_code())) {
+            BOOST_LOG_TRIVIAL(debug) << "Different CRS";
             return false;
         }
 
-        if ( get_channels() != other->get_channels() ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different channels"  ;
+        if (get_channels() != other->get_channels()) {
+            BOOST_LOG_TRIVIAL(debug) << "Different channels";
             return false;
         }
 
-        double epsilon_x=std::min ( get_resx(), other->get_resx() ) /1000.;
-        double epsilon_y=std::min ( get_resy(), other->get_resy() ) /1000.;
+        double epsilon_x = std::min(get_resx(), other->get_resx()) / 1000.;
+        double epsilon_y = std::min(get_resy(), other->get_resy()) / 1000.;
 
-        if ( fabs ( get_resx()-other->get_resx() ) > epsilon_x ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different X resolutions"  ;
+        if (fabs(get_resx() - other->get_resx()) > epsilon_x) {
+            BOOST_LOG_TRIVIAL(debug) << "Different X resolutions";
             return false;
         }
-        if ( fabs ( get_resy()-other->get_resy() ) > epsilon_y ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different Y resolutions"  ;
+        if (fabs(get_resy() - other->get_resy()) > epsilon_y) {
+            BOOST_LOG_TRIVIAL(debug) << "Different Y resolutions";
             return false;
         }
 
-        if ( fabs ( get_phasex()-other->get_phasex() ) > 0.001 && fabs ( get_phasex()-other->get_phasex() ) < 0.999 ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different X phasis : " << get_phasex() << " and " << other->get_phasex()  ;
+        if (fabs(get_phasex() - other->get_phasex()) > 0.001 && fabs(get_phasex() - other->get_phasex()) < 0.999) {
+            BOOST_LOG_TRIVIAL(debug) << "Different X phasis : " << get_phasex() << " and " << other->get_phasex();
             return false;
         }
-        if ( fabs ( get_phasey()-other->get_phasey() ) > 0.001 && fabs ( get_phasey()-other->get_phasey() ) < 0.999 ) {
-            BOOST_LOG_TRIVIAL(debug) <<   "Different Y phasis : " << get_phasey() << " and " << other->get_phasey()  ;
+        if (fabs(get_phasey() - other->get_phasey()) > 0.001 && fabs(get_phasey() - other->get_phasey()) < 0.999) {
+            BOOST_LOG_TRIVIAL(debug) << "Different Y phasis : " << get_phasey() << " and " << other->get_phasey();
             return false;
         }
 
@@ -574,9 +550,16 @@ public:
      * \param[in] resy Y wise resolution
      * \param[in] bbox bounding box
      */
-    Image ( int width, int height, int channels, double resx, double resy,  BoundingBox<double> bbox ) :
-        width ( width ), height ( height ), channels ( channels ), resx ( resx ), resy ( resy ), bbox ( bbox ), crs ( NULL ), mask ( NULL ), is_mask(false)
-    {
+    Image(int width, int height, int channels, double resx, double resy, BoundingBox<double> bbox)
+        : width(width),
+          height(height),
+          channels(channels),
+          resx(resx),
+          resy(resy),
+          bbox(bbox),
+          crs(NULL),
+          mask(NULL),
+          is_mask(false) {
         are_dimensions_consistent(resx, resy, width, height, bbox);
     }
 
@@ -593,7 +576,16 @@ public:
      * \param[in] height image height, in pixel
      * \param[in] channel number of samples per pixel
      */
-    Image ( int width, int height, int channels ) : width ( width ), height ( height ), channels ( channels ), resx ( 1. ), resy ( 1. ), bbox ( BoundingBox<double> ( 0., 0., ( double ) width, ( double ) height ) ), crs ( NULL ), mask ( NULL ), is_mask ( false ) {}
+    Image(int width, int height, int channels)
+        : width(width),
+          height(height),
+          channels(channels),
+          resx(1.),
+          resy(1.),
+          bbox(BoundingBox<double>(0., 0., (double)width, (double)height)),
+          crs(NULL),
+          mask(NULL),
+          is_mask(false) {}
 
     /**
      * \~french
@@ -610,9 +602,8 @@ public:
      * \param[in] channel number of samples per pixel
      * \param[in] bbox bounding box
      */
-    Image ( int width, int height, int channels,  BoundingBox<double> bbox ) :
-        width ( width ), height ( height ), channels ( channels ), bbox ( bbox ), crs ( NULL ), mask ( NULL ), is_mask ( false )
-    {
+    Image(int width, int height, int channels, BoundingBox<double> bbox)
+        : width(width), height(height), channels(channels), bbox(bbox), crs(NULL), mask(NULL), is_mask(false) {
         compute_resolutions();
     }
 
@@ -632,10 +623,16 @@ public:
      * \param[in] resx X wise resolution
      * \param[in] resy Y wise resolution
      */
-    Image ( int width, int height, int channels, double resx, double resy ) :
-        width ( width ), height ( height ), channels ( channels ), resx ( resx ), resy ( resy ),
-        bbox ( BoundingBox<double> ( 0., 0., resx * ( double ) width, resy * ( double ) height ) ),
-        mask ( NULL ), is_mask ( false ), crs ( NULL ) {}
+    Image(int width, int height, int channels, double resx, double resy)
+        : width(width),
+          height(height),
+          channels(channels),
+          resx(resx),
+          resy(resy),
+          bbox(BoundingBox<double>(0., 0., resx * (double)width, resy * (double)height)),
+          mask(NULL),
+          is_mask(false),
+          crs(NULL) {}
 
     /**
      * \~french
@@ -645,8 +642,8 @@ public:
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    virtual int get_line ( uint8_t *buffer, int line ) = 0;
-    
+    virtual int get_line(uint8_t* buffer, int line) = 0;
+
     /**
      * \~french
      * \brief Retourne une ligne en entier 16 bits.
@@ -655,7 +652,7 @@ public:
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    virtual int get_line ( uint16_t *buffer, int line ) = 0;
+    virtual int get_line(uint16_t* buffer, int line) = 0;
 
     /**
      * \~french
@@ -665,7 +662,7 @@ public:
      * \param[in] line Indice de la ligne à retourner (0 <= line < height)
      * \return taille utile du buffer, 0 si erreur
      */
-    virtual int get_line ( float *buffer, int line ) = 0;
+    virtual int get_line(float* buffer, int line) = 0;
 
     /**
      * \~french
@@ -674,7 +671,8 @@ public:
      * \brief Default destructor
      */
     virtual ~Image() {
-        if ( mask != NULL ) delete mask;
+        if (mask != NULL)
+            delete mask;
     }
 
     /**
@@ -684,27 +682,27 @@ public:
      * \brief Image description output
      */
     virtual void print() {
-        BOOST_LOG_TRIVIAL(info) <<   "\t- width = " << width << ", height = " << height  ;
-        BOOST_LOG_TRIVIAL(info) <<   "\t- samples per pixel = " << channels  ;
+        BOOST_LOG_TRIVIAL(info) << "\t- width = " << width << ", height = " << height;
+        BOOST_LOG_TRIVIAL(info) << "\t- samples per pixel = " << channels;
         if (crs != NULL) {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- CRS = " << crs->get_proj_code()  ;
+            BOOST_LOG_TRIVIAL(info) << "\t- CRS = " << crs->get_proj_code();
         } else {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- No CRS"  ;
+            BOOST_LOG_TRIVIAL(info) << "\t- No CRS";
         }
-        BOOST_LOG_TRIVIAL(info) <<   "\t- bbox = " << bbox.to_string()  ;
-        BOOST_LOG_TRIVIAL(info) <<   "\t- x resolution = " << resx << ", y resolution = " << resy  ;
-        if ( is_mask ) {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- Is a mask"  ;
+        BOOST_LOG_TRIVIAL(info) << "\t- bbox = " << bbox.to_string();
+        BOOST_LOG_TRIVIAL(info) << "\t- x resolution = " << resx << ", y resolution = " << resy;
+        if (is_mask) {
+            BOOST_LOG_TRIVIAL(info) << "\t- Is a mask";
         } else {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- Is not a mask"  ;
+            BOOST_LOG_TRIVIAL(info) << "\t- Is not a mask";
         }
-        if ( mask ) {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- Own a mask\n"  ;
+        if (mask) {
+            BOOST_LOG_TRIVIAL(info) << "\t- Own a mask\n";
         } else {
-            BOOST_LOG_TRIVIAL(info) <<   "\t- No mask\n"  ;
+            BOOST_LOG_TRIVIAL(info) << "\t- No mask\n";
         }
     }
-    
+
     /**
      * \~french
      * \brief Sortie du tfw de l'image
@@ -712,7 +710,10 @@ public:
      * \brief Image TFW output
      */
     virtual void print_tfw() {
-        BOOST_LOG_TRIVIAL(info) <<   "TFW : \n" << resx << "\n-" << resy << "\n0\n0\n" << bbox.xmin+0.5*resx << "\n" << bbox.ymax - 0.5*resy  ;
+        BOOST_LOG_TRIVIAL(info) << "TFW : \n"
+                                << resx << "\n-" << resy << "\n0\n0\n"
+                                << bbox.xmin + 0.5 * resx << "\n"
+                                << bbox.ymax - 0.5 * resy;
     }
 
     /**
@@ -723,12 +724,9 @@ public:
      */
     virtual float get_mean_resolution() {
         if (crs->get_meters_per_unit() != 1.0) {
-            return ((resx+resy)/2.0)*METER_PER_DEG;
+            return ((resx + resy) / 2.0) * METER_PER_DEG;
         } else {
-            return (resx+resy)/2.0;
+            return (resx + resy) / 2.0;
         }
-
     }
 };
-
-

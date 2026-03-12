@@ -544,14 +544,15 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
             TIFFGetField(tif, TIFFTAG_TILELENGTH, &tile_height);
 
             int tilenumber_widthwise = width / tile_width;
-            if (width % tile_width != 0) {
-                // On ajoute la tuile incomplète
-                tilenumber_widthwise++;
-            }
-
             int tile_size = tile_width * tile_height * pixel_size;
             int tile_row_size = tile_width * pixel_size;
-            int last_tile_row_size = (width % tile_width) * pixel_size;
+            int last_tile_row_size = tile_width * pixel_size;
+
+            // Si la largeur n'est pas un nombre entier de tuiles, on a une tuile incomplète en plus, de largeur différente
+            if (width % tile_width != 0) {
+                tilenumber_widthwise++;
+                last_tile_row_size = (width % tile_width) * pixel_size;
+            }
 
             int row_size = width * pixel_size;
 
@@ -622,9 +623,9 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
                 } else if (channels == 3) {
                     // On ne doit pas garder le dernier octet de chaque entier sur 32 bits (canal alpha non présent)
 
-                    // on va calculer le nombre de ligne dans le strip : pour le dernier, on peut avoir moins de lignes
+                    // on va calculer le nombre de ligne dans le strip : pour le dernier, si il n'y a pas un nombre entier de strip, on a moins de lignes
                     int rows_count = rowsperstrip;
-                    if (line / rowsperstrip == (height - 1) / rowsperstrip) {
+                    if (height % rowsperstrip != 0 && line / rowsperstrip == (height - 1) / rowsperstrip) {
                         rows_count = height % rowsperstrip;
                     }
 

@@ -50,7 +50,6 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-#include "utils/Cache.h"
 
 #include "storage/Context.h"
 
@@ -62,6 +61,7 @@ bool Style::parse(json11::Json& doc) {
     aspect = 0;
     estompage = 0;
     palette = 0;
+    terrainrgb = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -106,10 +106,12 @@ bool Style::parse(json11::Json& doc) {
         legends.push_back(leg);
     }
 
-    palette = new Palette(doc["palette"].object_items());
-    if (! palette->is_ok()) {
-        error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
+    if (doc["palette"].is_object()) {
+        palette = new Palette(doc["palette"].object_items());
+        if (! palette->is_ok()) {
+            error_message = "Palette issue for style " + id + ": " + palette->get_error_message();
         return false;
+        }
     }
 
     if (doc["estompage"].is_object()) {
@@ -144,6 +146,17 @@ bool Style::parse(json11::Json& doc) {
         }
     }
 
+    if (doc["terrainrgb"].is_object()) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0) {
+            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+            return false;
+        }
+        terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
+        if (! terrainrgb->is_ok()) {
+            error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
+            return false;
+        }
+    }
     return true;
 }
 
@@ -153,6 +166,7 @@ Style::Style ( std::string path ) : Configuration(path) {
     estompage = 0;
     palette = 0;
     aspect = 0;
+    terrainrgb = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -219,7 +233,11 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (pente_defined()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) pente->input_nodata_value;
-    } 
+    }
+    else if (terrainrgb_defined()) {
+        input_nodata_value = new int[1];
+        input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
+    }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) palette->get_colours_map()->begin()->first;
@@ -242,8 +260,8 @@ Style::Style ( std::string path ) : Configuration(path) {
         }
     }
     else if (estompage_defined()) {
-            output_nodata_value = new int[1];
-            output_nodata_value[0] = (int) estompage->estompage_nodata_value;
+        output_nodata_value = new int[1];
+        output_nodata_value[0] = (int) estompage->estompage_nodata_value;
     }
     else if (aspect_defined()) {
         output_nodata_value = new int[1];
@@ -252,6 +270,12 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (pente_defined()) {
         output_nodata_value = new int[1];
         output_nodata_value[0] = (int) pente->slope_nodata_value;
+    }
+    else if (terrainrgb_defined()) {
+        output_nodata_value = new int[3];
+        output_nodata_value[0] = 0;
+        output_nodata_value[1] = 0;
+        output_nodata_value[2] = 0;
     }
 }
 
@@ -267,6 +291,9 @@ Style::~Style() {
     }
     if (aspect != 0) {
         delete aspect;
+    }
+    if (terrainrgb != 0) {
+        delete terrainrgb;
     }
     if (input_nodata_value != NULL) {
         delete[] input_nodata_value;

@@ -49,15 +49,9 @@
 
 #include "storage/S3Context.h"
 
-#include <curl/curl.h>
 #include <openssl/hmac.h>
-#include <rok4/storage/Context.h>
 #include <sys/stat.h>
 #include <time.h>
-
-#include "S3Context.h"
-#include "utils/Cache.h"
-#include "utils/LibcurlStruct.h"
 
 std::vector<std::string> S3Context::env_hosts;
 std::vector<std::string> S3Context::env_keys;
@@ -65,6 +59,7 @@ std::vector<std::string> S3Context::env_secret_keys;
 std::vector<std::string> S3Context::env_cluster_names;
 std::vector<std::string> S3Context::env_urls;
 bool S3Context::ssl_no_verify = false;
+int S3Context::timeout = 0;
 
 bool S3Context::load_env() {
     if (!env_hosts.empty()) {
@@ -133,6 +128,7 @@ bool S3Context::load_env() {
     }
 
     ssl_no_verify = get_ssl_no_verify();
+    timeout = get_timeout();
 
     // Analyse des valeurs
 
@@ -348,6 +344,11 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
+
         BOOST_LOG_TRIVIAL(debug) << "S3 READ START (" << size << ") " << pthread_self();
         res = curl_easy_perform(curl);
         BOOST_LOG_TRIVIAL(debug) << "S3 READ END (" << size << ") " << pthread_self();
@@ -447,6 +448,11 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
         }
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, data_callback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
 
         res = curl_easy_perform(curl);
 
@@ -627,6 +633,11 @@ bool S3Context::close_to_write(std::string name) {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, &((*(it1->second))[0]));
         curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, it1->second->size());
 
+        if (timeout) {
+            curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+            curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+        }
+
         res = curl_easy_perform(curl);
         curl_slist_free_all(list);
 
@@ -710,6 +721,11 @@ bool S3Context::exists(std::string name) {
     curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
     if (ssl_no_verify) {
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    }
+
+    if (timeout) {
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, timeout);
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
     }
 
     res = curl_easy_perform(curl);

@@ -35,46 +35,86 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-/**
- * \file Cache.cpp
+ /**
+ * \file StoragePool.cpp
  ** \~french
- * \brief Implémentation des classes IndexCache, CurlPool, StoragePool et ProjPool
+ * \brief Implémentation de la classe StoragePool
  ** \~english
- * \brief Implements classes IndexCache, CurlPool, StoragePool and ProjPool
+ * \brief Implements classe StoragePool
  */
 
-#include "utils/Cache.h"
+#include "utils/StoragePool.h"
 #include "storage/FileContext.h"
 #include "storage/SwiftContext.h"
 #include "storage/S3Context.h"
-#if CEPH_ENABLED
-    #include "storage/ceph/CephPoolContext.h"
-#endif
 
-std::map<pthread_t, CURL*> CurlPool::pool;
+StoragePool::StoragePool(){
 
-std::map<pthread_t, PJ_CONTEXT*> ProjPool::pool;
+}
 
-std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::pool;
+std::string StoragePool::to_string() {
+        std::ostringstream oss;
+        oss.setf ( std::ios::fixed,std::ios::floatfield );
+        oss << "------ Context pool -------" << std::endl;
+        oss << "\t- context number = " << pool.size() << std::endl;
 
-std::list<IndexElement *> IndexCache::cache;
-std::unordered_map<std::string, std::list<IndexElement *>::iterator> IndexCache::map;
-int IndexCache::size = 100;
-int IndexCache::validity = 300;
-std::mutex IndexCache::mtx;
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            oss << "\t\t- pot = " << key.first << "/" << key.second << std::endl;
+            oss << it->second->to_string() << std::endl;
+            it++;
+        }
 
-std::map<std::string, TileMatrixSet*> TmsBook::book;
-std::vector<TileMatrixSet*> TmsBook::trash;
-std::string TmsBook::directory = "";
-std::mutex TmsBook::mtx;
+        return oss.str() ;
+    }
 
-std::map<std::string, Style*> StyleBook::book;
-std::vector<Style*> StyleBook::trash;
-std::string StyleBook::directory = "";
-std::mutex StyleBook::mtx;
 
-std::map<std::string, CRS*> CrsBook::book;
-std::mutex CrsBook::mtx;
+
+void StoragePool::get_storages_count (int& file_count, int& s3_count, int& ceph_count, int& swift_count) {
+        file_count = 0;
+        s3_count = 0;
+        ceph_count = 0;
+        swift_count = 0;
+        std::map<std::pair<ContextType::eContextType,std::string>, Context*>::iterator it = pool.begin();
+        while (it != pool.end()) {
+            std::pair<ContextType::eContextType,std::string> key = it->first;
+            switch(key.first) {
+                #if CEPH_ENABLED
+                case ContextType::CEPHCONTEXT:
+                    ceph_count++;
+                    break;
+                #endif
+                case ContextType::SWIFTCONTEXT:
+                    swift_count++;
+                    break;
+                case ContextType::S3CONTEXT:
+                    s3_count++;
+                    break;
+                case ContextType::FILECONTEXT:
+                    file_count++;
+                    break;
+            }
+            it++;
+        }
+    }
+
+std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::get_pool() {
+        return pool;
+    }
+
+StoragePool::~StoragePool(){
+
+}
+
+
+void StoragePool::clean_storages () {
+    std::map<std::pair<ContextType::eContextType,std::string>,Context*>::iterator it;
+    for (it=pool.begin(); it!=pool.end(); ++it) {
+        delete it->second;
+        it->second = NULL;
+    }
+}
 
 Context * StoragePool::get_context(ContextType::eContextType type, std::string tray, Context* reference_context) {
 
@@ -154,3 +194,5 @@ Context * StoragePool::get_context(ContextType::eContextType type, std::string t
         return ctx;
     }
 }
+
+std::map<std::pair<ContextType::eContextType,std::string>,Context*> StoragePool::pool;

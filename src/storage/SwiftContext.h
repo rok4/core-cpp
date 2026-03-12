@@ -54,6 +54,7 @@
 #include "storage/Context.h"
 #include "utils/LibcurlStruct.h"
 #include <fstream>
+#include "utils/CurlPool.h"
 
 
 #define ROK4_SWIFT_AUTHURL "ROK4_SWIFT_AUTHURL"
@@ -143,6 +144,12 @@ private:
      * \~english \brief Don't verify SSL certificats with Curl ?
      */
     bool ssl_no_verify;
+
+    /**
+     * \~french \brief Temps avant timeout en secondes
+     * \~english \brief Timeout value, in seconds
+     */
+    int timeout;
 
 
 public:

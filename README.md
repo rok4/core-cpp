@@ -66,6 +66,7 @@ Leur définition est contrôlée à l'usage.
     - `ROK4_SWIFT_TOKEN_FILE` afin de sauvegarder le token d'accès, et ne pas le demander si ce fichier en contient un
 * Pour configurer l'usage de libcurl (intéraction SWIFT et S3)
     - `ROK4_SSL_NO_VERIFY`
+    - `ROK4_NETWORK_TIMEOUT` : temps en secondes d'inactivité d'une requête avant de la stopper. Aucun temps défini côté client si aucune valeur fournie
     - `HTTP_PROXY`
     - `HTTPS_PROXY`
     - `NO_PROXY`
@@ -84,7 +85,11 @@ Le programme qui suit charge une pyramide SCAN1000 à partir de son descripteur,
 #include <boost/log/trivial.hpp>
 #include <rok4/utils/Pyramid.h>
 #include <rok4/image/file/FileImage.h>
-#include "rok4/utils/Cache.h"
+#include "rok4/utils/CrsBook.h"
+#include "rok4/utils/TmsBook.h"
+#include "rok4/utils/ProjPool.h"
+#include "rok4/utils/IndexCache.h"
+#include "rok4/utils/StoragePool.h"
 
 int main( int argc, char *argv[] ) {
 

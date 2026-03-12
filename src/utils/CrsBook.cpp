@@ -35,38 +35,49 @@
  * knowledge of the CeCILL-C license and that you accept its terms.
  */
 
-#pragma once
+/**
+ * \file CrsBook.cpp
+ ** \~french
+ * \brief Implémentation de la classe CrsBook
+ ** \~english
+ * \brief Implements classe CrsBook
+ */
 
-#include "rok4/image/Image.h"
-#include "rok4/style/Palette.h"
 
-class PaletteImage : public Image {
-private:
-    Image* source_image;
-    Palette* palette;
+#include "rok4/utils/CrsBook.h"
 
-    template<typename T>
-    int _getline ( T* buffer, int line );
+CrsBook::CrsBook(){
 
-public:
-    virtual int get_line ( float* buffer, int line );
-    virtual int get_line ( uint16_t* buffer, int line );
-    virtual int get_line ( uint8_t* buffer, int line );
-    PaletteImage ( Image* image, Palette* palette );
-    virtual ~PaletteImage();
+}
 
-    /** \~french
-     * \brief Sortie des informations sur l'image estompée
-     ** \~english
-     * \brief Estompage image description output
-     */
-    void print() {
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
-        BOOST_LOG_TRIVIAL(info) <<  "------ PaletteImage -------" ;
-        Image::print();
-        BOOST_LOG_TRIVIAL(info) <<  "\t- Palette colours' number = " << palette->get_colours_map()->size() ;
-        
-        BOOST_LOG_TRIVIAL(info) <<  "" ;
+
+CRS* CrsBook::get_crs(std::string id) {
+    id = to_upper_case(id);
+    std::map<std::string, CRS*>::iterator it = book.find ( id );
+    if ( it != book.end() ) {
+        return it->second;
     }
-};
+    mtx.lock();
+    CRS* crs = new CRS(id);
+    // Le CRS est potentiellement non défini (si il n'est pas valide), on le mémorise pour ne pas réessayer la prochaine fois
+    book.emplace(id, crs);
+    mtx.unlock();
+    return crs;
+}
 
+void CrsBook::clean_crss () {
+    mtx.lock();
+    std::map<std::string, CRS*>::iterator it;
+    for (it = book.begin(); it != book.end(); ++it) {
+        delete it->second;
+    }
+    book.clear();
+    mtx.unlock();
+}
+
+CrsBook::~CrsBook() {
+
+}
+
+std::map<std::string, CRS*> CrsBook::book;
+std::mutex CrsBook::mtx;
