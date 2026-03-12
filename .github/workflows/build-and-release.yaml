@@ -27,6 +27,7 @@ jobs:
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           commit_message: "Versionnement du changelog"
+          target_branch: master
 
       - name: Get latest release info
         id: query_release_info
