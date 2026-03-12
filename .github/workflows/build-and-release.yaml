@@ -17,17 +17,17 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
 
-      - name: Update changelog
-        uses: thomaseizinger/keep-a-changelog-new-release@v2
-        with:
-          tag: ${{ github.ref_name }}
+      # - name: Update changelog
+      #   uses: thomaseizinger/keep-a-changelog-new-release@v2
+      #   with:
+      #     tag: ${{ github.ref_name }}
 
-      - name: Commit changelog
-        uses: devops-infra/action-commit-push@v1.1.0
-        with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
-          commit_message: "Versionnement du changelog"
-          target_branch: master
+      # - name: Commit changelog
+      #   uses: devops-infra/action-commit-push@v1.1.0
+      #   with:
+      #     github_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     commit_message: "Versionnement du changelog"
+      #     target_branch: master
 
       - name: Get latest release info
         id: query_release_info
@@ -38,7 +38,7 @@ jobs:
 
       - name: Write release notes 
         run: |
-          echo "echo {{ query_release_info.outputs.release-notes }} >notes.txt"
+          echo "{{ query_release_info.outputs.release-notes }}" >notes.txt
 
       - name: Create Release
         id: create_release
