@@ -1,0 +1,8 @@
+<map id="include/rok4/processors/Kernel.h" name="include/rok4/processors/Kernel.h">
+<area shape="rect" id="node1" title="Définition de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="207,5,383,47"/>
+<area shape="rect" id="node2" href="$Kernel_8cpp.html" title="Implémentation de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="5,102,192,129"/>
+<area shape="rect" id="node3" href="$ReprojectedImage_8h.html" title="Définition de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="216,95,373,136"/>
+<area shape="rect" id="node5" href="$ResampledImage_8h.html" title="Définition de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="417,95,569,136"/>
+<area shape="rect" id="node4" href="$ReprojectedImage_8cpp.html" title="Implémentation de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="157,184,393,211"/>
+<area shape="rect" id="node6" href="$ResampledImage_8cpp.html" title="Implémentation de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="417,184,647,211"/>
+</map>

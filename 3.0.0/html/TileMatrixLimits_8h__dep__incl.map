@@ -1,0 +1,10 @@
+<map id="include/rok4/utils/TileMatrixLimits.h" name="include/rok4/utils/TileMatrixLimits.h">
+<area shape="rect" id="node1" title="Définition de la classe TileMatrixLimits gérant les indices extrêmes de tuiles pour un niveau." alt="" coords="5,5,149,47"/>
+<area shape="rect" id="node2" href="$Level_8h_source.html" title=" " alt="" coords="41,273,175,315"/>
+<area shape="rect" id="node4" href="$TileMatrix_8h.html" title="Définition de la classe TileMatrix gérant une matrice de tuiles représentant un niveau d&#39;une pyramide..." alt="" coords="97,95,231,136"/>
+<area shape="rect" id="node3" href="$Pyramid_8h_source.html" title=" " alt="" coords="95,363,230,404"/>
+<area shape="rect" id="node5" href="$TileMatrix_8cpp.html" title="Implémentation de la classe TileMatrix gérant une matrice de tuile représentant un niveau d&#39;une pyram..." alt="" coords="113,191,284,218"/>
+<area shape="rect" id="node6" href="$TileMatrixSet_8h_source.html" title=" " alt="" coords="309,184,443,225"/>
+<area shape="rect" id="node7" href="$TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="299,273,434,315"/>
+<area shape="rect" id="node8" href="$TmsBook_8cpp.html" title="Implémentation de la classe TmsBook." alt="" coords="284,370,449,397"/>
+</map>

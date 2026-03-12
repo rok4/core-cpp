@@ -1,0 +1,14 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node1" href="$classDataStream.html" title=" " alt="" coords="5,157,105,184"/>
+<area shape="rect" id="node2" href="$classAscEncoder.html" title=" " alt="" coords="209,5,306,32"/>
+<area shape="rect" id="node3" href="$classBilEncoder.html" title=" " alt="" coords="212,56,303,83"/>
+<area shape="rect" id="node4" href="$classDataStreamFromDataSource.html" title=" " alt="" coords="153,107,361,133"/>
+<area shape="rect" id="node5" href="$classJPEGEncoder.html" title=" " alt="" coords="205,157,309,184"/>
+<area shape="rect" id="node6" href="$classPNGEncoder.html" title=" " alt="" coords="206,208,309,235"/>
+<area shape="rect" id="node7" href="$classRawDataStream.html" title=" " alt="" coords="193,259,321,285"/>
+<area shape="rect" id="node8" href="$classTiffEncoder.html" title=" " alt="" coords="210,309,305,336"/>
+<area shape="rect" id="node9" href="$classTiffDeflateEncoder.html" title=" " alt="" coords="413,233,593,260"/>
+<area shape="rect" id="node10" href="$classTiffLZWEncoder.html" title=" " alt="" coords="422,284,585,311"/>
+<area shape="rect" id="node11" href="$classTiffPackBitsEncoder.html" title=" " alt="" coords="409,335,597,361"/>
+<area shape="rect" id="node12" href="$classTiffRawEncoder.html" title=" " alt="" coords="423,385,584,412"/>
+</map>

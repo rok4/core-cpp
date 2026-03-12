@@ -1,0 +1,19 @@
+<map id="include/rok4/utils/ResourceLocator.h" name="include/rok4/utils/ResourceLocator.h">
+<area shape="rect" id="node1" title="Définition de la classe RessourceLocator gérant les liens vers les ressources externe dans les docume..." alt="" coords="282,5,427,47"/>
+<area shape="rect" id="node2" href="$LegendURL_8h.html" title="Définition de la classe LegendURL gérant les éléments de légendes des documents de capacités." alt="" coords="287,95,422,136"/>
+<area shape="rect" id="node3" href="$Style_8h.html" title="Définition de la classe Style modélisant les styles." alt="" coords="285,184,424,225"/>
+<area shape="rect" id="node4" href="$Style_8cpp.html" title="Implémentation de la classe Style modélisant les styles." alt="" coords="5,281,147,307"/>
+<area shape="rect" id="node5" href="$StyledImage_8h.html" title="D�finition de la classe StyledImage." alt="" coords="171,273,317,315"/>
+<area shape="rect" id="node7" href="$Pyramid_8h_source.html" title=" " alt="" coords="653,631,787,672"/>
+<area shape="rect" id="node9" href="$StyleBook_8h.html" title="Définition de la classe StyleBook." alt="" coords="410,273,545,315"/>
+<area shape="rect" id="node6" href="$StyledImage_8cpp.html" title="Implémentation de la classe StyledImage permettant l&#39;application des styles à une image." alt="" coords="119,370,318,397"/>
+<area shape="rect" id="node8" href="$Level_8h_source.html" title=" " alt="" coords="653,720,787,761"/>
+<area shape="rect" id="node10" href="$StyleBook_8cpp.html" title="Implémentation de la classe StyleBook." alt="" coords="392,370,563,397"/>
+<area shape="rect" id="node11" href="$StoragePool_8h_source.html" title=" " alt="" coords="587,363,722,404"/>
+<area shape="rect" id="node12" href="$StoreDataSource_8h.html" title="Définition des classes StoreDataSource." alt="" coords="392,452,579,493"/>
+<area shape="rect" id="node14" href="$StoragePool_8cpp.html" title="Implémentation de la classe StoragePool." alt="" coords="603,459,786,486"/>
+<area shape="rect" id="node15" href="$TileMatrixSet_8h_source.html" title=" " alt="" coords="810,452,945,493"/>
+<area shape="rect" id="node13" href="$StoreDataSource_8cpp.html" title="Implémentation des classes StoreDataSource." alt="" coords="392,541,579,583"/>
+<area shape="rect" id="node16" href="$TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="810,541,945,583"/>
+<area shape="rect" id="node17" href="$TmsBook_8cpp.html" title="Implémentation de la classe TmsBook." alt="" coords="812,638,977,665"/>
+</map>

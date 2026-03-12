@@ -1,0 +1,6 @@
+<map id="EmptyImage" name="EmptyImage">
+<area shape="rect" id="node1" title="Création d&#39;une image monochrome, utile pour simulée une image source ou remplir de nodata." alt="" coords="46,171,151,197"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="67,95,130,121"/>
+<area shape="rect" id="node3" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="5,5,53,32"/>
+<area shape="rect" id="node4" href="$classBoundingBox.html" title=" " alt="" coords="78,5,261,32"/>
+</map>

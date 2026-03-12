@@ -1,0 +1,25 @@
+var classCRS =
+[
+    [ "CRS", "classCRS.html#a194c6ce49bcdba24dd68eea1f6fa80d4", null ],
+    [ "CRS", "classCRS.html#ad4ca5173615bdbd4f2093e8415d1462d", null ],
+    [ "CRS", "classCRS.html#a9de73d9fd80c95a9c1fa971079a28edb", null ],
+    [ "~CRS", "classCRS.html#a9ca3d4d3384bd53ab582320aa95e99d1", null ],
+    [ "cmp_request_code", "classCRS.html#ad4e151ddc9bf72fd7a8d94e1ffce6730", null ],
+    [ "get_authority", "classCRS.html#a8bad5e8e65a89a4df5a71895eee70831", null ],
+    [ "get_crs_definition_area", "classCRS.html#a3cf79c69f88204fb8ef4b0a472c6684d", null ],
+    [ "get_identifier", "classCRS.html#a2e6ff86741e259ffb086213363ede2e0", null ],
+    [ "get_meters_per_unit", "classCRS.html#ac5fa9a9a9405db63825df4e4e211a72c", null ],
+    [ "get_native_crs_definition_area", "classCRS.html#ab59abb88e914deb2937f03a30aebeee2", null ],
+    [ "get_proj_code", "classCRS.html#a03fd2d70286c905f454ab24c95bc96f5", null ],
+    [ "get_proj_instance", "classCRS.html#a4bf5deb51be574df20727ffea8f7f624", null ],
+    [ "get_proj_param", "classCRS.html#a221da8ac1fd6267ec2b60a119e87d907", null ],
+    [ "get_request_code", "classCRS.html#a2a6ced0b1fdad2ffe25a4acc3a71ee5d", null ],
+    [ "get_url", "classCRS.html#aa82099f7a492bec2ad4d503b72920d79", null ],
+    [ "is_define", "classCRS.html#abf564acd8bcdf69c2afeb0d17586aac0", null ],
+    [ "is_geographic", "classCRS.html#a22fbf56e95f2cf6f14ed3a711882c6db", null ],
+    [ "is_lat_lon", "classCRS.html#a0ef41a30f7df823f59737875b255b3ca", null ],
+    [ "operator!=", "classCRS.html#af16fb01aee5ef2791be146e2efb130c5", null ],
+    [ "operator=", "classCRS.html#a3f6ff9432b734f680fd4e14e7593e703", null ],
+    [ "operator==", "classCRS.html#a6b22d031c82da5b56285b2c86cd2335b", null ],
+    [ "test_proj_param", "classCRS.html#a470aaa3a470f76d8a7aff0ffd66c085b", null ]
+];

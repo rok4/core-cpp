@@ -1,0 +1,6 @@
+<map id="ExtendedCompoundImage" name="ExtendedCompoundImage">
+<area shape="rect" id="node1" title="Manipulation d&#39;un paquet d&#39;images compatibles." alt="" coords="5,171,200,197"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="71,95,134,121"/>
+<area shape="rect" id="node3" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="9,5,57,32"/>
+<area shape="rect" id="node4" href="$classBoundingBox.html" title=" " alt="" coords="82,5,265,32"/>
+</map>

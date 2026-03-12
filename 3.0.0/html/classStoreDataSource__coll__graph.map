@@ -1,0 +1,6 @@
+<map id="StoreDataSource" name="StoreDataSource">
+<area shape="rect" id="node1" title="Lecture d&#39;une source de données." alt="" coords="98,124,229,151"/>
+<area shape="rect" id="node2" href="$classDataSource.html" title=" " alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node3" href="$classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="127,5,200,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="225,5,283,32"/>
+</map>

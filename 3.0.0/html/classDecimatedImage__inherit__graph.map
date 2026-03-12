@@ -1,0 +1,4 @@
+<map id="DecimatedImage" name="DecimatedImage">
+<area shape="rect" id="node1" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node2" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="41,5,104,32"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="include/rok4/utils/LibcurlStruct.h" name="include/rok4/utils/LibcurlStruct.h">
+<area shape="rect" id="node1" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="245,5,379,47"/>
+<area shape="rect" id="node2" href="$S3Context_8h.html" title="Définition de la classe S3Context." alt="" coords="119,95,297,121"/>
+<area shape="rect" id="node5" href="$SwiftContext_8h.html" title="Définition de la classe SwiftContext." alt="" coords="321,95,514,121"/>
+<area shape="rect" id="node3" href="$S3Context_8cpp.html" title="Implémentation de la classe S3Context." alt="" coords="5,169,197,196"/>
+<area shape="rect" id="node4" href="$StoragePool_8cpp.html" title="Implémentation de la classe StoragePool." alt="" coords="222,169,405,196"/>
+<area shape="rect" id="node6" href="$SwiftContext_8cpp.html" title="Implémentation de la classe SwiftContext." alt="" coords="429,169,637,196"/>
+</map>

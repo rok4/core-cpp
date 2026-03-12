@@ -1,0 +1,20 @@
+<map id="include/rok4/utils/TileMatrix.h" name="include/rok4/utils/TileMatrix.h">
+<area shape="rect" id="node1" title="Définition de la classe TileMatrix gérant une matrice de tuiles représentant un niveau d&#39;une pyramide..." alt="" coords="79,5,213,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="97,333,155,360"/>
+<area shape="rect" id="node3" href="$TileMatrixLimits_8h.html" title="Définition de la classe TileMatrixLimits gérant les indices extrêmes de tuiles pour un niveau." alt="" coords="43,95,249,121"/>
+<area shape="rect" id="node15" href="$BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="467,95,652,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="264,169,415,211"/>
+<area shape="rect" id="node5" href="$Configuration_8h_source.html" title=" " alt="" coords="53,177,239,203"/>
+<area shape="rect" id="node6" title=" " alt="" coords="237,259,309,285"/>
+<area shape="rect" id="node7" title=" " alt="" coords="29,259,103,285"/>
+<area shape="rect" id="node8" title=" " alt="" coords="127,259,213,285"/>
+<area shape="rect" id="node9" title=" " alt="" coords="649,259,801,285"/>
+<area shape="rect" id="node10" href="$json11_8hpp_source.html" title=" " alt="" coords="383,259,578,285"/>
+<area shape="rect" id="node11" title=" " alt="" coords="408,333,471,360"/>
+<area shape="rect" id="node12" title=" " alt="" coords="495,333,546,360"/>
+<area shape="rect" id="node13" title=" " alt="" coords="570,333,647,360"/>
+<area shape="rect" id="node14" title=" " alt="" coords="273,333,384,360"/>
+<area shape="rect" id="node16" title=" " alt="" coords="439,177,498,203"/>
+<area shape="rect" id="node17" title=" " alt="" coords="522,177,597,203"/>
+<area shape="rect" id="node18" title=" " alt="" coords="621,177,684,203"/>
+</map>

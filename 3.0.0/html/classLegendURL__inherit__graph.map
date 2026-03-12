@@ -1,0 +1,4 @@
+<map id="LegendURL" name="LegendURL">
+<area shape="rect" id="node1" title="Gestion des éléments de légendes des documents de capacités." alt="" coords="23,80,118,107"/>
+<area shape="rect" id="node2" href="$classResourceLocator.html" title="Gestion des éléments des ressources externes des documents de capacités." alt="" coords="5,5,136,32"/>
+</map>

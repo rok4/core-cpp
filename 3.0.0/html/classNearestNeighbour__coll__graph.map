@@ -1,0 +1,4 @@
+<map id="NearestNeighbour" name="NearestNeighbour">
+<area shape="rect" id="node1" title="Noyau d&#39;interpolation de type plus proche voisin." alt="" coords="5,80,145,107"/>
+<area shape="rect" id="node2" href="$classKernel.html" title="Gestion du noyau d&#39;interpolation." alt="" coords="44,5,107,32"/>
+</map>

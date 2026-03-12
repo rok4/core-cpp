@@ -1,0 +1,4 @@
+<map id="TileMatrix" name="TileMatrix">
+<area shape="rect" id="node1" title="Gestion d&#39;une matrice de tuiles." alt="" coords="16,80,104,107"/>
+<area shape="rect" id="node2" href="$classConfiguration.html" title=" " alt="" coords="5,5,115,32"/>
+</map>
