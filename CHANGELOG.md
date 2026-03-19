@@ -15,6 +15,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 - `Boundingbox` : Mise en place de valeur maximale et minimale pour les bbox en wms-r.
 - `Style` : Ajout des préfix ogc pour le title et l'abstract sur le wmts
+- 
+### Changed
+
+- Correction de conversions au format API OGC (format et bbox)
 
 ## [3.0.0] - 2026-03-12
 
