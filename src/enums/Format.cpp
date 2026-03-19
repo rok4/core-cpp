@@ -258,7 +258,7 @@ const char *eformat_mime[] = {
     "application/x-protobuf"
 };
 
-const char *eformat_tiles[] = {
+const char *eformat_ogcapi[] = {
     "UNKNOWN",
 
     "tiff",
@@ -269,9 +269,9 @@ const char *eformat_tiles[] = {
     "tiff",
     "tiff",
 
+    "bil",
     "tiff",
-    "tiff",
-    "tiff",
+    "bil",
     "tiff",
 
     "mvt"
@@ -407,8 +407,8 @@ std::string to_mime_type ( eFormat format ) {
     return std::string ( eformat_mime[format] );
 }
 
-std::string to_tiles_format ( eFormat format ) {
-    return std::string ( eformat_tiles[format] );
+std::string to_ogcapi_format ( eFormat format ) {
+    return std::string ( eformat_ogcapi[format] );
 }
 
 std::string to_extension ( eFormat format ) {

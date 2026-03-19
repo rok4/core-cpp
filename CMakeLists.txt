@@ -16,7 +16,7 @@ set(CEPH_ENABLED 0 CACHE BOOL "Build with ceph storage")
 set(KDU_ENABLED 0 CACHE BOOL "Build with kakadu")
 set(UNITTEST_ENABLED 1 CACHE BOOL "Unit tests compilation")
 set(DOC_ENABLED 1 CACHE BOOL "Documentation compilation")
-set(CPACK_SYSTEM_NAME "ubuntu-20.04" CACHE STRING "Building OS, to deduce package format to generate")
+set(CPACK_SYSTEM_NAME "ubuntu-22.04" CACHE STRING "Building OS, to deduce package format to generate")
 set(CPACK_PACKAGE_NAME "librok4-dev" CACHE STRING "Package's name")
 
 set(VERSION ${BUILD_VERSION})

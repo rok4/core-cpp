@@ -374,14 +374,14 @@ std::string to_string ( eFormat format );
 std::string to_mime_type ( eFormat format );
 
 /**
- * \~french \brief Conversion d'un format vers une chaîne de caractère (format OGC API Tiles)
+ * \~french \brief Conversion d'un format vers une chaîne de caractère (format OGC API)
  * \param[in] format format à convertir
- * \return format OGC API Tiles du format
- * \~english \brief Convert a format to a string (format OGC API Tiles)
+ * \return format OGC API du format
+ * \~english \brief Convert a format to a string (format OGC API)
  * \param[in] format format to convert
- * \return format OGC API Tiles of the format
+ * \return format OGC API of the format
  */
-std::string to_tiles_format ( eFormat format );
+std::string to_ogcapi_format ( eFormat format );
 
 /**
  * \~french \brief Conversion d'un format vers une chaîne de caractère (extension)

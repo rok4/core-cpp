@@ -562,7 +562,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
 
                 // Si l'image a une photometrie Palette ou bien YCBCR --> TIFFReadRGBATile
                 if (palette || photometric == Photometric::YCBCR) {
-                    uint32* palette_buffer = new uint32[width * rowsperstrip];
+                    uint32_t* palette_buffer = new uint32_t[width * rowsperstrip];
 
                     size = TIFFReadRGBATile(tif, t * tile_width, current_strip * tile_height, palette_buffer );
                     if ( size == 0 ) {
@@ -608,7 +608,7 @@ int LibtiffImage::_getline ( T* buffer, int line ) {
         } else {
             // Si l'image a une photometrie Palette ou bien YCBCR --> TIFFReadRGBAStrip
             if (palette || photometric == Photometric::YCBCR) {
-                uint32* palette_buffer = new uint32[width * rowsperstrip];
+                uint32_t* palette_buffer = new uint32_t[width * rowsperstrip];
                 size = TIFFReadRGBAStrip ( tif, line, palette_buffer);
                 if ( size == 0 ) {
                     BOOST_LOG_TRIVIAL(error) <<  "Cannot read strip number " << current_strip << " of image with color map " << filename ;

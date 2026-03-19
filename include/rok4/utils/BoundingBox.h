@@ -432,12 +432,12 @@ public:
     }
 
     /**
-     * \~french \brief Exporte la bbox en JSON conformément à OGC API Tiles
+     * \~french \brief Exporte la bbox en JSON conformément à OGC API
      * \details La bbox est considérée comme étant en CRS84
-     * \~english \brief Get the bbox as JSON, OGC API Tiles compliant
+     * \~english \brief Get the bbox as JSON, OGC API compliant
      * \details Bbox is considered as CRS84 one
      */
-    json11::Json to_json_tiles() const {
+    json11::Json to_json_ogcapi() const {
         return json11::Json::object {
             { "spatial", json11::Json::object {
                 { "crs", "http://www.opengis.net/def/crs/OGC/1.3/CRS84" },
