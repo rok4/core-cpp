@@ -13,6 +13,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 ### Fixed
 
 -   `Boundingbox` : Mise en place de valeur maximale et minimale pour les bbox en wms-r.
+-   `Style` : Ajout des préfix ogc pour le title et l'abstract sur le wmts
 
 ## [3.0.0] - 2026-03-12
 
