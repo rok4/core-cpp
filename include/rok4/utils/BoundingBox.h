@@ -409,10 +409,10 @@ public:
 
         if (geographical) {
             ptree& node = parent.add("EX_GeographicBoundingBox", "");
-            node.add("westBoundLongitude", xmin);
-            node.add("eastBoundLongitude", xmax);
-            node.add("southBoundLatitude", ymin);
-            node.add("northBoundLatitude", ymax);
+            node.add("westBoundLongitude", std::max(xmin,-180.0));
+            node.add("eastBoundLongitude", std::min(xmax,180.0));
+            node.add("southBoundLatitude", std::max(ymin,-90.0));
+            node.add("northBoundLatitude", std::min(ymax,90.0));
         } else {
             ptree& node = parent.add("BoundingBox", "");
             node.add("<xmlattr>.CRS", crs);
