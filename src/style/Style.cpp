@@ -312,10 +312,10 @@ void Style::add_node_wmts(ptree& parent, bool default_style) {
     }
     
     for (std::string t : titles) {
-        node.add("Title", t);
+        node.add("ows:Title", t);
     }
     for (std::string a : abstracts) {
-        node.add("Abstract", a);
+        node.add("ows:Abstract", a);
     }
 
     if ( keywords.size() != 0 ) {
