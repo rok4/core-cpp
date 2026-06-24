@@ -61,6 +61,7 @@ bool Style::parse(json11::Json& doc) {
     aspect = 0;
     estompage = 0;
     palette = 0;
+    colorize = 0;
     terrainrgb = 0;
 
     input_nodata_value = NULL;
@@ -147,13 +148,25 @@ bool Style::parse(json11::Json& doc) {
     }
 
     if (doc["terrainrgb"].is_object()) {
-        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || colorize !=0) {
             error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
             return false;
         }
         terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
         if (! terrainrgb->is_ok()) {
             error_message = "Terrainrgb issue for style " + id + ": " + terrainrgb->get_error_message();
+            return false;
+        }
+    }
+
+    if (doc["colorize"].is_object()) {
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || terrainrgb !=0) {
+            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+            return false;
+        }
+        colorize = new Colorize(doc["colorize"].object_items());
+        if (! colorize->is_ok()) {
+            error_message = "Colorize issue for style " + id + ": " + colorize->get_error_message();
             return false;
         }
     }
@@ -167,6 +180,7 @@ Style::Style ( std::string path ) : Configuration(path) {
     palette = 0;
     aspect = 0;
     terrainrgb = 0;
+    colorize = 0;
 
     input_nodata_value = NULL;
     output_nodata_value = NULL;
@@ -237,6 +251,15 @@ Style::Style ( std::string path ) : Configuration(path) {
     else if (terrainrgb_defined()) {
         input_nodata_value = new int[1];
         input_nodata_value[0] = (int) terrainrgb->input_nodata_value;
+    }
+    else if (colorize_defined()) {
+        int i = colorize->input_nodata_value.size();
+        input_nodata_value = new int[i];
+
+        for (int j = 0; j < i; ++j){
+            input_nodata_value[j] = colorize->input_nodata_value[j];
+        }  
+
     }  
     else if (palette && ! palette->is_empty()) {
         input_nodata_value = new int[1];
@@ -277,6 +300,14 @@ Style::Style ( std::string path ) : Configuration(path) {
         output_nodata_value[1] = 0;
         output_nodata_value[2] = 0;
     }
+    else if (colorize_defined()) {
+        int i = colorize->input_nodata_value.size();
+        output_nodata_value = new int[i];
+
+        for (int j = 0; j < i; ++j){
+            output_nodata_value[j] = colorize->destination[j];
+        }  
+    }
 }
 
 Style::~Style() {
@@ -294,6 +325,9 @@ Style::~Style() {
     }
     if (terrainrgb != 0) {
         delete terrainrgb;
+    }
+    if (colorize != 0) {
+        delete colorize;
     }
     if (input_nodata_value != NULL) {
         delete[] input_nodata_value;
