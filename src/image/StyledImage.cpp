@@ -169,6 +169,14 @@ StyledImage::StyledImage(Image *input_image, Style *input_style, int offset) : I
         }    
     }
 
+    else if (style->colorize_defined()) {
+        if (source_image->get_channels() == 3 || source_image->get_channels() == 4) {
+            channels = style->get_colorize()->destination.size();
+        } else {
+            channels = input_image->get_channels();
+        }
+    }
+
     if (style->palette_defined()){
         // Il n'y aura application de la palette et modification des canaux que si
         // - la palette n'est pas nulle et pas vide
@@ -489,6 +497,138 @@ int StyledImage::_getline(T *buffer, int line) {
         space = width * sizeof ( T ) * channels;
     }
 
+    else if (style->colorize_defined()) {
+        Colorize* wta = style->get_colorize();
+        switch ( channels ) {
+        case 3:
+            if (source_image->get_channels()==3){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 3 canaux pour une arrivée en 3 canaux
+                    int red = *(source+i*3);
+                    int green = *(source+i*3+1);
+                    int blue = *(source+i*3+2);
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance){
+                        * ( buffer+i*3 ) = (T) wta->destination[0];
+                        * ( buffer+i*3+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*3+2 ) = (T) wta->destination[2];
+                    }
+                    else{
+                        * ( buffer+i*3 ) = (T) red;
+                        * ( buffer+i*3+1 ) = (T) green;
+                        * ( buffer+i*3+2 ) = (T) blue;
+                    }
+                }
+            }
+            if (source_image->get_channels()==4){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 4 canaux pour une arrivée en 3 canaux
+                    int red = *(source+i*4);
+                    int green = *(source+i*4+1);
+                    int blue = *(source+i*4+2);
+                    int alpha = *(source+i*4+3);
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    alpha  = alpha  < 0 ? 0 : (alpha  > 255 ? 255 : alpha);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+                    int s_alpha = wta->source[3];
+
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance &&
+                    alpha>=s_alpha-wta->tolerance && alpha<=s_alpha+wta->tolerance){
+                        * ( buffer+i*3 ) = (T) wta->destination[0];
+                        * ( buffer+i*3+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*3+2 ) = (T) wta->destination[2];
+                    }
+                    else{
+                        * ( buffer+i*3 ) = (T) red;
+                        * ( buffer+i*3+1 ) = (T) green;
+                        * ( buffer+i*3+2 ) = (T) blue;
+                    }
+                }
+            }
+            break;
+        case 4:
+        if (source_image->get_channels()==3){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 3 canaux pour une arrivée en 4 canaux
+                    int red = *(source+i*3);
+                    int green = *(source+i*3+1);
+                    int blue = *(source+i*3+2);
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance){
+                        * ( buffer+i*4 ) = (T) wta->destination[0];
+                        * ( buffer+i*4+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*4+2 ) = (T) wta->destination[2];
+                        * ( buffer+i*4+3 ) = (T) wta->destination[3];
+                    }
+                    else{
+                        * ( buffer+i*4 ) = (T) red;
+                        * ( buffer+i*4+1 ) = (T) green;
+                        * ( buffer+i*4+2 ) = (T) blue;
+                        * ( buffer+i*4+3 ) = (T) 255;
+                    }
+                }
+            }
+            if (source_image->get_channels()==4){
+                for (int i = 0; i < source_image->get_width() ; i++ ) {
+                    //image de départ à 4 canaux pour une arrivée en 4 canaux
+                    int red = *(source+i*4);
+                    int green = *(source+i*4+1);
+                    int blue = *(source+i*4+2);
+                    int alpha = *(source+i*4+3);
+                    red   = red   < 0 ? 0 : (red   > 255 ? 255 : red);
+                    green = green < 0 ? 0 : (green > 255 ? 255 : green);
+                    blue  = blue  < 0 ? 0 : (blue  > 255 ? 255 : blue);
+                    alpha  = alpha  < 0 ? 0 : (alpha  > 255 ? 255 : alpha);
+                    int s_red = wta->source[0];
+                    int s_green = wta->source[1];
+                    int s_blue = wta->source[2];
+                    int s_alpha = wta->source[3];
+
+                    if (red>=s_red-wta->tolerance && red<=s_red+wta->tolerance &&
+                    green>=s_green-wta->tolerance && green<=s_green+wta->tolerance &&
+                    blue>=s_blue-wta->tolerance && blue<=s_blue+wta->tolerance &&
+                    alpha>=s_alpha-wta->tolerance && alpha<=s_alpha+wta->tolerance){
+                        * ( buffer+i*4 ) = (T) wta->destination[0];
+                        * ( buffer+i*4+1 ) = (T) wta->destination[1];
+                        * ( buffer+i*4+2 ) = (T) wta->destination[2];
+                        * ( buffer+i*4+3 ) = (T) wta->destination[3];
+                    }
+                    else{
+                        * ( buffer+i*4 ) = (T) red;
+                        * ( buffer+i*4+1 ) = (T) green;
+                        * ( buffer+i*4+2 ) = (T) blue;
+                        * ( buffer+i*4+3 ) = (T) alpha;
+                    }
+                }
+            }
+            break;
+        }
+    
+        space = width * sizeof ( T ) * channels;
+    }
+
     if (style->palette_defined()){
         switch ( channels ) {
         case 4:
@@ -541,6 +681,16 @@ StyledImage *StyledImage::create(Image *input_image, Style *input_style) {
             return NULL;
         }
     }
+    if (input_style->colorize_defined()){
+        if (input_image->get_channels()!=3 && input_image->get_channels()!=4){
+            BOOST_LOG_TRIVIAL(error)<<"Ce style ne s'applique que sur une image source à trois ou quatre canaux";
+            return NULL;
+        }
+        if (input_style->palette_defined()){
+            BOOST_LOG_TRIVIAL(error)<<"Le style colorize n'est pas compatible avec une palette";
+            return NULL;
+        }
+    }
     return new StyledImage(input_image,input_style,offset);
 
 }
@@ -569,6 +719,9 @@ void StyledImage::print() {
     }
     if (style->terrainrgb_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Terrainrgb -----------" ;
+    }
+    if (style->colorize_defined()){
+        BOOST_LOG_TRIVIAL(info) <<  "--------- Colorize -----------" ;
     }
     if (style->palette_defined()){
         BOOST_LOG_TRIVIAL(info) <<  "--------- Palette -----------" ;

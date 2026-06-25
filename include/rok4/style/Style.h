@@ -56,6 +56,7 @@ class Style;
 #include "rok4/style/Estompage.h"
 #include "rok4/style/Aspect.h"
 #include "rok4/style/Terrainrgb.h"
+#include "rok4/style/Colorize.h"
 #include "rok4/enums/Interpolation.h"
 #include "rok4/utils/Configuration.h"
 #include "rok4/utils/StoragePool.h"
@@ -169,6 +170,11 @@ private :
      * \~english \brief Define wether the server must compute a RGB terrain
      */
     Terrainrgb* terrainrgb;
+    /**
+     * \~french \brief Définit si un calcul de white to alpha doit être appliqué
+     * \~english \brief Define wether the server must compute a white to alpha
+     */
+    Colorize* colorize;
 
     /**
      * \~french \brief Valeur de nodata attendue dans les données en entrée
@@ -226,9 +232,16 @@ public:
      * \~english \brief Style is allowed ?
      */
     bool handle (int spp) {
-        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() ) {
+            return (spp == 1);
+        }
+        else if (colorize_defined()) {
+            return (spp == colorize->source.size());
+        }
+        else if (palette && ! palette->is_empty()) {
             return (spp == 1);
         } else {
+            // identité
             return true;
         }
     }
@@ -258,6 +271,14 @@ public:
                 return orig_channels;
             }
         }
+        else if (colorize_defined()){
+            if (orig_channels ==3 || orig_channels ==4){
+                return colorize->destination.size();
+            }
+            else {
+                return orig_channels;
+            }
+        }
         else {
             if (estompage_defined() || pente_defined() || aspect_defined()) {
                 return 1;
@@ -274,7 +295,7 @@ public:
      * \~english \brief Which sample format after style
      */
     SampleFormat::eSampleFormat get_sample_format (SampleFormat::eSampleFormat sf) {
-        if ((palette && ! palette->is_empty()) || terrainrgb_defined()) {
+        if ((palette && ! palette->is_empty()) || terrainrgb_defined() || colorize_defined()) {
             return SampleFormat::UINT8;
         } else {
             return sf;
@@ -314,7 +335,7 @@ public:
             return false;
         }
 
-        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() || colorize_defined()) {
             return false;
         } else {
             return true;
@@ -474,6 +495,27 @@ public:
      */
     inline Terrainrgb* get_terrainrgb() {
         return terrainrgb;
+    }
+
+    /**
+    * \~french
+    * \brief Return vrai si le style est un white to alpha
+    * \return bool
+    * \~english
+    * \brief Return true if the style is an white to alpha
+    * \return bool
+    */
+    inline bool colorize_defined() {
+        return (colorize != 0);
+    }
+    /**
+     * \~french
+     * \brief Retourne le white to alpha
+     * \~english
+     * \brief Return white to alpha
+     */
+    inline Colorize* get_colorize() {
+        return colorize;
     }
 	
 
