@@ -6,6 +6,8 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-06-25
+
 ### Added
 
 - Compilation des artefacts sous ubuntu 24.04 (compatible debian 13 / trixie)
@@ -223,6 +225,7 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
 
 [1.0.3]: https://github.com/rok4/core-cpp/releases/tag/1.0.3
 
-[Unreleased]: https://github.com/rok4/core-cpp/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/rok4/core-cpp/compare/3.1.0...HEAD
+[3.1.0]: https://github.com/rok4/core-cpp/compare/3.0.0...3.1.0
 
 [3.0.0]: https://github.com/rok4/core-cpp/compare/2.0.6...3.0.0
