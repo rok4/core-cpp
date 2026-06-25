@@ -232,9 +232,16 @@ public:
      * \~english \brief Style is allowed ?
      */
     bool handle (int spp) {
-        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() || colorize_defined()) {
+        if (estompage_defined() || pente_defined() || aspect_defined() || terrainrgb_defined() ) {
+            return (spp == 1);
+        }
+        else if (colorize_defined()) {
+            return (spp == colorize->source.size());
+        }
+        else if (palette && ! palette->is_empty()) {
             return (spp == 1);
         } else {
+            // identité
             return true;
         }
     }

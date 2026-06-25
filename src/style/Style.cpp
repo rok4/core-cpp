@@ -148,8 +148,8 @@ bool Style::parse(json11::Json& doc) {
     }
 
     if (doc["terrainrgb"].is_object()) {
-        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || colorize !=0) {
-            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+        if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0) {
+            error_message = "Style " + id + " define terrainrgb, which is not compatible with exposition, estompage, pente or palette rules";
             return false;
         }
         terrainrgb = new Terrainrgb(doc["terrainrgb"].object_items());
@@ -161,7 +161,7 @@ bool Style::parse(json11::Json& doc) {
 
     if (doc["colorize"].is_object()) {
         if (estompage != 0 || pente != 0 || aspect !=0 || palette !=0 || terrainrgb !=0) {
-            error_message = "Style " + id + " define exposition, estompage, pente or palette rules";
+            error_message = "Style " + id + " define colorize, which is not compatible with exposition, estompage, pente, terrainrgb or palette rules";
             return false;
         }
         colorize = new Colorize(doc["colorize"].object_items());
