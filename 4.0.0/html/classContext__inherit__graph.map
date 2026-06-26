@@ -1,0 +1,11 @@
+<map id="Context" name="Context">
+<area shape="rect" id="Node000001" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="235,5,308,31"/>
+<area shape="rect" id="Node000002" href="$classCephPoolContext.html" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="5,79,140,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,38,106,81,104,76,226,33"/>
+<area shape="rect" id="Node000003" href="$classFileContext.html" title="Création d&#39;un contexte File (dossier racine), pour pouvoir récupérer des données stockées sous forme ..." alt="" coords="165,79,261,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="255,43,224,80,220,77,251,40"/>
+<area shape="rect" id="Node000004" href="$classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d..." alt="" coords="285,79,375,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="292,40,323,77,318,80,288,43"/>
+<area shape="rect" id="Node000005" href="$classSwiftContext.html" title="Création d&#39;un contexte Swift (connexion à un cluster + conteneur particulier), pour pouvoir récupérer..." alt="" coords="399,79,504,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="314,33,423,76,421,81,312,38"/>
+</map>

@@ -1,0 +1,29 @@
+<map id="include/rok4/utils/TileMatrixLimits.h" name="include/rok4/utils/TileMatrixLimits.h">
+<area shape="rect" id="Node000001" title="Définition de la classe TileMatrixLimits gérant les indices extrêmes de tuiles pour un niveau." alt="" coords="33,5,177,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="13,255,71,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,48,40,68,19,95,12,113,9,132,11,172,21,210,33,241,28,243,16,212,6,173,4,132,7,112,14,92,36,64,64,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="29,93,180,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,46,107,79,102,79,102,46"/>
+<area shape="rect" id="Node000004" href="$Configuration_8h_source.html" title=" " alt="" coords="205,101,391,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="148,43,261,93,259,98,146,48"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="235,129,138,152,96,167,69,183,60,196,53,211,46,242,41,240,48,209,55,193,66,179,94,162,136,147,233,123"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="79,181,151,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="273,128,156,178,154,173,270,124"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="175,181,250,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="287,128,237,174,234,170,284,124"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="274,181,359,207"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="303,126,313,167,308,169,298,127"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="383,181,535,207"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="323,124,425,173,423,178,320,128"/>
+<area shape="rect" id="Node000009" href="$json11_8hpp_source.html" title=" " alt="" coords="559,181,754,207"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="351,123,592,176,591,181,350,129"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="560,209,85,264,85,258,559,204"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="500,255,563,280"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="638,209,565,250,562,245,635,204"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="587,255,638,280"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="652,208,629,244,625,242,647,206"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="662,255,739,280"/>
+<area shape="poly" id="edge13_Node000009_Node000012" title=" " alt="" coords="666,206,689,242,684,244,662,208"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="764,255,875,280"/>
+<area shape="poly" id="edge14_Node000009_Node000013" title=" " alt="" coords="684,204,781,247,779,251,682,209"/>
+</map>

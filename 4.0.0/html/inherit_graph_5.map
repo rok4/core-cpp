@@ -1,0 +1,11 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" href="$classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="5,80,79,105"/>
+<area shape="rect" id="Node000001" href="$classCephPoolContext.html" title="Création d&#39;un contexte Ceph (connexion à un cluster + pool particulier), pour pouvoir récupérer des d..." alt="" coords="127,5,261,31"/>
+<area shape="poly" id="edge12_Node000000_Node000001" title=" " alt="" coords="72,70,125,40,153,28,155,33,128,44,75,75"/>
+<area shape="rect" id="Node000002" href="$classFileContext.html" title="Création d&#39;un contexte File (dossier racine), pour pouvoir récupérer des données stockées sous forme ..." alt="" coords="146,55,242,80"/>
+<area shape="poly" id="edge13_Node000000_Node000002" title=" " alt="" coords="92,82,145,73,146,78,92,87"/>
+<area shape="rect" id="Node000003" href="$classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d..." alt="" coords="149,104,239,129"/>
+<area shape="poly" id="edge14_Node000000_Node000003" title=" " alt="" coords="93,98,149,107,149,112,92,103"/>
+<area shape="rect" id="Node000004" href="$classSwiftContext.html" title="Création d&#39;un contexte Swift (connexion à un cluster + conteneur particulier), pour pouvoir récupérer..." alt="" coords="141,153,247,179"/>
+<area shape="poly" id="edge15_Node000000_Node000004" title=" " alt="" coords="76,110,128,138,158,151,156,156,126,143,74,115"/>
+</map>

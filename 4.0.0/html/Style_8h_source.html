@@ -1,0 +1,441 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('Style_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Style.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Style_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * Copyright © (2011-2013) Institut national de l&#39;information</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> * liability.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">class </span><a class="code hl_class" href="classStyle.html">Style</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &quot;<a class="code" href="LegendURL_8h.html">rok4/utils/LegendURL.h</a>&quot;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &quot;<a class="code" href="Keyword_8h.html">rok4/utils/Keyword.h</a>&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &quot;rok4/style/Palette.h&quot;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &quot;<a class="code" href="Pente_8h.html">rok4/style/Pente.h</a>&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &quot;<a class="code" href="Estompage_8h.html">rok4/style/Estompage.h</a>&quot;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &quot;<a class="code" href="Aspect_8h.html">rok4/style/Aspect.h</a>&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &quot;<a class="code" href="Terrainrgb_8h.html">rok4/style/Terrainrgb.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="Colorize_8h.html">rok4/style/Colorize.h</a>&quot;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &quot;<a class="code" href="Interpolation_8h.html">rok4/enums/Interpolation.h</a>&quot;</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &quot;rok4/utils/Configuration.h&quot;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &quot;rok4/utils/StoragePool.h&quot;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="};">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classStyle.html">  114</a></span><span class="keyword">class </span><a class="code hl_class" href="classStyle.html">Style</a> : <span class="keyword">public</span> <a class="code hl_class" href="classConfiguration.html">Configuration</a> {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>private :</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    std::string id;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    std::string identifier;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    std::vector&lt;std::string&gt; titles;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    std::vector&lt;std::string&gt; abstracts;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    std::vector&lt;Keyword&gt; keywords;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    std::vector&lt;LegendURL&gt; legends;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_class" href="classPalette.html">Palette</a>* palette;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <a class="code hl_class" href="classPente.html">Pente</a>* pente;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_class" href="classAspect.html">Aspect</a>* aspect;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_class" href="classEstompage.html">Estompage</a>* estompage;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <a class="code hl_class" href="classTerrainrgb.html">Terrainrgb</a>* terrainrgb;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_class" href="classColorize.html">Colorize</a>* colorize;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordtype">int</span>* input_nodata_value;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordtype">int</span>* output_nodata_value;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">bool</span> parse(<a class="code hl_class" href="classjson11_1_1Json.html">json11::Json</a>&amp; doc);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <a class="code hl_class" href="classStyle.html">Style</a> ( std::string path );</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="foldopen" id="foldopen00215" data-start="{" data-end="}">
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="classStyle.html#aa960175bae68c1fb9474b36deb18e3db">  215</a></span>    <span class="keyword">inline</span> std::string <a class="code hl_function" href="classStyle.html#aa960175bae68c1fb9474b36deb18e3db">get_id</a>() {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">return</span> id;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="foldopen" id="foldopen00227" data-start="{" data-end="}">
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="classStyle.html#a6ae4e394cd6abc9aaca5fd17e9661c14">  227</a></span>    <span class="keyword">inline</span> std::string <a class="code hl_function" href="classStyle.html#a6ae4e394cd6abc9aaca5fd17e9661c14">get_identifier</a>() {</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordflow">return</span> identifier;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classStyle.html#adc436f5c41f75ac9d81755cf95af1a3b">  234</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#adc436f5c41f75ac9d81755cf95af1a3b">handle</a> (<span class="keywordtype">int</span> spp) {</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">estompage_defined</a>() || <a class="code hl_function" href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">pente_defined</a>() || <a class="code hl_function" href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">aspect_defined</a>() || <a class="code hl_function" href="classStyle.html#ae56af26f07c44957286fad53340e6283">terrainrgb_defined</a>() ) {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            <span class="keywordflow">return</span> (spp == 1);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        }</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">colorize_defined</a>()) {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            <span class="keywordflow">return</span> (spp == colorize-&gt;<a class="code hl_variable" href="classColorize.html#ae7a6d50fbe58b56461d572a894241a79">source</a>.size());</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (palette &amp;&amp; ! palette-&gt;is_empty()) {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">return</span> (spp == 1);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="comment">// identité</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="foldopen" id="foldopen00253" data-start="{" data-end="}">
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="classStyle.html#acf7c1db342830e477dcfd20bf2093a8f">  253</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classStyle.html#acf7c1db342830e477dcfd20bf2093a8f">get_channels</a> (<span class="keywordtype">int</span> orig_channels) {</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">if</span> (palette &amp;&amp; ! palette-&gt;is_empty()) {</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keywordflow">if</span> (orig_channels ==1){</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                <span class="keywordflow">if</span> (palette-&gt;is_no_alpha()) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                    <span class="keywordflow">return</span> 3;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>                    <span class="keywordflow">return</span> 4;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                }</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                <span class="keywordflow">return</span> orig_channels;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        } </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#ae56af26f07c44957286fad53340e6283">terrainrgb_defined</a>()){</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            <span class="keywordflow">if</span> (orig_channels ==1){</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>                <span class="keywordflow">return</span> 3;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                <span class="keywordflow">return</span> orig_channels;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            }</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">colorize_defined</a>()){</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keywordflow">if</span> (orig_channels ==3 || orig_channels ==4){</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                <span class="keywordflow">return</span> colorize-&gt;<a class="code hl_variable" href="classColorize.html#a5e7041940aee2e375afd3e39289ee905">destination</a>.size();</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            }</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                <span class="keywordflow">return</span> orig_channels;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">estompage_defined</a>() || <a class="code hl_function" href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">pente_defined</a>() || <a class="code hl_function" href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">aspect_defined</a>()) {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                <span class="comment">// identité</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>                <span class="keywordflow">return</span> orig_channels;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
+</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="foldopen" id="foldopen00297" data-start="{" data-end="}">
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="classStyle.html#a6132300910b14aeaf24679be41734499">  297</a></span>    <a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code hl_function" href="classStyle.html#a6132300910b14aeaf24679be41734499">get_sample_format</a> (<a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sf) {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="keywordflow">if</span> ((palette &amp;&amp; ! palette-&gt;is_empty()) || <a class="code hl_function" href="classStyle.html#ae56af26f07c44957286fad53340e6283">terrainrgb_defined</a>() || <a class="code hl_function" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">colorize_defined</a>()) {</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            <span class="keywordflow">return</span> SampleFormat::UINT8;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            <span class="keywordflow">return</span> sf;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        }</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    }</div>
+</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="foldopen" id="foldopen00309" data-start="{" data-end="}">
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="classStyle.html#adb18020a5796d58562953aa50cdcee61">  309</a></span>    <span class="keywordtype">int</span>* <a class="code hl_function" href="classStyle.html#adb18020a5796d58562953aa50cdcee61">get_output_nodata_value</a> (<span class="keywordtype">int</span>* default_nodata) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a3e4456d4e543d0cfe7f686d8a25885d8">is_identity</a>()) {</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            <span class="keywordflow">return</span> default_nodata;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            <span class="keywordflow">return</span> output_nodata_value;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="foldopen" id="foldopen00321" data-start="{" data-end="}">
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno"><a class="line" href="classStyle.html#a290d547864395900048278202b3c71b3">  321</a></span>    <span class="keywordtype">int</span>* <a class="code hl_function" href="classStyle.html#a290d547864395900048278202b3c71b3">get_input_nodata_value</a> (<span class="keywordtype">int</span>* default_nodata) {</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a3e4456d4e543d0cfe7f686d8a25885d8">is_identity</a>()) {</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <span class="keywordflow">return</span> default_nodata;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            <span class="keywordflow">return</span> input_nodata_value;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        }</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    }</div>
+</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="foldopen" id="foldopen00333" data-start="{" data-end="}">
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="classStyle.html#a3e4456d4e543d0cfe7f686d8a25885d8">  333</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#a3e4456d4e543d0cfe7f686d8a25885d8">is_identity</a> () {</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordflow">if</span> (palette &amp;&amp; palette-&gt;get_colours_map() &amp;&amp; ! palette-&gt;is_empty()) {</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        }</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">estompage_defined</a>() || <a class="code hl_function" href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">pente_defined</a>() || <a class="code hl_function" href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">aspect_defined</a>() || <a class="code hl_function" href="classStyle.html#ae56af26f07c44957286fad53340e6283">terrainrgb_defined</a>() || <a class="code hl_function" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">colorize_defined</a>()) {</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        }</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    }</div>
+</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="foldopen" id="foldopen00353" data-start="{" data-end="}">
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno"><a class="line" href="classStyle.html#ab43611ac293d1da113c947f783dbbeb2">  353</a></span>    <span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code hl_function" href="classStyle.html#ab43611ac293d1da113c947f783dbbeb2">get_titles</a>() {</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">return</span> titles;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    }</div>
+</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="foldopen" id="foldopen00365" data-start="{" data-end="}">
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="classStyle.html#a684b743bcaff7c53e855c990d5f4243d">  365</a></span>    <span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code hl_function" href="classStyle.html#a684b743bcaff7c53e855c990d5f4243d">get_abstracts</a>() {</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="keywordflow">return</span> abstracts;</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    }</div>
+</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
+<div class="foldopen" id="foldopen00377" data-start="{" data-end="}">
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno"><a class="line" href="classStyle.html#ae0f297ba84df5c49729e8405838d8ca5">  377</a></span>    <span class="keyword">inline</span> std::vector&lt;Keyword&gt;* <a class="code hl_function" href="classStyle.html#ae0f297ba84df5c49729e8405838d8ca5">get_keywords</a>() {</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <span class="keywordflow">return</span> &amp;keywords;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    }</div>
+</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="foldopen" id="foldopen00389" data-start="{" data-end="}">
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno"><a class="line" href="classStyle.html#ab43f45f68f077ec4065173b3c0ddfbd9">  389</a></span>    <span class="keyword">inline</span> std::vector&lt;LegendURL&gt;* <a class="code hl_function" href="classStyle.html#ab43f45f68f077ec4065173b3c0ddfbd9">get_legends</a>() {</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        <span class="keywordflow">return</span> &amp;legends;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    }</div>
+</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
+<div class="foldopen" id="foldopen00401" data-start="{" data-end="}">
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno"><a class="line" href="classStyle.html#adc31665202ae9f158da702f6b80a47b0">  401</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#adc31665202ae9f158da702f6b80a47b0">palette_defined</a>() {</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>        <span class="keywordflow">return</span> (palette != 0);</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00412" data-start="{" data-end="}">
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno"><a class="line" href="classStyle.html#ad47602f198af726d33f782c17647691d">  412</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classPalette.html">Palette</a>* <a class="code hl_function" href="classStyle.html#ad47602f198af726d33f782c17647691d">get_palette</a>() {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        <span class="keywordflow">return</span> palette;</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    }</div>
+</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
+<div class="foldopen" id="foldopen00424" data-start="{" data-end="}">
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">  424</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">estompage_defined</a>() {</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>        <span class="keywordflow">return</span> (estompage != 0);</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00433" data-start="{" data-end="}">
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno"><a class="line" href="classStyle.html#ac3e470815a4b56e5b6c499539392b7c5">  433</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classEstompage.html">Estompage</a>* <a class="code hl_function" href="classStyle.html#ac3e470815a4b56e5b6c499539392b7c5">get_estompage</a>() {</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        <span class="keywordflow">return</span> estompage;</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    }</div>
+</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    </div>
+<div class="foldopen" id="foldopen00445" data-start="{" data-end="}">
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno"><a class="line" href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">  445</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">pente_defined</a>() {</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>        <span class="keywordflow">return</span> (pente != 0);</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00454" data-start="{" data-end="}">
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno"><a class="line" href="classStyle.html#a686630bd6606ccdcab7834149c17297e">  454</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classPente.html">Pente</a>* <a class="code hl_function" href="classStyle.html#a686630bd6606ccdcab7834149c17297e">get_pente</a>() {</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>        <span class="keywordflow">return</span> pente;</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>    }</div>
+</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
+<div class="foldopen" id="foldopen00466" data-start="{" data-end="}">
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno"><a class="line" href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">  466</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">aspect_defined</a>() {</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>        <span class="keywordflow">return</span> (aspect != 0);</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00475" data-start="{" data-end="}">
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno"><a class="line" href="classStyle.html#a7282f9f7d098e3102c68c1a82cd761d8">  475</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classAspect.html">Aspect</a>* <a class="code hl_function" href="classStyle.html#a7282f9f7d098e3102c68c1a82cd761d8">get_aspect</a>() {</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>        <span class="keywordflow">return</span> aspect;</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>    }</div>
+</div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span> </div>
+<div class="foldopen" id="foldopen00487" data-start="{" data-end="}">
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno"><a class="line" href="classStyle.html#ae56af26f07c44957286fad53340e6283">  487</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#ae56af26f07c44957286fad53340e6283">terrainrgb_defined</a>() {</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>        <span class="keywordflow">return</span> (terrainrgb != 0);</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00496" data-start="{" data-end="}">
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno"><a class="line" href="classStyle.html#acd2308049ba863dcf90210d847c94460">  496</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classTerrainrgb.html">Terrainrgb</a>* <a class="code hl_function" href="classStyle.html#acd2308049ba863dcf90210d847c94460">get_terrainrgb</a>() {</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        <span class="keywordflow">return</span> terrainrgb;</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    }</div>
+</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span> </div>
+<div class="foldopen" id="foldopen00508" data-start="{" data-end="}">
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno"><a class="line" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">  508</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">colorize_defined</a>() {</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        <span class="keywordflow">return</span> (colorize != 0);</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00517" data-start="{" data-end="}">
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno"><a class="line" href="classStyle.html#aa528bf8b26502ed1f356a082e070185c">  517</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classColorize.html">Colorize</a>* <a class="code hl_function" href="classStyle.html#aa528bf8b26502ed1f356a082e070185c">get_colorize</a>() {</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>        <span class="keywordflow">return</span> colorize;</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    }</div>
+</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    </div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span> </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classStyle.html#a7baae19517358173c9712b922df05183">add_node_wms</a>(ptree&amp; parent);</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classStyle.html#aaf194ea0e31b1d8bc9154570f2b8ea8b">add_node_wmts</a>(ptree&amp; parent, <span class="keywordtype">bool</span> default_style = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    </div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classStyle.html#a7c798ef9b77bc94719542feade497725">~Style</a>();</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span> </div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>};</div>
+</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span> </div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span> </div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span> </div>
+<div class="ttc" id="aAspect_8h_html"><div class="ttname"><a href="Aspect_8h.html">Aspect.h</a></div><div class="ttdoc">Définition de la classe Aspect.</div></div>
+<div class="ttc" id="aColorize_8h_html"><div class="ttname"><a href="Colorize_8h.html">Colorize.h</a></div><div class="ttdoc">D�finition de la classe Colorize.</div></div>
+<div class="ttc" id="aEstompage_8h_html"><div class="ttname"><a href="Estompage_8h.html">Estompage.h</a></div><div class="ttdoc">Définition de la classe Estompage modélisant l'estompage.</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format.</div></div>
+<div class="ttc" id="aInterpolation_8h_html"><div class="ttname"><a href="Interpolation_8h.html">Interpolation.h</a></div><div class="ttdoc">Définition de l'énumération des interpolations disponibles et des conversions.</div></div>
+<div class="ttc" id="aKeyword_8h_html"><div class="ttname"><a href="Keyword_8h.html">Keyword.h</a></div><div class="ttdoc">Définition de la classe Keyword gérant les mots-clés des documents de capacités.</div></div>
+<div class="ttc" id="aLegendURL_8h_html"><div class="ttname"><a href="LegendURL_8h.html">LegendURL.h</a></div><div class="ttdoc">Définition de la classe LegendURL gérant les éléments de légendes des documents de capacités.</div></div>
+<div class="ttc" id="aPente_8h_html"><div class="ttname"><a href="Pente_8h.html">Pente.h</a></div><div class="ttdoc">D�finition de la classe Pente.</div></div>
+<div class="ttc" id="aTerrainrgb_8h_html"><div class="ttname"><a href="Terrainrgb_8h.html">Terrainrgb.h</a></div><div class="ttdoc">D�finition de la classe Terrainrgb.</div></div>
+<div class="ttc" id="aclassAspect_html"><div class="ttname"><a href="classAspect.html">Aspect</a></div><div class="ttdef"><b>Definition</b> Aspect.h:56</div></div>
+<div class="ttc" id="aclassColorize_html"><div class="ttname"><a href="classColorize.html">Colorize</a></div><div class="ttdef"><b>Definition</b> Colorize.h:57</div></div>
+<div class="ttc" id="aclassColorize_html_a5e7041940aee2e375afd3e39289ee905"><div class="ttname"><a href="classColorize.html#a5e7041940aee2e375afd3e39289ee905">Colorize::destination</a></div><div class="ttdeci">std::vector&lt; int &gt; destination</div><div class="ttdoc">destination : valeur visée en sortie</div><div class="ttdef"><b>Definition</b> Colorize.h:78</div></div>
+<div class="ttc" id="aclassColorize_html_ae7a6d50fbe58b56461d572a894241a79"><div class="ttname"><a href="classColorize.html#ae7a6d50fbe58b56461d572a894241a79">Colorize::source</a></div><div class="ttdeci">std::vector&lt; int &gt; source</div><div class="ttdoc">source : valeur visée en entrée</div><div class="ttdef"><b>Definition</b> Colorize.h:71</div></div>
+<div class="ttc" id="aclassConfiguration_html"><div class="ttname"><a href="classConfiguration.html">Configuration</a></div><div class="ttdef"><b>Definition</b> Configuration.h:50</div></div>
+<div class="ttc" id="aclassEstompage_html"><div class="ttname"><a href="classEstompage.html">Estompage</a></div><div class="ttdef"><b>Definition</b> Estompage.h:54</div></div>
+<div class="ttc" id="aclassPalette_html"><div class="ttname"><a href="classPalette.html">Palette</a></div><div class="ttdef"><b>Definition</b> Palette.h:62</div></div>
+<div class="ttc" id="aclassPente_html"><div class="ttname"><a href="classPente.html">Pente</a></div><div class="ttdef"><b>Definition</b> Pente.h:55</div></div>
+<div class="ttc" id="aclassStyle_html"><div class="ttname"><a href="classStyle.html">Style</a></div><div class="ttdoc">Gestion des styles (affichages et métadonnées)</div><div class="ttdef"><b>Definition</b> Style.h:114</div></div>
+<div class="ttc" id="aclassStyle_html_a0728041ad56c715874cbccffd32f6a93"><div class="ttname"><a href="classStyle.html#a0728041ad56c715874cbccffd32f6a93">Style::colorize_defined</a></div><div class="ttdeci">bool colorize_defined()</div><div class="ttdoc">Return vrai si le style est un white to alpha.</div><div class="ttdef"><b>Definition</b> Style.h:508</div></div>
+<div class="ttc" id="aclassStyle_html_a0ebf149865ca0e810aabf20b6f37276e"><div class="ttname"><a href="classStyle.html#a0ebf149865ca0e810aabf20b6f37276e">Style::aspect_defined</a></div><div class="ttdeci">bool aspect_defined()</div><div class="ttdoc">Return vrai si le style est une exposition.</div><div class="ttdef"><b>Definition</b> Style.h:466</div></div>
+<div class="ttc" id="aclassStyle_html_a290d547864395900048278202b3c71b3"><div class="ttname"><a href="classStyle.html#a290d547864395900048278202b3c71b3">Style::get_input_nodata_value</a></div><div class="ttdeci">int * get_input_nodata_value(int *default_nodata)</div><div class="ttdoc">Valeur de nodata attendue dans les données en entrée.</div><div class="ttdef"><b>Definition</b> Style.h:321</div></div>
+<div class="ttc" id="aclassStyle_html_a29b39b955fb985a24ecc08aa76f0dcc3"><div class="ttname"><a href="classStyle.html#a29b39b955fb985a24ecc08aa76f0dcc3">Style::estompage_defined</a></div><div class="ttdeci">bool estompage_defined()</div><div class="ttdoc">Détermine si le style décrit un estompage.</div><div class="ttdef"><b>Definition</b> Style.h:424</div></div>
+<div class="ttc" id="aclassStyle_html_a3e4456d4e543d0cfe7f686d8a25885d8"><div class="ttname"><a href="classStyle.html#a3e4456d4e543d0cfe7f686d8a25885d8">Style::is_identity</a></div><div class="ttdeci">bool is_identity()</div><div class="ttdoc">Est ce que le style est une identité</div><div class="ttdef"><b>Definition</b> Style.h:333</div></div>
+<div class="ttc" id="aclassStyle_html_a6132300910b14aeaf24679be41734499"><div class="ttname"><a href="classStyle.html#a6132300910b14aeaf24679be41734499">Style::get_sample_format</a></div><div class="ttdeci">SampleFormat::eSampleFormat get_sample_format(SampleFormat::eSampleFormat sf)</div><div class="ttdoc">Quel format de canal en sortie en sortie du style.</div><div class="ttdef"><b>Definition</b> Style.h:297</div></div>
+<div class="ttc" id="aclassStyle_html_a684b743bcaff7c53e855c990d5f4243d"><div class="ttname"><a href="classStyle.html#a684b743bcaff7c53e855c990d5f4243d">Style::get_abstracts</a></div><div class="ttdeci">std::vector&lt; std::string &gt; get_abstracts()</div><div class="ttdoc">Retourne la liste des résumés.</div><div class="ttdef"><b>Definition</b> Style.h:365</div></div>
+<div class="ttc" id="aclassStyle_html_a686630bd6606ccdcab7834149c17297e"><div class="ttname"><a href="classStyle.html#a686630bd6606ccdcab7834149c17297e">Style::get_pente</a></div><div class="ttdeci">Pente * get_pente()</div><div class="ttdoc">Retourn la pente.</div><div class="ttdef"><b>Definition</b> Style.h:454</div></div>
+<div class="ttc" id="aclassStyle_html_a6ae4e394cd6abc9aaca5fd17e9661c14"><div class="ttname"><a href="classStyle.html#a6ae4e394cd6abc9aaca5fd17e9661c14">Style::get_identifier</a></div><div class="ttdeci">std::string get_identifier()</div><div class="ttdoc">Retourne l'identifiant public du style.</div><div class="ttdef"><b>Definition</b> Style.h:227</div></div>
+<div class="ttc" id="aclassStyle_html_a7282f9f7d098e3102c68c1a82cd761d8"><div class="ttname"><a href="classStyle.html#a7282f9f7d098e3102c68c1a82cd761d8">Style::get_aspect</a></div><div class="ttdeci">Aspect * get_aspect()</div><div class="ttdoc">Retourn l'aspect.</div><div class="ttdef"><b>Definition</b> Style.h:475</div></div>
+<div class="ttc" id="aclassStyle_html_a7baae19517358173c9712b922df05183"><div class="ttname"><a href="classStyle.html#a7baae19517358173c9712b922df05183">Style::add_node_wms</a></div><div class="ttdeci">void add_node_wms(ptree &amp;parent)</div><div class="ttdoc">Ajoute un noeud WMS correpondant à l'attribution.</div><div class="ttdef"><b>Definition</b> Style.cpp:369</div></div>
+<div class="ttc" id="aclassStyle_html_a7c798ef9b77bc94719542feade497725"><div class="ttname"><a href="classStyle.html#a7c798ef9b77bc94719542feade497725">Style::~Style</a></div><div class="ttdeci">virtual ~Style()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition</b> Style.cpp:313</div></div>
+<div class="ttc" id="aclassStyle_html_aa528bf8b26502ed1f356a082e070185c"><div class="ttname"><a href="classStyle.html#aa528bf8b26502ed1f356a082e070185c">Style::get_colorize</a></div><div class="ttdeci">Colorize * get_colorize()</div><div class="ttdoc">Retourne le white to alpha.</div><div class="ttdef"><b>Definition</b> Style.h:517</div></div>
+<div class="ttc" id="aclassStyle_html_aa960175bae68c1fb9474b36deb18e3db"><div class="ttname"><a href="classStyle.html#aa960175bae68c1fb9474b36deb18e3db">Style::get_id</a></div><div class="ttdeci">std::string get_id()</div><div class="ttdoc">Retourne l'identifiant du style.</div><div class="ttdef"><b>Definition</b> Style.h:215</div></div>
+<div class="ttc" id="aclassStyle_html_aaf194ea0e31b1d8bc9154570f2b8ea8b"><div class="ttname"><a href="classStyle.html#aaf194ea0e31b1d8bc9154570f2b8ea8b">Style::add_node_wmts</a></div><div class="ttdeci">void add_node_wmts(ptree &amp;parent, bool default_style=false)</div><div class="ttdoc">Ajoute un noeud WMTS correpondant à l'attribution.</div><div class="ttdef"><b>Definition</b> Style.cpp:340</div></div>
+<div class="ttc" id="aclassStyle_html_ab43611ac293d1da113c947f783dbbeb2"><div class="ttname"><a href="classStyle.html#ab43611ac293d1da113c947f783dbbeb2">Style::get_titles</a></div><div class="ttdeci">std::vector&lt; std::string &gt; get_titles()</div><div class="ttdoc">Retourne la liste des titres.</div><div class="ttdef"><b>Definition</b> Style.h:353</div></div>
+<div class="ttc" id="aclassStyle_html_ab43f45f68f077ec4065173b3c0ddfbd9"><div class="ttname"><a href="classStyle.html#ab43f45f68f077ec4065173b3c0ddfbd9">Style::get_legends</a></div><div class="ttdeci">std::vector&lt; LegendURL &gt; * get_legends()</div><div class="ttdoc">Retourne la liste des légendes.</div><div class="ttdef"><b>Definition</b> Style.h:389</div></div>
+<div class="ttc" id="aclassStyle_html_ac3e470815a4b56e5b6c499539392b7c5"><div class="ttname"><a href="classStyle.html#ac3e470815a4b56e5b6c499539392b7c5">Style::get_estompage</a></div><div class="ttdeci">Estompage * get_estompage()</div><div class="ttdoc">Retourn l'estompage.</div><div class="ttdef"><b>Definition</b> Style.h:433</div></div>
+<div class="ttc" id="aclassStyle_html_acd2308049ba863dcf90210d847c94460"><div class="ttname"><a href="classStyle.html#acd2308049ba863dcf90210d847c94460">Style::get_terrainrgb</a></div><div class="ttdeci">Terrainrgb * get_terrainrgb()</div><div class="ttdoc">Retourne le terrainrgb.</div><div class="ttdef"><b>Definition</b> Style.h:496</div></div>
+<div class="ttc" id="aclassStyle_html_acf7c1db342830e477dcfd20bf2093a8f"><div class="ttname"><a href="classStyle.html#acf7c1db342830e477dcfd20bf2093a8f">Style::get_channels</a></div><div class="ttdeci">int get_channels(int orig_channels)</div><div class="ttdoc">Combien de canaux en sortie du style.</div><div class="ttdef"><b>Definition</b> Style.h:253</div></div>
+<div class="ttc" id="aclassStyle_html_ad47602f198af726d33f782c17647691d"><div class="ttname"><a href="classStyle.html#ad47602f198af726d33f782c17647691d">Style::get_palette</a></div><div class="ttdeci">Palette * get_palette()</div><div class="ttdoc">Retourne la table de correspondance.</div><div class="ttdef"><b>Definition</b> Style.h:412</div></div>
+<div class="ttc" id="aclassStyle_html_adb18020a5796d58562953aa50cdcee61"><div class="ttname"><a href="classStyle.html#adb18020a5796d58562953aa50cdcee61">Style::get_output_nodata_value</a></div><div class="ttdeci">int * get_output_nodata_value(int *default_nodata)</div><div class="ttdoc">Valeur de nodata après style.</div><div class="ttdef"><b>Definition</b> Style.h:309</div></div>
+<div class="ttc" id="aclassStyle_html_adc31665202ae9f158da702f6b80a47b0"><div class="ttname"><a href="classStyle.html#adc31665202ae9f158da702f6b80a47b0">Style::palette_defined</a></div><div class="ttdeci">bool palette_defined()</div><div class="ttdoc">Détermine si le style décrit une table de correspondance.</div><div class="ttdef"><b>Definition</b> Style.h:401</div></div>
+<div class="ttc" id="aclassStyle_html_adc436f5c41f75ac9d81755cf95af1a3b"><div class="ttname"><a href="classStyle.html#adc436f5c41f75ac9d81755cf95af1a3b">Style::handle</a></div><div class="ttdeci">bool handle(int spp)</div><div class="ttdoc">L'application du style est-elle possible ?</div><div class="ttdef"><b>Definition</b> Style.h:234</div></div>
+<div class="ttc" id="aclassStyle_html_ae0f297ba84df5c49729e8405838d8ca5"><div class="ttname"><a href="classStyle.html#ae0f297ba84df5c49729e8405838d8ca5">Style::get_keywords</a></div><div class="ttdeci">std::vector&lt; Keyword &gt; * get_keywords()</div><div class="ttdoc">Retourne la liste des mots-clés.</div><div class="ttdef"><b>Definition</b> Style.h:377</div></div>
+<div class="ttc" id="aclassStyle_html_ae56af26f07c44957286fad53340e6283"><div class="ttname"><a href="classStyle.html#ae56af26f07c44957286fad53340e6283">Style::terrainrgb_defined</a></div><div class="ttdeci">bool terrainrgb_defined()</div><div class="ttdoc">Return vrai si le style est un terrainrgb.</div><div class="ttdef"><b>Definition</b> Style.h:487</div></div>
+<div class="ttc" id="aclassStyle_html_afd057679caeacf658e32cfd32a70ce62"><div class="ttname"><a href="classStyle.html#afd057679caeacf658e32cfd32a70ce62">Style::pente_defined</a></div><div class="ttdeci">bool pente_defined()</div><div class="ttdoc">Return vrai si le style est une pente.</div><div class="ttdef"><b>Definition</b> Style.h:445</div></div>
+<div class="ttc" id="aclassTerrainrgb_html"><div class="ttname"><a href="classTerrainrgb.html">Terrainrgb</a></div><div class="ttdef"><b>Definition</b> Terrainrgb.h:57</div></div>
+<div class="ttc" id="aclassjson11_1_1Json_html"><div class="ttname"><a href="classjson11_1_1Json.html">json11::Json</a></div><div class="ttdef"><b>Definition</b> json11.hpp:79</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition</b> Format.h:78</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_7fd798f2a1fec1e069bb7af232d890b2.html">style</a></li><li class="navelem"><a class="el" href="Style_8h.html">Style.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

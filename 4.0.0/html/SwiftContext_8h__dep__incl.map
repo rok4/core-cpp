@@ -1,0 +1,7 @@
+<map id="src/storage/SwiftContext.h" name="src/storage/SwiftContext.h">
+<area shape="rect" id="Node000001" title="Définition de la classe SwiftContext." alt="" coords="122,5,315,31"/>
+<area shape="rect" id="Node000002" href="$SwiftContext_8cpp.html" title="Implémentation de la classe SwiftContext." alt="" coords="5,79,213,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,40,129,81,126,76,188,36"/>
+<area shape="rect" id="Node000003" href="$StoragePool_8cpp.html" title="Implémentation de la classe StoragePool." alt="" coords="238,79,421,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,36,313,76,310,81,247,40"/>
+</map>
