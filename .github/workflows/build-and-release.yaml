@@ -38,7 +38,7 @@ jobs:
 
       - name: Write release notes 
         run: |
-          echo "${{ query_release_info.outputs.release-notes }}"" >notes.txt
+          echo "${{ steps.query_release_info.outputs.release-notes }}" >notes.txt
 
       - name: Create Release
         id: create_release
@@ -57,14 +57,8 @@ jobs:
     needs: create_release
     outputs:
       job_status: ${{ job.status }}
-    strategy:
-      max-parallel: 2
-      fail-fast: true
-      matrix:
-        include:
-          - os: [ubuntu-24.04]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout project
@@ -83,7 +77,7 @@ jobs:
       - name: Build packages
         run: |
           mkdir build && cd build
-          cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_VERSION=${{ github.ref_name }} -DCPACK_SYSTEM_NAME=${{ matrix.os }} ..
+          cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_VERSION=${{ github.ref_name }} -DCPACK_SYSTEM_NAME="ubuntu-24.04" ..
           make -j2
           make package
           cmake -DCEPH_ENABLED=1 ..
@@ -91,7 +85,6 @@ jobs:
           make package
 
       - name: Run unit tests
-        if: "matrix.os == 'ubuntu-24.04'"
         run: |
           cd build
           make test
@@ -104,7 +97,6 @@ jobs:
           release-tag: ${{ github.ref_name }}
 
       - name: Build documentation
-        if: "matrix.os == 'ubuntu-24.04'"
         run: |
           cd build
           make doc
@@ -130,7 +122,6 @@ jobs:
         run: pip install -r docs/requirements.txt
 
       - name: Publish documentation
-        if: "matrix.os == 'ubuntu-24.04'"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
