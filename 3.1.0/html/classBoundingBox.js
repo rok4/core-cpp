@@ -1,0 +1,27 @@
+var classBoundingBox =
+[
+    [ "BoundingBox", "classBoundingBox.html#a106176358ded082540cf92e334990aa0", null ],
+    [ "BoundingBox", "classBoundingBox.html#a634461a5d25a6b1d2f25ecda3017e4d0", null ],
+    [ "BoundingBox", "classBoundingBox.html#a3a08688577866d328c2919c2403b744d", null ],
+    [ "~BoundingBox", "classBoundingBox.html#afabcdaf21cac9dd12281583f5ff4bc26", null ],
+    [ "add_node", "classBoundingBox.html#a88b1f4758a83daf41804aeec7332e43e", null ],
+    [ "contains", "classBoundingBox.html#a81348cee5dfa7eb1b88c3c16e9d95470", null ],
+    [ "expand", "classBoundingBox.html#a8517f0680bc2e8111fc10193ab9c9769", null ],
+    [ "get_intersection", "classBoundingBox.html#a5a62d9f1056628c4e3a48ac22aabf545", null ],
+    [ "get_union", "classBoundingBox.html#a5472a61980e3e1961d0299f7160cb916", null ],
+    [ "get_xmax_phase", "classBoundingBox.html#a89e59697c6e395c7fd6a80907eb9442c", null ],
+    [ "get_xmin_phase", "classBoundingBox.html#a72b10578e1c1bf737892a5914abf755e", null ],
+    [ "get_ymax_phase", "classBoundingBox.html#a9f767fd63967144bdf4f5f1fd36d6876", null ],
+    [ "get_ymin_phase", "classBoundingBox.html#a1d4df5027c993545fd397e498271fe8d", null ],
+    [ "has_null_area", "classBoundingBox.html#ac4d26bbf54febce96fb74044a3ba676d", null ],
+    [ "intersects", "classBoundingBox.html#aa5f49f4cc92d4ea8c7487b47d37c424f", null ],
+    [ "is_equal", "classBoundingBox.html#a37be6b836a0156ffc8bdc4d3987fbb7e", null ],
+    [ "is_null", "classBoundingBox.html#a41b8160bc01bf75ea3ab5c3c347dd9e6", null ],
+    [ "phase", "classBoundingBox.html#adc4812a33ece52346a48507c21692547", null ],
+    [ "print", "classBoundingBox.html#aea3e4227a3546b021086791236cb587a", null ],
+    [ "reproject", "classBoundingBox.html#a38c25102b1e4fb93da43252f7c8c116d", null ],
+    [ "to_json_tiles", "classBoundingBox.html#a3fd71194da9c26fd3e384691dd7bdd16", null ],
+    [ "to_string", "classBoundingBox.html#a4690fb68b26e50f9c3562674de56fed0", null ],
+    [ "crs", "classBoundingBox.html#af2e3bcdfeb8f188f626770df275f68ea", null ],
+    [ "xmin", "classBoundingBox.html#a18dd537888227aa278ec7392ba8df56d", null ]
+];

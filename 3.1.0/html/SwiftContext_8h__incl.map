@@ -1,0 +1,33 @@
+<map id="src/storage/SwiftContext.h" name="src/storage/SwiftContext.h">
+<area shape="rect" id="Node000001" title="Définition de la classe SwiftContext." alt="" coords="339,5,532,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,92,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="378,33,297,53,210,81,139,114,80,147,77,143,136,109,208,76,295,48,376,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="205,152,357,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="427,33,354,106,308,145,304,141,351,102,423,29"/>
+<area shape="rect" id="Node000004" href="$Context_8h.html" title="Définition de la classe Context." alt="" coords="421,79,559,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="446,29,475,66,471,69,442,33"/>
+<area shape="rect" id="Node000010" href="$LibcurlStruct_8h.html" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="583,79,730,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="472,28,609,72,607,77,470,33"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="755,79,828,104"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="498,28,741,76,740,81,497,33"/>
+<area shape="rect" id="Node000013" href="$CurlPool_8h_source.html" title=" " alt="" coords="221,79,341,104"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="412,33,319,75,317,70,409,28"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="457,107,329,150,327,145,456,101"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="381,152,431,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="478,106,432,145,429,141,475,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="555,152,625,177"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="508,102,564,142,561,146,505,106"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="649,152,712,177"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="522,102,638,144,636,149,520,107"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="736,152,807,177"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="536,101,723,149,722,154,535,107"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="455,152,530,177"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="493,104,494,138,489,139,488,104"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="831,152,901,177"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="691,101,820,145,818,150,689,107"/>
+<area shape="poly" id="edge16_Node000013_Node000002" title=" " alt="" coords="244,107,100,151,98,145,243,101"/>
+<area shape="poly" id="edge17_Node000013_Node000003" title=" " alt="" coords="283,104,283,138,278,138,278,104"/>
+<area shape="poly" id="edge14_Node000013_Node000005" title=" " alt="" coords="302,102,375,143,372,147,299,106"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="117,152,181,177"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="261,106,183,148,181,143,258,102"/>
+</map>

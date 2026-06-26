@@ -1,0 +1,19 @@
+<map id="include/rok4/utils/TileMatrix.h" name="include/rok4/utils/TileMatrix.h">
+<area shape="rect" id="Node000001" title="Définition de la classe TileMatrix gérant une matrice de tuiles représentant un niveau d&#39;une pyramide..." alt="" coords="135,5,269,45"/>
+<area shape="rect" id="Node000002" href="$Level_8h_source.html" title=" " alt="" coords="5,181,140,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,56,143,74,124,95,98,140,81,182,76,180,93,138,120,92,139,70,161,52"/>
+<area shape="rect" id="Node000004" href="$TileMatrixSet_8h_source.html" title=" " alt="" coords="135,93,269,133"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="205,59,205,93,199,93,199,59"/>
+<area shape="rect" id="Node000007" href="$TileMatrix_8cpp.html" title="Implémentation de la classe TileMatrix gérant une matrice de tuile représentant un niveau d&#39;une pyram..." alt="" coords="294,101,465,126"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="255,49,357,98,355,103,252,54"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="155,186,163,192,167,202,159,214,141,220,140,215,156,210,161,201,159,196,152,191"/>
+<area shape="rect" id="Node000003" href="$Pyramid_8h_source.html" title=" " alt="" coords="36,269,171,309"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="78,234,91,268,86,270,73,235"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="98,257,85,223,90,221,103,255"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="202,148,194,185,179,223,158,250,133,271,129,267,154,246,174,220,189,183,197,147"/>
+<area shape="rect" id="Node000005" href="$TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="240,181,375,221"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="237,140,286,179,282,183,234,144"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="251,229,149,272,147,267,249,224"/>
+<area shape="rect" id="Node000006" href="$TmsBook_8cpp.html" title="Implémentation de la classe TmsBook." alt="" coords="225,277,390,302"/>
+<area shape="poly" id="edge9_Node000005_Node000006" title=" " alt="" coords="310,235,310,276,305,276,305,235"/>
+</map>
