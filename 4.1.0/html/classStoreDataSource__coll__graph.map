@@ -1,0 +1,9 @@
+<map id="StoreDataSource" name="StoreDataSource">
+<area shape="rect" id="Node000001" title="Lecture d&#39;une source de données." alt="" coords="91,123,222,148"/>
+<area shape="rect" id="Node000002" href="$classDataSource.html" title=" " alt="" coords="5,5,103,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,39,148,121,145,124,71,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="127,5,186,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,44,159,123,154,123,154,44"/>
+<area shape="rect" id="Node000004" href="$classContext.html" title="Création d&#39;un contexte de stockage abstrait." alt="" coords="215,5,288,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="249,45,240,73,224,100,208,115,189,125,187,120,205,110,220,97,236,71,244,43"/>
+</map>
