@@ -550,6 +550,12 @@ std::string Level::get_path ( int tilex, int tiley) {
  */
 DataSource* Level::get_encoded_tile ( int x, int y ) { // TODO: return 0 sur des cas d'erreur..
     
+    if (!tm_limits.contain_tile(x,y)) {
+        // On est hors tuiles
+        BOOST_LOG_TRIVIAL(warning) << "get_encoded_tile out limits";
+        return NULL;
+    }
+
     //on stocke une dalle
     // Index de la tuile (cf. ordre de rangement des tuiles)
     int n = ( y % tiles_per_height ) * tiles_per_width + ( x % tiles_per_width );

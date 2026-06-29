@@ -6,6 +6,15 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-06-29
+
+### Fixed
+- `Storage` : on attend uniquement entre deux tentatives de lecture ou d'écriture, et pas après la dernière tentative. 
+
+### Changed
+
+- `Level` : on n'essaye même pas de faire la lecture d'une tuile si on est hors limite (éviter des 404 prévisibles)
+
 ## [4.0.0] - 2026-06-26
 
 ### Changed
@@ -232,7 +241,8 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
 
 [1.0.3]: https://github.com/rok4/core-cpp/releases/tag/1.0.3
 
-[Unreleased]: https://github.com/rok4/core-cpp/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/rok4/core-cpp/compare/4.1.0...HEAD
+[4.1.0]: https://github.com/rok4/core-cpp/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/rok4/core-cpp/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/rok4/core-cpp/compare/3.0.0...3.1.0
 
