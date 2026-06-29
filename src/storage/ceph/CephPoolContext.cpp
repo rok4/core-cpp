@@ -134,7 +134,7 @@ int CephPoolContext::read(uint8_t* data, int offset, int size, std::string name)
     int readSize;
     int attempt = 1;
     bool error = false;
-    while(attempt <= read_attempts) {
+    while(attempt) {
         readSize = rados_read(io_ctx, name.c_str(), (char*) data, size, offset);
 
         if (readSize < 0) {
@@ -154,7 +154,12 @@ int CephPoolContext::read(uint8_t* data, int offset, int size, std::string name)
         }
 
         attempt++;
-        sleep(waiting_time);
+
+        if (attempt > read_attempts) {
+            break;
+        } else {
+            sleep(waiting_time);
+        }
     }
 
     if (error) {
@@ -190,7 +195,7 @@ uint8_t* CephPoolContext::read_full(int& size, std::string name) {
 
     int attempt = 1;
     bool error = false;
-    while(attempt <= read_attempts) {
+    while(attempt) {
         size = rados_read(io_ctx, name.c_str(), (char*) data, fullSize, 0);
 
         if (size < 0) {
@@ -210,7 +215,12 @@ uint8_t* CephPoolContext::read_full(int& size, std::string name) {
         }
 
         attempt++;
-        sleep(waiting_time);
+
+        if (attempt > read_attempts) {
+            break;
+        } else {
+            sleep(waiting_time);
+        }
     }
 
     if (error) {
@@ -299,7 +309,7 @@ bool CephPoolContext::close_to_write(std::string name) {
 
     bool ok = true;
     int attempt = 1;
-    while(attempt <= write_attempts) {
+    while(attempt) {
         int err = rados_write_full(io_ctx,name.c_str(), &((*(it1->second))[0]), it1->second->size());
         if (err < 0) {
             ok = false;
@@ -312,7 +322,12 @@ bool CephPoolContext::close_to_write(std::string name) {
         }
 
         attempt++;
-        sleep(waiting_time);
+
+        if (attempt > write_attempts) {
+            break;
+        } else {
+            sleep(waiting_time);
+        }
     }
 
     if (ok) {

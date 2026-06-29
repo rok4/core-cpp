@@ -6,6 +6,13 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+### Fixed
+- `Storage` : on attend uniquement entre deux tentatives de lecture ou d'écriture, et pas après la dernière tentative. 
+
+### Changed
+
+- `Level` : on n'essaye même pas de faire la lecture d'une tuile si on est hors limite (éviter des 404 prévisibles)
+
 ## [4.0.0] - 2026-06-26
 
 ### Changed

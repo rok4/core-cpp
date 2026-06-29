@@ -301,7 +301,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= read_attempts) {
+    while (attempt) {
         
         CURLcode res;
         struct curl_slist *list = NULL;
@@ -347,7 +347,14 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         if( CURLE_OK != res) {
             BOOST_LOG_TRIVIAL(error) << "Cannot read data from Swift : " << size << " bytes (from the " << offset << " one) in the object " << name;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-            return -1;
+            attempt++;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -373,8 +380,13 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         memcpy(data, chunk.data, chunk.size);
@@ -399,7 +411,7 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= read_attempts) {
+    while (attempt) {
         
         CURLcode res;
         struct curl_slist *list = NULL;
@@ -437,7 +449,14 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
         if( CURLE_OK != res) {
             BOOST_LOG_TRIVIAL(error) << "Cannot read full object from Swift : " << name;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
-            return NULL;
+            attempt++;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -463,8 +482,13 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         uint8_t* data = new uint8_t[chunk.size];
@@ -559,7 +583,7 @@ bool SwiftContext::close_to_write(std::string name) {
 
     int attempt = 1;
     bool reconnection = false;
-    while (attempt <= write_attempts) {
+    while (attempt) {
         CURLcode res;
         struct curl_slist *list = NULL;
         CURL* curl = CurlPool::get_curl_env();
@@ -592,8 +616,13 @@ bool SwiftContext::close_to_write(std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -620,8 +649,13 @@ bool SwiftContext::close_to_write(std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";

@@ -278,7 +278,7 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "S3 read : " << size << " bytes (from the " << offset << " one) in the object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name;
 
     int attempt = 1;
-    while (attempt <= read_attempts) {
+    while (attempt) {
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
         CURLcode res;
@@ -360,8 +360,13 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -370,8 +375,13 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         memcpy(data, chunk.data, chunk.size);
@@ -391,7 +401,7 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
     // On constitue le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
     int attempt = 1;
-    while (attempt <= read_attempts) {
+    while (attempt) {
         CURLcode res;
         struct curl_slist *list = NULL;
         DataStruct chunk;
@@ -463,8 +473,13 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -473,8 +488,13 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > read_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         size = chunk.size;
@@ -574,7 +594,7 @@ bool S3Context::close_to_write(std::string name) {
     BOOST_LOG_TRIVIAL(debug) << "Write buffered " << it1->second->size() << " bytes in the S3 object " << name;
 
     int attempt = 1;
-    while (attempt <= write_attempts) {
+    while (attempt) {
 
         CURLcode res;
         struct curl_slist *list = NULL;
@@ -645,8 +665,13 @@ bool S3Context::close_to_write(std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         long http_code = 0;
@@ -655,8 +680,13 @@ bool S3Context::close_to_write(std::string name) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
-            sleep(waiting_time);
-            continue;
+
+            if (attempt > write_attempts) {
+                break;
+            } else {
+                sleep(waiting_time);
+                continue;
+            }
         }
 
         BOOST_LOG_TRIVIAL(debug) << "Erase the flushed buffer";
