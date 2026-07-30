@@ -6,6 +6,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+### Fixed
+
+- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
+
 ## [4.1.0] - 2026-06-29
 
 ### Fixed
