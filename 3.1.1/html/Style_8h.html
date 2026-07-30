@@ -1,0 +1,285 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('Style_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier Style.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Définition de la classe <a class="el" href="classStyle.html" title="Gestion des styles (affichages et métadonnées)">Style</a> modélisant les styles.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="LegendURL_8h_source.html">rok4/utils/LegendURL.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Keyword_8h_source.html">rok4/utils/Keyword.h</a>&quot;</code><br />
+<code>#include &quot;rok4/style/Palette.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="Pente_8h_source.html">rok4/style/Pente.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Estompage_8h_source.html">rok4/style/Estompage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Aspect_8h_source.html">rok4/style/Aspect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Terrainrgb_8h_source.html">rok4/style/Terrainrgb.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Colorize_8h_source.html">rok4/style/Colorize.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Interpolation_8h_source.html">rok4/enums/Interpolation.h</a>&quot;</code><br />
+<code>#include &quot;rok4/utils/Configuration.h&quot;</code><br />
+<code>#include &quot;rok4/utils/StoragePool.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="Format_8h_source.html">rok4/enums/Format.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de Style.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="Style_8h__incl.png" border="0" usemap="#ainclude_2rok4_2style_2Style_8h" alt=""/></div>
+<map name="ainclude_2rok4_2style_2Style_8h" id="ainclude_2rok4_2style_2Style_8h">
+<area shape="rect" title="Définition de la classe Style modélisant les styles." alt="" coords="1246,5,1385,45"/>
+<area shape="rect" title=" " alt="" coords="573,328,631,353"/>
+<area shape="poly" title=" " alt="" coords="1258,48,904,164,733,223,650,257,627,285,612,316,608,314,623,282,647,253,731,218,902,159,1256,43"/>
+<area shape="rect" title=" " alt="" coords="2115,328,2177,353"/>
+<area shape="poly" title=" " alt="" coords="1385,26,1902,46,2197,65,2319,77,2412,91,2491,102,2564,108,2629,112,2690,118,2746,131,2800,155,2851,194,2902,253,2907,268,2901,282,2886,292,2862,300,2790,314,2695,324,2585,332,2360,340,2191,342,2191,337,2360,334,2585,326,2695,319,2790,309,2861,295,2884,287,2897,278,2902,268,2897,256,2847,198,2797,160,2744,136,2689,123,2629,117,2563,113,2491,108,2411,96,2319,83,2197,71,1902,52,1385,31"/>
+<area shape="rect" href="LegendURL_8h.html" title="Définition de la classe LegendURL gérant les éléments de légendes des documents de capacités." alt="" coords="227,93,399,119"/>
+<area shape="poly" title=" " alt="" coords="1246,35,413,100,412,94,1245,29"/>
+<area shape="rect" href="Keyword_8h.html" title="Définition de la classe Keyword gérant les mots&#45;clés des documents de capacités." alt="" coords="14,93,169,119"/>
+<area shape="poly" title=" " alt="" coords="1246,33,811,57,214,96,183,99,182,93,214,91,810,51,1246,27"/>
+<area shape="rect" href="Palette_8h_source.html" title=" " alt="" coords="1773,93,1921,119"/>
+<area shape="poly" title=" " alt="" coords="1385,34,1760,89,1759,94,1384,40"/>
+<area shape="rect" href="Configuration_8h_source.html" title=" " alt="" coords="1225,174,1411,199"/>
+<area shape="poly" title=" " alt="" coords="1280,48,1260,62,1243,79,1234,98,1236,118,1257,144,1283,165,1280,169,1253,148,1232,120,1229,97,1239,76,1257,58,1277,43"/>
+<area shape="rect" href="Pente_8h.html" title="D�finition de la classe Pente." alt="" coords="1245,93,1385,119"/>
+<area shape="poly" title=" " alt="" coords="1318,46,1318,79,1313,79,1313,46"/>
+<area shape="rect" href="Estompage_8h.html" title="Définition de la classe Estompage modélisant l&#39;estompage." alt="" coords="599,93,775,119"/>
+<area shape="poly" title=" " alt="" coords="1246,38,789,95,788,89,1245,33"/>
+<area shape="rect" href="Interpolation_8h.html" title="Définition de l&#39;énumération des interpolations disponibles et des conversions." alt="" coords="527,174,725,199"/>
+<area shape="poly" title=" " alt="" coords="1245,30,1076,35,868,47,769,55,685,66,622,79,601,87,589,95,583,110,585,128,595,146,607,162,603,165,590,148,580,129,577,110,585,92,599,82,620,74,684,61,769,50,867,41,1075,30,1245,25"/>
+<area shape="rect" href="Aspect_8h.html" title="Définition de la classe Aspect." alt="" coords="1410,93,1557,119"/>
+<area shape="poly" title=" " alt="" coords="1357,43,1447,85,1445,90,1354,48"/>
+<area shape="rect" href="Terrainrgb_8h.html" title="D�finition de la classe Terrainrgb." alt="" coords="1581,93,1749,119"/>
+<area shape="poly" title=" " alt="" coords="1385,40,1601,88,1600,93,1384,45"/>
+<area shape="rect" href="Colorize_8h.html" title="D�finition de la classe Colorize." alt="" coords="1955,93,2111,119"/>
+<area shape="poly" title=" " alt="" coords="1385,31,1934,91,1941,91,1941,97,1934,96,1385,37"/>
+<area shape="rect" href="StoragePool_8h_source.html" title=" " alt="" coords="2181,93,2359,119"/>
+<area shape="poly" title=" " alt="" coords="1385,30,2168,94,2167,99,1385,35"/>
+<area shape="rect" href="Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format." alt="" coords="792,255,953,280"/>
+<area shape="poly" title=" " alt="" coords="1282,48,907,250,905,246,1279,43"/>
+<area shape="poly" title=" " alt="" coords="305,121,294,138,284,161,279,184,286,205,311,237,343,264,379,285,418,302,494,323,559,334,558,339,493,329,416,307,377,290,340,268,308,241,281,208,274,184,279,159,289,136,301,118"/>
+<area shape="rect" title=" " alt="" coords="69,167,220,207"/>
+<area shape="poly" title=" " alt="" coords="289,121,199,163,196,158,287,116"/>
+<area shape="rect" href="ResourceLocator_8h.html" title="Définition de la classe RessourceLocator gérant les liens vers les ressources externe dans les docume..." alt="" coords="296,174,503,199"/>
+<area shape="poly" title=" " alt="" coords="327,117,378,163,374,166,324,121"/>
+<area shape="poly" title=" " alt="" coords="408,198,435,237,453,258,474,278,517,304,561,323,559,328,515,309,471,282,449,262,430,240,404,201"/>
+<area shape="rect" href="json11_8hpp_source.html" title=" " alt="" coords="978,255,1173,280"/>
+<area shape="poly" title=" " alt="" coords="466,197,514,204,964,252,964,257,514,209,465,202"/>
+<area shape="poly" title=" " alt="" coords="1000,283,646,336,645,330,999,277"/>
+<area shape="poly" title=" " alt="" coords="1173,276,1185,277,1427,293,1616,301,1805,308,2048,325,2101,331,2101,336,2047,331,1805,314,1616,306,1427,298,1184,283,1173,282"/>
+<area shape="rect" title=" " alt="" coords="1715,328,1766,353"/>
+<area shape="poly" title=" " alt="" coords="1173,276,1701,332,1701,338,1172,282"/>
+<area shape="rect" title=" " alt="" coords="978,328,1055,353"/>
+<area shape="poly" title=" " alt="" coords="1068,282,1037,319,1033,316,1064,279"/>
+<area shape="rect" title=" " alt="" coords="1080,328,1191,353"/>
+<area shape="poly" title=" " alt="" coords="1087,279,1119,316,1115,319,1083,282"/>
+<area shape="poly" title=" " alt="" coords="67,121,38,140,25,153,15,168,8,188,9,196,15,205,30,220,52,234,110,260,183,281,265,298,431,322,559,334,558,339,430,327,264,303,182,286,108,265,49,239,27,224,11,208,4,198,3,187,10,165,21,150,35,136,64,117"/>
+<area shape="poly" title=" " alt="" coords="101,117,126,154,122,157,97,120"/>
+<area shape="poly" title=" " alt="" coords="83,121,68,139,56,162,51,185,53,195,58,205,83,216,134,227,303,250,537,271,808,289,1349,319,1702,335,1702,340,1348,325,808,295,537,276,303,255,133,233,81,221,55,209,48,197,46,185,51,160,64,136,78,118"/>
+<area shape="poly" title=" " alt="" coords="1856,117,1882,159,1922,205,1969,241,2019,273,2108,320,2105,325,2016,278,1966,246,1919,209,1878,162,1851,120"/>
+<area shape="poly" title=" " alt="" coords="1844,120,1754,316,1749,314,1839,118"/>
+<area shape="poly" title=" " alt="" coords="1774,121,1409,175,1408,169,1773,116"/>
+<area shape="rect" title=" " alt="" coords="1964,328,2035,353"/>
+<area shape="poly" title=" " alt="" coords="1852,118,1860,158,1879,205,1901,238,1927,269,1976,317,1973,321,1923,273,1897,242,1874,208,1855,160,1846,120"/>
+<area shape="rect" title=" " alt="" coords="1933,174,2007,199"/>
+<area shape="poly" title=" " alt="" coords="1867,117,1942,164,1939,169,1864,121"/>
+<area shape="poly" title=" " alt="" coords="1225,193,1131,199,1019,211,899,229,782,257,638,324,636,319,780,252,898,224,1018,205,1130,194,1224,188"/>
+<area shape="poly" title=" " alt="" coords="1283,202,1125,253,1123,248,1282,197"/>
+<area shape="rect" title=" " alt="" coords="1306,255,1378,280"/>
+<area shape="poly" title=" " alt="" coords="1324,199,1337,240,1332,242,1319,200"/>
+<area shape="rect" title=" " alt="" coords="1402,255,1477,280"/>
+<area shape="poly" title=" " alt="" coords="1337,197,1412,245,1409,249,1334,202"/>
+<area shape="rect" title=" " alt="" coords="1197,255,1282,280"/>
+<area shape="poly" title=" " alt="" coords="1308,201,1263,247,1259,243,1304,198"/>
+<area shape="rect" title=" " alt="" coords="1501,255,1653,280"/>
+<area shape="poly" title=" " alt="" coords="1356,197,1527,248,1525,253,1355,202"/>
+<area shape="poly" title=" " alt="" coords="1245,118,1106,137,947,169,889,188,832,209,790,221,756,228,724,237,686,257,649,287,621,319,617,315,646,283,683,252,722,232,755,223,789,216,830,204,887,183,945,164,1106,132,1245,112"/>
+<area shape="poly" title=" " alt="" coords="1318,119,1320,160,1314,160,1313,119"/>
+<area shape="poly" title=" " alt="" coords="1338,116,1425,164,1550,245,1547,249,1422,169,1336,121"/>
+<area shape="poly" title=" " alt="" coords="703,117,720,135,737,158,746,183,745,196,739,208,721,225,701,233,660,233,620,234,602,241,585,256,580,270,580,285,590,315,585,317,574,285,575,269,581,253,599,236,619,228,660,228,700,228,718,221,734,205,740,195,740,184,732,160,716,138,699,121"/>
+<area shape="poly" title=" " alt="" coords="776,116,1213,170,1212,175,775,121"/>
+<area shape="poly" title=" " alt="" coords="680,120,645,165,641,162,676,117"/>
+<area shape="poly" title=" " alt="" coords="568,202,521,222,501,237,484,256,480,268,481,278,487,288,497,298,527,314,560,326,558,331,525,319,494,302,483,292,476,280,474,267,480,253,497,233,519,217,566,197"/>
+<area shape="poly" title=" " alt="" coords="1417,121,1029,190,835,229,724,257,630,322,627,318,722,252,834,224,1028,185,1416,116"/>
+<area shape="poly" title=" " alt="" coords="1460,121,1356,171,1353,166,1458,116"/>
+<area shape="poly" title=" " alt="" coords="1489,118,1504,158,1528,205,1558,243,1554,246,1524,208,1500,160,1484,120"/>
+<area shape="rect" title=" " alt="" coords="1537,174,1600,199"/>
+<area shape="poly" title=" " alt="" coords="1498,117,1548,163,1544,166,1494,121"/>
+<area shape="poly" title=" " alt="" coords="1684,116,1806,188,1892,234,1980,278,2044,303,2102,323,2100,328,2042,308,1978,282,1889,239,1804,193,1682,121"/>
+<area shape="poly" title=" " alt="" coords="1667,119,1668,158,1677,206,1701,266,1728,315,1724,318,1696,268,1671,207,1663,159,1662,119"/>
+<area shape="poly" title=" " alt="" coords="1615,121,1382,174,1381,168,1614,116"/>
+<area shape="poly" title=" " alt="" coords="1672,117,1693,158,1727,205,1771,247,1824,278,1890,305,1952,325,1950,330,1888,310,1822,282,1768,251,1723,208,1689,161,1667,120"/>
+<area shape="poly" title=" " alt="" coords="1710,116,1920,170,1919,175,1708,121"/>
+<area shape="poly" title=" " alt="" coords="2047,117,2066,139,2086,165,2105,204,2121,245,2143,314,2137,315,2116,247,2100,207,2081,168,2062,142,2043,121"/>
+<area shape="poly" title=" " alt="" coords="2037,119,2038,161,2033,185,2021,208,2005,225,1980,242,1915,275,1780,329,1778,324,1912,270,1977,237,2001,221,2017,205,2028,184,2032,160,2032,119"/>
+<area shape="poly" title=" " alt="" coords="1955,119,1934,121,1425,177,1425,171,1934,116,1954,114"/>
+<area shape="poly" title=" " alt="" coords="2043,118,2056,139,2066,166,2069,187,2066,207,2044,269,2017,318,2012,315,2039,266,2061,206,2064,187,2061,167,2051,142,2038,120"/>
+<area shape="poly" title=" " alt="" coords="2025,121,1990,165,1986,162,2021,117"/>
+<area shape="rect" href="StyleBook_8h.html" title="Définition de la classe StyleBook." alt="" coords="2410,174,2575,199"/>
+<area shape="poly" title=" " alt="" coords="2303,116,2448,167,2447,172,2301,121"/>
+<area shape="rect" href="Context_8h.html" title="Définition de la classe Context." alt="" coords="2185,174,2355,199"/>
+<area shape="poly" title=" " alt="" coords="2273,119,2273,160,2267,160,2267,119"/>
+<area shape="poly" title=" " alt="" coords="2480,176,2435,134,2404,113,2370,96,2287,74,2175,57,2042,45,1900,37,1617,29,1399,28,1399,23,1617,24,1900,32,2043,40,2175,52,2288,69,2372,91,2407,108,2439,130,2484,172"/>
+<area shape="poly" title=" " alt="" coords="2576,195,2631,207,2678,224,2695,235,2705,249,2706,265,2696,282,2669,296,2619,307,2477,324,2318,335,2191,341,2191,335,2317,329,2476,319,2618,301,2667,290,2692,278,2701,263,2700,251,2692,239,2676,229,2629,212,2575,201"/>
+<area shape="poly" title=" " alt="" coords="2496,200,2492,241,2484,263,2469,282,2437,291,2370,300,2169,317,1780,340,1780,335,2168,312,2369,295,2436,286,2466,278,2479,261,2487,239,2491,200"/>
+<area shape="poly" title=" " alt="" coords="2423,202,2368,209,2172,229,1977,244,1667,264,1667,259,1977,239,2172,223,2367,204,2422,197"/>
+<area shape="rect" title=" " alt="" coords="2384,255,2455,280"/>
+<area shape="poly" title=" " alt="" coords="2484,201,2442,246,2438,242,2480,198"/>
+<area shape="rect" title=" " alt="" coords="2530,255,2594,280"/>
+<area shape="poly" title=" " alt="" coords="2505,198,2545,243,2541,246,2501,201"/>
+<area shape="rect" title=" " alt="" coords="2618,255,2682,280"/>
+<area shape="poly" title=" " alt="" coords="2517,197,2616,246,2614,251,2514,202"/>
+<area shape="rect" href="Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="2757,255,2887,280"/>
+<area shape="poly" title=" " alt="" coords="2541,197,2762,249,2760,254,2540,202"/>
+<area shape="poly" title=" " alt="" coords="2757,277,2694,283,2399,306,2104,331,2049,336,2048,331,2103,325,2398,300,2694,277,2757,272"/>
+<area shape="rect" title=" " alt="" coords="2739,328,2806,353"/>
+<area shape="poly" title=" " alt="" coords="2816,282,2791,318,2786,315,2812,279"/>
+<area shape="rect" title=" " alt="" coords="2830,328,2910,353"/>
+<area shape="poly" title=" " alt="" coords="2832,279,2857,315,2852,318,2828,282"/>
+<area shape="poly" title=" " alt="" coords="2287,198,2304,214,2320,235,2329,258,2328,270,2323,282,2295,308,2262,325,2225,335,2192,341,2191,335,2224,330,2260,320,2292,303,2318,278,2323,269,2324,259,2316,238,2300,218,2283,201"/>
+<area shape="poly" title=" " alt="" coords="2231,202,1780,331,1779,326,2229,197"/>
+<area shape="poly" title=" " alt="" coords="2185,200,1666,259,1666,253,2184,195"/>
+<area shape="poly" title=" " alt="" coords="2253,202,2115,282,2036,324,2034,319,2113,278,2250,197"/>
+<area shape="poly" title=" " alt="" coords="2293,197,2387,246,2384,251,2291,202"/>
+<area shape="rect" title=" " alt="" coords="2234,255,2309,280"/>
+<area shape="poly" title=" " alt="" coords="2273,199,2274,241,2268,241,2267,200"/>
+<area shape="poly" title=" " alt="" coords="830,283,646,331,644,326,828,277"/>
+<area shape="poly" title=" " alt="" coords="954,276,966,277,1423,305,1950,334,1950,339,1423,310,966,283,953,281"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="Style_8h__dep__incl.png" border="0" usemap="#ainclude_2rok4_2style_2Style_8hdep" alt=""/></div>
+<map name="ainclude_2rok4_2style_2Style_8hdep" id="ainclude_2rok4_2style_2Style_8hdep">
+<area shape="rect" title="Définition de la classe Style modélisant les styles." alt="" coords="277,5,415,45"/>
+<area shape="rect" href="StyledImage_8h.html" title="D�finition de la classe StyledImage." alt="" coords="45,93,191,133"/>
+<area shape="poly" title=" " alt="" coords="284,53,169,96,167,91,282,48"/>
+<area shape="rect" href="Pyramid_8h_source.html" title=" " alt="" coords="199,445,333,485"/>
+<area shape="poly" title=" " alt="" coords="306,56,285,74,268,95,254,122,246,144,243,200,243,291,251,377,264,444,259,445,246,377,238,291,238,200,241,143,249,120,264,92,281,70,302,52"/>
+<area shape="rect" href="StyleBook_8h.html" title="Définition de la classe StyleBook." alt="" coords="279,93,413,133"/>
+<area shape="poly" title=" " alt="" coords="349,59,349,93,343,93,343,59"/>
+<area shape="rect" href="Style_8cpp.html" title="Implémentation de la classe Style modélisant les styles." alt="" coords="438,101,579,126"/>
+<area shape="poly" title=" " alt="" coords="395,49,488,98,486,103,392,54"/>
+<area shape="rect" href="StyledImage_8cpp.html" title="Implémentation de la classe StyledImage permettant l&#39;application des styles à une image." alt="" coords="5,189,204,214"/>
+<area shape="poly" title=" " alt="" coords="116,148,109,189,104,188,110,147"/>
+<area shape="rect" href="Level_8h_source.html" title=" " alt="" coords="199,533,333,573"/>
+<area shape="poly" title=" " alt="" coords="260,499,261,533,256,533,255,499"/>
+<area shape="poly" title=" " alt="" coords="272,520,271,486,276,486,277,520"/>
+<area shape="poly" title=" " alt="" coords="348,538,357,544,360,554,352,566,335,572,333,567,349,562,355,553,352,548,345,543"/>
+<area shape="rect" href="StoragePool_8h_source.html" title=" " alt="" coords="515,181,649,221"/>
+<area shape="poly" title=" " alt="" coords="412,136,531,179,529,184,410,141"/>
+<area shape="rect" href="StyleBook_8cpp.html" title="Implémentation de la classe StyleBook." alt="" coords="278,189,449,214"/>
+<area shape="poly" title=" " alt="" coords="355,146,364,188,358,189,350,147"/>
+<area shape="poly" title=" " alt="" coords="593,168,599,130,597,112,589,95,563,76,519,61,415,39,416,34,521,56,565,72,593,92,602,110,605,130,598,169"/>
+<area shape="rect" href="TileMatrixSet_8h_source.html" title=" " alt="" coords="329,269,464,309"/>
+<area shape="poly" title=" " alt="" coords="530,230,438,272,436,267,528,225"/>
+<area shape="rect" href="StoreDataSource_8h.html" title="Définition des classes StoreDataSource." alt="" coords="489,269,675,309"/>
+<area shape="poly" title=" " alt="" coords="585,235,585,269,579,269,579,235"/>
+<area shape="rect" href="StoragePool_8cpp.html" title="Implémentation de la classe StoragePool." alt="" coords="700,277,883,302"/>
+<area shape="poly" title=" " alt="" coords="642,224,764,274,762,279,640,229"/>
+<area shape="poly" title=" " alt="" coords="359,320,319,359,292,404,275,446,270,444,287,402,315,356,356,316"/>
+<area shape="rect" href="TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="329,357,464,397"/>
+<area shape="poly" title=" " alt="" coords="399,323,399,357,394,357,394,323"/>
+<area shape="poly" title=" " alt="" coords="358,407,296,447,293,443,355,403"/>
+<area shape="rect" href="TmsBook_8cpp.html" title="Implémentation de la classe TmsBook." alt="" coords="358,453,523,478"/>
+<area shape="poly" title=" " alt="" coords="415,409,437,451,432,453,410,411"/>
+<area shape="rect" href="StoreDataSource_8cpp.html" title="Implémentation des classes StoreDataSource." alt="" coords="489,357,675,397"/>
+<area shape="poly" title=" " alt="" coords="585,323,585,357,579,357,579,323"/>
+</map>
+</div>
+</div>
+<p><a href="Style_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStyle.html">Style</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des styles (affichages et métadonnées)  <a href="classStyle.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Définition de la classe <a class="el" href="classStyle.html" title="Gestion des styles (affichages et métadonnées)">Style</a> modélisant les styles. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_7fd798f2a1fec1e069bb7af232d890b2.html">style</a></li><li class="navelem"><a class="el" href="Style_8h.html">Style.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

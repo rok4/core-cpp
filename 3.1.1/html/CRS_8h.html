@@ -1,0 +1,304 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('CRS_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CRS.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Définition de la gestion des systèmes de référence.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
+<code>#include &lt;proj.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="BoundingBox_8h_source.html">rok4/utils/BoundingBox.h</a>&quot;</code><br />
+<code>#include &quot;rok4/utils/ProjPool.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="Utils_8h_source.html">rok4/utils/Utils.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de CRS.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="CRS_8h__incl.png" border="0" usemap="#ainclude_2rok4_2utils_2CRS_8h" alt=""/></div>
+<map name="ainclude_2rok4_2utils_2CRS_8h" id="ainclude_2rok4_2utils_2CRS_8h">
+<area shape="rect" title="Définition de la gestion des systèmes de référence." alt="" coords="123,5,258,45"/>
+<area shape="rect" title=" " alt="" coords="64,255,122,280"/>
+<area shape="poly" title=" " alt="" coords="124,44,78,64,57,78,39,95,19,122,10,148,10,175,21,205,37,228,59,245,56,250,34,232,16,208,5,175,4,147,15,120,35,92,54,74,76,59,122,39"/>
+<area shape="rect" title=" " alt="" coords="42,174,194,199"/>
+<area shape="poly" title=" " alt="" coords="124,43,82,63,63,77,49,95,44,113,52,132,69,149,88,165,85,169,65,153,48,135,39,114,44,92,60,73,79,58,122,38"/>
+<area shape="rect" title=" " alt="" coords="218,174,277,199"/>
+<area shape="poly" title=" " alt="" coords="203,44,225,92,245,160,240,161,220,94,198,47"/>
+<area shape="rect" href="BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="286,93,471,119"/>
+<area shape="poly" title=" " alt="" coords="236,43,339,85,337,90,234,48"/>
+<area shape="rect" href="ProjPool_8h_source.html" title=" " alt="" coords="58,93,210,119"/>
+<area shape="poly" title=" " alt="" coords="179,47,153,84,148,80,175,44"/>
+<area shape="rect" href="Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="898,93,1027,119"/>
+<area shape="poly" title=" " alt="" coords="258,31,884,94,884,99,258,36"/>
+<area shape="poly" title=" " alt="" coords="341,121,170,173,168,168,340,116"/>
+<area shape="poly" title=" " alt="" coords="360,121,280,169,277,164,358,117"/>
+<area shape="rect" title=" " alt="" coords="301,174,376,199"/>
+<area shape="poly" title=" " alt="" coords="375,120,353,163,348,161,370,118"/>
+<area shape="rect" title=" " alt="" coords="400,174,463,199"/>
+<area shape="poly" title=" " alt="" coords="388,117,418,161,414,164,384,120"/>
+<area shape="rect" title=" " alt="" coords="487,167,638,207"/>
+<area shape="poly" title=" " alt="" coords="406,116,507,159,505,164,404,121"/>
+<area shape="rect" href="json11_8hpp_source.html" title=" " alt="" coords="662,174,857,199"/>
+<area shape="poly" title=" " alt="" coords="434,116,691,169,690,174,433,121"/>
+<area shape="poly" title=" " alt="" coords="696,202,649,209,356,244,136,265,136,260,356,239,649,204,696,197"/>
+<area shape="rect" title=" " alt="" coords="634,255,696,280"/>
+<area shape="poly" title=" " alt="" coords="747,202,692,248,688,244,744,197"/>
+<area shape="rect" title=" " alt="" coords="421,255,472,280"/>
+<area shape="poly" title=" " alt="" coords="715,202,486,259,484,254,714,197"/>
+<area shape="rect" title=" " alt="" coords="721,255,798,280"/>
+<area shape="poly" title=" " alt="" coords="762,200,762,241,757,241,757,200"/>
+<area shape="rect" title=" " alt="" coords="823,255,934,280"/>
+<area shape="poly" title=" " alt="" coords="779,197,851,245,848,249,776,202"/>
+<area shape="poly" title=" " alt="" coords="135,119,126,161,121,160,129,118"/>
+<area shape="poly" title=" " alt="" coords="153,117,221,164,218,168,150,121"/>
+<area shape="poly" title=" " alt="" coords="96,121,61,139,45,152,33,168,25,188,27,196,32,205,58,223,97,237,146,248,202,255,315,263,407,264,407,269,315,268,201,260,145,253,96,242,55,228,28,209,22,198,20,187,28,165,41,148,58,135,94,116"/>
+<area shape="rect" title=" " alt="" coords="881,174,948,199"/>
+<area shape="poly" title=" " alt="" coords="958,120,931,164,926,161,953,117"/>
+<area shape="rect" title=" " alt="" coords="972,174,1052,199"/>
+<area shape="poly" title=" " alt="" coords="972,117,999,161,995,164,967,120"/>
+<area shape="rect" title=" " alt="" coords="1076,174,1147,199"/>
+<area shape="poly" title=" " alt="" coords="986,116,1079,165,1076,170,983,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="CRS_8h__dep__incl.png" border="0" usemap="#ainclude_2rok4_2utils_2CRS_8hdep" alt=""/></div>
+<map name="ainclude_2rok4_2utils_2CRS_8hdep" id="ainclude_2rok4_2utils_2CRS_8hdep">
+<area shape="rect" title="Définition de la gestion des systèmes de référence." alt="" coords="1929,5,2064,45"/>
+<area shape="rect" href="Grid_8h.html" title="Définition de la classe Grid." alt="" coords="395,181,571,221"/>
+<area shape="poly" title=" " alt="" coords="1916,39,572,193,572,187,1915,33"/>
+<area shape="rect" href="CrsBook_8h.html" title="Définition de la classe CrsBook." alt="" coords="1929,93,2064,133"/>
+<area shape="poly" title=" " alt="" coords="1999,59,1999,93,1994,93,1994,59"/>
+<area shape="rect" href="Level_8h_source.html" title=" " alt="" coords="627,357,761,397"/>
+<area shape="poly" title=" " alt="" coords="1916,33,1597,50,1152,81,922,102,706,126,522,153,384,184,280,209,260,217,241,229,223,247,205,271,178,306,150,332,121,348,94,357,71,359,53,357,43,349,43,339,56,329,82,320,122,314,179,310,255,311,352,318,471,332,614,355,627,357,626,362,614,360,470,337,351,323,255,316,180,315,123,319,83,325,59,334,48,341,48,347,55,352,71,354,93,351,119,343,146,327,175,303,201,268,219,243,238,225,257,213,278,204,383,179,521,148,706,120,921,96,1152,76,1597,45,1915,28"/>
+<area shape="rect" href="Pyramid_8h_source.html" title=" " alt="" coords="627,445,761,485"/>
+<area shape="poly" title=" " alt="" coords="2078,24,2717,32,3178,42,3667,58,4133,80,4343,93,4528,109,4683,128,4802,148,4846,160,4878,172,4899,185,4906,199,4906,291,4908,351,4900,376,4879,400,4831,406,4711,412,4292,424,3005,444,762,466,762,461,3005,439,4292,419,4711,407,4831,401,4877,395,4896,373,4902,350,4901,291,4901,201,4895,188,4876,176,4844,165,4801,154,4682,133,4528,115,4342,99,4133,85,3667,63,3178,48,2717,38,2078,30"/>
+<area shape="rect" href="CRS_8cpp.html" title="Implémente de la gestion des systèmes de référence." alt="" coords="4941,101,5071,126"/>
+<area shape="poly" title=" " alt="" coords="2078,24,2615,24,3439,31,3879,39,4294,51,4652,68,4922,91,4963,98,4962,103,4922,96,4652,73,4294,56,3879,44,3439,36,2615,29,2078,29"/>
+<area shape="rect" href="ReprojectedImage_8h.html" title="Définition de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="463,269,621,309"/>
+<area shape="poly" title=" " alt="" coords="506,231,531,268,527,271,502,234"/>
+<area shape="rect" href="ReprojectedImage_8cpp.html" title="Implémentation de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="367,365,603,390"/>
+<area shape="poly" title=" " alt="" coords="467,235,454,270,451,289,454,309,465,339,479,363,474,366,460,341,449,310,446,289,449,269,462,233"/>
+<area shape="rect" href="Grid_8cpp.html" title="Implémentation de la classe Grid." alt="" coords="215,277,389,302"/>
+<area shape="poly" title=" " alt="" coords="432,230,327,279,325,274,430,225"/>
+<area shape="poly" title=" " alt="" coords="524,322,495,366,490,363,519,319"/>
+<area shape="rect" href="Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="2597,181,2743,221"/>
+<area shape="poly" title=" " alt="" coords="2078,122,2597,188,2596,193,2078,128"/>
+<area shape="rect" href="TileMatrixSet_8h_source.html" title=" " alt="" coords="5,269,140,309"/>
+<area shape="poly" title=" " alt="" coords="1916,118,1599,121,1155,130,925,139,709,150,524,165,384,184,309,202,235,225,116,272,114,267,233,220,307,197,383,179,523,160,709,145,925,133,1155,125,1599,115,1916,112"/>
+<area shape="rect" href="CrsBook_8cpp.html" title="Implémentation de la classe CrsBook." alt="" coords="1917,189,2076,214"/>
+<area shape="poly" title=" " alt="" coords="1999,147,1999,188,1994,188,1994,147"/>
+<area shape="poly" title=" " alt="" coords="2583,208,640,272,621,274,621,269,639,267,2582,203"/>
+<area shape="poly" title=" " alt="" coords="2583,208,1504,243,703,272,682,280,668,289,634,312,513,367,511,362,631,307,665,285,680,275,701,267,1504,238,2583,203"/>
+<area shape="rect" href="Decoder_8h_source.html" title=" " alt="" coords="3074,269,3253,309"/>
+<area shape="poly" title=" " alt="" coords="2757,214,3062,267,3074,269,3073,274,3062,272,2756,220"/>
+<area shape="rect" href="AscEncoder_8h_source.html" title=" " alt="" coords="3277,269,3458,309"/>
+<area shape="poly" title=" " alt="" coords="2757,208,2987,231,3265,267,3277,268,3276,274,3264,272,2986,237,2756,213"/>
+<area shape="rect" href="BilEncoder_8h_source.html" title=" " alt="" coords="3482,269,3663,309"/>
+<area shape="poly" title=" " alt="" coords="2758,205,3072,226,3271,244,3470,267,3482,268,3481,274,3470,272,3270,249,3072,231,2757,210"/>
+<area shape="rect" href="JPEGEncoder_8h_source.html" title=" " alt="" coords="3687,269,3869,309"/>
+<area shape="poly" title=" " alt="" coords="2757,202,3155,221,3414,240,3676,267,3687,268,3686,274,3675,272,3414,245,3155,226,2757,208"/>
+<area shape="rect" href="PNGEncoder_8h_source.html" title=" " alt="" coords="3893,269,4074,309"/>
+<area shape="poly" title=" " alt="" coords="2758,201,2958,206,3237,217,3557,236,3881,267,3893,268,3892,273,3880,272,3556,241,3237,222,2958,211,2757,206"/>
+<area shape="rect" href="TiffDeflateEncoder_8h_source.html" title=" " alt="" coords="4479,357,4661,397"/>
+<area shape="poly" title=" " alt="" coords="2757,200,3211,199,3845,206,4155,214,4421,226,4612,243,4671,254,4701,267,4710,281,4711,295,4705,308,4693,321,4661,342,4623,360,4621,355,4658,338,4690,316,4700,305,4705,294,4705,283,4698,271,4670,259,4611,249,4420,231,4155,219,3845,211,3211,205,2757,205"/>
+<area shape="rect" href="TiffEncoder_8h_source.html" title=" " alt="" coords="4506,269,4687,309"/>
+<area shape="poly" title=" " alt="" coords="2757,202,3615,222,4122,242,4334,253,4494,267,4506,268,4505,273,4494,272,4334,259,4122,247,3615,228,2757,207"/>
+<area shape="rect" href="TiffLZWEncoder_8h_source.html" title=" " alt="" coords="4274,357,4455,397"/>
+<area shape="poly" title=" " alt="" coords="2757,202,3085,209,3523,222,3930,242,4078,253,4165,267,4216,285,4264,308,4340,355,4337,359,4262,313,4214,290,4164,272,4077,259,3930,247,3522,228,3084,214,2757,207"/>
+<area shape="rect" href="TiffPackBitsEncoder_8h_source.html" title=" " alt="" coords="4069,357,4250,397"/>
+<area shape="poly" title=" " alt="" coords="2757,201,3095,207,3542,219,3941,238,4074,251,4115,259,4137,267,4153,287,4161,312,4164,357,4159,357,4156,313,4148,290,4134,271,4114,264,4073,257,3941,244,3542,224,3095,212,2757,206"/>
+<area shape="rect" href="TiffRawEncoder_8h_source.html" title=" " alt="" coords="4685,357,4866,397"/>
+<area shape="poly" title=" " alt="" coords="2757,200,3213,204,3851,214,4164,223,4433,234,4629,248,4691,257,4723,267,4744,286,4759,310,4774,356,4769,358,4754,312,4740,290,4721,272,4690,262,4629,254,4433,239,4164,228,3851,219,3213,209,2757,206"/>
+<area shape="rect" href="TiffHeader_8h_source.html" title=" " alt="" coords="4301,269,4482,309"/>
+<area shape="poly" title=" " alt="" coords="2757,200,3016,202,3393,210,3833,230,4060,246,4282,267,4301,269,4300,274,4282,272,4060,252,3833,236,3393,216,3016,207,2757,205"/>
+<area shape="rect" href="CompoundImage_8h_source.html" title=" " alt="" coords="746,269,895,309"/>
+<area shape="poly" title=" " alt="" coords="2583,208,1648,240,1156,259,908,272,896,274,895,268,907,267,1156,254,1647,235,2583,203"/>
+<area shape="rect" href="DecimatedImage_8h.html" title="Définition des classes DecimatedImage." alt="" coords="920,269,1071,309"/>
+<area shape="poly" title=" " alt="" coords="2583,208,1773,237,1337,256,1084,272,1071,274,1071,268,1083,267,1337,250,1772,232,2583,203"/>
+<area shape="rect" href="EmptyImage_8h.html" title="Définition de la classe EmptyImage." alt="" coords="1442,269,1589,309"/>
+<area shape="poly" title=" " alt="" coords="2583,206,2403,211,2159,221,1881,241,1601,272,1589,274,1588,269,1600,267,1881,235,2159,216,2403,205,2583,201"/>
+<area shape="poly" title=" " alt="" coords="2583,208,1519,243,735,272,719,290,707,312,698,358,692,357,702,311,714,287,733,267,1519,238,2583,203"/>
+<area shape="rect" href="ExtendedCompoundImage_8h.html" title="Définition des classes ExtendedCompoundImage, ExtendedCompoundMask." alt="" coords="2138,269,2349,309"/>
+<area shape="poly" title=" " alt="" coords="2584,223,2337,272,2336,267,2583,217"/>
+<area shape="rect" href="MergeImage_8h.html" title="Définition des classes MergeImage et MergeMask et du namespace Merge." alt="" coords="1095,269,1242,309"/>
+<area shape="poly" title=" " alt="" coords="2583,209,1860,238,1477,256,1254,272,1242,274,1242,268,1254,267,1476,251,1859,233,2583,203"/>
+<area shape="rect" href="RawImage_8h_source.html" title=" " alt="" coords="1613,269,1759,309"/>
+<area shape="poly" title=" " alt="" coords="2583,208,2228,226,2000,245,1772,272,1760,274,1759,269,1771,267,2000,239,2227,220,2583,202"/>
+<area shape="rect" href="ResampledImage_8h.html" title="Définition de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="1266,269,1418,309"/>
+<area shape="poly" title=" " alt="" coords="2583,208,1999,232,1670,251,1430,272,1419,274,1418,268,1430,267,1670,245,1999,227,2583,203"/>
+<area shape="rect" href="StyledImage_8h.html" title="D�finition de la classe StyledImage." alt="" coords="1783,269,1930,309"/>
+<area shape="poly" title=" " alt="" coords="2583,210,2297,231,2120,248,1942,272,1931,274,1930,269,1942,267,2119,243,2297,225,2582,204"/>
+<area shape="rect" href="SubsampledImage_8h.html" title="Définition des classes SubsampledImage." alt="" coords="1955,269,2113,309"/>
+<area shape="poly" title=" " alt="" coords="2583,214,2375,237,2126,272,2114,274,2113,269,2126,267,2374,232,2583,209"/>
+<area shape="rect" href="FileImage_8h.html" title="Définition de la classe FileImage." alt="" coords="2733,269,2879,309"/>
+<area shape="poly" title=" " alt="" coords="2713,227,2778,267,2775,272,2710,231"/>
+<area shape="rect" href="BilzImage_8h.html" title="Définition des classes BilzImage." alt="" coords="3419,365,3609,390"/>
+<area shape="poly" title=" " alt="" coords="2757,201,3085,206,3517,217,3725,226,3901,237,4028,250,4068,258,4088,267,4095,278,4098,289,4095,300,4088,311,4072,325,4051,335,3999,350,3936,357,3866,360,3728,357,3669,357,3622,360,3576,367,3575,362,3622,355,3668,352,3728,352,3866,354,3936,352,3998,345,4049,330,4069,320,4084,308,4090,298,4092,289,4090,280,4084,271,4066,263,4028,255,3901,242,3724,231,3517,222,3085,211,2757,206"/>
+<area shape="rect" href="LibjpegImage_8h.html" title="Définition des classes LibjpegImage." alt="" coords="3633,365,3848,390"/>
+<area shape="poly" title=" " alt="" coords="2757,201,3090,205,3530,216,3741,225,3921,236,4050,250,4090,258,4110,267,4123,283,4129,298,4129,311,4123,323,4099,342,4061,356,4012,366,3958,373,3849,379,3848,373,3958,367,4011,361,4059,351,4096,337,4119,320,4124,310,4124,299,4118,286,4107,271,4088,263,4049,255,3920,241,3741,230,3529,222,3090,211,2757,206"/>
+<area shape="rect" href="LibpngImage_8h.html" title="Définition des classes LibpngImage." alt="" coords="2494,365,2705,390"/>
+<area shape="poly" title=" " alt="" coords="2649,234,2628,270,2612,322,2604,365,2598,364,2607,321,2624,268,2645,231"/>
+<area shape="rect" href="LibtiffImage_8h.html" title="Définition des classes LibtiffImage." alt="" coords="2729,365,2933,390"/>
+<area shape="poly" title=" " alt="" coords="2666,235,2666,273,2670,291,2679,308,2697,327,2719,342,2768,362,2766,367,2716,347,2693,331,2674,311,2665,293,2661,273,2661,235"/>
+<area shape="rect" href="LibopenjpegImage_8h.html" title="Définition des classes LibopenjpegImage." alt="" coords="2957,357,3132,397"/>
+<area shape="poly" title=" " alt="" coords="2680,234,2695,273,2707,292,2722,307,2958,356,2956,362,2719,312,2703,295,2690,275,2675,236"/>
+<area shape="rect" href="Rok4Image_8h.html" title="Implémentation des classes Rok4Image." alt="" coords="2903,269,3050,309"/>
+<area shape="poly" title=" " alt="" coords="2751,222,2910,267,2909,272,2750,228"/>
+<area shape="rect" href="MirrorImage_8h.html" title="Définition des classes MirrorImage." alt="" coords="2373,277,2556,302"/>
+<area shape="poly" title=" " alt="" coords="2614,229,2493,279,2491,274,2612,224"/>
+<area shape="poly" title=" " alt="" coords="4589,323,4578,358,4573,356,4584,322"/>
+<area shape="poly" title=" " alt="" coords="4534,317,4416,360,4415,355,4532,312"/>
+<area shape="poly" title=" " alt="" coords="4493,314,4251,361,4250,356,4492,308"/>
+<area shape="poly" title=" " alt="" coords="4649,313,4737,355,4735,360,4647,318"/>
+<area shape="poly" title=" " alt="" coords="4444,313,4532,355,4530,360,4442,318"/>
+<area shape="poly" title=" " alt="" coords="4384,323,4373,358,4368,356,4379,322"/>
+<area shape="poly" title=" " alt="" coords="4329,317,4211,360,4209,355,4327,312"/>
+<area shape="poly" title=" " alt="" coords="4489,310,4692,355,4691,360,4488,315"/>
+<area shape="rect" href="DecimatedImage_8cpp.html" title="Implémentation des classes DecimatedImage, DecimatedMask." alt="" coords="810,365,1039,390"/>
+<area shape="poly" title=" " alt="" coords="973,322,936,366,932,363,969,318"/>
+<area shape="poly" title=" " alt="" coords="1429,312,1251,331,1112,338,973,343,798,360,762,365,761,360,798,355,973,338,1111,333,1250,326,1428,307"/>
+<area shape="rect" href="ExtendedCompoundImage_8cpp.html" title="Implémentation des classes ExtendedCompoundImage, ExtendedCompoundMask." alt="" coords="2027,357,2249,397"/>
+<area shape="poly" title=" " alt="" coords="1603,307,1719,324,1810,333,2014,355,2028,356,2027,362,2014,360,1809,338,1718,329,1602,312"/>
+<area shape="poly" title=" " alt="" coords="776,362,785,368,788,378,780,390,763,396,761,391,777,386,783,377,780,372,773,367"/>
+<area shape="poly" title=" " alt="" coords="688,411,689,445,684,445,683,411"/>
+<area shape="poly" title=" " alt="" coords="700,432,699,398,704,398,705,432"/>
+<area shape="poly" title=" " alt="" coords="2211,320,2163,359,2160,355,2208,316"/>
+<area shape="rect" href="MergeImage_8cpp.html" title="Implémentation des classes MergeImage et MergeMask et du namespace Merge." alt="" coords="1064,365,1263,390"/>
+<area shape="poly" title=" " alt="" coords="1169,323,1167,364,1161,364,1164,323"/>
+<area shape="rect" href="ResampledImage_8cpp.html" title="Implémentation de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="1287,365,1517,390"/>
+<area shape="poly" title=" " alt="" coords="1365,319,1396,363,1392,366,1361,322"/>
+<area shape="rect" href="StyledImage_8cpp.html" title="Implémentation de la classe StyledImage permettant l&#39;application des styles à une image." alt="" coords="1541,365,1740,390"/>
+<area shape="poly" title=" " alt="" coords="1798,317,1670,367,1668,362,1796,312"/>
+<area shape="rect" href="SubsampledImage_8cpp.html" title="Implémentation des classes SubsampledImage, DecimatedMask." alt="" coords="1764,365,2003,390"/>
+<area shape="poly" title=" " alt="" coords="1991,318,1905,367,1902,362,1988,314"/>
+<area shape="rect" href="TiffNodataManager_8h.html" title="Définition de la classe TiffNodataManager, permettant de modifier la couleur de nodata des images à c..." alt="" coords="3157,357,3343,397"/>
+<area shape="poly" title=" " alt="" coords="2893,307,3157,357,3156,362,2892,312"/>
+<area shape="poly" title=" " alt="" coords="2893,307,3036,325,3148,333,3259,340,3400,355,3449,362,3448,367,3399,360,3259,345,3147,338,3036,330,2892,312"/>
+<area shape="rect" href="FileImage_8cpp.html" title="Implémentation de la classe FileImage." alt="" coords="3110,453,3315,478"/>
+<area shape="poly" title=" " alt="" coords="2893,306,3007,309,3145,308,3212,310,3273,318,3322,332,3342,343,3357,356,3366,372,3365,388,3355,403,3339,416,3297,439,3253,455,3251,450,3295,434,3336,412,3351,399,3360,386,3361,373,3353,359,3339,347,3320,337,3272,323,3212,316,3145,313,3007,315,2893,312"/>
+<area shape="poly" title=" " alt="" coords="2893,307,3004,320,3098,328,3259,334,3419,338,3622,355,3675,362,3675,367,3622,360,3419,344,3259,339,3098,333,3004,325,2893,312"/>
+<area shape="poly" title=" " alt="" coords="2749,317,2628,367,2626,362,2747,312"/>
+<area shape="poly" title=" " alt="" coords="2818,322,2830,363,2825,365,2813,324"/>
+<area shape="poly" title=" " alt="" coords="2872,312,2993,355,2992,360,2871,317"/>
+<area shape="poly" title=" " alt="" coords="3461,396,3254,455,3252,450,3460,391"/>
+<area shape="poly" title=" " alt="" coords="3657,395,3283,455,3282,450,3656,390"/>
+<area shape="poly" title=" " alt="" coords="2683,390,2717,395,3124,450,3123,455,2716,400,2682,395"/>
+<area shape="poly" title=" " alt="" coords="2896,390,3163,450,3161,455,2895,396"/>
+<area shape="poly" title=" " alt="" coords="3095,401,3192,450,3189,455,3093,406"/>
+<area shape="poly" title=" " alt="" coords="2409,308,2210,360,2209,355,2407,303"/>
+<area shape="rect" href="MirrorImage_8cpp.html" title="Implémentation des classe MirrorImage." alt="" coords="2273,365,2470,390"/>
+<area shape="poly" title=" " alt="" coords="2444,314,2386,366,2383,362,2440,310"/>
+<area shape="poly" title=" " alt="" coords="94,319,128,360,150,379,174,395,210,409,260,421,383,439,515,451,626,458,626,464,514,457,382,444,259,426,209,414,171,400,146,384,124,364,90,322"/>
+<area shape="rect" href="TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="185,357,320,397"/>
+<area shape="poly" title=" " alt="" coords="125,313,214,355,212,360,123,318"/>
+<area shape="poly" title=" " alt="" coords="334,392,627,448,626,454,333,397"/>
+</map>
+</div>
+</div>
+<p><a href="CRS_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCRS.html">CRS</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des systèmes de référence.  <a href="classCRS.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3c06b23201677bed40772d04266e416b" id="r_a3c06b23201677bed40772d04266e416b"><td class="memItemLeft" align="right" valign="top"><a id="a3c06b23201677bed40772d04266e416b" name="a3c06b23201677bed40772d04266e416b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NO_PROJ_CODE</b>&#160;&#160;&#160;&quot;NO_PROJ_CODE&quot;</td></tr>
+<tr class="memdesc:a3c06b23201677bed40772d04266e416b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Code utilisé en cas de non correspondance avec les référentiel de Proj. <br /></td></tr>
+<tr class="separator:a3c06b23201677bed40772d04266e416b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Définition de la gestion des systèmes de référence. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="CRS_8h.html">CRS.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

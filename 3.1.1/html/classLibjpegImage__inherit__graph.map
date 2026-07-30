@@ -1,0 +1,7 @@
+<map id="LibjpegImage" name="LibjpegImage">
+<area shape="rect" id="Node000001" title="Manipulation d&#39;une image JPEG." alt="" coords="5,152,116,177"/>
+<area shape="rect" id="Node000002" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="17,79,104,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,118,63,152,58,152,58,118"/>
+<area shape="rect" id="Node000003" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="29,5,92,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="63,44,63,79,58,79,58,44"/>
+</map>

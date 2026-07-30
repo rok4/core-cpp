@@ -1,0 +1,68 @@
+<map id="include/rok4/image/SubsampledImage.h" name="include/rok4/image/SubsampledImage.h">
+<area shape="rect" id="Node000001" title="Définition des classes SubsampledImage." alt="" coords="99,5,258,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="251,475,314,500"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,48,89,69,49,98,33,115,20,134,11,155,8,178,8,327,9,358,12,382,22,403,42,425,63,441,87,454,140,473,192,482,238,485,237,490,192,487,139,478,85,459,61,446,38,429,18,406,7,384,3,358,3,327,3,178,6,154,15,131,29,111,46,94,86,64,127,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="52,394,119,419"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="150,48,120,71,91,101,68,137,61,157,59,178,59,254,66,323,80,380,75,381,61,324,53,254,53,178,56,156,63,135,86,98,117,67,147,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="160,394,240,419"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,47,148,72,129,104,115,140,109,178,109,254,114,298,134,337,154,362,175,383,172,387,150,366,130,340,109,299,104,254,104,178,110,138,125,101,143,69,161,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="145,93,213,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="181,46,181,79,176,79,176,46"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="451,394,603,419"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="235,43,278,64,320,93,338,111,352,131,362,153,365,178,365,254,368,277,377,299,391,318,407,336,446,365,486,386,483,391,444,369,404,340,386,321,373,301,363,279,360,254,360,178,357,155,348,133,334,114,317,97,276,68,233,48"/>
+<area shape="rect" id="Node000007" href="$Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="145,313,274,339"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="198,44,214,66,227,93,236,150,236,208,228,260,219,301,214,300,223,259,230,208,231,150,221,94,210,69,194,47"/>
+<area shape="rect" id="Node000009" href="$Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="698,93,851,119"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="259,34,685,90,684,95,258,40"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="192,341,117,389,114,384,190,337"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="211,339,206,380,200,380,205,339"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="275,394,346,419"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="226,337,286,383,283,387,223,341"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="698,118,608,137,560,151,514,169,458,198,417,227,383,263,346,315,330,349,319,382,314,380,325,347,342,312,378,259,413,223,455,193,512,164,558,146,607,131,697,113"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="739,240,810,265"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="777,119,777,226,772,226,772,119"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1317,394,1379,419"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="828,116,899,136,976,164,1081,219,1181,281,1324,384,1321,388,1178,286,1079,224,974,169,898,141,827,121"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="886,167,962,192"/>
+<area shape="poly" id="edge14_Node000009_Node000012" title=" " alt="" coords="800,116,888,158,886,163,798,121"/>
+<area shape="rect" id="Node000013" href="$BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="837,313,1022,339"/>
+<area shape="poly" id="edge15_Node000009_Node000013" title=" " alt="" coords="785,117,915,300,911,303,781,121"/>
+<area shape="rect" id="Node000022" href="$CrsBook_8h.html" title="Définition de la classe CrsBook." alt="" coords="526,167,679,192"/>
+<area shape="poly" id="edge27_Node000009_Node000022" title=" " alt="" coords="748,121,644,164,642,159,746,116"/>
+<area shape="poly" id="edge16_Node000013_Node000006" title=" " alt="" coords="871,341,599,394,598,389,870,336"/>
+<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="1023,333,1158,351,1233,366,1306,384,1313,386,1311,391,1305,389,1232,371,1157,356,1022,338"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="691,394,749,419"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="900,341,764,392,762,387,898,336"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1043,394,1117,419"/>
+<area shape="poly" id="edge18_Node000013_Node000015" title=" " alt="" coords="953,336,1047,385,1044,390,950,341"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1142,387,1293,427"/>
+<area shape="poly" id="edge20_Node000013_Node000016" title=" " alt="" coords="972,336,1136,381,1134,386,971,341"/>
+<area shape="rect" id="Node000017" href="$json11_8hpp_source.html" title=" " alt="" coords="824,394,1019,419"/>
+<area shape="poly" id="edge21_Node000013_Node000017" title=" " alt="" coords="931,339,927,380,921,380,926,339"/>
+<area shape="poly" id="edge23_Node000017_Node000002" title=" " alt="" coords="829,422,328,483,328,478,828,417"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="764,475,823,500"/>
+<area shape="poly" id="edge22_Node000017_Node000018" title=" " alt="" coords="904,422,825,470,822,465,901,417"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="615,475,665,500"/>
+<area shape="poly" id="edge24_Node000017_Node000019" title=" " alt="" coords="881,422,679,478,678,473,880,417"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="995,475,1072,500"/>
+<area shape="poly" id="edge25_Node000017_Node000020" title=" " alt="" coords="939,417,1007,465,1004,469,936,422"/>
+<area shape="rect" id="Node000021" title=" " alt="" coords="859,475,970,500"/>
+<area shape="poly" id="edge26_Node000017_Node000021" title=" " alt="" coords="923,420,919,461,914,461,918,419"/>
+<area shape="poly" id="edge28_Node000022_Node000006" title=" " alt="" coords="596,194,563,244,545,278,532,314,527,348,527,380,522,380,521,348,527,313,540,276,558,241,591,191"/>
+<area shape="poly" id="edge30_Node000022_Node000010" title=" " alt="" coords="631,190,735,232,733,237,629,194"/>
+<area shape="poly" id="edge29_Node000022_Node000019" title=" " alt="" coords="527,192,479,209,458,223,441,242,414,290,407,312,405,334,407,356,413,378,441,425,456,442,474,455,517,473,561,482,601,485,601,490,560,487,515,478,472,459,453,446,437,428,409,380,402,357,399,334,402,311,409,287,437,238,454,219,476,204,525,186"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="451,240,515,265"/>
+<area shape="poly" id="edge31_Node000022_Node000023" title=" " alt="" coords="585,194,516,235,513,230,582,190"/>
+<area shape="rect" id="Node000024" href="$CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="589,240,715,265"/>
+<area shape="poly" id="edge32_Node000022_Node000024" title=" " alt="" coords="613,191,638,227,634,230,609,194"/>
+<area shape="poly" id="edge34_Node000024_Node000006" title=" " alt="" coords="618,268,581,286,563,299,549,315,534,348,529,381,524,380,529,346,544,312,560,295,578,282,615,263"/>
+<area shape="poly" id="edge41_Node000024_Node000007" title=" " alt="" coords="589,267,288,315,287,310,589,261"/>
+<area shape="poly" id="edge36_Node000024_Node000013" title=" " alt="" coords="697,263,872,307,870,312,696,268"/>
+<area shape="poly" id="edge35_Node000024_Node000014" title=" " alt="" coords="676,263,703,283,725,312,731,329,732,348,729,381,724,380,727,348,725,331,720,315,699,287,673,268"/>
+<area shape="poly" id="edge33_Node000024_Node000018" title=" " alt="" coords="681,263,715,283,746,312,767,349,782,390,794,460,789,461,776,391,763,351,742,315,712,287,679,268"/>
+<area shape="rect" id="Node000025" href="$ProjPool_8h_source.html" title=" " alt="" coords="559,313,711,339"/>
+<area shape="poly" id="edge37_Node000024_Node000025" title=" " alt="" coords="652,266,643,301,638,300,647,265"/>
+<area shape="poly" id="edge38_Node000025_Node000006" title=" " alt="" coords="620,341,555,388,552,384,617,337"/>
+<area shape="poly" id="edge40_Node000025_Node000014" title=" " alt="" coords="649,337,699,383,695,386,645,341"/>
+<area shape="poly" id="edge39_Node000025_Node000019" title=" " alt="" coords="638,339,642,461,636,461,632,339"/>
+</map>

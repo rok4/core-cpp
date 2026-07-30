@@ -1,0 +1,412 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('Rok4Image_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Rok4Image.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Rok4Image_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * Copyright © (2011) Institut national de l&#39;information</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *                    géographique et forestière</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Géoportail SAV &lt;contact.geoservices@ign.fr&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * This software is a computer program whose purpose is to publish geographic</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * data using OGC WMS and WMTS protocol.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This software is governed by the CeCILL-C license under French law and</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * abiding by the rules of distribution of free software.  You can  use,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * modify and/ or redistribute the software under the terms of the CeCILL-C</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * license as circulated by CEA, CNRS and INRIA at the following URL</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * &quot;http://www.cecill.info&quot;.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * As a counterpart to the access to the source code and  rights to copy,</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> * modify and redistribute granted by the license, users are provided only</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> * with a limited warranty  and the software&#39;s author,  the holder of the</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> * economic rights,  and the successive licensors  have only  limited</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> * liability.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * In this respect, the user&#39;s attention is drawn to the risks associated</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> * with loading,  using,  modifying and/or developing or reproducing the</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> * software by the user in light of its specific status of free software,</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * that may mean  that it is complicated to manipulate,  and  that  also</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * therefore means  that it is reserved for developers  and  experienced</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * professionals having in-depth computer knowledge. Users are therefore</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * encouraged to load and test the software&#39;s suitability as regards their</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * requirements in conditions enabling the security of their systems and/or</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * data to be ensured and,  more generally, to use and operate it in the</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * same conditions as regards security.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * The fact that you are presently reading this means that you have had</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * knowledge of the CeCILL-C license and that you accept its terms.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;tiffio.h&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;zlib.h&gt;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;jpeglib.h&gt;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &quot;<a class="code" href="Image_8h.html">rok4/image/Image.h</a>&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &quot;<a class="code" href="Format_8h.html">rok4/enums/Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &quot;<a class="code" href="Context_8h.html">rok4/storage/Context.h</a>&quot;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classRok4Image.html">   78</a></span><span class="keyword">class </span><a class="code hl_class" href="classRok4Image.html">Rok4Image</a> : <span class="keyword">public</span> <a class="code hl_class" href="classImage.html">Image</a> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::string name;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_class" href="classContext.html">Context</a>* context;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">int</span> tiles_widthwise;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">int</span> tiles_heightwise;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">int</span> tiles_count;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">    /******* Pour l&#39;écriture *******/</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    uint32_t position;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    uint32_t *tiles_offsets;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    uint32_t *tiles_sizes;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordtype">bool</span> write_header();</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">bool</span> write_final();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordtype">bool</span> prepare_buffers();</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">bool</span> clear_buffers();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">    /**************************** VECTEUR (Ecriture uniquement) ****************************/</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">bool</span> is_vector;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">    /**************************** RASTER (Lecture et écriture) ****************************/</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_enumeration" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> photometric;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <a class="code hl_enumeration" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> extra_sample;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <a class="code hl_enumeration" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> compression;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sample_format;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">int</span> pixel_size;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">int</span> tile_width;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordtype">int</span> tile_height;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">    /******* Pour la lecture *******/</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordtype">int</span> raw_tile_line_size;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">int</span> raw_tile_size;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    uint8_t *memorized_tiles;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordtype">int</span> memorized_tiles_line;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordtype">boolean</span> memorize_raw_tiles ( <span class="keywordtype">int</span> tilesLine );</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordtype">bool</span> load_index();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">size_t</span> compute_raw_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordtype">size_t</span> compute_jpeg_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordtype">size_t</span> compute_lzw_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordtype">size_t</span> compute_pkb_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordtype">size_t</span> compute_png_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordtype">size_t</span> compute_zip_tile ( uint8_t *buffer, uint8_t *data );</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="keywordtype">int</span> _getline ( T* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="comment">    /******* Pour l&#39;écriture *******/</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordtype">size_t</span> buffer_size;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    uint8_t* buffer;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    uint8_t* zip_buffer;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    z_stream zstream;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    </div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keyword">struct </span>jpeg_compress_struct cinfo;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keyword">struct </span>jpeg_error_mgr jerr;</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span> </div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="keywordtype">bool</span> write_tile ( <span class="keywordtype">int</span> tileInd, uint8_t *data );</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    <span class="keywordtype">bool</span> write_tile( <span class="keywordtype">int</span> tileInd, <span class="keywordtype">char</span>* pbfpath ) ;</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span> </div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>    <a class="code hl_class" href="classRok4Image.html">Rok4Image</a> (</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>, <a class="code hl_class" href="classBoundingBox.html">BoundingBox&lt; double &gt;</a> <a class="code hl_variable" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, std::string name,</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>        <a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sample_format, <a class="code hl_enumeration" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> photometric, <a class="code hl_enumeration" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> compression, <a class="code hl_enumeration" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> es,</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>        <span class="keywordtype">int</span> tile_width, <span class="keywordtype">int</span> tile_height,</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>        <a class="code hl_class" href="classContext.html">Context</a>* context</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>    );</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>    <a class="code hl_class" href="classRok4Image.html">Rok4Image</a> ( std::string name, <span class="keywordtype">int</span> tilePerWidth, <span class="keywordtype">int</span> tilePerHeight, <a class="code hl_class" href="classContext.html">Context</a>* context );</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    </div>
+<div class="foldopen" id="foldopen00468" data-start="{" data-end="}">
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno"><a class="line" href="classRok4Image.html#a14c07392cac16e13d550c81ddc69a3bc">  468</a></span>    <span class="keyword">inline</span> <a class="code hl_enumeration" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> <a class="code hl_function" href="classRok4Image.html#a14c07392cac16e13d550c81ddc69a3bc">get_extra_sample</a>() {</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>        <span class="keywordflow">return</span> extra_sample;</div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>    }</div>
+</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>    </div>
+<div class="foldopen" id="foldopen00478" data-start="{" data-end="}">
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno"><a class="line" href="classRok4Image.html#a43ad9d6cbc451a75ea2c2ee01e06b357">  478</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classRok4Image.html#a43ad9d6cbc451a75ea2c2ee01e06b357">set_extra_sample</a>(<a class="code hl_enumeration" href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a> es) {</div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>        extra_sample = es;</div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00489" data-start="{" data-end="}">
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno"><a class="line" href="classRok4Image.html#a8b40919941e091af0758d3a8678b8eb7">  489</a></span>    <span class="keyword">inline</span> <a class="code hl_enumeration" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> <a class="code hl_function" href="classRok4Image.html#a8b40919941e091af0758d3a8678b8eb7">get_compression</a>() {</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>        <span class="keywordflow">return</span> compression;</div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>    }</div>
+</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span> </div>
+<div class="foldopen" id="foldopen00501" data-start="{" data-end="}">
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno"><a class="line" href="classRok4Image.html#ae82133bb6586b89dd2b551b228e1382c">  501</a></span>    <span class="keyword">inline</span> <a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> <a class="code hl_function" href="classRok4Image.html#ae82133bb6586b89dd2b551b228e1382c">get_sample_format</a>() {</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>        <span class="keywordflow">return</span> sample_format;</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    }</div>
+</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    </div>
+<div class="foldopen" id="foldopen00513" data-start="{" data-end="}">
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno"><a class="line" href="classRok4Image.html#a5c98070a2580912046987baaaf79fc59">  513</a></span>    <span class="keyword">inline</span> <a class="code hl_enumeration" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> <a class="code hl_function" href="classRok4Image.html#a5c98070a2580912046987baaaf79fc59">get_photometric</a>() {</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>        <span class="keywordflow">return</span> photometric;</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    }</div>
+</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
+<div class="foldopen" id="foldopen00523" data-start="{" data-end="}">
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno"><a class="line" href="classRok4Image.html#a8dba13ae814b04f993348d3aabc5aa24">  523</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a8dba13ae814b04f993348d3aabc5aa24">get_raw_tile_size</a>() {</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        <span class="keywordflow">return</span> raw_tile_size;</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    }</div>
+</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span> </div>
+<div class="foldopen" id="foldopen00535" data-start="{" data-end="}">
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno"><a class="line" href="classRok4Image.html#adb5d1f87c3fc69da800e00a366b429f0">  535</a></span>    <a class="code hl_function" href="classRok4Image.html#adb5d1f87c3fc69da800e00a366b429f0">~Rok4Image</a>() {</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        <span class="keywordflow">if</span> (! is_vector) {</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>            <span class="keyword">delete</span>[] memorized_tiles;</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        }</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        <span class="keyword">delete</span>[] tiles_offsets;</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        <span class="keyword">delete</span>[] tiles_sizes;</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    }</div>
+</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span> </div>
+<div class="foldopen" id="foldopen00549" data-start="{" data-end="}">
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="classRok4Image.html#a4beff34b10b0ff4a2cbceff65c33482c">  549</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classRok4Image.html#a4beff34b10b0ff4a2cbceff65c33482c">print</a>() {</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;---------- Rok4Image ------------&quot;</span> ;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        <a class="code hl_function" href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a>();</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Compression : &quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Compression::to_string</a> ( compression ) ;</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Photometric : &quot;</span> &lt;&lt; <a class="code hl_function" href="namespacePhotometric.html#a67391ad90ddc951ac578af0d394825d7">Photometric::to_string</a> ( photometric ) ;</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Sample format : &quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceSampleFormat.html#a11e6d01a832f12672ee97073d37888ad">SampleFormat::to_string</a> ( sample_format ) ;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- tile width = &quot;</span> &lt;&lt; tile_width &lt;&lt; <span class="stringliteral">&quot;, tile height = &quot;</span> &lt;&lt; tile_height ;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;\t- Image name : &quot;</span> &lt;&lt; name ;</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        BOOST_LOG_TRIVIAL(info) &lt;&lt;  <span class="stringliteral">&quot;&quot;</span> ;</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    }</div>
+</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span><span class="comment">    /**************************** Pour la lecture ****************************/</span></div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a7d7b29514bb811b04087b5588f28a1f8">get_line</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a7d7b29514bb811b04087b5588f28a1f8">get_line</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a7d7b29514bb811b04087b5588f28a1f8">get_line</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line );</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span> </div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span><span class="comment">    /**************************** Pour l&#39;écriture ****************************/</span></div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span> </div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#ad7198edbbe99665ca7a4432ec3ecd4dc">write_image</a> ( <a class="code hl_class" href="classImage.html">Image</a>* pIn );</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span> </div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a402eb98d62188c4790e178bed192c7b0">writePbfTiles</a> ( <span class="keywordtype">int</span> ulTileCol, <span class="keywordtype">int</span> ulTileRow, <span class="keywordtype">char</span>* rootDirectory );</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
+<div class="foldopen" id="foldopen00596" data-start="{" data-end="}">
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno"><a class="line" href="classRok4Image.html#ab44672d17aa564a0bc41bc78d9338831">  596</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#ab44672d17aa564a0bc41bc78d9338831">write_image</a> ( uint8_t* buffer ) {</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image from a buffer&quot;</span> ;</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    }</div>
+</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span> </div>
+<div class="foldopen" id="foldopen00608" data-start="{" data-end="}">
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno"><a class="line" href="classRok4Image.html#a1e53138e19485490d936f447ef059d6b">  608</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a1e53138e19485490d936f447ef059d6b">write_image</a> ( uint16_t* buffer ) {</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image from a buffer&quot;</span> ;</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    }</div>
+</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span> </div>
+<div class="foldopen" id="foldopen00620" data-start="{" data-end="}">
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno"><a class="line" href="classRok4Image.html#a1755540203987d35c38a58671eb2eabd">  620</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a1755540203987d35c38a58671eb2eabd">write_image</a> ( <span class="keywordtype">float</span>* buffer ) {</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image from a buffer&quot;</span> ;</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    }</div>
+</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span> </div>
+<div class="foldopen" id="foldopen00633" data-start="{" data-end="}">
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno"><a class="line" href="classRok4Image.html#a1cb84ed4f8104e0fda1eb0fd9e7e5b2c">  633</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a1cb84ed4f8104e0fda1eb0fd9e7e5b2c">write_line</a> ( uint8_t* buffer, <span class="keywordtype">int</span> line ) {</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image line by line&quot;</span> ;</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    }</div>
+</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span> </div>
+<div class="foldopen" id="foldopen00646" data-start="{" data-end="}">
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno"><a class="line" href="classRok4Image.html#aa8760d0c7ca276dcd06c0c188d62057c">  646</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#aa8760d0c7ca276dcd06c0c188d62057c">write_line</a> ( uint16_t* buffer, <span class="keywordtype">int</span> line) {</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image line by line&quot;</span> ;</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    }</div>
+</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
+<div class="foldopen" id="foldopen00659" data-start="{" data-end="}">
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno"><a class="line" href="classRok4Image.html#a2896e9e297a8f3fb4dd1649e4145f723">  659</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classRok4Image.html#a2896e9e297a8f3fb4dd1649e4145f723">write_line</a> ( <span class="keywordtype">float</span>* buffer, <span class="keywordtype">int</span> line) {</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        BOOST_LOG_TRIVIAL(error) &lt;&lt;  <span class="stringliteral">&quot;Cannot write ROK4 image line by line&quot;</span> ;</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    }</div>
+</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span> </div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    <span class="keyword">static</span> <a class="code hl_class" href="classRok4Image.html">Rok4Image</a>* <a class="code hl_function" href="classRok4Image.html#a25eab380c5757635e66d6d2400348bd7">create_to_read</a> ( std::string name, <a class="code hl_class" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code hl_variable" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <a class="code hl_class" href="classContext.html">Context</a>* context );</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span> </div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keyword">static</span> <a class="code hl_class" href="classRok4Image.html">Rok4Image</a>* <a class="code hl_function" href="classRok4Image.html#a583150f1a7b73c9b6c5d125befb6427d">create_to_write</a> (</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        std::string name, <a class="code hl_class" href="classBoundingBox.html">BoundingBox&lt;double&gt;</a> <a class="code hl_variable" href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">bbox</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#afe29aeaf20398569b02db53e87b07707">resx</a>, <span class="keywordtype">double</span> <a class="code hl_variable" href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">resy</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">width</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">height</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">channels</a>,</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>        <a class="code hl_enumeration" href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a> sample_format, <a class="code hl_enumeration" href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a> photometric,</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        <a class="code hl_enumeration" href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a> compression, <span class="keywordtype">int</span> tile_width, <span class="keywordtype">int</span> tile_height, <a class="code hl_class" href="classContext.html">Context</a>* context</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    );</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <span class="keyword">static</span> <a class="code hl_class" href="classRok4Image.html">Rok4Image</a>* <a class="code hl_function" href="classRok4Image.html#a583150f1a7b73c9b6c5d125befb6427d">create_to_write</a> (</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        std::string name, <span class="keywordtype">int</span> tilePerWidth, <span class="keywordtype">int</span> tilePerHeight, <a class="code hl_class" href="classContext.html">Context</a>* context</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    );</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>};</div>
+</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span> </div>
+<div class="ttc" id="aContext_8h_html"><div class="ttname"><a href="Context_8h.html">Context.h</a></div><div class="ttdoc">Définition de la classe Context.</div></div>
+<div class="ttc" id="aFormat_8h_html"><div class="ttname"><a href="Format_8h.html">Format.h</a></div><div class="ttdoc">Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format.</div></div>
+<div class="ttc" id="aImage_8h_html"><div class="ttname"><a href="Image_8h.html">Image.h</a></div><div class="ttdoc">Définition de la classe abstraite Image, abstrayant les différents types d'images.</div></div>
+<div class="ttc" id="aclassBoundingBox_html"><div class="ttname"><a href="classBoundingBox.html">BoundingBox&lt; double &gt;</a></div></div>
+<div class="ttc" id="aclassContext_html"><div class="ttname"><a href="classContext.html">Context</a></div><div class="ttdoc">Création d'un contexte de stockage abstrait.</div><div class="ttdef"><b>Definition</b> Context.h:128</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdoc">Interface de manipulation d'images.</div><div class="ttdef"><b>Definition</b> Image.h:72</div></div>
+<div class="ttc" id="aclassImage_html_a3a792f6f0da13e8efa5e97d4cdbf0226"><div class="ttname"><a href="classImage.html#a3a792f6f0da13e8efa5e97d4cdbf0226">Image::bbox</a></div><div class="ttdeci">BoundingBox&lt; double &gt; bbox</div><div class="ttdoc">Emprise rectangulaire au sol de l'image.</div><div class="ttdef"><b>Definition</b> Image.h:102</div></div>
+<div class="ttc" id="aclassImage_html_a4f323615ceb17633e8db743839c00fe0"><div class="ttname"><a href="classImage.html#a4f323615ceb17633e8db743839c00fe0">Image::print</a></div><div class="ttdeci">virtual void print()</div><div class="ttdoc">Sortie des informations sur l'image.</div><div class="ttdef"><b>Definition</b> Image.h:684</div></div>
+<div class="ttc" id="aclassImage_html_a51df43db420c9c0b57536cb2dd36de5c"><div class="ttname"><a href="classImage.html#a51df43db420c9c0b57536cb2dd36de5c">Image::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Hauteur de l'image en pixel.</div><div class="ttdef"><b>Definition</b> Image.h:90</div></div>
+<div class="ttc" id="aclassImage_html_a73572ed4b7f15054c5a598c6aabffd86"><div class="ttname"><a href="classImage.html#a73572ed4b7f15054c5a598c6aabffd86">Image::channels</a></div><div class="ttdeci">int channels</div><div class="ttdoc">Nombre de canaux de l'image.</div><div class="ttdef"><b>Definition</b> Image.h:79</div></div>
+<div class="ttc" id="aclassImage_html_ab8d12f635013c04159cd4d3d972bac88"><div class="ttname"><a href="classImage.html#ab8d12f635013c04159cd4d3d972bac88">Image::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Largeur de l'image en pixel.</div><div class="ttdef"><b>Definition</b> Image.h:84</div></div>
+<div class="ttc" id="aclassImage_html_aef8f90faecc126e872d6412d8b4db27c"><div class="ttname"><a href="classImage.html#aef8f90faecc126e872d6412d8b4db27c">Image::resy</a></div><div class="ttdeci">double resy</div><div class="ttdoc">Resolution de l'image, dans le sens des Y.</div><div class="ttdef"><b>Definition</b> Image.h:125</div></div>
+<div class="ttc" id="aclassImage_html_afe29aeaf20398569b02db53e87b07707"><div class="ttname"><a href="classImage.html#afe29aeaf20398569b02db53e87b07707">Image::resx</a></div><div class="ttdeci">double resx</div><div class="ttdoc">Resolution de l'image, dans le sens des X.</div><div class="ttdef"><b>Definition</b> Image.h:120</div></div>
+<div class="ttc" id="aclassRok4Image_html"><div class="ttname"><a href="classRok4Image.html">Rok4Image</a></div><div class="ttdoc">Manipulation d'une image ROK4 Server.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:78</div></div>
+<div class="ttc" id="aclassRok4Image_html_a14c07392cac16e13d550c81ddc69a3bc"><div class="ttname"><a href="classRok4Image.html#a14c07392cac16e13d550c81ddc69a3bc">Rok4Image::get_extra_sample</a></div><div class="ttdeci">ExtraSample::eExtraSample get_extra_sample()</div><div class="ttdoc">Retourne le type du canal supplémentaire.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:468</div></div>
+<div class="ttc" id="aclassRok4Image_html_a1755540203987d35c38a58671eb2eabd"><div class="ttname"><a href="classRok4Image.html#a1755540203987d35c38a58671eb2eabd">Rok4Image::write_image</a></div><div class="ttdeci">int write_image(float *buffer)</div><div class="ttdoc">Ecrit une image ROK4, à partir d'un buffer de flottants.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:620</div></div>
+<div class="ttc" id="aclassRok4Image_html_a1cb84ed4f8104e0fda1eb0fd9e7e5b2c"><div class="ttname"><a href="classRok4Image.html#a1cb84ed4f8104e0fda1eb0fd9e7e5b2c">Rok4Image::write_line</a></div><div class="ttdeci">int write_line(uint8_t *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image ROK4, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:633</div></div>
+<div class="ttc" id="aclassRok4Image_html_a1e53138e19485490d936f447ef059d6b"><div class="ttname"><a href="classRok4Image.html#a1e53138e19485490d936f447ef059d6b">Rok4Image::write_image</a></div><div class="ttdeci">int write_image(uint16_t *buffer)</div><div class="ttdoc">Ecrit une image ROK4, à partir d'un buffer d'entiers 16 bits.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:608</div></div>
+<div class="ttc" id="aclassRok4Image_html_a25eab380c5757635e66d6d2400348bd7"><div class="ttname"><a href="classRok4Image.html#a25eab380c5757635e66d6d2400348bd7">Rok4Image::create_to_read</a></div><div class="ttdeci">static Rok4Image * create_to_read(std::string name, BoundingBox&lt; double &gt; bbox, double resx, double resy, Context *context)</div><div class="ttdoc">Crée un objet Rok4Image, pour la lecture.</div><div class="ttdef"><b>Definition</b> Rok4Image.cpp:240</div></div>
+<div class="ttc" id="aclassRok4Image_html_a2896e9e297a8f3fb4dd1649e4145f723"><div class="ttname"><a href="classRok4Image.html#a2896e9e297a8f3fb4dd1649e4145f723">Rok4Image::write_line</a></div><div class="ttdeci">int write_line(float *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image ROK4, à partir d'un buffer de flottants.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:659</div></div>
+<div class="ttc" id="aclassRok4Image_html_a402eb98d62188c4790e178bed192c7b0"><div class="ttname"><a href="classRok4Image.html#a402eb98d62188c4790e178bed192c7b0">Rok4Image::writePbfTiles</a></div><div class="ttdeci">int writePbfTiles(int ulTileCol, int ulTileRow, char *rootDirectory)</div><div class="ttdoc">Ecrit une dalle ROK4 vecteur, à partir des tuiles PBF.</div><div class="ttdef"><b>Definition</b> Rok4Image.cpp:841</div></div>
+<div class="ttc" id="aclassRok4Image_html_a43ad9d6cbc451a75ea2c2ee01e06b357"><div class="ttname"><a href="classRok4Image.html#a43ad9d6cbc451a75ea2c2ee01e06b357">Rok4Image::set_extra_sample</a></div><div class="ttdeci">void set_extra_sample(ExtraSample::eExtraSample es)</div><div class="ttdoc">Modifie le type du canal supplémentaire.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:478</div></div>
+<div class="ttc" id="aclassRok4Image_html_a4beff34b10b0ff4a2cbceff65c33482c"><div class="ttname"><a href="classRok4Image.html#a4beff34b10b0ff4a2cbceff65c33482c">Rok4Image::print</a></div><div class="ttdeci">void print()</div><div class="ttdoc">Sortie des informations sur l'image ROK4.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:549</div></div>
+<div class="ttc" id="aclassRok4Image_html_a583150f1a7b73c9b6c5d125befb6427d"><div class="ttname"><a href="classRok4Image.html#a583150f1a7b73c9b6c5d125befb6427d">Rok4Image::create_to_write</a></div><div class="ttdeci">static Rok4Image * create_to_write(std::string name, BoundingBox&lt; double &gt; bbox, double resx, double resy, int width, int height, int channels, SampleFormat::eSampleFormat sample_format, Photometric::ePhotometric photometric, Compression::eCompression compression, int tile_width, int tile_height, Context *context)</div><div class="ttdoc">Crée un objet Rok4Image, pour l'écriture.</div><div class="ttdef"><b>Definition</b> Rok4Image.cpp:400</div></div>
+<div class="ttc" id="aclassRok4Image_html_a5c98070a2580912046987baaaf79fc59"><div class="ttname"><a href="classRok4Image.html#a5c98070a2580912046987baaaf79fc59">Rok4Image::get_photometric</a></div><div class="ttdeci">Photometric::ePhotometric get_photometric()</div><div class="ttdoc">Retourne la photométrie des données image (rgb, gray...)</div><div class="ttdef"><b>Definition</b> Rok4Image.h:513</div></div>
+<div class="ttc" id="aclassRok4Image_html_a7d7b29514bb811b04087b5588f28a1f8"><div class="ttname"><a href="classRok4Image.html#a7d7b29514bb811b04087b5588f28a1f8">Rok4Image::get_line</a></div><div class="ttdeci">int get_line(uint8_t *buffer, int line)</div><div class="ttdoc">Retourne une ligne en entier 8 bits. Les canaux sont entrelacés. ATTENTION : si les données ne sont p...</div><div class="ttdef"><b>Definition</b> Rok4Image.cpp:636</div></div>
+<div class="ttc" id="aclassRok4Image_html_a8b40919941e091af0758d3a8678b8eb7"><div class="ttname"><a href="classRok4Image.html#a8b40919941e091af0758d3a8678b8eb7">Rok4Image::get_compression</a></div><div class="ttdeci">Compression::eCompression get_compression()</div><div class="ttdoc">Retourne la compression des données.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:489</div></div>
+<div class="ttc" id="aclassRok4Image_html_a8dba13ae814b04f993348d3aabc5aa24"><div class="ttname"><a href="classRok4Image.html#a8dba13ae814b04f993348d3aabc5aa24">Rok4Image::get_raw_tile_size</a></div><div class="ttdeci">int get_raw_tile_size()</div><div class="ttdoc">Retourne la taille d'une tuile brute (décompressée)</div><div class="ttdef"><b>Definition</b> Rok4Image.h:523</div></div>
+<div class="ttc" id="aclassRok4Image_html_aa8760d0c7ca276dcd06c0c188d62057c"><div class="ttname"><a href="classRok4Image.html#aa8760d0c7ca276dcd06c0c188d62057c">Rok4Image::write_line</a></div><div class="ttdeci">int write_line(uint16_t *buffer, int line)</div><div class="ttdoc">Ecrit une ligne d'image ROK4, à partir d'un buffer d'entiers 16 bits.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:646</div></div>
+<div class="ttc" id="aclassRok4Image_html_ab44672d17aa564a0bc41bc78d9338831"><div class="ttname"><a href="classRok4Image.html#ab44672d17aa564a0bc41bc78d9338831">Rok4Image::write_image</a></div><div class="ttdeci">int write_image(uint8_t *buffer)</div><div class="ttdoc">Ecrit une image ROK4, à partir d'un buffer d'entiers.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:596</div></div>
+<div class="ttc" id="aclassRok4Image_html_ad7198edbbe99665ca7a4432ec3ecd4dc"><div class="ttname"><a href="classRok4Image.html#ad7198edbbe99665ca7a4432ec3ecd4dc">Rok4Image::write_image</a></div><div class="ttdeci">int write_image(Image *pIn)</div><div class="ttdoc">Ecrit une image ROK4, à partir d'une image source.</div><div class="ttdef"><b>Definition</b> Rok4Image.cpp:724</div></div>
+<div class="ttc" id="aclassRok4Image_html_adb5d1f87c3fc69da800e00a366b429f0"><div class="ttname"><a href="classRok4Image.html#adb5d1f87c3fc69da800e00a366b429f0">Rok4Image::~Rok4Image</a></div><div class="ttdeci">~Rok4Image()</div><div class="ttdoc">Destructeur par défaut.</div><div class="ttdef"><b>Definition</b> Rok4Image.h:535</div></div>
+<div class="ttc" id="aclassRok4Image_html_ae82133bb6586b89dd2b551b228e1382c"><div class="ttname"><a href="classRok4Image.html#ae82133bb6586b89dd2b551b228e1382c">Rok4Image::get_sample_format</a></div><div class="ttdeci">SampleFormat::eSampleFormat get_sample_format()</div><div class="ttdoc">Retourne le format des canaux (entier, flottant)</div><div class="ttdef"><b>Definition</b> Rok4Image.h:501</div></div>
+<div class="ttc" id="anamespaceCompression_html_aae54011f247d7d047c7e60aa775fa6d0"><div class="ttname"><a href="namespaceCompression.html#aae54011f247d7d047c7e60aa775fa6d0">Compression::to_string</a></div><div class="ttdeci">std::string to_string(eCompression comp)</div><div class="ttdoc">Conversion d'une compression vers une chaîne de caractères.</div><div class="ttdef"><b>Definition</b> Format.cpp:86</div></div>
+<div class="ttc" id="anamespaceCompression_html_ab59ae0c9640db55b2cbed59310434030"><div class="ttname"><a href="namespaceCompression.html#ab59ae0c9640db55b2cbed59310434030">Compression::eCompression</a></div><div class="ttdeci">eCompression</div><div class="ttdoc">Énumération des compressions disponibles.</div><div class="ttdef"><b>Definition</b> Format.h:136</div></div>
+<div class="ttc" id="anamespaceExtraSample_html_a03cd3369209d3bb2f8991d613c392f94"><div class="ttname"><a href="namespaceExtraSample.html#a03cd3369209d3bb2f8991d613c392f94">ExtraSample::eExtraSample</a></div><div class="ttdeci">eExtraSample</div><div class="ttdoc">Énumération des types de canal supplémentaire.</div><div class="ttdef"><b>Definition</b> Format.h:240</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a2400cfa91cf2e98ca0cca9024b029203"><div class="ttname"><a href="namespacePhotometric.html#a2400cfa91cf2e98ca0cca9024b029203">Photometric::ePhotometric</a></div><div class="ttdeci">ePhotometric</div><div class="ttdoc">Énumération des photométries disponibles.</div><div class="ttdef"><b>Definition</b> Format.h:191</div></div>
+<div class="ttc" id="anamespacePhotometric_html_a67391ad90ddc951ac578af0d394825d7"><div class="ttname"><a href="namespacePhotometric.html#a67391ad90ddc951ac578af0d394825d7">Photometric::to_string</a></div><div class="ttdeci">std::string to_string(ePhotometric ph)</div><div class="ttdoc">Conversion d'une photométrie vers une chaîne de caractères.</div><div class="ttdef"><b>Definition</b> Format.cpp:115</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_a11e6d01a832f12672ee97073d37888ad"><div class="ttname"><a href="namespaceSampleFormat.html#a11e6d01a832f12672ee97073d37888ad">SampleFormat::to_string</a></div><div class="ttdeci">std::string to_string(eSampleFormat sf)</div><div class="ttdoc">Conversion d'une format du canal vers une chaîne de caractères.</div><div class="ttdef"><b>Definition</b> Format.cpp:173</div></div>
+<div class="ttc" id="anamespaceSampleFormat_html_ad788f42d581e9caded3e9b0f46c3ce1b"><div class="ttname"><a href="namespaceSampleFormat.html#ad788f42d581e9caded3e9b0f46c3ce1b">SampleFormat::eSampleFormat</a></div><div class="ttdeci">eSampleFormat</div><div class="ttdoc">Énumération des formats de canal disponibles.</div><div class="ttdef"><b>Definition</b> Format.h:78</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_128fc099d035536e093f6a644b1f5923.html">image</a></li><li class="navelem"><a class="el" href="dir_2b77f5eb02a4b727f4a4627193e2bb2a.html">file</a></li><li class="navelem"><a class="el" href="Rok4Image_8h.html">Rok4Image.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

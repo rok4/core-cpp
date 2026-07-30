@@ -1,0 +1,17 @@
+<map id="src/processors/Line.h" name="src/processors/Line.h">
+<area shape="rect" id="Node000001" title="Définition de la classe Line, permettant la manipulation et la conversion de lignes d&#39;image." alt="" coords="121,5,280,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,76,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,33,80,75,78,71,174,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="101,79,167,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,33,156,70,152,67,188,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="191,79,343,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="214,29,249,67,245,70,210,33"/>
+<area shape="rect" id="Node000005" href="$Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="367,79,463,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="236,28,368,72,367,77,234,33"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="285,152,351,177"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="401,106,347,146,344,141,398,102"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="375,152,455,177"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="418,104,418,138,413,138,413,104"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="480,152,551,177"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="433,102,489,142,486,146,430,106"/>
+</map>
