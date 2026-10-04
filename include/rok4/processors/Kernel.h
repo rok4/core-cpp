@@ -139,12 +139,13 @@ public:
      * \~french \brief Calcule la taille effective du noyau en nombre de pixels sources
      * \details On tient compte du ratio et de const_ratio
      * \param[in] ratio rapport resolution destination / resolution source.
+     * \param[in] ignore_const tient-on compte du ratio constant.
      * \li si supérieur à 1 : sous-échantillonnage
      * \li si inférieur à 1 : sur échantillonage
      * \return rayon effectif du noyau d'interpolation
      */
-    inline double size ( double ratio = 1. ) const {
-        if ( const_ratio || ratio <= 1 ) return kernel_size;
+    inline double size ( double ratio = 1., bool ignore_const = false) const {
+        if ( (const_ratio && ! ignore_const ) || ratio <= 1 ) return kernel_size;
         else return kernel_size * ratio;
     }
 
