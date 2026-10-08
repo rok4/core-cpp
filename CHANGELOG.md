@@ -8,8 +8,9 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ### Fixed
 
-- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits### Fixed
+- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
 - ReprojectedImage : le nombre de lignes sources mémorisées tient compte de la taille du noyau d'interpolation, du ratio en y (pour éviter de stocker 2 lignes différentes à la même place) et doit au moins contenir 4 lignes (car on calcule les lignes de destination 4 par 4 )
+- Level : augmentation du buffer de calcul lors d'une reprojection
 
 
 ## [4.1.0] - 2026-06-29

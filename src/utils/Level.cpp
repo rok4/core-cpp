@@ -383,8 +383,8 @@ Image* Level::getbbox ( unsigned int max_tile_x, unsigned int max_tile_y, Boundi
     const Kernel& kk = Kernel::get_instance ( interpolation ); // Lanczos_2
     double ratio_x = ( grid->bbox.xmax - grid->bbox.xmin ) / ( tm->get_res() *double ( width ) );
     double ratio_y = ( grid->bbox.ymax - grid->bbox.ymin ) / ( tm->get_res() *double ( height ) );
-    double bufx=kk.size ( ratio_x ) + 2.;
-    double bufy=kk.size ( ratio_y ) + 2.;
+    double bufx=kk.size ( ratio_x ) + 10.;
+    double bufy=kk.size ( ratio_y ) + 10.;
 
     // bufx<50?bufx=50:0;
     // bufy<50?bufy=50:0; // Pour etre sur de ne pas regresser
