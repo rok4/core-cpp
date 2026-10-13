@@ -516,7 +516,25 @@ Image* Level::getwindow ( unsigned int max_tile_x, unsigned int max_tile_y, Boun
     std::vector<std::vector<Image*> > T ( nby, std::vector<Image*> ( nbx ) );
     for ( int y = 0; y < nby; y++ ) {
         for ( int x = 0; x < nbx; x++ ) {
-            T[y][x] = get_tile ( tile_xmin + x, tile_ymin + y, left[x], top[y], right[x], bottom[y] );
+
+            try {
+                T[y][x] = get_tile ( tile_xmin + x, tile_ymin + y, left[x], top[y], right[x], bottom[y] );
+            } catch (StorageException& err) {
+                // Nettoyage des tuiles déjà lues
+
+                // Les lignes complètes
+                for ( int clean_y = 0; clean_y < y; clean_y++ ) {
+                    for ( int clean_x = 0; clean_x < nbx; clean_x++ ) {
+                        delete T[clean_y][clean_x];
+                    }
+                }
+                // La ligne en cours
+                for ( int clean_x = 0; clean_x < x; clean_x++ ) {
+                    delete T[y][clean_x];
+                }
+                throw;
+            }
+
         }
     }
 
@@ -630,8 +648,6 @@ Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom,
     if ( format==Rok4Format::TIFF_RAW_FLOAT32 || format == Rok4Format::TIFF_LZW_FLOAT32 || format == Rok4Format::TIFF_ZIP_FLOAT32 || format == Rok4Format::TIFF_PKB_FLOAT32 )
         pixel_size=4;
 
-    DataSource* ds = get_decoded_tile ( x,y );
-
     BoundingBox<double> bb ( 
         tm->get_x0() + x * tm->get_tile_width() * tm->get_res() + left * tm->get_res(),
         tm->get_y0() - ( y+1 ) * tm->get_tile_height() * tm->get_res() + bottom * tm->get_res(),
@@ -639,24 +655,34 @@ Image* Level::get_tile ( int x, int y, int left, int top, int right, int bottom,
         tm->get_y0() - y * tm->get_tile_height() * tm->get_res() - top * tm->get_res()
     );
 
-    if (ds == 0 && null_for_nodata) {
-        return NULL;
-    } else if (ds == 0) {
-        // On crée une image monochrome (valeur fournie dans la pyramide) de la taille qu'aurait du avoir la tuile demandée
-        EmptyImage* ei = new EmptyImage(
-            tm->get_tile_width() - left - right, // width
-            tm->get_tile_height() - top - bottom, // height
-            channels,
-            nodata_value
-        );
-        ei->set_bbox(bb);
-        return ei;
-    } else {
-        return new ImageDecoder (
-            ds, tm->get_tile_width(), tm->get_tile_height(), channels, bb,
-            left, top, right, bottom, pixel_size
-        );
+    try {
+        DataSource* ds = get_decoded_tile ( x,y );
+
+        if (ds == 0) {
+            throw NotFoundStorageException("");
+        } else {
+            return new ImageDecoder (
+                ds, tm->get_tile_width(), tm->get_tile_height(), channels, bb,
+                left, top, right, bottom, pixel_size
+            );
+        }
+
+    } catch (NotFoundStorageException& err) {
+        if (null_for_nodata) {
+            return NULL;
+        } else {
+            // On crée une image monochrome (valeur fournie dans la pyramide) de la taille qu'aurait du avoir la tuile demandée
+            EmptyImage* ei = new EmptyImage(
+                tm->get_tile_width() - left - right, // width
+                tm->get_tile_height() - top - bottom, // height
+                channels,
+                nodata_value
+            );
+            ei->set_bbox(bb);
+            return ei;
+        }
     }
+
 }
 
 TileMatrix* Level::get_tm () { return tm; }
