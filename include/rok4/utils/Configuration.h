@@ -112,7 +112,7 @@ class Configuration
 
             size_t idBegin=file.rfind ( "/" );
             if ( idBegin == std::string::npos ) {
-                idBegin=0;
+                idBegin=-1;
             }
             size_t idEnd=file.rfind ( extension );
             if ( idEnd == std::string::npos ) {

@@ -6,6 +6,20 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+
+## [3.1.2] - 2026-10-13
+
+### Fixed
+
+- ReprojectedImage : le nombre de lignes sources mémorisées tient compte de la taille du noyau d'interpolation, du ratio en y (pour éviter de stocker 2 lignes différentes à la même place) et doit au moins contenir 4 lignes (car on calcule les lignes de destination 4 par 4 )
+- Level : augmentation du buffer de calcul lors d'une reprojection
+
+## [3.1.1] - 2026-07-30
+
+### Fixed
+
+- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
+
 ## [3.1.0] - 2026-06-25
 
 ### Added
