@@ -292,7 +292,7 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
 
         CURL *curl = CurlPool::get_curl_env();
 
-        std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        std::string full_url = url + "/" + bucket_name + "/" + name;
 
         time_t current;
 
@@ -307,8 +307,8 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
 
         std::string content_type = "application/octet-stream";
         std::string resource = "/" + bucket_name + "/" + name;
-        std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-        std::string signature = getAuthorizationHeader(stringToSign);
+        std::string string_to_sign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(string_to_sign);
 
         // Constitution du header
 
@@ -337,7 +337,7 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
         list = curl_slist_append(list, auth);
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if (ssl_no_verify) {
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -362,7 +362,8 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot partially read S3 object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -371,13 +372,16 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
 
         long http_code = 0;
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-        if (http_code < 200 || http_code > 299) {
+        if (http_code == 404) {
+            throw NotFoundStorageException("Cannot found S3 object " + full_url);
+        } else if (http_code < 200 || http_code > 299) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot partially read S3 object " + full_url + ": " + std::to_string(http_code));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -389,9 +393,8 @@ int S3Context::read(uint8_t *data, int offset, int size, std::string name) {
         return chunk.size;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the S3 object " << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
-
-    return -1;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (S3Context::read)" ;
+    throw UnreachableStorageException("Cannot partially read S3 object");
 }
 
 uint8_t *S3Context::read_full(int &size, std::string name) {
@@ -411,7 +414,7 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
 
         CURL *curl = CurlPool::get_curl_env();
 
-        std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        std::string full_url = url + "/" + bucket_name + "/" + name;
 
         time_t current;
 
@@ -426,8 +429,8 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
 
         std::string content_type = "application/octet-stream";
         std::string resource = "/" + bucket_name + "/" + name;
-        std::string stringToSign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-        std::string signature = getAuthorizationHeader(stringToSign);
+        std::string string_to_sign = "GET\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(string_to_sign);
 
         // Constitution du header
 
@@ -452,7 +455,7 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
         list = curl_slist_append(list, auth);
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if (ssl_no_verify) {
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -475,7 +478,8 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to full read S3 object" << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot fully read S3 object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -484,13 +488,16 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
 
         long http_code = 0;
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-        if (http_code < 200 || http_code > 299) {
+        if (http_code == 404) {
+            throw NotFoundStorageException("Cannot found S3 object " + full_url);
+        } else if (http_code < 200 || http_code > 299) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to full read S3 object" << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot fully read S3 object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -503,9 +510,8 @@ uint8_t *S3Context::read_full(int &size, std::string name) {
         return data;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to full read S3 object" << bucket_name << "@" << ((cluster_name != "") ? cluster_name : host) << " / " << name << " after " << read_attempts << " tries" ;
-
-    return NULL;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (S3Context::read_full)" ;
+    throw UnreachableStorageException("Cannot fully read S3 object");
 }
 
 bool S3Context::write(uint8_t *data, int offset, int size, std::string name) {
@@ -600,7 +606,7 @@ bool S3Context::close_to_write(std::string name) {
         struct curl_slist *list = NULL;
         CURL *curl = CurlPool::get_curl_env();
 
-        std::string fullUrl = url + "/" + bucket_name + "/" + name;
+        std::string full_url = url + "/" + bucket_name + "/" + name;
 
         time_t current;
 
@@ -615,8 +621,8 @@ bool S3Context::close_to_write(std::string name) {
 
         std::string content_type = "application/octet-stream";
         std::string resource = "/" + bucket_name + "/" + name;
-        std::string stringToSign = "PUT\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-        std::string signature = getAuthorizationHeader(stringToSign);
+        std::string string_to_sign = "PUT\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+        std::string signature = getAuthorizationHeader(string_to_sign);
 
         // Constitution du header
 
@@ -644,7 +650,7 @@ bool S3Context::close_to_write(std::string name) {
         list = curl_slist_append(list, auth);
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if (ssl_no_verify) {
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -708,7 +714,7 @@ bool S3Context::exists(std::string name) {
 
     CURL *curl = CurlPool::get_curl_env();
 
-    std::string fullUrl = url + "/" + bucket_name + "/" + name;
+    std::string full_url = url + "/" + bucket_name + "/" + name;
 
     time_t current;
 
@@ -723,8 +729,8 @@ bool S3Context::exists(std::string name) {
 
     std::string content_type = "application/octet-stream";
     std::string resource = "/" + bucket_name + "/" + name;
-    std::string stringToSign = "HEAD\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
-    std::string signature = getAuthorizationHeader(stringToSign);
+    std::string string_to_sign = "HEAD\n\n" + content_type + "\n" + std::string(gmt_time) + "\n" + resource;
+    std::string signature = getAuthorizationHeader(string_to_sign);
 
     // Constitution du header
 
@@ -746,7 +752,7 @@ bool S3Context::exists(std::string name) {
     list = curl_slist_append(list, auth);
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
     curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
     if (ssl_no_verify) {

@@ -573,9 +573,11 @@ DataSource* Level::get_decoded_tile ( int x, int y ) {
     if (encoded_data == NULL) return 0;
 
     size_t size;
-    if (encoded_data->get_data ( size ) == NULL) {
+    try {
+        encoded_data->get_data ( size );
+    } catch (StorageException& err) {
         delete encoded_data;
-        return 0;
+        throw;
     }
 
     if ( format==Rok4Format::TIFF_RAW_UINT8 || format==Rok4Format::TIFF_RAW_FLOAT32 )
@@ -601,9 +603,12 @@ DataSource* Level::get_tile (int x, int y) {
     if (source == NULL) return NULL;
 
     size_t size;
-    if (source->get_data ( size ) == NULL) {
+
+    try {
+        source->get_data ( size );
+    } catch (StorageException& err) {
         delete source;
-        return NULL;
+        throw;
     }
 
     if ( format == Rok4Format::TIFF_RAW_UINT8 || format == Rok4Format::TIFF_LZW_UINT8 ||

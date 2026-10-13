@@ -54,6 +54,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <cstdint>
 #include <initializer_list>
 
 #ifdef _MSC_VER
