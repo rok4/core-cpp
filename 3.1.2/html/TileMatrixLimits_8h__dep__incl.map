@@ -1,0 +1,22 @@
+<map id="include/rok4/utils/TileMatrixLimits.h" name="include/rok4/utils/TileMatrixLimits.h">
+<area shape="rect" id="Node000001" title="Définition de la classe TileMatrixLimits gérant les indices extrêmes de tuiles pour un niveau." alt="" coords="39,5,183,45"/>
+<area shape="rect" id="Node000002" href="$Level_8h_source.html" title=" " alt="" coords="5,269,140,309"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,59,78,269,73,269,104,58"/>
+<area shape="rect" id="Node000004" href="$TileMatrix_8h.html" title="Définition de la classe TileMatrix gérant une matrice de tuiles représentant un niveau d&#39;une pyramide..." alt="" coords="123,93,257,133"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="140,54,175,91,171,95,136,57"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="155,274,163,280,167,290,159,302,141,308,140,303,156,298,161,289,159,284,152,279"/>
+<area shape="rect" id="Node000003" href="$Pyramid_8h_source.html" title=" " alt="" coords="36,357,171,397"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="78,322,91,356,86,358,73,323"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="98,345,85,311,90,309,103,343"/>
+<area shape="poly" id="edge6_Node000004_Node000002" title=" " alt="" coords="166,146,138,183,85,270,80,268,133,180,162,142"/>
+<area shape="rect" id="Node000005" href="$TileMatrixSet_8h_source.html" title=" " alt="" coords="148,181,283,221"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="202,146,212,180,207,182,197,147"/>
+<area shape="rect" id="Node000008" href="$TileMatrix_8cpp.html" title="Implémentation de la classe TileMatrix gérant une matrice de tuile représentant un niveau d&#39;une pyram..." alt="" coords="307,189,478,214"/>
+<area shape="poly" id="edge12_Node000004_Node000008" title=" " alt="" coords="248,136,367,186,365,191,246,141"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="210,236,197,273,178,311,155,337,131,359,127,355,151,334,173,308,192,271,205,234"/>
+<area shape="rect" id="Node000006" href="$TmsBook_8h.html" title="Définition de la classe TmsBook." alt="" coords="240,269,375,309"/>
+<area shape="poly" id="edge9_Node000005_Node000006" title=" " alt="" coords="247,229,289,267,285,271,244,233"/>
+<area shape="poly" id="edge10_Node000006_Node000003" title=" " alt="" coords="251,317,149,360,147,355,249,312"/>
+<area shape="rect" id="Node000007" href="$TmsBook_8cpp.html" title="Implémentation de la classe TmsBook." alt="" coords="225,365,390,390"/>
+<area shape="poly" id="edge11_Node000006_Node000007" title=" " alt="" coords="310,323,310,364,305,364,305,323"/>
+</map>

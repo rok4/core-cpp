@@ -1,0 +1,30 @@
+<map id="include/rok4/style/Aspect.h" name="include/rok4/style/Aspect.h">
+<area shape="rect" id="Node000001" title="Définition de la classe Aspect." alt="" coords="669,5,808,45"/>
+<area shape="rect" id="Node000002" href="$Configuration_8h_source.html" title=" " alt="" coords="375,93,561,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="675,48,521,92,520,87,673,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="512,240,571,265"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="749,45,758,76,763,115,761,156,755,176,745,194,729,210,711,224,669,242,625,252,585,255,585,250,624,247,667,237,708,219,726,206,741,190,750,174,756,155,758,115,752,77,743,47"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="579,167,731,192"/>
+<area shape="poly" id="edge13_Node000001_Node000007" title=" " alt="" coords="730,47,670,156,665,153,726,45"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="806,93,869,119"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="764,43,813,82,810,87,761,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="432,167,504,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="471,119,471,153,465,153,465,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="482,117,500,139,518,165,531,196,539,226,534,227,526,198,514,168,496,142,478,121"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,167,80,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="386,121,253,141,94,169,93,164,252,136,385,116"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="104,167,189,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="417,121,203,168,202,163,416,116"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="499,116,612,159,611,164,497,121"/>
+<area shape="rect" id="Node000008" href="$json11_8hpp_source.html" title=" " alt="" coords="213,167,408,192"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="444,121,350,163,348,159,442,116"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="349,189,499,236,498,241,347,195"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="111,240,174,265"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="285,194,184,237,182,232,283,190"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="199,240,249,265"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="298,194,250,233,247,229,295,190"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="273,240,351,265"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="314,192,314,226,309,227,308,192"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="375,240,486,265"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="331,190,400,230,398,235,329,194"/>
+</map>

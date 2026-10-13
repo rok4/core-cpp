@@ -1,0 +1,45 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="5,376,68,401"/>
+<area shape="rect" id="Node000001" href="$classCompoundImage.html" title=" " alt="" coords="147,5,280,31"/>
+<area shape="poly" id="edge33_Node000000_Node000001" title=" " alt="" coords="38,362,46,288,61,192,84,100,98,65,114,40,129,29,145,22,147,27,131,34,118,44,102,67,89,102,67,193,52,288,43,363"/>
+<area shape="rect" id="Node000002" href="$classDecimatedImage.html" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="146,55,281,80"/>
+<area shape="poly" id="edge34_Node000000_Node000002" title=" " alt="" coords="39,362,49,298,65,216,87,140,100,110,114,89,128,79,145,72,147,76,131,83,118,93,104,113,92,142,70,218,54,299,44,363"/>
+<area shape="rect" id="Node000003" href="$classEmptyImage.html" title="Création d&#39;une image monochrome, utile pour simulée une image source ou remplir de nodata." alt="" coords="161,104,266,129"/>
+<area shape="poly" id="edge35_Node000000_Node000003" title=" " alt="" coords="36,362,40,314,52,254,75,192,92,164,114,139,136,125,160,117,161,122,138,130,118,143,97,167,80,194,57,255,45,315,41,362"/>
+<area shape="rect" id="Node000004" href="$classExtendedCompoundImage.html" title="Manipulation d&#39;un paquet d&#39;images compatibles." alt="" coords="116,153,311,179"/>
+<area shape="poly" id="edge36_Node000000_Node000004" title=" " alt="" coords="38,361,45,323,59,276,81,229,96,207,114,188,132,177,135,181,118,192,100,210,86,231,64,278,50,324,43,362"/>
+<area shape="rect" id="Node000005" href="$classExtendedCompoundMask.html" title="Manipulation d&#39;un masque composé, s&#39;appuyant sur une image composée." alt="" coords="119,203,307,228"/>
+<area shape="poly" id="edge37_Node000000_Node000005" title=" " alt="" coords="42,362,66,299,87,266,114,237,134,226,137,230,118,241,91,269,71,302,47,364"/>
+<area shape="rect" id="Node000006" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="170,252,257,277"/>
+<area shape="poly" id="edge38_Node000000_Node000006" title=" " alt="" coords="49,362,76,323,94,303,115,286,141,274,169,266,171,272,143,279,117,291,97,307,80,326,53,365"/>
+<area shape="rect" id="Node000012" href="$classImageDecoder.html" title=" " alt="" coords="155,301,272,327"/>
+<area shape="poly" id="edge44_Node000000_Node000012" title=" " alt="" coords="64,365,115,336,154,323,155,328,117,340,67,370"/>
+<area shape="rect" id="Node000013" href="$classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions." alt="" coords="161,351,265,376"/>
+<area shape="poly" id="edge45_Node000000_Node000013" title=" " alt="" coords="81,380,161,368,162,373,82,385"/>
+<area shape="rect" id="Node000014" href="$classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné" alt="" coords="164,400,263,425"/>
+<area shape="poly" id="edge46_Node000000_Node000014" title=" " alt="" coords="82,392,164,403,163,409,81,397"/>
+<area shape="rect" id="Node000015" href="$classMirrorImage.html" title="Manipulation d&#39;une image miroir." alt="" coords="162,449,265,475"/>
+<area shape="poly" id="edge47_Node000000_Node000015" title=" " alt="" coords="68,407,117,434,163,449,161,454,115,439,66,412"/>
+<area shape="rect" id="Node000016" href="$classRawImage.html" title=" " alt="" coords="168,499,259,524"/>
+<area shape="poly" id="edge48_Node000000_Node000016" title=" " alt="" coords="54,412,80,449,98,468,117,484,142,496,168,503,167,508,140,501,115,488,94,472,76,453,49,415"/>
+<area shape="rect" id="Node000017" href="$classReprojectedImage.html" title="Manipulation d&#39;image reprojetée." alt="" coords="143,548,284,573"/>
+<area shape="poly" id="edge49_Node000000_Node000017" title=" " alt="" coords="47,413,72,474,92,506,118,533,144,547,141,552,114,537,88,510,67,477,42,415"/>
+<area shape="rect" id="Node000018" href="$classResampledImage.html" title="Manipulation d&#39;image réechantillonnée." alt="" coords="145,597,281,623"/>
+<area shape="poly" id="edge50_Node000000_Node000018" title=" " alt="" coords="44,414,51,452,64,498,86,544,101,565,118,583,146,599,144,603,114,587,96,568,81,546,59,500,46,454,38,415"/>
+<area shape="rect" id="Node000019" href="$classRok4Image.html" title="Manipulation d&#39;une image ROK4 Server." alt="" coords="165,647,261,672"/>
+<area shape="poly" id="edge51_Node000000_Node000019" title=" " alt="" coords="41,415,45,462,57,520,80,581,97,608,118,632,140,646,166,654,164,659,138,651,114,636,93,611,75,583,52,522,40,462,36,415"/>
+<area shape="rect" id="Node000020" href="$classStyledImage.html" title=" " alt="" coords="161,696,265,721"/>
+<area shape="poly" id="edge52_Node000000_Node000020" title=" " alt="" coords="44,415,54,479,70,559,92,635,104,663,118,683,138,696,162,703,160,709,136,701,114,687,100,666,87,636,65,561,49,480,39,415"/>
+<area shape="rect" id="Node000021" href="$classSubsampledImage.html" title="Décimation d&#39;une image, c&#39;est à dire qu&#39;on ne garde qu&#39;un seul pixel tous les N pixels." alt="" coords="142,745,285,771"/>
+<area shape="poly" id="edge53_Node000000_Node000021" title=" " alt="" coords="43,415,52,489,67,584,89,674,103,709,118,732,143,748,140,752,114,736,98,711,84,676,61,585,46,489,38,415"/>
+<area shape="rect" id="Node000007" href="$classBilzImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="387,153,473,179"/>
+<area shape="poly" id="edge39_Node000006_Node000007" title=" " alt="" coords="269,253,309,237,324,226,333,213,342,201,357,188,385,174,388,179,360,192,346,204,337,217,328,229,312,242,271,258"/>
+<area shape="rect" id="Node000008" href="$classLibjpegImage.html" title="Manipulation d&#39;une image JPEG." alt="" coords="375,203,485,228"/>
+<area shape="poly" id="edge40_Node000006_Node000008" title=" " alt="" coords="270,249,374,225,375,230,271,254"/>
+<area shape="rect" id="Node000009" href="$classLibopenjpegImage.html" title="Manipulation d&#39;une image JPEG2000, avec la librarie openjpeg." alt="" coords="359,252,501,277"/>
+<area shape="poly" id="edge41_Node000006_Node000009" title=" " alt="" coords="270,262,358,262,358,267,270,267"/>
+<area shape="rect" id="Node000010" href="$classLibpngImage.html" title="Manipulation d&#39;une image PNG." alt="" coords="377,301,483,327"/>
+<area shape="poly" id="edge42_Node000006_Node000010" title=" " alt="" coords="271,275,377,299,376,305,269,280"/>
+<area shape="rect" id="Node000011" href="$classLibtiffImage.html" title="Manipulation d&#39;une image TIFF." alt="" coords="380,351,480,376"/>
+<area shape="poly" id="edge43_Node000006_Node000011" title=" " alt="" coords="271,270,312,286,328,299,337,311,346,324,360,336,385,348,383,353,357,340,342,327,333,314,324,302,309,291,269,275"/>
+</map>
