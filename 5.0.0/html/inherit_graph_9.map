@@ -1,0 +1,15 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" href="$classDataSource.html" title=" " alt="" coords="5,145,103,171"/>
+<area shape="rect" id="Node000001" href="$classBufferedDataSource.html" title=" " alt="" coords="157,5,309,31"/>
+<area shape="poly" id="edge16_Node000000_Node000001" title=" " alt="" coords="67,132,101,86,123,62,149,41,175,28,177,33,152,46,127,66,105,89,72,135"/>
+<area shape="rect" id="Node000002" href="$classDataSourceDecoder.html" title=" " alt="" coords="152,55,315,95"/>
+<area shape="poly" id="edge17_Node000000_Node000002" title=" " alt="" coords="89,136,150,105,177,93,179,98,152,110,91,141"/>
+<area shape="rect" id="Node000003" href="$classPaletteDataSource.html" title=" " alt="" coords="162,120,305,145"/>
+<area shape="poly" id="edge18_Node000000_Node000003" title=" " alt="" coords="116,147,162,140,162,145,116,152"/>
+<area shape="rect" id="Node000004" href="$classRawDataSource.html" title=" " alt="" coords="171,169,296,195"/>
+<area shape="poly" id="edge19_Node000000_Node000004" title=" " alt="" coords="117,164,171,171,170,176,116,169"/>
+<area shape="rect" id="Node000005" href="$classStoreDataSource.html" title="Lecture d&#39;une source de données." alt="" coords="168,219,299,244"/>
+<area shape="poly" id="edge20_Node000000_Node000005" title=" " alt="" coords="91,175,152,204,187,216,185,221,150,208,89,180"/>
+<area shape="rect" id="Node000006" href="$classTiffHeaderDataSource.html" title=" " alt="" coords="151,268,316,293"/>
+<area shape="poly" id="edge21_Node000000_Node000006" title=" " alt="" coords="75,180,108,218,152,253,179,266,177,270,149,258,105,221,71,184"/>
+</map>
