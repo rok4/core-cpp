@@ -6,17 +6,13 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+## [5.0.0] - 2026-10-16
+
 ### Changed
 - `Storage` : les erreurs de lecture (`read` et `read_full`) sont remontées sous forme d'exception :
     - `NotFoundStorageException`
     - `UnreachableStorageException`
     - `ForbiddenStorageException`
-
-### Fixed
-
-- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
-- ReprojectedImage : le nombre de lignes sources mémorisées tient compte de la taille du noyau d'interpolation, du ratio en y (pour éviter de stocker 2 lignes différentes à la même place) et doit au moins contenir 4 lignes (car on calcule les lignes de destination 4 par 4 )
-- Level : augmentation du buffer de calcul lors d'une reprojection
 
 
 ## [4.1.0] - 2026-06-29
@@ -34,6 +30,18 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 - Correction de conversions au format API OGC (format et bbox)
 
+## [3.1.2] - 2026-10-13
+
+### Fixed
+
+- ReprojectedImage : le nombre de lignes sources mémorisées tient compte de la taille du noyau d'interpolation, du ratio en y (pour éviter de stocker 2 lignes différentes à la même place) et doit au moins contenir 4 lignes (car on calcule les lignes de destination 4 par 4 )
+- Level : augmentation du buffer de calcul lors d'une reprojection
+
+## [3.1.1] - 2026-07-30
+
+### Fixed
+
+- TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
 
 ## [3.1.0] - 2026-06-25
 
@@ -254,7 +262,8 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
 
 [1.0.3]: https://github.com/rok4/core-cpp/releases/tag/1.0.3
 
-[Unreleased]: https://github.com/rok4/core-cpp/compare/4.1.0...HEAD
+[Unreleased]: https://github.com/rok4/core-cpp/compare/5.0.0...HEAD
+[5.0.0]: https://github.com/rok4/core-cpp/compare/4.1.0...5.0.0
 [4.1.0]: https://github.com/rok4/core-cpp/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/rok4/core-cpp/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/rok4/core-cpp/compare/3.0.0...3.1.0
