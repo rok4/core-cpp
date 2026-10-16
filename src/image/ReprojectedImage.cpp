@@ -66,7 +66,10 @@ void ReprojectedImage::initialize () {
         use_masks = false;
     }
 
-    memorized_lines = 2*y_kernel_size + ceil ( grid->get_y_maximal_gap() );
+    memorized_lines = 2*(ceil ( 2 * kernel.size ( y_ratio, true ) )) + ceil ( grid->get_y_maximal_gap() );
+
+    // Comme les lignes sont calculées 4 par 4, il faut au moins 4 lignes source
+    if (memorized_lines < 4) memorized_lines = 4;
 
     /* -------------------- PLACE MEMOIRE ------------------- */
 

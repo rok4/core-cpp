@@ -93,15 +93,15 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
     if (tile_indice == -1) {
         // On a directement la taille et l'offset
         data = new uint8_t[wanted_size];
-        int read_size = context->read(data, offset, wanted_size, name);
-        if (read_size < 0) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot read " << context->get_path(name) << " from size and offset" ;
+        try {
+            int read_size = context->read(data, offset, wanted_size, name);
+            tile_size = read_size;
+            size = tile_size;
+        } catch (StorageException& err) {
             delete[] data;
             data = NULL;
-            return NULL;
+            throw;
         }
-        tile_size = read_size;
-        size = tile_size;
     } else {
         // Nous n'avons pas les infos de taille et d'offset pour la tuile, nous allons devoir les récupérer lire
         // On va regarder si on n'a pas nos informations dans le cache
@@ -114,29 +114,30 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
             // Rien de valide dans le cache, on va lire l'index de la dalle
             BOOST_LOG_TRIVIAL(debug) << "pas de cache";
 
-            std::string originalFullName (full_name);
-            std::string originalTrayName (context->get_tray());
+            std::string original_full_name (full_name);
+            std::string original_tray_name (context->get_tray());
 
-            int headerIndexSize = ROK4_IMAGE_HEADER_SIZE + 2 * 4 * tiles_number;
-            uint8_t* indexheader = new uint8_t[headerIndexSize];
-            int realSize = context->read(indexheader, 0, headerIndexSize, name);
+            int header_index_size = ROK4_IMAGE_HEADER_SIZE + 2 * 4 * tiles_number;
+            uint8_t* index_header = new uint8_t[header_index_size];
+            int real_size;
 
-            if ( realSize < 0) {
-                BOOST_LOG_TRIVIAL(error) << "Cannot read header and index of slab " << full_name ;
-                delete[] indexheader;
-                return NULL;
+            try {
+                real_size = context->read(index_header, 0, header_index_size, name);
+            } catch (StorageException& err) {
+                delete[] index_header;
+                throw;
             }
 
-            if ( realSize < headerIndexSize ) {
+            if ( real_size < header_index_size ) {
 
                 // On a lu moins que ce qu'on voulait : 
                 //      - soit c'est une dalle symbolique, ce qu'on va confirmer via la signature
                 //      - soit c'est une dalle cassée
 
                 // Dans le cas d'un header de type objet lien, on verifie d'abord que la signature concernée est bien presente dans le header de l'objet
-                if ( realSize < ROK4_SYMLINK_SIGNATURE_SIZE || strncmp((char*) indexheader, ROK4_SYMLINK_SIGNATURE, ROK4_SYMLINK_SIGNATURE_SIZE) != 0 ) {
+                if ( real_size < ROK4_SYMLINK_SIGNATURE_SIZE || strncmp((char*) index_header, ROK4_SYMLINK_SIGNATURE, ROK4_SYMLINK_SIGNATURE_SIZE) != 0 ) {
                     BOOST_LOG_TRIVIAL(error) << "Read data in " << full_name  << " is neither an header and an index (too small) nor a link (no signature)";
-                    delete[] indexheader;
+                    delete[] index_header;
                     return NULL;
                 }
 
@@ -144,10 +145,10 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
 
                 BOOST_LOG_TRIVIAL(debug) << "dalle symbolique";
 
-                char tmpName[realSize-ROK4_SYMLINK_SIGNATURE_SIZE+1];
-                memcpy((uint8_t*) tmpName, indexheader+ROK4_SYMLINK_SIGNATURE_SIZE,realSize-ROK4_SYMLINK_SIGNATURE_SIZE);
-                tmpName[realSize-ROK4_SYMLINK_SIGNATURE_SIZE] = '\0';
-                full_name = std::string (tmpName);
+                char tmp_name[real_size-ROK4_SYMLINK_SIGNATURE_SIZE+1];
+                memcpy((uint8_t*) tmp_name, index_header+ROK4_SYMLINK_SIGNATURE_SIZE,real_size-ROK4_SYMLINK_SIGNATURE_SIZE);
+                tmp_name[real_size-ROK4_SYMLINK_SIGNATURE_SIZE] = '\0';
+                full_name = std::string (tmp_name);
                 name = full_name;
 
 
@@ -162,7 +163,7 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
                     std::string tray_name = token;
                     name.erase(0, tray_name.length() + 1);
 
-                    if (originalTrayName != tray_name) {
+                    if (original_tray_name != tray_name) {
                         // Récupération ou ajout du nouveau contexte de stockage
                         // On reprécise le contexte d'origine, pour utiliser le même cluster en cas S3
                         context = StoragePool::get_context(context->get_type(), tray_name, context);
@@ -174,27 +175,27 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
                     }
                 }
 
-                BOOST_LOG_TRIVIAL(debug) <<  "Symbolic slab detected : " << originalFullName << " -> " << full_name ;
+                BOOST_LOG_TRIVIAL(debug) <<  "Symbolic slab detected : " << original_full_name << " -> " << full_name ;
 
-                int realSize = context->read(indexheader, 0, headerIndexSize, name);
-
-                if ( realSize < 0) {
-                    BOOST_LOG_TRIVIAL(error) << "Cannot read header and index of slab " << full_name ;
-                    delete[] indexheader;
-                    return NULL;
+                try {
+                    real_size = context->read(index_header, 0, header_index_size, name);
+                } catch (StorageException& err) {
+                    delete[] index_header;
+                    throw;
                 }
-                if ( realSize < headerIndexSize ) {
-                    BOOST_LOG_TRIVIAL(error) << "Read data in slab " << full_name << " (referenced by " << originalFullName << ") is too small to be an header and an index";
-                    delete[] indexheader;
+                
+                if ( real_size < header_index_size ) {
+                    BOOST_LOG_TRIVIAL(error) << "Read data in slab " << full_name << " (referenced by " << original_full_name << ") is too small to be an header and an index";
+                    delete[] index_header;
                     return NULL;
                 }
 
             }
 
-            IndexCache::add_slab_infos(originalFullName, context, name, tiles_number, indexheader + ROK4_IMAGE_HEADER_SIZE, indexheader + ROK4_IMAGE_HEADER_SIZE + 4 * tiles_number);
-            offset = *((uint32_t*) (indexheader + ROK4_IMAGE_HEADER_SIZE + 4 * tile_indice ));
-            wanted_size = *((uint32_t*) (indexheader + ROK4_IMAGE_HEADER_SIZE + 4 * tiles_number + 4 * tile_indice ));
-            delete[] indexheader;
+            IndexCache::add_slab_infos(original_full_name, context, name, tiles_number, index_header + ROK4_IMAGE_HEADER_SIZE, index_header + ROK4_IMAGE_HEADER_SIZE + 4 * tiles_number);
+            offset = *((uint32_t*) (index_header + ROK4_IMAGE_HEADER_SIZE + 4 * tile_indice ));
+            wanted_size = *((uint32_t*) (index_header + ROK4_IMAGE_HEADER_SIZE + 4 * tiles_number + 4 * tile_indice ));
+            delete[] index_header;
         }
 
         if ( wanted_size == 0 ) {
@@ -205,11 +206,13 @@ const uint8_t* StoreDataSource::get_data ( size_t &tile_size ) {
 
         // Lecture de la tuile
         data = new uint8_t[wanted_size];
-        if (context->read(data, offset, wanted_size, name) < 0) {
+
+        try {
+            context->read(data, offset, wanted_size, name);
+        } catch (StorageException& err) {
             delete[] data;
             data = NULL;
-            BOOST_LOG_TRIVIAL(error) <<  "Erreur lors de la lecture de la tuile dans l'objet " << full_name ;
-            return NULL;
+            throw;
         }
 
         tile_size = wanted_size;

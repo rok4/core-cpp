@@ -64,6 +64,8 @@ class TiffLZWEncoder : public TiffEncoder {
             } else {
                 memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_GRAY, header_size);
             }
+        else if (image->get_channels() == 2)
+            memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_GRAYA, header_size);
         else if (image->get_channels() == 3)
             memcpy(header, TiffHeader::TIFF_HEADER_LZW_INT8_RGB, header_size);
         else if (image->get_channels() == 4)

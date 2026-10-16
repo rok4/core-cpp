@@ -143,7 +143,7 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
     }
 
     int size = -1;
-    uint8_t* data;
+    uint8_t* data = NULL;
 
     // On supprime l'extension JSON si elle est dans le chemin, on testera avec dans un deuxième temps
     size_t pos = fo_name.rfind ( ".json" );
@@ -151,14 +151,20 @@ TileMatrixSet::TileMatrixSet(std::string path) : Configuration(path) {
         fo_name = fo_name.erase (pos, 5);
     }
 
-    if (context->exists(fo_name)) {
-        data = context->read_full(size, fo_name);
-    } else if (context->exists(fo_name + ".json")) {
-        data = context->read_full(size, fo_name + ".json");
-    } else {
+    try {
+        if (context->exists(fo_name)) {
+            data = context->read_full(size, fo_name);
+        } else if (context->exists(fo_name + ".json")) {
+            data = context->read_full(size, fo_name + ".json");
+        } else {
+            error_message = "Cannot read TMS "  + path + ", with or without extension .json";
+            return;
+        }
+    } catch (StorageException err) {
         error_message = "Cannot read TMS "  + path + ", with or without extension .json";
+        if (data != NULL) delete[] data;
         return;
-    }
+    }  
 
     std::string err;
     json11::Json doc = json11::Json::parse ( std::string((char*) data, size), err );

@@ -54,6 +54,8 @@
 #include <string.h>
 #include <sstream>
 
+#include "utils/Exception.h"
+
 #define ROK4_OBJECT_READ_ATTEMPTS "ROK4_OBJECT_READ_ATTEMPTS"
 #define ROK4_OBJECT_WRITE_ATTEMPTS "ROK4_OBJECT_WRITE_ATTEMPTS"
 #define ROK4_OBJECT_ATTEMPTS_WAIT "ROK4_OBJECT_ATTEMPTS_WAIT"
@@ -234,13 +236,19 @@ public:
      * \param[in] offset À partir d'où on veut lire
      * \param[in] size Nombre d'octet que l'on veut lire
      * \param[in] name Nom de l'objet que l'on veut lire
-     * \return Taille effectivement lue, un nombre négatif en cas d'erreur
+     * \return Taille effectivement lue
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      * \~english \brief Get the data in the named object
      * \param[in,out] data Buffer where to store read data. Have to be initialized
      * \param[in] offset From where we want to read
      * \param[in] size Number of bytes we want to read
      * \param[in] name Object's name we want to read
-     * \return Real size of read data, negative integer if an error occured
+     * \return Real size of read data
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      */
     virtual int read(uint8_t* data, int offset, int size, std::string name) = 0;
 
@@ -250,10 +258,16 @@ public:
      * \param[in,out] size Taille effectivement lue, un nombre négatif en cas d'erreur
      * \param[in] name Nom de l'objet que l'on veut lire
      * \return Buffer stockant la donnée lue.
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      * \~english \brief Get the data in the named object or file
      * \param[in,out] size Real size of read data, negative integer if an error occured
      * \param[in] name Object's name we want to read
      * \return Buffer where read data is stored.
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      */
     virtual uint8_t* read_full(int& size, std::string name) = 0;
 

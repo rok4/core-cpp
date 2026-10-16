@@ -246,15 +246,19 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
     
     StoreDataSource* sds = new StoreDataSource(name, c, 0, ROK4_IMAGE_HEADER_SIZE, "");
 
-    size_t tmpSize;
-    const uint8_t* hdr = sds->get_data(tmpSize);
-    if ( hdr == NULL ) {
+    size_t tmp_size;
+    const uint8_t* hdr;
+    
+    try {
+        hdr = sds->get_data(tmp_size);
+    } catch (StorageException err) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot read header of Rok4Image " << name ;
         return NULL;
     }
-    if ( tmpSize < ROK4_IMAGE_HEADER_SIZE ) {
 
-        BOOST_LOG_TRIVIAL(error) << tmpSize ;
+    if ( tmp_size < ROK4_IMAGE_HEADER_SIZE ) {
+
+        BOOST_LOG_TRIVIAL(error) << tmp_size ;
 
         // S'il s'agit potentiellement d'un objet lien, on verifie d'abord que la signature de ce type d'objet est bien presente dans le header
         if ( strncmp((char*) hdr, ROK4_SYMLINK_SIGNATURE, ROK4_SYMLINK_SIGNATURE_SIZE) != 0 ) {
@@ -263,13 +267,13 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
             return NULL;
         }
 
-        std::string originalName (name);
-        std::string originalTrayName (c->get_tray());
+        std::string original_name (name);
+        std::string original_tray_name (c->get_tray());
 
-        char tmpName[tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE+1];
-        memcpy((uint8_t*) tmpName, hdr+ROK4_SYMLINK_SIGNATURE_SIZE,tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE);
-        tmpName[tmpSize-ROK4_SYMLINK_SIGNATURE_SIZE] = '\0';
-        std::string full_name = std::string (tmpName);
+        char tmp_name[tmp_size-ROK4_SYMLINK_SIGNATURE_SIZE+1];
+        memcpy((uint8_t*) tmp_name, hdr+ROK4_SYMLINK_SIGNATURE_SIZE,tmp_size-ROK4_SYMLINK_SIGNATURE_SIZE);
+        tmp_name[tmp_size-ROK4_SYMLINK_SIGNATURE_SIZE] = '\0';
+        std::string full_name = std::string (tmp_name);
         delete sds;
 
         std::string tray_name;
@@ -284,7 +288,7 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
             name.erase(0, tray_name.length() + 1);
         }
 
-        if (originalTrayName != tray_name) {
+        if (original_tray_name != tray_name) {
             // Récupération ou ajout du nouveau contexte de stockage
             c = StoragePool::get_context(c->get_type(), tray_name);
             // Problème lors de l'ajout ou de la récupération de ce contexte de stockage
@@ -294,18 +298,19 @@ Rok4Image* Rok4Image::create_to_read ( std::string name, BoundingBox< double > b
             }
         }
 
-        BOOST_LOG_TRIVIAL(debug) <<  "Symbolic slab detected : " << originalName << " -> " << full_name ;
+        BOOST_LOG_TRIVIAL(debug) <<  "Symbolic slab detected : " << original_name << " -> " << full_name ;
 
         sds = new StoreDataSource(name, c, 0, ROK4_IMAGE_HEADER_SIZE, "");
-        hdr = sds->get_data(tmpSize);
-
-        if ( hdr == NULL) {
+        try {
+            hdr = sds->get_data(tmp_size);
+        } catch (StorageException err) {
             BOOST_LOG_TRIVIAL(error) <<  "Erreur lors de la lecture du header et de l'index dans l'objet/fichier " << name ;
             delete sds;
             return NULL;
         }
-        if ( tmpSize < ROK4_IMAGE_HEADER_SIZE ) {
-            BOOST_LOG_TRIVIAL(error) <<  "Erreur lors de la lecture : une dalle symbolique " << originalName << " référence une autre dalle symbolique " << name ;
+
+        if ( tmp_size < ROK4_IMAGE_HEADER_SIZE ) {
+            BOOST_LOG_TRIVIAL(error) <<  "Erreur lors de la lecture : une dalle symbolique " << original_name << " référence une autre dalle symbolique " << name ;
             delete sds;
             return NULL;
         }
@@ -531,17 +536,20 @@ boolean Rok4Image::memorize_raw_tiles ( int tilesLine )
     pour faire la lecture en une seule fois.
     Les tuiles ne sont pas parfaitement jointes sur le stockage, car les offset sont callées sur des multiples de 16
     */
-    int firstTileIndex = tilesLine * tiles_widthwise;
-    int firstTileOffset = tiles_offsets[firstTileIndex];
+    int first_tile_index = tilesLine * tiles_widthwise;
+    int first_tile_offset = tiles_offsets[first_tile_index];
 
-    int lastTileIndex = firstTileIndex + tiles_widthwise - 1;
-    int lastTileOffset = tiles_offsets[lastTileIndex];
-    int lastTileSize = tiles_sizes[lastTileIndex];
+    int last_tile_index = first_tile_index + tiles_widthwise - 1;
+    int last_tile_offset = tiles_offsets[last_tile_index];
+    int last_tile_size = tiles_sizes[last_tile_index];
 
-    StoreDataSource* totalDS = new StoreDataSource (name.c_str(), context, firstTileOffset, lastTileOffset - firstTileOffset + lastTileSize, "");
+    StoreDataSource* total_ds = new StoreDataSource (name.c_str(), context, first_tile_offset, last_tile_offset - first_tile_offset + last_tile_size, "");
     size_t total_size;
-    const uint8_t* enc_data = totalDS->get_data(total_size);
-    if (enc_data == NULL) {
+    const uint8_t* enc_data;
+
+    try {
+        enc_data = total_ds->get_data(total_size);
+    } catch (StorageException err) {
         BOOST_LOG_TRIVIAL(error) << "Cannot read tiles line data";
         return false;
     }
@@ -550,41 +558,42 @@ boolean Rok4Image::memorize_raw_tiles ( int tilesLine )
     for (size_t i = 0; i < tiles_widthwise; i++) {
         // Pour avoir l'offset de lecture de la tuile à décoder dans le buffer total, on utilise l'offset dans la dalle, 
         // en déduisant l'offset de la première tuile (qui correspond au 0 de notre buffer total)
-        RawDataSource* encDS = new RawDataSource ( enc_data + tiles_offsets[firstTileIndex + i] - firstTileOffset, tiles_sizes[firstTileIndex + i]);
+        RawDataSource* encoded_datasource = new RawDataSource ( enc_data + tiles_offsets[first_tile_index + i] - first_tile_offset, tiles_sizes[first_tile_index + i]);
 
-        DataSource* decDS;
-        size_t tmpSize;
+        DataSource* decoded_datasource;
+        size_t tmp_size;
 
         if ( compression == Compression::NONE ) {
-            decDS = encDS;
+            decoded_datasource = encoded_datasource;
         }
         else if ( compression == Compression::JPEG ) {
-            decDS = new DataSourceDecoder<JpegDecoder> ( encDS );
+            decoded_datasource = new DataSourceDecoder<JpegDecoder> ( encoded_datasource );
         }
         else if ( compression == Compression::JPEG90 ) {
-            decDS = new DataSourceDecoder<JpegDecoder> ( encDS );
+            decoded_datasource = new DataSourceDecoder<JpegDecoder> ( encoded_datasource );
         }
         else if ( compression == Compression::LZW ) {
-            decDS = new DataSourceDecoder<LzwDecoder> ( encDS );
+            decoded_datasource = new DataSourceDecoder<LzwDecoder> ( encoded_datasource );
         }
         else if ( compression == Compression::PACKBITS ) {
-            decDS = new DataSourceDecoder<PackBitsDecoder> ( encDS );
+            decoded_datasource = new DataSourceDecoder<PackBitsDecoder> ( encoded_datasource );
         }
         else if ( compression == Compression::DEFLATE || compression == Compression::PNG ) {
             /* Avec une telle compression dans l'en-tête TIFF, on peut avoir :
              *       - des tuiles compressée en deflate (format "officiel")
              *       - des tuiles en PNG, format propre à ROK4
              * Pour distinguer les deux cas (pas le même décodeur), on va tester la présence d'un en-tête PNG */
-            const uint8_t* header = encDS->get_data(tmpSize);
+
+            const uint8_t* header = encoded_datasource->get_data(tmp_size);
             if (header == NULL) {
                 BOOST_LOG_TRIVIAL(error) <<  "Cannot read header to discrimine PNG and DEFLATE" ;
                 return false;
             }
             if (memcmp(PNG_HEADER, header, 8)) {
-                decDS = new DataSourceDecoder<DeflateDecoder> ( encDS );
+                decoded_datasource = new DataSourceDecoder<DeflateDecoder> ( encoded_datasource );
             } else {
                 compression = Compression::PNG;
-                decDS = new DataSourceDecoder<PngDecoder> ( encDS );
+                decoded_datasource = new DataSourceDecoder<PngDecoder> ( encoded_datasource );
             }
         }
         else {
@@ -592,21 +601,21 @@ boolean Rok4Image::memorize_raw_tiles ( int tilesLine )
             return false;
         }
 
-        const uint8_t* dec_data = decDS->get_data(tmpSize);
+        const uint8_t* dec_data = decoded_datasource->get_data(tmp_size);
         
-        if (! dec_data || tmpSize == 0) {
+        if (! dec_data || tmp_size == 0) {
             BOOST_LOG_TRIVIAL(error) << "Unable to decompress tile " << i << " of tiles- line " << tilesLine;
             return false;
-        } else if (tmpSize != raw_tile_size) {
-            BOOST_LOG_TRIVIAL(warning) << "Raw tile size should have been " << raw_tile_size << ", and not " << tmpSize;
+        } else if (tmp_size != raw_tile_size) {
+            BOOST_LOG_TRIVIAL(warning) << "Raw tile size should have been " << raw_tile_size << ", and not " << tmp_size;
         }
 
         memcpy(memorized_tiles + i * raw_tile_size, dec_data, raw_tile_size );
 
-        delete decDS;
+        delete decoded_datasource;
     }
 
-    delete totalDS;
+    delete total_ds;
 
     memorized_tiles_line = tilesLine;
     return true;
@@ -699,9 +708,17 @@ bool Rok4Image::load_index()
 
     StoreDataSource* sds = new StoreDataSource (name, context, ROK4_IMAGE_HEADER_SIZE, 2 * 4 * tiles_count, "");
 
-    size_t tmpSize;
-    uint32_t* index = (uint32_t*) sds->get_data(tmpSize);
-    if ( tmpSize !=  2 * 4 * tiles_count ) {
+    size_t tmp_size;
+    uint32_t* index;
+
+    try {
+        index = (uint32_t*) sds->get_data(tmp_size);
+    } catch (StorageException err) {
+        BOOST_LOG_TRIVIAL(error) <<  "Cannot read index of Rok4Image " << name ;
+        return false;
+    }
+
+    if ( tmp_size !=  2 * 4 * tiles_count ) {
         BOOST_LOG_TRIVIAL(error) <<  "Cannot read index of Rok4Image " << name ;
         return false;
     }

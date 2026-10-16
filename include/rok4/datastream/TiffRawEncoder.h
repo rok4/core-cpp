@@ -57,14 +57,16 @@ protected:
             } else {
             memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAY, header_size);
             }
+        else if ( image->get_channels()==2 )
+            memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_GRAYA, header_size);
         else if ( image->get_channels()==3 )
             memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGB, header_size);
         else if ( image->get_channels()==4 )
             memcpy( header, TiffHeader::TIFF_HEADER_RAW_INT8_RGBA, header_size);
-        * ( ( uint32_t* ) ( header+18 ) )  = image->get_width();
-        * ( ( uint32_t* ) ( header+30 ) )  = image->get_height();
-        * ( ( uint32_t* ) ( header+102 ) ) = image->get_height();
-        * ( ( uint32_t* ) ( header+114 ) ) = tmp_buffer_size ;
+        * ( ( uint32_t* ) ( header+18 ) )  = (uint32_t) image->get_width();
+        * ( ( uint32_t* ) ( header+30 ) )  = (uint32_t) image->get_height();
+        * ( ( uint32_t* ) ( header+102 ) ) = (uint32_t) image->get_height();
+        * ( ( uint32_t* ) ( header+114 ) ) = (uint32_t) tmp_buffer_size ;
     }
   
     virtual void prepare_buffer(){

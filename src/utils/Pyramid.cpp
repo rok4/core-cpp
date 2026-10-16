@@ -215,10 +215,13 @@ Pyramid::Pyramid(std::string path) : Configuration(path) {
         return;
     }
 
-    int size = -1;
-    uint8_t* data = context->read_full(size, fo_name);
 
-    if (size < 0) {
+
+    int size = -1;
+    uint8_t* data = NULL;
+    try {
+        data = context->read_full(size, fo_name);
+    } catch (StorageException err) {
         error_message = "Cannot read descriptor "  + path ;
         if (data != NULL) delete[] data;
         return;
