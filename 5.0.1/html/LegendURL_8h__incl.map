@@ -1,0 +1,23 @@
+<map id="include/rok4/utils/LegendURL.h" name="include/rok4/utils/LegendURL.h">
+<area shape="rect" id="Node000001" title="Définition de la classe LegendURL gérant les éléments de légendes des documents de capacités." alt="" coords="34,5,168,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="64,255,122,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,48,36,68,15,95,9,115,9,135,14,156,22,176,47,214,73,243,69,247,42,217,17,179,8,157,4,136,4,114,11,92,33,64,60,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="26,93,176,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="104,46,104,79,98,79,98,46"/>
+<area shape="rect" id="Node000004" href="$ResourceLocator_8h.html" title="Définition de la classe RessourceLocator gérant les liens vers les ressources externe dans les docume..." alt="" coords="200,101,407,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="147,43,265,93,263,98,144,48"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="284,128,196,184,117,248,114,243,193,179,282,124"/>
+<area shape="rect" id="Node000005" href="$json11_8hpp_source.html" title=" " alt="" coords="206,181,401,207"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="306,126,306,167,301,167,301,126"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="271,209,136,254,135,249,269,204"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="147,255,210,280"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="285,209,212,250,209,245,282,204"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="234,255,285,280"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="299,208,276,244,272,242,294,206"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="309,255,386,280"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="313,206,336,242,331,244,309,208"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="410,255,477,280"/>
+<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="327,204,410,246,408,251,325,209"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="502,255,612,280"/>
+<area shape="poly" id="edge11_Node000005_Node000010" title=" " alt="" coords="345,204,503,248,502,253,344,209"/>
+</map>

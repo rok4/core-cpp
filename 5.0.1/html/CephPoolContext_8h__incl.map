@@ -1,0 +1,24 @@
+<map id="src/storage/ceph/CephPoolContext.h" name="src/storage/ceph/CephPoolContext.h">
+<area shape="rect" id="Node000001" title="Définition de la classe CephPoolContext." alt="" coords="73,5,267,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,132,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,48,96,87,93,82,144,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="42,167,194,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,46,146,120,131,155,126,153,141,118,163,45"/>
+<area shape="rect" id="Node000004" href="$Context_8h.html" title="Définition de la classe Context." alt="" coords="305,93,443,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,43,332,86,330,91,218,48"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="334,121,173,166,172,160,332,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="218,167,269,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="354,121,278,162,275,158,352,116"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="293,167,364,192"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="369,120,346,157,341,154,364,118"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="388,167,451,192"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="384,118,407,154,402,157,379,120"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="475,167,545,192"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="397,116,477,158,475,163,395,121"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="570,167,645,192"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="412,116,558,160,556,165,411,121"/>
+<area shape="rect" id="Node000010" href="$Exception_8h.html" title="Définition de la gestion des exceptions." alt="" coords="669,167,799,192"/>
+<area shape="poly" id="edge10_Node000004_Node000010" title=" " alt="" coords="432,116,663,161,662,167,431,121"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="705,240,763,265"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="737,192,737,226,731,226,731,192"/>
+</map>

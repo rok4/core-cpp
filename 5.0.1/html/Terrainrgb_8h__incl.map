@@ -1,0 +1,34 @@
+<map id="include/rok4/style/Terrainrgb.h" name="include/rok4/style/Terrainrgb.h">
+<area shape="rect" id="Node000001" title="D�finition de la classe Terrainrgb." alt="" coords="737,5,875,45"/>
+<area shape="rect" id="Node000002" href="$Configuration_8h_source.html" title=" " alt="" coords="353,93,539,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="737,44,512,93,511,88,736,39"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="5,240,68,265"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="736,31,565,39,460,48,352,61,247,78,155,102,81,132,53,149,33,168,27,181,25,196,30,226,24,227,19,196,22,180,29,165,50,145,78,127,153,97,246,73,351,55,460,43,565,34,736,25"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="657,240,707,265"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="811,45,812,76,809,114,801,155,783,194,755,222,721,240,719,236,751,217,778,190,796,154,804,113,806,76,805,45"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="844,93,915,119"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="826,44,861,81,857,85,822,47"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="939,93,1014,119"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="848,43,940,85,938,90,846,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="43,167,115,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,121,135,169,129,170,128,165,133,164,384,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="123,240,182,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="353,121,250,140,208,153,180,169,170,181,163,196,156,227,151,225,158,194,165,178,176,165,205,148,249,134,352,115"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="409,167,483,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="449,119,449,153,443,153,443,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="507,167,593,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="464,116,523,156,520,161,461,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="617,167,769,192"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="486,116,640,160,639,165,485,121"/>
+<area shape="rect" id="Node000008" href="$json11_8hpp_source.html" title=" " alt="" coords="190,167,385,192"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="422,121,327,163,325,159,419,116"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="267,194,188,236,186,231,264,190"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="248,195,82,241,80,236,246,189"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="351,189,644,242,643,247,350,195"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="342,240,419,265"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="304,190,356,229,353,234,301,194"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="443,240,510,265"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="319,190,434,232,432,237,317,195"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="207,240,317,265"/>
+<area shape="poly" id="edge13_Node000008_Node000013" title=" " alt="" coords="286,193,273,228,268,226,281,191"/>
+</map>

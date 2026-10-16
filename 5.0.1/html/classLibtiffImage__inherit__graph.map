@@ -1,0 +1,7 @@
+<map id="LibtiffImage" name="LibtiffImage">
+<area shape="rect" id="Node000001" title="Manipulation d&#39;une image TIFF." alt="" coords="5,152,105,177"/>
+<area shape="rect" id="Node000002" href="$classFileImage.html" title="Manipulation d&#39;une image associée à un fichier." alt="" coords="12,79,99,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,118,58,152,53,152,53,118"/>
+<area shape="rect" id="Node000003" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="24,5,87,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,44,58,79,53,79,53,44"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="PNGEncoder" name="PNGEncoder">
+<area shape="rect" id="Node000001" title=" " alt="" coords="111,313,213,339"/>
+<area shape="rect" id="Node000002" href="$classDataStream.html" title=" " alt="" coords="5,211,105,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,243,152,311,148,315,76,247"/>
+<area shape="rect" id="Node000003" href="$classImage.html" title="Interface de manipulation d&#39;images." alt="" coords="236,211,299,236"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,250,254,271,240,291,221,306,201,316,199,311,219,301,236,287,249,269,258,248"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="314,214,322,217,325,224,317,232,299,234,299,229,315,227,320,223,318,221,312,219"/>
+<area shape="rect" id="Node000004" href="$classBoundingBox.html" title=" " alt="" coords="315,123,497,148"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="377,158,288,213,285,208,374,153"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="254,5,313,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="325,35,350,53,382,88,402,121,398,124,377,92,347,57,322,39"/>
+<area shape="rect" id="Node000008" href="$classConfiguration.html" title=" " alt="" coords="109,123,218,148"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="263,42,177,125,173,121,260,38"/>
+<area shape="rect" id="Node000006" href="$classCRS.html" title="Gestion des systèmes de référence." alt="" coords="242,123,290,148"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="269,162,270,210,264,210,264,162"/>
+<area shape="rect" id="Node000007" href="$classPalette.html" title=" " alt="" coords="130,211,197,236"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="166,250,165,313,159,313,160,250"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="166,162,166,210,161,210,161,162"/>
+</map>

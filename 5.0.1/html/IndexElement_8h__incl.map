@@ -1,0 +1,24 @@
+<map id="include/rok4/utils/IndexElement.h" name="include/rok4/utils/IndexElement.h">
+<area shape="rect" id="Node000001" title="Définition de la classe IndexElement." alt="" coords="173,5,307,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,157,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,48,105,159,102,155,218,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="182,167,245,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,46,220,153,215,153,234,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="269,167,339,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="251,45,296,153,291,155,246,47"/>
+<area shape="rect" id="Node000005" href="$Context_8h.html" title="Définition de la classe Context." alt="" coords="311,93,481,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="279,43,362,85,360,89,276,48"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="346,121,146,166,145,161,345,116"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="368,121,257,164,255,159,366,116"/>
+<area shape="poly" id="edge9_Node000005_Node000004" title=" " alt="" coords="383,121,331,160,328,156,380,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="712,167,763,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="465,116,571,136,699,164,698,169,570,141,464,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="363,167,434,192"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="399,119,400,153,395,153,394,119"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="459,167,533,192"/>
+<area shape="poly" id="edge10_Node000005_Node000008" title=" " alt="" coords="414,117,470,156,467,161,411,121"/>
+<area shape="rect" id="Node000009" href="$Exception_8h.html" title="Définition de la gestion des exceptions." alt="" coords="557,167,688,192"/>
+<area shape="poly" id="edge11_Node000005_Node000009" title=" " alt="" coords="433,116,574,160,572,165,432,121"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="593,240,652,265"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="625,192,625,226,620,226,620,192"/>
+</map>

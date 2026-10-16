@@ -1,0 +1,966 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('Utils_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier Utils.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec et sans instructions SSE2.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de Utils.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="Utils_8h__incl.png" border="0" usemap="#ainclude_2rok4_2utils_2Utils_8h" alt=""/></div>
+<map name="ainclude_2rok4_2utils_2Utils_8h" id="ainclude_2rok4_2utils_2Utils_8h">
+<area shape="rect" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="69,5,203,45"/>
+<area shape="rect" title=" " alt="" coords="5,93,72,119"/>
+<area shape="poly" title=" " alt="" coords="114,48,65,87,62,82,111,43"/>
+<area shape="rect" title=" " alt="" coords="96,93,176,119"/>
+<area shape="poly" title=" " alt="" coords="139,46,139,79,133,79,133,46"/>
+<area shape="rect" title=" " alt="" coords="201,93,271,119"/>
+<area shape="poly" title=" " alt="" coords="162,43,212,82,209,87,159,48"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="Utils_8h__dep__incl.png" border="0" usemap="#ainclude_2rok4_2utils_2Utils_8hdep" alt=""/></div>
+<map name="ainclude_2rok4_2utils_2Utils_8hdep" id="ainclude_2rok4_2utils_2Utils_8hdep">
+<area shape="rect" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="1101,5,1235,45"/>
+<area shape="rect" href="Decoder_8h_source.html" title=" " alt="" coords="1205,357,1384,397"/>
+<area shape="poly" title=" " alt="" coords="1182,57,1290,356,1285,358,1177,59"/>
+<area shape="rect" href="DecimatedImage_8h.html" title="Définition des classes DecimatedImage." alt="" coords="201,357,351,397"/>
+<area shape="poly" title=" " alt="" coords="1087,31,902,37,678,49,479,68,410,81,372,96,344,123,322,157,306,193,294,232,282,304,278,357,273,357,276,303,289,230,301,192,318,154,340,120,369,91,409,76,479,63,677,44,901,32,1086,26"/>
+<area shape="rect" href="DecimatedImage_8cpp.html" title="Implémentation des classes DecimatedImage, DecimatedMask." alt="" coords="144,453,373,478"/>
+<area shape="poly" title=" " alt="" coords="1087,31,911,36,693,48,482,67,396,80,331,96,270,112,216,127,195,137,179,152,169,172,165,200,165,291,169,346,176,369,190,396,215,427,243,450,240,454,212,431,186,399,171,371,164,347,160,291,160,200,164,170,175,148,192,133,214,122,268,107,330,91,395,75,481,62,692,42,911,31,1087,26"/>
+<area shape="rect" href="ExtendedCompoundImage_8h.html" title="Définition des classes ExtendedCompoundImage, ExtendedCompoundMask." alt="" coords="661,357,872,397"/>
+<area shape="poly" title=" " alt="" coords="1129,55,1072,95,986,169,904,244,787,359,783,355,900,240,982,165,1069,91,1125,51"/>
+<area shape="rect" href="ExtendedCompoundImage_8cpp.html" title="Implémentation des classes ExtendedCompoundImage, ExtendedCompoundMask." alt="" coords="661,445,883,485"/>
+<area shape="poly" title=" " alt="" coords="1087,38,951,58,874,73,799,91,731,113,676,139,655,153,640,168,630,184,627,200,627,291,628,347,635,370,651,396,681,423,717,443,714,448,678,428,647,399,630,372,623,348,621,291,621,200,625,182,636,164,652,149,674,134,730,108,798,86,873,68,950,53,1087,33"/>
+<area shape="rect" href="SubsampledImage_8h.html" title="Définition des classes SubsampledImage." alt="" coords="427,357,586,397"/>
+<area shape="poly" title=" " alt="" coords="1087,29,964,31,822,41,754,49,692,61,642,76,607,95,579,124,557,157,540,194,528,232,514,304,510,357,504,357,508,303,523,231,535,192,552,155,575,120,604,91,640,71,691,56,753,44,821,35,964,26,1087,23"/>
+<area shape="rect" href="SubsampledImage_8cpp.html" title="Implémentation des classes SubsampledImage, DecimatedMask." alt="" coords="398,453,637,478"/>
+<area shape="poly" title=" " alt="" coords="1087,30,894,39,779,50,664,65,558,87,471,116,438,134,413,154,397,176,392,200,392,291,394,347,401,370,417,396,433,414,451,428,490,450,487,455,448,433,429,417,413,399,396,372,389,348,387,291,387,200,393,174,409,150,435,130,469,111,557,82,663,60,778,44,893,34,1087,25"/>
+<area shape="rect" href="PixelConverter_8h.html" title="Définition de la classe PixelConverter, permettant de convertir à la volée les pixels." alt="" coords="1344,93,1520,133"/>
+<area shape="poly" title=" " alt="" coords="1240,47,1375,91,1373,96,1238,52"/>
+<area shape="rect" href="BilzImage_8cpp.html" title="Implémentation des classes BilzImage." alt="" coords="110,541,317,566"/>
+<area shape="poly" title=" " alt="" coords="1087,30,840,34,522,44,367,53,233,64,130,78,95,87,72,96,42,116,22,138,11,165,8,200,8,379,11,412,21,437,38,459,63,483,87,502,114,517,168,538,166,543,112,522,84,507,60,487,34,463,16,440,6,413,3,379,3,200,6,163,18,135,39,112,69,91,93,82,129,73,232,59,367,48,522,39,840,29,1087,25"/>
+<area shape="rect" href="FileImage_8cpp.html" title="Implémentation de la classe FileImage." alt="" coords="2064,541,2269,566"/>
+<area shape="poly" title=" " alt="" coords="1249,25,1602,33,1835,43,2075,59,2301,81,2401,94,2490,110,2563,128,2620,149,2656,172,2666,186,2669,200,2669,379,2667,403,2659,423,2647,438,2632,450,2593,468,2546,488,2477,515,2405,533,2334,545,2270,552,2269,546,2333,540,2404,528,2476,510,2544,483,2591,463,2629,445,2643,434,2654,420,2662,402,2664,379,2664,200,2661,188,2652,176,2617,154,2562,134,2489,115,2400,100,2300,86,2075,64,1835,49,1602,39,1249,30"/>
+<area shape="rect" href="LibjpegImage_8cpp.html" title="Implémentation des classes LibjpegImage." alt="" coords="800,541,1029,566"/>
+<area shape="poly" title=" " alt="" coords="1087,30,851,35,551,47,406,55,279,66,183,80,149,87,128,96,97,116,75,138,63,164,59,200,59,379,60,412,65,439,79,462,103,483,139,497,205,509,393,527,610,539,800,546,800,552,610,545,392,533,204,514,138,502,100,488,75,465,61,441,55,413,53,379,53,200,58,163,71,134,93,112,125,91,148,82,182,74,279,61,406,50,551,41,851,30,1087,25"/>
+<area shape="rect" href="LibpngImage_8cpp.html" title="Implémentation des classes LibpngImage." alt="" coords="1158,541,1383,566"/>
+<area shape="poly" title=" " alt="" coords="1087,31,865,38,587,50,335,70,246,82,194,96,158,116,132,136,115,162,109,200,109,379,108,438,115,461,134,483,155,494,190,503,293,517,427,525,578,528,868,529,1041,531,1158,539,1157,545,1041,536,868,535,578,534,427,530,292,522,189,508,153,499,130,487,110,464,103,439,104,379,104,200,110,161,128,133,155,111,192,91,245,77,335,64,587,45,865,33,1086,26"/>
+<area shape="rect" href="LibtiffImage_8cpp.html" title="Implémentation des classes LibtiffImage." alt="" coords="2608,541,2827,566"/>
+<area shape="poly" title=" " alt="" coords="1249,24,1515,27,1875,36,2059,45,2232,56,2380,71,2491,91,2572,103,2645,112,2675,122,2699,138,2715,164,2720,200,2720,379,2720,541,2715,541,2715,379,2715,200,2710,165,2695,142,2673,127,2644,117,2571,108,2490,96,2379,77,2231,62,2059,50,1874,42,1515,32,1249,29"/>
+<area shape="rect" href="LibopenjpegImage_8cpp.html" title="Implémentation des classes LibopenjpegImage." alt="" coords="1459,533,1634,573"/>
+<area shape="poly" title=" " alt="" coords="1171,59,1171,200,1171,291,1168,322,1163,349,1149,396,1145,418,1146,439,1153,460,1168,483,1202,494,1276,508,1459,537,1459,542,1275,513,1200,499,1165,487,1148,463,1141,440,1140,417,1144,395,1157,348,1163,321,1165,291,1165,200,1165,59"/>
+<area shape="rect" href="CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="3105,93,3239,133"/>
+<area shape="poly" title=" " alt="" coords="1249,26,1944,46,2435,65,2938,91,3104,103,3104,109,2937,96,2434,71,1943,52,1249,31"/>
+<area shape="rect" href="ReprojectedImage_8cpp.html" title="Implémentation de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="2823,453,3059,478"/>
+<area shape="poly" title=" " alt="" coords="1249,24,1590,25,2055,33,2286,42,2489,53,2646,70,2701,80,2737,91,2788,135,2865,216,2939,301,2977,356,2981,384,2975,411,2952,454,2948,451,2970,409,2976,384,2972,358,2934,305,2861,220,2785,138,2735,96,2700,85,2645,75,2489,59,2286,47,2055,39,1589,31,1249,29"/>
+<area shape="rect" href="MirrorImage_8h.html" title="Définition des classes MirrorImage." alt="" coords="897,365,1079,390"/>
+<area shape="poly" title=" " alt="" coords="1135,56,1101,95,1059,171,1027,250,1005,319,993,365,988,364,1000,318,1022,248,1054,169,1096,92,1131,53"/>
+<area shape="rect" href="MirrorImage_8cpp.html" title="Implémentation des classe MirrorImage." alt="" coords="907,453,1104,478"/>
+<area shape="poly" title=" " alt="" coords="1156,59,1132,123,1123,161,1120,200,1120,291,1117,347,1108,371,1093,399,1062,432,1029,455,1026,450,1059,428,1089,396,1104,369,1111,346,1115,291,1115,200,1118,160,1127,122,1151,57"/>
+<area shape="rect" href="StyleBook_8h.html" title="Définition de la classe StyleBook." alt="" coords="3387,93,3522,133"/>
+<area shape="poly" title=" " alt="" coords="1249,25,1570,30,2062,41,2649,61,3251,91,3387,102,3387,107,3250,96,2649,66,2062,46,1570,35,1249,30"/>
+<area shape="rect" href="MergeImage_8cpp.html" title="Implémentation des classes MergeImage et MergeMask et du namespace Merge." alt="" coords="3846,189,4045,214"/>
+<area shape="poly" title=" " alt="" coords="1250,25,1761,32,2502,45,3187,65,3420,77,3494,84,3534,91,3551,100,3562,111,3573,121,3588,131,3701,154,3880,186,3879,191,3700,159,3586,136,3569,126,3558,114,3548,104,3532,96,3494,89,3420,82,3187,70,2502,50,1761,37,1250,30"/>
+<area shape="rect" href="ResampledImage_8cpp.html" title="Implémentation de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="3598,101,3829,126"/>
+<area shape="poly" title=" " alt="" coords="1249,25,2376,45,3069,65,3359,77,3579,91,3643,98,3642,103,3578,96,3359,82,3069,70,2376,50,1249,30"/>
+<area shape="rect" href="Line_8h.html" title="Définition de la classe Line, permettant la manipulation et la conversion de lignes d&#39;image." alt="" coords="3859,101,4018,126"/>
+<area shape="poly" title=" " alt="" coords="1250,24,1746,27,2497,37,2895,45,3272,57,3597,72,3842,91,3888,98,3887,103,3841,96,3596,77,3271,62,2895,51,2496,42,1746,33,1250,30"/>
+<area shape="rect" href="OneBitConverter_8h_source.html" title=" " alt="" coords="4073,189,4311,214"/>
+<area shape="poly" title=" " alt="" coords="1249,25,1855,30,2758,43,3602,63,3891,76,3982,83,4031,91,4078,111,4121,137,4182,186,4178,190,4118,142,4076,116,4030,96,3982,88,3890,81,3602,68,2758,48,1855,36,1249,30"/>
+<area shape="poly" title=" " alt="" coords="272,411,264,453,258,452,267,410"/>
+<area shape="poly" title=" " alt="" coords="771,411,773,445,768,445,766,411"/>
+<area shape="poly" title=" " alt="" coords="513,411,519,452,513,453,508,412"/>
+<area shape="rect" href="FileImage_8h.html" title="Définition de la classe FileImage." alt="" coords="1509,357,1656,397"/>
+<area shape="poly" title=" " alt="" coords="1452,144,1574,356,1569,358,1447,146"/>
+<area shape="rect" href="TiffNodataManager_8h.html" title="Définition de la classe TiffNodataManager, permettant de modifier la couleur de nodata des images à c..." alt="" coords="1633,445,1820,485"/>
+<area shape="poly" title=" " alt="" coords="1627,402,1696,443,1694,448,1625,407"/>
+<area shape="rect" href="BilzImage_8h.html" title="Définition des classes BilzImage." alt="" coords="1179,453,1370,478"/>
+<area shape="poly" title=" " alt="" coords="1503,404,1316,455,1315,450,1501,398"/>
+<area shape="poly" title=" " alt="" coords="1670,384,2267,443,2275,458,2275,473,2268,487,2256,501,2225,525,2193,543,2190,538,2222,520,2253,497,2264,484,2270,472,2270,459,2264,448,1669,390"/>
+<area shape="rect" href="LibjpegImage_8h.html" title="Définition des classes LibjpegImage." alt="" coords="1394,453,1609,478"/>
+<area shape="poly" title=" " alt="" coords="1557,409,1515,454,1511,450,1553,406"/>
+<area shape="rect" href="LibpngImage_8h.html" title="Définition des classes LibpngImage." alt="" coords="1844,453,2055,478"/>
+<area shape="poly" title=" " alt="" coords="1670,396,1901,450,1900,455,1669,401"/>
+<area shape="rect" href="LibtiffImage_8h.html" title="Définition des classes LibtiffImage." alt="" coords="2330,453,2534,478"/>
+<area shape="poly" title=" " alt="" coords="1670,385,1776,395,2044,416,2311,443,2363,450,2362,455,2310,448,2043,421,1776,400,1669,390"/>
+<area shape="rect" href="LibopenjpegImage_8h.html" title="Définition des classes LibopenjpegImage." alt="" coords="2079,445,2254,485"/>
+<area shape="poly" title=" " alt="" coords="1670,387,2067,443,2079,445,2078,450,2066,448,1669,393"/>
+<area shape="poly" title=" " alt="" coords="1171,482,1116,488,671,525,317,548,317,543,671,519,1116,483,1170,477"/>
+<area shape="poly" title=" " alt="" coords="1348,478,1382,483,1570,504,1758,521,2064,544,2063,549,1757,527,1569,510,1381,488,1347,483"/>
+<area shape="poly" title=" " alt="" coords="1586,477,1622,483,2066,538,2065,543,1621,488,1585,483"/>
+<area shape="poly" title=" " alt="" coords="1416,483,1382,488,997,543,996,538,1381,483,1415,477"/>
+<area shape="poly" title=" " alt="" coords="1992,481,2138,538,2136,543,1990,486"/>
+<area shape="poly" title=" " alt="" coords="1868,483,1832,488,1588,519,1377,543,1377,538,1587,514,1832,483,1867,478"/>
+<area shape="poly" title=" " alt="" coords="2384,485,2203,543,2201,538,2382,480"/>
+<area shape="poly" title=" " alt="" coords="2484,479,2680,538,2678,543,2483,485"/>
+<area shape="poly" title=" " alt="" coords="2169,499,2169,540,2164,540,2164,499"/>
+<area shape="poly" title=" " alt="" coords="2066,488,1828,522,1635,545,1634,540,1827,516,2065,483"/>
+<area shape="rect" href="Grid_8h.html" title="Définition de la classe Grid." alt="" coords="2956,269,3132,309"/>
+<area shape="poly" title=" " alt="" coords="3093,131,3049,151,3031,165,3016,183,3009,204,3012,226,3021,249,3032,268,3028,271,3016,251,3007,228,3003,203,3011,180,3027,161,3047,146,3090,127"/>
+<area shape="rect" href="CrsBook_8h.html" title="Définition de la classe CrsBook." alt="" coords="3026,181,3161,221"/>
+<area shape="poly" title=" " alt="" coords="3147,145,3113,183,3109,179,3143,142"/>
+<area shape="rect" href="Level_8h_source.html" title=" " alt="" coords="3286,357,3421,397"/>
+<area shape="poly" title=" " alt="" coords="3254,129,3295,149,3314,163,3330,180,3343,201,3353,225,3362,275,3363,321,3359,357,3354,357,3357,321,3357,275,3348,227,3339,204,3326,183,3311,167,3292,153,3251,134"/>
+<area shape="rect" href="Pyramid_8h_source.html" title=" " alt="" coords="3415,445,3550,485"/>
+<area shape="poly" title=" " alt="" coords="3254,128,3308,148,3335,162,3359,180,3458,356,3473,403,3482,444,3477,446,3468,405,3454,358,3355,183,3332,166,3306,153,3252,133"/>
+<area shape="rect" href="CRS_8cpp.html" title="Implémente de la gestion des systèmes de référence." alt="" coords="3185,189,3316,214"/>
+<area shape="poly" title=" " alt="" coords="3201,142,3242,186,3238,190,3197,145"/>
+<area shape="rect" href="ReprojectedImage_8h.html" title="Définition de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="2805,357,2963,397"/>
+<area shape="poly" title=" " alt="" coords="2998,318,2920,360,2918,355,2996,313"/>
+<area shape="poly" title=" " alt="" coords="3145,311,3185,326,3218,345,3228,357,3234,370,3233,384,3225,399,3197,419,3153,434,3047,455,3046,450,3152,429,3195,414,3221,396,3228,383,3229,371,3224,360,3214,349,3183,331,3143,316"/>
+<area shape="rect" href="Grid_8cpp.html" title="Implémentation de la classe Grid." alt="" coords="3037,365,3211,390"/>
+<area shape="poly" title=" " alt="" coords="3073,318,3115,362,3111,366,3069,321"/>
+<area shape="poly" title=" " alt="" coords="2907,407,2936,451,2931,454,2902,410"/>
+<area shape="rect" href="Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="1671,269,1817,309"/>
+<area shape="poly" title=" " alt="" coords="3013,210,1818,286,1817,281,3012,205"/>
+<area shape="rect" href="TileMatrixSet_8h_source.html" title=" " alt="" coords="3442,269,3577,309"/>
+<area shape="poly" title=" " alt="" coords="3175,219,3442,273,3441,278,3174,224"/>
+<area shape="rect" href="CrsBook_8cpp.html" title="Implémentation de la classe CrsBook." alt="" coords="3157,277,3315,302"/>
+<area shape="poly" title=" " alt="" coords="3137,226,3218,274,3216,279,3135,231"/>
+<area shape="poly" title=" " alt="" coords="1658,310,1385,362,1384,356,1657,305"/>
+<area shape="poly" title=" " alt="" coords="1657,295,1131,313,776,332,415,360,352,367,351,362,414,355,776,327,1131,308,1657,290"/>
+<area shape="poly" title=" " alt="" coords="1657,298,1318,320,1102,337,884,360,872,361,872,356,884,355,1101,332,1317,314,1656,292"/>
+<area shape="poly" title=" " alt="" coords="1657,297,1224,318,939,336,650,360,586,367,586,362,649,355,938,331,1224,312,1657,291"/>
+<area shape="poly" title=" " alt="" coords="1698,318,1619,360,1617,355,1695,313"/>
+<area shape="poly" title=" " alt="" coords="1657,310,1572,331,1482,360,1392,404,1297,455,1294,450,1390,399,1480,355,1570,326,1656,305"/>
+<area shape="poly" title=" " alt="" coords="1658,305,1562,327,1523,342,1499,359,1490,382,1489,407,1499,452,1494,453,1483,408,1484,381,1495,356,1520,337,1560,322,1656,300"/>
+<area shape="poly" title=" " alt="" coords="1729,323,1719,361,1720,379,1727,396,1750,413,1788,428,1881,450,1879,455,1787,433,1748,417,1723,399,1715,380,1714,360,1724,321"/>
+<area shape="poly" title=" " alt="" coords="1759,320,1784,361,1801,380,1821,395,1863,411,1917,423,2050,434,2185,437,2290,443,2349,450,2348,455,2289,448,2185,443,2049,439,1917,428,1861,417,1819,400,1798,384,1780,364,1755,323"/>
+<area shape="poly" title=" " alt="" coords="1748,323,1756,361,1765,380,1778,395,1801,409,1834,419,1916,431,2001,436,2067,443,2079,445,2078,450,2066,448,2001,442,1915,436,1833,424,1799,414,1774,399,1760,383,1751,363,1742,324"/>
+<area shape="poly" title=" " alt="" coords="1831,290,2007,296,2244,307,2514,326,2787,355,2805,357,2805,363,2786,360,2514,332,2244,313,2006,301,1831,295"/>
+<area shape="poly" title=" " alt="" coords="1831,287,1985,289,2188,297,2415,318,2530,334,2642,355,2722,376,2800,402,2917,450,2915,455,2798,407,2721,381,2641,360,2529,339,2414,323,2187,303,1985,294,1831,292"/>
+<area shape="rect" href="AscEncoder_8h_source.html" title=" " alt="" coords="1832,357,2013,397"/>
+<area shape="poly" title=" " alt="" coords="1797,313,1885,355,1882,360,1794,318"/>
+<area shape="rect" href="BilEncoder_8h_source.html" title=" " alt="" coords="2037,357,2219,397"/>
+<area shape="poly" title=" " alt="" coords="1831,307,2045,355,2043,360,1830,313"/>
+<area shape="rect" href="JPEGEncoder_8h_source.html" title=" " alt="" coords="2243,357,2424,397"/>
+<area shape="poly" title=" " alt="" coords="1831,299,2015,323,2231,355,2243,357,2242,362,2230,360,2015,328,1830,304"/>
+<area shape="rect" href="PNGEncoder_8h_source.html" title=" " alt="" coords="2448,357,2629,397"/>
+<area shape="poly" title=" " alt="" coords="1831,294,2102,317,2269,334,2436,355,2448,356,2447,362,2436,360,2268,339,2101,322,1831,299"/>
+<area shape="poly" title=" " alt="" coords="1831,289,2071,294,2415,305,2815,324,3223,355,3286,362,3286,368,3222,360,2815,329,2415,310,2071,299,1831,294"/>
+<area shape="poly" title=" " alt="" coords="1657,303,1080,368,1079,363,1657,298"/>
+<area shape="poly" title=" " alt="" coords="3436,362,3444,368,3447,378,3440,390,3422,396,3420,391,3436,386,3442,377,3440,372,3433,367"/>
+<area shape="poly" title=" " alt="" coords="3387,403,3448,443,3445,447,3384,408"/>
+<area shape="poly" title=" " alt="" coords="3450,440,3388,400,3391,395,3452,435"/>
+<area shape="poly" title=" " alt="" coords="947,398,821,448,819,443,945,393"/>
+<area shape="poly" title=" " alt="" coords="996,403,1006,452,1000,453,990,404"/>
+<area shape="poly" title=" " alt="" coords="3511,323,3504,398,3492,446,3486,444,3499,397,3506,323"/>
+<area shape="rect" href="StoragePool_8h_source.html" title=" " alt="" coords="3687,181,3822,221"/>
+<area shape="poly" title=" " alt="" coords="3535,135,3690,179,3688,184,3533,140"/>
+<area shape="rect" href="StyleBook_8cpp.html" title="Implémentation de la classe StyleBook." alt="" coords="3492,189,3663,214"/>
+<area shape="poly" title=" " alt="" coords="3495,139,3562,186,3559,191,3492,144"/>
+<area shape="poly" title=" " alt="" coords="3689,228,3564,272,3562,267,3687,223"/>
+<area shape="rect" href="Style_8h.html" title="Définition de la classe Style modélisant les styles." alt="" coords="3601,269,3740,309"/>
+<area shape="poly" title=" " alt="" coords="3729,233,3691,271,3687,267,3725,229"/>
+<area shape="rect" href="StoreDataSource_8h.html" title="Définition des classes StoreDataSource." alt="" coords="3764,269,3951,309"/>
+<area shape="poly" title=" " alt="" coords="3790,228,3836,267,3833,271,3786,232"/>
+<area shape="rect" href="StoragePool_8cpp.html" title="Implémentation de la classe StoragePool." alt="" coords="3975,277,4158,302"/>
+<area shape="poly" title=" " alt="" coords="3836,222,4026,274,4024,279,3835,227"/>
+<area shape="poly" title=" " alt="" coords="3642,321,3505,447,3501,443,3638,317"/>
+<area shape="poly" title=" " alt="" coords="3588,270,3522,249,3496,236,3478,223,3464,202,3456,178,3451,134,3457,133,3461,177,3469,200,3482,220,3498,232,3524,244,3589,265"/>
+<area shape="poly" title=" " alt="" coords="3943,140,3947,188,3942,188,3938,140"/>
+<area shape="poly" title=" " alt="" coords="4197,228,4193,270,4185,292,4173,311,4103,376,4069,401,4035,420,3968,445,3899,459,3826,465,3747,468,3660,474,3562,488,3360,518,3157,537,2973,548,2827,553,2827,548,2973,543,3157,532,3359,512,3561,483,3659,469,3747,463,3826,460,3898,454,3966,440,4033,415,4066,396,4099,372,4169,308,4180,290,4187,269,4191,228"/>
+</map>
+</div>
+</div>
+<p><a href="Utils_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a8184b63e0c41a54efc865c1acd2f8b49" id="r_a8184b63e0c41a54efc865c1acd2f8b49"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a8184b63e0c41a54efc865c1acd2f8b49"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a8184b63e0c41a54efc865c1acd2f8b49">convert</a> (T *to, const T *from, size_t length)</td></tr>
+<tr class="memdesc:a8184b63e0c41a54efc865c1acd2f8b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion qui n'est qu'une copie.  <br /></td></tr>
+<tr class="separator:a8184b63e0c41a54efc865c1acd2f8b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b2ef829fa615edc66db3afcf702e06e" id="r_a2b2ef829fa615edc66db3afcf702e06e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a2b2ef829fa615edc66db3afcf702e06e">contain_chars</a> (std::string str, const char *chars)</td></tr>
+<tr class="memdesc:a2b2ef829fa615edc66db3afcf702e06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recherche des caractères interdits pour éviter l'injection.  <br /></td></tr>
+<tr class="separator:a2b2ef829fa615edc66db3afcf702e06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c76b56a9f90e7a71cc3baf82318c0d8" id="r_a8c76b56a9f90e7a71cc3baf82318c0d8"><td class="memItemLeft" align="right" valign="top"><a id="a8c76b56a9f90e7a71cc3baf82318c0d8" name="a8c76b56a9f90e7a71cc3baf82318c0d8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>to_lower_case</b> (std::string str)</td></tr>
+<tr class="memdesc:a8c76b56a9f90e7a71cc3baf82318c0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforme la chaîne fournie en minuscule. <br /></td></tr>
+<tr class="separator:a8c76b56a9f90e7a71cc3baf82318c0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e26420602d35a40a735ee74af9db007" id="r_a0e26420602d35a40a735ee74af9db007"><td class="memItemLeft" align="right" valign="top"><a id="a0e26420602d35a40a735ee74af9db007" name="a0e26420602d35a40a735ee74af9db007"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>to_upper_case</b> (std::string str)</td></tr>
+<tr class="memdesc:a0e26420602d35a40a735ee74af9db007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforme la chaîne fournie en majuscule. <br /></td></tr>
+<tr class="separator:a0e26420602d35a40a735ee74af9db007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e32ba565b7315a5defbeb988b61a9a" id="r_af0e32ba565b7315a5defbeb988b61a9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#af0e32ba565b7315a5defbeb988b61a9a">convert</a> (float *to, const uint8_t *from, int length)</td></tr>
+<tr class="memdesc:af0e32ba565b7315a5defbeb988b61a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion uint8 -&gt; float.  <br /></td></tr>
+<tr class="separator:af0e32ba565b7315a5defbeb988b61a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10491cfef421ffa309d513fc1813c5c" id="r_aa10491cfef421ffa309d513fc1813c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#aa10491cfef421ffa309d513fc1813c5c">convert</a> (float *to, const uint16_t *from, int length)</td></tr>
+<tr class="memdesc:aa10491cfef421ffa309d513fc1813c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion uint16 -&gt; float.  <br /></td></tr>
+<tr class="separator:aa10491cfef421ffa309d513fc1813c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01bf21dee434c501f366f1e2e52ea8ee" id="r_a01bf21dee434c501f366f1e2e52ea8ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a01bf21dee434c501f366f1e2e52ea8ee">convert</a> (uint16_t *to, const uint8_t *from, int length)</td></tr>
+<tr class="memdesc:a01bf21dee434c501f366f1e2e52ea8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion uint8 -&gt; uint16.  <br /></td></tr>
+<tr class="separator:a01bf21dee434c501f366f1e2e52ea8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc7ca2a771dbc393cbb2f2e60fb3e4d" id="r_acbc7ca2a771dbc393cbb2f2e60fb3e4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#acbc7ca2a771dbc393cbb2f2e60fb3e4d">convert</a> (uint8_t *to, const float *from, int length)</td></tr>
+<tr class="memdesc:acbc7ca2a771dbc393cbb2f2e60fb3e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion float -&gt; uint8.  <br /></td></tr>
+<tr class="separator:acbc7ca2a771dbc393cbb2f2e60fb3e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6711d0e7a7df9bac5c83ff02d909b4e2" id="r_a6711d0e7a7df9bac5c83ff02d909b4e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a6711d0e7a7df9bac5c83ff02d909b4e2">convert</a> (uint16_t *to, const float *from, int length)</td></tr>
+<tr class="memdesc:a6711d0e7a7df9bac5c83ff02d909b4e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion float -&gt; uint16.  <br /></td></tr>
+<tr class="separator:a6711d0e7a7df9bac5c83ff02d909b4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3614219f68460e19888b5e08a2945ed" id="r_ae3614219f68460e19888b5e08a2945ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#ae3614219f68460e19888b5e08a2945ed">mult</a> (float *to, const float *from, const float w, int length)</td></tr>
+<tr class="memdesc:ae3614219f68460e19888b5e08a2945ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplie un tableau de float from par w et sauvegarde dans to.  <br /></td></tr>
+<tr class="separator:ae3614219f68460e19888b5e08a2945ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a359fc7c75fc44e1653adf5b638311c37" id="r_a359fc7c75fc44e1653adf5b638311c37"><td class="memItemLeft" align="right" valign="top"><a id="a359fc7c75fc44e1653adf5b638311c37" name="a359fc7c75fc44e1653adf5b638311c37"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mult</b> (float *outImg, float *weightSum, const float *inImg, const float *inMask, const float weight, int width, int channels)</td></tr>
+<tr class="separator:a359fc7c75fc44e1653adf5b638311c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c4793cdf6e7b22ca14bf2cb6f190c80" id="r_a5c4793cdf6e7b22ca14bf2cb6f190c80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a5c4793cdf6e7b22ca14bf2cb6f190c80">add_mult</a> (float *to, const float *from, const float w, int length)</td></tr>
+<tr class="memdesc:a5c4793cdf6e7b22ca14bf2cb6f190c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute au tableau to le produit des élements de from par w.  <br /></td></tr>
+<tr class="separator:a5c4793cdf6e7b22ca14bf2cb6f190c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1fd0dcc48cbd4674f70019692409ebe" id="r_aa1fd0dcc48cbd4674f70019692409ebe"><td class="memItemLeft" align="right" valign="top"><a id="aa1fd0dcc48cbd4674f70019692409ebe" name="aa1fd0dcc48cbd4674f70019692409ebe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add_mult</b> (float *outImg, float *weightSum, const float *inImg, const float *inMask, const float weight, int width, int channels)</td></tr>
+<tr class="separator:aa1fd0dcc48cbd4674f70019692409ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cbb5712b1835418a0eec8db37f25091" id="r_a2cbb5712b1835418a0eec8db37f25091"><td class="memItemLeft" align="right" valign="top"><a id="a2cbb5712b1835418a0eec8db37f25091" name="a2cbb5712b1835418a0eec8db37f25091"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>normalize</b> (float *toNormalize, const float *coefficients, const float width, int channels)</td></tr>
+<tr class="separator:a2cbb5712b1835418a0eec8db37f25091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f7463bdbee698afc445db70b067e0ee" id="r_a3f7463bdbee698afc445db70b067e0ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#a3f7463bdbee698afc445db70b067e0ee">multiplex_unaligned</a> (float *T, const float *F1, const float *F2, const float *F3, const float *F4, int length)</td></tr>
+<tr class="memdesc:a3f7463bdbee698afc445db70b067e0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutiplexe 4 tableaux d'entrée en 1 tableau.  <br /></td></tr>
+<tr class="separator:a3f7463bdbee698afc445db70b067e0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eed122ff78f950e997882e63d3160ba" id="r_a7eed122ff78f950e997882e63d3160ba"><td class="memItemLeft" align="right" valign="top"><a id="a7eed122ff78f950e997882e63d3160ba" name="a7eed122ff78f950e997882e63d3160ba"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>multiplex</b> (float *T, const float *F1, const float *F2, const float *F3, const float *F4, int length)</td></tr>
+<tr class="separator:a7eed122ff78f950e997882e63d3160ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9dd1dc3acc52a97d18f3c1f0768e835" id="r_ad9dd1dc3acc52a97d18f3c1f0768e835"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Utils_8h.html#ad9dd1dc3acc52a97d18f3c1f0768e835">demultiplex</a> (float *T1, float *T2, float *T3, float *T4, const float *F, int length)</td></tr>
+<tr class="memdesc:ad9dd1dc3acc52a97d18f3c1f0768e835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Démutiplexe 1 tableau en 4 tableaux de sortie.  <br /></td></tr>
+<tr class="separator:ad9dd1dc3acc52a97d18f3c1f0768e835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad889432c8714dd67d7320ed855474c2b" id="r_ad889432c8714dd67d7320ed855474c2b"><td class="memTemplParams" colspan="2"><a id="ad889432c8714dd67d7320ed855474c2b" name="ad889432c8714dd67d7320ed855474c2b"></a>
+template&lt;int C&gt; </td></tr>
+<tr class="memitem:ad889432c8714dd67d7320ed855474c2b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>dot_prod</b> (int K, float *outImg, float *outMask, const float *inImg, const float *inMask, const float *W)</td></tr>
+<tr class="separator:ad889432c8714dd67d7320ed855474c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a472c7159606a42deb8309c642b391c9f" id="r_a472c7159606a42deb8309c642b391c9f"><td class="memTemplParams" colspan="2"><a id="a472c7159606a42deb8309c642b391c9f" name="a472c7159606a42deb8309c642b391c9f"></a>
+template&lt;int C&gt; </td></tr>
+<tr class="memitem:a472c7159606a42deb8309c642b391c9f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>dot_prod</b> (int K, float *to, const float *from, const float *W)</td></tr>
+<tr class="separator:a472c7159606a42deb8309c642b391c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48801e10cc0be86cb416270a79637d9" id="r_ad48801e10cc0be86cb416270a79637d9"><td class="memItemLeft" align="right" valign="top"><a id="ad48801e10cc0be86cb416270a79637d9" name="ad48801e10cc0be86cb416270a79637d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dot_prod</b> (int C, int K, float *to, float *toMask, const float *from, const float *mask, const float *W)</td></tr>
+<tr class="separator:ad48801e10cc0be86cb416270a79637d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b8b2ae23279b8766811d8439eb8382" id="r_af3b8b2ae23279b8766811d8439eb8382"><td class="memItemLeft" align="right" valign="top"><a id="af3b8b2ae23279b8766811d8439eb8382" name="af3b8b2ae23279b8766811d8439eb8382"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dot_prod</b> (int C, int K, float *to, const float *from, const float *W)</td></tr>
+<tr class="separator:af3b8b2ae23279b8766811d8439eb8382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec et sans instructions SSE2. </p>
+<ul>
+<li>Conversions disponibles <div class="image">
+<img src="conversions.png" alt=""/>
+</div>
+ </li>
+</ul>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a5c4793cdf6e7b22ca14bf2cb6f190c80" name="a5c4793cdf6e7b22ca14bf2cb6f190c80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4793cdf6e7b22ca14bf2cb6f190c80">&#9670;&#160;</a></span>add_mult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void add_mult </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute au tableau to le produit des élements de from par w. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau de flottants de source </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau de flottants de destination </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments dans le tableau </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2b2ef829fa615edc66db3afcf702e06e" name="a2b2ef829fa615edc66db3afcf702e06e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b2ef829fa615edc66db3afcf702e06e">&#9670;&#160;</a></span>contain_chars()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool contain_chars </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>chars</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recherche des caractères interdits pour éviter l'injection. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>la chaîne </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa10491cfef421ffa309d513fc1813c5c" name="aa10491cfef421ffa309d513fc1813c5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa10491cfef421ffa309d513fc1813c5c">&#9670;&#160;</a></span>convert() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion uint16 -&gt; float. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau de flottants de destination </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau d'entiers 16 bits source </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af0e32ba565b7315a5defbeb988b61a9a" name="af0e32ba565b7315a5defbeb988b61a9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e32ba565b7315a5defbeb988b61a9a">&#9670;&#160;</a></span>convert() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion uint8 -&gt; float. </p>
+<dl class="section warning"><dt>Avertissement</dt><dd>Maximum value : 254 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau de flottants de destination </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau d'entiers 8 bits source </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8184b63e0c41a54efc865c1acd2f8b49" name="a8184b63e0c41a54efc865c1acd2f8b49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8184b63e0c41a54efc865c1acd2f8b49">&#9670;&#160;</a></span>convert() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion qui n'est qu'une copie. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau destination </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau source </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6711d0e7a7df9bac5c83ff02d909b4e2" name="a6711d0e7a7df9bac5c83ff02d909b4e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6711d0e7a7df9bac5c83ff02d909b4e2">&#9670;&#160;</a></span>convert() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion float -&gt; uint16. </p>
+<p>Les valeurs sont arrondies au plus proche avec saturation</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau de flottants de source </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau d'entiers 16 bits destination </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a01bf21dee434c501f366f1e2e52ea8ee" name="a01bf21dee434c501f366f1e2e52ea8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01bf21dee434c501f366f1e2e52ea8ee">&#9670;&#160;</a></span>convert() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion uint8 -&gt; uint16. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau d'entiers 16 bits destination </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau d'entiers 8 bits source </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acbc7ca2a771dbc393cbb2f2e60fb3e4d" name="acbc7ca2a771dbc393cbb2f2e60fb3e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbc7ca2a771dbc393cbb2f2e60fb3e4d">&#9670;&#160;</a></span>convert() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void convert </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion float -&gt; uint8. </p>
+<p>Les valeurs sont arrondies au plus proche avec saturation</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau d'entiers 8 bits destination </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau de flottants de source </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments à convertir</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Avertissement</dt><dd>Tant que la version SSE2 ne sature pas lors de l'arrondi (5.999 donne 5 et pas 6), on l'inhibe (version non SSE2 dans tous les cas) </dd></dl>
+
+</div>
+</div>
+<a id="ad9dd1dc3acc52a97d18f3c1f0768e835" name="ad9dd1dc3acc52a97d18f3c1f0768e835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9dd1dc3acc52a97d18f3c1f0768e835">&#9670;&#160;</a></span>demultiplex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void demultiplex </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>T1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>T2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>T3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>T4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>F</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Démutiplexe 1 tableau en 4 tableaux de sortie. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">F</td><td>Tableau source : A1 B1 C1 D1 A2 B2 C2 D2 A3 B3 C3 D3 ... </td></tr>
+    <tr><td class="paramname">T1</td><td>Tableau de sortie : A1 A2 A3 ... </td></tr>
+    <tr><td class="paramname">T2</td><td>Tableau de sortie : B1 B2 B3 ... </td></tr>
+    <tr><td class="paramname">T3</td><td>Tableau de sortie : C1 C2 C3 ... </td></tr>
+    <tr><td class="paramname">T4</td><td>Tableau de sortie : D1 D2 D3 ... </td></tr>
+    <tr><td class="paramname">length</td><td>taille des tableau F1, F2, F3, F4. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae3614219f68460e19888b5e08a2945ed" name="ae3614219f68460e19888b5e08a2945ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3614219f68460e19888b5e08a2945ed">&#9670;&#160;</a></span>mult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mult </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiplie un tableau de float from par w et sauvegarde dans to. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to</td><td>Tableau de flottants de source </td></tr>
+    <tr><td class="paramname">from</td><td>Tableau de flottants de destination </td></tr>
+    <tr><td class="paramname">length</td><td>Nombre d'éléments dans le tableau </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3f7463bdbee698afc445db70b067e0ee" name="a3f7463bdbee698afc445db70b067e0ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f7463bdbee698afc445db70b067e0ee">&#9670;&#160;</a></span>multiplex_unaligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void multiplex_unaligned </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>F1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>F2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>F3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>F4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mutiplexe 4 tableaux d'entrée en 1 tableau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">F1</td><td>Tableau source : A1 A2 A3 ... </td></tr>
+    <tr><td class="paramname">F2</td><td>Tableau source : B1 B2 B3 ... </td></tr>
+    <tr><td class="paramname">F3</td><td>Tableau source : C1 C2 C3 ... </td></tr>
+    <tr><td class="paramname">F4</td><td>Tableau source : D1 D2 D3 ... </td></tr>
+    <tr><td class="paramname">T</td><td>Tableau de sortie : A1 B1 C1 D1 A2 B2 C2 D2 A3 B3 C3 D3 ... </td></tr>
+    <tr><td class="paramname">length</td><td>taille des tableau F1, F2, F3, F4. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_cfed61ba512e844391ac8b2e87d8eda2.html">rok4</a></li><li class="navelem"><a class="el" href="dir_5cbed23fc32036aa9129a32be4ad47e4.html">utils</a></li><li class="navelem"><a class="el" href="Utils_8h.html">Utils.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>
