@@ -207,13 +207,13 @@ std::string CRS::get_url() {
     std::string code = get_identifier();
 
     if (auth == "EPSG") {
-        return "https://www.opengis.net/def/crs/EPSG/0/" + code;
+        return "http://www.opengis.net/def/crs/EPSG/0/" + code;
     }
     else if (auth == "IGNF") {
         return "http://registre.ign.fr/ign/IGNF/crs/IGNF/" + code;
     }
     else if (auth == "OGC") {
-        return "https://www.opengis.net/def/crs/OGC/0/" + code;
+        return "http://www.opengis.net/def/crs/OGC/1.3/" + code;
     }
     else {
         return request_code;
