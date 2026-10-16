@@ -6,6 +6,11 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+## [5.0.1] - 2026-10-16
+
+### Fixed
+- Les URL des CRS sont écrites en en http (compatibilité OpenLayers pour API Tiles)
+
 ## [5.0.0] - 2026-10-16
 
 ### Changed
