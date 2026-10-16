@@ -184,6 +184,9 @@ public:
      * Dans le cas d'une lecture partielle, on lit la position de la donnée (#posoff), la taille de la donnée (#possize), et on lit la tuile.
      * \param[out] tile_size Taille utile dans le buffer pointé en sortie
      * \return Un pointeur vers la donnée
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      ** \~english
      * \brief Get the data from the source
      * \details If data is already read (#data is not null), it's returned without re-reading.
@@ -193,6 +196,9 @@ public:
      * For partially reading, We read tile's position (#posoff), tile's size (#possize), then we read the data.
      * \param[out] tile_size Real size of data in the returned pointed buffer
      * \return Data pointer
+     * \throw NotFoundStorageException 
+     * \throw UnreachableStorageException 
+     * \throw ForbiddenStorageException 
      */
     virtual const uint8_t* get_data ( size_t &tile_size );
 

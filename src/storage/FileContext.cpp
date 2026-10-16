@@ -46,14 +46,14 @@
  * \details
  * \li FileContext : file system use
  */
-
-#include "storage/FileContext.h"
 #include <fcntl.h>
 #include <cstdio>
 #include <errno.h>
 #include <time.h>
 
 using namespace std;
+
+#include "storage/FileContext.h"
 
 FileContext::FileContext (std::string root) : Context(), root_dir(root) {}
 
@@ -63,26 +63,22 @@ bool FileContext::connection() {
 }
 
 int FileContext::read(uint8_t* data, int offset, int size, std::string name) {
-    std::string fullName = root_dir + name;
-    BOOST_LOG_TRIVIAL(debug) << "File read : " << size << " bytes (from the " << offset << " one) in the file " << fullName;
+    std::string full_name = root_dir + name;
+    BOOST_LOG_TRIVIAL(debug) << "File read : " << size << " bytes (from the " << offset << " one) in the file " << full_name;
 
     // Ouverture du fichier
-    int fildes = open( fullName.c_str(), O_RDONLY );
+
+    int fildes = open( full_name.c_str(), O_RDONLY );
     if ( fildes < 0 ) {
-        BOOST_LOG_TRIVIAL(debug) <<  "Can't open file " << fullName ;
-        return -1;
+        throw NotFoundStorageException("Cannot open file " + full_name);
     }
 
     size_t read_size = pread ( fildes, data, size, offset );
+    close ( fildes );
 
     if ( read_size != size ) {
-        BOOST_LOG_TRIVIAL(error) <<  "Impossible de lire la tuile dans le fichier " << fullName ;
-        if ( read_size<0 ) BOOST_LOG_TRIVIAL(error) <<  "Code erreur="<<errno ;
-        close ( fildes );
-        return -1;
+        throw UnreachableStorageException("Cannot partially read file " + full_name + ": " + std::to_string(read_size));
     }
-
-    close ( fildes );
 
     return read_size;
 }
@@ -91,14 +87,13 @@ int FileContext::read(uint8_t* data, int offset, int size, std::string name) {
 uint8_t* FileContext::read_full(int& size, std::string name) {
     size = -1;
 
-    std::string fullName = root_dir + name;
-    BOOST_LOG_TRIVIAL(debug) << "File read full : " << fullName;
+    std::string full_name = root_dir + name;
+    BOOST_LOG_TRIVIAL(debug) << "File read full : " << full_name;
 
-    std::ifstream ifs(fullName);
+    std::ifstream ifs(full_name);
 
     if (! ifs.is_open()) {
-        BOOST_LOG_TRIVIAL(error) << "Cannot open file " << fullName;
-        return NULL;
+        throw NotFoundStorageException("Cannot open file " + full_name);
     } else {
 
         ifs.seekg(0, std::ios::end);
@@ -109,18 +104,20 @@ uint8_t* FileContext::read_full(int& size, std::string name) {
         ifs.seekg(0);
         ifs.read(data, size); 
 
-        if ( size == 0 ) return NULL;
+        if ( size == 0 ) {
+            throw UnreachableStorageException("Cannot fully read file " + full_name);
+        };
         return (uint8_t*) data;
     }
 }
 
 
 bool FileContext::write(uint8_t* data, int offset, int size, std::string name) {
-    std::string fullName = root_dir + name;
-    BOOST_LOG_TRIVIAL(debug) << "File write : " << size << " bytes (from the " << offset << " one) in the file " << fullName;
+    std::string full_name = root_dir + name;
+    BOOST_LOG_TRIVIAL(debug) << "File write : " << size << " bytes (from the " << offset << " one) in the file " << full_name;
 
     if ( !output ) {
-        BOOST_LOG_TRIVIAL(error) << "Not open output file " << fullName;
+        BOOST_LOG_TRIVIAL(error) << "Not open output file " << full_name;
         return false;
     }
 
@@ -133,11 +130,11 @@ bool FileContext::write(uint8_t* data, int offset, int size, std::string name) {
 }
 
 bool FileContext::write_full(uint8_t* data, int size, std::string name) {
-    std::string fullName = root_dir + name;
-    BOOST_LOG_TRIVIAL(debug) << "File write : " << size << " bytes (one shot) in the file " << fullName;
+    std::string full_name = root_dir + name;
+    BOOST_LOG_TRIVIAL(debug) << "File write : " << size << " bytes (one shot) in the file " << full_name;
 
     if ( !output ) {
-        BOOST_LOG_TRIVIAL(error) << "Not open output file " << fullName;
+        BOOST_LOG_TRIVIAL(error) << "Not open output file " << full_name;
         return false;
     }
 

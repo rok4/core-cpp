@@ -294,7 +294,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Impossible de lire via un contexte non connecté";
-        return -1;
+        throw ForbiddenStorageException("Cannot read in the unconnected Swift context for container " + container_name);
     }
 
     BOOST_LOG_TRIVIAL(debug) << "Swift read : " << size << " bytes (from the " << offset << " one) in the object " << container_name << " / " << name;
@@ -316,8 +316,8 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
 
         // On constitue le header et le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
-        std::string fullUrl;
-        fullUrl = public_url + "/" + container_name + "/" + name;
+        std::string full_url;
+        full_url = public_url + "/" + container_name + "/" + name;
 
         char range[50];
         sprintf(range, "Range: bytes=%d-%d", offset, lastBytes);
@@ -326,7 +326,7 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         list = curl_slist_append(list, range);
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if(ssl_no_verify){
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -345,12 +345,13 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         curl_slist_free_all(list);
 
         if( CURLE_OK != res) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot read data from Swift : " << size << " bytes (from the " << offset << " one) in the object " << name;
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
 
             if (attempt > write_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot partially read Swift object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -369,20 +370,23 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
             token = "";
             use_token_from_file = false;
             if (! connection()) {
-                BOOST_LOG_TRIVIAL(error) << "Reconnection attempt failed.";
-                return -1;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the Swift object " << container_name << " / " << name << " because of disconnection" ;
+                throw ForbiddenStorageException("Cannot reconnect Swift context for container " + container_name);
             }
             BOOST_LOG_TRIVIAL(debug) << "Successfully reconnected.";
             continue;
         }
 
-        if (http_code < 200 || http_code > 299) {
+        if (http_code == 404) {
+            throw NotFoundStorageException("Cannot found Swift object " + full_url);
+        } else if (http_code < 200 || http_code > 299) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot partially read Swift object " + full_url + ": " + std::to_string(http_code));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -393,8 +397,8 @@ int SwiftContext::read(uint8_t* data, int offset, int size, std::string name) {
         return chunk.size;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) from the Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
-    return -1;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (SwiftContext::read)" ;
+    throw UnreachableStorageException("Cannot partially read Swift object");
 }
 
 
@@ -406,7 +410,7 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected swift context " << container_name;
-        return NULL;
+        throw ForbiddenStorageException("Cannot read in the unconnected Swift context for container " + container_name);
     }
 
     int attempt = 1;
@@ -424,13 +428,13 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
 
         // On constitue le header et le moyen de récupération des informations (avec les structures de LibcurlStruct)
 
-        std::string fullUrl;
-        fullUrl = public_url + "/" + container_name + "/" + name;
+        std::string full_url;
+        full_url = public_url + "/" + container_name + "/" + name;
 
         list = curl_slist_append(list, token.c_str());
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if(ssl_no_verify){
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -447,12 +451,13 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
         curl_slist_free_all(list);
 
         if( CURLE_OK != res) {
-            BOOST_LOG_TRIVIAL(error) << "Cannot read full object from Swift : " << name;
+            BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << curl_easy_strerror(res);
             attempt++;
 
             if (attempt > write_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to full read Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot fully read Swift object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -471,20 +476,23 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
             token = "";
             use_token_from_file = false;
             if (! connection()) {
-                BOOST_LOG_TRIVIAL(error) << "Reconnection attempt failed.";
-                return NULL;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to full read Swift object " << container_name << " / " << name << " because of disconnection" ;
+                throw ForbiddenStorageException("Cannot reconnect Swift context for container " + container_name);
             }
             BOOST_LOG_TRIVIAL(debug) << "Successfully reconnected.";
             continue;
         }
 
-        if (http_code < 200 || http_code > 299) {
+        if (http_code == 404) {
+            throw NotFoundStorageException("Cannot found Swift object " + full_url);
+        } else if (http_code < 200 || http_code > 299) {
             BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
             BOOST_LOG_TRIVIAL(error) << "Response HTTP code : " << http_code;
             attempt++;
 
             if (attempt > read_attempts) {
-                break;
+                BOOST_LOG_TRIVIAL(error) <<  "Unable to full read Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
+                throw UnreachableStorageException("Cannot fully read Swift object " + full_url + ": " + std::to_string(res));
             } else {
                 sleep(waiting_time);
                 continue;
@@ -497,9 +505,8 @@ uint8_t* SwiftContext::read_full(int& size, std::string name) {
         return data;
     }
 
-    BOOST_LOG_TRIVIAL(error) <<  "Unable to full read Swift object " << container_name << " / " << name << " after " << read_attempts << " tries" ;
-
-    return NULL;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (SwiftContext::read_full)" ;
+    throw UnreachableStorageException("Cannot fully read Swift object");
 }
 
 bool SwiftContext::write(uint8_t* data, int offset, int size, std::string name) {
@@ -590,13 +597,13 @@ bool SwiftContext::close_to_write(std::string name) {
 
         // On constitue le header
 
-        std::string fullUrl;
-        fullUrl = public_url + "/" + container_name + "/" + name;
+        std::string full_url;
+        full_url = public_url + "/" + container_name + "/" + name;
 
         list = curl_slist_append(list, token.c_str());
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-        curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
         if(ssl_no_verify){
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         }
@@ -691,13 +698,13 @@ bool SwiftContext::exists(std::string name) {
     struct curl_slist *list = NULL;
     CURL* curl = CurlPool::get_curl_env();
 
-    std::string fullUrl;
-    fullUrl = public_url + "/" + container_name + "/" + name;
+    std::string full_url;
+    full_url = public_url + "/" + container_name + "/" + name;
 
     list = curl_slist_append(list, token.c_str());
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    curl_easy_setopt(curl, CURLOPT_URL, fullUrl.c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "HEAD");
     if(ssl_no_verify){
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);

@@ -128,45 +128,39 @@ int CephPoolContext::read(uint8_t* data, int offset, int size, std::string name)
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected ceph pool context " << pool_name;
-        return -1;
+        throw ForbiddenStorageException("Cannot read in the unconnected Ceph context for pool " + pool_name);
     }
 
-    int readSize;
+    int read_size;
     int attempt = 1;
     bool error = false;
     while(attempt) {
-        readSize = rados_read(io_ctx, name.c_str(), (char*) data, size, offset);
+        read_size = rados_read(io_ctx, name.c_str(), (char*) data, size, offset);
 
-        if (readSize < 0) {
-            error = true;
-            // Seul le timeout donne lieu à une nouvelle tentative
-            if (readSize == -ETIMEDOUT) {
-                BOOST_LOG_TRIVIAL(warning) <<  "Try " << attempt << " timed out" ;
-            } else {
-                BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
-                BOOST_LOG_TRIVIAL(error) << "Error code: " << readSize ;
-                BOOST_LOG_TRIVIAL(error) << strerror(-readSize);
-                break;
-            }
+        if (read_size == -ENOENT) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) in the Ceph object " << pool_name << " / " << name;
+            throw NotFoundStorageException("Cannot found Ceph object " + pool_name + " / " + name);
+        } else if (read_size == -ETIMEDOUT) {
+            BOOST_LOG_TRIVIAL(warning) <<  "Try " << attempt << " timed out" ;
+        } else if (read_size < 0) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) in the Ceph object " << pool_name << " / " << name;
+            throw UnreachableStorageException("Cannot partially read Ceph object " + pool_name + " / " + name + ": " + std::to_string(-read_size));       
         } else {
-            error = false;
-            break;
+            return read_size;
         }
 
         attempt++;
 
         if (attempt > read_attempts) {
-            break;
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) in the Ceph object " << pool_name << " / " << name  << " after " << read_attempts << " tries" ;
+            throw UnreachableStorageException("Cannot partially read Ceph object " + pool_name + " / " + name + ": " + std::to_string(-read_size));
         } else {
             sleep(waiting_time);
         }
     }
 
-    if (error) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to read " << size << " bytes (from the " << offset << " one) in the Ceph object " << pool_name << " / " << name  << " after " << read_attempts << " tries" ;
-    }
-
-    return readSize;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (CephContext::read)" ;
+    throw UnreachableStorageException("Cannot partially read Ceph object");
 }
 
 
@@ -178,56 +172,52 @@ uint8_t* CephPoolContext::read_full(int& size, std::string name) {
 
     if (! connected) {
         BOOST_LOG_TRIVIAL(error) << "Try to read using the unconnected ceph pool context " << pool_name;
-        return NULL;
+        throw ForbiddenStorageException("Cannot read in the unconnected Ceph context for pool " + pool_name);
     }
 
     // Récupération de la taille
-    uint64_t fullSize;
+    uint64_t full_size;
     time_t time;
-    int ret = rados_stat(io_ctx, name.c_str(), &fullSize, &time);
-    if (ret < 0) {
-        BOOST_LOG_TRIVIAL(error) << "Error reading size of ceph object " << name;
-        BOOST_LOG_TRIVIAL(error) << strerror(-ret);
-        return NULL;
+    int ret = rados_stat(io_ctx, name.c_str(), &full_size, &time);
+
+    if (ret == -ENOENT) {
+        throw NotFoundStorageException("Cannot found Ceph object " + pool_name + " / " + name);
+    } else if (ret < 0) {
+        BOOST_LOG_TRIVIAL(error) <<  "Error reading size of Ceph object " << pool_name << " / " << name;
+        throw UnreachableStorageException("Cannot read size of Ceph object " + pool_name + " / " + name + ": " + std::to_string(-ret));       
     }
 
-    uint8_t* data = new uint8_t(fullSize);
+    uint8_t* data = new uint8_t(full_size);
 
     int attempt = 1;
     bool error = false;
     while(attempt) {
-        size = rados_read(io_ctx, name.c_str(), (char*) data, fullSize, 0);
+        size = rados_read(io_ctx, name.c_str(), (char*) data, full_size, 0);
 
-        if (size < 0) {
-            error = true;
-            // Seul le timeout donne lieu à une nouvelle tentative
-            if (size == -ETIMEDOUT) {
-                BOOST_LOG_TRIVIAL(warning) <<  "Try " << attempt << " timed out" ;
-            } else {
-                BOOST_LOG_TRIVIAL(error) <<  "Try " << attempt << " failed" ;
-                BOOST_LOG_TRIVIAL(error) << "Error code: " << size ;
-                BOOST_LOG_TRIVIAL(error) << strerror(-size);
-                break;
-            }
+        if (size == -ENOENT) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read full Ceph object " << pool_name << " / " << name;
+            throw NotFoundStorageException("Cannot found Ceph object " + pool_name + " / " + name);
+        } else if (size == -ETIMEDOUT) {
+            BOOST_LOG_TRIVIAL(warning) <<  "Try " << attempt << " timed out" ;
+        } else if (size < 0) {
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read full Ceph object " << pool_name << " / " << name;
+            throw UnreachableStorageException("Cannot partially read Ceph object " + pool_name + " / " + name + ": " + std::to_string(-size));       
         } else {
-            error = false;
-            break;
+            return data;
         }
 
         attempt++;
 
         if (attempt > read_attempts) {
-            break;
+            BOOST_LOG_TRIVIAL(error) <<  "Unable to read full Ceph object " << pool_name << " / " << name  << " after " << read_attempts << " tries" ;
+            throw UnreachableStorageException("Cannot partially read Ceph object " + pool_name + " / " + name + ": " + std::to_string(-size));
         } else {
             sleep(waiting_time);
         }
     }
 
-    if (error) {
-        BOOST_LOG_TRIVIAL(error) <<  "Unable to read full Ceph object " << pool_name << " / " << name  << " after " << read_attempts << " tries" ;
-    }
-
-    return data;
+    BOOST_LOG_TRIVIAL(error) << "On ne devrait jamais passer par là (CephContext::read_full)" ;
+    throw UnreachableStorageException("Cannot fully read Ceph object");
 }
 
 

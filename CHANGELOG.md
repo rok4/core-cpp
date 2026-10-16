@@ -6,6 +6,12 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+### Changed
+- `Storage` : les erreurs de lecture (`read` et `read_full`) sont remontées sous forme d'exception :
+    - `NotFoundStorageException`
+    - `UnreachableStorageException`
+    - `ForbiddenStorageException`
+
 ### Fixed
 
 - TiffHeader : définition des en-têtes pour des images deux canaux entiers 8 bits
