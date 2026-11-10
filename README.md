@@ -213,6 +213,7 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS( "Rok4" DEFAULT_MSG ROK4_INCLUDE_DIR ROK4_LIBR
 ### Variables CMake
 
 * `CEPH_ENABLED` : active la compilation la classe de gestion du stockage Ceph. Valeur par défaut : `0`, `1` pour activer.
+* `ALLOCATOR` : modifie l'implémentation des fonctions d'allocation. Valeurs possibles : `jemalloc`, `tcmalloc`. Valeur par défaut : ``
 * `UNITTEST_ENABLED` : active la compilation des tests unitaires. Valeur par défaut : `1`, `0` pour désactiver.
 * `DOC_ENABLED` : active la compilation de la documentation. Valeur par défaut : `1`, `0` pour désactiver.
 * `BUILD_VERSION` : version de la librairie compilée. Valeur par défaut : `0.0.0`. Utile pour la compilation de la documentation.

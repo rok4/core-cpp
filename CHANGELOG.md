@@ -6,6 +6,12 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+## [5.0.2] - 2026-11-10
+
+### Added
+
+- Possibilité de compiler en changeant l'allocateur mémoire (`tcmalloc` et `jemalloc` disponibles)
+
 ## [5.0.1] - 2026-10-16
 
 ### Fixed
@@ -268,6 +274,7 @@ Les librairies sont gérées de manière indépendantes, conditionnées pour êt
 [1.0.3]: https://github.com/rok4/core-cpp/releases/tag/1.0.3
 
 [Unreleased]: https://github.com/rok4/core-cpp/compare/5.0.0...HEAD
+[5.0.2]: https://github.com/rok4/core-cpp/compare/5.0.0...5.0.0
 [5.0.0]: https://github.com/rok4/core-cpp/compare/4.1.0...5.0.0
 [4.1.0]: https://github.com/rok4/core-cpp/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/rok4/core-cpp/compare/3.1.0...4.0.0
