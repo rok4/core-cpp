@@ -1,0 +1,43 @@
+<map id="src/storage/SwiftContext.cpp" name="src/storage/SwiftContext.cpp">
+<area shape="rect" id="Node000001" title="Implémentation de la classe SwiftContext." alt="" coords="486,5,694,31"/>
+<area shape="rect" id="Node000002" href="$SwiftContext_8h.html" title="Définition de la classe SwiftContext." alt="" coords="353,79,523,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="567,33,476,75,474,70,564,28"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="547,79,633,104"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="593,31,593,65,587,65,587,31"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="657,79,721,104"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="607,29,663,68,660,73,604,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,92,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="353,103,257,121,207,136,159,154,110,185,72,218,68,213,107,180,157,150,205,131,256,116,352,98"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="279,225,431,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="434,106,371,215,366,212,429,103"/>
+<area shape="rect" id="Node000005" href="$Context_8h.html" title="Définition de la classe Context." alt="" coords="422,152,561,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="449,103,477,140,472,143,445,106"/>
+<area shape="rect" id="Node000013" href="$LibcurlStruct_8h.html" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="585,152,731,177"/>
+<area shape="poly" id="edge13_Node000002_Node000013" title=" " alt="" coords="474,101,610,145,609,150,473,107"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="756,152,829,177"/>
+<area shape="poly" id="edge15_Node000002_Node000015" title=" " alt="" coords="501,101,743,149,741,154,500,107"/>
+<area shape="rect" id="Node000016" href="$CurlPool_8h_source.html" title=" " alt="" coords="170,152,290,177"/>
+<area shape="poly" id="edge16_Node000002_Node000016" title=" " alt="" coords="405,107,278,150,276,145,404,101"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="471,180,391,221,388,217,468,175"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="205,225,255,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="447,180,269,228,268,222,446,175"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="456,225,527,251"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="494,178,494,212,489,212,489,178"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="551,225,613,251"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="508,175,558,214,555,219,504,179"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="637,225,708,251"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="521,175,631,218,629,223,519,180"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="733,225,807,251"/>
+<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="537,175,720,221,719,226,535,180"/>
+<area shape="rect" id="Node000011" href="$Exception_8h.html" title="Définition de la gestion des exceptions." alt="" coords="831,225,962,251"/>
+<area shape="poly" id="edge11_Node000005_Node000011" title=" " alt="" coords="557,175,819,220,818,226,556,180"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="867,299,926,324"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="899,251,899,285,894,285,894,251"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="987,225,1057,251"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="724,175,974,223,973,228,723,180"/>
+<area shape="poly" id="edge19_Node000016_Node000003" title=" " alt="" coords="202,180,92,223,90,218,200,175"/>
+<area shape="poly" id="edge20_Node000016_Node000004" title=" " alt="" coords="251,175,324,216,322,221,249,180"/>
+<area shape="poly" id="edge17_Node000016_Node000006" title=" " alt="" coords="233,178,233,212,227,212,227,178"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="117,225,181,251"/>
+<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="219,179,174,218,170,214,215,175"/>
+</map>

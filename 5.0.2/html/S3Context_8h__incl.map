@@ -1,0 +1,35 @@
+<map id="src/storage/S3Context.h" name="src/storage/S3Context.h">
+<area shape="rect" id="Node000001" title="Définition de la classe S3Context." alt="" coords="267,5,444,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,92,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,33,230,52,159,81,111,112,72,144,69,140,108,108,157,76,229,47,297,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="279,152,431,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="358,31,358,138,353,138,353,31"/>
+<area shape="rect" id="Node000004" href="$Context_8h.html" title="Définition de la classe Context." alt="" coords="467,79,606,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="385,28,495,71,493,76,383,33"/>
+<area shape="rect" id="Node000012" href="$LibcurlStruct_8h.html" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="811,79,958,104"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="441,28,798,76,797,81,440,33"/>
+<area shape="rect" id="Node000014" href="$CurlPool_8h_source.html" title=" " alt="" coords="170,79,290,104"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="337,33,264,74,261,69,334,28"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="509,107,399,149,397,144,507,102"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="205,152,255,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="479,107,270,154,268,149,478,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="456,152,527,177"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="531,106,508,142,504,139,527,103"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="551,152,613,177"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="546,103,570,139,565,142,542,106"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="637,152,708,177"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="560,102,640,143,637,148,557,106"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="733,152,807,177"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="575,101,720,146,719,151,573,107"/>
+<area shape="rect" id="Node000010" href="$Exception_8h.html" title="Définition de la gestion des exceptions." alt="" coords="831,152,962,177"/>
+<area shape="poly" id="edge10_Node000004_Node000010" title=" " alt="" coords="595,101,825,147,824,152,594,107"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="867,225,926,251"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="899,178,899,212,894,212,894,178"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="987,152,1057,177"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="908,102,989,143,986,148,906,106"/>
+<area shape="poly" id="edge17_Node000014_Node000002" title=" " alt="" coords="202,107,92,149,90,144,200,102"/>
+<area shape="poly" id="edge18_Node000014_Node000003" title=" " alt="" coords="251,102,324,143,322,147,249,106"/>
+<area shape="poly" id="edge15_Node000014_Node000005" title=" " alt="" coords="233,104,233,138,227,138,227,104"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="117,152,181,177"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="219,106,174,145,170,141,215,102"/>
+</map>

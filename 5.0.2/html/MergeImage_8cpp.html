@@ -1,0 +1,216 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('MergeImage_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Espaces de nommage</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier MergeImage.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implémentation des classes <a class="el" href="classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions.">MergeImage</a> et <a class="el" href="classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné">MergeMask</a> et du namespace <a class="el" href="namespaceMerge.html" title="Gestion des informations liées à la méthode de fusion.">Merge</a>.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="MergeImage_8h_source.html">image/MergeImage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Utils_8h_source.html">utils/Utils.h</a>&quot;</code><br />
+<code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &quot;<a class="el" href="Line_8h_source.html">processors/Line.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de MergeImage.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="MergeImage_8cpp__incl.png" border="0" usemap="#asrc_2image_2MergeImage_8cpp" alt=""/></div>
+<map name="asrc_2image_2MergeImage_8cpp" id="asrc_2image_2MergeImage_8cpp">
+<area shape="rect" title="Implémentation des classes MergeImage et MergeMask et du namespace Merge." alt="" coords="1005,5,1204,31"/>
+<area shape="rect" href="MergeImage_8h.html" title="Définition des classes MergeImage et MergeMask et du namespace Merge." alt="" coords="1143,79,1304,104"/>
+<area shape="poly" title=" " alt="" coords="1125,28,1193,69,1191,74,1122,33"/>
+<area shape="rect" title=" " alt="" coords="23,453,175,478"/>
+<area shape="poly" title=" " alt="" coords="1005,25,742,37,582,48,422,63,274,81,151,104,104,118,69,132,47,148,39,164,39,312,44,349,56,384,86,440,81,443,51,386,39,350,34,313,34,163,43,144,66,127,103,113,150,99,273,76,421,57,582,43,742,32,1005,20"/>
+<area shape="rect" href="Utils_8h.html" title="Définition de fonctions de conversion et calculs sur des tableaux. Chaque fonctions est définie avec ..." alt="" coords="937,372,1067,397"/>
+<area shape="poly" title=" " alt="" coords="1107,31,1107,163,1107,240,1100,278,1080,313,1056,342,1031,365,1027,361,1052,339,1076,310,1095,276,1102,239,1102,163,1102,31"/>
+<area shape="rect" title=" " alt="" coords="1165,453,1231,478"/>
+<area shape="poly" title=" " alt="" coords="1205,26,1270,41,1302,52,1331,66,1357,84,1377,106,1391,132,1395,163,1395,313,1391,340,1380,364,1363,386,1342,404,1293,434,1245,453,1243,448,1291,429,1339,400,1359,382,1375,362,1386,339,1390,312,1390,164,1386,134,1373,109,1353,88,1328,71,1299,57,1268,46,1204,31"/>
+<area shape="rect" href="Line_8h.html" title="Définition de la classe Line, permettant la manipulation et la conversion de lignes d&#39;image." alt="" coords="423,225,557,251"/>
+<area shape="poly" title=" " alt="" coords="1006,31,911,46,801,69,687,105,631,128,578,154,539,184,509,216,505,212,536,180,575,150,629,123,685,100,800,64,910,40,1005,26"/>
+<area shape="rect" href="Image_8h.html" title="Définition de la classe abstraite Image, abstrayant les différents types d&#39;images." alt="" coords="721,152,875,177"/>
+<area shape="poly" title=" " alt="" coords="1156,107,880,152,880,147,1155,101"/>
+<area shape="rect" title=" " alt="" coords="559,299,629,324"/>
+<area shape="poly" title=" " alt="" coords="1143,99,908,117,792,133,745,143,710,154,681,168,660,182,642,201,623,227,609,256,601,286,596,284,604,254,618,224,638,197,656,178,678,164,708,150,743,138,791,128,907,112,1143,94"/>
+<area shape="rect" title=" " alt="" coords="1145,533,1208,559"/>
+<area shape="poly" title=" " alt="" coords="1245,102,1274,123,1307,154,1334,192,1342,214,1345,236,1345,386,1341,412,1332,435,1318,456,1300,476,1259,507,1218,530,1216,525,1256,503,1296,472,1313,453,1327,433,1336,410,1339,386,1339,237,1337,215,1329,194,1303,157,1271,127,1241,106"/>
+<area shape="rect" href="Format_8h.html" title="Définition des namespaces Compression, SampleFormat, Photometric, ExtraSample et Rok4Format." alt="" coords="1143,372,1304,397"/>
+<area shape="poly" title=" " alt="" coords="1226,104,1226,358,1221,358,1221,104"/>
+<area shape="rect" title=" " alt="" coords="1069,453,1140,478"/>
+<area shape="poly" title=" " alt="" coords="825,175,879,202,948,245,1020,301,1053,334,1082,371,1098,405,1105,438,1100,439,1092,406,1077,373,1049,338,1017,305,945,249,876,207,822,180"/>
+<area shape="poly" title=" " alt="" coords="792,179,763,215,722,253,682,278,641,296,639,291,679,273,719,249,759,211,788,176"/>
+<area shape="rect" title=" " alt="" coords="827,453,889,478"/>
+<area shape="poly" title=" " alt="" coords="803,177,856,438,850,439,798,178"/>
+<area shape="rect" title=" " alt="" coords="633,225,709,251"/>
+<area shape="poly" title=" " alt="" coords="779,180,705,221,703,216,776,175"/>
+<area shape="rect" href="BoundingBox_8h.html" title="Implémentation de la classe template BoundingBox." alt="" coords="453,372,639,397"/>
+<area shape="poly" title=" " alt="" coords="797,179,782,214,756,252,715,290,670,323,587,368,584,364,667,318,712,286,752,249,777,211,792,176"/>
+<area shape="rect" href="CrsBook_8h.html" title="Définition de la classe CrsBook." alt="" coords="245,225,399,251"/>
+<area shape="poly" title=" " alt="" coords="722,180,413,226,412,221,721,175"/>
+<area shape="poly" title=" " alt="" coords="614,395,710,415,815,443,822,445,820,450,813,448,709,420,613,400"/>
+<area shape="poly" title=" " alt="" coords="482,400,178,453,177,448,481,395"/>
+<area shape="rect" title=" " alt="" coords="250,453,309,478"/>
+<area shape="poly" title=" " alt="" coords="494,400,412,420,322,448,316,450,314,445,320,443,410,415,492,395"/>
+<area shape="rect" title=" " alt="" coords="333,453,407,478"/>
+<area shape="poly" title=" " alt="" coords="522,400,409,450,407,445,519,395"/>
+<area shape="rect" title=" " alt="" coords="432,445,583,485"/>
+<area shape="poly" title=" " alt="" coords="543,399,525,434,520,432,538,396"/>
+<area shape="rect" href="json11_8hpp_source.html" title=" " alt="" coords="607,453,802,478"/>
+<area shape="poly" title=" " alt="" coords="570,395,671,444,668,449,568,400"/>
+<area shape="rect" title=" " alt="" coords="898,533,957,559"/>
+<area shape="poly" title=" " alt="" coords="738,475,886,527,884,532,736,481"/>
+<area shape="poly" title=" " alt="" coords="772,475,816,483,1132,535,1131,540,815,488,772,481"/>
+<area shape="rect" title=" " alt="" coords="187,533,238,559"/>
+<area shape="poly" title=" " alt="" coords="638,481,594,488,252,541,251,536,594,483,638,475"/>
+<area shape="rect" title=" " alt="" coords="666,533,743,559"/>
+<area shape="poly" title=" " alt="" coords="707,478,707,519,702,519,702,478"/>
+<area shape="rect" title=" " alt="" coords="767,533,834,559"/>
+<area shape="poly" title=" " alt="" coords="721,476,778,523,774,527,717,480"/>
+<area shape="rect" title=" " alt="" coords="531,533,641,559"/>
+<area shape="poly" title=" " alt="" coords="689,480,617,528,614,523,686,476"/>
+<area shape="poly" title=" " alt="" coords="366,248,546,295,545,300,365,253"/>
+<area shape="poly" title=" " alt="" coords="246,243,210,249,175,259,142,276,115,300,97,333,91,371,92,408,96,439,91,440,86,408,86,370,92,332,111,297,139,272,173,254,209,244,245,238"/>
+<area shape="poly" title=" " alt="" coords="246,247,208,253,169,264,130,279,96,301,61,332,40,363,27,399,14,446,8,467,9,475,14,484,29,500,47,513,90,531,134,540,174,543,173,549,133,546,88,537,45,518,25,504,9,487,4,476,3,466,9,445,21,397,35,361,57,329,92,297,128,275,167,259,207,248,245,242"/>
+<area shape="rect" title=" " alt="" coords="418,299,482,324"/>
+<area shape="poly" title=" " alt="" coords="344,248,418,289,416,294,341,253"/>
+<area shape="rect" href="CRS_8h.html" title="Définition de la gestion des systèmes de référence." alt="" coords="269,299,394,324"/>
+<area shape="poly" title=" " alt="" coords="326,251,331,285,325,286,321,251"/>
+<area shape="poly" title=" " alt="" coords="367,321,499,365,498,370,365,327"/>
+<area shape="poly" title=" " alt="" coords="306,327,263,347,216,374,166,410,124,445,121,441,162,406,213,370,260,343,304,322"/>
+<area shape="poly" title=" " alt="" coords="351,322,369,336,386,355,396,376,396,387,392,399,381,411,362,424,318,449,315,444,360,420,377,407,388,396,391,387,391,377,382,358,365,340,348,326"/>
+<area shape="poly" title=" " alt="" coords="395,321,688,377,828,412,877,428,904,443,916,461,924,481,930,519,925,520,919,482,912,463,900,447,875,433,827,417,687,382,394,326"/>
+<area shape="rect" href="ProjPool_8h_source.html" title=" " alt="" coords="226,372,378,397"/>
+<area shape="poly" title=" " alt="" coords="329,325,315,360,310,358,324,323"/>
+<area shape="poly" title=" " alt="" coords="394,320,406,321,550,337,662,346,918,369,924,370,923,375,918,375,662,351,550,342,406,327,394,325"/>
+<area shape="poly" title=" " alt="" coords="274,400,142,450,140,445,272,395"/>
+<area shape="poly" title=" " alt="" coords="301,398,289,440,284,439,296,397"/>
+<area shape="poly" title=" " alt="" coords="287,400,262,420,240,447,225,484,218,520,213,519,220,482,236,444,258,416,283,396"/>
+<area shape="poly" title=" " alt="" coords="1019,395,1080,442,1077,446,1016,400"/>
+<area shape="poly" title=" " alt="" coords="1033,395,1154,443,1159,445,1157,450,1152,448,1031,400"/>
+<area shape="rect" title=" " alt="" coords="965,453,1045,478"/>
+<area shape="poly" title=" " alt="" coords="1005,397,1007,439,1001,439,1000,398"/>
+<area shape="poly" title=" " alt="" coords="1207,400,1135,447,1132,443,1204,395"/>
+<area shape="poly" title=" " alt="" coords="1234,397,1244,415,1253,439,1255,464,1246,487,1226,502,1198,514,1124,531,1042,541,971,546,971,540,1041,536,1123,526,1197,509,1224,497,1241,484,1250,463,1247,440,1239,418,1229,399"/>
+<area shape="poly" title=" " alt="" coords="508,248,567,288,564,293,505,253"/>
+<area shape="poly" title=" " alt="" coords="433,253,334,276,289,289,258,301,212,333,172,371,140,410,116,443,112,439,136,407,168,367,209,328,255,296,288,284,333,271,431,248"/>
+<area shape="poly" title=" " alt="" coords="496,250,515,287,529,306,547,322,580,336,623,346,728,358,835,363,918,369,924,370,923,375,918,375,835,369,727,363,622,351,578,341,545,326,525,310,510,289,492,252"/>
+<area shape="rect" title=" " alt="" coords="125,299,191,324"/>
+<area shape="poly" title=" " alt="" coords="436,253,211,301,206,302,204,297,210,296,435,248"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Espaces de nommage</h2></td></tr>
+<tr class="memitem:namespaceMerge" id="r_namespaceMerge"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMerge.html">Merge</a></td></tr>
+<tr class="memdesc:namespaceMerge"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des informations liées à la méthode de fusion. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a96b7faadef3c944c19358aafd417dc8c" id="r_a96b7faadef3c944c19358aafd417dc8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">eMergeType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMerge.html#a96b7faadef3c944c19358aafd417dc8c">Merge::from_string</a> (std::string strMergeMethod)</td></tr>
+<tr class="memdesc:a96b7faadef3c944c19358aafd417dc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une chaîne de caractères vers une méthode de fusion de l'énumération.  <br /></td></tr>
+<tr class="separator:a96b7faadef3c944c19358aafd417dc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59996043a913148e96b5aba66792a8d" id="r_ae59996043a913148e96b5aba66792a8d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMerge.html#ae59996043a913148e96b5aba66792a8d">Merge::to_string</a> (<a class="el" href="namespaceMerge.html#afb369901290981aaabe51f39e2c32936">eMergeType</a> merge_method)</td></tr>
+<tr class="memdesc:ae59996043a913148e96b5aba66792a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'une méthode de fusion vers une chaîne de caractères.  <br /></td></tr>
+<tr class="separator:ae59996043a913148e96b5aba66792a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae278cf177ddce96bf10801a19b0077ce" id="r_ae278cf177ddce96bf10801a19b0077ce"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMerge.html#ae278cf177ddce96bf10801a19b0077ce">Merge::mergetype_names</a> []</td></tr>
+<tr class="separator:ae278cf177ddce96bf10801a19b0077ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Implémentation des classes <a class="el" href="classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions.">MergeImage</a> et <a class="el" href="classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné">MergeMask</a> et du namespace <a class="el" href="namespaceMerge.html" title="Gestion des informations liées à la méthode de fusion.">Merge</a>. </p>
+<ul>
+<li><a class="el" href="classMergeImage.html" title="Fusion d&#39;images de mêmes dimensions.">MergeImage</a> : image résultant de la fusion d'images semblables, selon différents modes de composition </li>
+<li><a class="el" href="classMergeMask.html" title="Manipulation d&#39;un masque fusionné, s&#39;appuyant sur une image fusionné">MergeMask</a> : masque fusionné, associé à une image fusionnée </li>
+<li><a class="el" href="namespaceMerge.html" title="Gestion des informations liées à la méthode de fusion.">Merge</a> : énumère et manipule les différentes méthodes de fusion </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a6a17ec937b4e07383dde71de6c9d000.html">image</a></li><li class="navelem"><a class="el" href="MergeImage_8cpp.html">MergeImage.cpp</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

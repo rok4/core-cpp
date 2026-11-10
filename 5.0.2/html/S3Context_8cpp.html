@@ -1,0 +1,159 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.8.17" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Librairies ROK4 C++</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript" src="navtreedata.js"></script>
+    <script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="search/searchdata.js"></script>
+    <script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('S3Context_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier S3Context.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implémentation de la classe <a class="el" href="classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d...">S3Context</a>.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="S3Context_8h_source.html">storage/S3Context.h</a>&quot;</code><br />
+<code>#include &lt;openssl/hmac.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de S3Context.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="S3Context_8cpp__incl.png" border="0" usemap="#asrc_2storage_2S3Context_8cpp" alt=""/></div>
+<map name="asrc_2storage_2S3Context_8cpp" id="asrc_2storage_2S3Context_8cpp">
+<area shape="rect" title="Implémentation de la classe S3Context." alt="" coords="487,5,679,31"/>
+<area shape="rect" href="S3Context_8h.html" title="Définition de la classe S3Context." alt="" coords="278,79,433,104"/>
+<area shape="poly" title=" " alt="" coords="547,33,406,77,405,72,546,28"/>
+<area shape="rect" title=" " alt="" coords="457,79,581,104"/>
+<area shape="poly" title=" " alt="" coords="575,33,541,70,537,67,571,29"/>
+<area shape="rect" title=" " alt="" coords="606,79,691,104"/>
+<area shape="poly" title=" " alt="" coords="596,29,631,67,627,70,592,33"/>
+<area shape="rect" title=" " alt="" coords="715,79,779,104"/>
+<area shape="poly" title=" " alt="" coords="611,28,709,71,707,76,609,33"/>
+<area shape="rect" title=" " alt="" coords="5,225,92,251"/>
+<area shape="poly" title=" " alt="" coords="299,107,230,125,159,154,111,185,72,218,69,214,108,181,157,150,229,120,297,101"/>
+<area shape="rect" title=" " alt="" coords="279,225,431,251"/>
+<area shape="poly" title=" " alt="" coords="358,104,358,212,353,212,353,104"/>
+<area shape="rect" href="Context_8h.html" title="Définition de la classe Context." alt="" coords="467,152,606,177"/>
+<area shape="poly" title=" " alt="" coords="385,102,495,144,493,149,383,107"/>
+<area shape="rect" href="LibcurlStruct_8h.html" title="Définition de structures et fonctions utilisées pour récupérer de la donnée via la lib cURL." alt="" coords="811,152,958,177"/>
+<area shape="poly" title=" " alt="" coords="433,100,798,149,798,154,433,106"/>
+<area shape="rect" href="CurlPool_8h_source.html" title=" " alt="" coords="170,152,290,177"/>
+<area shape="poly" title=" " alt="" coords="337,106,264,147,261,143,334,102"/>
+<area shape="poly" title=" " alt="" coords="509,180,399,223,397,218,507,175"/>
+<area shape="rect" title=" " alt="" coords="205,225,255,251"/>
+<area shape="poly" title=" " alt="" coords="479,180,270,228,268,223,478,175"/>
+<area shape="rect" title=" " alt="" coords="456,225,527,251"/>
+<area shape="poly" title=" " alt="" coords="531,179,508,215,504,212,527,176"/>
+<area shape="rect" title=" " alt="" coords="551,225,613,251"/>
+<area shape="poly" title=" " alt="" coords="546,176,570,212,565,215,542,179"/>
+<area shape="rect" title=" " alt="" coords="637,225,708,251"/>
+<area shape="poly" title=" " alt="" coords="560,175,640,217,637,221,557,180"/>
+<area shape="rect" title=" " alt="" coords="733,225,807,251"/>
+<area shape="poly" title=" " alt="" coords="575,175,720,219,719,224,573,180"/>
+<area shape="rect" href="Exception_8h.html" title="Définition de la gestion des exceptions." alt="" coords="831,225,962,251"/>
+<area shape="poly" title=" " alt="" coords="595,175,825,220,824,225,594,180"/>
+<area shape="rect" title=" " alt="" coords="867,299,926,324"/>
+<area shape="poly" title=" " alt="" coords="899,251,899,285,894,285,894,251"/>
+<area shape="rect" title=" " alt="" coords="987,225,1057,251"/>
+<area shape="poly" title=" " alt="" coords="908,175,989,217,986,221,906,180"/>
+<area shape="poly" title=" " alt="" coords="202,180,92,223,90,218,200,175"/>
+<area shape="poly" title=" " alt="" coords="251,175,324,216,322,221,249,180"/>
+<area shape="poly" title=" " alt="" coords="233,178,233,212,227,212,227,178"/>
+<area shape="rect" title=" " alt="" coords="117,225,181,251"/>
+<area shape="poly" title=" " alt="" coords="219,179,174,218,170,214,215,175"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:af218d8d076a8a9ee46abf1e5c368c84f" id="r_af218d8d076a8a9ee46abf1e5c368c84f"><td class="memItemLeft" align="right" valign="top"><a id="af218d8d076a8a9ee46abf1e5c368c84f" name="af218d8d076a8a9ee46abf1e5c368c84f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>base64_encode</b> (unsigned char const *bytes_to_encode, unsigned int in_len)</td></tr>
+<tr class="separator:af218d8d076a8a9ee46abf1e5c368c84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Implémentation de la classe <a class="el" href="classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d...">S3Context</a>. </p>
+<ul>
+<li><a class="el" href="classS3Context.html" title="Création d&#39;un contexte S3 (connexion à un cluster + bucket particulier), pour pouvoir récupérer des d...">S3Context</a> : connexion à un container S3 </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_452baf35e1d7639c9f2a5ece4ec85855.html">storage</a></li><li class="navelem"><a class="el" href="S3Context_8cpp.html">S3Context.cpp</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

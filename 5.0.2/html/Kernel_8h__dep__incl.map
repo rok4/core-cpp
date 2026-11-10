@@ -1,0 +1,13 @@
+<map id="include/rok4/processors/Kernel.h" name="include/rok4/processors/Kernel.h">
+<area shape="rect" id="Node000001" title="Définition de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="273,5,449,45"/>
+<area shape="rect" id="Node000002" href="$ReprojectedImage_8h.html" title="Définition de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="65,93,222,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="301,53,192,96,190,91,299,48"/>
+<area shape="rect" id="Node000004" href="$ResampledImage_8h.html" title="Définition de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="285,93,437,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,59,363,93,358,93,358,59"/>
+<area shape="rect" id="Node000006" href="$Kernel_8cpp.html" title="Implémentation de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="461,101,647,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="417,49,529,98,527,103,415,53"/>
+<area shape="rect" id="Node000003" href="$ReprojectedImage_8cpp.html" title="Implémentation de la classe ReprojectedImage, permettant la reprojection d&#39;image." alt="" coords="5,181,241,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,147,129,182,124,180,133,146"/>
+<area shape="rect" id="Node000005" href="$ResampledImage_8cpp.html" title="Implémentation de la classe ResampledImage, permettant le réechantillonnage d&#39;image." alt="" coords="265,181,496,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="371,146,380,180,375,182,366,147"/>
+</map>

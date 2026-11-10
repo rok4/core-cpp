@@ -1,0 +1,15 @@
+<map id="src/processors/Kernel.cpp" name="src/processors/Kernel.cpp">
+<area shape="rect" id="Node000001" title="Implémentation de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="93,5,279,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="24,79,87,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,33,90,74,87,70,164,28"/>
+<area shape="rect" id="Node000003" href="$Kernel_8h.html" title="Définition de la classe Kernel, classe mère des différents noyaux d&#39;interpolation." alt="" coords="111,79,261,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,31,189,65,183,65,183,31"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="285,79,437,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="215,28,320,71,318,76,213,33"/>
+<area shape="rect" id="Node000004" href="$Interpolation_8h.html" title="Définition de l&#39;énumération des interpolations disponibles et des conversions." alt="" coords="5,152,204,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="175,106,130,145,126,141,171,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="227,152,307,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="201,102,246,141,242,145,197,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="75,225,134,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="107,178,107,212,102,212,102,178"/>
+</map>
