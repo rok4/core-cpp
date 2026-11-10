@@ -71,13 +71,13 @@ jobs:
           sudo apt update
           sudo apt -y install zlib1g-dev libcurl4-openssl-dev libproj-dev libssl-dev libturbojpeg0-dev \
             libjpeg-dev libc6-dev libboost-log-dev libboost-filesystem-dev libboost-system-dev \
-            libsqlite3-dev libpng-dev libtiff5-dev libopenjp2-7-dev librados-dev \
+            libsqlite3-dev libpng-dev libtiff5-dev libopenjp2-7-dev librados-dev libjemalloc-dev \
             gettext build-essential cmake libcppunit-dev doxygen graphviz
 
       - name: Build packages
         run: |
           mkdir build && cd build
-          cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_VERSION=${{ github.ref_name }} -DCPACK_SYSTEM_NAME="ubuntu-24.04" ..
+          cmake -DCMAKE_INSTALL_PREFIX=/usr -DALLOCATOR=jemalloc -DBUILD_VERSION=${{ github.ref_name }} -DCPACK_SYSTEM_NAME="ubuntu-24.04" ..
           make -j2
           make package
           cmake -DCEPH_ENABLED=1 ..

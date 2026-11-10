@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation location")
 set(BUILD_VERSION "0.0.0" CACHE STRING "Build version")
 set(CEPH_ENABLED 0 CACHE BOOL "Build with ceph storage")
+set(ALLOCATOR "" CACHE STRING "Build with allocator")
 set(KDU_ENABLED 0 CACHE BOOL "Build with kakadu")
 set(UNITTEST_ENABLED 1 CACHE BOOL "Unit tests compilation")
 set(DOC_ENABLED 1 CACHE BOOL "Documentation compilation")
@@ -32,6 +33,7 @@ configure_file(config.h.in config.h ESCAPE_QUOTES @ONLY)
 
 set(CMAKE_THREAD_LIBS_INIT "-lpthread")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
 set(CMAKE_HAVE_THREADS_LIBRARY 1)
 set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
@@ -85,6 +87,13 @@ if(CEPH_ENABLED)
     include_directories(${RADOS_INCLUDE_DIR})
 endif(CEPH_ENABLED)
 
+
+IF(ALLOCATOR STREQUAL "jemalloc")
+    include_directories(${JEMALLOC_INCLUDE_DIR})
+ELSEIF(ALLOCATOR STREQUAL "tcmalloc")
+    include_directories(${TCMALLOC_INCLUDE_DIR})
+ENDIF()
+
 add_library(${PROJECT_NAME} SHARED ${LIBROK4_SRCS})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -107,6 +116,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC proj turbojpeg jpeg zlib curl opens
 if(CEPH_ENABLED)
     target_link_libraries(${PROJECT_NAME} PUBLIC rados)
 endif(CEPH_ENABLED)
+
+IF(ALLOCATOR STREQUAL "jemalloc")
+    target_link_libraries(${PROJECT_NAME} PUBLIC jemalloc)
+ELSEIF(ALLOCATOR STREQUAL "tcmalloc")
+    target_link_libraries(${PROJECT_NAME} PUBLIC tcmalloc)
+ENDIF()
 
 ################### TESTS UNITAIRES
 
@@ -197,6 +212,11 @@ if(CPACK_SYSTEM_NAME AND CPACK_SYSTEM_NAME STREQUAL "ubuntu-20.04" OR CPACK_SYST
     if(CEPH_ENABLED)
         set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, librados-dev")
     endif(CEPH_ENABLED)
+    IF(ALLOCATOR STREQUAL "jemalloc")
+        set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libjemalloc-dev")
+    ELSEIF(ALLOCATOR STREQUAL "tcmalloc")
+        set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libtcmalloc-minimal4t64")
+    ENDIF()
     set(CPACK_BINARY_DEB "ON")
 endif()
 

@@ -6,6 +6,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/) et ce pr
 
 ## [Unreleased]
 
+### Added
+
+- Possibilité de compiler en changeant l'allocateur mémoire (`tcmalloc` et `jemalloc` disponibles)
+
 ## [5.0.1] - 2026-10-16
 
 ### Fixed
